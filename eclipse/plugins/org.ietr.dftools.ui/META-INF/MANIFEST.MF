@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DFTools UI
+Bundle-SymbolicName: org.ietr.dftools.ui
+Bundle-Version: 0.0.1
+Bundle-Activator: org.ietr.dftools.ui.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
