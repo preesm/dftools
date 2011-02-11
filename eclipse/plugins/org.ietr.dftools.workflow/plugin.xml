@@ -94,5 +94,13 @@
             type="org.ietr.dftools.workflow.launchConfigurationType">
       </launchConfigurationTabGroup>
    </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.ietr.dftools.workflow.launchConfigurationType"
+            icon="icons/workflow.png"
+            id="org.ietr.dftools.workflow.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
 
 </plugin>
