@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI
-Bundle-SymbolicName: org.ietr.dftools.ui
+Bundle-SymbolicName: org.ietr.dftools.ui;singleton:=true
 Bundle-Version: 0.0.1
 Bundle-Activator: org.ietr.dftools.ui.Activator
-Require-Bundle: org.eclipse.ui,
+Require-Bundle: net.sf.graphiti.model;bundle-version="1.2.0",
+ net.sf.graphiti.ui;bundle-version="1.2.0",
+ org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

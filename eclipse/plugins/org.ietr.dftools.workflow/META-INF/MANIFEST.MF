@@ -10,29 +10,11 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
  org.eclipse.ui.console;bundle-version="3.5.0",
  org.eclipse.ui;bundle-version="3.6.0",
  org.eclipse.debug.ui;bundle-version="3.6.0",
- org.eclipse.ui.ide;bundle-version="3.6.0"
-Bundle-ClassPath: lib/jgrapht-jdk1.6.jar,
- .
+ org.eclipse.ui.ide;bundle-version="3.6.0",
+ org.ietr.libs;bundle-version="1.0.0"
+Bundle-ClassPath: .
 Export-Package: org.ietr.dftools.workflow,
- org.ietr.dftools.workflow.tools,
- org.jgrapht,
- org.jgrapht.alg,
- org.jgrapht.alg.util,
- org.jgrapht.demo,
- org.jgrapht.event,
- org.jgrapht.experimental,
- org.jgrapht.experimental.alg,
- org.jgrapht.experimental.alg.color,
- org.jgrapht.experimental.dag,
- org.jgrapht.experimental.equivalence,
- org.jgrapht.experimental.isomorphism,
- org.jgrapht.experimental.permutation,
- org.jgrapht.experimental.touchgraph,
- org.jgrapht.ext,
- org.jgrapht.generate,
- org.jgrapht.graph,
- org.jgrapht.traverse,
- org.jgrapht.util
+ org.ietr.dftools.workflow.tools
 Bundle-Activator: org.ietr.dftools.workflow.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: IETR/INSA Rennes

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.sf.graphiti.ui.editors.GraphEditor"
+            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            default="true"
+            extensions="workflow"
+            id="org.ietr.dftools.ui.WorkflowEditor"
+            name="Workflow Editor">
+      </editor>
+   </extension>
+
+</plugin>
