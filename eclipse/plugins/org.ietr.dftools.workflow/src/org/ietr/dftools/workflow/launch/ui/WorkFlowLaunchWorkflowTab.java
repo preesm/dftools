@@ -82,7 +82,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
 	@Override
 	public Image getImage() {
-		Image image = Activator.getImage("icons/preesm2mini.png");
+		Image image = Activator.getImage("icons/workflow.png");
 
 		if (image != null)
 			return image;

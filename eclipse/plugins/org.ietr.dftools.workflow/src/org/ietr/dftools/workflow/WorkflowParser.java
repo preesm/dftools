@@ -115,19 +115,19 @@ public class WorkflowParser extends DefaultHandler2 {
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) {
 
-		if (qName.equals("preesm:scenario")) {
+		if (qName.equals("dftools:scenario")) {
 			String pluginId = attributes.getValue("pluginId");
 			AbstractWorkflowNode node = new ScenarioNode(pluginId);
 			workflow.addVertex(node);
 			nodes.put("__scenario", node);
-		} else if (qName.equals("preesm:task")) {
+		} else if (qName.equals("dftools:task")) {
 			String taskId = attributes.getValue("taskId");
 			String pluginId = attributes.getValue("pluginId");
 			lastTransformationNode = new TaskNode(pluginId, taskId);
 			AbstractWorkflowNode node = lastTransformationNode;
 			workflow.addVertex(node);
 			nodes.put(taskId, node);
-		} else if (qName.equals("preesm:dataTransfer")) {
+		} else if (qName.equals("dftools:dataTransfer")) {
 			AbstractWorkflowNode source = nodes
 					.get(attributes.getValue("from"));
 			AbstractWorkflowNode target = nodes.get(attributes.getValue("to"));

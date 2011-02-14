@@ -63,7 +63,7 @@
             delegate="org.ietr.dftools.workflow.launch.ui.WorkflowLaunchConfigurationDelegate"
             id="org.ietr.dftools.workflow.launchConfigurationType"
             modes="run"
-            name="Workflow"
+            name="DFTools Workflow"
             public="true">
       </launchConfigurationType>
    </extension>
@@ -71,20 +71,25 @@
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
             class="org.ietr.dftools.workflow.launch.ui.WorkflowLaunchShortcut"
-            id="org.ietr.dftools.workflow.shortcut"
-            label="Workflow"
-            modes="run">
+            icon="icons/workflow.png"
+            id="org.ietr.dftools.workflow.workflowLaunchShortcut"
+            label="DFTools"
+            modes="run,debug">
+         <description
+               description="Launch a DFTools workflow"
+               mode="run">
+         </description>
+         <contextualLaunch>
+            <enablement>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+               </with>
+            </enablement>
+         </contextualLaunch>
       </shortcut>
-   </extension>
-   <extension
-         point="org.eclipse.core.expressions.propertyTesters">
-      <propertyTester
-            class="org.ietr.dftools.workflow.launch.WorkflowPropertyTester"
-            id="org.ietr.dftools.workflow.propertyTester"
-            namespace="org.ietr.dftools.workflow"
-            properties="isWorkflow"
-            type="org.eclipse.core.resources.IFile">
-      </propertyTester>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">

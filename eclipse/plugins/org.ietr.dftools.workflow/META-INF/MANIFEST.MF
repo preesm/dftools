@@ -33,3 +33,6 @@ Export-Package: org.ietr.dftools.workflow,
  org.jgrapht.graph,
  org.jgrapht.traverse,
  org.jgrapht.util
+Bundle-Activator: org.ietr.dftools.workflow.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: IETR/INSA Rennes

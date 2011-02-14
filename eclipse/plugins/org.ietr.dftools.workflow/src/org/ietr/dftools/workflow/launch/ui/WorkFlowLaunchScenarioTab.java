@@ -74,7 +74,7 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
 	@Override
 	public Image getImage() {
-		Image image = Activator.getImage("icons/preesm4mini.png");
+		Image image = Activator.getImage("icons/workflow.png");
 
 		if (image != null)
 			return image;
