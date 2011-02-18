@@ -4,7 +4,7 @@
    <extension-point id="scenarios" name="%scenariosName" schema="schema/scenarios.exsd"/>
    <extension-point id="tasks" name="%tasksName" schema="schema/tasks.exsd"/>
    <extension
-         point="org.ietr.dftools.workflow.scenarios">
+         point="net.sf.dftools.workflow.scenarios">
       <scenario
             id="TestScenario"
             type="org.ietr.dftools.workflow.test.TestWorkflowScenario">
@@ -21,7 +21,7 @@
       </scenario>
    </extension>
    <extension
-         point="org.ietr.dftools.workflow.tasks">
+         point="net.sf.dftools.workflow.tasks">
       <task
             id="TestNewWorkflow1"
             type="org.ietr.dftools.workflow.test.TestWorkflowTask1">
