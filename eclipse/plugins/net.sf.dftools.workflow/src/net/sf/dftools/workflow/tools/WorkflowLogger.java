@@ -65,7 +65,7 @@ public class WorkflowLogger extends Logger {
 
 	private static final WorkflowLogger logger = new WorkflowLogger();
 
-	private static final String LOGGER_NAME = "org.ietr.dftools.log.WorkflowLogger";
+	private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
 
 	MessageConsole console = null;
 

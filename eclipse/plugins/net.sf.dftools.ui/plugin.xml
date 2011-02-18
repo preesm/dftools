@@ -8,7 +8,7 @@
             contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
             extensions="workflow"
-            id="org.ietr.dftools.ui.WorkflowEditor"
+            id="net.sf.dftools.ui.WorkflowEditor"
             name="Workflow Editor">
       </editor>
    </extension>

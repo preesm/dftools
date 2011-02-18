@@ -61,7 +61,7 @@
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             delegate="net.sf.dftools.workflow.launch.ui.WorkflowLaunchConfigurationDelegate"
-            id="org.ietr.dftools.workflow.launchConfigurationType"
+            id="net.sf.dftools.workflow.launchConfigurationType"
             modes="run"
             name="DFTools Workflow"
             public="true">
@@ -72,8 +72,8 @@
       <shortcut
             class="net.sf.dftools.workflow.launch.ui.WorkflowLaunchShortcut"
             icon="icons/workflow.png"
-            id="org.ietr.dftools.workflow.workflowLaunchShortcut"
-            label="DFTools"
+            id="net.sf.dftools.workflow.workflowLaunchShortcut"
+            label="DFTools Workflow"
             modes="run,debug">
          <description
                description="Launch a DFTools workflow"
@@ -86,6 +86,12 @@
                   <count
                         value="1">
                   </count>
+                  <iterate>
+                     <and>
+                        <test
+                              property="net.sf.dftools.isWorkflow">
+                        </test></and>
+                  </iterate>
                </with>
             </enablement>
          </contextualLaunch>
@@ -95,17 +101,27 @@
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             class="net.sf.dftools.workflow.launch.ui.WorkflowLaunchConfigurationTabGroup"
-            id="org.ietr.dftools.workflow.launchConfigurationTabGroup"
-            type="org.ietr.dftools.workflow.launchConfigurationType">
+            id="net.sf.dftools.workflow.launchConfigurationTabGroup"
+            type="net.sf.dftools.workflow.launchConfigurationType">
       </launchConfigurationTabGroup>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
-            configTypeID="org.ietr.dftools.workflow.launchConfigurationType"
+            configTypeID="net.sf.dftools.workflow.launchConfigurationType"
             icon="icons/workflow.png"
-            id="org.ietr.dftools.workflow.launchConfigurationTypeImage">
+            id="net.sf.dftools.workflow.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="net.sf.dftools.workflow.launch.ui.WorkflowPropertyTester"
+            id="org.ietr.preesm.core.workflowTester"
+            namespace="net.sf.dftools"
+            properties="isWorkflow"
+            type="org.eclipse.core.resources.IFile">
+      </propertyTester>
    </extension>
 
 </plugin>
