@@ -7,7 +7,7 @@
          point="net.sf.dftools.workflow.scenarios">
       <scenario
             id="TestScenario"
-            type="org.ietr.dftools.workflow.test.TestWorkflowScenario">
+            type="net.sf.dftools.workflow.test.TestWorkflowScenario">
          <outputs>
             <output
                   id="algo"
@@ -24,7 +24,7 @@
          point="net.sf.dftools.workflow.tasks">
       <task
             id="TestNewWorkflow1"
-            type="org.ietr.dftools.workflow.test.TestWorkflowTask1">
+            type="net.sf.dftools.workflow.test.TestWorkflowTask1">
          <inputs>
             <input
                   id="algo"
@@ -44,7 +44,7 @@
       </task>
       <task
             id="TestNewWorkflow2"
-            type="org.ietr.dftools.workflow.test.TestWorkflowTask2">
+            type="net.sf.dftools.workflow.test.TestWorkflowTask2">
          <inputs>
             <input
                   id="algo"
@@ -60,7 +60,7 @@
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="org.ietr.dftools.workflow.launch.ui.WorkflowLaunchConfigurationDelegate"
+            delegate="net.sf.dftools.workflow.launch.ui.WorkflowLaunchConfigurationDelegate"
             id="org.ietr.dftools.workflow.launchConfigurationType"
             modes="run"
             name="DFTools Workflow"
@@ -70,7 +70,7 @@
    <extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
-            class="org.ietr.dftools.workflow.launch.ui.WorkflowLaunchShortcut"
+            class="net.sf.dftools.workflow.launch.ui.WorkflowLaunchShortcut"
             icon="icons/workflow.png"
             id="org.ietr.dftools.workflow.workflowLaunchShortcut"
             label="DFTools"
@@ -94,7 +94,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="org.ietr.dftools.workflow.launch.ui.WorkflowLaunchConfigurationTabGroup"
+            class="net.sf.dftools.workflow.launch.ui.WorkflowLaunchConfigurationTabGroup"
             id="org.ietr.dftools.workflow.launchConfigurationTabGroup"
             type="org.ietr.dftools.workflow.launchConfigurationType">
       </launchConfigurationTabGroup>
