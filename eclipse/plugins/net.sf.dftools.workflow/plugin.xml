@@ -89,6 +89,7 @@
                   <iterate>
                      <and>
                         <test
+                              forcePluginActivation="true"
                               property="net.sf.dftools.isWorkflow">
                         </test></and>
                   </iterate>
