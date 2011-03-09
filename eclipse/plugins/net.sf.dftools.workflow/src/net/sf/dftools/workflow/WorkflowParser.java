@@ -120,7 +120,7 @@ public class WorkflowParser extends DefaultHandler2 {
 			String pluginId = attributes.getValue("pluginId");
 			AbstractWorkflowNode node = new ScenarioNode(pluginId);
 			workflow.addVertex(node);
-			nodes.put("__scenario", node);
+			nodes.put("scenario", node);
 		} else if (qName.equals("dftools:task")) {
 			String taskId = attributes.getValue("taskId");
 			String pluginId = attributes.getValue("pluginId");
@@ -137,7 +137,7 @@ public class WorkflowParser extends DefaultHandler2 {
 			WorkflowEdge edge = workflow.addEdge(source, target);
 			edge.setSourcePort(sourcePort);
 			edge.setTargetPort(targetPort);
-		} else if (qName.equals("variable")) {
+		} else if (qName.equals("dftools:variable")) {
 			if (lastTransformationNode != null) {
 				lastTransformationNode.addParameter(
 						attributes.getValue("name"),

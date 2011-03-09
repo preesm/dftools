@@ -60,7 +60,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
  * @author mpelcat
  */
 public class WorkflowManager {
-
+	
+	/**
+	 * Ports with this name are ignored when exchanging data.
+	 * They just specify precedence.
+	 */
+	private static String IGNORE_PORT_NAME = "void";
+	
 	public WorkflowManager() {
 		super();
 	}
@@ -118,7 +124,7 @@ public class WorkflowManager {
 		// There may be several output edges with same data type (sharing same
 		// port). All output names are retrieved here.
 		for (WorkflowEdge edge : workflow.outgoingEdgesOf(scenarioNode)) {
-			if (!outputPorts.contains(edge.getSourcePort())) {
+			if (!outputPorts.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				outputPorts.add(edge.getSourcePort());
 			}
 		}
@@ -149,13 +155,15 @@ public class WorkflowManager {
 			AbstractWorkflowNode predecessor = workflow.getEdgeSource(edge);
 			String type = predecessor.getImplementation().getOutputType(
 					edge.getSourcePort());
-			inputs.put(edge.getTargetPort(), type);
+			if(!edge.getSourcePort().equals(IGNORE_PORT_NAME)){
+				inputs.put(edge.getTargetPort(), type);
+			}
 		}
 
 		// There may be several output edges with same data type (sharing same
 		// port)
 		for (WorkflowEdge edge : workflow.outgoingEdgesOf(taskNode)) {
-			if (!outputs.contains(edge.getSourcePort())) {
+			if (!outputs.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				outputs.add(edge.getSourcePort());
 			}
 		}
@@ -314,7 +322,10 @@ public class WorkflowManager {
 						String type = edge.getSourcePort();
 						// The same data may be transferred to several
 						// successors
-						if (outputs.containsKey(type)) {
+						if (type.equals(IGNORE_PORT_NAME)) {
+							// Ignore data
+						}
+						else if (outputs.containsKey(type)) {
 							edge.setData(outputs.get(type));
 						} else {
 							edge.setData(null);
