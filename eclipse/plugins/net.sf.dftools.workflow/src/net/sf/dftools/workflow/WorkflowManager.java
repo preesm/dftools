@@ -285,8 +285,11 @@ public class WorkflowManager {
 
 					// Executing the workflow task
 					try {
-						// updating monitor
+						// updating monitor and console
 						monitor.subTask(task.monitorMessage());
+						WorkflowLogger.getLogger().logFromProperty(
+								Level.INFO,
+								"Workflow.Step",task.monitorMessage());
 
 						// Workflow cancellation was requested
 						if (monitor.isCanceled()) {
@@ -366,19 +369,25 @@ public class WorkflowManager {
 				.getDefaultParameters();
 		Map<String, String> parameters = taskNode.getParameters();
 
-		if (parameters == null && defaultParameters.size() > 0) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-					"Workflow.MissingAllParameters", taskNode.getTaskId(),
-					defaultParameters.keySet().toString());
-			return false;
-		}
-
-		for (String param : defaultParameters.keySet()) {
-			if (!parameters.containsKey(param)) {
-				WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-						"Workflow.MissingParameter", taskNode.getTaskId(),
-						defaultParameters.keySet().toString());
-				return false;
+		if (defaultParameters != null) {
+			if (parameters == null) {
+				if (defaultParameters.size() > 0) {
+					WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+							"Workflow.MissingAllParameters",
+							taskNode.getTaskId(),
+							defaultParameters.keySet().toString());
+					return false;
+				}
+			} else {
+				for (String param : defaultParameters.keySet()) {
+					if (!parameters.containsKey(param)) {
+						WorkflowLogger.getLogger().logFromProperty(
+								Level.SEVERE, "Workflow.MissingParameter",
+								taskNode.getTaskId(),
+								defaultParameters.keySet().toString());
+						return false;
+					}
+				}
 			}
 		}
 

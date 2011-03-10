@@ -48,4 +48,7 @@ public class WorkflowException extends Exception {
 	 */
 	private static final long serialVersionUID = -82239037652340760L;
 
+	public WorkflowException(String arg0) {
+		super(arg0);
+	}
 }
