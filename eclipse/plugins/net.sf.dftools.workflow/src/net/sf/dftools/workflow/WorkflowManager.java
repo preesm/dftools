@@ -60,13 +60,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
  * @author mpelcat
  */
 public class WorkflowManager {
-	
+
 	/**
-	 * Ports with this name are ignored when exchanging data.
-	 * They just specify precedence.
+	 * Ports with this name are ignored when exchanging data. They just specify
+	 * precedence.
 	 */
 	private static String IGNORE_PORT_NAME = "void";
-	
+
 	public WorkflowManager() {
 		super();
 	}
@@ -124,7 +124,8 @@ public class WorkflowManager {
 		// There may be several output edges with same data type (sharing same
 		// port). All output names are retrieved here.
 		for (WorkflowEdge edge : workflow.outgoingEdgesOf(scenarioNode)) {
-			if (!outputPorts.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
+			if (!outputPorts.contains(edge.getSourcePort())
+					&& !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				outputPorts.add(edge.getSourcePort());
 			}
 		}
@@ -155,7 +156,7 @@ public class WorkflowManager {
 			AbstractWorkflowNode predecessor = workflow.getEdgeSource(edge);
 			String type = predecessor.getImplementation().getOutputType(
 					edge.getSourcePort());
-			if(!edge.getSourcePort().equals(IGNORE_PORT_NAME)){
+			if (!edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				inputs.put(edge.getTargetPort(), type);
 			}
 		}
@@ -163,7 +164,8 @@ public class WorkflowManager {
 		// There may be several output edges with same data type (sharing same
 		// port)
 		for (WorkflowEdge edge : workflow.outgoingEdgesOf(taskNode)) {
-			if (!outputs.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
+			if (!outputs.contains(edge.getSourcePort())
+					&& !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				outputs.add(edge.getSourcePort());
 			}
 		}
@@ -295,6 +297,12 @@ public class WorkflowManager {
 							return false;
 						}
 
+						// Checks that the requested parameters are available
+						// for the task
+						if (checkParameters(taskNode, task) == false) {
+							return false;
+						}
+
 						// execution
 						outputs = task.execute(inputs,
 								taskNode.getParameters(), monitor, nodeId);
@@ -324,8 +332,7 @@ public class WorkflowManager {
 						// successors
 						if (type.equals(IGNORE_PORT_NAME)) {
 							// Ignore data
-						}
-						else if (outputs.containsKey(type)) {
+						} else if (outputs.containsKey(type)) {
 							edge.setData(outputs.get(type));
 						} else {
 							edge.setData(null);
@@ -341,6 +348,39 @@ public class WorkflowManager {
 
 		WorkflowLogger.getLogger().logFromProperty(Level.INFO,
 				"Workflow.EndInfo", workflowPath);
+
+		return true;
+	}
+
+	/**
+	 * Checks that all necessary parameters are provided to the workflow task
+	 * 
+	 * @param taskNode
+	 *            workflow task node with the provided parameters
+	 * @param taskImplementation
+	 *            the task implementation requiring specific parameters
+	 */
+	private boolean checkParameters(TaskNode taskNode,
+			AbstractTaskImplementation taskImplementation) {
+		Map<String, String> defaultParameters = taskImplementation
+				.getDefaultParameters();
+		Map<String, String> parameters = taskNode.getParameters();
+
+		if (parameters == null && defaultParameters.size() > 0) {
+			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+					"Workflow.MissingAllParameters", taskNode.getTaskId(),
+					defaultParameters.keySet().toString());
+			return false;
+		}
+
+		for (String param : defaultParameters.keySet()) {
+			if (!parameters.containsKey(param)) {
+				WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+						"Workflow.MissingParameter", taskNode.getTaskId(),
+						defaultParameters.keySet().toString());
+				return false;
+			}
+		}
 
 		return true;
 	}
