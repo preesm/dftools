@@ -47,7 +47,7 @@ public class ComponentInstance {
 	private Map<String, String> configValues;
 
 	private VLNV vlnv;
-	
+
 	public ComponentInstance(String id, VLNV vlnv, Component contents,
 			Map<String, String> configValues) {
 		this.id = id;

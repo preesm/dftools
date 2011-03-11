@@ -34,50 +34,42 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.launch.ui;
+package net.sf.dftools.ui.workflow.launch;
 
+import net.sf.dftools.ui.workflow.ScenarioConfiguration;
 import net.sf.dftools.workflow.Activator;
 
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Launch Tab for algorithm options. From this tab, an
- * {@link AlgorithmConfiguration} is generated that feeds an
- * {@link AlgorithmRetriever} to create the input algorithm.
+ * Launch Tab for scenario options. From this tab, an
+ * {@link ScenarioConfiguration} is generated that feeds an
+ * {@link ScenarioRetriever} to create the input scenario.
  * 
  * @author mpelcat
  */
-public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
+public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
 	@Override
 	public void createControl(Composite parent) {
 
 		super.createControl(parent);
-		drawFileChooser("Workflow file:",
-				WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME);
+
+		drawFileChooser("Scenario file:",
+				ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME);
+
 	}
 
 	@Override
 	public String getName() {
-		return "Workflow";
-	}
-
-	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
-		super.initializeFrom(configuration);
-		setDirty(false);
-	}
-
-	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		super.performApply(configuration);
+		return "Scenario";
 	}
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		// TODO Auto-generated method stub
 
 	}
 

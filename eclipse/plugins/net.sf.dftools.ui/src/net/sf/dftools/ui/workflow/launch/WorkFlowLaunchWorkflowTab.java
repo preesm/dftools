@@ -34,42 +34,60 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.ui;
+package net.sf.dftools.ui.workflow.launch;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import net.sf.dftools.workflow.Activator;
+
+import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
 
 /**
- * This class is used to gather all texts displayed while managing the workflow.
- * The strings are stored in message.properties and retrieved through a text
- * file.
+ * Launch Tab for algorithm options. From this tab, an
+ * {@link AlgorithmConfiguration} is generated that feeds an
+ * {@link AlgorithmRetriever} to create the input algorithm.
  * 
  * @author mpelcat
  */
-public class WorkflowMessages {
-	private static final String BUNDLE_NAME = "net.sf.dftools.workflow.ui.workflowMessages";
+public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	@Override
+	public void createControl(Composite parent) {
 
-	private WorkflowMessages() {
+		super.createControl(parent);
+		drawFileChooser("Workflow file:",
+				WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME);
 	}
 
-	/**
-	 * Gets the string defined in the key. Replace the nth chain "%VAR%" by the
-	 * nth string variable
-	 */
-	public static String getString(String key, String... variables) {
-		try {
-			String message = RESOURCE_BUNDLE.getString(key);
-			for (String var : variables) {
-				if (var != null) {
-					message = message.replaceFirst("%VAR%", var);
-				}
-			}
-			return message;
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	@Override
+	public String getName() {
+		return "Workflow";
+	}
+
+	@Override
+	public void initializeFrom(ILaunchConfiguration configuration) {
+		super.initializeFrom(configuration);
+		setDirty(false);
+	}
+
+	@Override
+	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		super.performApply(configuration);
+	}
+
+	@Override
+	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+
+	}
+
+	@Override
+	public Image getImage() {
+		Image image = Activator.getImage("icons/workflow.png");
+
+		if (image != null)
+			return image;
+
+		return super.getImage();
 	}
 }

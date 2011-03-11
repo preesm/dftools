@@ -34,18 +34,17 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.tools;
+package net.sf.dftools.ui.workflow.tools;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
+import net.sf.dftools.ui.workflow.WorkflowMessages;
 import net.sf.dftools.workflow.Activator;
-import net.sf.dftools.workflow.ui.WorkflowMessages;
+import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -61,22 +60,12 @@ import org.eclipse.ui.console.MessageConsoleStream;
  * @author mwipliez
  * @author mpelcat
  */
-public class WorkflowLogger extends Logger {
+public class WorkflowLogger extends AbstractWorkflowLogger {
 
-	private static final WorkflowLogger logger = new WorkflowLogger();
 
 	private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
 
 	MessageConsole console = null;
-
-	/**
-	 * Gives this Logger singleton
-	 * 
-	 * @return a Logger
-	 */
-	public static WorkflowLogger getLogger() {
-		return logger;
-	}
 
 	@Override
 	public void setLevel(Level newLevel) throws SecurityException {
@@ -87,9 +76,11 @@ public class WorkflowLogger extends Logger {
 	/**
 	 * 
 	 */
-	private WorkflowLogger() {
+	public WorkflowLogger() {
 		super(LOGGER_NAME, null);
 		LogManager.getLogManager().addLogger(this);
+
+		initConsole();
 	}
 
 	/**
@@ -97,6 +88,7 @@ public class WorkflowLogger extends Logger {
 	 * parameterized with variables Each string "%VAR%" is replaced by a given
 	 * variable
 	 */
+	@Override
 	public void logFromProperty(Level level, String msgKey, String... variables) {
 		log(level, WorkflowMessages.getString(msgKey, variables));
 	}
@@ -156,15 +148,6 @@ public class WorkflowLogger extends Logger {
 
 	}
 
-	public static String getFormattedTime() {
-		Calendar cal = Calendar.getInstance();
-
-		String time = String.format("%2d:%2d:%2d ",
-				cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),
-				cal.get(Calendar.SECOND));
-		return time;
-	}
-
 	public void initConsole() {
 
 		setLevel(Level.INFO);
@@ -181,4 +164,5 @@ public class WorkflowLogger extends Logger {
 
 		mgr.refresh(console);
 	}
+
 }

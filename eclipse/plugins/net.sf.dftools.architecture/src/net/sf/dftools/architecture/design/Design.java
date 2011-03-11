@@ -76,11 +76,12 @@ public class Design {
 		}
 		return instances;
 	}
-	
-	public boolean containsComponentInstance(String name){
+
+	public boolean containsComponentInstance(String name) {
 		for (Vertex vertex : graph.vertexSet()) {
 			if (vertex.isComponentInstance()) {
-				if(vertex.getComponentInstance().getComponent().getClasz().equals(name))
+				if (vertex.getComponentInstance().getComponent().getClasz()
+						.equals(name))
 					return true;
 			}
 		}
@@ -174,8 +175,8 @@ public class Design {
 	public String getBusBetween(String startName, String endName) {
 		Vertex start = getVertex(startName);
 		Vertex end = getVertex(endName);
-		
-		if(start.equals(end)) {
+
+		if (start.equals(end)) {
 			return null;
 		}
 
@@ -185,10 +186,9 @@ public class Design {
 		if (conns.size() == 2) {
 			ComponentInstance inst = graph.getEdgeTarget(conns.get(0))
 					.getComponentInstance();
-			
-			if(inst.getId().equals(startName)) {
-				inst = graph.getEdgeSource(conns.get(0))
-				.getComponentInstance();
+
+			if (inst.getId().equals(startName)) {
+				inst = graph.getEdgeSource(conns.get(0)).getComponentInstance();
 			}
 
 			return inst.getId();

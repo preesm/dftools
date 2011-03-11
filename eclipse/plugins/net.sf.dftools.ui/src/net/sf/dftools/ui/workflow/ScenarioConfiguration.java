@@ -34,52 +34,20 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.launch.ui;
-
-import net.sf.dftools.workflow.Activator;
-import net.sf.dftools.workflow.ui.ScenarioConfiguration;
-
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
+package net.sf.dftools.ui.workflow;
 
 /**
- * Launch Tab for scenario options. From this tab, an
- * {@link ScenarioConfiguration} is generated that feeds an
- * {@link ScenarioRetriever} to create the input scenario.
+ * Representing the configuration for the scenario retrieved from launch tab. It
+ * feeds a {@link ScenarioRetriever} to create the input scenario.
  * 
  * @author mpelcat
+ * 
  */
-public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
+public class ScenarioConfiguration {
 
-	@Override
-	public void createControl(Composite parent) {
+	/**
+	 * ID used to save scenario file name in tab attributes
+	 */
+	public static final String ATTR_SCENARIO_FILE_NAME = "net.sf.dftools.ui.workflow.scenarioFileName";
 
-		super.createControl(parent);
-
-		drawFileChooser("Scenario file:",
-				ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME);
-
-	}
-
-	@Override
-	public String getName() {
-		return "Scenario";
-	}
-
-	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Image getImage() {
-		Image image = Activator.getImage("icons/workflow.png");
-
-		if (image != null)
-			return image;
-
-		return super.getImage();
-	}
 }

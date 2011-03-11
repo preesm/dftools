@@ -34,13 +34,13 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.launch.ui;
+package net.sf.dftools.ui.workflow.launch;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.dftools.ui.workflow.ScenarioConfiguration;
 import net.sf.dftools.workflow.WorkflowManager;
-import net.sf.dftools.workflow.ui.ScenarioConfiguration;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -59,9 +59,9 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 public class WorkflowLaunchConfigurationDelegate implements
 		ILaunchConfigurationDelegate {
 
-	public static final String ATTR_WORKFLOW_FILE_NAME = "net.sf.dftools.workflow.fileName";
+	public static final String ATTR_WORKFLOW_FILE_NAME = "net.sf.dftools.ui.workflow.fileName";
 
-	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.workflow.launchConfigurationType";
+	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
 
 	/**
 	 * Launches a workflow

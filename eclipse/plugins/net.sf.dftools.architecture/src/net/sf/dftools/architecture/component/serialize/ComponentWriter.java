@@ -35,8 +35,6 @@ import net.sf.dftools.architecture.component.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
-
 public class ComponentWriter {
 
 	Document document;

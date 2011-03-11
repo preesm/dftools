@@ -58,7 +58,6 @@ public class Interface {
 		return busRef;
 	}
 
-
 	public ComponentInstance getComponentRef() {
 		return componentRef;
 	}

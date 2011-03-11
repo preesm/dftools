@@ -30,6 +30,6 @@ package net.sf.dftools.architecture.design.transforms;
 import net.sf.dftools.architecture.design.Design;
 
 public interface IDesignTransform {
-	
+
 	public void transform(Design design) throws Exception;
 }

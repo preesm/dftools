@@ -49,7 +49,7 @@ import net.sf.dftools.workflow.elements.Workflow;
 import net.sf.dftools.workflow.elements.WorkflowEdge;
 import net.sf.dftools.workflow.implement.AbstractScenarioImplementation;
 import net.sf.dftools.workflow.implement.AbstractTaskImplementation;
-import net.sf.dftools.workflow.tools.WorkflowLogger;
+import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -86,8 +86,8 @@ public class WorkflowManager {
 
 				// The plugin declaring the scenario class was not found
 				if (!workflowOk) {
-					WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-							"Workflow.FailedFindScenarioPlugin",
+					AbstractWorkflowLogger.getLogger().logFromProperty(
+							Level.SEVERE, "Workflow.FailedFindScenarioPlugin",
 							((ScenarioNode) node).getScenarioId());
 					return false;
 				}
@@ -98,7 +98,7 @@ public class WorkflowManager {
 
 					// The plugin declaring the task class was not found
 					if (!workflowOk) {
-						WorkflowLogger.getLogger().logFromProperty(
+						AbstractWorkflowLogger.getLogger().logFromProperty(
 								Level.SEVERE, "Workflow.FailedFindTaskPlugin",
 								((TaskNode) node).getTaskId());
 						return false;
@@ -132,7 +132,7 @@ public class WorkflowManager {
 
 		// The scenario node prototype is compared to the output port names
 		if (!scenario.acceptOutputs(outputPorts)) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
 					"Workflow.WrongScenarioPrototype",
 					scenarioNode.getScenarioId(), scenario.displayPrototype());
 
@@ -171,7 +171,7 @@ public class WorkflowManager {
 		}
 
 		if (!task.acceptInputs(inputs)) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
 					"Workflow.WrongTaskPrototype", taskNode.getTaskId(),
 					task.displayPrototype());
 
@@ -180,7 +180,7 @@ public class WorkflowManager {
 
 		// The task prototype is compared to the output port names
 		if (!task.acceptOutputs(outputs)) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
 					"Workflow.WrongTaskPrototype", taskNode.getTaskId(),
 					task.displayPrototype());
 
@@ -199,11 +199,9 @@ public class WorkflowManager {
 		Workflow workflow = new WorkflowParser().parse(workflowPath);
 
 		// Initializing the workflow console
-		WorkflowLogger.getLogger().initConsole();
-		monitor.beginTask("Executing workflow", workflow.vertexSet().size());
-
-		WorkflowLogger.getLogger().logFromProperty(Level.INFO,
+		AbstractWorkflowLogger.getLogger().logFromProperty(Level.INFO,
 				"Workflow.StartInfo", workflowPath);
+		monitor.beginTask("Executing workflow", workflow.vertexSet().size());
 
 		// Checking the existence of plugins and retrieving prototypess
 		if (!check(workflow, monitor)) {
@@ -212,14 +210,14 @@ public class WorkflowManager {
 		}
 
 		if (workflow.vertexSet().size() == 0) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
 					"Workflow.EmptyVertexSet");
 
 			return false;
 		}
 
 		if (!workflow.hasScenario()) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
 					"Workflow.OneScenarioNeeded");
 
 			return false;
@@ -227,8 +225,8 @@ public class WorkflowManager {
 
 		for (AbstractWorkflowNode node : workflow.vertexTopologicalList()) {
 			if (workflow.edgesOf(node).isEmpty()) {
-				WorkflowLogger.getLogger().logFromProperty(Level.WARNING,
-						"Workflow.IgnoredNonConnectedTask");
+				AbstractWorkflowLogger.getLogger().logFromProperty(
+						Level.WARNING, "Workflow.IgnoredNonConnectedTask");
 			} else {
 				// Data outputs of the node
 				Map<String, Object> outputs = null;
@@ -256,7 +254,7 @@ public class WorkflowManager {
 						// Each node execution is equivalent for the monitor
 						monitor.worked(1);
 					} catch (WorkflowException e) {
-						WorkflowLogger.getLogger().logFromProperty(
+						AbstractWorkflowLogger.getLogger().logFromProperty(
 								Level.SEVERE,
 								"Workflow.ScenarioExecutionException",
 								e.getMessage());
@@ -287,14 +285,14 @@ public class WorkflowManager {
 					try {
 						// updating monitor and console
 						monitor.subTask(task.monitorMessage());
-						WorkflowLogger.getLogger().logFromProperty(
-								Level.INFO,
-								"Workflow.Step",task.monitorMessage());
+						AbstractWorkflowLogger.getLogger().logFromProperty(
+								Level.INFO, "Workflow.Step",
+								task.monitorMessage());
 
 						// Workflow cancellation was requested
 						if (monitor.isCanceled()) {
 
-							WorkflowLogger.getLogger().logFromProperty(
+							AbstractWorkflowLogger.getLogger().logFromProperty(
 									Level.SEVERE,
 									"Workflow.CancellationRequested");
 							return false;
@@ -313,7 +311,7 @@ public class WorkflowManager {
 						// Each node execution is equivalent for the monitor
 						monitor.worked(1);
 					} catch (WorkflowException e) {
-						WorkflowLogger.getLogger().logFromProperty(
+						AbstractWorkflowLogger.getLogger().logFromProperty(
 								Level.SEVERE, "Workflow.ExecutionException",
 								nodeId, e.getMessage());
 						return false;
@@ -323,8 +321,8 @@ public class WorkflowManager {
 
 				// If the execution incorrectly initialized the outputs
 				if (outputs == null) {
-					WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-							"Workflow.NullNodeOutput", nodeId);
+					AbstractWorkflowLogger.getLogger().logFromProperty(
+							Level.SEVERE, "Workflow.NullNodeOutput", nodeId);
 					return false;
 				} else {
 					// Retrieving output of the current node
@@ -339,7 +337,7 @@ public class WorkflowManager {
 							edge.setData(outputs.get(type));
 						} else {
 							edge.setData(null);
-							WorkflowLogger.getLogger().logFromProperty(
+							AbstractWorkflowLogger.getLogger().logFromProperty(
 									Level.SEVERE, "Workflow.IncorrectOutput",
 									nodeId, type);
 							return false;
@@ -349,7 +347,7 @@ public class WorkflowManager {
 			}
 		}
 
-		WorkflowLogger.getLogger().logFromProperty(Level.INFO,
+		AbstractWorkflowLogger.getLogger().logFromProperty(Level.INFO,
 				"Workflow.EndInfo", workflowPath);
 
 		return true;
@@ -372,8 +370,8 @@ public class WorkflowManager {
 		if (defaultParameters != null) {
 			if (parameters == null) {
 				if (defaultParameters.size() > 0) {
-					WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-							"Workflow.MissingAllParameters",
+					AbstractWorkflowLogger.getLogger().logFromProperty(
+							Level.SEVERE, "Workflow.MissingAllParameters",
 							taskNode.getTaskId(),
 							defaultParameters.keySet().toString());
 					return false;
@@ -381,7 +379,7 @@ public class WorkflowManager {
 			} else {
 				for (String param : defaultParameters.keySet()) {
 					if (!parameters.containsKey(param)) {
-						WorkflowLogger.getLogger().logFromProperty(
+						AbstractWorkflowLogger.getLogger().logFromProperty(
 								Level.SEVERE, "Workflow.MissingParameter",
 								taskNode.getTaskId(),
 								defaultParameters.keySet().toString());

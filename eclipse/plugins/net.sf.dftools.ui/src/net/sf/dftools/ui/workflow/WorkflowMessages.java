@@ -34,33 +34,42 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.launch.ui;
+package net.sf.dftools.ui.workflow;
 
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
-import org.eclipse.debug.ui.EnvironmentTab;
-import org.eclipse.debug.ui.ILaunchConfigurationDialog;
-import org.eclipse.debug.ui.ILaunchConfigurationTab;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
- * @author Matthieu Wipliez
+ * This class is used to gather all texts displayed while managing the workflow.
+ * The strings are stored in message.properties and retrieved through a text
+ * file.
  * 
+ * @author mpelcat
  */
-public class WorkflowLaunchConfigurationTabGroup extends
-		AbstractLaunchConfigurationTabGroup {
+public class WorkflowMessages {
+	private static final String BUNDLE_NAME = "net.sf.dftools.ui.workflow.workflowMessages";
+
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
+			.getBundle(BUNDLE_NAME);
+
+	private WorkflowMessages() {
+	}
 
 	/**
-	 * 
+	 * Gets the string defined in the key. Replace the nth chain "%VAR%" by the
+	 * nth string variable
 	 */
-	public WorkflowLaunchConfigurationTabGroup() {
+	public static String getString(String key, String... variables) {
+		try {
+			String message = RESOURCE_BUNDLE.getString(key);
+			for (String var : variables) {
+				if (var != null) {
+					message = message.replaceFirst("%VAR%", var);
+				}
+			}
+			return message;
+		} catch (MissingResourceException e) {
+			return '!' + key + '!';
+		}
 	}
-
-	@Override
-	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
-				new WorkFlowLaunchWorkflowTab(),
-				// new WorkFlowLaunchArchitectureTab(),
-				new WorkFlowLaunchScenarioTab(), new EnvironmentTab() };
-		this.setTabs(tabs);
-	}
-
 }

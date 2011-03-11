@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
-import net.sf.dftools.workflow.tools.WorkflowLogger;
+import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
 
 /**
  * Node implementation is the superclass of both scenario and task
@@ -50,8 +50,9 @@ public abstract class AbstractWorkflowNodeImplementation {
 
 		for (String outputPortName : outputPortNames) {
 			if (!outputPrototype.keySet().contains(outputPortName)) {
-				WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-						"Workflow.FalseOutputEdge", outputPortName);
+				AbstractWorkflowLogger.getLogger().logFromProperty(
+						Level.SEVERE, "Workflow.FalseOutputEdge",
+						outputPortName);
 				return false;
 			}
 		}

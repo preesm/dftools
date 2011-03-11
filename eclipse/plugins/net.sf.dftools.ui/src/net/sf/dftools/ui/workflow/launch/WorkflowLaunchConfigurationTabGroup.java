@@ -34,20 +34,33 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.ui;
+package net.sf.dftools.ui.workflow.launch;
+
+import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
+import org.eclipse.debug.ui.EnvironmentTab;
+import org.eclipse.debug.ui.ILaunchConfigurationDialog;
+import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
- * Representing the configuration for the scenario retrieved from launch tab. It
- * feeds a {@link ScenarioRetriever} to create the input scenario.
- * 
- * @author mpelcat
+ * @author Matthieu Wipliez
  * 
  */
-public class ScenarioConfiguration {
+public class WorkflowLaunchConfigurationTabGroup extends
+		AbstractLaunchConfigurationTabGroup {
 
 	/**
-	 * ID used to save scenario file name in tab attributes
+	 * 
 	 */
-	public static final String ATTR_SCENARIO_FILE_NAME = "net.sf.dftools.workflow.scenarioFileName";
+	public WorkflowLaunchConfigurationTabGroup() {
+	}
+
+	@Override
+	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
+		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
+				new WorkFlowLaunchWorkflowTab(),
+				// new WorkFlowLaunchArchitectureTab(),
+				new WorkFlowLaunchScenarioTab(), new EnvironmentTab() };
+		this.setTabs(tabs);
+	}
 
 }

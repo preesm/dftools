@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import net.sf.dftools.workflow.WorkflowException;
-import net.sf.dftools.workflow.tools.WorkflowLogger;
+import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -79,23 +79,24 @@ public abstract class AbstractTaskImplementation extends
 
 		for (String protoInputPortName : inputPrototype.keySet()) {
 			if (!graphInputPorts.keySet().contains(protoInputPortName)) {
-				WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-						"Workflow.FalseInputEdge", protoInputPortName);
+				AbstractWorkflowLogger.getLogger().logFromProperty(
+						Level.SEVERE, "Workflow.FalseInputEdge",
+						protoInputPortName);
 				return false;
 			} else {
 				String protoType = inputPrototype.get(protoInputPortName);
 				String graphType = graphInputPorts.get(protoInputPortName);
 				if (!protoType.equals(graphType)) {
-					WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
-							"Workflow.FalseInputType", protoInputPortName,
-							graphType, protoType);
+					AbstractWorkflowLogger.getLogger().logFromProperty(
+							Level.SEVERE, "Workflow.FalseInputType",
+							protoInputPortName, graphType, protoType);
 					return false;
 				}
 			}
 		}
 
 		if (graphInputPorts.keySet().size() > inputPrototype.keySet().size()) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().logFromProperty(Level.SEVERE,
 					"Workflow.TooManyInputEdges",
 					String.valueOf(graphInputPorts.keySet().size()),
 					String.valueOf(inputPrototype.keySet().size()));

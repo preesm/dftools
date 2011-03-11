@@ -42,7 +42,7 @@ import java.util.logging.Level;
 
 import net.sf.dftools.workflow.WorkflowParser;
 import net.sf.dftools.workflow.implement.AbstractTaskImplementation;
-import net.sf.dftools.workflow.tools.WorkflowLogger;
+import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -199,7 +199,7 @@ public class TaskNode extends AbstractWorkflowNode {
 
 			return found;
 		} catch (CoreException e) {
-			WorkflowLogger.getLogger().log(Level.SEVERE,
+			AbstractWorkflowLogger.getLogger().log(Level.SEVERE,
 					"Failed to find plugins from workflow");
 			return false;
 		}

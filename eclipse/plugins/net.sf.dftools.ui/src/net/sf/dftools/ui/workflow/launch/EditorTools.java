@@ -34,7 +34,7 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.launch.ui;
+package net.sf.dftools.ui.workflow.launch;
 
 import java.util.ArrayList;
 import java.util.HashSet;

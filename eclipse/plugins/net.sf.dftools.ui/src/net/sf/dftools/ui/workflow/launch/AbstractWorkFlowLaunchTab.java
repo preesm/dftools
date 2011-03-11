@@ -37,7 +37,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 /**
  * 
  */
-package net.sf.dftools.workflow.launch.ui;
+package net.sf.dftools.ui.workflow.launch;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;

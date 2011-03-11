@@ -34,14 +34,14 @@ The fact that you are presently reading this means that you have had
 knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
 
-package net.sf.dftools.workflow.launch.ui;
+package net.sf.dftools.ui.workflow.launch;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dftools.ui.workflow.ScenarioConfiguration;
+import net.sf.dftools.ui.workflow.WorkflowMessages;
 import net.sf.dftools.workflow.Activator;
-import net.sf.dftools.workflow.ui.ScenarioConfiguration;
-import net.sf.dftools.workflow.ui.WorkflowMessages;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;

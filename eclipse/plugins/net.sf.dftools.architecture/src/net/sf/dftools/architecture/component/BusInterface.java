@@ -9,23 +9,22 @@ package net.sf.dftools.architecture.component;
 
 import net.sf.dftools.architecture.VLNV;
 
-
 /**
  * @author ghislain roquier
  */
 
 public class BusInterface {
-	
+
 	private String name;
 	private VLNV vlnv;
 
 	private boolean isServer;
-		
+
 	public BusInterface(String name, VLNV vlnv, boolean isServer) {
 		this.name = name;
 		this.vlnv = vlnv;
 		this.isServer = isServer;
-		
+
 	}
 
 	public VLNV getVlnv() {
@@ -35,15 +34,14 @@ public class BusInterface {
 	public String getName() {
 		return name;
 	}
-	
+
 	public boolean isServer() {
 		return isServer;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "busInterface " + name;
 	}
-
 
 }
