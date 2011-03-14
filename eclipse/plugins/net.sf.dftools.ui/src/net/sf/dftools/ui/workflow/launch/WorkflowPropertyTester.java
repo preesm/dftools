@@ -1,6 +1,6 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA: Matthieu Wipliez, Jonathan Piat,
-Maxime Pelcat, Jean-François Nezan, Mickaël Raulet
+Copyright or ï¿½ or Copr. IETR/INSA: Matthieu Wipliez, Jonathan Piat,
+Maxime Pelcat, Jean-Franï¿½ois Nezan, Mickaï¿½l Raulet
 
 [mwipliez,jpiat,mpelcat,jnezan,mraulet]@insa-rennes.fr
 
@@ -56,7 +56,7 @@ public class WorkflowPropertyTester extends PropertyTester {
 		if (property.equals("isWorkflow")) {
 			if (receiver instanceof IFile) {
 				IFile file = (IFile) receiver;
-				return (file.getFileExtension().equals("workflow"));
+				return file.getFileExtension().equals("workflow");
 			}
 		}
 		return false;
