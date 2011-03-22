@@ -1,8 +1,5 @@
 /*********************************************************
-Copyright or ï¿½ or Copr. IETR/INSA: Matthieu Wipliez, Jonathan Piat,
-Maxime Pelcat, Jean-Franï¿½ois Nezan, Mickaï¿½l Raulet
-
-[mwipliez,jpiat,mpelcat,jnezan,mraulet]@insa-rennes.fr
+Copyright or © or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
