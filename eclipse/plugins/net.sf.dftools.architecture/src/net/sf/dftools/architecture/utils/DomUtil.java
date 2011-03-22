@@ -60,7 +60,6 @@ public class DomUtil {
 	 * @param docElt
 	 *            name of the document element
 	 * @return a new DOM document
-	 * @throws OrccException
 	 *             if something goes wrong
 	 */
 	public static Document createDocument(String docElt) {
@@ -77,7 +76,6 @@ public class DomUtil {
 	 * Creates a new instance of the DOM registry and get an implementation of
 	 * DOM 3 with Load Save objects.
 	 * 
-	 * @throws OrccException
 	 */
 	private static void getImplementation() {
 		if (registry == null) {
@@ -110,7 +108,6 @@ public class DomUtil {
 	 * @param is
 	 *            an input stream
 	 * @return a DOM document
-	 * @throws OrccException
 	 *             if something goes wrong
 	 */
 	public static Document parseDocument(InputStream is) {
@@ -139,7 +136,6 @@ public class DomUtil {
 	 * @param document
 	 *            a DOM document created by
 	 *            {@link #writeDocument(OutputStream, Document)}
-	 * @throws OrccException
 	 *             if something goes wrong
 	 */
 	public static void writeDocument(OutputStream os, Document document) {
