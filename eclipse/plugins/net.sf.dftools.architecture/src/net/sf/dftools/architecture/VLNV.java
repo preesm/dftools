@@ -49,16 +49,16 @@ public class VLNV {
 		this.version = version;
 	}
 
-	public String getVendor() {
-		return vendor;
-	}
-
 	public String getLibrary() {
 		return library;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public String getVendor() {
+		return vendor;
 	}
 
 	public String getVersion() {

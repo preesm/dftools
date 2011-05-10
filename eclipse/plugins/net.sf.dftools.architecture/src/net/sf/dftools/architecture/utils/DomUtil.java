@@ -59,8 +59,7 @@ public class DomUtil {
 	 * 
 	 * @param docElt
 	 *            name of the document element
-	 * @return a new DOM document
-	 *             if something goes wrong
+	 * @return a new DOM document if something goes wrong
 	 */
 	public static Document createDocument(String docElt) {
 		getImplementation();
@@ -107,8 +106,7 @@ public class DomUtil {
 	 * 
 	 * @param is
 	 *            an input stream
-	 * @return a DOM document
-	 *             if something goes wrong
+	 * @return a DOM document if something goes wrong
 	 */
 	public static Document parseDocument(InputStream is) {
 		getImplementation();
@@ -135,8 +133,8 @@ public class DomUtil {
 	 *            an output stream
 	 * @param document
 	 *            a DOM document created by
-	 *            {@link #writeDocument(OutputStream, Document)}
-	 *             if something goes wrong
+	 *            {@link #writeDocument(OutputStream, Document)} if something
+	 *            goes wrong
 	 */
 	public static void writeDocument(OutputStream os, Document document) {
 		getImplementation();

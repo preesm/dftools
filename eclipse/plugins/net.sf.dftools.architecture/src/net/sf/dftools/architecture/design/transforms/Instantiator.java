@@ -28,6 +28,7 @@
 package net.sf.dftools.architecture.design.transforms;
 
 import net.sf.dftools.architecture.component.BusInterface;
+import net.sf.dftools.architecture.component.Component;
 import net.sf.dftools.architecture.design.ComponentInstance;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
@@ -58,20 +59,14 @@ public class Instantiator implements IDesignTransform {
 
 		for (Vertex vertex : graph.vertexSet()) {
 			if (vertex.isComponentInstance()) {
-				ComponentInstance instance = vertex.getComponentInstance();
-				if (instance.isDesign()) {
-					instance.getDesign().instantiate(path);
+				Component component = vertex.getComponentInstance()
+						.getComponent();
+				if (component.isHierarchical()) {
+					component.getDesign().instantiate(path);
 				}
 			}
 		}
-
 		updateConnections();
-	}
-
-	private void updateConnections() throws Exception {
-		for (Connection connection : graph.edgeSet()) {
-			updateConnection(connection);
-		}
 	}
 
 	private void updateConnection(Connection connection) throws Exception {
@@ -84,12 +79,7 @@ public class Instantiator implements IDesignTransform {
 			ComponentInstance source = srcVertex.getComponentInstance();
 			String intfUName = connection.getSource().getName();
 
-			BusInterface intfU;
-			if (source.isComponent()) {
-				intfU = source.getComponent().getInterface(intfUName);
-			} else {
-				intfU = source.getDesign().getInterface(intfUName);
-			}
+			BusInterface intfU = source.getComponent().getInterface(intfUName);
 
 			if (intfU == null) {
 				throw new Exception("In design \"" + design.getVlnv().getName()
@@ -110,12 +100,7 @@ public class Instantiator implements IDesignTransform {
 			ComponentInstance target = tgtVertex.getComponentInstance();
 			String intfVName = connection.getTarget().getName();
 
-			BusInterface intfV;
-			if (target.isComponent()) {
-				intfV = target.getComponent().getInterface(intfVName);
-			} else {
-				intfV = target.getDesign().getInterface(intfVName);
-			}
+			BusInterface intfV = target.getComponent().getInterface(intfVName);
 
 			if (intfV == null) {
 				throw new Exception("In design \"" + design.getVlnv().getName()
@@ -129,6 +114,12 @@ public class Instantiator implements IDesignTransform {
 			targetString = intfV + " of " + target;
 		} else {
 			targetString = tgtVertex.getBusInterface().toString();
+		}
+	}
+
+	private void updateConnections() throws Exception {
+		for (Connection connection : graph.edgeSet()) {
+			updateConnection(connection);
 		}
 	}
 

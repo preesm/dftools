@@ -36,6 +36,8 @@ import java.util.HashMap;
 import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.design.Design;
+import net.sf.dftools.architecture.design.serialize.DesignParser;
 import net.sf.dftools.architecture.utils.DomUtil;
 
 import org.w3c.dom.Document;
@@ -43,11 +45,29 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class ComponentParser {
+	public static void main(String[] args) throws IOException {
+		if (args.length == 1) {
+			String fileName;
+			fileName = new File(args[0]).getCanonicalPath();
+
+			ComponentParser parser = new ComponentParser(fileName);
+			Component component = parser.parse();
+
+			new ComponentWriter(new File("D:/temp"), component);
+
+		} else {
+			System.err.println("Usage: IpXactParser "
+					+ "<absolute path of top-level IpXact design>");
+		}
+	}
+
 	private String file;
 
 	private String name;
 
 	private HashMap<String, BusInterface> busInterfaces;
+
+	private Design subDesign;
 
 	public ComponentParser(String fileName) {
 		this.file = fileName;
@@ -62,54 +82,6 @@ public class ComponentParser {
 			return component;
 		} catch (IOException e) {
 			throw new IOException("I/O error when parsing component", e);
-		}
-	}
-
-	private Component parseComponent(Document doc) throws IOException {
-		Element root = doc.getDocumentElement();
-		Node node = root.getFirstChild();
-		busInterfaces = new HashMap<String, BusInterface>();
-
-		String vendor = null;
-		String library = null;
-		String version = null;
-
-		while (node != null) {
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-				String nodeName = node.getNodeName();
-				if (nodeName.equals("spirit:vendor")) {
-					vendor = element.getTextContent();
-				} else if (nodeName.equals("spirit:name")) {
-					name = element.getTextContent();
-				} else if (nodeName.equals("spirit:library")) {
-					library = element.getTextContent();
-				} else if (nodeName.equals("spirit:version")) {
-					version = element.getTextContent();
-				} else if (nodeName.equals("spirit:busInterfaces")) {
-					parseBusInterfaces(element);
-				} else {
-					// manage exception;
-				}
-			}
-
-			node = node.getNextSibling();
-		}
-		VLNV vlnv = new VLNV(vendor, library, name, version);
-		return new Component(name, vlnv, busInterfaces);
-	}
-
-	private void parseBusInterfaces(Element buses) {
-		Node node = buses.getFirstChild();
-		while (node != null) {
-			if (node instanceof Element) {
-				Element element = (Element) node;
-				String type = element.getTagName();
-				if (type.equals("spirit:busInterface")) {
-					parseBusInterface(element);
-				}
-			}
-			node = node.getNextSibling();
 		}
 	}
 
@@ -145,19 +117,124 @@ public class ComponentParser {
 				library, busName, version), isServer));
 	}
 
-	public static void main(String[] args) throws IOException {
-		if (args.length == 1) {
-			String fileName;
-			fileName = new File(args[0]).getCanonicalPath();
+	private void parseBusInterfaces(Element buses) {
+		Node node = buses.getFirstChild();
+		while (node != null) {
+			if (node instanceof Element) {
+				Element element = (Element) node;
+				String type = element.getTagName();
+				if (type.equals("spirit:busInterface")) {
+					parseBusInterface(element);
+				}
+			}
+			node = node.getNextSibling();
+		}
+	}
 
-			ComponentParser parser = new ComponentParser(fileName);
-			Component component = parser.parse();
+	private Component parseComponent(Document doc) throws IOException {
+		Element root = doc.getDocumentElement();
+		Node node = root.getFirstChild();
+		busInterfaces = new HashMap<String, BusInterface>();
 
-			new ComponentWriter(new File("D:/temp"), component);
+		String vendor = null;
+		String library = null;
+		String version = null;
 
-		} else {
-			System.err.println("Usage: IpXactParser "
-					+ "<absolute path of top-level IpXact design>");
+		while (node != null) {
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				String nodeName = node.getNodeName();
+				if (nodeName.equals("spirit:vendor")) {
+					vendor = element.getTextContent();
+				} else if (nodeName.equals("spirit:name")) {
+					name = element.getTextContent();
+				} else if (nodeName.equals("spirit:library")) {
+					library = element.getTextContent();
+				} else if (nodeName.equals("spirit:version")) {
+					version = element.getTextContent();
+				} else if (nodeName.equals("spirit:busInterfaces")) {
+					parseBusInterfaces(element);
+				} else if (nodeName.equals("spirit:model")) {
+					parseSubDesign(element);
+				} else {
+					// manage exception;
+				}
+			}
+
+			node = node.getNextSibling();
+		}
+		VLNV vlnv = new VLNV(vendor, library, name, version);
+		return new Component(name, vlnv, busInterfaces, subDesign);
+	}
+
+	private void parseSubDesign(Element callElt) {
+
+		Node node = callElt.getFirstChild();
+
+		while (node != null) {
+
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String eltType = elt.getTagName();
+				if (eltType.equals("spirit:views")) {
+					parseSubDesignViews(elt);
+				}
+			}
+
+			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * Parses a subdesign view
+	 */
+	private void parseSubDesignViews(Element callElt) {
+
+		Node node = callElt.getFirstChild();
+
+		while (node != null) {
+
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String eltType = elt.getTagName();
+				if (eltType.equals("spirit:view")) {
+					parseView(elt);
+					// Only the first found view is parsed
+					break;
+				}
+			}
+
+			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * Parses a multicore architecture being the subdesign of the current
+	 * component and sets it as the component refinement
+	 */
+	private void parseView(Element element) {
+
+		String designName = null;
+		Node node = element.getFirstChild();
+
+		while (node != null) {
+
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String eltType = elt.getTagName();
+				if (eltType.equals("spirit:hierarchyRef")) {
+					designName = elt.getAttribute("spirit:name");
+				}
+			}
+			node = node.getNextSibling();
+		}
+
+		try {
+			String path = new File(file).getParent();
+			designName = path + File.separator + designName + ".design";
+			subDesign = new DesignParser(designName, busInterfaces).parse();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

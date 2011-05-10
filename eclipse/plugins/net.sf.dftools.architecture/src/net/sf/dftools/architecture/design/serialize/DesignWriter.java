@@ -31,10 +31,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.dftools.architecture.VLNV;
+import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.component.serialize.ComponentWriter;
 import net.sf.dftools.architecture.design.ComponentInstance;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
@@ -56,9 +60,14 @@ public class DesignWriter {
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
-	public DesignWriter(File path, Design design) {
+	private Set<Component> componentsMap;
 
+	private File path;
+
+	public DesignWriter(File path, Design design) {
+		componentsMap = new HashSet<Component>();
 		this.graph = design.getGraph();
+		this.path = path;
 
 		document = DomUtil.createDocument(
 				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
@@ -73,38 +82,55 @@ public class DesignWriter {
 		} catch (IOException e) {
 			System.out.println("I/O error");
 		}
-
-		writeSubDesign(path);
 	}
 
-	private void writeSubDesign(File path) {
-		for (Vertex vertex : graph.vertexSet()) {
-			if (vertex.isComponentInstance()) {
-				ComponentInstance instance = vertex.getComponentInstance();
-				if (instance.isDesign()) {
-					Design child = instance.getDesign();
-					new DesignWriter(path, child);
-				}
-			}
+	private void writeComponentInstance(Element parent,
+			ComponentInstance instance) {
+		Element cmpElt = document.createElement("spirit:componentInstance");
+		parent.appendChild(cmpElt);
+
+		Element nameElt = document.createElement("spirit:instanceName");
+		cmpElt.appendChild(nameElt);
+		nameElt.setTextContent(instance.getId());
+		writeVLNV(cmpElt, instance);
+		writeConfigurableElementValues(cmpElt, instance);
+
+		Component component = instance.getComponent();
+		if (!componentsMap.contains(component)) {
+			new ComponentWriter(path, component);
+			componentsMap.add(component);
 		}
 	}
 
-	public void writeIpXact(Element ipxact, Design design) {
-		writeVLNV(ipxact, design);
-		writeComponentInstances(ipxact, design.getComponentInstances());
-		writeInterconnections(ipxact, design.getInterConnections());
-		writeHierConnections(ipxact, design.getHierConnections());
+	private void writeComponentInstances(Element parent,
+			List<ComponentInstance> instances) {
+		Element cmpsElt = document.createElement("spirit:componentInstances");
+		parent.appendChild(cmpsElt);
+		for (ComponentInstance instance : instances) {
+			writeComponentInstance(cmpsElt, instance);
+		}
 	}
 
-	private void writeHierConnections(Element parent,
-			List<Connection> hierconnections) {
-		if (!hierconnections.isEmpty()) {
-			Element intsElt = document.createElement("spirit:hierConnections");
-			parent.appendChild(intsElt);
+	private void writeConfigurableElementValue(Element parent,
+			ComponentInstance instance) {
+		for (Map.Entry<String, String> entry : instance.getConfigValues()
+				.entrySet()) {
+			Element paramElt = document
+					.createElement("spirit:configurableElementValue");
+			parent.appendChild(paramElt);
+			paramElt.setAttribute("spirit:referenceId", entry.getKey());
+			paramElt.setTextContent(entry.getValue());
+		}
+	}
 
-			for (Connection connection : hierconnections) {
-				writeHierConnection(intsElt, connection);
-			}
+	private void writeConfigurableElementValues(Element parent,
+			ComponentInstance instance) {
+
+		if (!instance.getConfigValues().isEmpty()) {
+			Element confsElt = document
+					.createElement("spirit:configurableElementValues");
+			parent.appendChild(confsElt);
+			writeConfigurableElementValue(confsElt, instance);
 		}
 	}
 
@@ -137,14 +163,14 @@ public class DesignWriter {
 		}
 	}
 
-	private void writeInterconnections(Element parent,
-			List<Connection> interconnections) {
-		if (!interconnections.isEmpty()) {
-			Element intsElt = document.createElement("spirit:interconnections");
+	private void writeHierConnections(Element parent,
+			List<Connection> hierconnections) {
+		if (!hierconnections.isEmpty()) {
+			Element intsElt = document.createElement("spirit:hierConnections");
 			parent.appendChild(intsElt);
 
-			for (Connection connection : interconnections) {
-				writeInterconnection(intsElt, connection);
+			for (Connection connection : hierconnections) {
+				writeHierConnection(intsElt, connection);
 			}
 		}
 	}
@@ -172,6 +198,35 @@ public class DesignWriter {
 		}
 	}
 
+	private void writeInterconnections(Element parent,
+			List<Connection> interconnections) {
+		if (!interconnections.isEmpty()) {
+			Element intsElt = document.createElement("spirit:interconnections");
+			parent.appendChild(intsElt);
+
+			for (Connection connection : interconnections) {
+				writeInterconnection(intsElt, connection);
+			}
+		}
+	}
+
+	public void writeIpXact(Element ipxact, Design design) {
+		writeVLNV(ipxact, design);
+		writeComponentInstances(ipxact, design.getComponentInstances());
+		writeInterconnections(ipxact, design.getInterConnections());
+		writeHierConnections(ipxact, design.getHierConnections());
+	}
+
+	private void writeVLNV(Element parent, ComponentInstance component) {
+		VLNV vlnv = component.getVlnv();
+		Element vlnvElt = document.createElement("spirit:componentRef");
+		parent.appendChild(vlnvElt);
+		vlnvElt.setAttribute("spirit:vendor", vlnv.getVendor());
+		vlnvElt.setAttribute("spirit:library", vlnv.getLibrary());
+		vlnvElt.setAttribute("spirit:name", vlnv.getName());
+		vlnvElt.setAttribute("spirit:version", vlnv.getVersion());
+	}
+
 	private void writeVLNV(Element parent, Design design) {
 		VLNV vlnv = design.getVlnv();
 		Element child = document.createElement("spirit:vendor");
@@ -186,59 +241,6 @@ public class DesignWriter {
 		child = document.createElement("spirit:version");
 		parent.appendChild(child);
 		child.setTextContent(vlnv.getVersion());
-	}
-
-	private void writeVLNV(Element parent, ComponentInstance component) {
-		VLNV vlnv = component.getVlnv();
-		Element vlnvElt = document.createElement("spirit:componentRef");
-		parent.appendChild(vlnvElt);
-		vlnvElt.setAttribute("spirit:vendor", vlnv.getVendor());
-		vlnvElt.setAttribute("spirit:library", vlnv.getLibrary());
-		vlnvElt.setAttribute("spirit:name", vlnv.getName());
-		vlnvElt.setAttribute("spirit:version", vlnv.getVersion());
-	}
-
-	private void writeComponentInstances(Element parent,
-			List<ComponentInstance> instances) {
-		Element cmpsElt = document.createElement("spirit:componentInstances");
-		parent.appendChild(cmpsElt);
-		for (ComponentInstance instance : instances) {
-			addComponentInstance(cmpsElt, instance);
-		}
-	}
-
-	private void addComponentInstance(Element parent, ComponentInstance instance) {
-		Element cmpElt = document.createElement("spirit:componentInstance");
-		parent.appendChild(cmpElt);
-
-		Element nameElt = document.createElement("spirit:instanceName");
-		cmpElt.appendChild(nameElt);
-		nameElt.setTextContent(instance.getId());
-		writeVLNV(cmpElt, instance);
-		writeConfigurableElementValues(cmpElt, instance);
-	}
-
-	private void writeConfigurableElementValues(Element parent,
-			ComponentInstance instance) {
-
-		if (!instance.getConfigValues().isEmpty()) {
-			Element confsElt = document
-					.createElement("spirit:configurableElementValues");
-			parent.appendChild(confsElt);
-			writeConfigurableElementValue(confsElt, instance);
-		}
-	}
-
-	private void writeConfigurableElementValue(Element parent,
-			ComponentInstance instance) {
-		for (Map.Entry<String, String> entry : instance.getConfigValues()
-				.entrySet()) {
-			Element paramElt = document
-					.createElement("spirit:configurableElementValue");
-			parent.appendChild(paramElt);
-			paramElt.setAttribute("spirit:referenceId", entry.getKey());
-			paramElt.setTextContent(entry.getValue());
-		}
 	}
 
 }

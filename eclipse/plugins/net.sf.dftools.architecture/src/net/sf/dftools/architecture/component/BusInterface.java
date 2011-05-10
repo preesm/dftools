@@ -27,12 +27,12 @@ public class BusInterface {
 
 	}
 
-	public VLNV getVlnv() {
-		return vlnv;
-	}
-
 	public String getName() {
 		return name;
+	}
+
+	public VLNV getVlnv() {
+		return vlnv;
 	}
 
 	public boolean isServer() {

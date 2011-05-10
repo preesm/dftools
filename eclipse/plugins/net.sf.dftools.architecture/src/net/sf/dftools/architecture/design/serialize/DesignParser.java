@@ -56,6 +56,23 @@ import org.w3c.dom.Node;
 
 public class DesignParser {
 
+	public static void main(String[] args) throws IOException {
+		if (args.length == 1) {
+			String fileName;
+			fileName = new File(args[0]).getCanonicalPath();
+
+			DesignParser parser = new DesignParser(fileName,
+					new HashMap<String, BusInterface>());
+			Design design = parser.parse();
+
+			new DesignWriter(new File("D:/temp/ipxact/generated"), design);
+
+		} else {
+			System.err.println("Usage: IpXactParser "
+					+ "<absolute path of top-level IpXact design>");
+		}
+	}
+
 	private String file;
 
 	private String path;
@@ -68,9 +85,28 @@ public class DesignParser {
 
 	private Map<String, ComponentInstance> instances;
 
-	public DesignParser(String fileName) {
+	public DesignParser(String fileName, Map<String, BusInterface> busInterfaces) {
 		this.file = fileName;
+		this.busInterfaces = busInterfaces;
 		path = new File(fileName).getParent();
+	}
+
+	private BusInterface getBusInterface(String vertexName, String portName) {
+		if (vertexName.isEmpty()) {
+			return null;
+		} else {
+			return new BusInterface(portName, null, false);
+		}
+	}
+
+	private Vertex getVertex(String vertexName, String intfName) {
+		if (vertexName.isEmpty()) {
+			BusInterface bus = busInterfaces.get(intfName);
+			return new Vertex(bus);
+		} else {
+			ComponentInstance instance = instances.get(vertexName);
+			return new Vertex(instance);
+		}
 	}
 
 	public Design parse() throws IOException {
@@ -85,14 +121,87 @@ public class DesignParser {
 		}
 	}
 
+	private void parseComponentInstance(Element comp) throws IOException {
+		Node node = comp.getFirstChild();
+
+		String id = null;
+		String vendor = null;
+		String library = null;
+		String name = null;
+		String version = null;
+		Map<String, String> values = new HashMap<String, String>();
+
+		while (node != null) {
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String type = elt.getTagName();
+				if (type.equals("spirit:instanceName")) {
+					id = elt.getTextContent();
+				} else if (type.equals("spirit:componentRef")) {
+					vendor = elt.getAttribute("spirit:vendor");
+					library = elt.getAttribute("spirit:library");
+					name = elt.getAttribute("spirit:name");
+					version = elt.getAttribute("spirit:version");
+				} else if (type.equals("spirit:configurableElementValues")) {
+					parseConfigurableValues(elt, values);
+				}
+			}
+			node = node.getNextSibling();
+		}
+		ComponentInstance instance = null;
+		File compFile = new File(path, name + ".component");
+		String filename = compFile.getAbsolutePath();
+		Component component = new ComponentParser(filename).parse();
+
+		instance = new ComponentInstance(id, new VLNV(vendor, library, name,
+				version), component, values);
+
+		instances.put(id, instance);
+		graph.addVertex(new Vertex(instance));
+	}
+
+	private void parseComponentInstances(Element components) throws IOException {
+		Node node = components.getFirstChild();
+
+		while (node != null) {
+			if (node instanceof Element) {
+				Element element = (Element) node;
+				String type = element.getTagName();
+				if (type.equals("spirit:componentInstance")) {
+					parseComponentInstance(element);
+				}
+			}
+
+			node = node.getNextSibling();
+		}
+	}
+
+	private void parseConfigurableValues(Element callElt,
+			Map<String, String> values) {
+		Node node = callElt.getFirstChild();
+
+		while (node != null) {
+
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String eltType = elt.getTagName();
+				if (eltType.equals("spirit:configurableElementValue")) {
+					String name = elt.getAttribute("spirit:referenceId");
+					String value = elt.getTextContent();
+					values.put(name, value);
+				}
+			}
+			node = node.getNextSibling();
+		}
+
+	}
+
 	private Design parseDesign(Document doc) throws IOException {
 		Element root = doc.getDocumentElement();
 		Node node = root.getFirstChild();
 
 		graph = new Multigraph<Vertex, Connection>(Connection.class);
-
 		instances = new HashMap<String, ComponentInstance>();
-		busInterfaces = new HashMap<String, BusInterface>();
 
 		String vendor = null;
 		String name = null;
@@ -133,30 +242,14 @@ public class DesignParser {
 
 	}
 
-	private void parseHierConnections(Element hierconnections) {
-		Node node = hierconnections.getFirstChild();
-		while (node != null) {
-			if (node instanceof Element) {
-				Element elt = (Element) node;
-				String type = elt.getTagName();
-				if (type.equals("spirit:hierConnection")) {
-					parseHierConnection(elt);
-				}
-			}
-			node = node.getNextSibling();
-		}
-
-	}
-
 	private void parseHierConnection(Element connection) {
 		String busName = null;
 		String componentName = null;
 		String intfName = connection.getAttribute("spirit:interfaceRef");
 
-		BusInterface intf = new BusInterface(intfName, null, false);
+		BusInterface intf = busInterfaces.get(intfName);
 		Vertex vertex = new Vertex(intf);
 		graph.addVertex(vertex);
-		busInterfaces.put(intfName, intf);
 
 		Node node = connection.getFirstChild();
 		while (node != null) {
@@ -181,104 +274,19 @@ public class DesignParser {
 		graph.addEdge(vertex, cmp1, interconn);
 	}
 
-	private void parseComponentInstances(Element components) throws IOException {
-		Node node = components.getFirstChild();
-
-		while (node != null) {
-			if (node instanceof Element) {
-				Element element = (Element) node;
-				String type = element.getTagName();
-				if (type.equals("spirit:componentInstance")) {
-					parseComponentInstance(element);
-				}
-			}
-
-			node = node.getNextSibling();
-		}
-	}
-
-	private void parseComponentInstance(Element comp) throws IOException {
-
-		Node node = comp.getFirstChild();
-
-		String id = null;
-
-		String vendor = null;
-		String library = null;
-		String name = null;
-		String version = null;
-
-		Map<String, String> values = new HashMap<String, String>();
-
-		while (node != null) {
-
-			if (node instanceof Element) {
-				Element elt = (Element) node;
-				String type = elt.getTagName();
-				if (type.equals("spirit:instanceName")) {
-					id = elt.getTextContent();
-				} else if (type.equals("spirit:componentRef")) {
-					vendor = elt.getAttribute("spirit:vendor");
-					library = elt.getAttribute("spirit:library");
-					name = elt.getAttribute("spirit:name");
-					version = elt.getAttribute("spirit:version");
-				} else if (type.equals("spirit:configurableElementValues")) {
-					parseConfigurableValues(elt, values);
-				}
-			}
-			node = node.getNextSibling();
-		}
-		ComponentInstance instance = null;
-		File file = new File(path, name + ".design");
-		String fileName = file.getAbsolutePath();
-		if (file.exists()) {
-			// we got a hierarchical design
-			Design design = new DesignParser(fileName).parse();
-			instance = new ComponentInstance(id, new VLNV(vendor, library,
-					name, version), design, values);
-		} else {
-			file = new File(path, name + ".component");
-			fileName = file.getAbsolutePath();
-			Component component = new ComponentParser(fileName).parse();
-			instance = new ComponentInstance(id, new VLNV(vendor, library,
-					name, version), component, values);
-		}
-		instances.put(id, instance);
-		graph.addVertex(new Vertex(instance));
-	}
-
-	private void parseConfigurableValues(Element callElt,
-			Map<String, String> values) {
-		Node node = callElt.getFirstChild();
-
-		while (node != null) {
-
-			if (node instanceof Element) {
-				Element elt = (Element) node;
-				String eltType = elt.getTagName();
-				if (eltType.equals("spirit:configurableElementValue")) {
-					String name = elt.getAttribute("spirit:referenceId");
-					String value = elt.getTextContent();
-					values.put(name, value);
-				}
-			}
-			node = node.getNextSibling();
-		}
-
-	}
-
-	private void parseInterconnections(Element connections) {
-		Node node = connections.getFirstChild();
+	private void parseHierConnections(Element hierconnections) {
+		Node node = hierconnections.getFirstChild();
 		while (node != null) {
 			if (node instanceof Element) {
 				Element elt = (Element) node;
 				String type = elt.getTagName();
-				if (type.equals("spirit:interconnection")) {
-					parseInterconnection(elt);
+				if (type.equals("spirit:hierConnection")) {
+					parseHierConnection(elt);
 				}
 			}
 			node = node.getNextSibling();
 		}
+
 	}
 
 	/**
@@ -316,21 +324,17 @@ public class DesignParser {
 
 	}
 
-	private BusInterface getBusInterface(String vertexName, String portName) {
-		if (vertexName.isEmpty()) {
-			return null;
-		} else {
-			return new BusInterface(portName, null, false);
-		}
-	}
-
-	private Vertex getVertex(String vertexName, String intfName) {
-		if (vertexName.isEmpty()) {
-			BusInterface bus = busInterfaces.get(intfName);
-			return new Vertex(bus);
-		} else {
-			ComponentInstance instance = instances.get(vertexName);
-			return new Vertex(instance);
+	private void parseInterconnections(Element connections) {
+		Node node = connections.getFirstChild();
+		while (node != null) {
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String type = elt.getTagName();
+				if (type.equals("spirit:interconnection")) {
+					parseInterconnection(elt);
+				}
+			}
+			node = node.getNextSibling();
 		}
 	}
 

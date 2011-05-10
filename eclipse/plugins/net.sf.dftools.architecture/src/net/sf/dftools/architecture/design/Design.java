@@ -36,7 +36,6 @@ import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.design.transforms.Instantiator;
 
 import org.jgrapht.UndirectedGraph;
-import org.jgrapht.alg.DijkstraShortestPath;
 
 /**
  * An IP-XACT design.
@@ -47,34 +46,19 @@ import org.jgrapht.alg.DijkstraShortestPath;
 
 public class Design {
 
+	private String name;
+
 	private VLNV vlnv;
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
 	private Map<String, BusInterface> interfaces;
 
-	public Design(String id, VLNV vlnv,
+	public Design(String name, VLNV vlnv,
 			UndirectedGraph<Vertex, Connection> graph) {
+		this.name = name;
 		this.vlnv = vlnv;
 		this.graph = graph;
-	}
-
-	public UndirectedGraph<Vertex, Connection> getGraph() {
-		return graph;
-	}
-
-	public VLNV getVlnv() {
-		return vlnv;
-	}
-
-	public List<ComponentInstance> getComponentInstances() {
-		List<ComponentInstance> instances = new ArrayList<ComponentInstance>();
-		for (Vertex vertex : graph.vertexSet()) {
-			if (vertex.isComponentInstance()) {
-				instances.add(vertex.getComponentInstance());
-			}
-		}
-		return instances;
 	}
 
 	public boolean containsComponentInstance(String name) {
@@ -98,30 +82,6 @@ public class Design {
 		return interfaces;
 	}
 
-	public Map<String, BusInterface> getInterfaces() {
-		return interfaces;
-	}
-
-	public List<Connection> getInterConnections() {
-		List<Connection> interconnection = new ArrayList<Connection>();
-		for (Connection connection : graph.edgeSet()) {
-			if (connection instanceof InterConnection) {
-				interconnection.add(connection);
-			}
-		}
-		return interconnection;
-	}
-
-	public List<Connection> getHierConnections() {
-		List<Connection> hierconnections = new ArrayList<Connection>();
-		for (Connection connection : graph.edgeSet()) {
-			if (connection instanceof HierConnection) {
-				hierconnections.add(connection);
-			}
-		}
-		return hierconnections;
-	}
-
 	public ComponentInstance getComponentInstance(String name) {
 		ComponentInstance instance = null;
 		for (Vertex vertex : graph.vertexSet()) {
@@ -133,6 +93,30 @@ public class Design {
 			}
 		}
 		return instance;
+	}
+
+	public List<ComponentInstance> getComponentInstances() {
+		List<ComponentInstance> instances = new ArrayList<ComponentInstance>();
+		for (Vertex vertex : graph.vertexSet()) {
+			if (vertex.isComponentInstance()) {
+				instances.add(vertex.getComponentInstance());
+			}
+		}
+		return instances;
+	}
+
+	public UndirectedGraph<Vertex, Connection> getGraph() {
+		return graph;
+	}
+
+	public List<Connection> getHierConnections() {
+		List<Connection> hierconnections = new ArrayList<Connection>();
+		for (Connection connection : graph.edgeSet()) {
+			if (connection instanceof HierConnection) {
+				hierconnections.add(connection);
+			}
+		}
+		return hierconnections;
 	}
 
 	public InterConnection getInterConnection(String srcName, String tgtName) {
@@ -153,12 +137,22 @@ public class Design {
 		return conn;
 	}
 
-	public void instantiate(String path) throws Exception {
-		new Instantiator(path).transform(this);
+	public List<Connection> getInterConnections() {
+		List<Connection> interconnection = new ArrayList<Connection>();
+		for (Connection connection : graph.edgeSet()) {
+			if (connection instanceof InterConnection) {
+				interconnection.add(connection);
+			}
+		}
+		return interconnection;
 	}
 
-	public BusInterface getInterface(String name) {
-		return interfaces.get(name);
+	public Map<String, BusInterface> getInterfaces() {
+		return interfaces;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public Vertex getVertex(String name) {
@@ -172,30 +166,19 @@ public class Design {
 		return null;
 	}
 
-	public String getBusBetween(String startName, String endName) {
-		Vertex start = getVertex(startName);
-		Vertex end = getVertex(endName);
+	public VLNV getVlnv() {
+		return vlnv;
+	}
 
-		if (start.equals(end)) {
-			return null;
-		}
-
-		List<Connection> conns = DijkstraShortestPath.findPathBetween(graph,
-				start, end);
-
-		if (conns.size() == 2) {
-			ComponentInstance inst = graph.getEdgeTarget(conns.get(0))
-					.getComponentInstance();
-
-			if (inst.getId().equals(startName)) {
-				inst = graph.getEdgeSource(conns.get(0)).getComponentInstance();
-			}
-
-			return inst.getId();
-		} else {
-			// errors
-			return null;
-		}
+	/**
+	 * Walks through the hierarchy, instantiate components, and checks that
+	 * connections actually point to ports defined in components.
+	 * 
+	 * @param path
+	 * @throws Exception
+	 */
+	public void instantiate(String path) throws Exception {
+		new Instantiator(path).transform(this);
 	}
 
 }

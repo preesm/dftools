@@ -39,14 +39,14 @@ public class Vertex {
 
 	private Type type;
 
-	public Vertex(ComponentInstance contents) {
-		this.contents = contents;
-		type = Type.INSTANCE;
-	}
-
 	public Vertex(BusInterface contents) {
 		this.contents = contents;
 		type = Type.INTERFACE;
+	}
+
+	public Vertex(ComponentInstance contents) {
+		this.contents = contents;
+		type = Type.INSTANCE;
 	}
 
 	@Override
@@ -60,13 +60,12 @@ public class Vertex {
 		}
 	}
 
-	@Override
-	public int hashCode() {
-		return contents.hashCode();
-	}
-
-	public boolean isComponentInstance() {
-		return type == Type.INSTANCE;
+	public BusInterface getBusInterface() {
+		if (isBusInterface()) {
+			return (BusInterface) contents;
+		} else {
+			return null;
+		}
 	}
 
 	public ComponentInstance getComponentInstance() {
@@ -77,16 +76,17 @@ public class Vertex {
 		}
 	}
 
-	public BusInterface getBusInterface() {
-		if (isBusInterface()) {
-			return (BusInterface) contents;
-		} else {
-			return null;
-		}
+	@Override
+	public int hashCode() {
+		return contents.hashCode();
 	}
 
 	public boolean isBusInterface() {
 		return type == Type.INTERFACE;
+	}
+
+	public boolean isComponentInstance() {
+		return type == Type.INSTANCE;
 	}
 
 }

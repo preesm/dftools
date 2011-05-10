@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dftools.architecture.VLNV;
+import net.sf.dftools.architecture.design.Design;
 
 /**
  * This class defines a vertex in an IP-XACT design.
@@ -25,29 +26,40 @@ public class Component {
 
 	private VLNV vlnv;
 
+	private Design design;
+
 	Map<String, BusInterface> interfaces = new HashMap<String, BusInterface>();
 
-	public Map<String, BusInterface> getInterfaces() {
-		return interfaces;
+	public Component(String clasz, VLNV vlnv,
+			Map<String, BusInterface> interfaces, Design design) {
+		this.clasz = clasz;
+		this.vlnv = vlnv;
+		this.interfaces = interfaces;
+		this.design = design;
+	}
+
+	public String getClasz() {
+		return clasz;
+	}
+
+	public Design getDesign() {
+		return design;
 	}
 
 	public BusInterface getInterface(String name) {
 		return interfaces.get(name);
 	}
 
-	public Component(String clasz, VLNV vlnv,
-			Map<String, BusInterface> interfaces) {
-		this.clasz = clasz;
-		this.vlnv = vlnv;
-		this.interfaces = interfaces;
+	public Map<String, BusInterface> getInterfaces() {
+		return interfaces;
 	}
 
 	public VLNV getVlnv() {
 		return vlnv;
 	}
 
-	public String getClasz() {
-		return clasz;
+	public boolean isHierarchical() {
+		return design != null;
 	}
 
 }

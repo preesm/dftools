@@ -28,9 +28,15 @@
 package net.sf.dftools.architecture.component.serialize;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
+import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.design.serialize.DesignWriter;
+import net.sf.dftools.architecture.utils.DomUtil;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,26 +45,94 @@ public class ComponentWriter {
 
 	Document document;
 
-	public ComponentWriter(File file, Component component) {
-	}
+	Component component;
 
-	@SuppressWarnings("unused")
-	private void writeBusInterfaces(Element parent, Component component) {
-		Element cmpsElt = document.createElement("spirit:busInterfaces");
-		parent.appendChild(cmpsElt);
+	private File path;
 
-		for (BusInterface intf : component.getInterfaces().values()) {
-			addBusInterface(cmpsElt, intf);
+	public ComponentWriter(File path, Component component) {
+		this.component = component;
+		this.path = path;
+
+		document = DomUtil.createDocument(
+				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
+				"spirit:component");
+		writeComponent(document.getDocumentElement());
+
+		File file = new File(path, component.getVlnv().getName() + ".component");
+		try {
+			OutputStream os = new FileOutputStream(file);
+			DomUtil.writeDocument(os, document);
+			os.close();
+		} catch (IOException e) {
+			System.out.println("I/O error");
 		}
 	}
 
-	private void addBusInterface(Element parent, BusInterface intf) {
+	private void writeBusInterface(Element parent, BusInterface intf) {
 		Element cmpElt = document.createElement("spirit:busInterface");
 		parent.appendChild(cmpElt);
 
 		Element nameElt = document.createElement("spirit:name");
 		cmpElt.appendChild(nameElt);
 		nameElt.setTextContent(intf.getName());
+	}
+
+	private void writeBusInterfaces(Element parent) {
+		Element cmpsElt = document.createElement("spirit:busInterfaces");
+		parent.appendChild(cmpsElt);
+
+		for (BusInterface intf : component.getInterfaces().values()) {
+			writeBusInterface(cmpsElt, intf);
+		}
+	}
+
+	private void writeComponent(Element documentElt) {
+		writeVLNV(documentElt);
+		writeBusInterfaces(documentElt);
+		writeSubDesign(documentElt);
+	}
+
+	private void writeSubDesign(Element parent) {
+		if (component.isHierarchical()) {
+			Element cmpsElt = document.createElement("spirit:model");
+			parent.appendChild(cmpsElt);
+			writeViews(cmpsElt);
+		}
+	}
+
+	private void writeView(Element parent) {
+		Element cmpsElt = document.createElement("spirit:view");
+		parent.appendChild(cmpsElt);
+
+		Element hierElt = document.createElement("spirit:hierarchyRef");
+		cmpsElt.appendChild(hierElt);
+		hierElt.setAttribute("spirit:name", component.getDesign().getName());
+
+		new DesignWriter(path, component.getDesign());
+	}
+
+	private void writeViews(Element parent) {
+		Element cmpsElt = document.createElement("spirit:views");
+		parent.appendChild(cmpsElt);
+
+		// support only one view right now
+		writeView(cmpsElt);
+	}
+
+	private void writeVLNV(Element parent) {
+		VLNV vlnv = component.getVlnv();
+		Element child = document.createElement("spirit:vendor");
+		parent.appendChild(child);
+		child.setTextContent(vlnv.getVendor());
+		child = document.createElement("spirit:library");
+		parent.appendChild(child);
+		child.setTextContent(vlnv.getLibrary());
+		child = document.createElement("spirit:name");
+		parent.appendChild(child);
+		child.setTextContent(vlnv.getName());
+		child = document.createElement("spirit:version");
+		parent.appendChild(child);
+		child.setTextContent(vlnv.getVersion());
 	}
 
 }

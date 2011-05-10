@@ -34,80 +34,44 @@ import net.sf.dftools.architecture.component.Component;
 
 public class ComponentInstance {
 
-	private enum Type {
-		COMPONENT, DESIGN
-	}
-
 	private String id;
 
-	private Object contents;
-
-	private Type type;
+	private Component component;
 
 	private Map<String, String> configValues;
 
 	private VLNV vlnv;
 
-	public ComponentInstance(String id, VLNV vlnv, Component contents,
+	public ComponentInstance(String id, VLNV vlnv, Component component,
 			Map<String, String> configValues) {
 		this.id = id;
 		this.vlnv = vlnv;
-		this.contents = contents;
+		this.component = component;
 		this.configValues = configValues;
-		type = Type.COMPONENT;
-	}
-
-	public ComponentInstance(String id, VLNV vlnv, Design contents,
-			Map<String, String> configValues) {
-		this.id = id;
-		this.vlnv = vlnv;
-		this.contents = contents;
-		this.configValues = configValues;
-		type = Type.DESIGN;
 	}
 
 	public Component getComponent() {
-		if (isComponent()) {
-			return (Component) contents;
-		} else {
-			return null;
-		}
-	}
-
-	public Design getDesign() {
-		if (isDesign()) {
-			return (Design) contents;
-		} else {
-			return null;
-		}
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public boolean isComponent() {
-		return type == Type.COMPONENT;
-	}
-
-	public boolean isDesign() {
-		return type == Type.DESIGN;
+		return component;
 	}
 
 	public Map<String, String> getConfigValues() {
 		return configValues;
 	}
 
-	@Override
-	public String toString() {
-		return "instance " + id;
+	public String getId() {
+		return id;
 	}
 
 	public VLNV getVlnv() {
 		return vlnv;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "instance " + id;
 	}
 }
