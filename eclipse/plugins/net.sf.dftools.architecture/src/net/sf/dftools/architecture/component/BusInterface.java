@@ -13,7 +13,7 @@ import net.sf.dftools.architecture.VLNV;
  * This class defines a bus interfaces.
  * 
  * @author Ghislain Roquier
- *
+ * 
  */
 public class BusInterface {
 

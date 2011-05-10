@@ -44,8 +44,16 @@ public class Operator extends Component {
 		super(name, vlnv, interfaces, design);
 	}
 
+	public boolean isFPGA() {
+		return false;
+	}
+
 	@Override
 	public boolean isOperator() {
+		return true;
+	}
+
+	public boolean isProcessor() {
 		return true;
 	}
 

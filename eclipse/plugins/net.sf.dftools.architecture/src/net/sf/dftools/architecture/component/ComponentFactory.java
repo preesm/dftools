@@ -42,6 +42,10 @@ public class ComponentFactory {
 
 	private static final ComponentFactory instance = new ComponentFactory();
 
+	public static ComponentFactory getInstance() {
+		return instance;
+	}
+
 	public Component createComponent(String type, String name, VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design) {
 		Component component = null;
@@ -62,9 +66,5 @@ public class ComponentFactory {
 	private Component createOperator(String name, VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design) {
 		return new Operator(name, vlnv, interfaces, design);
-	}
-
-	public static ComponentFactory getInstance() {
-		return instance;
 	}
 }

@@ -49,7 +49,7 @@ import org.w3c.dom.Node;
  * This class defines an IP-XACT parser.
  * 
  * @author Ghislain Roquier
- *
+ * 
  */
 public class ComponentParser {
 
@@ -84,7 +84,7 @@ public class ComponentParser {
 		String library = null;
 		String busName = null;
 		String version = null;
-		
+
 		boolean isServer = false;
 		while (node != null) {
 			if (node instanceof Element) {

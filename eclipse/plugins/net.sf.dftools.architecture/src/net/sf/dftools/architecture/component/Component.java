@@ -40,14 +40,6 @@ public abstract class Component implements IComponent {
 
 	/**
 	 * 
-	 * @return the class of the component
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * 
 	 * @return the design included in the component
 	 */
 	public Design getDesign() {
@@ -73,6 +65,14 @@ public abstract class Component implements IComponent {
 
 	/**
 	 * 
+	 * @return the class of the component
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 
 	 * @return
 	 */
 	public VLNV getVlnv() {
@@ -88,12 +88,12 @@ public abstract class Component implements IComponent {
 	}
 
 	@Override
-	public boolean isOperator() {
+	public boolean isMedium() {
 		return false;
 	}
 
 	@Override
-	public boolean isMedium() {
+	public boolean isOperator() {
 		return false;
 	}
 

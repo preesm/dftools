@@ -31,12 +31,12 @@ package net.sf.dftools.architecture.component;
  * This interface defines a component.
  * 
  * @author Ghislain Roquier
- *
+ * 
  */
 public interface IComponent {
 
-	public boolean isOperator();
-
 	public boolean isMedium();
+
+	public boolean isOperator();
 
 }

@@ -56,7 +56,7 @@ import org.w3c.dom.Node;
  * This class defines a IP-XACT design parser.
  * 
  * @author Ghislain Roquier
- *
+ * 
  */
 public class DesignParser {
 
@@ -69,6 +69,10 @@ public class DesignParser {
 	private Map<String, BusInterface> busInterfaces;
 
 	private Map<String, ComponentInstance> instances;
+
+	public DesignParser(String fileName) {
+		this(fileName, new HashMap<String, BusInterface>());
+	}
 
 	public DesignParser(String fileName, Map<String, BusInterface> busInterfaces) {
 		this.file = fileName;

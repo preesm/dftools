@@ -36,6 +36,7 @@ import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.design.transforms.Instantiator;
 
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.DijkstraShortestPath;
 
 /**
  * An IP-XACT design.
@@ -70,6 +71,29 @@ public class Design {
 			}
 		}
 		return false;
+	}
+
+	public String getBusBetween(String startName, String endName) {
+		Vertex start = getVertex(startName);
+		Vertex end = getVertex(endName);
+		if (start.equals(end)) {
+			return null;
+		}
+		List<Connection> conns = DijkstraShortestPath.findPathBetween(graph,
+				start, end);
+		if (conns.size() == 2) {
+			ComponentInstance inst = graph.getEdgeTarget(conns.get(0))
+					.getComponentInstance();
+
+			if (inst.getId().equals(startName)) {
+				inst = graph.getEdgeSource(conns.get(0)).getComponentInstance();
+			}
+
+			return inst.getId();
+		} else {
+			// errors
+			return null;
+		}
 	}
 
 	public List<BusInterface> getBusInterfaces() {
@@ -109,6 +133,27 @@ public class Design {
 		return graph;
 	}
 
+	public Connection getInterConnection(String srcName, String tgtName) {
+		Connection conn = null;
+		for (Connection connection : graph.edgeSet()) {
+			Vertex src = graph.getEdgeSource(connection);
+			Vertex tgt = graph.getEdgeTarget(connection);
+			if (src.isComponentInstance() && tgt.isComponentInstance()) {
+				if (src.getComponentInstance().getId().equals(srcName)
+						&& tgt.getComponentInstance().getId().equals(tgtName)) {
+					conn = connection;
+					break;
+				} else if (tgt.getComponentInstance().getId().equals(srcName)
+						&& src.getComponentInstance().getId().equals(tgtName)) {
+					conn = connection;
+					break;
+				}
+
+			}
+		}
+		return conn;
+	}
+
 	public Map<String, BusInterface> getInterfaces() {
 		return interfaces;
 	}
@@ -142,5 +187,4 @@ public class Design {
 	public void instantiate(String path) throws Exception {
 		new Instantiator(path).transform(this);
 	}
-
 }
