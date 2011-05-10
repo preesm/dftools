@@ -14,15 +14,15 @@ import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.design.Design;
 
 /**
- * This class defines a vertex in an IP-XACT design.
+ * This class defines a component. A component has a name, a VLNV. A component
+ * may also be hierarchical and thus may include a design.
  * 
  * @author Ghislain Roquier
  * 
  */
+public abstract class Component implements IComponent {
 
-public class Component {
-
-	private String clasz;
+	private String name;
 
 	private VLNV vlnv;
 
@@ -30,36 +30,71 @@ public class Component {
 
 	Map<String, BusInterface> interfaces = new HashMap<String, BusInterface>();
 
-	public Component(String clasz, VLNV vlnv,
+	public Component(String name, VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design) {
-		this.clasz = clasz;
+		this.name = name;
 		this.vlnv = vlnv;
 		this.interfaces = interfaces;
 		this.design = design;
 	}
 
-	public String getClasz() {
-		return clasz;
+	/**
+	 * 
+	 * @return the class of the component
+	 */
+	public String getName() {
+		return name;
 	}
 
+	/**
+	 * 
+	 * @return the design included in the component
+	 */
 	public Design getDesign() {
 		return design;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public BusInterface getInterface(String name) {
 		return interfaces.get(name);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Map<String, BusInterface> getInterfaces() {
 		return interfaces;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public VLNV getVlnv() {
 		return vlnv;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isHierarchical() {
 		return design != null;
+	}
+
+	@Override
+	public boolean isOperator() {
+		return false;
+	}
+
+	@Override
+	public boolean isMedium() {
+		return false;
 	}
 
 }

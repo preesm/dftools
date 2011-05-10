@@ -29,6 +29,13 @@ package net.sf.dftools.architecture.design;
 
 import net.sf.dftools.architecture.component.BusInterface;
 
+/**
+ * This class defines a vertex in the architecutre graph. A vertex is either a
+ * component instance or a bus interface.
+ * 
+ * @author Ghislain Roquier
+ * 
+ */
 public class Vertex {
 
 	private enum Type {

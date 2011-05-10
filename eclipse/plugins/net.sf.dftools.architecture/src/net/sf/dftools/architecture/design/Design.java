@@ -64,7 +64,7 @@ public class Design {
 	public boolean containsComponentInstance(String name) {
 		for (Vertex vertex : graph.vertexSet()) {
 			if (vertex.isComponentInstance()) {
-				if (vertex.getComponentInstance().getComponent().getClasz()
+				if (vertex.getComponentInstance().getComponent().getName()
 						.equals(name))
 					return true;
 			}
@@ -107,44 +107,6 @@ public class Design {
 
 	public UndirectedGraph<Vertex, Connection> getGraph() {
 		return graph;
-	}
-
-	public List<Connection> getHierConnections() {
-		List<Connection> hierconnections = new ArrayList<Connection>();
-		for (Connection connection : graph.edgeSet()) {
-			if (connection instanceof HierConnection) {
-				hierconnections.add(connection);
-			}
-		}
-		return hierconnections;
-	}
-
-	public InterConnection getInterConnection(String srcName, String tgtName) {
-		InterConnection conn = null;
-		for (Connection connection : getInterConnections()) {
-			Vertex src = graph.getEdgeSource(connection);
-			Vertex tgt = graph.getEdgeTarget(connection);
-			if (src.getComponentInstance().getId().equals(srcName)
-					&& tgt.getComponentInstance().getId().equals(tgtName)) {
-				conn = (InterConnection) connection;
-				break;
-			} else if (tgt.getComponentInstance().getId().equals(srcName)
-					&& src.getComponentInstance().getId().equals(tgtName)) {
-				conn = (InterConnection) connection;
-				break;
-			}
-		}
-		return conn;
-	}
-
-	public List<Connection> getInterConnections() {
-		List<Connection> interconnection = new ArrayList<Connection>();
-		for (Connection connection : graph.edgeSet()) {
-			if (connection instanceof InterConnection) {
-				interconnection.add(connection);
-			}
-		}
-		return interconnection;
 	}
 
 	public Map<String, BusInterface> getInterfaces() {

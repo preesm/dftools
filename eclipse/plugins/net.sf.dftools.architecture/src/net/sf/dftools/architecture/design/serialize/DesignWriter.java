@@ -50,9 +50,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Writes an IP-XACT design
+ * This class define an IP-XACT design writer.
  * 
- * @author ghislain roquier
+ * @author Ghislain Roquier
  */
 public class DesignWriter {
 
@@ -60,20 +60,18 @@ public class DesignWriter {
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
-	private Set<Component> componentsMap;
+	private Set<Component> componentsMap = new HashSet<Component>();
 
 	private File path;
 
 	public DesignWriter(File path, Design design) {
-		componentsMap = new HashSet<Component>();
 		this.graph = design.getGraph();
 		this.path = path;
-
 		document = DomUtil.createDocument(
-				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
+				"http://www.accellera.org/XMLSchema/SPIRIT/1.5",
 				"spirit:design");
-		writeIpXact(document.getDocumentElement(), design);
 
+		writeIpXact(document.getDocumentElement(), design);
 		File file = new File(path, design.getVlnv().getName() + ".design");
 		try {
 			OutputStream os = new FileOutputStream(file);
@@ -163,13 +161,14 @@ public class DesignWriter {
 		}
 	}
 
-	private void writeHierConnections(Element parent,
-			List<Connection> hierconnections) {
-		if (!hierconnections.isEmpty()) {
-			Element intsElt = document.createElement("spirit:hierConnections");
-			parent.appendChild(intsElt);
+	private void writeHierConnections(Element parent) {
+		Element intsElt = document.createElement("spirit:hierConnections");
+		parent.appendChild(intsElt);
 
-			for (Connection connection : hierconnections) {
+		for (Connection connection : graph.edgeSet()) {
+			Vertex src = graph.getEdgeSource(connection);
+			Vertex tgt = graph.getEdgeTarget(connection);
+			if (src.isBusInterface() || tgt.isBusInterface()) {
 				writeHierConnection(intsElt, connection);
 			}
 		}
@@ -198,13 +197,14 @@ public class DesignWriter {
 		}
 	}
 
-	private void writeInterconnections(Element parent,
-			List<Connection> interconnections) {
-		if (!interconnections.isEmpty()) {
-			Element intsElt = document.createElement("spirit:interconnections");
-			parent.appendChild(intsElt);
+	private void writeInterconnections(Element parent) {
+		Element intsElt = document.createElement("spirit:interconnections");
+		parent.appendChild(intsElt);
 
-			for (Connection connection : interconnections) {
+		for (Connection connection : graph.edgeSet()) {
+			Vertex src = graph.getEdgeSource(connection);
+			Vertex tgt = graph.getEdgeTarget(connection);
+			if (src.isComponentInstance() && tgt.isComponentInstance()) {
 				writeInterconnection(intsElt, connection);
 			}
 		}
@@ -213,8 +213,8 @@ public class DesignWriter {
 	public void writeIpXact(Element ipxact, Design design) {
 		writeVLNV(ipxact, design);
 		writeComponentInstances(ipxact, design.getComponentInstances());
-		writeInterconnections(ipxact, design.getInterConnections());
-		writeHierConnections(ipxact, design.getHierConnections());
+		writeInterconnections(ipxact);
+		writeHierConnections(ipxact);
 	}
 
 	private void writeVLNV(Element parent, ComponentInstance component) {

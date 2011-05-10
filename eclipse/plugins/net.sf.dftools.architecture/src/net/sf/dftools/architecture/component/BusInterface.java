@@ -10,9 +10,11 @@ package net.sf.dftools.architecture.component;
 import net.sf.dftools.architecture.VLNV;
 
 /**
- * @author ghislain roquier
+ * This class defines a bus interfaces.
+ * 
+ * @author Ghislain Roquier
+ *
  */
-
 public class BusInterface {
 
 	private String name;

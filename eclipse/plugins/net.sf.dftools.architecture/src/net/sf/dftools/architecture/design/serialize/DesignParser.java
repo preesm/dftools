@@ -43,8 +43,6 @@ import net.sf.dftools.architecture.component.serialize.ComponentParser;
 import net.sf.dftools.architecture.design.ComponentInstance;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
-import net.sf.dftools.architecture.design.HierConnection;
-import net.sf.dftools.architecture.design.InterConnection;
 import net.sf.dftools.architecture.design.Vertex;
 import net.sf.dftools.architecture.utils.DomUtil;
 
@@ -54,30 +52,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * This class defines a IP-XACT design parser.
+ * 
+ * @author Ghislain Roquier
+ *
+ */
 public class DesignParser {
-
-	public static void main(String[] args) throws IOException {
-		if (args.length == 1) {
-			String fileName;
-			fileName = new File(args[0]).getCanonicalPath();
-
-			DesignParser parser = new DesignParser(fileName,
-					new HashMap<String, BusInterface>());
-			Design design = parser.parse();
-
-			new DesignWriter(new File("D:/temp/ipxact/generated"), design);
-
-		} else {
-			System.err.println("Usage: IpXactParser "
-					+ "<absolute path of top-level IpXact design>");
-		}
-	}
 
 	private String file;
 
 	private String path;
-
-	private String id;
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
@@ -213,9 +198,7 @@ public class DesignParser {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) node;
 				String nodeName = node.getNodeName();
-				if (nodeName.equals("spirit:id")) {
-					id = element.getTextContent();
-				} else if (nodeName.equals("spirit:vendor")) {
+				if (nodeName.equals("spirit:vendor")) {
 					vendor = element.getTextContent();
 				} else if (nodeName.equals("spirit:name")) {
 					name = element.getTextContent();
@@ -238,7 +221,7 @@ public class DesignParser {
 		}
 
 		VLNV vlnv = new VLNV(vendor, library, name, version);
-		return new Design(id, vlnv, graph);
+		return new Design(name, vlnv, graph);
 
 	}
 
@@ -270,7 +253,7 @@ public class DesignParser {
 		Vertex cmp1 = getVertex(componentName, busName);
 		BusInterface bus = getBusInterface(componentName, busName);
 
-		Connection interconn = new HierConnection(intf, bus);
+		Connection interconn = new Connection(intf, bus);
 		graph.addEdge(vertex, cmp1, interconn);
 	}
 
@@ -319,7 +302,7 @@ public class DesignParser {
 		BusInterface busRef2 = getBusInterface(componentRefs.get(1),
 				busRefs.get(1));
 
-		Connection interconn = new InterConnection(busRef1, busRef2);
+		Connection interconn = new Connection(busRef1, busRef2);
 		graph.addEdge(cmp1, cmp2, interconn);
 
 	}

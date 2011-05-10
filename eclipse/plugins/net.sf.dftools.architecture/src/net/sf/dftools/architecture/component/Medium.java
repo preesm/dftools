@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2011 - IETR/INSA de Rennes and EPFL
+/* Copyright (c) 2010-2011 - EPFL
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -9,9 +9,9 @@
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *   * Neither the name of the IETR/INSA de Rennes and EPFL nor the names of its
- *     contributors may be used to endorse or promote products derived from this
- *     software without specific prior written permission.
+ *   * Neither the name of the EPFL nor the names of its contributors may be used 
+ *     to endorse or promote products derived from this software without specific 
+ *     prior written permission.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -25,17 +25,29 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
-package net.sf.dftools.architecture.design;
+package net.sf.dftools.architecture.component;
 
-import net.sf.dftools.architecture.component.BusInterface;
+import java.util.Map;
+
+import net.sf.dftools.architecture.VLNV;
+import net.sf.dftools.architecture.design.Design;
 
 /**
+ * This class defines a medium component.
  * 
- * @author ghislain roquier
+ * @author Ghislain Roquier
+ * 
  */
-public class InterConnection extends Connection {
+public class Medium extends Component {
 
-	public InterConnection(BusInterface source, BusInterface target) {
-		super(source, target);
+	public Medium(String name, VLNV vlnv, Map<String, BusInterface> interfaces,
+			Design design) {
+		super(name, vlnv, interfaces, design);
 	}
+
+	@Override
+	public boolean isMedium() {
+		return true;
+	}
+
 }

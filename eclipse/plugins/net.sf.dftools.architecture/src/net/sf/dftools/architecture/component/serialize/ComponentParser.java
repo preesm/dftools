@@ -36,6 +36,7 @@ import java.util.HashMap;
 import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.component.ComponentFactory;
 import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
 import net.sf.dftools.architecture.utils.DomUtil;
@@ -44,22 +45,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * This class defines an IP-XACT parser.
+ * 
+ * @author Ghislain Roquier
+ *
+ */
 public class ComponentParser {
-	public static void main(String[] args) throws IOException {
-		if (args.length == 1) {
-			String fileName;
-			fileName = new File(args[0]).getCanonicalPath();
-
-			ComponentParser parser = new ComponentParser(fileName);
-			Component component = parser.parse();
-
-			new ComponentWriter(new File("D:/temp"), component);
-
-		} else {
-			System.err.println("Usage: IpXactParser "
-					+ "<absolute path of top-level IpXact design>");
-		}
-	}
 
 	private String file;
 
@@ -92,6 +84,7 @@ public class ComponentParser {
 		String library = null;
 		String busName = null;
 		String version = null;
+		
 		boolean isServer = false;
 		while (node != null) {
 			if (node instanceof Element) {
@@ -136,6 +129,8 @@ public class ComponentParser {
 		Node node = root.getFirstChild();
 		busInterfaces = new HashMap<String, BusInterface>();
 
+		String compType = null;
+
 		String vendor = null;
 		String library = null;
 		String version = null;
@@ -144,7 +139,10 @@ public class ComponentParser {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) node;
 				String nodeName = node.getNodeName();
-				if (nodeName.equals("spirit:vendor")) {
+				if (nodeName.equals("spirit:componentType")) {
+					// hack!
+					compType = element.getTextContent();
+				} else if (nodeName.equals("spirit:vendor")) {
 					vendor = element.getTextContent();
 				} else if (nodeName.equals("spirit:name")) {
 					name = element.getTextContent();
@@ -164,7 +162,8 @@ public class ComponentParser {
 			node = node.getNextSibling();
 		}
 		VLNV vlnv = new VLNV(vendor, library, name, version);
-		return new Component(name, vlnv, busInterfaces, subDesign);
+		return ComponentFactory.getInstance().createComponent(compType, name,
+				vlnv, busInterfaces, subDesign);
 	}
 
 	private void parseSubDesign(Element callElt) {

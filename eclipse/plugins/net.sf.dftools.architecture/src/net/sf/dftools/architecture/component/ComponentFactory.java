@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2011 - IETR/INSA de Rennes and EPFL
+/* Copyright (c) 2010-2011 - EPFL
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -9,9 +9,9 @@
  *   * Redistributions in binary form must reproduce the above copyright notice,
  *     this list of conditions and the following disclaimer in the documentation
  *     and/or other materials provided with the distribution.
- *   * Neither the name of the IETR/INSA de Rennes and EPFL nor the names of its
- *     contributors may be used to endorse or promote products derived from this
- *     software without specific prior written permission.
+ *   * Neither the name of the EPFL nor the names of its contributors may be used 
+ *     to endorse or promote products derived from this software without specific 
+ *     prior written permission.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -25,83 +25,46 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
-package net.sf.dftools.architecture.design;
+package net.sf.dftools.architecture.component;
 
 import java.util.Map;
 
 import net.sf.dftools.architecture.VLNV;
-import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.design.Design;
 
 /**
- * This class defines an instance of a component. An instance has an id,
- * configuration values and the pointed component.
+ * This class defines a component factory.
  * 
- * @author ghislain roquier
+ * @author Ghislain Roquier
  * 
  */
-public class ComponentInstance {
+public class ComponentFactory {
 
-	private String id;
+	private static final ComponentFactory instance = new ComponentFactory();
 
-	private Component component;
-
-	private Map<String, String> configValues;
-
-	private VLNV vlnv;
-
-	public ComponentInstance(String id, VLNV vlnv, Component component,
-			Map<String, String> configValues) {
-		this.id = id;
-		this.vlnv = vlnv;
-		this.component = component;
-		this.configValues = configValues;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public Component getComponent() {
+	public Component createComponent(String type, String name, VLNV vlnv,
+			Map<String, BusInterface> interfaces, Design design) {
+		Component component = null;
+		if (type.equals("operator")) {
+			component = createOperator(name, vlnv, interfaces, design);
+		} else if (type.equals("medium")) {
+			component = createMedium(name, vlnv, interfaces, design);
+		} else {
+		}
 		return component;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public Map<String, String> getConfigValues() {
-		return configValues;
+	private Component createMedium(String name, VLNV vlnv,
+			Map<String, BusInterface> interfaces, Design design) {
+		return new Medium(name, vlnv, interfaces, design);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getId() {
-		return id;
+	private Component createOperator(String name, VLNV vlnv,
+			Map<String, BusInterface> interfaces, Design design) {
+		return new Operator(name, vlnv, interfaces, design);
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public VLNV getVlnv() {
-		return vlnv;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
-	 * 
-	 */
-	@Override
-	public String toString() {
-		return "instance " + id;
+	public static ComponentFactory getInstance() {
+		return instance;
 	}
 }

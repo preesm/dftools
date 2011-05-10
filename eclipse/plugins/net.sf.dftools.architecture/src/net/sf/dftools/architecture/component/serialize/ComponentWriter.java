@@ -41,6 +41,12 @@ import net.sf.dftools.architecture.utils.DomUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * This class defines an IP-XACT component writer.
+ * 
+ * @author Ghislain Roquier
+ * 
+ */
 public class ComponentWriter {
 
 	Document document;
@@ -52,12 +58,11 @@ public class ComponentWriter {
 	public ComponentWriter(File path, Component component) {
 		this.component = component;
 		this.path = path;
-
 		document = DomUtil.createDocument(
-				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
+				"http://www.accellera.org/XMLSchema/SPIRIT/1.5",
 				"spirit:component");
-		writeComponent(document.getDocumentElement());
 
+		writeComponent(document.getDocumentElement());
 		File file = new File(path, component.getVlnv().getName() + ".component");
 		try {
 			OutputStream os = new FileOutputStream(file);
@@ -107,6 +112,10 @@ public class ComponentWriter {
 		Element hierElt = document.createElement("spirit:hierarchyRef");
 		cmpsElt.appendChild(hierElt);
 		hierElt.setAttribute("spirit:name", component.getDesign().getName());
+		hierElt.setAttribute("spirit:vendor", "");
+		hierElt.setAttribute("spirit:library", "");
+		hierElt.setAttribute("spirit:name", "");
+		hierElt.setAttribute("spirit:version", "");
 
 		new DesignWriter(path, component.getDesign());
 	}
