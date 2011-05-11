@@ -35,8 +35,8 @@ package net.sf.dftools.architecture.component;
  */
 public interface IOperator {
 
-	public boolean isProcessor();
-
 	public boolean isFPGA();
+
+	public boolean isProcessor();
 
 }

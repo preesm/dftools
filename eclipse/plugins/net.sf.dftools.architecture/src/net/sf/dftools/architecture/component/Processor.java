@@ -34,14 +34,14 @@ import net.sf.dftools.architecture.design.Design;
 
 public class Processor extends Operator {
 
-	@Override
-	public boolean isProcessor() {
-		return true;
-	}
-
 	public Processor(VLNV vlnv, Map<String, BusInterface> interfaces,
 			Design design, Map<String, String> options) {
 		super(vlnv, interfaces, design);
+	}
+
+	@Override
+	public boolean isProcessor() {
+		return true;
 	}
 
 }

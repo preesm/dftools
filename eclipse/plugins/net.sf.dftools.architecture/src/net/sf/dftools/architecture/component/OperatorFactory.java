@@ -46,6 +46,12 @@ public class OperatorFactory {
 		return instance;
 	}
 
+	private Component createFPGA(VLNV vlnv,
+			Map<String, BusInterface> interfaces, Design design,
+			Map<String, String> options) {
+		return new FPGA(vlnv, interfaces, design, options);
+	}
+
 	public Component createOperator(VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design,
 			Map<String, String> options) {
@@ -62,13 +68,8 @@ public class OperatorFactory {
 	}
 
 	private Component createProcessor(VLNV vlnv,
-			Map<String, BusInterface> interfaces, Design design, Map<String, String> options) {
-		return new Processor(vlnv, interfaces, design, options);
-	}
-
-	private Component createFPGA(VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design,
 			Map<String, String> options) {
-		return new FPGA(vlnv, interfaces, design, options);
+		return new Processor(vlnv, interfaces, design, options);
 	}
 }

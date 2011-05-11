@@ -32,7 +32,6 @@ import java.util.Map;
 import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.design.Design;
 
-
 /**
  * This class defines an FPGA.
  * 
@@ -41,8 +40,14 @@ import net.sf.dftools.architecture.design.Design;
  */
 public class FPGA extends Operator {
 
-	public FPGA(VLNV vlnv, Map<String, BusInterface> interfaces, Design design, Map<String, String> options) {
+	public FPGA(VLNV vlnv, Map<String, BusInterface> interfaces, Design design,
+			Map<String, String> options) {
 		super(vlnv, interfaces, design);
+	}
+
+	@Override
+	public boolean isFPGA() {
+		return true;
 	}
 
 }

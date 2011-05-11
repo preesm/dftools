@@ -44,15 +44,17 @@ public abstract class Operator extends Component implements IOperator {
 		super(vlnv, interfaces, design);
 	}
 
+	@Override
 	public boolean isFPGA() {
 		return false;
 	}
 
 	@Override
 	public boolean isOperator() {
-		return false;
+		return true;
 	}
 
+	@Override
 	public boolean isProcessor() {
 		return false;
 	}
