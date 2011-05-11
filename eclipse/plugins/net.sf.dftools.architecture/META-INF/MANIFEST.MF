@@ -7,3 +7,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime;bundle-version="3.6.0",
  org.ietr.libs;bundle-version="1.2.8"
+Export-Package: net.sf.dftools.architecture.component,
+ net.sf.dftools.architecture.design,
+ net.sf.dftools.architecture.design.serialize
