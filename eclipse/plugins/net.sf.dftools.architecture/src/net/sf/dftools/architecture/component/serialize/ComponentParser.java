@@ -61,6 +61,8 @@ public class ComponentParser {
 
 	private Design subDesign;
 
+	private String componentType;
+
 	public ComponentParser(String fileName) {
 		this.file = fileName;
 	}
@@ -129,8 +131,6 @@ public class ComponentParser {
 		Node node = root.getFirstChild();
 		busInterfaces = new HashMap<String, BusInterface>();
 
-		String compType = null;
-
 		String vendor = null;
 		String library = null;
 		String version = null;
@@ -139,10 +139,7 @@ public class ComponentParser {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) node;
 				String nodeName = node.getNodeName();
-				if (nodeName.equals("spirit:componentType")) {
-					// hack!
-					compType = element.getTextContent();
-				} else if (nodeName.equals("spirit:vendor")) {
+				if (nodeName.equals("spirit:vendor")) {
 					vendor = element.getTextContent();
 				} else if (nodeName.equals("spirit:name")) {
 					name = element.getTextContent();
@@ -154,6 +151,8 @@ public class ComponentParser {
 					parseBusInterfaces(element);
 				} else if (nodeName.equals("spirit:model")) {
 					parseSubDesign(element);
+				} else if (nodeName.equals("spirit:vendorExtensions")) {
+					parseVendorExtensions(element);
 				} else {
 					// manage exception;
 				}
@@ -162,8 +161,26 @@ public class ComponentParser {
 			node = node.getNextSibling();
 		}
 		VLNV vlnv = new VLNV(vendor, library, name, version);
-		return ComponentFactory.getInstance().createComponent(compType, name,
-				vlnv, busInterfaces, subDesign);
+		return ComponentFactory.getInstance().createComponent(componentType,
+				name, vlnv, busInterfaces, subDesign);
+	}
+
+	private void parseVendorExtensions(Element element) {
+		Node node = element.getFirstChild();
+
+		while (node != null) {
+
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String eltType = elt.getTagName();
+				if (eltType.equals("spirit:componentType")) {
+					componentType = elt.getTextContent();
+				}
+			}
+
+			node = node.getNextSibling();
+		}
+
 	}
 
 	private void parseSubDesign(Element callElt) {
