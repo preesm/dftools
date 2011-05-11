@@ -160,7 +160,6 @@ public class DesignParser {
 					parseComponentInstance(element);
 				}
 			}
-
 			node = node.getNextSibling();
 		}
 	}
@@ -220,7 +219,6 @@ public class DesignParser {
 					// manage exception;
 				}
 			}
-
 			node = node.getNextSibling();
 		}
 

@@ -37,7 +37,7 @@ import net.sf.dftools.architecture.design.Design;
  * 
  * @author Ghislain Roquier
  */
-public class Operator extends Component {
+public class Operator extends Component implements IOperator {
 
 	public Operator(String name, VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design) {
@@ -50,7 +50,7 @@ public class Operator extends Component {
 
 	@Override
 	public boolean isOperator() {
-		return true;
+		return false;
 	}
 
 	public boolean isProcessor() {

@@ -157,7 +157,6 @@ public class ComponentParser {
 					// manage exception;
 				}
 			}
-
 			node = node.getNextSibling();
 		}
 		VLNV vlnv = new VLNV(vendor, library, name, version);
@@ -173,11 +172,10 @@ public class ComponentParser {
 			if (node instanceof Element) {
 				Element elt = (Element) node;
 				String eltType = elt.getTagName();
-				if (eltType.equals("spirit:componentType")) {
-					componentType = elt.getTextContent();
+				if (eltType.equals("componentType")) {
+					componentType = elt.getAttribute("kind");
 				}
 			}
-
 			node = node.getNextSibling();
 		}
 
@@ -196,7 +194,6 @@ public class ComponentParser {
 					parseSubDesignViews(elt);
 				}
 			}
-
 			node = node.getNextSibling();
 		}
 	}
@@ -219,7 +216,6 @@ public class ComponentParser {
 					break;
 				}
 			}
-
 			node = node.getNextSibling();
 		}
 	}
