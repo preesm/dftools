@@ -40,9 +40,9 @@ import net.sf.dftools.architecture.design.Design;
  */
 public class Medium extends Component {
 
-	public Medium(String name, VLNV vlnv, Map<String, BusInterface> interfaces,
-			Design design) {
-		super(name, vlnv, interfaces, design);
+	public Medium(VLNV vlnv, Map<String, BusInterface> interfaces,
+			Design design, Map<String, String> options) {
+		super(vlnv, interfaces, design);
 	}
 
 	@Override

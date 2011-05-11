@@ -30,9 +30,9 @@ public abstract class Component implements IComponent {
 
 	Map<String, BusInterface> interfaces = new HashMap<String, BusInterface>();
 
-	public Component(String name, VLNV vlnv,
-			Map<String, BusInterface> interfaces, Design design) {
-		this.name = name;
+	public Component(VLNV vlnv, Map<String, BusInterface> interfaces,
+			Design design) {
+		this.name = vlnv.getName();
 		this.vlnv = vlnv;
 		this.interfaces = interfaces;
 		this.design = design;

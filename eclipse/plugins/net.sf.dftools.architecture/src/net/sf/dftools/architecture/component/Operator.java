@@ -37,11 +37,11 @@ import net.sf.dftools.architecture.design.Design;
  * 
  * @author Ghislain Roquier
  */
-public class Operator extends Component {
+public abstract class Operator extends Component implements IOperator {
 
-	public Operator(String name, VLNV vlnv,
-			Map<String, BusInterface> interfaces, Design design) {
-		super(name, vlnv, interfaces, design);
+	public Operator(VLNV vlnv, Map<String, BusInterface> interfaces,
+			Design design) {
+		super(vlnv, interfaces, design);
 	}
 
 	public boolean isFPGA() {
@@ -54,7 +54,7 @@ public class Operator extends Component {
 	}
 
 	public boolean isProcessor() {
-		return true;
+		return false;
 	}
 
 }

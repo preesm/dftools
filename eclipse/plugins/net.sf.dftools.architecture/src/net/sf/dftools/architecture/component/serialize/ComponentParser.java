@@ -63,6 +63,8 @@ public class ComponentParser {
 
 	private String componentType;
 
+	private HashMap<String, String> options;
+
 	public ComponentParser(String fileName) {
 		this.file = fileName;
 	}
@@ -130,6 +132,7 @@ public class ComponentParser {
 		Element root = doc.getDocumentElement();
 		Node node = root.getFirstChild();
 		busInterfaces = new HashMap<String, BusInterface>();
+		options = new HashMap<String, String>();
 
 		String vendor = null;
 		String library = null;
@@ -152,7 +155,7 @@ public class ComponentParser {
 				} else if (nodeName.equals("spirit:model")) {
 					parseSubDesign(element);
 				} else if (nodeName.equals("spirit:vendorExtensions")) {
-					parseVendorExtensions(element);
+					parseComponentType(element);
 				} else {
 					// manage exception;
 				}
@@ -161,10 +164,10 @@ public class ComponentParser {
 		}
 		VLNV vlnv = new VLNV(vendor, library, name, version);
 		return ComponentFactory.getInstance().createComponent(componentType,
-				name, vlnv, busInterfaces, subDesign);
+				vlnv, busInterfaces, subDesign, options);
 	}
 
-	private void parseVendorExtensions(Element element) {
+	private void parseComponentType(Element element) {
 		Node node = element.getFirstChild();
 
 		while (node != null) {
@@ -174,11 +177,31 @@ public class ComponentParser {
 				String eltType = elt.getTagName();
 				if (eltType.equals("componentType")) {
 					componentType = elt.getAttribute("kind");
+
+					if (componentType.equals("operator")) {
+						parseOperatorType(elt);
+					}
 				}
 			}
 			node = node.getNextSibling();
 		}
 
+	}
+
+	private void parseOperatorType(Element element) {
+		Node node = element.getFirstChild();
+
+		while (node != null) {
+
+			if (node instanceof Element) {
+				Element elt = (Element) node;
+				String eltType = elt.getTagName();
+				if (eltType.equals("operatorType")) {
+					options.put("operatorType", elt.getTextContent());
+				}
+			}
+			node = node.getNextSibling();
+		}
 	}
 
 	private void parseSubDesign(Element callElt) {

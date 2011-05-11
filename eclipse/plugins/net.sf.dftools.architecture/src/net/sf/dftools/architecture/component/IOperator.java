@@ -27,48 +27,16 @@
  */
 package net.sf.dftools.architecture.component;
 
-import java.util.Map;
-
-import net.sf.dftools.architecture.VLNV;
-import net.sf.dftools.architecture.design.Design;
-
 /**
- * This class defines a component factory.
+ * This interface defines an operator.
  * 
  * @author Ghislain Roquier
  * 
  */
-public class ComponentFactory {
+public interface IOperator {
 
-	private static final ComponentFactory instance = new ComponentFactory();
+	public boolean isProcessor();
 
-	public static ComponentFactory getInstance() {
-		return instance;
-	}
+	public boolean isFPGA();
 
-	public Component createComponent(String type, VLNV vlnv,
-			Map<String, BusInterface> interfaces, Design design,
-			Map<String, String> options) {
-		Component component = null;
-		if (type.equals("operator")) {
-			component = createOperator(vlnv, interfaces, design, options);
-		} else if (type.equals("medium")) {
-			component = createMedium(vlnv, interfaces, design, options);
-		} else {
-		}
-		return component;
-	}
-
-	private Component createMedium(VLNV vlnv,
-			Map<String, BusInterface> interfaces, Design design,
-			Map<String, String> options) {
-		return new Medium(vlnv, interfaces, design, options);
-	}
-
-	private Component createOperator(VLNV vlnv,
-			Map<String, BusInterface> interfaces, Design design,
-			Map<String, String> options) {
-		return OperatorFactory.getInstance().createOperator(vlnv, interfaces,
-				design, options);
-	}
 }
