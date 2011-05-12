@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="net.sf.graphiti.model.definition">
+      <configuration
+            extension="design"
+            name="IP-XACT"
+            type="text/xml"
+            validator="net.sf.dftools.architecture.ui.editor.IpXactValidator">
+         <graphType
+               name="IP-XACT design">
+         </graphType>
+         <import>
+            <transformation
+                  class="net.sf.dftools.architecture.ui.editor.IpXactImporter">
+            </transformation></import>
+         <vertexType
+               name="ComponentInstance">
+            <color
+                  blue="210"
+                  green="200"
+                  red="190">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+         </vertexType>
+         <export>
+            <transformation
+                  class="net.sf.dftools.architecture.ui.editor.IpXactExporter">
+            </transformation>
+         </export>
+         <vertexType
+               name="BusInterface">
+            <color
+                  blue="100"
+                  green="60"
+                  red="0">
+            </color>
+            <shape
+                  type="circle">
+            </shape>
+            <size
+                  height="30"
+                  width="30">
+            </size>
+         </vertexType>
+      </configuration>
+   </extension>
+
+</plugin>
