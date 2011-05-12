@@ -52,5 +52,30 @@
          </vertexType>
       </configuration>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            name="Architecture">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            class="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
+            hasPages="true"
+            id="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
+            name="Architecture Project"
+            project="true">
+      </wizard>
+      <wizard
+            canFinishEarly="false"
+            category="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            class="net.sf.dftools.architecture.ui.NewArchitectureWizard"
+            hasPages="true"
+            id="net.sf.dftools.architecture.ui.NewArchitectureWizard"
+            name="Architecture Description (IP-XACT)"
+            project="false">
+      </wizard>
+   </extension>
 
 </plugin>
