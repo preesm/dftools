@@ -71,11 +71,11 @@ public class NewArchitectureWizard extends Wizard implements INewWizard {
 		WizardSaveGraphPage page = new WizardSaveGraphPage(selection);
 
 		Configuration configuration = GraphitiModelPlugin.getDefault()
-				.getConfiguration("XDF");
-		ObjectType type = configuration.getGraphType("XML Dataflow Network");
+				.getConfiguration("IP-XACT");
+		ObjectType type = configuration.getGraphType("IP-XACT");
 
 		page.setGraph(new Graph(configuration, type, true));
-		page.setDescription("Create a new XDF network.");
+		page.setDescription("Create a new architecture.");
 		addPage(page);
 	}
 

@@ -32,6 +32,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.google.inject,
  net.sf.dftools.architecture.design,
+ net.sf.dftools.architecture.design.serialize,
  net.sf.graphiti,
  net.sf.graphiti.io,
  net.sf.graphiti.model,

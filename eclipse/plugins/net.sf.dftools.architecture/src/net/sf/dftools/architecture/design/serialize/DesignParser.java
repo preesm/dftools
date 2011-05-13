@@ -27,8 +27,7 @@
  */
 package net.sf.dftools.architecture.design.serialize;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -46,6 +45,9 @@ import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.Vertex;
 import net.sf.dftools.architecture.utils.DomUtil;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.Multigraph;
 import org.w3c.dom.Document;
@@ -60,9 +62,9 @@ import org.w3c.dom.Node;
  */
 public class DesignParser {
 
-	private String file;
+	private IFile file;
 
-	private String path;
+	private IFolder path;
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
@@ -70,14 +72,14 @@ public class DesignParser {
 
 	private Map<String, ComponentInstance> instances;
 
-	public DesignParser(String fileName) {
-		this(fileName, new HashMap<String, BusInterface>());
+	public DesignParser(IFile file) {
+		this(file, new HashMap<String, BusInterface>());
 	}
 
-	public DesignParser(String fileName, Map<String, BusInterface> busInterfaces) {
-		this.file = fileName;
+	public DesignParser(IFile file, Map<String, BusInterface> busInterfaces) {
+		this.file = file;
 		this.busInterfaces = busInterfaces;
-		path = new File(fileName).getParent();
+		path = (IFolder) file.getParent();
 	}
 
 	private BusInterface getBusInterface(String vertexName, String portName) {
@@ -98,19 +100,19 @@ public class DesignParser {
 		}
 	}
 
-	public Design parse() throws IOException {
+	public Design parse() throws Exception {
 		try {
-			InputStream is = new FileInputStream(file);
-			Document document = DomUtil.parseDocument(is);
+			InputStream in = file.getContents();
+			Document document = DomUtil.parseDocument(in);
 			Design design = parseDesign(document);
-			is.close();
+			in.close();
 			return design;
 		} catch (IOException e) {
 			throw new IOException("I/O error when parsing design", e);
 		}
 	}
 
-	private void parseComponentInstance(Element comp) throws IOException {
+	private void parseComponentInstance(Element comp) throws Exception {
 		Node node = comp.getFirstChild();
 
 		String id = null;
@@ -138,9 +140,12 @@ public class DesignParser {
 			node = node.getNextSibling();
 		}
 		ComponentInstance instance = null;
-		File compFile = new File(path, name + ".component");
-		String filename = compFile.getAbsolutePath();
-		Component component = new ComponentParser(filename).parse();
+		IFile compFile = path.getFile(name + ".component");
+		if (!compFile.exists()) {
+			compFile.create(new ByteArrayInputStream(new byte[0]),
+					IResource.NONE, null);
+		}
+		Component component = new ComponentParser(compFile).parse();
 
 		instance = new ComponentInstance(id, new VLNV(vendor, library, name,
 				version), component, values);
@@ -149,7 +154,7 @@ public class DesignParser {
 		graph.addVertex(new Vertex(instance));
 	}
 
-	private void parseComponentInstances(Element components) throws IOException {
+	private void parseComponentInstances(Element components) throws Exception {
 		Node node = components.getFirstChild();
 
 		while (node != null) {
@@ -184,7 +189,7 @@ public class DesignParser {
 
 	}
 
-	private Design parseDesign(Document doc) throws IOException {
+	private Design parseDesign(Document doc) throws Exception {
 		Element root = doc.getDocumentElement();
 		Node node = root.getFirstChild();
 

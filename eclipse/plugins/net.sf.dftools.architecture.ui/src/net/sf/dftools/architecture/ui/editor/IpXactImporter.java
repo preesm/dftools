@@ -28,12 +28,21 @@
  */
 package net.sf.dftools.architecture.ui.editor;
 
-import java.io.OutputStream;
+import static net.sf.graphiti.model.ObjectType.PARAMETER_ID;
 
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
+import net.sf.dftools.architecture.design.serialize.DesignParser;
+import net.sf.graphiti.GraphitiModelPlugin;
 import net.sf.graphiti.io.ITransformation;
+import net.sf.graphiti.model.Configuration;
 import net.sf.graphiti.model.Edge;
 import net.sf.graphiti.model.Graph;
+import net.sf.graphiti.model.ObjectType;
 import net.sf.graphiti.model.Vertex;
 
 import org.eclipse.core.resources.IFile;
@@ -46,12 +55,40 @@ import org.eclipse.core.resources.IFile;
  */
 public class IpXactImporter implements ITransformation {
 
-	@SuppressWarnings("unused")
-	private void addEdge(Design design, Edge edge) {
+	private Graph graph;
+
+	private Map<net.sf.dftools.architecture.design.Vertex, Vertex> vertexMap;
+
+	private void addEdges(Design design) {
+		Configuration configuration = graph.getConfiguration();
+		for (Connection connection : design.getGraph().edgeSet()) {
+			Vertex src = vertexMap.get(design.getGraph().getEdgeSource(
+					connection));
+			Vertex tgt = vertexMap.get(design.getGraph().getEdgeTarget(
+					connection));
+
+			ObjectType type = configuration.getEdgeType("Connection");
+			Edge edge = new Edge(type, src, tgt);
+			graph.addEdge(edge);
+		}
 	}
 
-	@SuppressWarnings("unused")
-	private void addVertex(Design design, Vertex vertex) {
+	private void addVertex(Design design,
+			net.sf.dftools.architecture.design.Vertex designVertex) {
+		Configuration configuration = graph.getConfiguration();
+		ObjectType type = configuration.getVertexType("ComponentInstance");
+		Vertex vertex = new Vertex(type);
+		String name = designVertex.getComponentInstance().getId();
+		vertex.setValue(PARAMETER_ID, name);
+		graph.addVertex(vertex);
+		vertexMap.put(designVertex, vertex);
+	}
+
+	private void addVertices(Design design) {
+		for (net.sf.dftools.architecture.design.Vertex vertex : design
+				.getGraph().vertexSet()) {
+			addVertex(design, vertex);
+		}
 	}
 
 	@Override
@@ -60,7 +97,24 @@ public class IpXactImporter implements ITransformation {
 
 	@Override
 	public Graph transform(IFile file) {
-		return null;
-	}
+		vertexMap = new HashMap<net.sf.dftools.architecture.design.Vertex, Vertex>();
+		Configuration configuration = GraphitiModelPlugin.getDefault()
+				.getConfiguration("IP-XACT");
+		ObjectType type = configuration.getGraphType("IP-XACT design");
+		graph = new Graph(configuration, type, false);
 
+		DesignParser parser = new DesignParser(file);
+		Design design = null;
+		try {
+			design = parser.parse();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		addVertices(design);
+
+		addEdges(design);
+
+		return graph;
+	}
 }

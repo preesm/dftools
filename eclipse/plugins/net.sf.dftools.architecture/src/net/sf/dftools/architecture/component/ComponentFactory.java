@@ -68,7 +68,6 @@ public class ComponentFactory {
 	private Component createOperator(VLNV vlnv,
 			Map<String, BusInterface> interfaces, Design design,
 			Map<String, String> options) {
-		return OperatorFactory.getInstance().createOperator(vlnv, interfaces,
-				design, options);
+		return new Operator(vlnv, interfaces, options, design);
 	}
 }

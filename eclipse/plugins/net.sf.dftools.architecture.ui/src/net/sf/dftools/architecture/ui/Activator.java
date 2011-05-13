@@ -43,6 +43,15 @@ public class Activator extends AbstractUIPlugin {
 	private static Activator plugin;
 	
 	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static Activator getDefault() {
+		return plugin;
+	}
+
+	/**
 	 * The constructor
 	 */
 	public Activator() {
@@ -64,15 +73,6 @@ public class Activator extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
-	}
-
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
-	public static Activator getDefault() {
-		return plugin;
 	}
 
 }

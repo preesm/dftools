@@ -50,6 +50,18 @@
                   width="30">
             </size>
          </vertexType>
+         <edgeType
+               directed="true"
+               name="Connection">
+            <parameter
+                  name="source port"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="target port"
+                  type="java.lang.String">
+            </parameter>
+         </edgeType>
       </configuration>
    </extension>
    <extension
@@ -76,6 +88,16 @@
             name="Architecture Description (IP-XACT)"
             project="false">
       </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.sf.graphiti.ui.editors.GraphEditor"
+            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            default="true"
+            id="net.sf.dftools.architecture.ui.editor"
+            name="IP-XACT Editor">
+      </editor>
    </extension>
 
 </plugin>

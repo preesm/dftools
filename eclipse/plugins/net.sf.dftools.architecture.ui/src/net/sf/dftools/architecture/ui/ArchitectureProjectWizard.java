@@ -66,7 +66,7 @@ public class ArchitectureProjectWizard extends BasicNewProjectResourceWizard {
 			String[] newNatures = new String[natures.length + 1];
 
 			// add new natures
-			System.arraycopy(natures, 0, newNatures, 2, natures.length);
+			System.arraycopy(natures, 0, newNatures, 1, natures.length);
 			newNatures[0] = JavaCore.NATURE_ID;
 			description.setNatureIds(newNatures);
 			project.setDescription(description, null);

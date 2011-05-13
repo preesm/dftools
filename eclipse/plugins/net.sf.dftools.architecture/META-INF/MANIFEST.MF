@@ -9,4 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.ietr.libs;bundle-version="1.2.8"
 Export-Package: net.sf.dftools.architecture.component,
  net.sf.dftools.architecture.design,
- net.sf.dftools.architecture.design.serialize
+ net.sf.dftools.architecture.design.serialize,
+ net.sf.dftools.architecture.utils
+Import-Package: org.eclipse.core.resources,
+ org.eclipse.jdt.core

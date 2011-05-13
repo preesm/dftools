@@ -27,8 +27,6 @@
  */
 package net.sf.dftools.architecture.component.serialize;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -41,6 +39,8 @@ import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
 import net.sf.dftools.architecture.utils.DomUtil;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,7 +53,7 @@ import org.w3c.dom.Node;
  */
 public class ComponentParser {
 
-	private String file;
+	private IFile file;
 
 	private String name;
 
@@ -65,13 +65,13 @@ public class ComponentParser {
 
 	private HashMap<String, String> options;
 
-	public ComponentParser(String fileName) {
-		this.file = fileName;
+	public ComponentParser(IFile file) {
+		this.file = file;
 	}
 
-	public Component parse() throws IOException {
+	public Component parse() throws Exception {
 		try {
-			InputStream is = new FileInputStream(file);
+			InputStream is = file.getContents();
 			Document document = DomUtil.parseDocument(is);
 			Component component = parseComponent(document);
 			is.close();
@@ -128,7 +128,7 @@ public class ComponentParser {
 		}
 	}
 
-	private Component parseComponent(Document doc) throws IOException {
+	private Component parseComponent(Document doc) throws Exception {
 		Element root = doc.getDocumentElement();
 		Node node = root.getFirstChild();
 		busInterfaces = new HashMap<String, BusInterface>();
@@ -204,7 +204,7 @@ public class ComponentParser {
 		}
 	}
 
-	private void parseSubDesign(Element callElt) {
+	private void parseSubDesign(Element callElt) throws Exception {
 
 		Node node = callElt.getFirstChild();
 
@@ -223,8 +223,10 @@ public class ComponentParser {
 
 	/**
 	 * Parses a subdesign view
+	 * 
+	 * @throws Exception
 	 */
-	private void parseSubDesignViews(Element callElt) {
+	private void parseSubDesignViews(Element callElt) throws Exception {
 
 		Node node = callElt.getFirstChild();
 
@@ -246,8 +248,10 @@ public class ComponentParser {
 	/**
 	 * Parses a multicore architecture being the subdesign of the current
 	 * component and sets it as the component refinement
+	 * 
+	 * @throws Exception
 	 */
-	private void parseView(Element element) {
+	private void parseView(Element element) throws Exception {
 
 		String designName = null;
 		Node node = element.getFirstChild();
@@ -265,9 +269,10 @@ public class ComponentParser {
 		}
 
 		try {
-			String path = new File(file).getParent();
-			designName = path + File.separator + designName + ".design";
-			subDesign = new DesignParser(designName, busInterfaces).parse();
+			IFolder path = (IFolder) file.getParent();
+			IFile designFile = path.getFile(designName + ".design");
+			DesignParser parser = new DesignParser(designFile, busInterfaces);
+			subDesign = parser.parse();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
