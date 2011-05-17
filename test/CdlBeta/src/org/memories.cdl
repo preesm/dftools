@@ -1,4 +1,4 @@
-package org.memories;
+package org;
 
 	enum ERamType { DRAM, SRAM };
 	

@@ -1,4 +1,4 @@
-package org.stdio.uart;
+package org.stdio;
 
 	enum EBaudrate {
 		110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200,

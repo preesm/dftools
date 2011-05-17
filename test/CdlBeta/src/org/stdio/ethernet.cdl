@@ -1,4 +1,4 @@
-package org.stdio.ethernet;
+package org.stdio;
 
 	enum EDomain {
 		PF_LOCAL,       // Host-internal protocols,
