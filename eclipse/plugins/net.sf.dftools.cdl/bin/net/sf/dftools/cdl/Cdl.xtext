@@ -1,0 +1,9 @@
+grammar net.sf.dftools.cdl.Cdl with org.eclipse.xtext.common.Terminals
+
+generate cdl "http://www.sf.net/dftools/cdl/Cdl"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
