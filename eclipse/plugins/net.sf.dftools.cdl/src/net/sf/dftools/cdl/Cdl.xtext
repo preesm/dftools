@@ -2,8 +2,29 @@ grammar net.sf.dftools.cdl.Cdl with org.eclipse.xtext.common.Terminals
 
 generate cdl "http://www.sf.net/dftools/cdl/Cdl"
 
-Model:
-	greetings+=Greeting*;
+///////////////////////////////////////////////////////////////////////////////
+// top-level entity
+///////////////////////////////////////////////////////////////////////////////
+
+AstEntity: 
+	('package' package=QualifiedName ';')?
+	(imports += Import)*
 	
-Greeting:
-	'Hello' name=ID '!';
+	'component' name=ID actor=AstComponent;
+
+Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
+
+QualifiedName:
+	ID ('.' ID)*;
+
+QualifiedNameWithWildCard:
+	QualifiedName '.*'?;
+	
+	
+///////////////////////////////////////////////////////////////////////////////
+// component
+///////////////////////////////////////////////////////////////////////////////
+
+AstComponent: {AstComponent}
+'{'
+'};';

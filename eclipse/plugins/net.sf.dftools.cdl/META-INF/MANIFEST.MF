@@ -12,6 +12,19 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.mwe.utils;resolution:=optional,
  org.eclipse.emf.mwe2.launch;resolution:=optional,
  com.ibm.icu;resolution:=optional,
- org.eclipse.xtext.xtend;resolution:=optional
+ org.eclipse.xtext.xtend;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: net.sf.dftools.cdl,
+ net.sf.dftools.cdl.services,
+ net.sf.dftools.cdl.cdl,
+ net.sf.dftools.cdl.cdl.impl,
+ net.sf.dftools.cdl.cdl.util,
+ net.sf.dftools.cdl.parseTreeConstruction,
+ net.sf.dftools.cdl.parser.antlr,
+ net.sf.dftools.cdl.parser.antlr.internal,
+ net.sf.dftools.cdl.validation

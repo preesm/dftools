@@ -4,7 +4,7 @@ import org.stdio.*;
 import org.units.*;
 import org.memories.*;
 
-device ml509() eth0, com1 {
+component ml509() eth0, com1 {
 
 	operator FPGA {
 		family = "VIRTEX5";

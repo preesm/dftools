@@ -22,7 +22,7 @@ import org.memories.DDR2;
   *		device NAME(PARAM) USABLE_INTERFACES :
   */  
 
-device compaq671b() eth0, com1 {
+component compaq671b() eth0, com1 {
 
 	operator CPU {
 		cores = 2;
