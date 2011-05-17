@@ -55,5 +55,30 @@
             type="net.sf.dftools.ui.workflow.tools.WorkflowLogger">
       </logger>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="net.sf.dftools.ui.DFToolsCategory"
+            name="DFTools">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="net.sf.dftools.ui.DFToolsCategory"
+            class="net.sf.dftools.ui.DFToolsProjectWizard"
+            hasPages="true"
+            icon="icons/workflow.png"
+            id="net.sf.dftools.ui.newDFToolsProject"
+            name="Project"
+            project="true">
+      </wizard>
+   </extension>
+   <extension
+         id="DFToolsNature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="net.sf.dftools.ui.DFToolsProjectNature">
+         </run>
+      </runtime>
+   </extension>
 </plugin>
