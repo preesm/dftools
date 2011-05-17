@@ -1,0 +1,26 @@
+package org.stdio.ethernet;
+
+	enum EDomain {
+		PF_LOCAL,       // Host-internal protocols,
+        PF_INET,        // Internet version 4 protocols
+        PF_ROUTE,       // Internal Routing protocol
+        PF_KEY,         // Internal key-management function
+        PF_INET6,       // Internet version 6 protocols
+        PF_SYSTEM,      // System domain
+        PF_NDRV,		// Raw access to network device
+	};
+
+	enum EType {
+		SOCK_STREAM, SOCK_DGRAM, SOCK_RAW
+        SOCK_SEQPACKET, SOCK_RDM
+	};
+	
+
+	// Definition of the type ethernet
+	type ethernet {
+		String Address; // must be set at intention
+		int Port;
+		EDomain Domaine = PF_INET; // set by default, could be set at intention
+		EType Type = SOCK_STREAM;
+		int Protocol = 0;
+	};

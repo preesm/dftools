@@ -1,0 +1,60 @@
+package epfl.stimm;
+
+import org.stdio.*;
+import org.units.*;
+import org.memories.DDR2;
+
+/*
+ *		interface TYPE {...} DIRECTION NAME :
+ *		DIRECTION cases : <== output, ==> input, <==> bidir
+ */
+ 
+ /*
+  *		processor TYPE {...} NAME :
+  *		only one by device
+  */
+
+ /*
+  *		memory TYPE {...} NAME :
+  */
+  
+ /*
+  *		device NAME(PARAM) USABLE_INTERFACES :
+  */  
+
+device compaq671b() eth0, com1 {
+
+	operator CPU {
+		cores = 2;
+		threads = 2;
+		clock = 2.4 * 10^9;
+		cache = 3 * 10^6;
+		fsb = 800 * 10^6;
+	} T8300;
+	
+	interface ethernet {
+		address = "192.168.1.10";
+		port = 1024;
+	} <==> eth0;
+	
+	interface ethernet {
+		address = "172.16.1.10";
+		port = 1024;
+	} <==> eth1;
+	
+	interface uart {
+		device = "COM1";
+		baudRate = EBaudrate.57600;
+	} <==> com1;
+	
+	interface uart {
+		device = "COM4";
+		baudRate = EBaudrate.57600;
+	} <==> com4;
+	
+	memory DDR2 {
+		speed = 533 * 10^6;
+		size = 4 * 10^9;
+	} ddr2name;
+	
+};

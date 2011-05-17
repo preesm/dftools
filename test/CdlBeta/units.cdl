@@ -1,0 +1,16 @@
+package org.units;
+	
+	type CPU {
+		int cores;
+		int threads;
+		long clock;
+		long cache;
+		long fsb;
+	}
+	
+	type FPGA {
+		string family;
+		string device;
+		string package;
+		string speed;
+	}

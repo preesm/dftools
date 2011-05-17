@@ -1,0 +1,29 @@
+package org.stdio.uart;
+
+	enum EBaudrate {
+		110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200,
+		38400, 56000, 57600, 115200, 128000, 256000 };
+
+	// Data bits (5-8)
+	enum EDataBits { 5, 6, 7, 8 };
+
+	// Parity scheme
+	enum EParity {
+		NO_PARITY, ODD_PARITY, EVEN_PARITY,
+		MARK_PARITY, SPACE_PARITY };
+
+	// Stop bits
+	enum EStopBits { ONE_STOP_BIT, ONE_5STOP_BITS, TWO_STOP_BITS };
+
+	// Handshaking
+	enum EHandshake { HandshakeOff, HandshakeHardware, HandshakeSoftware };
+
+	// Definition of 
+	type uart {
+		String Device;
+		EParity Parity = NO_PARITY;
+		EHandshake Handshake = HandshakeOff;
+		EStopBits StopBits = ONE_STOP_BIT;
+		EDataBits DataBits = 8;
+		EBaudrate BaudRate = 9600;
+	};
