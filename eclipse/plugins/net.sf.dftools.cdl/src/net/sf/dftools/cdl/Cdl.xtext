@@ -6,11 +6,11 @@ generate cdl "http://www.sf.net/dftools/cdl/Cdl"
 // top-level entity
 ///////////////////////////////////////////////////////////////////////////////
 
-AstEntity: 
+Entity: 
 	('package' package=QualifiedName ';')?
 	(imports += Import)*
 	
-	(types+=AstType)*
+	(types += TypeDecl)*
 	
 	//('component' name=ID '(' ')' component=AstComponent)?;
 	;
@@ -36,29 +36,29 @@ QualifiedNameWithWildCard:
 // classes
 ///////////////////////////////////////////////////////////////////////////////
 
-AstClass: 
+Class: 
 	'class' name=ID  '{'
 		((attributes+=AstAttribute)';')*
 	'}';
-	
-AstAttribute: type=[AstType|ID] name=ID;
+
+AstAttribute: type=Type name=ID;
+
+Enum : 'enum' name=ID '{' (identifiers += ID) (',' (identifiers += ID)*)? '}';
 
 ///////////////////////////////////////////////////////////////////////////////
 // types
 ///////////////////////////////////////////////////////////////////////////////
 
-AstType: AstClass | AstEnum ;
+TypeDecl: Class | Enum;
 
-AstTypeRef: AstTypeBool | AstTypeInt | AstTypeLong | AstTypeString;
+Type: TypeBool | TypeInt | TypeLong | TypeString | TypeRef;
 
-AstTypeBool: name='bool';
+TypeRef: type=[TypeDecl];
 
-AstTypeInt: name='int';
+TypeBool: name='bool';
 
-AstTypeLong: name='long';
+TypeInt: name='int';
 
-AstTypeString: name='String';
+TypeLong: name='long';
 
-AstEnum : 'enum'  name=ID '{' (identifiers += ID) (',' (identifiers += ID)*)? '}';
-
-	
+TypeString: name='String';
