@@ -29,13 +29,13 @@
 package net.sf.dftools.architecture.ui.editor;
 
 import static net.sf.graphiti.model.ObjectType.PARAMETER_ID;
+import static net.sf.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
 
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dftools.architecture.component.Component;
-import net.sf.dftools.architecture.component.Medium;
 import net.sf.dftools.architecture.component.Operator;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
@@ -65,13 +65,21 @@ public class IpXactImporter implements ITransformation {
 	private void addEdges(Design design) {
 		Configuration configuration = graph.getConfiguration();
 		for (Connection connection : design.getGraph().edgeSet()) {
-			Vertex src = vertexMap.get(design.getGraph().getEdgeSource(
-					connection));
-			Vertex tgt = vertexMap.get(design.getGraph().getEdgeTarget(
-					connection));
+
+			net.sf.dftools.architecture.design.Vertex srcDesignVertex = design
+					.getGraph().getEdgeSource(connection);
+			net.sf.dftools.architecture.design.Vertex tgtDesignVertex = design
+					.getGraph().getEdgeTarget(connection);
+
+			Vertex src = vertexMap.get(srcDesignVertex);
+			Vertex tgt = vertexMap.get(tgtDesignVertex);
 
 			ObjectType type = configuration.getEdgeType("Connection");
 			Edge edge = new Edge(type, src, tgt);
+			edge.setValue(ObjectType.PARAMETER_SOURCE_PORT, connection
+					.getSource().getName());
+			edge.setValue(ObjectType.PARAMETER_TARGET_PORT, connection
+					.getTarget().getName());
 			graph.addEdge(edge);
 		}
 	}
@@ -81,16 +89,17 @@ public class IpXactImporter implements ITransformation {
 		Configuration configuration = graph.getConfiguration();
 		Component comp = designVertex.getComponentInstance().getComponent();
 
-		Vertex vertex = null;
+		ObjectType type;
 		if (comp instanceof Operator) {
-			ObjectType type = configuration.getVertexType("Operator");
-			vertex = new Vertex(type);
-		} else if (comp instanceof Medium) {
-			ObjectType type = configuration.getVertexType("Medium");
-			vertex = new Vertex(type);
+			type = configuration.getVertexType("Operator");
+		} else {
+			type = configuration.getVertexType("Medium");
 		}
-		String name = designVertex.getComponentInstance().getId();
-		vertex.setValue(PARAMETER_ID, name);
+		Vertex vertex = new Vertex(type);
+		String id = designVertex.getComponentInstance().getId();
+		String clasz = designVertex.getComponentInstance().getClasz();
+		vertex.setValue(PARAMETER_ID, id);
+		vertex.setValue(PARAMETER_REFINEMENT, clasz);
 		graph.addVertex(vertex);
 		vertexMap.put(designVertex, vertex);
 
@@ -124,7 +133,8 @@ public class IpXactImporter implements ITransformation {
 
 		graph = new Graph(configuration, type, true);
 		graph.setValue(ObjectType.PARAMETER_ID, design.getName());
-		graph.setValue(Graph.PROPERTY_HAS_LAYOUT, false);
+		graph.setValue(Graph.PROPERTY_HAS_LAYOUT, true);
+		graph.setFileName(file.getFullPath());
 
 		addVertices(design);
 

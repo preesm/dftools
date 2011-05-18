@@ -42,6 +42,12 @@ public class VLNV {
 	private String name;
 	private String version;
 
+	public VLNV(String name) {
+		this.name = name;
+		this.vendor = "";
+		this.library = "";
+		this.version = "";
+	}
 	public VLNV(String vendor, String library, String name, String version) {
 		this.vendor = vendor;
 		this.library = library;

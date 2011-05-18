@@ -56,7 +56,7 @@ import org.w3c.dom.Element;
  */
 public class DesignWriter {
 
-	private final Document document;
+	private Document document;
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
@@ -64,7 +64,7 @@ public class DesignWriter {
 
 	private File path;
 
-	public DesignWriter(File path, Design design) {
+	public void write(File path, Design design) {
 		this.graph = design.getGraph();
 		this.path = path;
 		document = DomUtil.createDocument(
@@ -78,7 +78,33 @@ public class DesignWriter {
 			DomUtil.writeDocument(os, document);
 			os.close();
 		} catch (IOException e) {
-			System.out.println("I/O error");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Writes the IP-XACT design representation of the given design to the given
+	 * output stream.
+	 * 
+	 * @param design
+	 *            a design
+	 * @param os
+	 *            an output stream
+	 */
+	public void write(Design design, OutputStream os) {
+		graph = design.getGraph();
+		document = DomUtil.createDocument(
+				"http://www.accellera.org/XMLSchema/SPIRIT/1.5",
+				"spirit:design");
+		writeIpXact(document.getDocumentElement(), design);
+		try {
+			DomUtil.writeDocument(os, document);
+		} finally {
+			try {
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -93,11 +119,11 @@ public class DesignWriter {
 		writeVLNV(cmpElt, instance);
 		writeConfigurableElementValues(cmpElt, instance);
 
-		Component component = instance.getComponent();
+/*		Component component = instance.getComponent();
 		if (!componentsMap.contains(component)) {
 			new ComponentWriter(path, component);
 			componentsMap.add(component);
-		}
+		}*/
 	}
 
 	private void writeComponentInstances(Element parent,

@@ -37,6 +37,7 @@ import net.sf.dftools.architecture.design.transforms.Instantiator;
 
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
+import org.jgrapht.graph.Multigraph;
 
 /**
  * An IP-XACT design.
@@ -54,6 +55,12 @@ public class Design {
 	private UndirectedGraph<Vertex, Connection> graph;
 
 	private Map<String, BusInterface> interfaces;
+
+	public Design(String name) {
+		this.name = name;
+		this.vlnv = new VLNV(name);
+		this.graph = new Multigraph<Vertex, Connection>(Connection.class);
+	}
 
 	public Design(String name, VLNV vlnv,
 			UndirectedGraph<Vertex, Connection> graph) {

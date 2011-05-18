@@ -31,9 +31,11 @@ Require-Bundle:  net.sf.graphiti.model;bundle-version="1.3.2",
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.google.inject,
+ net.sf.dftools.architecture,
  net.sf.dftools.architecture.component,
  net.sf.dftools.architecture.design,
  net.sf.dftools.architecture.design.serialize,
+ net.sf.dftools.architecture.utils,
  net.sf.graphiti,
  net.sf.graphiti.io,
  net.sf.graphiti.model,

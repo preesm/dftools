@@ -7,6 +7,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -15,6 +17,43 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 
 public class ArchitectureUtil {
+	
+	/**
+	 * If it does not exist, creates the given folder. If the parent folders do
+	 * not exist either, create them.
+	 * 
+	 * @param folder
+	 *            a folder
+	 * @throws CoreException
+	 */
+	public static void createFolder(IFolder folder) throws CoreException {
+		IPath path = folder.getFullPath();
+		if (folder.exists()) {
+			return;
+		}
+
+		int n = path.segmentCount();
+		if (n < 2) {
+			throw new IllegalArgumentException("the path of the given folder "
+					+ "must have at least two segments");
+		}
+
+		// check the first folder
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		folder = root.getFolder(path.uptoSegment(2));
+		if (!folder.exists()) {
+			folder.create(true, false, null);
+		}
+
+		// and then check all the descendants
+		for (int i = 2; i < n; i++) {
+			folder = folder.getFolder(new Path(path.segment(i)));
+			if (!folder.exists()) {
+				folder.create(true, false, null);
+			}
+		}
+	}
+	
 
 	/**
 	 * Returns the network in the given project that has the given qualified

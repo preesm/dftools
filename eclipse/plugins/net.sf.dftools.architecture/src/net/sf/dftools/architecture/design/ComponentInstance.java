@@ -27,6 +27,7 @@
  */
 package net.sf.dftools.architecture.design;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dftools.architecture.VLNV;
@@ -43,6 +44,8 @@ public class ComponentInstance {
 
 	private String id;
 
+	private String clasz;
+
 	private Component component;
 
 	private Map<String, String> configValues;
@@ -55,6 +58,14 @@ public class ComponentInstance {
 		this.vlnv = vlnv;
 		this.component = component;
 		this.configValues = configValues;
+		this.clasz = vlnv.getName();
+	}
+
+	public ComponentInstance(String id, String clasz) {
+		this.id = id;
+		this.clasz = clasz;
+		vlnv = new VLNV(clasz);
+		configValues = new HashMap<String, String>();
 	}
 
 	/**
@@ -103,5 +114,9 @@ public class ComponentInstance {
 	@Override
 	public String toString() {
 		return "instance " + id;
+	}
+
+	public String getClasz() {
+		return clasz;
 	}
 }

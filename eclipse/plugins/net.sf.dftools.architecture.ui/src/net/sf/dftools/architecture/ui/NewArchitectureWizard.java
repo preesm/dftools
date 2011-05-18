@@ -71,8 +71,8 @@ public class NewArchitectureWizard extends Wizard implements INewWizard {
 		WizardSaveGraphPage page = new WizardSaveGraphPage(selection);
 
 		Configuration configuration = GraphitiModelPlugin.getDefault()
-				.getConfiguration("IP-XACT");
-		ObjectType type = configuration.getGraphType("IP-XACT");
+				.getConfiguration("IP-XACT design");
+		ObjectType type = configuration.getGraphType("IP-XACT design");
 
 		page.setGraph(new Graph(configuration, type, true));
 		page.setDescription("Create a new architecture.");

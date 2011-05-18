@@ -117,7 +117,7 @@ public class ComponentWriter {
 		hierElt.setAttribute("spirit:name", "");
 		hierElt.setAttribute("spirit:version", "");
 
-		new DesignWriter(path, component.getDesign());
+		new DesignWriter().write(path, component.getDesign());
 	}
 
 	private void writeViews(Element parent) {

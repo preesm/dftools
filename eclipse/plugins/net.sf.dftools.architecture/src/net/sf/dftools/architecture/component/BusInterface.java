@@ -29,6 +29,12 @@ public class BusInterface {
 
 	}
 
+	public BusInterface(String name) {
+		this.name = name;
+		vlnv = new VLNV(name);
+		isServer = false;
+	}
+
 	public String getName() {
 		return name;
 	}
