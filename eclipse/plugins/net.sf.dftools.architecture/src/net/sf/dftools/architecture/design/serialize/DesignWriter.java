@@ -59,8 +59,10 @@ public class DesignWriter {
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
+	@SuppressWarnings("unused")
 	private Set<Component> componentsMap = new HashSet<Component>();
 
+	@SuppressWarnings("unused")
 	private File path;
 
 	public void write(File path, Design design) {

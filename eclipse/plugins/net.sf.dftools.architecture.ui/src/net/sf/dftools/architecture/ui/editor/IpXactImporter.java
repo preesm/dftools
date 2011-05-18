@@ -42,7 +42,6 @@ import net.sf.dftools.architecture.component.Operator;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
-import net.sf.dftools.architecture.utils.DomUtil;
 import net.sf.graphiti.GraphitiModelPlugin;
 import net.sf.graphiti.io.DomHelper;
 import net.sf.graphiti.io.ITransformation;
@@ -55,9 +54,7 @@ import net.sf.graphiti.model.Vertex;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
