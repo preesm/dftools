@@ -34,6 +34,9 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.component.Medium;
+import net.sf.dftools.architecture.component.Operator;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
@@ -76,12 +79,21 @@ public class IpXactImporter implements ITransformation {
 	private void addVertex(Design design,
 			net.sf.dftools.architecture.design.Vertex designVertex) {
 		Configuration configuration = graph.getConfiguration();
-		ObjectType type = configuration.getVertexType("ComponentInstance");
-		Vertex vertex = new Vertex(type);
+		Component comp = designVertex.getComponentInstance().getComponent();
+
+		Vertex vertex = null;
+		if (comp instanceof Operator) {
+			ObjectType type = configuration.getVertexType("Operator");
+			vertex = new Vertex(type);
+		} else if (comp instanceof Medium) {
+			ObjectType type = configuration.getVertexType("Medium");
+			vertex = new Vertex(type);
+		}
 		String name = designVertex.getComponentInstance().getId();
 		vertex.setValue(PARAMETER_ID, name);
 		graph.addVertex(vertex);
 		vertexMap.put(designVertex, vertex);
+
 	}
 
 	private void addVertices(Design design) {
@@ -99,9 +111,8 @@ public class IpXactImporter implements ITransformation {
 	public Graph transform(IFile file) {
 		vertexMap = new HashMap<net.sf.dftools.architecture.design.Vertex, Vertex>();
 		Configuration configuration = GraphitiModelPlugin.getDefault()
-				.getConfiguration("IP-XACT");
+				.getConfiguration("IP-XACT design");
 		ObjectType type = configuration.getGraphType("IP-XACT design");
-		graph = new Graph(configuration, type, false);
 
 		DesignParser parser = new DesignParser(file);
 		Design design = null;
@@ -111,10 +122,15 @@ public class IpXactImporter implements ITransformation {
 			e.printStackTrace();
 		}
 
+		graph = new Graph(configuration, type, true);
+		graph.setValue(ObjectType.PARAMETER_ID, design.getName());
+		graph.setValue(Graph.PROPERTY_HAS_LAYOUT, false);
+
 		addVertices(design);
 
 		addEdges(design);
 
 		return graph;
 	}
+
 }

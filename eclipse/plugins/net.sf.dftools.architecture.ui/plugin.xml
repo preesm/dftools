@@ -5,7 +5,7 @@
          point="net.sf.graphiti.model.definition">
       <configuration
             extension="design"
-            name="IP-XACT"
+            name="IP-XACT design"
             type="text/xml"
             validator="net.sf.dftools.architecture.ui.editor.IpXactValidator">
          <graphType
@@ -15,43 +15,13 @@
             <transformation
                   class="net.sf.dftools.architecture.ui.editor.IpXactImporter">
             </transformation></import>
-         <vertexType
-               name="ComponentInstance">
-            <color
-                  blue="210"
-                  green="200"
-                  red="190">
-            </color>
-            <shape
-                  type="roundedBox">
-            </shape>
-            <size
-                  height="40"
-                  width="40">
-            </size>
-         </vertexType>
          <export>
             <transformation
                   class="net.sf.dftools.architecture.ui.editor.IpXactExporter">
             </transformation>
          </export>
-         <vertexType
-               name="BusInterface">
-            <color
-                  blue="100"
-                  green="60"
-                  red="0">
-            </color>
-            <shape
-                  type="circle">
-            </shape>
-            <size
-                  height="30"
-                  width="30">
-            </size>
-         </vertexType>
          <edgeType
-               directed="true"
+               directed="false"
                name="Connection">
             <parameter
                   name="source port"
@@ -62,6 +32,40 @@
                   type="java.lang.String">
             </parameter>
          </edgeType>
+         <vertexType
+               name="Operator">
+            <color
+                  blue="237"
+                  green="149"
+                  red="100">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <vertexType
+               name="Medium">
+            <color
+                  blue="0"
+                  green="140"
+                  red="255">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+         </vertexType>
       </configuration>
    </extension>
    <extension
