@@ -119,11 +119,11 @@ public class DesignWriter {
 		writeVLNV(cmpElt, instance);
 		writeConfigurableElementValues(cmpElt, instance);
 
-/*		Component component = instance.getComponent();
+		Component component = instance.getComponent();
 		if (!componentsMap.contains(component)) {
 			new ComponentWriter(path, component);
 			componentsMap.add(component);
-		}*/
+		}
 	}
 
 	private void writeComponentInstances(Element parent,
