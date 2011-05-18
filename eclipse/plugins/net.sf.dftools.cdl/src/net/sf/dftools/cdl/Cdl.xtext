@@ -10,10 +10,10 @@ AstEntity:
 	('package' package=QualifiedName ';')?
 	(imports += Import)*
 	
-	((types+=  AstEnumDeclaration)+)?
-	((classes+= AstClassDeclaration)+)?
+	(types+=AstType)*
 	
-	('component' name=ID '(' ')' component=AstComponent)?;
+	//('component' name=ID '(' ')' component=AstComponent)?;
+	;
 
 Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
 
@@ -22,32 +22,34 @@ QualifiedName:
 
 QualifiedNameWithWildCard:
 	QualifiedName '.*'?;
-	
+
 	
 ///////////////////////////////////////////////////////////////////////////////
 // component
 ///////////////////////////////////////////////////////////////////////////////
 
-AstComponent: {AstComponent}
+/*AstComponent: {AstComponent}
 '{'
-'}';
+'}';*/
 
 ///////////////////////////////////////////////////////////////////////////////
 // classes
 ///////////////////////////////////////////////////////////////////////////////
 
-AstClassDeclaration: 
+AstClass: 
 	'class' name=ID  '{'
 		((attributes+=AstAttribute)';')*
 	'}';
 	
-AstAttribute: type=AstType name=ID;
+AstAttribute: type=[AstType|ID] name=ID;
 
 ///////////////////////////////////////////////////////////////////////////////
 // types
 ///////////////////////////////////////////////////////////////////////////////
 
-AstType: AstTypeBool | AstTypeInt | AstTypeLong | AstTypeString;
+AstType: AstClass | AstEnum ;
+
+AstTypeRef: AstTypeBool | AstTypeInt | AstTypeLong | AstTypeString;
 
 AstTypeBool: name='bool';
 
@@ -57,6 +59,6 @@ AstTypeLong: name='long';
 
 AstTypeString: name='String';
 
-AstEnumDeclaration returns AstType:
-	'enum'  name=ID '{' (identifiers += ID) (',' (identifiers += ID)*)? '}';
+AstEnum : 'enum'  name=ID '{' (identifiers += ID) (',' (identifiers += ID)*)? '}';
+
 	

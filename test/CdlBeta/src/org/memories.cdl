@@ -3,13 +3,16 @@ package org;
 	enum ERamType { DRAM, SRAM } 
 	
 	class DDR2 {
-		ERamType ramTyp ; //= ERamType.DRAM;
+		ERamType ramTyp; //= ERamType.DRAM;
+		long size;
+		long speed;
+	}
+	
+	class SRAM {
+		ERamType ramType ;// = ERamType.SDRAM;
 		long size ;
 		long speed ;
 	}
 	
-	class SRAM {
-		ERamType ramType// = ERamType.SDRAM;
-		long size
-		long speed
-	}
+	
+	
