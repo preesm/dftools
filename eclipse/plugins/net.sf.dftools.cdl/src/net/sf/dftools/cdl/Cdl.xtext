@@ -10,7 +10,10 @@ AstEntity:
 	('package' package=QualifiedName ';')?
 	(imports += Import)*
 	
-	'component' name=ID actor=AstComponent;
+	((types+=  AstEnumDeclaration)+)?
+	((classes+= AstClassDeclaration)+)?
+	
+	('component' name=ID '(' ')' component=AstComponent)?;
 
 Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
 
@@ -27,4 +30,33 @@ QualifiedNameWithWildCard:
 
 AstComponent: {AstComponent}
 '{'
-'};';
+'}';
+
+///////////////////////////////////////////////////////////////////////////////
+// classes
+///////////////////////////////////////////////////////////////////////////////
+
+AstClassDeclaration: 
+	'class' name=ID  '{'
+		((attributes+=AstAttribute)';')*
+	'}';
+	
+AstAttribute: type=AstType name=ID;
+
+///////////////////////////////////////////////////////////////////////////////
+// types
+///////////////////////////////////////////////////////////////////////////////
+
+AstType: AstTypeBool | AstTypeInt | AstTypeLong | AstTypeString;
+
+AstTypeBool: name='bool';
+
+AstTypeInt: name='int';
+
+AstTypeLong: name='long';
+
+AstTypeString: name='String';
+
+AstEnumDeclaration returns AstType:
+	'enum'  name=ID '{' (identifiers += ID) (',' (identifiers += ID)*)? '}';
+	

@@ -1,16 +1,23 @@
 package org;
 	
-	type CPU {
-		int cores;
-		int threads;
-		long clock;
-		long cache;
-		long fsb;
+	class CPU {
+		int cores 
+		int threads  
+		long clock 
+		long cache 
+		long fsb 
 	}
 	
-	type FPGA {
-		string family;
-		string device;
-		string package;
-		string speed;
+	class FPGA {
+		String family 
+		String device
+		String packaging
+		String speed
 	}
+	
+	
+	
+
+
+	
+	
