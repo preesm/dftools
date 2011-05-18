@@ -38,7 +38,6 @@ import java.util.Set;
 
 import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.component.Component;
-import net.sf.dftools.architecture.component.serialize.ComponentWriter;
 import net.sf.dftools.architecture.design.ComponentInstance;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
@@ -119,11 +118,11 @@ public class DesignWriter {
 		writeVLNV(cmpElt, instance);
 		writeConfigurableElementValues(cmpElt, instance);
 
-		Component component = instance.getComponent();
-		if (!componentsMap.contains(component)) {
-			new ComponentWriter(path, component);
-			componentsMap.add(component);
-		}
+		/*
+		 * Component component = instance.getComponent(); if
+		 * (!componentsMap.contains(component)) { new ComponentWriter(path,
+		 * component); componentsMap.add(component); }
+		 */
 	}
 
 	private void writeComponentInstances(Element parent,

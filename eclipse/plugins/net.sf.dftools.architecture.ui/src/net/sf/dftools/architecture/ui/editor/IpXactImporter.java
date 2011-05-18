@@ -31,6 +31,8 @@ package net.sf.dftools.architecture.ui.editor;
 import static net.sf.graphiti.model.ObjectType.PARAMETER_ID;
 import static net.sf.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +42,9 @@ import net.sf.dftools.architecture.component.Operator;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
+import net.sf.dftools.architecture.utils.DomUtil;
 import net.sf.graphiti.GraphitiModelPlugin;
+import net.sf.graphiti.io.DomHelper;
 import net.sf.graphiti.io.ITransformation;
 import net.sf.graphiti.model.Configuration;
 import net.sf.graphiti.model.Edge;
@@ -49,6 +53,13 @@ import net.sf.graphiti.model.ObjectType;
 import net.sf.graphiti.model.Vertex;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * This class defines an Ip-Xact importer.
@@ -140,7 +151,56 @@ public class IpXactImporter implements ITransformation {
 
 		addEdges(design);
 
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IFile layout = root.getFile(file.getFullPath().removeFileExtension()
+				.addFileExtension("layout"));
+
+		try {
+			if (layout.exists()) {
+				parseLayout(layout);
+			} else {
+				graph.setValue(Graph.PROPERTY_HAS_LAYOUT, Boolean.FALSE);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return graph;
+	}
+
+	private void parseLayout(IFile layout) throws Exception {
+		try {
+			InputStream in = layout.getContents();
+			Element element = DomHelper.parse(in).getDocumentElement();
+			parseVertices(element.getFirstChild());
+			in.close();
+		} catch (IOException e) {
+			throw new IOException("I/O error when parsing design", e);
+		}
+	}
+
+	private Node parseVertices(Node node) {
+		node = DomHelper.getFirstSiblingNamed(node, "vertices");
+		Node child = node.getFirstChild();
+		while (child != null) {
+			if (child.getNodeName().equals("vertex")) {
+				String id = ((Element) child).getAttribute("id");
+				Vertex vertex = graph.findVertex(id);
+
+				String xAttr = ((Element) child).getAttribute("x");
+				String yAttr = ((Element) child).getAttribute("y");
+				if (!xAttr.isEmpty() && !yAttr.isEmpty()) {
+					int x = Integer.parseInt(xAttr);
+					int y = Integer.parseInt(yAttr);
+					vertex.setValue(Vertex.PROPERTY_SIZE, new Rectangle(x, y,
+							0, 0));
+				}
+			}
+
+			child = child.getNextSibling();
+		}
+
+		return node.getNextSibling();
 	}
 
 }
