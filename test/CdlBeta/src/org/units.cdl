@@ -1,19 +1,24 @@
 package org;
-	
+
+library units {
+
 	class CPU {
-		int cores ;
-		int threads ;  
-		long clock ;
-		long cache ;
-		long fsb ;
+		int cores;
+		int threads;  
+		long clock;
+		long cache;
+		long fsb;
 	}
 	
 	
 	class FPGA {
-		String family ;
-		String device ;
-		String packaging ;
-		String speed ;
+		String family;
+		String device;
+		String packaging;
+		String speed;
 	}
+
+}
+	
 	
 	

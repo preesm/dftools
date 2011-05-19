@@ -4,39 +4,36 @@ import org.stdio.*;
 import org.units.*;
 import org.memories.*;
 
-component ml509() eth0, com1 {
+component ml509 () {
 
-	operator FPGA {
-		family = "VIRTEX5";
+	V5 : operator FPGA {
+		/*family = "VIRTEX5";
 		device = "xc5vlx110t";
-		package = "ffg1136";
-		speed = "1C";
-	} V5;
+		packaging = "ffg1136";
+		speed = "1C";*/
+	}
 	
-	interface ethernet {
-		address = "192.168.1.11";
-		port = 1024;
-	} <==> eth0;
+	Eth : interface ethernet <==> eth0 {
+		/*address = "192.168.1.11";
+		port = 1024;*/
+	}
 	
-	interface uart{
-		device = "uart0";
-		baudRate = EBaudrate.57600;
-	} <==> com0;
+	Com : interface uart <==> com0 {
+		/*device = "uart0";
+		baudRate = EBaudrate.57600;*/
+	}
 	
-	interface uart {
-		device = "uart0";
-		baudRate = EBaudrate.57600;
-	} <==> com1;
+	DRAM : memory DDR2{
+		/*speed = 400 * 10^6;
+		size = 256 * 10^6;*/
+	} 
 	
-	memory DDR2{
-		speed = 400 * 10^6;
-		size = 256 * 10^6;
-	} ddr2pc4200;
+	ZBT : memory SRAM {
+		/*speed := 200 * 10^6;
+		size := 9 * 10^6;*/
+	}
 	
-	memory SRAM{
-		speed := 200 * 10^6;
-		size := 9 * 10^6;
-	} ZBT;
 	
-};
+}
+
 	

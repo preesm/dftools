@@ -6,15 +6,14 @@ generate cdl "http://www.sf.net/dftools/cdl/Cdl"
 // top-level entity
 ///////////////////////////////////////////////////////////////////////////////
 
-Entity: 
+Module:
 	('package' package=QualifiedName ';')?
 	(imports += Import)*
 	
-	(types += TypeDecl)*
+	( ('component' name=ID component=Component)
+	| ('library' name=ID library=Library)
+	);
 	
-	//('component' name=ID '(' ')' component=AstComponent)?;
-	;
-
 Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
 
 QualifiedName:
@@ -25,25 +24,71 @@ QualifiedNameWithWildCard:
 
 	
 ///////////////////////////////////////////////////////////////////////////////
-// component
+// Entities
 ///////////////////////////////////////////////////////////////////////////////
 
-/*AstComponent: {AstComponent}
-'{'
-'}';*/
+
+Library:{Library} 
+	 '{'
+		(types += TypeDecl)*
+	'}';
+
+Component:{Component}
+	 '(' ')' '{'	
+		
+		(operator=Operator)?
+		
+		((interfaces += Interface)
+		 |(memories += Memory))*
+
+	'}';
 
 ///////////////////////////////////////////////////////////////////////////////
-// classes
+// component classes
+///////////////////////////////////////////////////////////////////////////////
+
+Operator:
+	(tag=Tag ':')? 'operator' type=Class '{'
+	
+	'}';
+
+Interface: 
+	(tag=Tag ':')? 'interface' type=Class dir=Direction '{'
+	
+	'}';
+	
+Memory: 
+	(tag=Tag ':')? 'memory' type=Class '{'
+	
+	'}';
+
+Tag:
+(identifiers += ID) ('.' identifiers += ID)*;
+
+Direction: dir=DirSymbol name=ID;
+
+DirSymbol : InDir | OutDir | BiDir;
+
+BiDir : name = '<==>';
+OutDir : name = '==>';
+InDir : name = '<==';
+
+///////////////////////////////////////////////////////////////////////////////
+// library classes
 ///////////////////////////////////////////////////////////////////////////////
 
 Class: 
 	'class' name=ID  '{'
-		((attributes+=AstAttribute)';')*
+		((attributes+=Attribute)';')*
 	'}';
 
-AstAttribute: type=Type name=ID;
+Attribute: type=Type name=ID;
 
-Enum : 'enum' name=ID '{' (identifiers += ID) (',' (identifiers += ID)*)? '}';
+Enum :
+	'enum' name=ID '{' 
+		(literals += Literal) 
+		(',' (literals += Literal))*
+	 '}';
 
 ///////////////////////////////////////////////////////////////////////////////
 // types
@@ -62,3 +107,13 @@ TypeInt: name='int';
 TypeLong: name='long';
 
 TypeString: name='String';
+
+///////////////////////////////////////////////////////////////////////////////
+// Litterals
+///////////////////////////////////////////////////////////////////////////////
+
+Literal: Integer | Identifier;
+
+Integer: index=INT;
+
+Identifier: name=ID;
