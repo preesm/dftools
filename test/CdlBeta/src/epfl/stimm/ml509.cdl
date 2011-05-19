@@ -6,29 +6,29 @@ import org.memories.*;
 
 component ml509 () {
 
-	V5 : operator FPGA {
+	operator FPGA V5 {
 		/*family = "VIRTEX5";
 		device = "xc5vlx110t";
 		packaging = "ffg1136";
 		speed = "1C";*/
 	}
 	
-	Eth : interface ethernet <==> eth0 {
+	interface Eth ethernet <==> eth0 {
 		/*address = "192.168.1.11";
 		port = 1024;*/
 	}
 	
-	Com : interface uart <==> com0 {
+	interface Com uart <==> com0 {
 		/*device = "uart0";
 		baudRate = EBaudrate.57600;*/
 	}
 	
-	DRAM : memory DDR2{
+	memory DRAM DDR2 {
 		/*speed = 400 * 10^6;
 		size = 256 * 10^6;*/
 	} 
 	
-	ZBT : memory SRAM {
+	memory SRAM ZBT {
 		/*speed := 200 * 10^6;
 		size := 9 * 10^6;*/
 	}

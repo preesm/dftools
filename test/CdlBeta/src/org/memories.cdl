@@ -2,7 +2,7 @@ package org;
 
 library memories {
 
-	enum ERamType { DRAM, SRAM } 
+	enum ERamType { DRAM, SRAM }
 	
 	class DDR2 {
 		ERamType ramTyp; //= ERamType.DRAM;
