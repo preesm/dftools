@@ -48,17 +48,17 @@ Component:{Component}
 ///////////////////////////////////////////////////////////////////////////////
 
 Operator:
-	(tag=Tag ':')? 'operator' type=Class '{'
+	'operator' type=[Class|QualifiedName] (tag=Tag)? '{'
 	
 	'}';
 
 Interface: 
-	(tag=Tag ':')? 'interface' type=Class dir=Direction '{'
+	'interface' type=[Class|QualifiedName] (tag=Tag)? dir=Direction '{'
 	
 	'}';
 	
 Memory: 
-	(tag=Tag ':')? 'memory' type=Class '{'
+	'memory' type=[Class|QualifiedName] (tag=Tag)? '{'
 	
 	'}';
 

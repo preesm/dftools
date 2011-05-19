@@ -3,58 +3,47 @@
  */
 package net.sf.dftools.cdl;
 
-import net.sf.dftools.cdl.conversion.CdlValueConverter;
-import net.sf.dftools.cdl.linking.CdlLinkingService;
 import net.sf.dftools.cdl.naming.CdlQualifiedNameProvider;
-import net.sf.dftools.cdl.resource.CdlResourceDescriptionManager;
-import net.sf.dftools.cdl.syntax.CdlSyntaxErrorMessageProvider;
-//import net.sf.dftoos.cdl.CalSyntaxErrorMessageProvider;
-//import net.sf.orcc.cal.CalValueConverter;
-//import net.sf.orcc.cal.naming.CalQualifiedNameProvider;
-//import net.sf.orcc.cal.resource.CalResourceDescriptionManager;
 
-import org.eclipse.xtext.conversion.IValueConverterService;
-import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
-import org.eclipse.xtext.parser.antlr.ISyntaxErrorMessageProvider;
-import org.eclipse.xtext.resource.IResourceDescription;
+
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class CdlRuntimeModule extends net.sf.dftools.cdl.AbstractCdlRuntimeModule {
 
-	/*@Override
-	public Class<? extends ILinkingService> bindILinkingService() {
-		return CdlLinkingService.class;
-	}
+//	@Override
+//	public Class<? extends ILinkingService> bindILinkingService() {
+//		return CdlLinkingService.class;
+//	}
 	
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return CdlQualifiedNameProvider.class;
 	}
 
-	public Class<? extends IResourceDescription.Manager> bindIResourceDescription$Manager() {
-		// this must be used so that the set of objects exported by an actor is
-		// minimal, namely input ports and output ports only
-
-		// this prevents the builder from building tens of actors each time an
-		// actor changes ever so slightly
-
-		// note that the NamesAreUniqueValidator only works on exported objects,
-		// so we have to do our own unique name validation, see the
-		// CalJavaValidator
-
-		return CdlResourceDescriptionManager.class;
-	}*/
-	
-	/*public Class<? extends ISyntaxErrorMessageProvider> bindISyntaxErrorMessageProvider() {
-		return CdlSyntaxErrorMessageProvider.class;
-	}*/
-
-	/*@Override
-	public Class<? extends IValueConverterService> bindIValueConverterService() {
-		return CdlValueConverter.class;
-	}*/
+//	public Class<? extends IResourceDescription.Manager> bindIResourceDescription$Manager() {
+//		// this must be used so that the set of objects exported by an actor is
+//		// minimal, namely input ports and output ports only
+//
+//		// this prevents the builder from building tens of actors each time an
+//		// actor changes ever so slightly
+//
+//		// note that the NamesAreUniqueValidator only works on exported objects,
+//		// so we have to do our own unique name validation, see the
+//		// CalJavaValidator
+//
+//		return CdlResourceDescriptionManager.class;
+//	}
+//	
+//	public Class<? extends ISyntaxErrorMessageProvider> bindISyntaxErrorMessageProvider() {
+//		return CdlSyntaxErrorMessageProvider.class;
+//	}
+//
+//	@Override
+//	public Class<? extends IValueConverterService> bindIValueConverterService() {
+//		return CdlValueConverter.class;
+//	}
 	
 }
