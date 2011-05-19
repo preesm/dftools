@@ -73,12 +73,7 @@ public class DesignParser {
 	private Map<String, ComponentInstance> instances;
 
 	public DesignParser(IFile file) {
-		this(file, new HashMap<String, BusInterface>());
-	}
-
-	public DesignParser(IFile file, Map<String, BusInterface> busInterfaces) {
 		this.file = file;
-		this.busInterfaces = busInterfaces;
 		path = (IFolder) file.getParent();
 	}
 
@@ -237,7 +232,7 @@ public class DesignParser {
 		String componentName = null;
 		String intfName = connection.getAttribute("spirit:interfaceRef");
 
-		BusInterface intf = busInterfaces.get(intfName);
+		BusInterface intf = new BusInterface(intfName);
 		Vertex vertex = new Vertex(intf);
 		graph.addVertex(vertex);
 

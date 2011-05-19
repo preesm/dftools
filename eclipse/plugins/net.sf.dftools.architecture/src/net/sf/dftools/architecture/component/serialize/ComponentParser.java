@@ -246,8 +246,8 @@ public class ComponentParser {
 	}
 
 	/**
-	 * Parses a multicore architecture being the subdesign of the current
-	 * component and sets it as the component refinement
+	 * Parses a subdesign of the current component and sets it as the component
+	 * refinement
 	 * 
 	 * @throws Exception
 	 */
@@ -271,7 +271,7 @@ public class ComponentParser {
 		try {
 			IFolder path = (IFolder) file.getParent();
 			IFile designFile = path.getFile(designName + ".design");
-			DesignParser parser = new DesignParser(designFile, busInterfaces);
+			DesignParser parser = new DesignParser(designFile);
 			subDesign = parser.parse();
 		} catch (IOException e) {
 			e.printStackTrace();

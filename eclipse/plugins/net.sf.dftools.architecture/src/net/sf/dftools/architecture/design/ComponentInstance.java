@@ -119,4 +119,8 @@ public class ComponentInstance {
 	public String getClasz() {
 		return clasz;
 	}
+	
+	public boolean isHierarchical() {
+		return component.isHierarchical();
+	}
 }

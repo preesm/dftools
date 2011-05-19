@@ -86,7 +86,7 @@ public class IpXactExporter implements ITransformation {
 				.getValue(ObjectType.PARAMETER_TARGET_PORT);
 		BusInterface targetPort = null;
 		if (targetName != null) {
-			targetPort = new BusInterface(sourceName);
+			targetPort = new BusInterface(targetName);
 		}
 		// connection
 		Connection connection = new Connection(sourcePort, targetPort);
@@ -97,10 +97,15 @@ public class IpXactExporter implements ITransformation {
 		String id = (String) vertex.getValue(PARAMETER_ID);
 		net.sf.dftools.architecture.design.Vertex designVertex;
 
-		String clasz = (String) vertex.getValue(PARAMETER_REFINEMENT);
-
-		ComponentInstance inst = new ComponentInstance(id, clasz);
-		designVertex = new net.sf.dftools.architecture.design.Vertex(inst);
+		if ("BusInterface".equals(vertex.getType().getName())) {
+			BusInterface intf = new BusInterface(id);
+			design.getBusInterfaces().add(intf);
+			designVertex = new net.sf.dftools.architecture.design.Vertex(intf);
+		} else {
+			String clasz = (String) vertex.getValue(PARAMETER_REFINEMENT);
+			ComponentInstance inst = new ComponentInstance(id, clasz);
+			designVertex = new net.sf.dftools.architecture.design.Vertex(inst);
+		}
 		design.getGraph().addVertex(designVertex);
 		vertexMap.put(vertex, designVertex);
 	}

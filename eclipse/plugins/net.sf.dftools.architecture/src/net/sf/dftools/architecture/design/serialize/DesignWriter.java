@@ -38,6 +38,7 @@ import java.util.Set;
 
 import net.sf.dftools.architecture.VLNV;
 import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.component.serialize.ComponentWriter;
 import net.sf.dftools.architecture.design.ComponentInstance;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
@@ -59,10 +60,8 @@ public class DesignWriter {
 
 	private UndirectedGraph<Vertex, Connection> graph;
 
-	@SuppressWarnings("unused")
 	private Set<Component> componentsMap = new HashSet<Component>();
 
-	@SuppressWarnings("unused")
 	private File path;
 
 	public void write(File path, Design design) {
@@ -81,6 +80,7 @@ public class DesignWriter {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		writeChildren();
 	}
 
 	/**
@@ -119,12 +119,6 @@ public class DesignWriter {
 		nameElt.setTextContent(instance.getId());
 		writeVLNV(cmpElt, instance);
 		writeConfigurableElementValues(cmpElt, instance);
-
-		/*
-		 * Component component = instance.getComponent(); if
-		 * (!componentsMap.contains(component)) { new ComponentWriter(path,
-		 * component); componentsMap.add(component); }
-		 */
 	}
 
 	private void writeComponentInstances(Element parent,
@@ -268,6 +262,19 @@ public class DesignWriter {
 		child = document.createElement("spirit:version");
 		parent.appendChild(child);
 		child.setTextContent(vlnv.getVersion());
+	}
+
+	private void writeChildren() {
+		for (Vertex vertex : graph.vertexSet()) {
+			if (vertex.isComponentInstance()) {
+				Component component = vertex.getComponentInstance()
+						.getComponent();
+				if (!componentsMap.contains(component)) {
+					new ComponentWriter(path, component);
+					componentsMap.add(component);
+				}
+			}
+		}
 	}
 
 }

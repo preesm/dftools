@@ -37,6 +37,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.component.Component;
 import net.sf.dftools.architecture.component.Operator;
 import net.sf.dftools.architecture.design.Connection;
@@ -84,10 +85,16 @@ public class IpXactImporter implements ITransformation {
 
 			ObjectType type = configuration.getEdgeType("Connection");
 			Edge edge = new Edge(type, src, tgt);
-			edge.setValue(ObjectType.PARAMETER_SOURCE_PORT, connection
-					.getSource().getName());
-			edge.setValue(ObjectType.PARAMETER_TARGET_PORT, connection
-					.getTarget().getName());
+
+			if (srcDesignVertex.isComponentInstance()) {
+				edge.setValue(ObjectType.PARAMETER_SOURCE_PORT, connection
+						.getSource().getName());
+			}
+
+			if (tgtDesignVertex.isComponentInstance()) {
+				edge.setValue(ObjectType.PARAMETER_TARGET_PORT, connection
+						.getTarget().getName());
+			}
 			graph.addEdge(edge);
 		}
 	}
@@ -95,19 +102,27 @@ public class IpXactImporter implements ITransformation {
 	private void addVertex(Design design,
 			net.sf.dftools.architecture.design.Vertex designVertex) {
 		Configuration configuration = graph.getConfiguration();
-		Component comp = designVertex.getComponentInstance().getComponent();
-
+		Vertex vertex;
 		ObjectType type;
-		if (comp instanceof Operator) {
-			type = configuration.getVertexType("Operator");
+		if (designVertex.isComponentInstance()) {
+
+			Component comp = designVertex.getComponentInstance().getComponent();
+			if (comp instanceof Operator) {
+				type = configuration.getVertexType("Operator");
+			} else {
+				type = configuration.getVertexType("Medium");
+			}
+			vertex = new Vertex(type);
+			String id = designVertex.getComponentInstance().getId();
+			String clasz = designVertex.getComponentInstance().getClasz();
+			vertex.setValue(PARAMETER_ID, id);
+			vertex.setValue(PARAMETER_REFINEMENT, clasz);
 		} else {
-			type = configuration.getVertexType("Medium");
+			type = configuration.getVertexType("BusInterface");
+			vertex = new Vertex(type);
+			BusInterface intf = designVertex.getBusInterface();
+			vertex.setValue(PARAMETER_ID, intf.getName());
 		}
-		Vertex vertex = new Vertex(type);
-		String id = designVertex.getComponentInstance().getId();
-		String clasz = designVertex.getComponentInstance().getClasz();
-		vertex.setValue(PARAMETER_ID, id);
-		vertex.setValue(PARAMETER_REFINEMENT, clasz);
 		graph.addVertex(vertex);
 		vertexMap.put(designVertex, vertex);
 
@@ -169,35 +184,30 @@ public class IpXactImporter implements ITransformation {
 		try {
 			InputStream in = layout.getContents();
 			Element element = DomHelper.parse(in).getDocumentElement();
-			parseVertices(element.getFirstChild());
+			Node node = element.getFirstChild();
+
+			node = DomHelper.getFirstSiblingNamed(node, "vertices");
+			Node child = node.getFirstChild();
+			while (child != null) {
+				if (child.getNodeName().equals("vertex")) {
+					String id = ((Element) child).getAttribute("id");
+					Vertex vertex = graph.findVertex(id);
+
+					String xAttr = ((Element) child).getAttribute("x");
+					String yAttr = ((Element) child).getAttribute("y");
+					if (!xAttr.isEmpty() && !yAttr.isEmpty()) {
+						int x = Integer.parseInt(xAttr);
+						int y = Integer.parseInt(yAttr);
+						vertex.setValue(Vertex.PROPERTY_SIZE, new Rectangle(x,
+								y, 0, 0));
+					}
+				}
+				child = child.getNextSibling();
+			}
 			in.close();
 		} catch (IOException e) {
 			throw new IOException("I/O error when parsing design", e);
 		}
-	}
-
-	private Node parseVertices(Node node) {
-		node = DomHelper.getFirstSiblingNamed(node, "vertices");
-		Node child = node.getFirstChild();
-		while (child != null) {
-			if (child.getNodeName().equals("vertex")) {
-				String id = ((Element) child).getAttribute("id");
-				Vertex vertex = graph.findVertex(id);
-
-				String xAttr = ((Element) child).getAttribute("x");
-				String yAttr = ((Element) child).getAttribute("y");
-				if (!xAttr.isEmpty() && !yAttr.isEmpty()) {
-					int x = Integer.parseInt(xAttr);
-					int y = Integer.parseInt(yAttr);
-					vertex.setValue(Vertex.PROPERTY_SIZE, new Rectangle(x, y,
-							0, 0));
-				}
-			}
-
-			child = child.getNextSibling();
-		}
-
-		return node.getNextSibling();
 	}
 
 }
