@@ -28,9 +28,9 @@
  */
 package net.sf.dftools.architecture.ui.editor;
 
+import net.sf.dftools.architecture.utils.ArchitectureUtil;
 import net.sf.graphiti.model.DefaultRefinementPolicy;
 import net.sf.graphiti.model.Vertex;
-import net.sf.orcc.util.OrccUtil;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -64,7 +64,7 @@ public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
 		IProject project = getProject(vertex);
 		String qualifiedName = refinement.replace('.', '/');
 
-		IFile file = OrccUtil.getFile(project, qualifiedName, "design");
+		IFile file = ArchitectureUtil.getFile(project, qualifiedName, "design");
 		if (file != null) {
 			return file;
 		}

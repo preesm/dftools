@@ -135,4 +135,62 @@ public class ArchitectureUtil {
 		return srcFolders;
 	}
 
+	/**
+	 * Returns the network in the given project that has the given qualified
+	 * name.
+	 * 
+	 * @param project
+	 *            project
+	 * @param qualifiedName
+	 *            qualified name of a network
+	 * @return if there is such a network, a file, otherwise <code>null</code>
+	 */
+	public static IFile getFile(IProject project, String qualifiedName,
+			String extension) {
+		String name = qualifiedName.replace('.', '/');
+		IPath path = new Path(name).addFileExtension(extension);
+		for (IFolder folder : getAllSourceFolders(project)) {
+			IFile inputFile = folder.getFile(path);
+			if (inputFile != null && inputFile.exists()) {
+				return inputFile;
+			}
+		}
+
+		return null;
+	}
+	
+	/**
+	 * Returns the list of ALL source folders of the required projects as well
+	 * as of the given project as a list of absolute workspace paths.
+	 * 
+	 * @param project
+	 *            a project
+	 * @return a list of absolute workspace paths
+	 * @throws CoreException
+	 */
+	public static List<IFolder> getAllSourceFolders(IProject project) {
+		List<IFolder> srcFolders = new ArrayList<IFolder>();
+
+		IJavaProject javaProject = JavaCore.create(project);
+		if (!javaProject.exists()) {
+			return srcFolders;
+		}
+
+		// add source folders of this project
+		srcFolders.addAll(getSourceFolders(project));
+
+		// add source folders of required projects
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		try {
+			for (String name : javaProject.getRequiredProjectNames()) {
+				IProject refProject = root.getProject(name);
+				srcFolders.addAll(getAllSourceFolders(refProject));
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+
+		return srcFolders;
+	}
+
 }
