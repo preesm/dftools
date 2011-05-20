@@ -14,6 +14,6 @@ Require-Bundle: net.sf.dftools.cdl;visibility:=reexport,
  org.eclipse.xtext.builder,
  org.antlr.runtime
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.sf.dftools.cdl.ui.contentassist.antlr
 Bundle-Activator: net.sf.dftools.cdl.ui.internal.CdlActivator
