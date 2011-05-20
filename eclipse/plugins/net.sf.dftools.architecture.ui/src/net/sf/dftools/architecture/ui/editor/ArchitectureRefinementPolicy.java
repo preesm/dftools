@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, IETR/INSA of Rennes
+ * Copyright (c) 2010, IETR/INSA of Rennes
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -29,14 +29,47 @@
 package net.sf.dftools.architecture.ui.editor;
 
 import net.sf.graphiti.model.DefaultRefinementPolicy;
+import net.sf.graphiti.model.Vertex;
+import net.sf.orcc.util.OrccUtil;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 
 /**
- * This class defines what? I don't know, but somebody referenced it in the
- * plugin.xml, so I added it!
+ * This class extends the default refinement policy with XDF-specific policy.
  * 
  * @author Matthieu Wipliez
  * 
  */
 public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
+
+	/**
+	 * Returns the project to which the vertex belongs.
+	 * 
+	 * @param vertex
+	 *            a vertex
+	 * @return a project
+	 */
+	private IProject getProject(Vertex vertex) {
+		return vertex.getParent().getFile().getProject();
+	}
+
+	@Override
+	public IFile getRefinementFile(Vertex vertex) {
+		String refinement = getRefinement(vertex);
+		if (refinement == null) {
+			return null;
+		}
+
+		IProject project = getProject(vertex);
+		String qualifiedName = refinement.replace('.', '/');
+
+		IFile file = OrccUtil.getFile(project, qualifiedName, "design");
+		if (file != null) {
+			return file;
+		}
+
+		return null;
+	}
 
 }

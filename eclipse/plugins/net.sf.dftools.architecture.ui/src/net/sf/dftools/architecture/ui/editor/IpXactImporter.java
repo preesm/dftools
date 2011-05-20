@@ -39,7 +39,6 @@ import java.util.Map;
 
 import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.component.Component;
-import net.sf.dftools.architecture.component.Operator;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
@@ -74,7 +73,6 @@ public class IpXactImporter implements ITransformation {
 	private void addEdges(Design design) {
 		Configuration configuration = graph.getConfiguration();
 		for (Connection connection : design.getGraph().edgeSet()) {
-
 			net.sf.dftools.architecture.design.Vertex srcDesignVertex = design
 					.getGraph().getEdgeSource(connection);
 			net.sf.dftools.architecture.design.Vertex tgtDesignVertex = design
@@ -105,9 +103,8 @@ public class IpXactImporter implements ITransformation {
 		Vertex vertex;
 		ObjectType type;
 		if (designVertex.isComponentInstance()) {
-
 			Component comp = designVertex.getComponentInstance().getComponent();
-			if (comp instanceof Operator) {
+			if (comp.isOperator()) {
 				type = configuration.getVertexType("Operator");
 			} else {
 				type = configuration.getVertexType("Medium");
@@ -173,7 +170,6 @@ public class IpXactImporter implements ITransformation {
 			} else {
 				graph.setValue(Graph.PROPERTY_HAS_LAYOUT, Boolean.FALSE);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
