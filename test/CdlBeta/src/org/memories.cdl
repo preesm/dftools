@@ -12,8 +12,8 @@ library memories {
 	
 	class SRAM {
 		ERamType ramType ;// = ERamType.SDRAM;
-		long size ;
-		long speed ;
+		long size;
+		long speed;
 	}
 	
 }

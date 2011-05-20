@@ -1,29 +1,31 @@
 package epfl.stimm;
 
-import org.stdio.*;
+import org.stdio.ethernet.*;
+import org.stdio.uart.*;
 import org.units.*;
 import org.memories.*;
 
 component ml509 () {
 
 	operator FPGA V5 {
-		/*family = "VIRTEX5";
-		device = "xc5vlx110t";
-		packaging = "ffg1136";
-		speed = "1C";*/
+		//Address toto;  // must be set at intention
+		//device = "xc5vlx110t";
+		//packaging = "ffg1136";
+		//speed = "1C";
+		//device;	
 	}
 	
-	interface Eth ethernet <==> eth0 {
+	interface Ethernet eth0 {
 		/*address = "192.168.1.11";
 		port = 1024;*/
 	}
 	
-	interface Com uart <==> com0 {
+	interface Uart com0 {
 		/*device = "uart0";
 		baudRate = EBaudrate.57600;*/
 	}
 	
-	memory DRAM DDR2 {
+	memory DDR2 ddr {
 		/*speed = 400 * 10^6;
 		size = 256 * 10^6;*/
 	} 

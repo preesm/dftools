@@ -3,6 +3,12 @@
  */
 package net.sf.dftools.cdl.scoping;
 
+import net.sf.dftools.cdl.cdl.Class;
+import net.sf.dftools.cdl.cdl.Core;
+
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 
 /**
@@ -13,5 +19,13 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
  *
  */
 public class CdlScopeProvider extends AbstractDeclarativeScopeProvider {
+	
+
+	public IScope scope_Field_attribute(Core core,
+			EReference reference) {
+		Class clasz = (Class) core.eContainer();
+		return Scopes.scopeFor(clasz.getAttributes(), getScope(core, reference));
+	}
+	
 
 }

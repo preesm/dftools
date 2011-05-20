@@ -19,11 +19,13 @@ library ethernet {
 	
 
 	// Definition of the type ethernet
-	class ethernet {
+	class Ethernet {
 		String Address; // must be set at intention
 		int Port;
 		EDomain Domaine; //= PF_INET; // set by default, could be set at intention
 		EType Type; //= SOCK_STREAM;
 		int Protocol;// = 0;
 	}
+	
+	
 }

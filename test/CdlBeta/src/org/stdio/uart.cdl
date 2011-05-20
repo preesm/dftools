@@ -21,7 +21,7 @@ library uart {
 	enum EHandshake { HandshakeOff, HandshakeHardware, HandshakeSoftware }
 
 	// Definition of 
-	class uart {
+	class Uart {
 		String Device;
 		EParity Parity; //= NO_PARITY;
 		EHandshake Handshake;// = HandshakeOff;

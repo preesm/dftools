@@ -44,45 +44,35 @@ Component:{Component}
 	'}';
 
 ///////////////////////////////////////////////////////////////////////////////
-// component classes
+// Component classes
 ///////////////////////////////////////////////////////////////////////////////
 
 Operator:
-	'operator' type=[Class|QualifiedName] (tag=Tag)? '{'
-	
-	'}';
+	'operator' core=Core;
 
 Interface: 
-	'interface' type=[Class|QualifiedName] (tag=Tag)? dir=Direction '{'
-	
-	'}';
+	'interface' core=Core;
 	
 Memory: 
-	'memory' type=[Class|QualifiedName] (tag=Tag)? '{'
+	'memory' core=Core;
 	
+Core: type=[Class|QualifiedName] name=ID '{'
+		(fields+=Field)*
 	'}';
 
-Tag:
-(identifiers += ID) ('.' identifiers += ID)*;
-
-Direction: dir=DirSymbol name=ID;
-
-DirSymbol : InDir | OutDir | BiDir;
-
-BiDir : name = '<==>';
-OutDir : name = '==>';
-InDir : name = '<==';
+//Field: attribute=[Attribute|QualifiedName];
+Field: attribute=[Attribute];
 
 ///////////////////////////////////////////////////////////////////////////////
-// library classes
+// Library classes
 ///////////////////////////////////////////////////////////////////////////////
 
 Class: 
 	'class' name=ID  '{'
-		((attributes+=Attribute)';')*
+		((attributes+=Attribute))*
 	'}';
 
-Attribute: type=Type name=ID;
+Attribute: type=Type name=ID ';';
 
 Enum :
 	'enum' name=ID '{' 
@@ -91,7 +81,7 @@ Enum :
 	 '}';
 
 ///////////////////////////////////////////////////////////////////////////////
-// types
+// Types
 ///////////////////////////////////////////////////////////////////////////////
 
 TypeDecl: Class | Enum;

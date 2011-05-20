@@ -8,7 +8,7 @@ import net.sf.dftools.cdl.utils.Util;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 
 /**
- * This class defines a qualified name provider for RVC-CAL.
+ * This class defines a qualified name provider for CDL.
  * 
  * @author Matthieu Wipliez
  * 
