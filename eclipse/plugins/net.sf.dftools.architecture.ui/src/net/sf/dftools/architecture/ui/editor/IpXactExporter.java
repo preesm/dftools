@@ -104,6 +104,12 @@ public class IpXactExporter implements ITransformation {
 		} else {
 			String clasz = (String) vertex.getValue(PARAMETER_REFINEMENT);
 			ComponentInstance inst = new ComponentInstance(id, clasz);
+			Map<?, ?> params = (Map<?, ?>) vertex
+					.getValue("component instance parameters");
+			for (Map.Entry<?, ?> entry : params.entrySet()) {
+				inst.getConfigValues().put((String) entry.getKey(),
+						(String) entry.getValue());
+			}
 			designVertex = new net.sf.dftools.architecture.design.Vertex(inst);
 		}
 		design.getGraph().addVertex(designVertex);

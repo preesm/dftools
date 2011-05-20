@@ -36,7 +36,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 
 /**
- * This class extends the default refinement policy with XDF-specific policy.
+ * This class extends the default refinement policy.
  * 
  * @author Matthieu Wipliez
  * 

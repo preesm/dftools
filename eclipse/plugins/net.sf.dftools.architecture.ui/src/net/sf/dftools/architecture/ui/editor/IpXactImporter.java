@@ -39,6 +39,7 @@ import java.util.Map;
 
 import net.sf.dftools.architecture.component.BusInterface;
 import net.sf.dftools.architecture.component.Component;
+import net.sf.dftools.architecture.design.ComponentInstance;
 import net.sf.dftools.architecture.design.Connection;
 import net.sf.dftools.architecture.design.Design;
 import net.sf.dftools.architecture.design.serialize.DesignParser;
@@ -107,13 +108,13 @@ public class IpXactImporter implements ITransformation {
 			if (comp.isOperator()) {
 				type = configuration.getVertexType("Operator");
 			} else {
-				type = configuration.getVertexType("Medium");
+				type = configuration.getVertexType("Medium");				
 			}
 			vertex = new Vertex(type);
-			String id = designVertex.getComponentInstance().getId();
-			String clasz = designVertex.getComponentInstance().getClasz();
-			vertex.setValue(PARAMETER_ID, id);
-			vertex.setValue(PARAMETER_REFINEMENT, clasz);
+			ComponentInstance instance = designVertex.getComponentInstance();
+			vertex.setValue(PARAMETER_ID, instance.getId());
+			vertex.setValue(PARAMETER_REFINEMENT, instance.getClasz());
+			vertex.setValue("component instance parameters", instance.getConfigValues());
 		} else {
 			type = configuration.getVertexType("BusInterface");
 			vertex = new Vertex(type);
