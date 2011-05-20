@@ -22,12 +22,12 @@ library uart {
 
 	// Definition of 
 	class Uart {
-		String Device;
-		EParity Parity; //= NO_PARITY;
-		EHandshake Handshake;// = HandshakeOff;
-		EStopBits StopBits;// = ONE_STOP_BIT;
-		EDataBits DataBits;// = 8;
-		EBaudrate BaudRate;// = 9600;
+		String device;
+		EParity parity; //= NO_PARITY;
+		EHandshake handShake;// = HandshakeOff;
+		EStopBits stopBits;// = ONE_STOP_BIT;
+		EDataBits dataBits;// = 8;
+		EBaudrate baudRate;// = 9600;
 	}
 
 }
