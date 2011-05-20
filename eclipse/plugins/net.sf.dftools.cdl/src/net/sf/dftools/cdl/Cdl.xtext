@@ -61,13 +61,17 @@ Core: type=[Class|QualifiedName] name=ID '{'
 	'}';
 
 //Field: attribute=[Attribute|QualifiedName];
-Field: attribute=[Attribute];
+Field: attribute=[Attribute] '=' value=Value ';';
+
+Value: Integer | Identifier | LiteralString;
+
+LiteralString: value=STRING;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Library classes
 ///////////////////////////////////////////////////////////////////////////////
 
-Class: 
+Class:
 	'class' name=ID  '{'
 		((attributes+=Attribute))*
 	'}';

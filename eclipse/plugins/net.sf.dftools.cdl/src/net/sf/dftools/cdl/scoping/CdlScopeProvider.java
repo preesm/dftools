@@ -14,18 +14,15 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 /**
  * This class contains custom scoping description.
  * 
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping
- * on how and when to use it 
- *
+ * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
+ * how and when to use it
+ * 
  */
 public class CdlScopeProvider extends AbstractDeclarativeScopeProvider {
-	
 
-	public IScope scope_Field_attribute(Core core,
-			EReference reference) {
-		Class clasz = (Class) core.eContainer();
-		return Scopes.scopeFor(clasz.getAttributes(), getScope(core, reference));
+	public IScope scope_Field_attribute(Core core, EReference reference) {
+		Class clasz = core.getType();
+		return Scopes.scopeFor(clasz.getAttributes());
 	}
-	
 
 }
