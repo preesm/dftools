@@ -82,7 +82,9 @@ Enum :
 		(',' (constants += EConstant))*
 	 '}';
 
-EConstant : constant=Literal;
+EConstant : constant=EConstantType;
+
+EConstantType :  Literal | name=ID;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Types
