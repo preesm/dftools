@@ -84,7 +84,9 @@ Enum :
 
 EConstant : constant=EConstantType;
 
-EConstantType :  Literal | name=ID;
+EIdentifiant : name=ID;
+
+EConstantType :  Literal | EIdentifiant;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Types
@@ -108,7 +110,7 @@ TypeString: name='String';
 // Litterals
 ///////////////////////////////////////////////////////////////////////////////
 
-Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble;
+Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble | LiteralEnum;
 
 LiteralInteger : int=INT;
 
@@ -118,7 +120,7 @@ LiteralBool : bool=BOOL;
 
 LiteralDouble : double=DOUBLE;
 
-//LiteralEnum : (type=[Enum|QualifiedName] '.')? value=[EConstant] ;
+LiteralEnum : (type=[Enum|ID] '.')? value=[EConstant];
 
 	
 terminal BOOL returns ecore::EBoolean: 'true' | 'false';
