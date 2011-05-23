@@ -74,7 +74,7 @@ Class:
 		((attributes+=Attribute))*
 	'}';
 
-Attribute: type=Type name=ID ';';
+Attribute: type=Type name=ID ( '=' default=Expression )? ';';
 
 Enum :
 	'enum' name=ID '{' 
@@ -108,7 +108,7 @@ TypeString: name='String';
 // Litterals
 ///////////////////////////////////////////////////////////////////////////////
 
-Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble | LiteralEnum;
+Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble;
 
 LiteralInteger : int=INT;
 
@@ -118,7 +118,8 @@ LiteralBool : bool=BOOL;
 
 LiteralDouble : double=DOUBLE;
 
-LiteralEnum : type=[Enum|QualifiedName] '.' value=[EConstant] ;
+//LiteralEnum : (type=[Enum|QualifiedName] '.')? value=[EConstant] ;
+
 	
 terminal BOOL returns ecore::EBoolean: 'true' | 'false';
 

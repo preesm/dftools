@@ -18,7 +18,7 @@ component compaq671b() {
 	interface Ethernet eth0 {
 		address = "192.168.1.10";
 		port = 1024;
-		type = EType.SOCK_STREAM;
+		//type = EType.SOCK_STREAM;
 	}
 	
 	interface Ethernet eth1 {
