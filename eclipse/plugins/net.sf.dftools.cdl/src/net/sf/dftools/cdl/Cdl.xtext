@@ -1,5 +1,7 @@
 grammar net.sf.dftools.cdl.Cdl with org.eclipse.xtext.common.Terminals
 
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
 generate cdl "http://www.sf.net/dftools/cdl/Cdl"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,12 +62,8 @@ Core: type=[Class|QualifiedName] name=ID '{'
 		(fields+=Field)*
 	'}';
 
-//Field: attribute=[Attribute|QualifiedName];
-Field: attribute=[Attribute] '=' value=Value ';';
+Field: attribute=[Attribute] '=' value=Expression ';';
 
-Value: Integer | Identifier | LiteralString;
-
-LiteralString: value=STRING;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Library classes
@@ -80,9 +78,11 @@ Attribute: type=Type name=ID ';';
 
 Enum :
 	'enum' name=ID '{' 
-		(literals += Literal) 
-		(',' (literals += Literal))*
+		(constants += EConstant)
+		(',' (constants += EConstant))*
 	 '}';
+
+EConstant : constant=Literal;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Types
@@ -106,8 +106,56 @@ TypeString: name='String';
 // Litterals
 ///////////////////////////////////////////////////////////////////////////////
 
-Literal: Integer | Identifier;
+Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble | LiteralEnum;
 
-Integer: index=INT;
+LiteralInteger : int=INT;
 
-Identifier: name=ID;
+LiteralString: string=STRING;
+
+LiteralBool : bool=BOOL;
+
+LiteralDouble : double=DOUBLE;
+
+LiteralEnum : type=[Enum|QualifiedName] '.' value=[EConstant] ;
+	
+terminal BOOL returns ecore::EBoolean: 'true' | 'false';
+
+terminal DOUBLE returns ecore::EDouble :
+	('0'..'9')+ '.' ('0'..'9')* (('e'|'E') ('+' | '-')? ('0'..'9')+)?
+|	'.' ('0'..'9')+ (('e'|'E') ('+' | '-')? ('0'..'9')+)?
+|	('0'..'9')+ ('e'|'E') ('+' | '-')? ('0'..'9')+;
+
+///////////////////////////////////////////////////////////////////////////////
+// expressions
+///////////////////////////////////////////////////////////////////////////////
+
+Expression:
+	ExpressionAnd ({ExpressionBinary.left=current} operator=('||' | 'or') right=ExpressionAnd)*;
+ExpressionAnd returns Expression:
+	ExpressionBitor ({ExpressionBinary.left=current} operator=('&&' | 'and') right=ExpressionBitor)*;
+ExpressionBitor returns Expression:
+	ExpressionBitxor ({ExpressionBinary.left=current} operator='|' right=ExpressionBitxor)*;
+ExpressionBitxor returns Expression:
+	ExpressionBitand ({ExpressionBinary.left=current} operator='^' right=ExpressionBitand)*;
+ExpressionBitand returns Expression:
+	ExpressionEq ({ExpressionBinary.left=current} operator='&' right=ExpressionEq)*;
+ExpressionEq returns Expression:
+	ExpressionRelational ({ExpressionBinary.left=current} operator=('=' | '!=') right=ExpressionRelational)*;
+ExpressionRelational returns Expression:
+	ExpressionShift ({ExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=ExpressionShift)*;
+ExpressionShift returns Expression:
+	ExpressionAdditive ({ExpressionBinary.left=current} operator=('<<' | '>>') right=ExpressionAdditive)*;
+ExpressionAdditive returns Expression:
+	ExpressionMultiplicative ({ExpressionBinary.left=current} operator=('+' | '-') right=ExpressionMultiplicative)*;
+ExpressionMultiplicative returns Expression:
+	ExpressionExp ({ExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod') right=ExpressionExp)*;
+ExpressionExp returns Expression:
+	ExpressionUnary ({ExpressionBinary.left=current} operator='**' right=ExpressionUnary)*;
+
+ExpressionUnary returns Expression:
+	{ExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#') expression=ExpressionPostfix
+	| ExpressionPostfix;
+
+ExpressionPostfix returns Expression:
+	'(' Expression ')' |
+	Literal;

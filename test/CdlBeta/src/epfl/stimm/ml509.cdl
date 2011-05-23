@@ -20,17 +20,17 @@ component ml509 () {
 	
 	interface Uart com0 {
 		device = "uart0";
-		baudRate = EBaudrate.57600;
+		//baudRate = EBaudrate.57600;
 	}
 	
 	memory DDR2 ddr {
-		speed = 400 * 10^6;
-		size = 256 * 10^6;
+		speed = 400 * 10**6;
+		size = 256 * 10**6;
 	} 
 	
 	memory SRAM ZBT {
-		speed = 200 * 10^6;
-		size = 9 * 10^6;
+		speed = 200 * 10**6;
+		size = 9 * 10**6;
 	}
 	
 }
