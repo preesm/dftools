@@ -48,16 +48,21 @@ public class Operator extends Component {
 	}
 
 	public boolean isFPGA() {
-		return options.get("operatorType").equals("fpga");
+		return "fpga".equals(options.get("operatorType"));
 	}
+
 
 	@Override
 	public boolean isOperator() {
 		return true;
 	}
 
+	public Map<String, String> getOptions() {
+		return options;
+	}
+
 	public boolean isProcessor() {
-		return options.get("operatorType").equals("processor");
+		return "processor".equals(options.get("operatorType"));
 	}
 
 }

@@ -197,7 +197,11 @@ public class ComponentParser {
 				Element elt = (Element) node;
 				String eltType = elt.getTagName();
 				if (eltType.equals("operatorType")) {
-					options.put("operatorType", elt.getTextContent());
+					String operatorType = elt.getAttribute("kind");
+					options.put("operatorType", operatorType);
+					if("fpga".equals(operatorType)) {
+						options.put("fpgaType", elt.getAttribute("part"));
+					}
 				}
 			}
 			node = node.getNextSibling();
