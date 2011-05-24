@@ -32,8 +32,9 @@ QualifiedNameWithWildCard:
 
 Library:{Library} 
 	 '{'
-		(types += TypeDecl)*
+		(types += Decl)*
 	'}';
+	
 
 Component:{Component}
 	 '(' ')' '{'	
@@ -69,7 +70,9 @@ Field: attribute=[Attribute] '=' value=Expression ';';
 // Library classes
 ///////////////////////////////////////////////////////////////////////////////
 
-Class:
+Decl: Class | Enum; 
+
+Class :
 	'class' name=ID  '{'
 		((attributes+=Attribute))*
 	'}';
@@ -78,25 +81,21 @@ Attribute: type=Type name=ID ( '=' default=Expression )? ';';
 
 Enum :
 	'enum' name=ID '{' 
-		(constants += EConstant)
-		(',' (constants += EConstant))*
+		(constants += EnumLiteral)
+		(',' (constants += EnumLiteral))*
 	 '}';
 
-EConstant : constant=EConstantType;
-
-EIdentifiant : name=ID;
-
-EConstantType :  Literal | EIdentifiant;
+EnumLiteral returns Symbol:
+ {EnumLiteral} name=ID;
+ 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Types
 ///////////////////////////////////////////////////////////////////////////////
 
-TypeDecl: Class | Enum;
+Type: TypeBool | TypeInt | TypeLong | TypeString | TypeDecl;
 
-Type: TypeBool | TypeInt | TypeLong | TypeString | TypeRef;
-
-TypeRef: type=[TypeDecl];
+TypeDecl: type=[Decl];
 
 TypeBool: name='bool';
 
@@ -110,7 +109,7 @@ TypeString: name='String';
 // Litterals
 ///////////////////////////////////////////////////////////////////////////////
 
-Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble | LiteralEnum;
+Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble;
 
 LiteralInteger : int=INT;
 
@@ -119,8 +118,6 @@ LiteralString: string=STRING;
 LiteralBool : bool=BOOL;
 
 LiteralDouble : double=DOUBLE;
-
-LiteralEnum : (type=[Enum|ID] '.')? value=[EConstant];
 
 	
 terminal BOOL returns ecore::EBoolean: 'true' | 'false';
@@ -161,6 +158,10 @@ ExpressionUnary returns Expression:
 	{ExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#') expression=ExpressionPostfix
 	| ExpressionPostfix;
 
+ExpressionAtomic returns Expression:
+  {SymbolRef} var=[Symbol|QualifiedName] |
+  {LiteralRef} value=Literal;
+
 ExpressionPostfix returns Expression:
 	'(' Expression ')' |
-	Literal;
+	ExpressionAtomic ;

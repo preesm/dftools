@@ -16,19 +16,19 @@ component compaq671b() {
 	}
 	
 	interface Ethernet eth0 {
-		address = "192.168.1.10";
-		port = 1024;
-		//type = EType.SOCK_STREAM;
+		//address = "192.168.1.10";
+		//port = 1024;
+		type = EType.SOCK_STREAM;
 	}
 	
 	interface Ethernet eth1 {
-		address = "172.16.1.10";
-		port = 1024;
+		//address = "172.16.1.10";
+		//port = 1024;
 	}
 	
 	interface Uart com1 {
 		device = "COM1";
-		//baudRate = EBaudrate.56700;
+		baudRate = EBaudrate.EBaud57600;
 	}
 	
 	interface Uart com2 {

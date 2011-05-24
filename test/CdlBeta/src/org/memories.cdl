@@ -5,13 +5,13 @@ library memories {
 	enum ERamType { DRAM, SRAM }
 	
 	class DDR2 {
-		ERamType ramTyp; //= ERamType.DRAM;
+		ERamType ramTyp = ERamType.DRAM;
 		long size;
 		long speed;
 	}
 	
 	class SRAM {
-		ERamType ramType ;// = ERamType.SDRAM;
+		ERamType ramType = ERamType.SRAM;
 		long size;
 		long speed;
 	}

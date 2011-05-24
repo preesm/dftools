@@ -3,11 +3,12 @@ package org.stdio;
 library uart {
 
 	enum EBaudrate {
-		110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200,
-		38400, 56000, 57600, 115200, 128000, 256000 }
+		EBaud110, EBaud300, EBaud600, EBaud1200, EBaud2400, EBaud4800, EBaud9600,
+		EBaud14400, EBaud19200, EBaud38400, EBaud56000, EBaud57600, EBaud115200, 
+		EBaud128000, EBaud256000 }
 
 	// Data bits (5-8)
-	enum EDataBits { 5, 6, 7, 8 }
+	enum EDataBits { Data5, Data6, Data7, Data8 }
 
 	// Parity scheme
 	enum EParity {
@@ -23,11 +24,11 @@ library uart {
 	// Definition of 
 	class Uart {
 		String device;
-		EParity parity; //= NO_PARITY;
-		EHandshake handShake;// = HandshakeOff;
-		EStopBits stopBits;// = ONE_STOP_BIT;
-		EDataBits dataBits;// = 8;
-		EBaudrate baudRate;// = 9600;
+		EParity parity = EParity.NO_PARITY;
+		EHandshake handShake = EHandshake.HandshakeOff;
+		EStopBits stopBits = EStopBits.ONE_STOP_BIT;
+		EDataBits dataBits = EDataBits.Data8;
+		EBaudrate baudRate = EBaudrate.EBaud9600;
 	}
 
 }

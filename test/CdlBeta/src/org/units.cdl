@@ -10,7 +10,6 @@ library units {
 		long fsb;
 	}
 	
-	
 	class FPGA {
 		String family;
 		String device;

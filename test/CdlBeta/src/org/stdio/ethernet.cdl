@@ -20,11 +20,15 @@ library ethernet {
 
 	// Definition of the type ethernet
 	class Ethernet {
+		Sockaddr sockaddr;
+		EDomain domain = EDomain.PF_INET; // set by default, could be set at intention
+		EType type = EType.SOCK_STREAM;
+		int protocol = 0;
+	}
+	
+	class Sockaddr{
 		String address; // must be set at intention
 		int port;
-		EDomain domain; //= PF_INET; // set by default, could be set at intention
-		EType type ;//= SOCK_STREAM;
-		int protocol = 0;
 	}
 	
 	

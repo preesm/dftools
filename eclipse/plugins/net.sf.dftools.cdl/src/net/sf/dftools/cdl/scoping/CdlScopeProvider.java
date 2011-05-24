@@ -25,9 +25,5 @@ public class CdlScopeProvider extends AbstractDeclarativeScopeProvider {
 		return Scopes.scopeFor(clasz.getAttributes());
 	}
 
-	public IScope scope_LiteralEnum_value(Core core, EReference reference) {
-		Class clasz = core.getType();
-		return Scopes.scopeFor(clasz.getAttributes());
-	}
 
 }
