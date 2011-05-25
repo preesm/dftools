@@ -59,12 +59,22 @@ Interface:
 Memory: 
 	'memory' core=Core;
 	
-Core: type=[Class|QualifiedName] name=ID '{'
+Core:
+	type=[Class|QualifiedName] name=ID '{'
 		(fields+=Field)*
 	'}';
 
-Field: attribute=[Attribute] '=' value=Expression ';';
+// Ref Field 
+/*Field: 
+	attribute=[Attribute] '=' value=Expression ';' ;*/
+	
+//Recursive Feild
+Field: 
+	attribute=AttributeRef '=' value=Expression ';' ;
 
+AttributeRef: attribute=[Attribute] ('.' child=AttributeChild)?  ;
+
+AttributeChild : attribute=[Attribute] ('.' child=AttributeChild)? ;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Library classes

@@ -29,6 +29,12 @@ library ethernet {
 	class Sockaddr{
 		String address; // must be set at intention
 		int port;
+		Addon addon;
+	}
+	
+	class Addon{
+		String x; 
+		int y;
 	}
 	
 	

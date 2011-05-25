@@ -15,14 +15,17 @@ component ml509 () {
 	
 	interface Ethernet eth0 {
 		sockaddr.address = "192.168.1.11";
+		//sockaddr.addon.x = "192.168.1.11";
 		//address = "192.168.1.11";
 		//port = 1024;
 	}
+	
 	
 	interface Uart com0 {
 		device = "uart0";
 		baudRate = EBaudrate.EBaud57600;
 	}
+	
 	
 	memory DDR2 ddr {
 		speed = 400 * 10**6;
