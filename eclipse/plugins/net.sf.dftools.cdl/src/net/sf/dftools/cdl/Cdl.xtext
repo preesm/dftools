@@ -69,12 +69,23 @@ Core:
 	attribute=[Attribute] '=' value=Expression ';' ;*/
 	
 //Recursive Feild
+//Field: 
+//	attribute=AttributeRef '=' value=Expression ';' ;
+
+//AttributeRef: attribute=[Attribute] ('.' child=AttributeChild)?  ;
+
+//AttributeChild : attribute=[Attribute] ('.' child=AttributeChild)? ;
+
+//Recursive Feild
 Field: 
-	attribute=AttributeRef '=' value=Expression ';' ;
+	domain=Domain '=' value=Expression ';';
+	
+Domain : 
+	PrimaryDomain({DomainCall.left=current}'.'right=PrimaryDomain)* ;
 
-AttributeRef: attribute=[Attribute] ('.' child=AttributeChild)?  ;
-
-AttributeChild : attribute=[Attribute] ('.' child=AttributeChild)? ;
+PrimaryDomain returns Domain:
+	attribute=[Attribute];
+	
 
 ///////////////////////////////////////////////////////////////////////////////
 // Library classes

@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dftools.cdl.cdl.Attribute;
-import net.sf.dftools.cdl.cdl.AttributeChild;
-import net.sf.dftools.cdl.cdl.AttributeRef;
+//import net.sf.dftools.cdl.cdl.AttributeChild;
+//import net.sf.dftools.cdl.cdl.AttributeRef;
 import net.sf.dftools.cdl.cdl.Class;
 import net.sf.dftools.cdl.cdl.Component;
 import net.sf.dftools.cdl.cdl.Core;
 import net.sf.dftools.cdl.cdl.Decl;
+import net.sf.dftools.cdl.cdl.Domain;
 import net.sf.dftools.cdl.cdl.Field;
 import net.sf.dftools.cdl.cdl.Type;
 import net.sf.dftools.cdl.cdl.TypeDecl;
@@ -30,10 +31,12 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
  * 
  * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#scoping on
  * how and when to use it
+ * 
  * @param <IScopedElement>
  * 
  */
-public class CdlScopeProvider<IScopedElement> extends AbstractDeclarativeScopeProvider {
+public class CdlScopeProvider<IScopedElement> extends
+		AbstractDeclarativeScopeProvider {
 
 	/*
 	 * public IScope scope_Field_attribute(Core core, EReference reference) {
@@ -41,27 +44,44 @@ public class CdlScopeProvider<IScopedElement> extends AbstractDeclarativeScopePr
 	 * Scopes.scopeFor(clasz.getAttributes()); }
 	 */
 
-	public IScope scope_AttributeRef_attribute(Field field, EReference reference) {
+	/*
+	 * public IScope scope_AttributeRef_attribute(Field field, EReference
+	 * reference) { Core core = (Core) field.eContainer(); Class clasz =
+	 * core.getType(); return Scopes.scopeFor(clasz.getAttributes()); }
+	 */
+
+	/*
+	 * public IScope scope_AttributeChild_attribute(AttributeRef attr,
+	 * EReference reference) { List<Attribute> attributes = new
+	 * ArrayList<Attribute>(); Type type = attr.getAttribute().getType(); if
+	 * (type instanceof TypeDecl) { TypeDecl typeDecl = (TypeDecl) type; Decl
+	 * decl = typeDecl.getType(); if (decl instanceof Class) { Class clasz =
+	 * (Class) decl; attributes.addAll(clasz.getAttributes()); } } return
+	 * Scopes.scopeFor(attributes); }
+	 */
+
+	public IScope scope_Domain_attribute(Field field, EReference reference) {
+		List<Attribute> attributes = new ArrayList<Attribute>();
 		Core core = (Core) field.eContainer();
-		Class clasz = core.getType();
-		return Scopes.scopeFor(clasz.getAttributes());
+
+		return Scopes.scopeFor(getClassAttributes(core.getType()));
 	}
 
-	public IScope scope_AttributeChild_attribute(AttributeRef attr,
-			EReference reference) {
+	private List<Attribute> getClassAttributes(Class clasz) {
 		List<Attribute> attributes = new ArrayList<Attribute>();
-		Type type = attr.getAttribute().getType();
-		if (type instanceof TypeDecl) {
-			TypeDecl typeDecl = (TypeDecl) type;
-			Decl decl = typeDecl.getType();
-			if (decl instanceof Class) {
-				Class clasz = (Class) decl;
-				attributes.addAll(clasz.getAttributes());
+
+		for (Attribute attr : clasz.getAttributes()) {
+			Type attrType = attr.getType();
+			if (attrType instanceof TypeDecl) {
+				TypeDecl typeDecl = (TypeDecl) attrType;
+				Decl decl = typeDecl.getType();
+				if (decl instanceof Class) {
+					attributes.addAll(getClassAttributes((Class) decl));
+				}
 			}
 		}
-		return Scopes.scopeFor(attributes);
+		attributes.addAll(clasz.getAttributes());
+
+		return attributes;
 	}
-
-
-
 }

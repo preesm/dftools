@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.dftools.workflow.Activator;
+//import net.sf.dftools.workflow.Activator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;

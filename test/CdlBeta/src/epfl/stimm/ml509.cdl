@@ -13,11 +13,11 @@ component ml509 () {
 		speed = "1C";
 	}
 	
-	interface Ethernet eth0 {
+	interface Ethernet eth0_TEST {
 		sockaddr.address = "192.168.1.11";
-		//sockaddr.addon.x = "192.168.1.11";
-		//address = "192.168.1.11";
-		//port = 1024;
+		sockaddr.addon.x = "Hello world!!!";
+		address = "192.168.1.11";
+		port = 1024;
 	}
 	
 	
