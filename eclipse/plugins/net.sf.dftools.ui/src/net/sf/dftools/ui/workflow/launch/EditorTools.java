@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -38,7 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//import net.sf.dftools.workflow.Activator;
+import net.sf.dftools.workflow.Activator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
