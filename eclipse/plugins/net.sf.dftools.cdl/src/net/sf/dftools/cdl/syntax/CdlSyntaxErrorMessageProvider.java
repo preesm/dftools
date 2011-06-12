@@ -12,7 +12,7 @@ public class CdlSyntaxErrorMessageProvider implements
 	public SyntaxErrorMessage getSyntaxErrorMessage(IParserErrorContext context) {
 		RecognitionException ex = context.getRecognitionException();
 		if (ex instanceof MismatchedTokenException) {
-			MismatchedTokenException mte = (MismatchedTokenException) ex;
+			// MismatchedTokenException mte = (MismatchedTokenException) ex;
 			/* get errors with mte.token.getText() */
 		}
 

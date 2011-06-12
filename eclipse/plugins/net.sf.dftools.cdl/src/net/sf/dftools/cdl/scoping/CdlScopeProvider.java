@@ -7,24 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dftools.cdl.cdl.Attribute;
-//import net.sf.dftools.cdl.cdl.AttributeChild;
-//import net.sf.dftools.cdl.cdl.AttributeRef;
 import net.sf.dftools.cdl.cdl.Class;
-import net.sf.dftools.cdl.cdl.Component;
 import net.sf.dftools.cdl.cdl.Core;
 import net.sf.dftools.cdl.cdl.Decl;
-import net.sf.dftools.cdl.cdl.Domain;
 import net.sf.dftools.cdl.cdl.Field;
 import net.sf.dftools.cdl.cdl.Type;
 import net.sf.dftools.cdl.cdl.TypeDecl;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
-import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 /**
  * This class contains custom scoping description.
@@ -61,7 +54,7 @@ public class CdlScopeProvider<IScopedElement> extends
 	 */
 
 	public IScope scope_Domain_attribute(Field field, EReference reference) {
-		List<Attribute> attributes = new ArrayList<Attribute>();
+		//List<Attribute> attributes = new ArrayList<Attribute>();
 		Core core = (Core) field.eContainer();
 
 		return Scopes.scopeFor(getClassAttributes(core.getType()));
