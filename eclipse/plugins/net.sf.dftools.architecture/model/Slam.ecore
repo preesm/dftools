@@ -3,13 +3,16 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam"
     nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="net.sf.dftools.architecture.slam">
+  <eClassifiers xsi:type="ecore:EClass" name="Component"/>
   <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//Component"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Connection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Component">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="0"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentInstance"/>
-  <eClassifiers xsi:type="ecore:EClass" name="UndirectedConnection" eSuperTypes="#//Connection"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DirectedConnection" eSuperTypes="#//Connection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Enabler" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//Enabler"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Ram" eSuperTypes="#//Enabler"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HierarchyConnection" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Link"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//Link"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UndirectedDataLink" eSuperTypes="#//DataLink"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectedDataLink" eSuperTypes="#//DataLink"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//Link"/>
 </ecore:EPackage>
