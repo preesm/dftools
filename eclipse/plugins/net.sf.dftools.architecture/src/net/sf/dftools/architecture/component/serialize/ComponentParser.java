@@ -274,7 +274,7 @@ public class ComponentParser {
 
 		try {
 			IFolder path = (IFolder) file.getParent();
-			IFile designFile = path.getFile(designName + ".design");
+			IFile designFile = path.getFile(designName + ".dsn");
 			DesignParser parser = new DesignParser(designFile);
 			subDesign = parser.parse();
 		} catch (IOException e) {

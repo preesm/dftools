@@ -2,17 +2,41 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam"
-    nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="net.sf.dftools.architecture.slam">
-  <eClassifiers xsi:type="ecore:EClass" name="Component"/>
+    nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="slam">
+  <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vlnv" lowerBound="1" eType="#//VLNV"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="default"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interfaces" upperBound="-1"
+        eType="#//ComInterface"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//Component"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//Component"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Enabler" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Enabler" abstract="true" eSuperTypes="#//Component"/>
   <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//Enabler"/>
   <eClassifiers xsi:type="ecore:EClass" name="Ram" eSuperTypes="#//Enabler"/>
-  <eClassifiers xsi:type="ecore:EClass" name="HierarchyConnection" eSuperTypes="#//Component"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Link"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HierarchyPort" eSuperTypes="#//Component"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Link" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//Link"/>
   <eClassifiers xsi:type="ecore:EClass" name="UndirectedDataLink" eSuperTypes="#//DataLink"/>
   <eClassifiers xsi:type="ecore:EClass" name="DirectedDataLink" eSuperTypes="#//DataLink"/>
   <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//Link"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VLNV">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vendor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="library" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Design">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstances" ordered="false"
+        upperBound="-1" eType="#//ComponentInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="#//Component"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="instanceName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComInterface"/>
 </ecore:EPackage>
