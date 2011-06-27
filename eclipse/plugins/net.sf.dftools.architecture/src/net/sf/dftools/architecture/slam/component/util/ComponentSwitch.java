@@ -131,9 +131,6 @@ public class ComponentSwitch<T> extends Switch<T> {
 			case ComponentPackage.HIERARCHY_PORT: {
 				HierarchyPort hierarchyPort = (HierarchyPort)theEObject;
 				T result = caseHierarchyPort(hierarchyPort);
-				if (result == null) result = caseComponent(hierarchyPort);
-				if (result == null) result = caseVLNVedElement(hierarchyPort);
-				if (result == null) result = caseParameterizedElement(hierarchyPort);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

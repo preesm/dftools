@@ -27,7 +27,7 @@ import net.sf.dftools.architecture.slam.component.Component;
  */
 public interface ComponentInstance extends VLNVedElement, ParameterizedElement {
 	/**
-	 * Returns the value of the '<em><b>Component</b></em>' container reference.
+	 * Returns the value of the '<em><b>Component</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -35,20 +35,20 @@ public interface ComponentInstance extends VLNVedElement, ParameterizedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Component</em>' container reference.
+	 * @return the value of the '<em>Component</em>' reference.
 	 * @see #setComponent(Component)
 	 * @see net.sf.dftools.architecture.slam.SlamPackage#getComponentInstance_Component()
 	 * @see net.sf.dftools.architecture.slam.component.Component#getInstances
-	 * @model opposite="instances" required="true" transient="false"
+	 * @model opposite="instances" required="true"
 	 * @generated
 	 */
 	Component getComponent();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}' container reference.
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Component</em>' container reference.
+	 * @param value the new value of the '<em>Component</em>' reference.
 	 * @see #getComponent()
 	 * @generated
 	 */

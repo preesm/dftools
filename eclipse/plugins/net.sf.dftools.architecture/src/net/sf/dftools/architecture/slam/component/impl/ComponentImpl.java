@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -73,7 +74,7 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 	protected EList<ComInterface> interfaces;
 
 	/**
-	 * The cached value of the '{@link #getInstances() <em>Instances</em>}' containment reference list.
+	 * The cached value of the '{@link #getInstances() <em>Instances</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInstances()
@@ -83,7 +84,7 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 	protected EList<ComponentInstance> instances;
 
 	/**
-	 * The cached value of the '{@link #getRefinement() <em>Refinement</em>}' reference.
+	 * The cached value of the '{@link #getRefinement() <em>Refinement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRefinement()
@@ -142,7 +143,7 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 	 */
 	public EList<ComponentInstance> getInstances() {
 		if (instances == null) {
-			instances = new EObjectContainmentWithInverseEList<ComponentInstance>(ComponentInstance.class, this, ComponentPackage.COMPONENT__INSTANCES, SlamPackage.COMPONENT_INSTANCE__COMPONENT);
+			instances = new EObjectWithInverseResolvingEList<ComponentInstance>(ComponentInstance.class, this, ComponentPackage.COMPONENT__INSTANCES, SlamPackage.COMPONENT_INSTANCE__COMPONENT);
 		}
 		return instances;
 	}
@@ -153,14 +154,6 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 	 * @generated
 	 */
 	public Design getRefinement() {
-		if (refinement != null && refinement.eIsProxy()) {
-			InternalEObject oldRefinement = (InternalEObject)refinement;
-			refinement = (Design)eResolveProxy(oldRefinement);
-			if (refinement != oldRefinement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.COMPONENT__REFINEMENT, oldRefinement, refinement));
-			}
-		}
 		return refinement;
 	}
 
@@ -169,8 +162,14 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Design basicGetRefinement() {
-		return refinement;
+	public NotificationChain basicSetRefinement(Design newRefinement, NotificationChain msgs) {
+		Design oldRefinement = refinement;
+		refinement = newRefinement;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT__REFINEMENT, oldRefinement, newRefinement);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -179,10 +178,17 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 	 * @generated
 	 */
 	public void setRefinement(Design newRefinement) {
-		Design oldRefinement = refinement;
-		refinement = newRefinement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT__REFINEMENT, oldRefinement, refinement));
+		if (newRefinement != refinement) {
+			NotificationChain msgs = null;
+			if (refinement != null)
+				msgs = ((InternalEObject)refinement).eInverseRemove(this, SlamPackage.DESIGN__REFINED, Design.class, msgs);
+			if (newRefinement != null)
+				msgs = ((InternalEObject)newRefinement).eInverseAdd(this, SlamPackage.DESIGN__REFINED, Design.class, msgs);
+			msgs = basicSetRefinement(newRefinement, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT__REFINEMENT, newRefinement, newRefinement));
 	}
 
 	/**
@@ -209,6 +215,10 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInterfaces()).basicAdd(otherEnd, msgs);
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstances()).basicAdd(otherEnd, msgs);
+			case ComponentPackage.COMPONENT__REFINEMENT:
+				if (refinement != null)
+					msgs = ((InternalEObject)refinement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT__REFINEMENT, null, msgs);
+				return basicSetRefinement((Design)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -227,6 +237,8 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 				return ((InternalEList<?>)getInterfaces()).basicRemove(otherEnd, msgs);
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return ((InternalEList<?>)getInstances()).basicRemove(otherEnd, msgs);
+			case ComponentPackage.COMPONENT__REFINEMENT:
+				return basicSetRefinement(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -246,8 +258,7 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return getInstances();
 			case ComponentPackage.COMPONENT__REFINEMENT:
-				if (resolve) return getRefinement();
-				return basicGetRefinement();
+				return getRefinement();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

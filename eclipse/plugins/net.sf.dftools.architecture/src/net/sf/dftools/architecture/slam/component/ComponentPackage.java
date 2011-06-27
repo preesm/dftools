@@ -8,6 +8,7 @@ package net.sf.dftools.architecture.slam.component;
 
 import net.sf.dftools.architecture.slam.SlamPackage;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -98,7 +99,7 @@ public interface ComponentPackage extends EPackage {
 	int COMPONENT__INTERFACES = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -107,7 +108,7 @@ public interface ComponentPackage extends EPackage {
 	int COMPONENT__INSTANCES = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
+	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -162,7 +163,7 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__INTERFACES = COMPONENT__INTERFACES;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -171,7 +172,7 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
+	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -226,7 +227,7 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE__INTERFACES = COMPONENT__INTERFACES;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -235,7 +236,7 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
+	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -290,7 +291,7 @@ public interface ComponentPackage extends EPackage {
 	int ENABLER__INTERFACES = COMPONENT__INTERFACES;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -299,7 +300,7 @@ public interface ComponentPackage extends EPackage {
 	int ENABLER__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
+	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -354,7 +355,7 @@ public interface ComponentPackage extends EPackage {
 	int DMA__INTERFACES = ENABLER__INTERFACES;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -363,7 +364,7 @@ public interface ComponentPackage extends EPackage {
 	int DMA__INSTANCES = ENABLER__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
+	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -418,7 +419,7 @@ public interface ComponentPackage extends EPackage {
 	int RAM__INTERFACES = ENABLER__INTERFACES;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -427,7 +428,7 @@ public interface ComponentPackage extends EPackage {
 	int RAM__INSTANCES = ENABLER__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
+	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -455,58 +456,13 @@ public interface ComponentPackage extends EPackage {
 	int HIERARCHY_PORT = 6;
 
 	/**
-	 * The feature id for the '<em><b>Vlnv</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HIERARCHY_PORT__VLNV = COMPONENT__VLNV;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HIERARCHY_PORT__PARAMETERS = COMPONENT__PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HIERARCHY_PORT__INTERFACES = COMPONENT__INTERFACES;
-
-	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HIERARCHY_PORT__INSTANCES = COMPONENT__INSTANCES;
-
-	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HIERARCHY_PORT__REFINEMENT = COMPONENT__REFINEMENT;
-
-	/**
 	 * The feature id for the '<em><b>External Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HIERARCHY_PORT__EXTERNAL_INTERFACE = COMPONENT_FEATURE_COUNT + 0;
+	int HIERARCHY_PORT__EXTERNAL_INTERFACE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Internal Interface</b></em>' reference.
@@ -515,7 +471,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HIERARCHY_PORT__INTERNAL_INTERFACE = COMPONENT_FEATURE_COUNT + 1;
+	int HIERARCHY_PORT__INTERNAL_INTERFACE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Internal Component Instance</b></em>' reference.
@@ -524,7 +480,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE = COMPONENT_FEATURE_COUNT + 2;
+	int HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Hierarchy Port</em>' class.
@@ -533,7 +489,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HIERARCHY_PORT_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 3;
+	int HIERARCHY_PORT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl <em>Com Interface</em>}' class.
@@ -573,13 +529,22 @@ public interface ComponentPackage extends EPackage {
 	int COM_INTERFACE__ABSTRACTION_TYPE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_INTERFACE__NAME = 3;
+
+	/**
 	 * The number of structural features of the '<em>Com Interface</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COM_INTERFACE_FEATURE_COUNT = 3;
+	int COM_INTERFACE_FEATURE_COUNT = 4;
 
 
 	/**
@@ -604,10 +569,10 @@ public interface ComponentPackage extends EPackage {
 	EReference getComponent_Interfaces();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}'.
+	 * Returns the meta object for the reference list '{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Instances</em>'.
+	 * @return the meta object for the reference list '<em>Instances</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Component#getInstances()
 	 * @see #getComponent()
 	 * @generated
@@ -615,10 +580,10 @@ public interface ComponentPackage extends EPackage {
 	EReference getComponent_Instances();
 
 	/**
-	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
+	 * Returns the meta object for the containment reference '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Refinement</em>'.
+	 * @return the meta object for the containment reference '<em>Refinement</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Component#getRefinement()
 	 * @see #getComponent()
 	 * @generated
@@ -762,6 +727,17 @@ public interface ComponentPackage extends EPackage {
 	EReference getComInterface_AbstractionType();
 
 	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComInterface#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getName()
+	 * @see #getComInterface()
+	 * @generated
+	 */
+	EAttribute getComInterface_Name();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -802,7 +778,7 @@ public interface ComponentPackage extends EPackage {
 		EReference COMPONENT__INTERFACES = eINSTANCE.getComponent_Interfaces();
 
 		/**
-		 * The meta object literal for the '<em><b>Instances</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Instances</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -810,7 +786,7 @@ public interface ComponentPackage extends EPackage {
 		EReference COMPONENT__INSTANCES = eINSTANCE.getComponent_Instances();
 
 		/**
-		 * The meta object literal for the '<em><b>Refinement</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Refinement</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -934,6 +910,14 @@ public interface ComponentPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COM_INTERFACE__ABSTRACTION_TYPE = eINSTANCE.getComInterface_AbstractionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COM_INTERFACE__NAME = eINSTANCE.getComInterface_Name();
 
 	}
 

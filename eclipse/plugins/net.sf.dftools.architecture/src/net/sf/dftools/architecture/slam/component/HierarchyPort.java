@@ -7,6 +7,7 @@
 package net.sf.dftools.architecture.slam.component;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +27,7 @@ import net.sf.dftools.architecture.slam.ComponentInstance;
  * @model
  * @generated
  */
-public interface HierarchyPort extends Component {
+public interface HierarchyPort extends EObject {
 	/**
 	 * Returns the value of the '<em><b>External Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->

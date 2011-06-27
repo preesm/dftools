@@ -81,22 +81,40 @@ public interface LinkPackage extends EPackage {
 	int LINK__PARAMETERS = SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * The feature id for the '<em><b>Source Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__SOURCE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 0;
+	int LINK__SOURCE_INTERFACE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * The feature id for the '<em><b>Destination Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__DESTINATION = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 1;
+	int LINK__DESTINATION_INTERFACE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Source Component Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__SOURCE_COMPONENT_INSTANCE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Destination Component Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__DESTINATION_COMPONENT_INSTANCE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Link</em>' class.
@@ -105,7 +123,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 2;
+	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.
@@ -127,22 +145,40 @@ public interface LinkPackage extends EPackage {
 	int DATA_LINK__PARAMETERS = LINK__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * The feature id for the '<em><b>Source Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_LINK__SOURCE = LINK__SOURCE;
+	int DATA_LINK__SOURCE_INTERFACE = LINK__SOURCE_INTERFACE;
 
 	/**
-	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * The feature id for the '<em><b>Destination Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_LINK__DESTINATION = LINK__DESTINATION;
+	int DATA_LINK__DESTINATION_INTERFACE = LINK__DESTINATION_INTERFACE;
+
+	/**
+	 * The feature id for the '<em><b>Source Component Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_LINK__SOURCE_COMPONENT_INSTANCE = LINK__SOURCE_COMPONENT_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Destination Component Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_LINK__DESTINATION_COMPONENT_INSTANCE = LINK__DESTINATION_COMPONENT_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Directed</b></em>' attribute.
@@ -182,22 +218,40 @@ public interface LinkPackage extends EPackage {
 	int CONTROL_LINK__PARAMETERS = LINK__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * The feature id for the '<em><b>Source Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_LINK__SOURCE = LINK__SOURCE;
+	int CONTROL_LINK__SOURCE_INTERFACE = LINK__SOURCE_INTERFACE;
 
 	/**
-	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * The feature id for the '<em><b>Destination Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_LINK__DESTINATION = LINK__DESTINATION;
+	int CONTROL_LINK__DESTINATION_INTERFACE = LINK__DESTINATION_INTERFACE;
+
+	/**
+	 * The feature id for the '<em><b>Source Component Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL_LINK__SOURCE_COMPONENT_INSTANCE = LINK__SOURCE_COMPONENT_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Destination Component Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL_LINK__DESTINATION_COMPONENT_INSTANCE = LINK__DESTINATION_COMPONENT_INSTANCE;
 
 	/**
 	 * The number of structural features of the '<em>Control Link</em>' class.
@@ -220,26 +274,48 @@ public interface LinkPackage extends EPackage {
 	EClass getLink();
 
 	/**
-	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.link.Link#getSource <em>Source</em>}'.
+	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.link.Link#getSourceInterface <em>Source Interface</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see net.sf.dftools.architecture.slam.link.Link#getSource()
+	 * @return the meta object for the reference '<em>Source Interface</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#getSourceInterface()
 	 * @see #getLink()
 	 * @generated
 	 */
-	EReference getLink_Source();
+	EReference getLink_SourceInterface();
 
 	/**
-	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.link.Link#getDestination <em>Destination</em>}'.
+	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.link.Link#getDestinationInterface <em>Destination Interface</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Destination</em>'.
-	 * @see net.sf.dftools.architecture.slam.link.Link#getDestination()
+	 * @return the meta object for the reference '<em>Destination Interface</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#getDestinationInterface()
 	 * @see #getLink()
 	 * @generated
 	 */
-	EReference getLink_Destination();
+	EReference getLink_DestinationInterface();
+
+	/**
+	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source Component Instance</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#getSourceComponentInstance()
+	 * @see #getLink()
+	 * @generated
+	 */
+	EReference getLink_SourceComponentInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Destination Component Instance</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#getDestinationComponentInstance()
+	 * @see #getLink()
+	 * @generated
+	 */
+	EReference getLink_DestinationComponentInstance();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.link.DataLink <em>Data Link</em>}'.
@@ -305,20 +381,36 @@ public interface LinkPackage extends EPackage {
 		EClass LINK = eINSTANCE.getLink();
 
 		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Source Interface</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference LINK__SOURCE = eINSTANCE.getLink_Source();
+		EReference LINK__SOURCE_INTERFACE = eINSTANCE.getLink_SourceInterface();
 
 		/**
-		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Destination Interface</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference LINK__DESTINATION = eINSTANCE.getLink_Destination();
+		EReference LINK__DESTINATION_INTERFACE = eINSTANCE.getLink_DestinationInterface();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Component Instance</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINK__SOURCE_COMPONENT_INSTANCE = eINSTANCE.getLink_SourceComponentInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination Component Instance</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINK__DESTINATION_COMPONENT_INSTANCE = eINSTANCE.getLink_DestinationComponentInstance();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.

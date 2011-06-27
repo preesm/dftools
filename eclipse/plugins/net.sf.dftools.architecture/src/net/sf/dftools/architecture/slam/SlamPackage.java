@@ -107,7 +107,7 @@ public interface SlamPackage extends EPackage {
 	int DESIGN__VLNV = VLN_VED_ELEMENT__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Component Instances</b></em>' reference list.
+	 * The feature id for the '<em><b>Component Instances</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -116,7 +116,7 @@ public interface SlamPackage extends EPackage {
 	int DESIGN__COMPONENT_INSTANCES = VLN_VED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Links</b></em>' reference list.
+	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -125,13 +125,40 @@ public interface SlamPackage extends EPackage {
 	int DESIGN__LINKS = VLN_VED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Hierarchy Ports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN__HIERARCHY_PORTS = VLN_VED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN__COMPONENTS = VLN_VED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Refined</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN__REFINED = VLN_VED_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Design</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESIGN_FEATURE_COUNT = VLN_VED_ELEMENT_FEATURE_COUNT + 2;
+	int DESIGN_FEATURE_COUNT = VLN_VED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -162,7 +189,7 @@ public interface SlamPackage extends EPackage {
 	int COMPONENT_INSTANCE__PARAMETERS = VLN_VED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Component</b></em>' container reference.
+	 * The feature id for the '<em><b>Component</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -228,10 +255,10 @@ public interface SlamPackage extends EPackage {
 	EClass getDesign();
 
 	/**
-	 * Returns the meta object for the reference list '{@link net.sf.dftools.architecture.slam.Design#getComponentInstances <em>Component Instances</em>}'.
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.Design#getComponentInstances <em>Component Instances</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Component Instances</em>'.
+	 * @return the meta object for the containment reference list '<em>Component Instances</em>'.
 	 * @see net.sf.dftools.architecture.slam.Design#getComponentInstances()
 	 * @see #getDesign()
 	 * @generated
@@ -239,15 +266,48 @@ public interface SlamPackage extends EPackage {
 	EReference getDesign_ComponentInstances();
 
 	/**
-	 * Returns the meta object for the reference list '{@link net.sf.dftools.architecture.slam.Design#getLinks <em>Links</em>}'.
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.Design#getLinks <em>Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Links</em>'.
+	 * @return the meta object for the containment reference list '<em>Links</em>'.
 	 * @see net.sf.dftools.architecture.slam.Design#getLinks()
 	 * @see #getDesign()
 	 * @generated
 	 */
 	EReference getDesign_Links();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.Design#getHierarchyPorts <em>Hierarchy Ports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Hierarchy Ports</em>'.
+	 * @see net.sf.dftools.architecture.slam.Design#getHierarchyPorts()
+	 * @see #getDesign()
+	 * @generated
+	 */
+	EReference getDesign_HierarchyPorts();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.Design#getComponents <em>Components</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Components</em>'.
+	 * @see net.sf.dftools.architecture.slam.Design#getComponents()
+	 * @see #getDesign()
+	 * @generated
+	 */
+	EReference getDesign_Components();
+
+	/**
+	 * Returns the meta object for the container reference '{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Refined</em>'.
+	 * @see net.sf.dftools.architecture.slam.Design#getRefined()
+	 * @see #getDesign()
+	 * @generated
+	 */
+	EReference getDesign_Refined();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.ComponentInstance <em>Component Instance</em>}'.
@@ -260,10 +320,10 @@ public interface SlamPackage extends EPackage {
 	EClass getComponentInstance();
 
 	/**
-	 * Returns the meta object for the container reference '{@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}'.
+	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Component</em>'.
+	 * @return the meta object for the reference '<em>Component</em>'.
 	 * @see net.sf.dftools.architecture.slam.ComponentInstance#getComponent()
 	 * @see #getComponentInstance()
 	 * @generated
@@ -356,7 +416,7 @@ public interface SlamPackage extends EPackage {
 		EClass DESIGN = eINSTANCE.getDesign();
 
 		/**
-		 * The meta object literal for the '<em><b>Component Instances</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Component Instances</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -364,12 +424,36 @@ public interface SlamPackage extends EPackage {
 		EReference DESIGN__COMPONENT_INSTANCES = eINSTANCE.getDesign_ComponentInstances();
 
 		/**
-		 * The meta object literal for the '<em><b>Links</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Links</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference DESIGN__LINKS = eINSTANCE.getDesign_Links();
+
+		/**
+		 * The meta object literal for the '<em><b>Hierarchy Ports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DESIGN__HIERARCHY_PORTS = eINSTANCE.getDesign_HierarchyPorts();
+
+		/**
+		 * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DESIGN__COMPONENTS = eINSTANCE.getDesign_Components();
+
+		/**
+		 * The meta object literal for the '<em><b>Refined</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DESIGN__REFINED = eINSTANCE.getDesign_Refined();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -382,7 +466,7 @@ public interface SlamPackage extends EPackage {
 		EClass COMPONENT_INSTANCE = eINSTANCE.getComponentInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Component</b></em>' container reference feature.
+		 * The meta object literal for the '<em><b>Component</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

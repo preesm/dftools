@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,7 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class HierarchyPortImpl extends ComponentImpl implements HierarchyPort {
+public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	/**
 	 * The cached value of the '{@link #getExternalInterface() <em>External Interface</em>}' reference.
 	 * <!-- begin-user-doc -->

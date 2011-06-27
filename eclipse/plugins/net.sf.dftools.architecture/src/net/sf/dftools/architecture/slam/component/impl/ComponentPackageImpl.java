@@ -29,6 +29,7 @@ import net.sf.dftools.architecture.slam.link.LinkPackage;
 
 import net.sf.dftools.architecture.slam.link.impl.LinkPackageImpl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -328,6 +329,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getComInterface_Name() {
+		return (EAttribute)comInterfaceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ComponentFactory getComponentFactory() {
 		return (ComponentFactory)getEFactoryInstance();
 	}
@@ -375,6 +385,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		createEReference(comInterfaceEClass, COM_INTERFACE__COMPONENT);
 		createEReference(comInterfaceEClass, COM_INTERFACE__BUS_TYPE);
 		createEReference(comInterfaceEClass, COM_INTERFACE__ABSTRACTION_TYPE);
+		createEAttribute(comInterfaceEClass, COM_INTERFACE__NAME);
 	}
 
 	/**
@@ -416,13 +427,12 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		enablerEClass.getESuperTypes().add(this.getComponent());
 		dmaEClass.getESuperTypes().add(this.getEnabler());
 		ramEClass.getESuperTypes().add(this.getEnabler());
-		hierarchyPortEClass.getESuperTypes().add(this.getComponent());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Interfaces(), this.getComInterface(), this.getComInterface_Component(), "interfaces", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComponent_Instances(), theSlamPackage.getComponentInstance(), theSlamPackage.getComponentInstance_Component(), "instances", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComponent_Refinement(), theSlamPackage.getDesign(), null, "refinement", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Instances(), theSlamPackage.getComponentInstance(), theSlamPackage.getComponentInstance_Component(), "instances", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Refinement(), theSlamPackage.getDesign(), theSlamPackage.getDesign_Refined(), "refinement", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(componentEClass, ecorePackage.getEBoolean(), "isHierarchical", 1, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -445,6 +455,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		initEReference(getComInterface_Component(), this.getComponent(), this.getComponent_Interfaces(), "component", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComInterface_BusType(), theAttributesPackage.getVLNV(), null, "busType", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComInterface_AbstractionType(), theAttributesPackage.getVLNV(), null, "abstractionType", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComInterface_Name(), ecorePackage.getEString(), "name", "", 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //ComponentPackageImpl

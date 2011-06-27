@@ -6,14 +6,17 @@
  */
 package net.sf.dftools.architecture.slam.impl;
 
-import net.sf.dftools.architecture.slam.*;
+import net.sf.dftools.architecture.slam.ComponentInstance;
+import net.sf.dftools.architecture.slam.Design;
+import net.sf.dftools.architecture.slam.ParameterizedElement;
+import net.sf.dftools.architecture.slam.SlamFactory;
+import net.sf.dftools.architecture.slam.SlamPackage;
+import net.sf.dftools.architecture.slam.VLNVedElement;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**

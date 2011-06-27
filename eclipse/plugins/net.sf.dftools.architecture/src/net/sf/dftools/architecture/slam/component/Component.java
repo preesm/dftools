@@ -51,7 +51,7 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	EList<ComInterface> getInterfaces();
 
 	/**
-	 * Returns the value of the '<em><b>Instances</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Instances</b></em>' reference list.
 	 * The list contents are of type {@link net.sf.dftools.architecture.slam.ComponentInstance}.
 	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}'.
 	 * <!-- begin-user-doc -->
@@ -60,35 +60,37 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Instances</em>' containment reference list.
+	 * @return the value of the '<em>Instances</em>' reference list.
 	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Instances()
 	 * @see net.sf.dftools.architecture.slam.ComponentInstance#getComponent
-	 * @model opposite="component" containment="true"
+	 * @model opposite="component"
 	 * @generated
 	 */
 	EList<ComponentInstance> getInstances();
 
 	/**
-	 * Returns the value of the '<em><b>Refinement</b></em>' reference.
+	 * Returns the value of the '<em><b>Refinement</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Refinement</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Refinement</em>' reference.
+	 * @return the value of the '<em>Refinement</em>' containment reference.
 	 * @see #setRefinement(Design)
 	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Refinement()
-	 * @model
+	 * @see net.sf.dftools.architecture.slam.Design#getRefined
+	 * @model opposite="refined" containment="true"
 	 * @generated
 	 */
 	Design getRefinement();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}' reference.
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Refinement</em>' reference.
+	 * @param value the new value of the '<em>Refinement</em>' containment reference.
 	 * @see #getRefinement()
 	 * @generated
 	 */

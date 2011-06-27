@@ -11,24 +11,17 @@ import java.util.Collection;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.SlamPackage;
-
 import net.sf.dftools.architecture.slam.attributes.Parameter;
-
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -56,6 +49,16 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	 * @ordered
 	 */
 	protected EList<Parameter> parameters;
+
+	/**
+	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComponent()
+	 * @generated
+	 * @ordered
+	 */
+	protected Component component;
 
 	/**
 	 * The default value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute.
@@ -114,8 +117,24 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	 * @generated
 	 */
 	public Component getComponent() {
-		if (eContainerFeatureID() != SlamPackage.COMPONENT_INSTANCE__COMPONENT) return null;
-		return (Component)eContainer();
+		if (component != null && component.eIsProxy()) {
+			InternalEObject oldComponent = (InternalEObject)component;
+			component = (Component)eResolveProxy(oldComponent);
+			if (component != oldComponent) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent, component));
+			}
+		}
+		return component;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Component basicGetComponent() {
+		return component;
 	}
 
 	/**
@@ -124,7 +143,12 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	 * @generated
 	 */
 	public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newComponent, SlamPackage.COMPONENT_INSTANCE__COMPONENT, msgs);
+		Component oldComponent = component;
+		component = newComponent;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent, newComponent);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -134,12 +158,10 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	 * @generated
 	 */
 	public void setComponent(Component newComponent) {
-		if (newComponent != eInternalContainer() || (eContainerFeatureID() != SlamPackage.COMPONENT_INSTANCE__COMPONENT && newComponent != null)) {
-			if (EcoreUtil.isAncestor(this, newComponent))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+		if (newComponent != component) {
 			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
+			if (component != null)
+				msgs = ((InternalEObject)component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
 			if (newComponent != null)
 				msgs = ((InternalEObject)newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
 			msgs = basicSetComponent(newComponent, msgs);
@@ -190,8 +212,8 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
+				if (component != null)
+					msgs = ((InternalEObject)component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
 				return basicSetComponent((Component)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -219,26 +241,13 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
 				return getParameters();
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				return getComponent();
+				if (resolve) return getComponent();
+				return basicGetComponent();
 			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
 				return getInstanceName();
 		}
@@ -300,7 +309,7 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				return getComponent() != null;
+				return component != null;
 			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
 				return INSTANCE_NAME_EDEFAULT == null ? instanceName != null : !INSTANCE_NAME_EDEFAULT.equals(instanceName);
 		}

@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getComponent <em>Component</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getBusType <em>Bus Type</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getAbstractionType <em>Abstraction Type</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,6 +59,26 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * @ordered
 	 */
 	protected VLNV abstractionType;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,6 +231,27 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -267,6 +309,8 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return getBusType();
 			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
 				return getAbstractionType();
+			case ComponentPackage.COM_INTERFACE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -287,6 +331,9 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return;
 			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
 				setAbstractionType((VLNV)newValue);
+				return;
+			case ComponentPackage.COM_INTERFACE__NAME:
+				setName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -309,6 +356,9 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
 				setAbstractionType((VLNV)null);
 				return;
+			case ComponentPackage.COM_INTERFACE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -327,8 +377,26 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return busType != null;
 			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
 				return abstractionType != null;
+			case ComponentPackage.COM_INTERFACE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ComInterfaceImpl

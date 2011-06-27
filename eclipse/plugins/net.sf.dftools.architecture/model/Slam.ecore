@@ -4,13 +4,28 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam"
     nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="slam">
   <eClassifiers xsi:type="ecore:EClass" name="Design" eSuperTypes="#//VLNVedElement">
-    <eOperations name="containsComponentInstance">
+    <eOperations name="containsComponentInstance" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="containsComponent" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getComponent" lowerBound="1" eType="#//component/Component">
+      <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getComponentInstance" lowerBound="1" eType="#//ComponentInstance">
       <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstances" ordered="false"
-        upperBound="-1" eType="#//ComponentInstance" eKeys="#//ComponentInstance/instanceName"/>
+        upperBound="-1" eType="#//ComponentInstance" containment="true" eKeys="#//ComponentInstance/instanceName"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
-        eType="#//link/Link"/>
+        eType="#//link/Link" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchyPorts" upperBound="-1"
+        eType="#//component/HierarchyPort" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="components" ordered="false"
+        upperBound="-1" eType="#//component/Component" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="refined" eType="#//component/Component"
+        eOpposite="#//component/Component/refinement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentInstance" eSuperTypes="#//VLNVedElement #//ParameterizedElement">
     <eOperations name="isHierarchical" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -34,15 +49,16 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="interfaces" upperBound="-1"
           eType="#//component/ComInterface" containment="true" eOpposite="#//component/ComInterface/component"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="instances" upperBound="-1"
-          eType="#//ComponentInstance" containment="true" eOpposite="#//ComponentInstance/component"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="refinement" eType="#//Design"/>
+          eType="#//ComponentInstance" eOpposite="#//ComponentInstance/component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="refinement" eType="#//Design"
+          containment="true" eOpposite="#//Design/refined"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="Enabler" abstract="true" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//component/Enabler"/>
     <eClassifiers xsi:type="ecore:EClass" name="Ram" eSuperTypes="#//component/Enabler"/>
-    <eClassifiers xsi:type="ecore:EClass" name="HierarchyPort" eSuperTypes="#//component/Component">
+    <eClassifiers xsi:type="ecore:EClass" name="HierarchyPort">
       <eStructuralFeatures xsi:type="ecore:EReference" name="externalInterface" lowerBound="1"
           eType="#//component/ComInterface"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="internalInterface" lowerBound="1"
@@ -57,14 +73,21 @@
           eType="#//attributes/VLNV" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="abstractionType" lowerBound="1"
           eType="#//attributes/VLNV" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="" iD="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="link" nsURI="http://net.sf.dftools/architecture/slam/link" nsPrefix="link">
     <eClassifiers xsi:type="ecore:EClass" name="Link" abstract="true" eSuperTypes="#//ParameterizedElement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceInterface" lowerBound="1"
           eType="#//component/ComInterface"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="destination" lowerBound="1"
-          eType="#//component/ComInterface"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="destinationInterface"
+          lowerBound="1" eType="#//component/ComInterface"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceComponentInstance"
+          lowerBound="1" eType="#//ComponentInstance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="destinationComponentInstance"
+          lowerBound="1" eType="#//ComponentInstance"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="directed" lowerBound="1"

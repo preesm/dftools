@@ -145,7 +145,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLink_Source() {
+	public EReference getLink_SourceInterface() {
 		return (EReference)linkEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -154,8 +154,26 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLink_Destination() {
+	public EReference getLink_DestinationInterface() {
 		return (EReference)linkEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLink_SourceComponentInstance() {
+		return (EReference)linkEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLink_DestinationComponentInstance() {
+		return (EReference)linkEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -214,8 +232,10 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 
 		// Create classes and their features
 		linkEClass = createEClass(LINK);
-		createEReference(linkEClass, LINK__SOURCE);
-		createEReference(linkEClass, LINK__DESTINATION);
+		createEReference(linkEClass, LINK__SOURCE_INTERFACE);
+		createEReference(linkEClass, LINK__DESTINATION_INTERFACE);
+		createEReference(linkEClass, LINK__SOURCE_COMPONENT_INSTANCE);
+		createEReference(linkEClass, LINK__DESTINATION_COMPONENT_INSTANCE);
 
 		dataLinkEClass = createEClass(DATA_LINK);
 		createEAttribute(dataLinkEClass, DATA_LINK__DIRECTED);
@@ -261,8 +281,10 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(linkEClass, Link.class, "Link", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLink_Source(), theComponentPackage.getComInterface(), null, "source", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getLink_Destination(), theComponentPackage.getComInterface(), null, "destination", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLink_SourceInterface(), theComponentPackage.getComInterface(), null, "sourceInterface", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLink_DestinationInterface(), theComponentPackage.getComInterface(), null, "destinationInterface", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLink_SourceComponentInstance(), theSlamPackage.getComponentInstance(), null, "sourceComponentInstance", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLink_DestinationComponentInstance(), theSlamPackage.getComponentInstance(), null, "destinationComponentInstance", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataLinkEClass, DataLink.class, "DataLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataLink_Directed(), ecorePackage.getEBoolean(), "directed", null, 1, 1, DataLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
