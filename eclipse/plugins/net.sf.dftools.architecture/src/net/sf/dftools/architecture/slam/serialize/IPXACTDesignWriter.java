@@ -45,15 +45,17 @@ public class IPXACTDesignWriter {
 				"spirit:design");
 		Element mainElement = document.getDocumentElement();
 
-		writeDesignVLNV(mainElement, design, document);
+		writeVLNV(mainElement, design, document);
 		writeComponentInstances(mainElement, design, document);
 		writeLinks(mainElement, design, document);
 		writeHierarchyPorts(mainElement, design, document);
-
+		
 		DomUtil.writeDocument(outputStream, document);
+		
+		
 	}
 
-	private void writeVLNV(Element parent, VLNVedElement vlnvedElement,
+	private void writeCompactVLNV(Element parent, VLNVedElement vlnvedElement,
 			Document document) {
 		VLNV vlnv = vlnvedElement.getVlnv();
 		Element vlnvElt = document.createElement("spirit:componentRef");
@@ -64,9 +66,9 @@ public class IPXACTDesignWriter {
 		vlnvElt.setAttribute("spirit:version", vlnv.getVersion());
 	}
 
-	private void writeDesignVLNV(Element parent, Design design,
+	private void writeVLNV(Element parent, VLNVedElement vlnvedElement,
 			Document document) {
-		VLNV vlnv = design.getVlnv();
+		VLNV vlnv = vlnvedElement.getVlnv();
 		Element child = document.createElement("spirit:vendor");
 		parent.appendChild(child);
 		child.setTextContent(vlnv.getVendor());
@@ -89,8 +91,17 @@ public class IPXACTDesignWriter {
 		Element nameElt = document.createElement("spirit:instanceName");
 		cmpElt.appendChild(nameElt);
 		nameElt.setTextContent(instance.getInstanceName());
-		writeVLNV(cmpElt, instance, document);
-		addParametersTag(cmpElt, instance, document);
+		writeCompactVLNV(cmpElt, instance.getComponent(), document);
+		
+		Element confsElt = document
+				.createElement("spirit:configurableElementValues");
+		cmpElt.appendChild(confsElt);
+		
+		writeParameters(confsElt, instance, document);
+
+		// Adding as component type the name of the component ecore EClass.
+		writeParameter(confsElt, "componentType", instance.getComponent()
+				.eClass().getName(), document);
 	}
 
 	private void writeComponentInstances(Element parent, Design design,
@@ -109,25 +120,24 @@ public class IPXACTDesignWriter {
 		}
 	}
 
-	private void writeParameters(Element parent, ComponentInstance instance,
+	private void writeParameter(Element parent, String key, String value,
 			Document document) {
-		for (Parameter param : instance.getParameters()) {
-			Element paramElt = document
-					.createElement("spirit:configurableElementValue");
-			parent.appendChild(paramElt);
-			paramElt.setAttribute("spirit:referenceId", param.getKey());
-			paramElt.setTextContent(param.getValue());
-		}
+
+		Element paramElt = document
+				.createElement("spirit:configurableElementValue");
+		parent.appendChild(paramElt);
+		paramElt.setAttribute("spirit:referenceId", key);
+		paramElt.setTextContent(value);
 	}
 
-	private void addParametersTag(Element parent, ComponentInstance instance,
+	private void writeParameters(Element confsElt, ComponentInstance instance,
 			Document document) {
 
 		if (!instance.getParameters().isEmpty()) {
-			Element confsElt = document
-					.createElement("spirit:configurableElementValues");
-			parent.appendChild(confsElt);
-			writeParameters(confsElt, instance, document);
+			for (Parameter param : instance.getParameters()) {
+				writeParameter(confsElt, param.getKey(), param.getValue(),
+						document);
+			}
 		}
 	}
 
@@ -154,8 +164,7 @@ public class IPXACTDesignWriter {
 		intfElt.appendChild(intf2Elt);
 		intf2Elt.setAttribute("spirit:componentRef",
 				destinationComponentInstance.getInstanceName());
-		intf2Elt.setAttribute("spirit:busRef", destinationInterface
-				.getName());
+		intf2Elt.setAttribute("spirit:busRef", destinationInterface.getName());
 
 	}
 
@@ -179,7 +188,7 @@ public class IPXACTDesignWriter {
 		parent.appendChild(intfElt);
 
 		intfElt.setAttribute("spirit:interfaceRef", hierarchyPort
-				.getExternalInterface().getBusType().getName());
+				.getExternalInterface().getName());
 		Element activeIntfElt = document
 				.createElement("spirit:activeInterface");
 		intfElt.appendChild(activeIntfElt);

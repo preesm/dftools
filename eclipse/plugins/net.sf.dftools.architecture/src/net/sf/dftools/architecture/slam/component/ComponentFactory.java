@@ -26,6 +26,15 @@ public interface ComponentFactory extends EFactory {
 	ComponentFactory eINSTANCE = net.sf.dftools.architecture.slam.component.impl.ComponentFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Component</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Component</em>'.
+	 * @generated
+	 */
+	Component createComponent();
+
+	/**
 	 * Returns a new object of class '<em>Operator</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

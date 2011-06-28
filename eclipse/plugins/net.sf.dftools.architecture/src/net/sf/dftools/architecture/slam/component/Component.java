@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface Component extends VLNVedElement, ParameterizedElement {
@@ -103,5 +103,13 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	 * @generated
 	 */
 	boolean isHierarchical();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model required="true" nameRequired="true"
+	 * @generated
+	 */
+	ComInterface getInterface(String name);
 
 } // Component

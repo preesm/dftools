@@ -8,7 +8,6 @@ package net.sf.dftools.architecture.slam.link;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
-
 import net.sf.dftools.architecture.slam.component.ComInterface;
 
 /**

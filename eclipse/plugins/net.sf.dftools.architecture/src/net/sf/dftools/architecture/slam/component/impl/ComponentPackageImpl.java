@@ -7,11 +7,8 @@
 package net.sf.dftools.architecture.slam.component.impl;
 
 import net.sf.dftools.architecture.slam.SlamPackage;
-
 import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
-
 import net.sf.dftools.architecture.slam.attributes.impl.AttributesPackageImpl;
-
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
@@ -22,18 +19,15 @@ import net.sf.dftools.architecture.slam.component.Enabler;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.component.Ram;
-
 import net.sf.dftools.architecture.slam.impl.SlamPackageImpl;
-
 import net.sf.dftools.architecture.slam.link.LinkPackage;
-
 import net.sf.dftools.architecture.slam.link.impl.LinkPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -429,12 +423,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		ramEClass.getESuperTypes().add(this.getEnabler());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Interfaces(), this.getComInterface(), this.getComInterface_Component(), "interfaces", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Instances(), theSlamPackage.getComponentInstance(), theSlamPackage.getComponentInstance_Component(), "instances", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Refinement(), theSlamPackage.getDesign(), theSlamPackage.getDesign_Refined(), "refinement", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(componentEClass, ecorePackage.getEBoolean(), "isHierarchical", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		EOperation op = addEOperation(componentEClass, this.getComInterface(), "getInterface", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(operatorEClass, Operator.class, "Operator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

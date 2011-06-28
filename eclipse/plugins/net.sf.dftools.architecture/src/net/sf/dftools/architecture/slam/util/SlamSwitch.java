@@ -6,11 +6,14 @@
  */
 package net.sf.dftools.architecture.slam.util;
 
-import net.sf.dftools.architecture.slam.*;
+import net.sf.dftools.architecture.slam.ComponentInstance;
+import net.sf.dftools.architecture.slam.Design;
+import net.sf.dftools.architecture.slam.ParameterizedElement;
+import net.sf.dftools.architecture.slam.SlamPackage;
+import net.sf.dftools.architecture.slam.VLNVedElement;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
 /**
@@ -80,7 +83,6 @@ public class SlamSwitch<T> extends Switch<T> {
 			case SlamPackage.COMPONENT_INSTANCE: {
 				ComponentInstance componentInstance = (ComponentInstance)theEObject;
 				T result = caseComponentInstance(componentInstance);
-				if (result == null) result = caseVLNVedElement(componentInstance);
 				if (result == null) result = caseParameterizedElement(componentInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

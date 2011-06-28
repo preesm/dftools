@@ -10,16 +10,13 @@ import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>VLNV</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>VLNV</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,8 +32,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 public class VLNVImpl extends EObjectImpl implements VLNV {
 	/**
 	 * The default value of the '{@link #getVendor() <em>Vendor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getVendor()
 	 * @generated
 	 * @ordered
@@ -45,8 +41,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The cached value of the '{@link #getVendor() <em>Vendor</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getVendor()
 	 * @generated
 	 * @ordered
@@ -55,8 +50,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The default value of the '{@link #getLibrary() <em>Library</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getLibrary()
 	 * @generated
 	 * @ordered
@@ -65,8 +59,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The cached value of the '{@link #getLibrary() <em>Library</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getLibrary()
 	 * @generated
 	 * @ordered
@@ -75,8 +68,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -85,8 +77,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getName()
 	 * @generated
 	 * @ordered
@@ -95,8 +86,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
@@ -105,8 +95,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getVersion()
 	 * @generated
 	 * @ordered
@@ -114,8 +103,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	protected String version = VERSION_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected VLNVImpl() {
@@ -123,8 +111,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -133,8 +120,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getVendor() {
@@ -142,8 +128,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setVendor(String newVendor) {
@@ -154,8 +139,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getLibrary() {
@@ -163,8 +147,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setLibrary(String newLibrary) {
@@ -175,8 +158,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getName() {
@@ -184,8 +166,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setName(String newName) {
@@ -196,8 +177,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getVersion() {
@@ -205,8 +185,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setVersion(String newVersion) {
@@ -217,8 +196,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -237,8 +215,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -261,8 +238,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -285,8 +261,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -305,8 +280,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -326,4 +300,21 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 		return result.toString();
 	}
 
-} //VLNVImpl
+	/**
+	 * <!-- begin-user-doc --> Comparison of two VLNVs <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof VLNV) {
+			VLNV vlnv = (VLNV) obj;
+			return vendor.equals(vlnv.getVendor())
+					&& library.equals(vlnv.getLibrary())
+					&& name.equals(vlnv.getName())
+					&& version.equals(vlnv.getVersion());
+		}
+		return false;
+	}
+
+} // VLNVImpl

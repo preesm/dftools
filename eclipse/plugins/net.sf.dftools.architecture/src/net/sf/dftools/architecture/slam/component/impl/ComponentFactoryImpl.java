@@ -6,14 +6,20 @@
  */
 package net.sf.dftools.architecture.slam.component.impl;
 
-import net.sf.dftools.architecture.slam.component.*;
+import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComNode;
+import net.sf.dftools.architecture.slam.component.Component;
+import net.sf.dftools.architecture.slam.component.ComponentFactory;
+import net.sf.dftools.architecture.slam.component.ComponentPackage;
+import net.sf.dftools.architecture.slam.component.Dma;
+import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Operator;
+import net.sf.dftools.architecture.slam.component.Ram;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
@@ -60,6 +66,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case ComponentPackage.COMPONENT: return createComponent();
 			case ComponentPackage.OPERATOR: return createOperator();
 			case ComponentPackage.COM_NODE: return createComNode();
 			case ComponentPackage.DMA: return createDma();
@@ -69,6 +76,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Component createComponent() {
+		ComponentImpl component = new ComponentImpl();
+		return component;
 	}
 
 	/**

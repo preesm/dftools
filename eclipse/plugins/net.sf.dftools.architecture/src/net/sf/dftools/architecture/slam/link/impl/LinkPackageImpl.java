@@ -7,17 +7,11 @@
 package net.sf.dftools.architecture.slam.link.impl;
 
 import net.sf.dftools.architecture.slam.SlamPackage;
-
 import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
-
 import net.sf.dftools.architecture.slam.attributes.impl.AttributesPackageImpl;
-
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
-
 import net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl;
-
 import net.sf.dftools.architecture.slam.impl.SlamPackageImpl;
-
 import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.DataLink;
 import net.sf.dftools.architecture.slam.link.Link;
@@ -28,7 +22,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**

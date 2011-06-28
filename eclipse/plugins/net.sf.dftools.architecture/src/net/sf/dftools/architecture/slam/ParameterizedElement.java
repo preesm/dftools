@@ -9,7 +9,6 @@ package net.sf.dftools.architecture.slam;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

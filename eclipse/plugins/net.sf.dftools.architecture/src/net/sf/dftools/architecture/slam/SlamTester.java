@@ -8,6 +8,12 @@ import java.util.Map;
 
 import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
+import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.Component;
+import net.sf.dftools.architecture.slam.component.ComponentFactory;
+import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.link.Link;
+import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.slam.serialize.IPXACTResourceFactoryImpl;
 
 import org.eclipse.emf.common.util.URI;
@@ -40,37 +46,100 @@ public class SlamTester {
 			instance = new IPXACTResourceFactoryImpl();
 			extToFactoryMap.put("design", instance);
 		}
-		
+
 		if (!EPackage.Registry.INSTANCE.containsKey(SlamPackage.eNS_URI)) {
-			EPackage.Registry.INSTANCE.put(SlamPackage.eNS_URI, SlamPackage.eINSTANCE);
+			EPackage.Registry.INSTANCE.put(SlamPackage.eNS_URI,
+					SlamPackage.eINSTANCE);
 		}
 
 		// Create a new empty resource.
-		//ResourceSet resourceSet = new ResourceSetImpl();
-		//Resource resource = resourceSet.createResource(URI
-		//		.createFileURI("d:/test.design"));
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource resource = resourceSet.createResource(URI
+				.createFileURI("d:/test.design"));
 		// Create and populate instances.
 		Design design = SlamFactory.eINSTANCE.createDesign();
 		VLNV vlnv = AttributesFactory.eINSTANCE.createVLNV();
 		vlnv.setName("DualCore");
 		design.setVlnv(vlnv);
-/*
-		if(!design.containsComponent("x86")){
-			Component x86 = ComponentFactory.eINSTANCE.createOperator();
-			design.getComponents().add(x86);
+
+		if (design.getRefined() == null) {
+			Component refined = ComponentFactory.eINSTANCE.createComponent();
+			design.setRefined(refined);
 		}
-		else{
-			Component x86 = design.getComponent("x86");
-		}
-		
-		if(!design.containsComponentInstance("uCore0")){
-			ComponentInstance uCore0 = SlamFactory.eINSTANCE.createComponentInstance();
-			design.getComponentInstances().add(uCore0);
-		}
-		else{
-			ComponentInstance uCore0 = design.getComponentInstance("uCore0");
-		}
-		
+
+		Component x86 = ComponentFactory.eINSTANCE.createOperator();
+		design.getComponents().add(x86);
+		vlnv = AttributesFactory.eINSTANCE.createVLNV();
+		vlnv.setName("x86");
+		x86.setVlnv(vlnv);
+		ComInterface memItf = ComponentFactory.eINSTANCE.createComInterface();
+		memItf.setName("Mem");
+		x86.getInterfaces().add(memItf);
+		ComInterface ethItf = ComponentFactory.eINSTANCE.createComInterface();
+		ethItf.setName("Eth");
+		x86.getInterfaces().add(ethItf);
+
+		ComponentInstance uCore0 = SlamFactory.eINSTANCE
+				.createComponentInstance();
+		design.getComponentInstances().add(uCore0);
+		uCore0.setInstanceName("uCore0");
+		uCore0.setComponent(x86);
+
+		ComponentInstance uCore1 = SlamFactory.eINSTANCE
+				.createComponentInstance();
+		design.getComponentInstances().add(uCore1);
+		uCore1.setInstanceName("uCore1");
+		uCore1.setComponent(x86);
+
+		Component sharedMemory = ComponentFactory.eINSTANCE.createRam();
+		design.getComponents().add(sharedMemory);
+		vlnv = AttributesFactory.eINSTANCE.createVLNV();
+		vlnv.setName("SharedMemory");
+		sharedMemory.setVlnv(vlnv);
+		ComInterface memItf2 = ComponentFactory.eINSTANCE.createComInterface();
+		memItf2.setName("Mem");
+		x86.getInterfaces().add(memItf2);
+
+		ComponentInstance uSharedMemory = SlamFactory.eINSTANCE
+				.createComponentInstance();
+		design.getComponentInstances().add(uSharedMemory);
+		uSharedMemory.setInstanceName("uSharedMemory");
+		uSharedMemory.setComponent(sharedMemory);
+
+		Link link = LinkFactory.eINSTANCE.createDataLink();
+		link.setSourceComponentInstance(uCore0);
+		link.setSourceInterface(memItf);
+		link.setDestinationComponentInstance(uSharedMemory);
+		link.setDestinationInterface(memItf2);
+		design.getLinks().add(link);
+
+		link = LinkFactory.eINSTANCE.createDataLink();
+		link.setSourceComponentInstance(uCore1);
+		link.setSourceInterface(memItf);
+		link.setDestinationComponentInstance(uSharedMemory);
+		link.setDestinationInterface(memItf2);
+		design.getLinks().add(link);
+
+		// Defining upper level interfaces
+		ComInterface supEth0 = ComponentFactory.eINSTANCE.createComInterface();
+		supEth0.setName("Eth0");
+		design.getRefined().getInterfaces().add(supEth0);
+
+		ComInterface supEth1 = ComponentFactory.eINSTANCE.createComInterface();
+		supEth1.setName("Eth1");
+		design.getRefined().getInterfaces().add(supEth1);
+
+		HierarchyPort hp = ComponentFactory.eINSTANCE.createHierarchyPort();
+		hp.setInternalComponentInstance(uCore0);
+		hp.setInternalInterface(ethItf);
+		hp.setExternalInterface(supEth0);
+		design.getHierarchyPorts().add(hp);
+
+		hp = ComponentFactory.eINSTANCE.createHierarchyPort();
+		hp.setInternalComponentInstance(uCore1);
+		hp.setInternalInterface(ethItf);
+		hp.setExternalInterface(supEth1);
+		design.getHierarchyPorts().add(hp);
 
 		resource.getContents().add(design);
 		try {
@@ -82,11 +151,22 @@ public class SlamTester {
 
 		// Demand load the resource into the resource set.
 		ResourceSet resourceSet2 = new ResourceSetImpl();
-		//Resource resource2 = resourceSet2.getResource(
-		//		URI.createFileURI("d:/test.design"), true);
+		Resource resource2 = resourceSet2.getResource(
+				URI.createFileURI("d:/test.design"), true);
 		// Extract the root object from the resource.
-		//Design design2 = (Design) resource2.getContents().get(0);
-		//System.out.println(design2.getVlnv().getName());*/
+		Design design2 = (Design) resource2.getContents().get(0);
+		System.out.println(design2.getVlnv().getName());
+
+		ResourceSet resourceSet3 = new ResourceSetImpl();
+		Resource resource3 = resourceSet3.createResource(URI
+				.createFileURI("d:/test2.design"));
+		resource3.getContents().add(design2);
+		try {
+			resource3.save(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

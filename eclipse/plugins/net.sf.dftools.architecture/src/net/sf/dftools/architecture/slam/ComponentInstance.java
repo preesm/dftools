@@ -25,7 +25,7 @@ import net.sf.dftools.architecture.slam.component.Component;
  * @model
  * @generated
  */
-public interface ComponentInstance extends VLNVedElement, ParameterizedElement {
+public interface ComponentInstance extends ParameterizedElement {
 	/**
 	 * Returns the value of the '<em><b>Component</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}'.

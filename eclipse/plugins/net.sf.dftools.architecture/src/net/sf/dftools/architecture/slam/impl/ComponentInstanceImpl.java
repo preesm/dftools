@@ -6,23 +6,16 @@
  */
 package net.sf.dftools.architecture.slam.impl;
 
-import java.util.Collection;
-
 import net.sf.dftools.architecture.slam.ComponentInstance;
-import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.SlamPackage;
-import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +24,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getComponent <em>Component</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getInstanceName <em>Instance Name</em>}</li>
  * </ul>
@@ -39,17 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ComponentInstanceImpl extends VLNVedElementImpl implements ComponentInstance {
-	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getParameters()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Parameter> parameters;
-
+public class ComponentInstanceImpl extends ParameterizedElementImpl implements ComponentInstance {
 	/**
 	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -97,18 +79,6 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	@Override
 	protected EClass eStaticClass() {
 		return SlamPackage.Literals.COMPONENT_INSTANCE;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Parameter> getParameters() {
-		if (parameters == null) {
-			parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, SlamPackage.COMPONENT_INSTANCE__PARAMETERS);
-		}
-		return parameters;
 	}
 
 	/**
@@ -227,8 +197,6 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
-				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
 				return basicSetComponent(null, msgs);
 		}
@@ -243,8 +211,6 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
-				return getParameters();
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
 				if (resolve) return getComponent();
 				return basicGetComponent();
@@ -259,14 +225,9 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection<? extends Parameter>)newValue);
-				return;
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
 				setComponent((Component)newValue);
 				return;
@@ -285,9 +246,6 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
-				getParameters().clear();
-				return;
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
 				setComponent((Component)null);
 				return;
@@ -306,46 +264,12 @@ public class ComponentInstanceImpl extends VLNVedElementImpl implements Componen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__PARAMETERS:
-				return parameters != null && !parameters.isEmpty();
 			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
 				return component != null;
 			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
 				return INSTANCE_NAME_EDEFAULT == null ? instanceName != null : !INSTANCE_NAME_EDEFAULT.equals(instanceName);
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == ParameterizedElement.class) {
-			switch (derivedFeatureID) {
-				case SlamPackage.COMPONENT_INSTANCE__PARAMETERS: return SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == ParameterizedElement.class) {
-			switch (baseFeatureID) {
-				case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS: return SlamPackage.COMPONENT_INSTANCE__PARAMETERS;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

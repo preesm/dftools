@@ -6,6 +6,7 @@
  */
 package net.sf.dftools.architecture.slam;
 
+import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.link.Link;
@@ -102,8 +103,7 @@ public interface Design extends VLNVedElement {
 	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Refined</em>' container reference isn't clear,
-	 * there really should be more of a description here...
+	 * If the refined component does not exist, it is created.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Refined</em>' container reference.
@@ -139,7 +139,7 @@ public interface Design extends VLNVedElement {
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
-	boolean containsComponent(String name);
+	boolean containsComponent(VLNV name);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,7 +147,7 @@ public interface Design extends VLNVedElement {
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
-	Component getComponent(String name);
+	Component getComponent(VLNV name);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -10,9 +10,7 @@ import net.sf.dftools.architecture.slam.link.DataLink;
 import net.sf.dftools.architecture.slam.link.LinkPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**

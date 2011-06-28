@@ -7,6 +7,7 @@
 package net.sf.dftools.architecture.slam.component;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**

@@ -8,12 +8,18 @@ package net.sf.dftools.architecture.slam.component.util;
 
 import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.VLNVedElement;
-
-import net.sf.dftools.architecture.slam.component.*;
+import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComNode;
+import net.sf.dftools.architecture.slam.component.Component;
+import net.sf.dftools.architecture.slam.component.ComponentPackage;
+import net.sf.dftools.architecture.slam.component.Dma;
+import net.sf.dftools.architecture.slam.component.Enabler;
+import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Operator;
+import net.sf.dftools.architecture.slam.component.Ram;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
 /**

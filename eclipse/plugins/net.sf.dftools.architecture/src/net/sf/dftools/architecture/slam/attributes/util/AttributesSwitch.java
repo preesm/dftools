@@ -6,11 +6,12 @@
  */
 package net.sf.dftools.architecture.slam.attributes.util;
 
-import net.sf.dftools.architecture.slam.attributes.*;
+import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
+import net.sf.dftools.architecture.slam.attributes.Parameter;
+import net.sf.dftools.architecture.slam.attributes.VLNV;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
 /**

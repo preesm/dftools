@@ -7,14 +7,14 @@
 package net.sf.dftools.architecture.slam.link.util;
 
 import net.sf.dftools.architecture.slam.ParameterizedElement;
-
-import net.sf.dftools.architecture.slam.link.*;
+import net.sf.dftools.architecture.slam.link.ControlLink;
+import net.sf.dftools.architecture.slam.link.DataLink;
+import net.sf.dftools.architecture.slam.link.Link;
+import net.sf.dftools.architecture.slam.link.LinkPackage;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

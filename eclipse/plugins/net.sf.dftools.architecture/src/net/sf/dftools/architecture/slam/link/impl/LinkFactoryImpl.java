@@ -6,14 +6,15 @@
  */
 package net.sf.dftools.architecture.slam.link.impl;
 
-import net.sf.dftools.architecture.slam.link.*;
+import net.sf.dftools.architecture.slam.link.ControlLink;
+import net.sf.dftools.architecture.slam.link.DataLink;
+import net.sf.dftools.architecture.slam.link.LinkFactory;
+import net.sf.dftools.architecture.slam.link.LinkPackage;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**

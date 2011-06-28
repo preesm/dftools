@@ -12,25 +12,18 @@ import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.SlamPackage;
-
 import net.sf.dftools.architecture.slam.attributes.Parameter;
-
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
-
 import net.sf.dftools.architecture.slam.impl.VLNVedElementImpl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
@@ -52,7 +45,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class ComponentImpl extends VLNVedElementImpl implements Component {
+public class ComponentImpl extends VLNVedElementImpl implements Component {
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -200,6 +193,24 @@ public abstract class ComponentImpl extends VLNVedElementImpl implements Compone
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Getting the com interface with the given ID
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public ComInterface getInterface(String name) {
+		if(interfaces != null){
+			for(ComInterface intf : interfaces){
+				if(intf.getName().equals(name)){
+					return intf;
+				}
+			}
+		}
+		
+		return null;
 	}
 
 	/**

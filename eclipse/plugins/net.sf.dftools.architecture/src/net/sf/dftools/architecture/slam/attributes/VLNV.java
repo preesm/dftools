@@ -39,7 +39,7 @@ public interface VLNV extends EObject {
 	 * @return the value of the '<em>Vendor</em>' attribute.
 	 * @see #setVendor(String)
 	 * @see net.sf.dftools.architecture.slam.attributes.AttributesPackage#getVLNV_Vendor()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getVendor();
@@ -65,7 +65,7 @@ public interface VLNV extends EObject {
 	 * @return the value of the '<em>Library</em>' attribute.
 	 * @see #setLibrary(String)
 	 * @see net.sf.dftools.architecture.slam.attributes.AttributesPackage#getVLNV_Library()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getLibrary();
@@ -91,7 +91,7 @@ public interface VLNV extends EObject {
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see net.sf.dftools.architecture.slam.attributes.AttributesPackage#getVLNV_Name()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getName();
@@ -117,7 +117,7 @@ public interface VLNV extends EObject {
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #setVersion(String)
 	 * @see net.sf.dftools.architecture.slam.attributes.AttributesPackage#getVLNV_Version()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	String getVersion();

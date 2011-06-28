@@ -6,13 +6,13 @@
  */
 package net.sf.dftools.architecture.slam.attributes.util;
 
-import net.sf.dftools.architecture.slam.attributes.*;
+import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
+import net.sf.dftools.architecture.slam.attributes.Parameter;
+import net.sf.dftools.architecture.slam.attributes.VLNV;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

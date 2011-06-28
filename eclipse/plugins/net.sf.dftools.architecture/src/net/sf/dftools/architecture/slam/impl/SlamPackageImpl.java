@@ -335,7 +335,6 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 
 		// Add supertypes to classes
 		designEClass.getESuperTypes().add(this.getVLNVedElement());
-		componentInstanceEClass.getESuperTypes().add(this.getVLNVedElement());
 		componentInstanceEClass.getESuperTypes().add(this.getParameterizedElement());
 
 		// Initialize classes and features; add operations and parameters
@@ -351,10 +350,10 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(designEClass, ecorePackage.getEBoolean(), "containsComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(designEClass, theComponentPackage.getComponent(), "getComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		op = addEOperation(designEClass, this.getComponentInstance(), "getComponentInstance", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);

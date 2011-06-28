@@ -11,6 +11,7 @@ import java.util.Collection;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.SlamPackage;
+import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
@@ -206,12 +207,15 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	public boolean containsComponent(String name) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public boolean containsComponent(VLNV name) {
+		for(Component component : this.getComponents()){
+			if(name.equals(component)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -219,7 +223,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Component getComponent(String name) {
+	public Component getComponent(VLNV name) {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
@@ -227,13 +231,18 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Getting a component instance by its name
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentInstance getComponentInstance(String name) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		for(ComponentInstance instance : componentInstances){
+			if(instance.getInstanceName().equals(name)){
+				return instance;
+			}
+		}
+		
+		return null;
 	}
 
 	/**

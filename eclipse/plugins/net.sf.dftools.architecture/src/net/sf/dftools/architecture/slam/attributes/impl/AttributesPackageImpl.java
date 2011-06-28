@@ -7,25 +7,18 @@
 package net.sf.dftools.architecture.slam.attributes.impl;
 
 import net.sf.dftools.architecture.slam.SlamPackage;
-
 import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
 import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
-
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
-
 import net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl;
-
 import net.sf.dftools.architecture.slam.impl.SlamPackageImpl;
-
 import net.sf.dftools.architecture.slam.link.LinkPackage;
-
 import net.sf.dftools.architecture.slam.link.impl.LinkPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -263,10 +256,10 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(vlnvEClass, net.sf.dftools.architecture.slam.attributes.VLNV.class, "VLNV", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVLNV_Vendor(), ecorePackage.getEString(), "vendor", null, 0, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVLNV_Library(), ecorePackage.getEString(), "library", null, 0, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVLNV_Name(), ecorePackage.getEString(), "name", null, 0, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVLNV_Version(), ecorePackage.getEString(), "version", null, 0, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Vendor(), ecorePackage.getEString(), "vendor", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Library(), ecorePackage.getEString(), "library", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Name(), ecorePackage.getEString(), "name", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Version(), ecorePackage.getEString(), "version", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getParameter_Key(), ecorePackage.getEString(), "key", null, 1, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
