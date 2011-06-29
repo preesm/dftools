@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getDestinationInterface <em>Destination Interface</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getSourceComponentInstance <em>Source Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getDestinationComponentInstance <em>Destination Component Instance</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getUuid <em>Uuid</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,6 +74,26 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 	 * @ordered
 	 */
 	protected ComponentInstance destinationComponentInstance;
+
+	/**
+	 * The default value of the '{@link #getUuid() <em>Uuid</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUuid()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String UUID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getUuid() <em>Uuid</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUuid()
+	 * @generated
+	 * @ordered
+	 */
+	protected String uuid = UUID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -250,6 +271,27 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUuid(String newUuid) {
+		String oldUuid = uuid;
+		uuid = newUuid;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__UUID, oldUuid, uuid));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -265,6 +307,8 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 			case LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE:
 				if (resolve) return getDestinationComponentInstance();
 				return basicGetDestinationComponentInstance();
+			case LinkPackage.LINK__UUID:
+				return getUuid();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -288,6 +332,9 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 				return;
 			case LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE:
 				setDestinationComponentInstance((ComponentInstance)newValue);
+				return;
+			case LinkPackage.LINK__UUID:
+				setUuid((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -313,6 +360,9 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 			case LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE:
 				setDestinationComponentInstance((ComponentInstance)null);
 				return;
+			case LinkPackage.LINK__UUID:
+				setUuid(UUID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -333,8 +383,26 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 				return sourceComponentInstance != null;
 			case LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE:
 				return destinationComponentInstance != null;
+			case LinkPackage.LINK__UUID:
+				return UUID_EDEFAULT == null ? uuid != null : !UUID_EDEFAULT.equals(uuid);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (uuid: ");
+		result.append(uuid);
+		result.append(')');
+		return result.toString();
 	}
 
 } //LinkImpl

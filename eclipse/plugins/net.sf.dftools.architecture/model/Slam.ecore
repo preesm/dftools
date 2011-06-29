@@ -102,6 +102,8 @@
           lowerBound="1" eType="#//ComponentInstance"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="destinationComponentInstance"
           lowerBound="1" eType="#//ComponentInstance"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="uuid" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="directed" lowerBound="1"

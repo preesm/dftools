@@ -3,7 +3,9 @@
  */
 package net.sf.dftools.architecture.slam.serialize;
 
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
@@ -12,6 +14,7 @@ import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.utils.DomUtil;
 
@@ -26,8 +29,13 @@ import org.w3c.dom.Element;
  */
 public class IPXACTDesignWriter {
 
+	/**
+	 * Information needed in the vendor extensions of the design
+	 */
+	private IPXACTDesignVendorExtensions vendorExtensions;
+
 	public IPXACTDesignWriter() {
-		super();
+		vendorExtensions = new IPXACTDesignVendorExtensions();
 	}
 
 	/**
@@ -43,16 +51,25 @@ public class IPXACTDesignWriter {
 		Document document = DomUtil.createDocument(
 				"http://www.accellera.org/XMLSchema/SPIRIT/1.5",
 				"spirit:design");
-		Element mainElement = document.getDocumentElement();
+		Element root = document.getDocumentElement();
 
-		writeVLNV(mainElement, design, document);
-		writeComponentInstances(mainElement, design, document);
-		writeLinks(mainElement, design, document);
-		writeHierarchyPorts(mainElement, design, document);
+		// add additional namespace to the root element
+		root.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:slam", "http://sourceforge.net/projects/dftools/slam");
 		
+		writeVLNV(root, design, document);
+		writeComponentInstances(root, design, document);
+		writeLinks(root, design, document);
+		writeHierarchyPorts(root, design, document);
+		vendorExtensions.write(root, document);
+
 		DomUtil.writeDocument(outputStream, document);
 		
-		
+		try {
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void writeCompactVLNV(Element parent, VLNVedElement vlnvedElement,
@@ -92,16 +109,26 @@ public class IPXACTDesignWriter {
 		cmpElt.appendChild(nameElt);
 		nameElt.setTextContent(instance.getInstanceName());
 		writeCompactVLNV(cmpElt, instance.getComponent(), document);
-		
+
 		Element confsElt = document
 				.createElement("spirit:configurableElementValues");
 		cmpElt.appendChild(confsElt);
-		
+
 		writeParameters(confsElt, instance, document);
 
 		// Adding as component type the name of the component ecore EClass.
-		writeParameter(confsElt, "componentType", instance.getComponent()
-				.eClass().getName(), document);
+		String componentRef = instance.getComponent().getVlnv().getName();
+		String componentType = instance.getComponent().eClass().getName();
+		String operatorType = "";
+		if (instance.getComponent() instanceof Operator) {
+			operatorType = ((Operator)instance.getComponent()).getOperatorType();
+		}
+
+		// Initializing vendor extensions
+		IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions.new ComponentDescription(
+				componentRef, componentType, operatorType);
+		vendorExtensions.getComponentDescriptions().put(componentRef,
+				description);
 	}
 
 	private void writeComponentInstances(Element parent, Design design,
@@ -151,8 +178,18 @@ public class IPXACTDesignWriter {
 		ComInterface sourceInterface = link.getSourceInterface();
 		ComInterface destinationInterface = link.getDestinationInterface();
 
+		// No link can be stored with empty uuid
+		// It is generated if needed
+		if(link.getUuid() == null){
+			link.setUuid(UUID.randomUUID().toString());
+		}
+		
 		Element intfElt = document.createElement("spirit:interconnection");
 		parent.appendChild(intfElt);
+
+		Element nameElt = document.createElement("spirit:name");
+		nameElt.setTextContent(link.getUuid());
+		intfElt.appendChild(nameElt);
 
 		Element intf1Elt = document.createElement("spirit:activeInterface");
 		intfElt.appendChild(intf1Elt);
@@ -166,6 +203,13 @@ public class IPXACTDesignWriter {
 				destinationComponentInstance.getInstanceName());
 		intf2Elt.setAttribute("spirit:busRef", destinationInterface.getName());
 
+		// Initializing vendor extensions
+		IPXACTDesignVendorExtensions.LinkDescription description = vendorExtensions.new LinkDescription(link.getUuid());
+		for(Parameter p : link.getParameters()){
+			description.getParameters().put(p.getKey(),p.getValue());
+		}
+		vendorExtensions.getLinkDescriptions().put(link.getUuid(),
+				description);
 	}
 
 	private void writeLinks(Element parent, Design design, Document document) {

@@ -65,8 +65,8 @@ public class ArchitectureUtil {
 	 *            qualified name of a network
 	 * @return if there is such a network, a file, otherwise <code>null</code>
 	 */
-	public static IFile getDesign(IProject project, String designName) {
-		String name = designName.replace('.', '/');
+	public static IFile getDesign(IProject project, String designQualifiedName) {
+		String name = designQualifiedName.replace('.', '/');
 		IPath path = new Path(name).addFileExtension("design");
 		for (IFolder folder : getSourceFolders(project)) {
 			IFile inputFile = folder.getFile(path);

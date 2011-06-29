@@ -117,13 +117,22 @@ public interface LinkPackage extends EPackage {
 	int LINK__DESTINATION_COMPONENT_INSTANCE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Uuid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__UUID = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 4;
+	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.
@@ -179,6 +188,15 @@ public interface LinkPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_LINK__DESTINATION_COMPONENT_INSTANCE = LINK__DESTINATION_COMPONENT_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Uuid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_LINK__UUID = LINK__UUID;
 
 	/**
 	 * The feature id for the '<em><b>Directed</b></em>' attribute.
@@ -254,6 +272,15 @@ public interface LinkPackage extends EPackage {
 	int CONTROL_LINK__DESTINATION_COMPONENT_INSTANCE = LINK__DESTINATION_COMPONENT_INSTANCE;
 
 	/**
+	 * The feature id for the '<em><b>Uuid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL_LINK__UUID = LINK__UUID;
+
+	/**
 	 * The number of structural features of the '<em>Control Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -316,6 +343,17 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getLink_DestinationComponentInstance();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Uuid</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#getUuid()
+	 * @see #getLink()
+	 * @generated
+	 */
+	EAttribute getLink_Uuid();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.link.DataLink <em>Data Link</em>}'.
@@ -411,6 +449,14 @@ public interface LinkPackage extends EPackage {
 		 * @generated
 		 */
 		EReference LINK__DESTINATION_COMPONENT_INSTANCE = eINSTANCE.getLink_DestinationComponentInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Uuid</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK__UUID = eINSTANCE.getLink_Uuid();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.

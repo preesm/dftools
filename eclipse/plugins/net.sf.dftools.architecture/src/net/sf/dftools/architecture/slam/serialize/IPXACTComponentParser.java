@@ -3,6 +3,7 @@
  */
 package net.sf.dftools.architecture.slam.serialize;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import net.sf.dftools.architecture.slam.attributes.VLNV;
@@ -33,6 +34,12 @@ public class IPXACTComponentParser extends IPXACTParser {
 		Element root = document.getDocumentElement();
 
 		parseComponent(root, component);
+		
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void parseComponent(Element parent, Component component) {

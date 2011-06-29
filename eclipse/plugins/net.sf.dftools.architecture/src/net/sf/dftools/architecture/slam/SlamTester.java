@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
+import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.slam.serialize.IPXACTResourceFactoryImpl;
@@ -67,7 +69,7 @@ public class SlamTester {
 			design.setRefined(refined);
 		}
 
-		Component x86 = ComponentFactory.eINSTANCE.createOperator();
+		Operator x86 = ComponentFactory.eINSTANCE.createOperator();
 		design.getComponents().add(x86);
 		vlnv = AttributesFactory.eINSTANCE.createVLNV();
 		vlnv.setName("x86");
@@ -78,6 +80,7 @@ public class SlamTester {
 		ComInterface ethItf = ComponentFactory.eINSTANCE.createComInterface();
 		ethItf.setName("Eth");
 		x86.getInterfaces().add(ethItf);
+		x86.setOperatorType("processor");
 
 		ComponentInstance uCore0 = SlamFactory.eINSTANCE
 				.createComponentInstance();
@@ -111,6 +114,14 @@ public class SlamTester {
 		link.setSourceInterface(memItf);
 		link.setDestinationComponentInstance(uSharedMemory);
 		link.setDestinationInterface(memItf2);
+		Parameter linkp = AttributesFactory.eINSTANCE.createParameter();
+		linkp.setKey("tutu");
+		linkp.setValue("10");
+		link.getParameters().add(linkp);
+		linkp = AttributesFactory.eINSTANCE.createParameter();
+		linkp.setKey("tata");
+		linkp.setValue("20");
+		link.getParameters().add(linkp);
 		design.getLinks().add(link);
 
 		link = LinkFactory.eINSTANCE.createDataLink();

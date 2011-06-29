@@ -3,11 +3,10 @@
  */
 package net.sf.dftools.architecture.slam.serialize;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
@@ -21,9 +20,9 @@ import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
-import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
+import net.sf.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensions.LinkDescription;
 import net.sf.dftools.architecture.utils.DomUtil;
 
 import org.eclipse.emf.ecore.EClass;
@@ -40,133 +39,22 @@ import org.w3c.dom.Node;
 public class IPXACTDesignParser extends IPXACTParser {
 
 	/**
-	 * Class storing a component description in vendor extensions
+	 * Information needed in the vendor extensions of the design
 	 */
-	private class ComponentDescription{
-		private String componentRef;
-		private String componentType;
-		private String operatorType;
-		
-		public ComponentDescription(String componentRef, String componentType,
-				String operatorType) {
-			super();
-			this.componentRef = componentRef;
-			this.componentType = componentType;
-			this.operatorType = operatorType;
-		}
-		
-		public String getComponentRef() {
-			return componentRef;
-		}
-		public String getComponentType() {
-			return componentType;
-		}
-		public String getOperatorType() {
-			return operatorType;
-		}
-	}
-	
-	/**
-	 * Class storing vendor extensions for the design
-	 */
-	private class VendorExtensions{
+	private IPXACTDesignVendorExtensions vendorExtensions;
 
-		/**
-		 * Description associated to each component
-		 */
-		private Map<String,ComponentDescription> componentDescriptions = null;
-		
-		public VendorExtensions() {
-			componentDescriptions = new HashMap<String,ComponentDescription>();
-		}
-		
-		public ComponentDescription getComponentDescription(String componentRef){
-			return componentDescriptions.get(componentRef);
-		}
-		
-		/**
-		 * Parses vendor extensions from the design root element
-		 */
-		public void parse(Element root){
-			Node node = root.getFirstChild();
-
-			while (node != null) {
-				// this test allows us to skip #text nodes
-				if (node.getNodeType() == Node.ELEMENT_NODE) {
-					Element element = (Element) node;
-					String nodeName = node.getNodeName();
-					if (nodeName.equals("spirit:vendorExtensions")) {
-						parseVendorExtensions(element);
-					}
-				}
-				node = node.getNextSibling();
-			}
-		}
-		
-		/**
-		 * Parses vendor extensions from the vendor extensions element
-		 */
-		public void parseVendorExtensions(Element parent){
-			Node node = parent.getFirstChild();
-
-			while (node != null) {
-				// this test allows us to skip #text nodes
-				if (node.getNodeType() == Node.ELEMENT_NODE) {
-					Element element = (Element) node;
-					String nodeName = node.getNodeName();
-					if (nodeName.equals("slam:componentDescriptions")) {
-						parseComponentDescriptions(element);
-					}
-				}
-				node = node.getNextSibling();
-			}
-		}
-		
-		/**
-		 * Parses descriptions of components
-		 */
-		public void parseComponentDescriptions(Element parent){
-			Node node = parent.getFirstChild();
-
-			while (node != null) {
-				// this test allows us to skip #text nodes
-				if (node.getNodeType() == Node.ELEMENT_NODE) {
-					Element element = (Element) node;
-					String nodeName = node.getNodeName();
-					if (nodeName.equals("slam:componentDescription")) {
-						parseComponentDescription(element);
-					}
-				}
-				node = node.getNextSibling();
-			}
-		}
-		
-		/**
-		 * Parses descriptions of components
-		 */
-		public void parseComponentDescription(Element parent){
-			String componentRef = parent.getAttribute("slam:componentRef");
-			String componentType = parent.getAttribute("slam:componentType");
-			String operatorType = parent.getAttribute("slam:operatorType");
-			
-			ComponentDescription description = new ComponentDescription(componentRef,componentType,operatorType);
-			componentDescriptions.put(description.getComponentRef(), description);
-		}
-	}
-	
-	private VendorExtensions vendorExtensions;
-	
 	/**
 	 * IPXact parser constructor
 	 */
 	public IPXACTDesignParser() {
-		vendorExtensions = new VendorExtensions();
+		vendorExtensions = new IPXACTDesignVendorExtensions();
 	}
 
 	public Design parse(InputStream inputStream) {
 		// The topmost component is initialized to enable storing
 		// the hierarchical external interfaces
-		Component refinedComponent = ComponentFactory.eINSTANCE.createComponent();
+		Component refinedComponent = ComponentFactory.eINSTANCE
+				.createComponent();
 		Design design = SlamFactory.eINSTANCE.createDesign();
 		refinedComponent.setRefinement(design);
 
@@ -175,6 +63,12 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 		vendorExtensions.parse(root);
 		parseDesign(root, design);
+
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		return design;
 	}
@@ -237,7 +131,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 				if (type.equals("spirit:configurableElementValues")) {
 					parseParameters(elt, instance);
 				} else if (type.equals("spirit:componentRef")) {
-					vlnv = parseCompactVLNV(parent);
+					vlnv = parseCompactVLNV(elt);
 				}
 			}
 			node = node.getNextSibling();
@@ -245,11 +139,12 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 		// Component type is retrieved from vendor extensions if there are any.
 		// Otherwise, a generic component is created
-		ComponentDescription description = vendorExtensions.getComponentDescription(vlnv.getName());
+		IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions
+				.getComponentDescription(vlnv.getName());
 		String componentType = "Component";
-		if(description != null){
+		if (description != null) {
 			componentType = description.getComponentType();
-			
+
 		}
 
 		// Creates the component if necessary
@@ -263,9 +158,6 @@ public class IPXACTDesignParser extends IPXACTParser {
 					.create(eClass);
 			component.setVlnv(vlnv);
 			instance.setComponent(component);
-			if(component instanceof Operator){
-				((Operator)component).setOperatorType(description.getOperatorType());
-			}
 		}
 
 		design.getComponentInstances().add(instance);
@@ -313,6 +205,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 	private void parseLink(Element parent, Design design) {
 		List<String> comItfs = new ArrayList<String>(2);
 		List<String> componentInstanceRefs = new ArrayList<String>(2);
+		String linkUuid = "";
 
 		Node node = parent.getFirstChild();
 		while (node != null) {
@@ -320,6 +213,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 				Element elt = (Element) node;
 				String type = elt.getTagName();
 				if (type.equals("spirit:name")) {
+					linkUuid = elt.getTextContent();
 				} else if (type.equals("spirit:displayName")) {
 				} else if (type.equals("spirit:description")) {
 				} else if (type.equals("spirit:activeInterface")) {
@@ -332,11 +226,13 @@ public class IPXACTDesignParser extends IPXACTParser {
 		}
 
 		Link link = LinkFactory.eINSTANCE.createDataLink();
+		link.setUuid(linkUuid);
 		ComponentInstance sourceInstance = design
 				.getComponentInstance(componentInstanceRefs.get(0));
 		link.setSourceComponentInstance(sourceInstance);
 		ComInterface sourceInterface = sourceInstance.getComponent()
 				.getInterface(comItfs.get(0));
+
 		// Creating source interface if necessary
 		if (sourceInterface == null) {
 			sourceInterface = ComponentFactory.eINSTANCE.createComInterface();
@@ -350,6 +246,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		link.setDestinationComponentInstance(destinationInstance);
 		ComInterface destinationInterface = destinationInstance.getComponent()
 				.getInterface(comItfs.get(1));
+
 		// Creating destination interface if necessary
 		if (destinationInterface == null) {
 			destinationInterface = ComponentFactory.eINSTANCE
@@ -359,6 +256,18 @@ public class IPXACTDesignParser extends IPXACTParser {
 					.add(destinationInterface);
 		}
 		link.setDestinationInterface(destinationInterface);
+
+		// Retrieving parameters from vendor extensions
+		LinkDescription linkDescription = vendorExtensions
+				.getLinkDescription(linkUuid);
+		if (linkDescription != null) {
+			for (String key : linkDescription.getParameters().keySet()) {
+				Parameter p = AttributesFactory.eINSTANCE.createParameter();
+				p.setKey(key);
+				p.setValue(linkDescription.getParameters().get(key));
+				link.getParameters().add(p);
+			}
+		}
 
 		design.getLinks().add(link);
 	}
@@ -405,7 +314,8 @@ public class IPXACTDesignParser extends IPXACTParser {
 				} else if (type.equals("spirit:description")) {
 				} else if (type.equals("spirit:activeInterface")) {
 					internalInterfaceName = elt.getAttribute("spirit:busRef");
-					internalComponentInstanceName = elt.getAttribute("spirit:componentRef");
+					internalComponentInstanceName = elt
+							.getAttribute("spirit:componentRef");
 				}
 			}
 			node = node.getNextSibling();
@@ -414,18 +324,17 @@ public class IPXACTDesignParser extends IPXACTParser {
 		ComponentInstance internalComponentInstance = design
 				.getComponentInstance(internalComponentInstanceName);
 		port.setInternalComponentInstance(internalComponentInstance);
-		ComInterface internalInterface = internalComponentInstance.getComponent()
-				.getInterface(internalInterfaceName);
+		ComInterface internalInterface = internalComponentInstance
+				.getComponent().getInterface(internalInterfaceName);
 		// Creating internal interface if necessary
 		if (internalInterface == null) {
-			internalInterface = ComponentFactory.eINSTANCE
-					.createComInterface();
+			internalInterface = ComponentFactory.eINSTANCE.createComInterface();
 			internalInterface.setName(internalInterfaceName);
 			internalComponentInstance.getComponent().getInterfaces()
 					.add(internalInterface);
 		}
 		port.setInternalInterface(internalInterface);
-		
+
 		design.getHierarchyPorts().add(port);
 	}
 
