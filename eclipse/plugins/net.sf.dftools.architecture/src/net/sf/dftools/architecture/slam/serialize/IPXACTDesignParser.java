@@ -5,8 +5,9 @@ package net.sf.dftools.architecture.slam.serialize;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
@@ -20,6 +21,7 @@ import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.utils.DomUtil;
@@ -31,14 +33,134 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * Paster of a System-Level Architecture model from the IP-XACT format
+ * Parser of a System-Level Architecture model from the IP-XACT format
  * 
  * @author mpelcat
  */
-public class IPXACTDesignParser {
+public class IPXACTDesignParser extends IPXACTParser {
 
+	/**
+	 * Class storing a component description in vendor extensions
+	 */
+	private class ComponentDescription{
+		private String componentRef;
+		private String componentType;
+		private String operatorType;
+		
+		public ComponentDescription(String componentRef, String componentType,
+				String operatorType) {
+			super();
+			this.componentRef = componentRef;
+			this.componentType = componentType;
+			this.operatorType = operatorType;
+		}
+		
+		public String getComponentRef() {
+			return componentRef;
+		}
+		public String getComponentType() {
+			return componentType;
+		}
+		public String getOperatorType() {
+			return operatorType;
+		}
+	}
+	
+	/**
+	 * Class storing vendor extensions for the design
+	 */
+	private class VendorExtensions{
+
+		/**
+		 * Description associated to each component
+		 */
+		private Map<String,ComponentDescription> componentDescriptions = null;
+		
+		public VendorExtensions() {
+			componentDescriptions = new HashMap<String,ComponentDescription>();
+		}
+		
+		public ComponentDescription getComponentDescription(String componentRef){
+			return componentDescriptions.get(componentRef);
+		}
+		
+		/**
+		 * Parses vendor extensions from the design root element
+		 */
+		public void parse(Element root){
+			Node node = root.getFirstChild();
+
+			while (node != null) {
+				// this test allows us to skip #text nodes
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					String nodeName = node.getNodeName();
+					if (nodeName.equals("spirit:vendorExtensions")) {
+						parseVendorExtensions(element);
+					}
+				}
+				node = node.getNextSibling();
+			}
+		}
+		
+		/**
+		 * Parses vendor extensions from the vendor extensions element
+		 */
+		public void parseVendorExtensions(Element parent){
+			Node node = parent.getFirstChild();
+
+			while (node != null) {
+				// this test allows us to skip #text nodes
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					String nodeName = node.getNodeName();
+					if (nodeName.equals("slam:componentDescriptions")) {
+						parseComponentDescriptions(element);
+					}
+				}
+				node = node.getNextSibling();
+			}
+		}
+		
+		/**
+		 * Parses descriptions of components
+		 */
+		public void parseComponentDescriptions(Element parent){
+			Node node = parent.getFirstChild();
+
+			while (node != null) {
+				// this test allows us to skip #text nodes
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					String nodeName = node.getNodeName();
+					if (nodeName.equals("slam:componentDescription")) {
+						parseComponentDescription(element);
+					}
+				}
+				node = node.getNextSibling();
+			}
+		}
+		
+		/**
+		 * Parses descriptions of components
+		 */
+		public void parseComponentDescription(Element parent){
+			String componentRef = parent.getAttribute("slam:componentRef");
+			String componentType = parent.getAttribute("slam:componentType");
+			String operatorType = parent.getAttribute("slam:operatorType");
+			
+			ComponentDescription description = new ComponentDescription(componentRef,componentType,operatorType);
+			componentDescriptions.put(description.getComponentRef(), description);
+		}
+	}
+	
+	private VendorExtensions vendorExtensions;
+	
+	/**
+	 * IPXact parser constructor
+	 */
 	public IPXACTDesignParser() {
-		super();
+		vendorExtensions = new VendorExtensions();
 	}
 
 	public Design parse(InputStream inputStream) {
@@ -49,19 +171,20 @@ public class IPXACTDesignParser {
 		refinedComponent.setRefinement(design);
 
 		Document document = DomUtil.parseDocument(inputStream);
+		Element root = document.getDocumentElement();
 
-		parseDesign(document, design);
+		vendorExtensions.parse(root);
+		parseDesign(root, design);
 
 		return design;
 	}
 
-	private void parseDesign(Document document, Design design) {
-		Element root = document.getDocumentElement();
+	private void parseDesign(Element parent, Design design) {
 
-		VLNV vlnv = parseVLNV(root);
+		VLNV vlnv = parseVLNV(parent);
 		design.setVlnv(vlnv);
 
-		Node node = root.getFirstChild();
+		Node node = parent.getFirstChild();
 
 		while (node != null) {
 			// this test allows us to skip #text nodes
@@ -80,55 +203,6 @@ public class IPXACTDesignParser {
 			}
 			node = node.getNextSibling();
 		}
-	}
-
-	private VLNV parseVLNV(Element parent) {
-		Node node = parent.getFirstChild();
-
-		VLNV vlnv = AttributesFactory.eINSTANCE.createVLNV();
-
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-				String nodeName = node.getNodeName();
-				if (nodeName.equals("spirit:vendor")) {
-					vlnv.setVendor(element.getTextContent());
-				} else if (nodeName.equals("spirit:name")) {
-					vlnv.setName(element.getTextContent());
-				} else if (nodeName.equals("spirit:library")) {
-					vlnv.setLibrary(element.getTextContent());
-				} else if (nodeName.equals("spirit:version")) {
-					vlnv.setVersion(element.getTextContent());
-				} else {
-
-				}
-			}
-			node = node.getNextSibling();
-		}
-
-		return vlnv;
-	}
-
-	private VLNV parseCompactVLNV(Element parent) {
-		Node node = parent.getFirstChild();
-		VLNV vlnv = AttributesFactory.eINSTANCE.createVLNV();
-
-		while (node != null) {
-			if (node instanceof Element) {
-				Element elt = (Element) node;
-				String type = elt.getTagName();
-				if (type.equals("spirit:componentRef")) {
-					vlnv.setVendor(elt.getAttribute("spirit:vendor"));
-					vlnv.setLibrary(elt.getAttribute("spirit:library"));
-					vlnv.setName(elt.getAttribute("spirit:name"));
-					vlnv.setVersion(elt.getAttribute("spirit:version"));
-				}
-			}
-			node = node.getNextSibling();
-		}
-
-		return vlnv;
 	}
 
 	private void parseComponentInstances(Element parent, Design design) {
@@ -150,8 +224,9 @@ public class IPXACTDesignParser {
 
 		ComponentInstance instance = SlamFactory.eINSTANCE
 				.createComponentInstance();
-		VLNV vlnv = parseCompactVLNV(parent);
-		instance.setInstanceName(parseInstanceName(parent));
+		VLNV vlnv = null;
+		String instanceName = parseInstanceName(parent);
+		instance.setInstanceName(instanceName);
 
 		Node node = parent.getFirstChild();
 
@@ -161,19 +236,20 @@ public class IPXACTDesignParser {
 				String type = elt.getTagName();
 				if (type.equals("spirit:configurableElementValues")) {
 					parseParameters(elt, instance);
+				} else if (type.equals("spirit:componentRef")) {
+					vlnv = parseCompactVLNV(parent);
 				}
 			}
 			node = node.getNextSibling();
 		}
 
+		// Component type is retrieved from vendor extensions if there are any.
+		// Otherwise, a generic component is created
+		ComponentDescription description = vendorExtensions.getComponentDescription(vlnv.getName());
 		String componentType = "Component";
-		Iterator<Parameter> iterator = instance.getParameters().iterator();
-		while (iterator.hasNext()) {
-			Parameter param = iterator.next();
-			if (param.getKey().equals("componentType")) {
-				componentType = param.getValue();
-				iterator.remove();
-			}
+		if(description != null){
+			componentType = description.getComponentType();
+			
 		}
 
 		// Creates the component if necessary
@@ -187,6 +263,9 @@ public class IPXACTDesignParser {
 					.create(eClass);
 			component.setVlnv(vlnv);
 			instance.setComponent(component);
+			if(component instanceof Operator){
+				((Operator)component).setOperatorType(description.getOperatorType());
+			}
 		}
 
 		design.getComponentInstances().add(instance);

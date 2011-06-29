@@ -10,6 +10,7 @@ import net.sf.dftools.architecture.slam.SlamPackage;
 import net.sf.dftools.architecture.slam.attributes.AttributesPackage;
 import net.sf.dftools.architecture.slam.attributes.impl.AttributesPackageImpl;
 import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComInterfaceType;
 import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
@@ -25,6 +26,7 @@ import net.sf.dftools.architecture.slam.link.impl.LinkPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -92,6 +94,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * @generated
 	 */
 	private EClass comInterfaceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum comInterfaceTypeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -208,6 +217,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 */
 	public EClass getOperator() {
 		return operatorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOperator_OperatorType() {
+		return (EAttribute)operatorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -332,6 +350,24 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getComInterface_InterfaceType() {
+		return (EAttribute)comInterfaceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getComInterfaceType() {
+		return comInterfaceTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ComponentFactory getComponentFactory() {
 		return (ComponentFactory)getEFactoryInstance();
 	}
@@ -361,6 +397,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		createEReference(componentEClass, COMPONENT__REFINEMENT);
 
 		operatorEClass = createEClass(OPERATOR);
+		createEAttribute(operatorEClass, OPERATOR__OPERATOR_TYPE);
 
 		comNodeEClass = createEClass(COM_NODE);
 
@@ -380,6 +417,10 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		createEReference(comInterfaceEClass, COM_INTERFACE__BUS_TYPE);
 		createEReference(comInterfaceEClass, COM_INTERFACE__ABSTRACTION_TYPE);
 		createEAttribute(comInterfaceEClass, COM_INTERFACE__NAME);
+		createEAttribute(comInterfaceEClass, COM_INTERFACE__INTERFACE_TYPE);
+
+		// Create enums
+		comInterfaceTypeEEnum = createEEnum(COM_INTERFACE_TYPE);
 	}
 
 	/**
@@ -434,6 +475,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(operatorEClass, Operator.class, "Operator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOperator_OperatorType(), ecorePackage.getEString(), "operatorType", null, 1, 1, Operator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comNodeEClass, ComNode.class, "ComNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -453,6 +495,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		initEReference(getComInterface_BusType(), theAttributesPackage.getVLNV(), null, "busType", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComInterface_AbstractionType(), theAttributesPackage.getVLNV(), null, "abstractionType", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComInterface_Name(), ecorePackage.getEString(), "name", "", 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComInterface_InterfaceType(), this.getComInterfaceType(), "interfaceType", "UNSPECIFIED", 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(comInterfaceTypeEEnum, ComInterfaceType.class, "ComInterfaceType");
+		addEEnumLiteral(comInterfaceTypeEEnum, ComInterfaceType.UNSPECIFIED);
+		addEEnumLiteral(comInterfaceTypeEEnum, ComInterfaceType.MASTER);
+		addEEnumLiteral(comInterfaceTypeEEnum, ComInterfaceType.SLAVE);
 	}
 
 } //ComponentPackageImpl

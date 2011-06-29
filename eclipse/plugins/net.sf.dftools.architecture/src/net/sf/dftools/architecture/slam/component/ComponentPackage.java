@@ -10,6 +10,7 @@ import net.sf.dftools.architecture.slam.SlamPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -181,13 +182,22 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__REFINEMENT = COMPONENT__REFINEMENT;
 
 	/**
+	 * The feature id for the '<em><b>Operator Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPERATOR__OPERATOR_TYPE = COMPONENT_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Operator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATOR_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 0;
+	int OPERATOR_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.ComNodeImpl <em>Com Node</em>}' class.
@@ -538,13 +548,33 @@ public interface ComponentPackage extends EPackage {
 	int COM_INTERFACE__NAME = 3;
 
 	/**
+	 * The feature id for the '<em><b>Interface Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_INTERFACE__INTERFACE_TYPE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Com Interface</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COM_INTERFACE_FEATURE_COUNT = 4;
+	int COM_INTERFACE_FEATURE_COUNT = 5;
+
+
+	/**
+	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.ComInterfaceType <em>Com Interface Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see net.sf.dftools.architecture.slam.component.ComInterfaceType
+	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getComInterfaceType()
+	 * @generated
+	 */
+	int COM_INTERFACE_TYPE = 8;
 
 
 	/**
@@ -599,6 +629,17 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOperator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.Operator#getOperatorType <em>Operator Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Operator Type</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.Operator#getOperatorType()
+	 * @see #getOperator()
+	 * @generated
+	 */
+	EAttribute getOperator_OperatorType();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.ComNode <em>Com Node</em>}'.
@@ -738,6 +779,27 @@ public interface ComponentPackage extends EPackage {
 	EAttribute getComInterface_Name();
 
 	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComInterface#getInterfaceType <em>Interface Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Interface Type</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getInterfaceType()
+	 * @see #getComInterface()
+	 * @generated
+	 */
+	EAttribute getComInterface_InterfaceType();
+
+	/**
+	 * Returns the meta object for enum '{@link net.sf.dftools.architecture.slam.component.ComInterfaceType <em>Com Interface Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Com Interface Type</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.ComInterfaceType
+	 * @generated
+	 */
+	EEnum getComInterfaceType();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -802,6 +864,14 @@ public interface ComponentPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPERATOR = eINSTANCE.getOperator();
+
+		/**
+		 * The meta object literal for the '<em><b>Operator Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPERATOR__OPERATOR_TYPE = eINSTANCE.getOperator_OperatorType();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.ComNodeImpl <em>Com Node</em>}' class.
@@ -918,6 +988,24 @@ public interface ComponentPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COM_INTERFACE__NAME = eINSTANCE.getComInterface_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Interface Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COM_INTERFACE__INTERFACE_TYPE = eINSTANCE.getComInterface_InterfaceType();
+
+		/**
+		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.ComInterfaceType <em>Com Interface Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see net.sf.dftools.architecture.slam.component.ComInterfaceType
+		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getComInterfaceType()
+		 * @generated
+		 */
+		EEnum COM_INTERFACE_TYPE = eINSTANCE.getComInterfaceType();
 
 	}
 

@@ -56,7 +56,11 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="refinement" eType="#//Design"
           containment="true" eOpposite="#//Design/refined"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//component/Component"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//component/Component">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="operatorType" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          unsettable="true"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="Enabler" abstract="true" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//component/Enabler"/>
@@ -79,6 +83,13 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="" iD="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="interfaceType" lowerBound="1"
+          eType="#//component/ComInterfaceType" defaultValueLiteral="UNSPECIFIED"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ComInterfaceType">
+      <eLiterals name="UNSPECIFIED"/>
+      <eLiterals name="MASTER" value="1"/>
+      <eLiterals name="SLAVE" value="2"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="link" nsURI="http://net.sf.dftools/architecture/slam/link" nsPrefix="link">

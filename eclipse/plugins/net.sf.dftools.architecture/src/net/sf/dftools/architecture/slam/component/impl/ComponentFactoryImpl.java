@@ -7,6 +7,7 @@
 package net.sf.dftools.architecture.slam.component.impl;
 
 import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComInterfaceType;
 import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
@@ -17,6 +18,7 @@ import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.component.Ram;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -75,6 +77,36 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
 			case ComponentPackage.COM_INTERFACE: return createComInterface();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case ComponentPackage.COM_INTERFACE_TYPE:
+				return createComInterfaceTypeFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case ComponentPackage.COM_INTERFACE_TYPE:
+				return convertComInterfaceTypeToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -146,6 +178,26 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
 	public ComInterface createComInterface() {
 		ComInterfaceImpl comInterface = new ComInterfaceImpl();
 		return comInterface;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComInterfaceType createComInterfaceTypeFromString(EDataType eDataType, String initialValue) {
+		ComInterfaceType result = ComInterfaceType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertComInterfaceTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**
