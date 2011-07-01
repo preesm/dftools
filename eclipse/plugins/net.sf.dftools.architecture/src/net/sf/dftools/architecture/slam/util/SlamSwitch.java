@@ -6,6 +6,7 @@
  */
 package net.sf.dftools.architecture.slam.util;
 
+import net.sf.dftools.architecture.slam.ComponentHolder;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
@@ -99,6 +100,12 @@ public class SlamSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SlamPackage.COMPONENT_HOLDER: {
+				ComponentHolder componentHolder = (ComponentHolder)theEObject;
+				T result = caseComponentHolder(componentHolder);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -160,6 +167,21 @@ public class SlamSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseParameterizedElement(ParameterizedElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Component Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Component Holder</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComponentHolder(ComponentHolder object) {
 		return null;
 	}
 

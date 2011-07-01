@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * <ul>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getComponent <em>Component</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getBusType <em>Bus Type</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getAbstractionType <em>Abstraction Type</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getName <em>Name</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getInterfaceType <em>Interface Type</em>}</li>
  * </ul>
@@ -47,16 +46,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * @ordered
 	 */
 	protected VLNV busType;
-
-	/**
-	 * The cached value of the '{@link #getAbstractionType() <em>Abstraction Type</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAbstractionType()
-	 * @generated
-	 * @ordered
-	 */
-	protected VLNV abstractionType;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -206,49 +195,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VLNV getAbstractionType() {
-		return abstractionType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetAbstractionType(VLNV newAbstractionType, NotificationChain msgs) {
-		VLNV oldAbstractionType = abstractionType;
-		abstractionType = newAbstractionType;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE, oldAbstractionType, newAbstractionType);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAbstractionType(VLNV newAbstractionType) {
-		if (newAbstractionType != abstractionType) {
-			NotificationChain msgs = null;
-			if (abstractionType != null)
-				msgs = ((InternalEObject)abstractionType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE, null, msgs);
-			if (newAbstractionType != null)
-				msgs = ((InternalEObject)newAbstractionType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE, null, msgs);
-			msgs = basicSetAbstractionType(newAbstractionType, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE, newAbstractionType, newAbstractionType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getName() {
 		return name;
 	}
@@ -314,8 +260,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return basicSetComponent(null, msgs);
 			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
 				return basicSetBusType(null, msgs);
-			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
-				return basicSetAbstractionType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -346,8 +290,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return getComponent();
 			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
 				return getBusType();
-			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
-				return getAbstractionType();
 			case ComponentPackage.COM_INTERFACE__NAME:
 				return getName();
 			case ComponentPackage.COM_INTERFACE__INTERFACE_TYPE:
@@ -369,9 +311,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return;
 			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
 				setBusType((VLNV)newValue);
-				return;
-			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
-				setAbstractionType((VLNV)newValue);
 				return;
 			case ComponentPackage.COM_INTERFACE__NAME:
 				setName((String)newValue);
@@ -397,9 +336,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
 				setBusType((VLNV)null);
 				return;
-			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
-				setAbstractionType((VLNV)null);
-				return;
 			case ComponentPackage.COM_INTERFACE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -422,8 +358,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return getComponent() != null;
 			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
 				return busType != null;
-			case ComponentPackage.COM_INTERFACE__ABSTRACTION_TYPE:
-				return abstractionType != null;
 			case ComponentPackage.COM_INTERFACE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ComponentPackage.COM_INTERFACE__INTERFACE_TYPE:

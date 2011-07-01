@@ -14,7 +14,6 @@ import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
-import net.sf.dftools.architecture.slam.component.Operator;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.utils.DomUtil;
 
@@ -119,14 +118,17 @@ public class IPXACTDesignWriter {
 		// Adding as component type the name of the component ecore EClass.
 		String componentRef = instance.getComponent().getVlnv().getName();
 		String componentType = instance.getComponent().eClass().getName();
-		String operatorType = "";
-		if (instance.getComponent() instanceof Operator) {
-			operatorType = ((Operator)instance.getComponent()).getOperatorType();
+		
+		// The subdesign path holds the location of the refinement
+		String refinementPath = "";
+		Design refinement = instance.getComponent().getRefinement();
+		if(refinement != null){
+			refinementPath = refinement.getPath();
 		}
 
 		// Initializing vendor extensions
 		IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions.new ComponentDescription(
-				componentRef, componentType, operatorType);
+				componentRef, componentType, refinementPath);
 		vendorExtensions.getComponentDescriptions().put(componentRef,
 				description);
 	}

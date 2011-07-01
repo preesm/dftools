@@ -48,7 +48,7 @@ public class IPXACTResourceImpl extends ResourceImpl {
 
 		IPXACTDesignParser designParser = new IPXACTDesignParser();
 		
-		Design design = designParser.parse(inputStream);
+		Design design = designParser.parse(inputStream, null);
 		if (design != null && !getContents().contains(design)){
 			this.getContents().add(design);
 		}

@@ -186,17 +186,6 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isHierarchical() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
 	 * Getting the com interface with the given ID
 	 * <!-- end-user-doc -->
 	 * @generated NOT

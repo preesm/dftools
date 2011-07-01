@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link net.sf.dftools.architecture.slam.component.ComInterface#getComponent <em>Component</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.ComInterface#getBusType <em>Bus Type</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.ComInterface#getAbstractionType <em>Abstraction Type</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.ComInterface#getName <em>Name</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.ComInterface#getInterfaceType <em>Interface Type</em>}</li>
  * </ul>
@@ -84,32 +83,6 @@ public interface ComInterface extends EObject {
 	 * @generated
 	 */
 	void setBusType(VLNV value);
-
-	/**
-	 * Returns the value of the '<em><b>Abstraction Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Abstraction Type</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Abstraction Type</em>' containment reference.
-	 * @see #setAbstractionType(VLNV)
-	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComInterface_AbstractionType()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	VLNV getAbstractionType();
-
-	/**
-	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.component.ComInterface#getAbstractionType <em>Abstraction Type</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Abstraction Type</em>' containment reference.
-	 * @see #getAbstractionType()
-	 * @generated
-	 */
-	void setAbstractionType(VLNV value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

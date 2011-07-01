@@ -6,6 +6,7 @@
  */
 package net.sf.dftools.architecture.slam.impl;
 
+import net.sf.dftools.architecture.slam.ComponentHolder;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
@@ -67,6 +68,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 			case SlamPackage.COMPONENT_INSTANCE: return createComponentInstance();
 			case SlamPackage.VLN_VED_ELEMENT: return createVLNVedElement();
 			case SlamPackage.PARAMETERIZED_ELEMENT: return createParameterizedElement();
+			case SlamPackage.COMPONENT_HOLDER: return createComponentHolder();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -110,6 +112,16 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	public ParameterizedElement createParameterizedElement() {
 		ParameterizedElementImpl parameterizedElement = new ParameterizedElementImpl();
 		return parameterizedElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentHolder createComponentHolder() {
+		ComponentHolderImpl componentHolder = new ComponentHolderImpl();
+		return componentHolder;
 	}
 
 	/**

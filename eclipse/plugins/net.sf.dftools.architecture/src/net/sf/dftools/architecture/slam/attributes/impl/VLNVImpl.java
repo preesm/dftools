@@ -37,7 +37,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VENDOR_EDEFAULT = null;
+	protected static final String VENDOR_EDEFAULT = "";
 
 	/**
 	 * The cached value of the '{@link #getVendor() <em>Vendor</em>}' attribute.
@@ -309,10 +309,18 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	public boolean equals(Object obj) {
 		if (obj instanceof VLNV) {
 			VLNV vlnv = (VLNV) obj;
-			return vendor.equals(vlnv.getVendor())
-					&& library.equals(vlnv.getLibrary())
-					&& name.equals(vlnv.getName())
-					&& version.equals(vlnv.getVersion());
+			
+			Boolean equals = true;
+			if(vendor == null) equals &= (vlnv.getVendor() == null);
+			else equals &= (vendor.equals(vlnv.getVendor()));
+			if(library == null) equals &= (vlnv.getLibrary() == null);
+			else equals &= (library.equals(vlnv.getLibrary()));
+			if(name == null) equals &= (vlnv.getName() == null);
+			else equals &= (name.equals(vlnv.getName()));
+			if(version == null) equals &= (vlnv.getVersion() == null);
+			else equals &= (version.equals(vlnv.getVersion()));
+			
+			return equals;
 		}
 		return false;
 	}

@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface VLNV extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Vendor</b></em>' attribute.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Vendor</em>' attribute isn't clear,
@@ -39,7 +40,7 @@ public interface VLNV extends EObject {
 	 * @return the value of the '<em>Vendor</em>' attribute.
 	 * @see #setVendor(String)
 	 * @see net.sf.dftools.architecture.slam.attributes.AttributesPackage#getVLNV_Vendor()
-	 * @model required="true"
+	 * @model default="" required="true"
 	 * @generated
 	 */
 	String getVendor();

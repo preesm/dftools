@@ -12,6 +12,7 @@ import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.link.Link;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,8 +25,9 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link net.sf.dftools.architecture.slam.Design#getComponentInstances <em>Component Instances</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.Design#getLinks <em>Links</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.Design#getHierarchyPorts <em>Hierarchy Ports</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.Design#getComponents <em>Components</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getComponentHolder <em>Component Holder</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,22 +85,6 @@ public interface Design extends VLNVedElement {
 	EList<HierarchyPort> getHierarchyPorts();
 
 	/**
-	 * Returns the value of the '<em><b>Components</b></em>' containment reference list.
-	 * The list contents are of type {@link net.sf.dftools.architecture.slam.component.Component}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Components</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Components</em>' containment reference list.
-	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_Components()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<Component> getComponents();
-
-	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
 	 * <!-- begin-user-doc -->
@@ -126,6 +112,58 @@ public interface Design extends VLNVedElement {
 	void setRefined(Component value);
 
 	/**
+	 * Returns the value of the '<em><b>Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Path</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Path</em>' attribute.
+	 * @see #setPath(String)
+	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_Path()
+	 * @model
+	 * @generated
+	 */
+	String getPath();
+
+	/**
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Path</em>' attribute.
+	 * @see #getPath()
+	 * @generated
+	 */
+	void setPath(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Component Holder</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Component Holder</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Component Holder</em>' reference.
+	 * @see #setComponentHolder(ComponentHolder)
+	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_ComponentHolder()
+	 * @model required="true"
+	 * @generated
+	 */
+	ComponentHolder getComponentHolder();
+
+	/**
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.Design#getComponentHolder <em>Component Holder</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Component Holder</em>' reference.
+	 * @see #getComponentHolder()
+	 * @generated
+	 */
+	void setComponentHolder(ComponentHolder value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model required="true" nameRequired="true"
@@ -147,14 +185,14 @@ public interface Design extends VLNVedElement {
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
-	Component getComponent(VLNV name);
+	ComponentInstance getComponentInstance(String name);
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model required="true" nameRequired="true"
+	 * @model required="true" nameRequired="true" classRequired="true"
 	 * @generated
 	 */
-	ComponentInstance getComponentInstance(String name);
+	Component getComponent(VLNV name, EClass class_);
 
 } // Design

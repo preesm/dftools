@@ -8,11 +8,13 @@ package net.sf.dftools.architecture.slam.impl;
 
 import java.util.Collection;
 
+import net.sf.dftools.architecture.slam.ComponentHolder;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.SlamPackage;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.Component;
+import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.link.Link;
@@ -37,8 +39,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponentInstances <em>Component Instances</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getHierarchyPorts <em>Hierarchy Ports</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponents <em>Components</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getRefined <em>Refined</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getPath <em>Path</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponentHolder <em>Component Holder</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,14 +79,36 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	protected EList<HierarchyPort> hierarchyPorts;
 
 	/**
-	 * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
+	 * The default value of the '{@link #getPath() <em>Path</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getComponents()
+	 * @see #getPath()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Component> components;
+	protected static final String PATH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPath() <em>Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected String path = PATH_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getComponentHolder() <em>Component Holder</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * Component  definitions are common to all the designs of a hierarchical architecture description.
+	 * The holder keeps these definitions available from all designs
+	 * <!-- end-user-doc -->
+	 * @see #getComponentHolder()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComponentHolder componentHolder;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,18 +170,6 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Component> getComponents() {
-		if (components == null) {
-			components = new EObjectContainmentEList<Component>(Component.class, this, SlamPackage.DESIGN__COMPONENTS);
-		}
-		return components;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Component getRefined() {
 		if (eContainerFeatureID() != SlamPackage.DESIGN__REFINED) return null;
 		return (Component)eContainer();
@@ -198,10 +211,73 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPath(String newPath) {
+		String oldPath = path;
+		path = newPath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__PATH, oldPath, path));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentHolder getComponentHolder() {
+		if (componentHolder != null && componentHolder.eIsProxy()) {
+			InternalEObject oldComponentHolder = (InternalEObject)componentHolder;
+			componentHolder = (ComponentHolder)eResolveProxy(oldComponentHolder);
+			if (componentHolder != oldComponentHolder) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder, componentHolder));
+			}
+		}
+		return componentHolder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentHolder basicGetComponentHolder() {
+		return componentHolder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setComponentHolder(ComponentHolder newComponentHolder) {
+		ComponentHolder oldComponentHolder = componentHolder;
+		componentHolder = newComponentHolder;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder, componentHolder));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public boolean containsComponentInstance(String name) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		for(ComponentInstance instance : componentInstances){
+			if(instance.getInstanceName().equals(name)){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/**
@@ -210,23 +286,12 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * @generated NOT
 	 */
 	public boolean containsComponent(VLNV name) {
-		for(Component component : this.getComponents()){
-			if(name.equals(component)){
+		for(Component component : this.getComponentHolder().getComponents()){
+			if(name.equals(component.getVlnv())){
 				return true;
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Component getComponent(VLNV name) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -243,6 +308,26 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 		}
 		
 		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Component getComponent(VLNV name, EClass class_) {
+
+		for(Component component : this.getComponentHolder().getComponents()){
+			if(name.equals(component.getVlnv())){
+				return component;
+			}
+		}
+		
+		Component component = (Component) ComponentFactory.eINSTANCE.create(class_);
+		component.setVlnv(name);
+		
+		this.getComponentHolder().getComponents().add(component);
+		return component;
 	}
 
 	/**
@@ -275,8 +360,6 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
 			case SlamPackage.DESIGN__HIERARCHY_PORTS:
 				return ((InternalEList<?>)getHierarchyPorts()).basicRemove(otherEnd, msgs);
-			case SlamPackage.DESIGN__COMPONENTS:
-				return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
 			case SlamPackage.DESIGN__REFINED:
 				return basicSetRefined(null, msgs);
 		}
@@ -311,10 +394,13 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 				return getLinks();
 			case SlamPackage.DESIGN__HIERARCHY_PORTS:
 				return getHierarchyPorts();
-			case SlamPackage.DESIGN__COMPONENTS:
-				return getComponents();
 			case SlamPackage.DESIGN__REFINED:
 				return getRefined();
+			case SlamPackage.DESIGN__PATH:
+				return getPath();
+			case SlamPackage.DESIGN__COMPONENT_HOLDER:
+				if (resolve) return getComponentHolder();
+				return basicGetComponentHolder();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -340,12 +426,14 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 				getHierarchyPorts().clear();
 				getHierarchyPorts().addAll((Collection<? extends HierarchyPort>)newValue);
 				return;
-			case SlamPackage.DESIGN__COMPONENTS:
-				getComponents().clear();
-				getComponents().addAll((Collection<? extends Component>)newValue);
-				return;
 			case SlamPackage.DESIGN__REFINED:
 				setRefined((Component)newValue);
+				return;
+			case SlamPackage.DESIGN__PATH:
+				setPath((String)newValue);
+				return;
+			case SlamPackage.DESIGN__COMPONENT_HOLDER:
+				setComponentHolder((ComponentHolder)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -368,11 +456,14 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 			case SlamPackage.DESIGN__HIERARCHY_PORTS:
 				getHierarchyPorts().clear();
 				return;
-			case SlamPackage.DESIGN__COMPONENTS:
-				getComponents().clear();
-				return;
 			case SlamPackage.DESIGN__REFINED:
 				setRefined((Component)null);
+				return;
+			case SlamPackage.DESIGN__PATH:
+				setPath(PATH_EDEFAULT);
+				return;
+			case SlamPackage.DESIGN__COMPONENT_HOLDER:
+				setComponentHolder((ComponentHolder)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -392,12 +483,30 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 				return links != null && !links.isEmpty();
 			case SlamPackage.DESIGN__HIERARCHY_PORTS:
 				return hierarchyPorts != null && !hierarchyPorts.isEmpty();
-			case SlamPackage.DESIGN__COMPONENTS:
-				return components != null && !components.isEmpty();
 			case SlamPackage.DESIGN__REFINED:
 				return getRefined() != null;
+			case SlamPackage.DESIGN__PATH:
+				return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
+			case SlamPackage.DESIGN__COMPONENT_HOLDER:
+				return componentHolder != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (path: ");
+		result.append(path);
+		result.append(')');
+		return result.toString();
 	}
 
 } //DesignImpl

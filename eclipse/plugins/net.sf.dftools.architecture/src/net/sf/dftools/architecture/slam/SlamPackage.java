@@ -134,22 +134,31 @@ public interface SlamPackage extends EPackage {
 	int DESIGN__HIERARCHY_PORTS = VLN_VED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESIGN__COMPONENTS = VLN_VED_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>Refined</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESIGN__REFINED = VLN_VED_ELEMENT_FEATURE_COUNT + 4;
+	int DESIGN__REFINED = VLN_VED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN__PATH = VLN_VED_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Component Holder</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESIGN__COMPONENT_HOLDER = VLN_VED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Design</em>' class.
@@ -158,7 +167,7 @@ public interface SlamPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DESIGN_FEATURE_COUNT = VLN_VED_ELEMENT_FEATURE_COUNT + 5;
+	int DESIGN_FEATURE_COUNT = VLN_VED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -236,6 +245,35 @@ public interface SlamPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.impl.ComponentHolderImpl <em>Component Holder</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see net.sf.dftools.architecture.slam.impl.ComponentHolderImpl
+	 * @see net.sf.dftools.architecture.slam.impl.SlamPackageImpl#getComponentHolder()
+	 * @generated
+	 */
+	int COMPONENT_HOLDER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_HOLDER__COMPONENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Component Holder</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_HOLDER_FEATURE_COUNT = 1;
+
+
+	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.Design <em>Design</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -279,17 +317,6 @@ public interface SlamPackage extends EPackage {
 	EReference getDesign_HierarchyPorts();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.Design#getComponents <em>Components</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Components</em>'.
-	 * @see net.sf.dftools.architecture.slam.Design#getComponents()
-	 * @see #getDesign()
-	 * @generated
-	 */
-	EReference getDesign_Components();
-
-	/**
 	 * Returns the meta object for the container reference '{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -299,6 +326,28 @@ public interface SlamPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDesign_Refined();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Path</em>'.
+	 * @see net.sf.dftools.architecture.slam.Design#getPath()
+	 * @see #getDesign()
+	 * @generated
+	 */
+	EAttribute getDesign_Path();
+
+	/**
+	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.Design#getComponentHolder <em>Component Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component Holder</em>'.
+	 * @see net.sf.dftools.architecture.slam.Design#getComponentHolder()
+	 * @see #getDesign()
+	 * @generated
+	 */
+	EReference getDesign_ComponentHolder();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.ComponentInstance <em>Component Instance</em>}'.
@@ -375,6 +424,27 @@ public interface SlamPackage extends EPackage {
 	EReference getParameterizedElement_Parameters();
 
 	/**
+	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.ComponentHolder <em>Component Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Component Holder</em>'.
+	 * @see net.sf.dftools.architecture.slam.ComponentHolder
+	 * @generated
+	 */
+	EClass getComponentHolder();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.ComponentHolder#getComponents <em>Components</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Components</em>'.
+	 * @see net.sf.dftools.architecture.slam.ComponentHolder#getComponents()
+	 * @see #getComponentHolder()
+	 * @generated
+	 */
+	EReference getComponentHolder_Components();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -431,20 +501,28 @@ public interface SlamPackage extends EPackage {
 		EReference DESIGN__HIERARCHY_PORTS = eINSTANCE.getDesign_HierarchyPorts();
 
 		/**
-		 * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DESIGN__COMPONENTS = eINSTANCE.getDesign_Components();
-
-		/**
 		 * The meta object literal for the '<em><b>Refined</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference DESIGN__REFINED = eINSTANCE.getDesign_Refined();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DESIGN__PATH = eINSTANCE.getDesign_Path();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Holder</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DESIGN__COMPONENT_HOLDER = eINSTANCE.getDesign_ComponentHolder();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -507,6 +585,24 @@ public interface SlamPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PARAMETERIZED_ELEMENT__PARAMETERS = eINSTANCE.getParameterizedElement_Parameters();
+
+		/**
+		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.impl.ComponentHolderImpl <em>Component Holder</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see net.sf.dftools.architecture.slam.impl.ComponentHolderImpl
+		 * @see net.sf.dftools.architecture.slam.impl.SlamPackageImpl#getComponentHolder()
+		 * @generated
+		 */
+		EClass COMPONENT_HOLDER = eINSTANCE.getComponentHolder();
+
+		/**
+		 * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT_HOLDER__COMPONENTS = eINSTANCE.getComponentHolder_Components();
 
 	}
 

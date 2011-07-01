@@ -256,7 +256,7 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(vlnvEClass, net.sf.dftools.architecture.slam.attributes.VLNV.class, "VLNV", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVLNV_Vendor(), ecorePackage.getEString(), "vendor", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Vendor(), ecorePackage.getEString(), "vendor", "", 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVLNV_Library(), ecorePackage.getEString(), "library", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVLNV_Name(), ecorePackage.getEString(), "name", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVLNV_Version(), ecorePackage.getEString(), "version", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

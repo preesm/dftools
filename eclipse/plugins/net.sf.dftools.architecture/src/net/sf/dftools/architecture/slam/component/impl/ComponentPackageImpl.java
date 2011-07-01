@@ -224,15 +224,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOperator_OperatorType() {
-		return (EAttribute)operatorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getComNode() {
 		return comNodeEClass;
 	}
@@ -332,17 +323,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComInterface_AbstractionType() {
-		return (EReference)comInterfaceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getComInterface_Name() {
-		return (EAttribute)comInterfaceEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)comInterfaceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -351,7 +333,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * @generated
 	 */
 	public EAttribute getComInterface_InterfaceType() {
-		return (EAttribute)comInterfaceEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)comInterfaceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -397,7 +379,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		createEReference(componentEClass, COMPONENT__REFINEMENT);
 
 		operatorEClass = createEClass(OPERATOR);
-		createEAttribute(operatorEClass, OPERATOR__OPERATOR_TYPE);
 
 		comNodeEClass = createEClass(COM_NODE);
 
@@ -415,7 +396,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		comInterfaceEClass = createEClass(COM_INTERFACE);
 		createEReference(comInterfaceEClass, COM_INTERFACE__COMPONENT);
 		createEReference(comInterfaceEClass, COM_INTERFACE__BUS_TYPE);
-		createEReference(comInterfaceEClass, COM_INTERFACE__ABSTRACTION_TYPE);
 		createEAttribute(comInterfaceEClass, COM_INTERFACE__NAME);
 		createEAttribute(comInterfaceEClass, COM_INTERFACE__INTERFACE_TYPE);
 
@@ -469,13 +449,10 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		initEReference(getComponent_Instances(), theSlamPackage.getComponentInstance(), theSlamPackage.getComponentInstance_Component(), "instances", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Refinement(), theSlamPackage.getDesign(), theSlamPackage.getDesign_Refined(), "refinement", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(componentEClass, ecorePackage.getEBoolean(), "isHierarchical", 1, 1, IS_UNIQUE, IS_ORDERED);
-
 		EOperation op = addEOperation(componentEClass, this.getComInterface(), "getInterface", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(operatorEClass, Operator.class, "Operator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOperator_OperatorType(), ecorePackage.getEString(), "operatorType", null, 1, 1, Operator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(comNodeEClass, ComNode.class, "ComNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -493,7 +470,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		initEClass(comInterfaceEClass, ComInterface.class, "ComInterface", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComInterface_Component(), this.getComponent(), this.getComponent_Interfaces(), "component", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComInterface_BusType(), theAttributesPackage.getVLNV(), null, "busType", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComInterface_AbstractionType(), theAttributesPackage.getVLNV(), null, "abstractionType", null, 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComInterface_Name(), ecorePackage.getEString(), "name", "", 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getComInterface_InterfaceType(), this.getComInterfaceType(), "interfaceType", "UNSPECIFIED", 1, 1, ComInterface.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

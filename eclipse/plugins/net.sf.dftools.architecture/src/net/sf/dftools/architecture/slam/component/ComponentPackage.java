@@ -182,22 +182,13 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__REFINEMENT = COMPONENT__REFINEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Operator Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPERATOR__OPERATOR_TYPE = COMPONENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The number of structural features of the '<em>Operator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATOR_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 1;
+	int OPERATOR_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.ComNodeImpl <em>Com Node</em>}' class.
@@ -530,22 +521,13 @@ public interface ComponentPackage extends EPackage {
 	int COM_INTERFACE__BUS_TYPE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Abstraction Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COM_INTERFACE__ABSTRACTION_TYPE = 2;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COM_INTERFACE__NAME = 3;
+	int COM_INTERFACE__NAME = 2;
 
 	/**
 	 * The feature id for the '<em><b>Interface Type</b></em>' attribute.
@@ -554,7 +536,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COM_INTERFACE__INTERFACE_TYPE = 4;
+	int COM_INTERFACE__INTERFACE_TYPE = 3;
 
 	/**
 	 * The number of structural features of the '<em>Com Interface</em>' class.
@@ -563,7 +545,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COM_INTERFACE_FEATURE_COUNT = 5;
+	int COM_INTERFACE_FEATURE_COUNT = 4;
 
 
 	/**
@@ -629,17 +611,6 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOperator();
-
-	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.Operator#getOperatorType <em>Operator Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Operator Type</em>'.
-	 * @see net.sf.dftools.architecture.slam.component.Operator#getOperatorType()
-	 * @see #getOperator()
-	 * @generated
-	 */
-	EAttribute getOperator_OperatorType();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.ComNode <em>Com Node</em>}'.
@@ -757,17 +728,6 @@ public interface ComponentPackage extends EPackage {
 	EReference getComInterface_BusType();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link net.sf.dftools.architecture.slam.component.ComInterface#getAbstractionType <em>Abstraction Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Abstraction Type</em>'.
-	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getAbstractionType()
-	 * @see #getComInterface()
-	 * @generated
-	 */
-	EReference getComInterface_AbstractionType();
-
-	/**
 	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComInterface#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -864,14 +824,6 @@ public interface ComponentPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPERATOR = eINSTANCE.getOperator();
-
-		/**
-		 * The meta object literal for the '<em><b>Operator Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPERATOR__OPERATOR_TYPE = eINSTANCE.getOperator_OperatorType();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.ComNodeImpl <em>Com Node</em>}' class.
@@ -972,14 +924,6 @@ public interface ComponentPackage extends EPackage {
 		 * @generated
 		 */
 		EReference COM_INTERFACE__BUS_TYPE = eINSTANCE.getComInterface_BusType();
-
-		/**
-		 * The meta object literal for the '<em><b>Abstraction Type</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COM_INTERFACE__ABSTRACTION_TYPE = eINSTANCE.getComInterface_AbstractionType();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

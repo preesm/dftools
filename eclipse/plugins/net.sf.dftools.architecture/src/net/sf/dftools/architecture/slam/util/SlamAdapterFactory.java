@@ -6,6 +6,7 @@
  */
 package net.sf.dftools.architecture.slam.util;
 
+import net.sf.dftools.architecture.slam.ComponentHolder;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
@@ -90,6 +91,10 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
 				return createParameterizedElementAdapter();
 			}
 			@Override
+			public Adapter caseComponentHolder(ComponentHolder object) {
+				return createComponentHolderAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -162,6 +167,20 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createParameterizedElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link net.sf.dftools.architecture.slam.ComponentHolder <em>Component Holder</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see net.sf.dftools.architecture.slam.ComponentHolder
+	 * @generated
+	 */
+	public Adapter createComponentHolderAdapter() {
 		return null;
 	}
 

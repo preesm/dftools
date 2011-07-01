@@ -21,14 +21,26 @@ public class IPXACTDesignVendorExtensions {
 	 * Class storing a component description in vendor extensions
 	 */
 	public class ComponentDescription {
+		/**
+		 * ID representing the component
+		 */
 		private String componentRef;
+		
+		/**
+		 * Type (Operator, Ram...) of the ecore EClass representing the component
+		 */
 		private String componentType;
+		
+		/**
+		 * Eclipse path of the potential design refining the component
+		 */
+		private String refinement;
 
-		public ComponentDescription(String componentRef, String componentType,
-				String operatorType) {
+		public ComponentDescription(String componentRef, String componentType, String refinement) {
 			super();
 			this.componentRef = componentRef;
 			this.componentType = componentType;
+			this.refinement = refinement;
 		}
 
 		public String getComponentRef() {
@@ -37,6 +49,10 @@ public class IPXACTDesignVendorExtensions {
 
 		public String getComponentType() {
 			return componentType;
+		}
+
+		public String getRefinement() {
+			return refinement;
 		}
 	}
 	
@@ -239,10 +255,10 @@ public class IPXACTDesignVendorExtensions {
 	public void parseComponentDescription(Element parent) {
 		String componentRef = parent.getAttribute("slam:componentRef");
 		String componentType = parent.getAttribute("slam:componentType");
-		String operatorType = parent.getAttribute("slam:operatorType");
+		String refinement = parent.getAttribute("slam:refinement");
 
 		ComponentDescription description = new ComponentDescription(
-				componentRef, componentType, operatorType);
+				componentRef, componentType,refinement);
 		componentDescriptions.put(description.getComponentRef(), description);
 	}
 
@@ -277,6 +293,7 @@ public class IPXACTDesignVendorExtensions {
 
 		componentElt.setAttribute("slam:componentRef", description.getComponentRef());
 		componentElt.setAttribute("slam:componentType", description.getComponentType());
+		componentElt.setAttribute("slam:refinement", description.getRefinement());
 	}
 
 	/**

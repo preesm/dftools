@@ -99,14 +99,6 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 * @generated
-	 */
-	boolean isHierarchical();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */

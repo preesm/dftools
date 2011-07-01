@@ -3,11 +3,17 @@
  */
 package net.sf.dftools.architecture.slam.serialize;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import net.sf.dftools.architecture.slam.ComponentHolder;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
@@ -25,6 +31,10 @@ import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensions.LinkDescription;
 import net.sf.dftools.architecture.utils.DomUtil;
 
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.w3c.dom.Document;
@@ -50,13 +60,29 @@ public class IPXACTDesignParser extends IPXACTParser {
 		vendorExtensions = new IPXACTDesignVendorExtensions();
 	}
 
-	public Design parse(InputStream inputStream) {
+	/**
+	 * Parsing a design from and IP XACT design file
+	 * 
+	 * @param inputStream the stream obtained from the IP-XACT file
+	 * @param componentHolder a component holder if inherited from a design
+	 * upper in the hierarchy. null otherwise.
+	 * @return the parsed design
+	 */
+	public Design parse(InputStream inputStream, ComponentHolder componentHolder) {
 		// The topmost component is initialized to enable storing
 		// the hierarchical external interfaces
 		Component refinedComponent = ComponentFactory.eINSTANCE
 				.createComponent();
 		Design design = SlamFactory.eINSTANCE.createDesign();
 		refinedComponent.setRefinement(design);
+
+		// Creates a component holder in case of a top design. 
+		// It is inherited in the case of a subdesign.
+		if(componentHolder == null){
+			componentHolder = SlamFactory.eINSTANCE.createComponentHolder();
+		}
+		design.setComponentHolder(componentHolder);
+		
 
 		Document document = DomUtil.parseDocument(inputStream);
 		Element root = document.getDocumentElement();
@@ -69,7 +95,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		return design;
 	}
 
@@ -118,6 +144,9 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 		ComponentInstance instance = SlamFactory.eINSTANCE
 				.createComponentInstance();
+
+		design.getComponentInstances().add(instance);
+
 		VLNV vlnv = null;
 		String instanceName = parseInstanceName(parent);
 		instance.setInstanceName(instanceName);
@@ -150,17 +179,81 @@ public class IPXACTDesignParser extends IPXACTParser {
 		// Creates the component if necessary
 		// eClass is retrieved from the component type
 		if (design.containsComponent(vlnv)) {
-			instance.setComponent(design.getComponent(vlnv));
+			instance.setComponent(design.getComponent(vlnv, null));
 		} else {
 			EPackage ePackage = ComponentPackage.eINSTANCE;
 			EClass eClass = (EClass) ePackage.getEClassifier(componentType);
-			Component component = (Component) ComponentFactory.eINSTANCE
-					.create(eClass);
-			component.setVlnv(vlnv);
+			Component component = design.getComponent(vlnv, eClass);
 			instance.setComponent(component);
+
+			// Looking for a refinement design in the project
+			if (description != null && !description.getRefinement().isEmpty()) {
+				String path = description.getRefinement();
+
+				File file = new File(path);
+
+				if (file != null) {
+					// Read from an input stream
+					IPXACTDesignParser subParser = new IPXACTDesignParser();
+					InputStream stream = null;
+					try {
+						stream = new FileInputStream(
+								description.getRefinement());
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					if (stream != null) {
+						Design subDesign = subParser.parse(stream, design.getComponentHolder());
+						
+						// A design shares its component holder with its subdesigns
+						subDesign.setPath(path);
+						component.setRefinement(subDesign);
+						
+					}
+				}
+
+				// Code to look for the refinement locally
+				/*
+				 * IFile file = ResourcesPlugin.getWorkspace().getRoot()
+				 * .getFile(relativePath); if (file != null) {
+				 * IPXACTDesignParser subParser = new IPXACTDesignParser();
+				 * InputStream stream = null; try { stream =
+				 * file.getContents(true); } catch (CoreException e) {
+				 * e.printStackTrace(); }
+				 * 
+				 * if (stream != null) {
+				 * component.setRefinement(subParser.parse(stream)); } }
+				 */
+			}
 		}
 
-		design.getComponentInstances().add(instance);
+	}
+
+	/**
+	 * Returns the list of source folders of the given project as a list of
+	 * absolute workspace paths.
+	 * 
+	 * @param container
+	 *            a container (a project for instance)
+	 * @return a set of folders
+	 */
+	public static Set<IFolder> getFolders(IContainer container)
+			throws CoreException {
+		Set<IFolder> folders = new HashSet<IFolder>();
+
+		for (IResource resource : container.members()) {
+			if (resource instanceof IFolder) {
+				folders.add((IFolder) resource);
+			}
+
+			if (resource instanceof IContainer) {
+				folders.addAll(getFolders((IContainer) resource));
+			}
+		}
+
+		return folders;
 	}
 
 	private String parseInstanceName(Element parent) {
@@ -326,6 +419,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		port.setInternalComponentInstance(internalComponentInstance);
 		ComInterface internalInterface = internalComponentInstance
 				.getComponent().getInterface(internalInterfaceName);
+		
 		// Creating internal interface if necessary
 		if (internalInterface == null) {
 			internalInterface = ComponentFactory.eINSTANCE.createComInterface();

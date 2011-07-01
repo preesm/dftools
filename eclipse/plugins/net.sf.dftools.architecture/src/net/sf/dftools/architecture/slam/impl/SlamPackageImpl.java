@@ -6,6 +6,7 @@
  */
 package net.sf.dftools.architecture.slam.impl;
 
+import net.sf.dftools.architecture.slam.ComponentHolder;
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.ParameterizedElement;
@@ -60,6 +61,13 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * @generated
 	 */
 	private EClass parameterizedElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass componentHolderEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -174,7 +182,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDesign_Components() {
+	public EReference getDesign_Refined() {
 		return (EReference)designEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -183,8 +191,17 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDesign_Refined() {
-		return (EReference)designEClass.getEStructuralFeatures().get(4);
+	public EAttribute getDesign_Path() {
+		return (EAttribute)designEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDesign_ComponentHolder() {
+		return (EReference)designEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -255,6 +272,24 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getComponentHolder() {
+		return componentHolderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComponentHolder_Components() {
+		return (EReference)componentHolderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SlamFactory getSlamFactory() {
 		return (SlamFactory)getEFactoryInstance();
 	}
@@ -282,8 +317,9 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 		createEReference(designEClass, DESIGN__COMPONENT_INSTANCES);
 		createEReference(designEClass, DESIGN__LINKS);
 		createEReference(designEClass, DESIGN__HIERARCHY_PORTS);
-		createEReference(designEClass, DESIGN__COMPONENTS);
 		createEReference(designEClass, DESIGN__REFINED);
+		createEAttribute(designEClass, DESIGN__PATH);
+		createEReference(designEClass, DESIGN__COMPONENT_HOLDER);
 
 		componentInstanceEClass = createEClass(COMPONENT_INSTANCE);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__COMPONENT);
@@ -294,6 +330,9 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 
 		parameterizedElementEClass = createEClass(PARAMETERIZED_ELEMENT);
 		createEReference(parameterizedElementEClass, PARAMETERIZED_ELEMENT__PARAMETERS);
+
+		componentHolderEClass = createEClass(COMPONENT_HOLDER);
+		createEReference(componentHolderEClass, COMPONENT_HOLDER__COMPONENTS);
 	}
 
 	/**
@@ -343,8 +382,9 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 		getDesign_ComponentInstances().getEKeys().add(this.getComponentInstance_InstanceName());
 		initEReference(getDesign_Links(), theLinkPackage.getLink(), null, "links", null, 0, -1, Design.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDesign_HierarchyPorts(), theComponentPackage.getHierarchyPort(), null, "hierarchyPorts", null, 0, -1, Design.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDesign_Components(), theComponentPackage.getComponent(), null, "components", null, 0, -1, Design.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDesign_Refined(), theComponentPackage.getComponent(), theComponentPackage.getComponent_Refinement(), "refined", null, 0, 1, Design.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDesign_Path(), ecorePackage.getEString(), "path", null, 0, 1, Design.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDesign_ComponentHolder(), this.getComponentHolder(), null, "componentHolder", null, 1, 1, Design.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(designEClass, ecorePackage.getEBoolean(), "containsComponentInstance", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
@@ -352,11 +392,12 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 		op = addEOperation(designEClass, ecorePackage.getEBoolean(), "containsComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-		op = addEOperation(designEClass, theComponentPackage.getComponent(), "getComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
-
 		op = addEOperation(designEClass, this.getComponentInstance(), "getComponentInstance", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
+
+		op = addEOperation(designEClass, theComponentPackage.getComponent(), "getComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, ecorePackage.getEClass(), "class_", 1, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(componentInstanceEClass, ComponentInstance.class, "ComponentInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponentInstance_Component(), theComponentPackage.getComponent(), theComponentPackage.getComponent_Instances(), "component", null, 1, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -370,6 +411,9 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 		initEClass(parameterizedElementEClass, ParameterizedElement.class, "ParameterizedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getParameterizedElement_Parameters(), theAttributesPackage.getParameter(), null, "parameters", null, 0, -1, ParameterizedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		getParameterizedElement_Parameters().getEKeys().add(theAttributesPackage.getParameter_Key());
+
+		initEClass(componentHolderEClass, ComponentHolder.class, "ComponentHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getComponentHolder_Components(), theComponentPackage.getComponent(), null, "components", null, 0, -1, ComponentHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

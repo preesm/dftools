@@ -62,6 +62,15 @@ public interface SlamFactory extends EFactory {
 	ParameterizedElement createParameterizedElement();
 
 	/**
+	 * Returns a new object of class '<em>Component Holder</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Component Holder</em>'.
+	 * @generated
+	 */
+	ComponentHolder createComponentHolder();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
