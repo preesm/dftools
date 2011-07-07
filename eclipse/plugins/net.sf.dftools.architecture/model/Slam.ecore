@@ -82,13 +82,6 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="" iD="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="interfaceType" lowerBound="1"
-          eType="#//component/ComInterfaceType" defaultValueLiteral="UNSPECIFIED"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="ComInterfaceType">
-      <eLiterals name="UNSPECIFIED"/>
-      <eLiterals name="MASTER" value="1"/>
-      <eLiterals name="SLAVE" value="2"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="link" nsURI="http://net.sf.dftools/architecture/slam/link" nsPrefix="link">
@@ -103,6 +96,9 @@
           lowerBound="1" eType="#//ComponentInstance"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="uuid" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="oriented" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="false"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="directed" lowerBound="1"

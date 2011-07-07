@@ -183,6 +183,15 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getLink_Oriented() {
+		return (EAttribute)linkEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDataLink() {
 		return dataLinkEClass;
 	}
@@ -239,6 +248,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 		createEReference(linkEClass, LINK__SOURCE_COMPONENT_INSTANCE);
 		createEReference(linkEClass, LINK__DESTINATION_COMPONENT_INSTANCE);
 		createEAttribute(linkEClass, LINK__UUID);
+		createEAttribute(linkEClass, LINK__ORIENTED);
 
 		dataLinkEClass = createEClass(DATA_LINK);
 		createEAttribute(dataLinkEClass, DATA_LINK__DIRECTED);
@@ -289,6 +299,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 		initEReference(getLink_SourceComponentInstance(), theSlamPackage.getComponentInstance(), null, "sourceComponentInstance", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLink_DestinationComponentInstance(), theSlamPackage.getComponentInstance(), null, "destinationComponentInstance", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLink_Uuid(), ecorePackage.getEString(), "uuid", null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLink_Oriented(), ecorePackage.getEBoolean(), "oriented", "false", 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataLinkEClass, DataLink.class, "DataLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataLink_Directed(), ecorePackage.getEBoolean(), "directed", null, 1, 1, DataLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

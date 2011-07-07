@@ -28,6 +28,7 @@ import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
+import net.sf.dftools.architecture.slam.link.LinkPackage;
 import net.sf.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensions.LinkDescription;
 import net.sf.dftools.architecture.utils.DomUtil;
 
@@ -63,9 +64,11 @@ public class IPXACTDesignParser extends IPXACTParser {
 	/**
 	 * Parsing a design from and IP XACT design file
 	 * 
-	 * @param inputStream the stream obtained from the IP-XACT file
-	 * @param componentHolder a component holder if inherited from a design
-	 * upper in the hierarchy. null otherwise.
+	 * @param inputStream
+	 *            the stream obtained from the IP-XACT file
+	 * @param componentHolder
+	 *            a component holder if inherited from a design upper in the
+	 *            hierarchy. null otherwise.
 	 * @return the parsed design
 	 */
 	public Design parse(InputStream inputStream, ComponentHolder componentHolder) {
@@ -76,13 +79,12 @@ public class IPXACTDesignParser extends IPXACTParser {
 		Design design = SlamFactory.eINSTANCE.createDesign();
 		refinedComponent.setRefinement(design);
 
-		// Creates a component holder in case of a top design. 
+		// Creates a component holder in case of a top design.
 		// It is inherited in the case of a subdesign.
-		if(componentHolder == null){
+		if (componentHolder == null) {
 			componentHolder = SlamFactory.eINSTANCE.createComponentHolder();
 		}
 		design.setComponentHolder(componentHolder);
-		
 
 		Document document = DomUtil.parseDocument(inputStream);
 		Element root = document.getDocumentElement();
@@ -95,7 +97,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return design;
 	}
 
@@ -205,12 +207,14 @@ public class IPXACTDesignParser extends IPXACTParser {
 					}
 
 					if (stream != null) {
-						Design subDesign = subParser.parse(stream, design.getComponentHolder());
-						
-						// A design shares its component holder with its subdesigns
+						Design subDesign = subParser.parse(stream,
+								design.getComponentHolder());
+
+						// A design shares its component holder with its
+						// subdesigns
 						subDesign.setPath(path);
 						component.setRefinement(subDesign);
-						
+
 					}
 				}
 
@@ -318,51 +322,67 @@ public class IPXACTDesignParser extends IPXACTParser {
 			node = node.getNextSibling();
 		}
 
-		Link link = LinkFactory.eINSTANCE.createDataLink();
-		link.setUuid(linkUuid);
-		ComponentInstance sourceInstance = design
-				.getComponentInstance(componentInstanceRefs.get(0));
-		link.setSourceComponentInstance(sourceInstance);
-		ComInterface sourceInterface = sourceInstance.getComponent()
-				.getInterface(comItfs.get(0));
-
-		// Creating source interface if necessary
-		if (sourceInterface == null) {
-			sourceInterface = ComponentFactory.eINSTANCE.createComInterface();
-			sourceInterface.setName(comItfs.get(0));
-			sourceInstance.getComponent().getInterfaces().add(sourceInterface);
-		}
-		link.setSourceInterface(sourceInterface);
-
-		ComponentInstance destinationInstance = design
-				.getComponentInstance(componentInstanceRefs.get(1));
-		link.setDestinationComponentInstance(destinationInstance);
-		ComInterface destinationInterface = destinationInstance.getComponent()
-				.getInterface(comItfs.get(1));
-
-		// Creating destination interface if necessary
-		if (destinationInterface == null) {
-			destinationInterface = ComponentFactory.eINSTANCE
-					.createComInterface();
-			destinationInterface.setName(comItfs.get(1));
-			destinationInstance.getComponent().getInterfaces()
-					.add(destinationInterface);
-		}
-		link.setDestinationInterface(destinationInterface);
-
 		// Retrieving parameters from vendor extensions
 		LinkDescription linkDescription = vendorExtensions
 				.getLinkDescription(linkUuid);
+		
 		if (linkDescription != null) {
+
+			String linkType = "DataLink";
+			
+			if(!linkDescription.getType().isEmpty()){
+				linkType = linkDescription.getType();
+			}
+			
+			EPackage eLinkPackage = LinkPackage.eINSTANCE;
+			EClass _class = (EClass) eLinkPackage.getEClassifier(linkType);
+			
+			// Creating the link with appropriate type
+			Link link = (Link)LinkFactory.eINSTANCE.create(_class);
+			
+			link.setOriented(linkDescription.isOriented());
+			link.setUuid(linkUuid);
+			ComponentInstance sourceInstance = design
+					.getComponentInstance(componentInstanceRefs.get(0));
+			link.setSourceComponentInstance(sourceInstance);
+			ComInterface sourceInterface = sourceInstance.getComponent()
+					.getInterface(comItfs.get(0));
+
+			// Creating source interface if necessary
+			if (sourceInterface == null) {
+				sourceInterface = ComponentFactory.eINSTANCE
+						.createComInterface();
+				sourceInterface.setName(comItfs.get(0));
+				sourceInstance.getComponent().getInterfaces()
+						.add(sourceInterface);
+			}
+			link.setSourceInterface(sourceInterface);
+
+			ComponentInstance destinationInstance = design
+					.getComponentInstance(componentInstanceRefs.get(1));
+			link.setDestinationComponentInstance(destinationInstance);
+			ComInterface destinationInterface = destinationInstance
+					.getComponent().getInterface(comItfs.get(1));
+
+			// Creating destination interface if necessary
+			if (destinationInterface == null) {
+				destinationInterface = ComponentFactory.eINSTANCE
+						.createComInterface();
+				destinationInterface.setName(comItfs.get(1));
+				destinationInstance.getComponent().getInterfaces()
+						.add(destinationInterface);
+			}
+			link.setDestinationInterface(destinationInterface);
+
 			for (String key : linkDescription.getParameters().keySet()) {
 				Parameter p = AttributesFactory.eINSTANCE.createParameter();
 				p.setKey(key);
 				p.setValue(linkDescription.getParameters().get(key));
 				link.getParameters().add(p);
 			}
+			design.getLinks().add(link);
 		}
 
-		design.getLinks().add(link);
 	}
 
 	private void parseLinks(Element parent, Design design) {
@@ -419,7 +439,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		port.setInternalComponentInstance(internalComponentInstance);
 		ComInterface internalInterface = internalComponentInstance
 				.getComponent().getInterface(internalInterfaceName);
-		
+
 		// Creating internal interface if necessary
 		if (internalInterface == null) {
 			internalInterface = ComponentFactory.eINSTANCE.createComInterface();

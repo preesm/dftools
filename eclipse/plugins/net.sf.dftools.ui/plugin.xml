@@ -8,8 +8,18 @@
             contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
             extensions="workflow"
+            icon="icons/workflow.png"
             id="net.sf.dftools.ui.WorkflowEditor"
             name="Workflow Editor">
+      </editor>
+      <editor
+            class="net.sf.graphiti.ui.editors.GraphEditor"
+            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            default="true"
+            extensions="slam"
+            icon="icons/graphiti.gif"
+            id="net.sf.dftools.ui.SlamEditor"
+            name="S-LAM Editor">
       </editor>
    </extension>
    <extension
@@ -57,10 +67,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
-      <category
-            id="net.sf.dftools.ui.DFToolsCategory"
-            name="DFTools">
-      </category>
       <wizard
             canFinishEarly="false"
             category="net.sf.dftools.ui.DFToolsCategory"
@@ -71,6 +77,22 @@
             name="Project"
             project="true">
       </wizard>
+      <category
+            id="net.sf.dftools.ui.slam.category"
+            name="S-LAM">
+      </category>
+      <wizard
+            category="net.sf.dftools.ui.slam.category"
+            class="net.sf.dftools.ui.slam.NewSlamFileWizard"
+            hasPages="true"
+            icon="icons/graphiti.gif"
+            id="net.sf.dftools.ui.slam.NewSlamFileWizard"
+            name="S-LAM Architecture"
+            project="false">
+         <description>
+            Create a new S-LAM architecture description file
+         </description>
+      </wizard>
    </extension>
    <extension
          id="DFToolsNature"
@@ -80,5 +102,285 @@
                class="net.sf.dftools.ui.DFToolsProjectNature">
          </run>
       </runtime>
+   </extension>
+   <extension
+         point="net.sf.graphiti.model.definition">
+      <configuration
+            extension="slam"
+            name="S-LAM Design"
+            type="text/xml"
+            validator="net.sf.dftools.ui.slam.SlamValidator">
+         <graphType
+               name="S-LAM Design">
+            <parameter
+                  name="vendor"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="library"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="name"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="version"
+                  type="java.lang.String">
+            </parameter>
+         </graphType>
+         <import>
+            <xslt
+                  name="xslt/net/sf/dftools/s-lam/input_S-LAM.xslt">
+            </xslt>
+         </import>
+         <vertexType
+               name="hierConnection">
+            <color
+                  blue="0"
+                  green="0"
+                  red="255">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <vertexType
+               name="Operator">
+            <color
+                  blue="16"
+                  green="220"
+                  red="123">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="refinement"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="definition"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  default="-1"
+                  name="dataCopySpeed"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <edgeType
+               directed="false"
+               name="hierConnection">
+            <color
+                  blue="0"
+                  green="0"
+                  red="255">
+            </color>
+            <parameter
+                  name="source port"
+                  type="java.lang.String">
+            </parameter>
+         </edgeType>
+         <edgeType
+               directed="false"
+               name="ControlLink">
+            <color
+                  blue="0"
+                  green="0"
+                  red="0">
+            </color>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="source port"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="target port"
+                  type="java.lang.String">
+            </parameter>
+         </edgeType>
+         <export>
+            <xslt
+                  name="xslt/net/sf/dftools/s-lam/output_S-LAM.xslt">
+            </xslt>
+         </export>
+         <vertexType
+               name="Ram">
+            <color
+                  blue="16"
+                  green="220"
+                  red="123">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="refinement"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="definition"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  default="-1"
+                  name="dataCopySpeed"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <edgeType
+               directed="false"
+               name="DataLink">
+            <color
+                  blue="0"
+                  green="0"
+                  red="0">
+            </color>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="source port"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="target port"
+                  type="java.lang.String">
+            </parameter>
+         </edgeType>
+      </configuration>
+      <configuration
+            extension="workflow"
+            name="Workflow"
+            type="text/xml"
+            validator="net.sf.dftools.ui.workflow.WorkflowValidator">
+         <graphType
+               name="DFTools Workflow">
+         </graphType>
+         <import>
+            <xslt
+                  name="xslt/net/sf/dftools/workflow/input_workflow.xslt">
+            </xslt>
+         </import>
+         <export>
+            <xslt
+                  name="xslt/net/sf/dftools/workflow/output_workflow.xslt">
+            </xslt>
+         </export>
+         <vertexType
+               name="Scenario source">
+            <color
+                  blue="77"
+                  green="80"
+                  red="192">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <size
+                  height="30"
+                  width="30">
+            </size>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="plugin identifier"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <vertexType
+               name="Task">
+            <color
+                  blue="125"
+                  green="73"
+                  red="31">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="variable declaration"
+                  type="java.util.Map">
+            </parameter>
+            <parameter
+                  name="plugin identifier"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <edgeType
+               directed="true"
+               name="Data transfer">
+            <parameter
+                  name="source port"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="target port"
+                  type="java.lang.String">
+            </parameter>
+         </edgeType>
+      </configuration>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="net.sf.graphiti.ui.properties.contributor">
+         <propertySection
+               class="net.sf.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
+               filter="net.sf.dftools.ui.workflow.filters.WorkflowTaskFilter"
+               id="net.sf.dftools.ui.workflow.variables.section"
+               tab="net.sf.dftools.ui.workflow.variables">
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="net.sf.graphiti.ui.properties.contributor">
+         <propertyTab
+               category="net.sf.graphiti.ui.properties.category.vertex"
+               id="net.sf.dftools.ui.workflow.variables"
+               label="Task Variables">
+         </propertyTab>
+      </propertyTabs>
    </extension>
 </plugin>

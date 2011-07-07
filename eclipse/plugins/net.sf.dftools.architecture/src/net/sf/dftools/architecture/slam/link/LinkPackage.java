@@ -126,13 +126,22 @@ public interface LinkPackage extends EPackage {
 	int LINK__UUID = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Oriented</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__ORIENTED = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 5;
+	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.
@@ -197,6 +206,15 @@ public interface LinkPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_LINK__UUID = LINK__UUID;
+
+	/**
+	 * The feature id for the '<em><b>Oriented</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_LINK__ORIENTED = LINK__ORIENTED;
 
 	/**
 	 * The feature id for the '<em><b>Directed</b></em>' attribute.
@@ -281,6 +299,15 @@ public interface LinkPackage extends EPackage {
 	int CONTROL_LINK__UUID = LINK__UUID;
 
 	/**
+	 * The feature id for the '<em><b>Oriented</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL_LINK__ORIENTED = LINK__ORIENTED;
+
+	/**
 	 * The number of structural features of the '<em>Control Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -354,6 +381,17 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLink_Uuid();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.link.Link#isOriented <em>Oriented</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Oriented</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#isOriented()
+	 * @see #getLink()
+	 * @generated
+	 */
+	EAttribute getLink_Oriented();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.link.DataLink <em>Data Link</em>}'.
@@ -457,6 +495,14 @@ public interface LinkPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LINK__UUID = eINSTANCE.getLink_Uuid();
+
+		/**
+		 * The meta object literal for the '<em><b>Oriented</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK__ORIENTED = eINSTANCE.getLink_Oriented();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.

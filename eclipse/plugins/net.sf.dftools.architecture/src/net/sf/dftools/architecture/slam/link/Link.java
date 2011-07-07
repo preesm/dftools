@@ -23,6 +23,7 @@ import net.sf.dftools.architecture.slam.component.ComInterface;
  *   <li>{@link net.sf.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.link.Link#isOriented <em>Oriented</em>}</li>
  * </ul>
  * </p>
  *
@@ -160,5 +161,32 @@ public interface Link extends ParameterizedElement {
 	 * @generated
 	 */
 	void setUuid(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Oriented</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Oriented</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Oriented</em>' attribute.
+	 * @see #setOriented(boolean)
+	 * @see net.sf.dftools.architecture.slam.link.LinkPackage#getLink_Oriented()
+	 * @model default="false" required="true"
+	 * @generated
+	 */
+	boolean isOriented();
+
+	/**
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.link.Link#isOriented <em>Oriented</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Oriented</em>' attribute.
+	 * @see #isOriented()
+	 * @generated
+	 */
+	void setOriented(boolean value);
 
 } // Link

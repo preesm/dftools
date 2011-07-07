@@ -1,11 +1,15 @@
 /**
  * 
  */
-package net.sf.dftools.architecture.slam;
+package net.sf.dftools.architecture.slam.test;
 
 import java.io.IOException;
 import java.util.Map;
 
+import net.sf.dftools.architecture.slam.ComponentInstance;
+import net.sf.dftools.architecture.slam.Design;
+import net.sf.dftools.architecture.slam.SlamFactory;
+import net.sf.dftools.architecture.slam.SlamPackage;
 import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;

@@ -48,7 +48,7 @@ public class IPXACTDesignWriter {
 	public void write(Design design, OutputStream outputStream) {
 
 		Document document = DomUtil.createDocument(
-				"http://www.accellera.org/XMLSchema/SPIRIT/1.5",
+				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
 				"spirit:design");
 		Element root = document.getDocumentElement();
 
@@ -206,7 +206,8 @@ public class IPXACTDesignWriter {
 		intf2Elt.setAttribute("spirit:busRef", destinationInterface.getName());
 
 		// Initializing vendor extensions
-		IPXACTDesignVendorExtensions.LinkDescription description = vendorExtensions.new LinkDescription(link.getUuid());
+		String linkType = link.eClass().getInstanceClassName();
+		IPXACTDesignVendorExtensions.LinkDescription description = vendorExtensions.new LinkDescription(link.getUuid(), link.isOriented(), linkType);
 		for(Parameter p : link.getParameters()){
 			description.getParameters().put(p.getKey(),p.getValue());
 		}

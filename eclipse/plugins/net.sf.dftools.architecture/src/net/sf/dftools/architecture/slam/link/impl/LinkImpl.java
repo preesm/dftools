@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getSourceComponentInstance <em>Source Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getDestinationComponentInstance <em>Destination Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#getUuid <em>Uuid</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.link.impl.LinkImpl#isOriented <em>Oriented</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,6 +95,26 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 	 * @ordered
 	 */
 	protected String uuid = UUID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOriented() <em>Oriented</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOriented()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ORIENTED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOriented() <em>Oriented</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOriented()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean oriented = ORIENTED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -292,6 +313,27 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isOriented() {
+		return oriented;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOriented(boolean newOriented) {
+		boolean oldOriented = oriented;
+		oriented = newOriented;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__ORIENTED, oldOriented, oriented));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -309,6 +351,8 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 				return basicGetDestinationComponentInstance();
 			case LinkPackage.LINK__UUID:
 				return getUuid();
+			case LinkPackage.LINK__ORIENTED:
+				return isOriented();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -335,6 +379,9 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 				return;
 			case LinkPackage.LINK__UUID:
 				setUuid((String)newValue);
+				return;
+			case LinkPackage.LINK__ORIENTED:
+				setOriented((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -363,6 +410,9 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 			case LinkPackage.LINK__UUID:
 				setUuid(UUID_EDEFAULT);
 				return;
+			case LinkPackage.LINK__ORIENTED:
+				setOriented(ORIENTED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -385,6 +435,8 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 				return destinationComponentInstance != null;
 			case LinkPackage.LINK__UUID:
 				return UUID_EDEFAULT == null ? uuid != null : !UUID_EDEFAULT.equals(uuid);
+			case LinkPackage.LINK__ORIENTED:
+				return oriented != ORIENTED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -401,6 +453,8 @@ public abstract class LinkImpl extends ParameterizedElementImpl implements Link 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (uuid: ");
 		result.append(uuid);
+		result.append(", oriented: ");
+		result.append(oriented);
 		result.append(')');
 		return result.toString();
 	}

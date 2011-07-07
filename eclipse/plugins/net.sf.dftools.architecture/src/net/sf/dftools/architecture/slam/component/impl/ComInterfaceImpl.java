@@ -8,7 +8,6 @@ package net.sf.dftools.architecture.slam.component.impl;
 
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
-import net.sf.dftools.architecture.slam.component.ComInterfaceType;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 
@@ -30,7 +29,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getComponent <em>Component</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getBusType <em>Bus Type</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getName <em>Name</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl#getInterfaceType <em>Interface Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,26 +64,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getInterfaceType() <em>Interface Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInterfaceType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final ComInterfaceType INTERFACE_TYPE_EDEFAULT = ComInterfaceType.UNSPECIFIED;
-
-	/**
-	 * The cached value of the '{@link #getInterfaceType() <em>Interface Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInterfaceType()
-	 * @generated
-	 * @ordered
-	 */
-	protected ComInterfaceType interfaceType = INTERFACE_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -216,27 +194,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComInterfaceType getInterfaceType() {
-		return interfaceType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInterfaceType(ComInterfaceType newInterfaceType) {
-		ComInterfaceType oldInterfaceType = interfaceType;
-		interfaceType = newInterfaceType == null ? INTERFACE_TYPE_EDEFAULT : newInterfaceType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__INTERFACE_TYPE, oldInterfaceType, interfaceType));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -292,8 +249,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return getBusType();
 			case ComponentPackage.COM_INTERFACE__NAME:
 				return getName();
-			case ComponentPackage.COM_INTERFACE__INTERFACE_TYPE:
-				return getInterfaceType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -314,9 +269,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return;
 			case ComponentPackage.COM_INTERFACE__NAME:
 				setName((String)newValue);
-				return;
-			case ComponentPackage.COM_INTERFACE__INTERFACE_TYPE:
-				setInterfaceType((ComInterfaceType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -339,9 +291,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 			case ComponentPackage.COM_INTERFACE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ComponentPackage.COM_INTERFACE__INTERFACE_TYPE:
-				setInterfaceType(INTERFACE_TYPE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -360,8 +309,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 				return busType != null;
 			case ComponentPackage.COM_INTERFACE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ComponentPackage.COM_INTERFACE__INTERFACE_TYPE:
-				return interfaceType != INTERFACE_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -378,8 +325,6 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", interfaceType: ");
-		result.append(interfaceType);
 		result.append(')');
 		return result.toString();
 	}
