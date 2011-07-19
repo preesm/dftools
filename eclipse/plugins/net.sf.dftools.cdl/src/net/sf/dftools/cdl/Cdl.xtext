@@ -8,12 +8,12 @@ generate cdl "http://www.sf.net/dftools/cdl/Cdl"
 // top-level entity
 ///////////////////////////////////////////////////////////////////////////////
 
-Module:
+AstModule:
 	('package' package=QualifiedName ';')?
 	(imports += Import)*
 	
-	( ('component' name=ID component=Component)
-	| ('library' name=ID library=Library)
+	( ('component' name=ID component=AstComponent)
+	| ('library' name=ID library=AstLibrary)
 	);
 	
 Import: 'import' importedNamespace=QualifiedNameWithWildCard ';';
@@ -30,19 +30,19 @@ QualifiedNameWithWildCard:
 ///////////////////////////////////////////////////////////////////////////////
 
 
-Library:{Library} 
+AstLibrary:{AstLibrary} 
 	 '{'
-		(types += Decl)*
+		(types += AstDecl)*
 	'}';
 	
 
-Component:{Component}
+AstComponent:{AstComponent}
 	 '(' ')' '{'	
 		
-		(operator=Operator)?
+		(operator=AstOperator)?
 		
-		((interfaces += Interface)
-		 |(memories += Memory))*
+		((interfaces += AstInterface)
+		 |(memories += AstMemory))*
 
 	'}';
 
@@ -50,63 +50,51 @@ Component:{Component}
 // Component classes
 ///////////////////////////////////////////////////////////////////////////////
 
-Operator:
-	'operator' core=Core;
+AstOperator:
+	'operator' core=AstCore;
 
-Interface: 
-	'interface' core=Core;
+AstInterface: 
+	'interface' core=AstCore;
 	
-Memory: 
-	'memory' core=Core;
+AstMemory: 
+	'memory' core=AstCore;
 	
-Core:
-	type=[Class|QualifiedName] name=ID '{'
-		(fields+=Field)*
+AstCore:
+	type=[AstClass|QualifiedName] name=ID '{'
+		(fields+=AstField)*
 	'}';
 
-// Ref Field 
-/*Field: 
-	attribute=[Attribute] '=' value=Expression ';' ;*/
+
+AstField: 
+	domain=AstDomain '=' value=AstExpression ';';
 	
-//Recursive Feild
-//Field: 
-//	attribute=AttributeRef '=' value=Expression ';' ;
+AstDomain : 
+	AstPrimaryDomain({AstDomainCall.left=current}'.'right=AstPrimaryDomain)* ;
 
-//AttributeRef: attribute=[Attribute] ('.' child=AttributeChild)?  ;
-
-//AttributeChild : attribute=[Attribute] ('.' child=AttributeChild)? ;
-
-//Recursive Feild
-Field: 
-	domain=Domain '=' value=Expression ';';
-	
-Domain : 
-	PrimaryDomain({DomainCall.left=current}'.'right=PrimaryDomain)* ;
-
-PrimaryDomain returns Domain:
-	attribute=[Attribute];
+AstPrimaryDomain returns AstDomain:
+	attribute=[AstAttribute];
 	
 
 ///////////////////////////////////////////////////////////////////////////////
 // Library classes
 ///////////////////////////////////////////////////////////////////////////////
 
-Decl: Class | Enum; 
+AstDecl: AstClass | AstEnum; 
 
-Class :
+AstClass :
 	'class' name=ID  '{'
-		((attributes+=Attribute))*
+		((attributes+=AstAttribute))*
 	'}';
 
-Attribute: type=Type name=ID ( '=' default=Expression )? ';';
+AstAttribute: type=AstType name=ID ( '=' default=AstExpression )? ';';
 
-Enum :
+AstEnum :
 	'enum' name=ID '{' 
-		(constants += EnumLiteral)
-		(',' (constants += EnumLiteral))*
+		(constants += AstEnumLiteral)
+		(',' (constants += AstEnumLiteral))*
 	 '}';
 
-EnumLiteral returns Symbol:
+AstEnumLiteral returns AstSymbol:
  {EnumLiteral} name=ID;
  
 
@@ -114,31 +102,31 @@ EnumLiteral returns Symbol:
 // Types
 ///////////////////////////////////////////////////////////////////////////////
 
-Type: TypeBool | TypeInt | TypeLong | TypeString | TypeDecl;
+AstType: AstTypeBool | AstTypeInt | AstTypeLong | AstTypeString | AstTypeDecl;
 
-TypeDecl: type=[Decl];
+AstTypeDecl: type=[AstDecl];
 
-TypeBool: name='bool';
+AstTypeBool: name='bool';
 
-TypeInt: name='int';
+AstTypeInt: name='int';
 
-TypeLong: name='long';
+AstTypeLong: name='long';
 
-TypeString: name='String';
+AstTypeString: name='String';
 
 ///////////////////////////////////////////////////////////////////////////////
 // Litterals
 ///////////////////////////////////////////////////////////////////////////////
 
-Literal: LiteralInteger | LiteralString | LiteralBool | LiteralDouble;
+AstLiteral: AstLiteralInteger | AstLiteralString | AstLiteralBool | AstLiteralDouble;
 
-LiteralInteger : int=INT;
+AstLiteralInteger : int=INT;
 
-LiteralString: string=STRING;
+AstLiteralString: string=STRING;
 
-LiteralBool : bool=BOOL;
+AstLiteralBool : bool=BOOL;
 
-LiteralDouble : double=DOUBLE;
+AstLiteralDouble : double=DOUBLE;
 
 	
 terminal BOOL returns ecore::EBoolean: 'true' | 'false';
@@ -152,37 +140,37 @@ terminal DOUBLE returns ecore::EDouble :
 // expressions
 ///////////////////////////////////////////////////////////////////////////////
 
-Expression:
-	ExpressionAnd ({ExpressionBinary.left=current} operator=('||' | 'or') right=ExpressionAnd)*;
-ExpressionAnd returns Expression:
-	ExpressionBitor ({ExpressionBinary.left=current} operator=('&&' | 'and') right=ExpressionBitor)*;
-ExpressionBitor returns Expression:
-	ExpressionBitxor ({ExpressionBinary.left=current} operator='|' right=ExpressionBitxor)*;
-ExpressionBitxor returns Expression:
-	ExpressionBitand ({ExpressionBinary.left=current} operator='^' right=ExpressionBitand)*;
-ExpressionBitand returns Expression:
-	ExpressionEq ({ExpressionBinary.left=current} operator='&' right=ExpressionEq)*;
-ExpressionEq returns Expression:
-	ExpressionRelational ({ExpressionBinary.left=current} operator=('=' | '!=') right=ExpressionRelational)*;
-ExpressionRelational returns Expression:
-	ExpressionShift ({ExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=ExpressionShift)*;
-ExpressionShift returns Expression:
-	ExpressionAdditive ({ExpressionBinary.left=current} operator=('<<' | '>>') right=ExpressionAdditive)*;
-ExpressionAdditive returns Expression:
-	ExpressionMultiplicative ({ExpressionBinary.left=current} operator=('+' | '-') right=ExpressionMultiplicative)*;
-ExpressionMultiplicative returns Expression:
-	ExpressionExp ({ExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod') right=ExpressionExp)*;
-ExpressionExp returns Expression:
-	ExpressionUnary ({ExpressionBinary.left=current} operator='**' right=ExpressionUnary)*;
+AstExpression:
+	AstExpressionAnd ({AstExpressionBinary.left=current} operator=('||' | 'or') right=AstExpressionAnd)*;
+AstExpressionAnd returns AstExpression:
+	AstExpressionBitor ({AstExpressionBinary.left=current} operator=('&&' | 'and') right=AstExpressionBitor)*;
+AstExpressionBitor returns AstExpression:
+	AstExpressionBitxor ({AstExpressionBinary.left=current} operator='|' right=AstExpressionBitxor)*;
+AstExpressionBitxor returns AstExpression:
+	AstExpressionBitand ({AstExpressionBinary.left=current} operator='^' right=AstExpressionBitand)*;
+AstExpressionBitand returns AstExpression:
+	AstExpressionEq ({AstExpressionBinary.left=current} operator='&' right=AstExpressionEq)*;
+AstExpressionEq returns AstExpression:
+	AstExpressionRelational ({AstExpressionBinary.left=current} operator=('=' | '!=') right=AstExpressionRelational)*;
+AstExpressionRelational returns AstExpression:
+	AstExpressionShift ({AstExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstExpressionShift)*;
+AstExpressionShift returns AstExpression:
+	AstExpressionAdditive ({AstExpressionBinary.left=current} operator=('<<' | '>>') right=AstExpressionAdditive)*;
+AstExpressionAdditive returns AstExpression:
+	AstExpressionMultiplicative ({AstExpressionBinary.left=current} operator=('+' | '-') right=AstExpressionMultiplicative)*;
+AstExpressionMultiplicative returns AstExpression:
+	AstExpressionExp ({AstExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod') right=AstExpressionExp)*;
+AstExpressionExp returns AstExpression:
+	AstExpressionUnary ({AstExpressionBinary.left=current} operator='**' right=AstExpressionUnary)*;
 
-ExpressionUnary returns Expression:
-	{ExpressionUnary} unaryOperator=('~' | '-' | 'not' | '#') expression=ExpressionPostfix
-	| ExpressionPostfix;
+AstExpressionUnary returns AstExpression:
+	{AstExpressionUnary} AstunaryOperator=('~' | '-' | 'not' | '#') expression=AstExpressionPostfix
+	| AstExpressionPostfix;
 
-ExpressionAtomic returns Expression:
-  {SymbolRef} var=[Symbol|QualifiedName] |
-  {LiteralRef} value=Literal;
+AstExpressionAtomic returns AstExpression:
+  {AstSymbolRef} var=[AstSymbol|QualifiedName] |
+  {AstLiteralRef} value=AstLiteral;
 
-ExpressionPostfix returns Expression:
-	'(' Expression ')' |
-	ExpressionAtomic ;
+AstExpressionPostfix returns AstExpression:
+	'(' AstExpression ')' |
+	AstExpressionAtomic ;

@@ -1,34 +1,58 @@
+/*
+ * Copyright (c) 2011, EPFL
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+ *   * Redistributions of source code must retain the above copyright notice,
+ *     this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above copyright notice,
+ *     this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ *   * Neither the name of the ECOLE POLYTECHNIQUE FEDERALE DE LAUSANNE nor the  
+ *     names of its contributors may be used to endorse or promote products 
+ *     derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
 package net.sf.dftools.cdl.naming;
 
-import net.sf.dftools.cdl.cdl.Component;
-import net.sf.dftools.cdl.cdl.Library;
-import net.sf.dftools.cdl.cdl.Module;
+import net.sf.dftools.cdl.cdl.AstModule;
+import net.sf.dftools.cdl.cdl.AstComponent;
+import net.sf.dftools.cdl.cdl.AstLibrary;
 import net.sf.dftools.cdl.utils.Util;
 
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 
-/**
- * This class defines a qualified name provider for CDL.
- * 
- * @author Matthieu Wipliez
- * 
- */
+
 public class CdlQualifiedNameProvider extends
 		DefaultDeclarativeQualifiedNameProvider {
 
-	public QualifiedName qualifiedName(Module module) {
+	public QualifiedName qualifiedName(AstModule module) {
 		return getConverter().toQualifiedName(Util.getQualifiedName(module));
 	}
 
-	public QualifiedName qualifiedName(Component component) {
+	public QualifiedName qualifiedName(AstComponent component) {
 		return getConverter().toQualifiedName(
-				Util.getQualifiedName((Module) component.eContainer()));
+				Util.getQualifiedName((AstModule) component.eContainer()));
 	}
 
-	public QualifiedName qualifiedName(Library library) {
+	public QualifiedName qualifiedName(AstLibrary library) {
 		return getConverter().toQualifiedName(
-				Util.getQualifiedName((Module) library.eContainer()));
+				Util.getQualifiedName((AstModule) library.eContainer()));
 	}
 
 }
