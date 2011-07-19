@@ -21,11 +21,11 @@ Require-Bundle: org.eclipse.xtext,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.sf.dftools.cdl,
+ net.sf.dftools.cdl.validation,
  net.sf.dftools.cdl.services,
  net.sf.dftools.cdl.cdl,
  net.sf.dftools.cdl.cdl.impl,
  net.sf.dftools.cdl.cdl.util,
  net.sf.dftools.cdl.parseTreeConstruction,
  net.sf.dftools.cdl.parser.antlr,
- net.sf.dftools.cdl.parser.antlr.internal,
- net.sf.dftools.cdl.validation
+ net.sf.dftools.cdl.parser.antlr.internal

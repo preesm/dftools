@@ -6,6 +6,7 @@ import net.sf.dftools.cdl.cdl.Module;
 import net.sf.dftools.cdl.utils.Util;
 
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
+import org.eclipse.xtext.naming.QualifiedName;
 
 /**
  * This class defines a qualified name provider for CDL.
@@ -16,16 +17,18 @@ import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 public class CdlQualifiedNameProvider extends
 		DefaultDeclarativeQualifiedNameProvider {
 
-	public String qualifiedName(Module module) {
-		return Util.getQualifiedName(module);
+	public QualifiedName qualifiedName(Module module) {
+		return getConverter().toQualifiedName(Util.getQualifiedName(module));
 	}
 
-	public String qualifiedName(Component component) {
-		return Util.getQualifiedName((Module) component.eContainer());
+	public QualifiedName qualifiedName(Component component) {
+		return getConverter().toQualifiedName(
+				Util.getQualifiedName((Module) component.eContainer()));
 	}
 
-	public String qualifiedName(Library library) {
-		return Util.getQualifiedName((Module) library.eContainer());
+	public QualifiedName qualifiedName(Library library) {
+		return getConverter().toQualifiedName(
+				Util.getQualifiedName((Module) library.eContainer()));
 	}
 
 }

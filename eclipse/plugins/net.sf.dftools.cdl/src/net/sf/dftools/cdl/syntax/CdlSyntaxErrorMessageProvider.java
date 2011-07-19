@@ -2,8 +2,9 @@ package net.sf.dftools.cdl.syntax;
 
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.RecognitionException;
+import org.eclipse.xtext.nodemodel.SyntaxErrorMessage;
 import org.eclipse.xtext.parser.antlr.ISyntaxErrorMessageProvider;
-import org.eclipse.xtext.parser.antlr.SyntaxErrorMessage;
+
 
 public class CdlSyntaxErrorMessageProvider implements
 		ISyntaxErrorMessageProvider {
