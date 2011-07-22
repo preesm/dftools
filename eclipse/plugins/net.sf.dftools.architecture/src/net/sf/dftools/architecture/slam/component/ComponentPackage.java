@@ -245,13 +245,31 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE__REFINEMENT = COMPONENT__REFINEMENT;
 
 	/**
+	 * The feature id for the '<em><b>Parallel</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_NODE__PARALLEL = COMPONENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Speed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COM_NODE__SPEED = COMPONENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Com Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COM_NODE_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 0;
+	int COM_NODE_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.EnablerImpl <em>Enabler</em>}' class.
@@ -602,6 +620,28 @@ public interface ComponentPackage extends EPackage {
 	EClass getComNode();
 
 	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComNode#isParallel <em>Parallel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parallel</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.ComNode#isParallel()
+	 * @see #getComNode()
+	 * @generated
+	 */
+	EAttribute getComNode_Parallel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComNode#getSpeed <em>Speed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Speed</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.ComNode#getSpeed()
+	 * @see #getComNode()
+	 * @generated
+	 */
+	EAttribute getComNode_Speed();
+
+	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Enabler <em>Enabler</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -792,6 +832,22 @@ public interface ComponentPackage extends EPackage {
 		 * @generated
 		 */
 		EClass COM_NODE = eINSTANCE.getComNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Parallel</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COM_NODE__PARALLEL = eINSTANCE.getComNode_Parallel();
+
+		/**
+		 * The meta object literal for the '<em><b>Speed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COM_NODE__SPEED = eINSTANCE.getComNode_Speed();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.EnablerImpl <em>Enabler</em>}' class.

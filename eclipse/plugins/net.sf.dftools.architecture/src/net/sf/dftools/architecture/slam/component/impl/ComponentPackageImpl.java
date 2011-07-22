@@ -224,6 +224,24 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getComNode_Parallel() {
+		return (EAttribute)comNodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComNode_Speed() {
+		return (EAttribute)comNodeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEnabler() {
 		return enablerEClass;
 	}
@@ -354,6 +372,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		operatorEClass = createEClass(OPERATOR);
 
 		comNodeEClass = createEClass(COM_NODE);
+		createEAttribute(comNodeEClass, COM_NODE__PARALLEL);
+		createEAttribute(comNodeEClass, COM_NODE__SPEED);
 
 		enablerEClass = createEClass(ENABLER);
 
@@ -424,6 +444,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		initEClass(operatorEClass, Operator.class, "Operator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(comNodeEClass, ComNode.class, "ComNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getComNode_Parallel(), ecorePackage.getEBoolean(), "parallel", "true", 1, 1, ComNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComNode_Speed(), ecorePackage.getEInt(), "speed", "1", 1, 1, ComNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(enablerEClass, Enabler.class, "Enabler", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -62,7 +62,13 @@
           containment="true" eOpposite="#//Design/refined"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//component/Component"/>
-    <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//component/Component"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//component/Component">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="parallel" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Enabler" abstract="true" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//component/Enabler"/>
     <eClassifiers xsi:type="ecore:EClass" name="Ram" eSuperTypes="#//component/Enabler"/>
@@ -96,15 +102,15 @@
           lowerBound="1" eType="#//ComponentInstance"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="uuid" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="oriented" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directed" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="false"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directed" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//link/Link">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="setupTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          defaultValueLiteral="0"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//link/Link"/>
   </eSubpackages>
   <eSubpackages name="attributes" nsURI="http://net.sf.dftools/architecture/slam/attributes"
       nsPrefix="attributes">

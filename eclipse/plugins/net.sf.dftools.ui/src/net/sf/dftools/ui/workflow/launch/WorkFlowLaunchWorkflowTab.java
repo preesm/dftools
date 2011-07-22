@@ -33,7 +33,8 @@ knowledge of the CeCILL-C license and that you accept its terms.
 
 package net.sf.dftools.ui.workflow.launch;
 
-import net.sf.dftools.workflow.Activator;
+
+import net.sf.dftools.ui.Activator;
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;

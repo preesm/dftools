@@ -4,7 +4,8 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4/index.xsd" 
-    xmlns:spirit="http://www.accellera.org/XMLSchema/SPIRIT/1.5">
+    xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4"
+    xmlns:slam="http://sourceforge.net/projects/dftools/slam">
     
     <xsl:output indent="yes" method="xml"/>
     
@@ -37,16 +38,27 @@
         <xsl:element name="spirit:design">
             <xsl:apply-templates select="parameters" mode="vlnv"/>
             <xsl:element name="spirit:componentInstances">
-                <xsl:apply-templates select="vertices/vertex[@type = 'componentInstance']"/>
-                <xsl:apply-templates select="vertices/vertex[@type != 'componentInstance' and @type != 'hierConnection']"/>
+                <xsl:apply-templates select="vertices/vertex[@type != 'hierConnection']"/>
             </xsl:element>    
             
             <xsl:element name="spirit:interconnections">
-                <xsl:apply-templates select="edges/edge[@type = 'interconnection' or @type = 'setup']"/>
+                <xsl:apply-templates select="edges/edge[@type != 'hierConnection']"/>
             </xsl:element>
             
             <xsl:element name="spirit:hierConnections">
                 <xsl:apply-templates select="vertices/vertex[@type = 'hierConnection']"/>
+            </xsl:element>
+            
+            <xsl:element name="spirit:vendorExtensions">
+                <xsl:element name="slam:componentDescriptions">
+                    <xsl:for-each-group select="vertices/vertex[@type != 'hierConnection']" group-by="parameters/parameter[@name = 'definition']/@value">
+                        <xsl:apply-templates select="current-group( )[1]" mode="vendorExtensions"/>
+                    </xsl:for-each-group>
+                </xsl:element>
+                
+                <xsl:element name="slam:linkDescriptions">
+                    <xsl:apply-templates select="edges/edge[@type != 'hierConnection']" mode="vendorExtensions"/>
+                </xsl:element>
             </xsl:element>
         </xsl:element>
     </xsl:template>
@@ -59,34 +71,7 @@
     </xsl:template>
     
     <!-- Component instances -->
-    <xsl:template match="vertex[@type='componentInstance']">
-        <xsl:element name="spirit:componentInstance">
-            <xsl:element name="spirit:instanceName">
-                <xsl:value-of select="parameters/parameter[@name = 'id']/@value"/>
-            </xsl:element>
-            <xsl:element name="spirit:componentRef">
-                <xsl:attribute name="spirit:library" select="parameters/parameter[@name = 'library']/@value"/>
-                <xsl:attribute name="spirit:name" select="parameters/parameter[@name = 'name']/@value"/>
-                <xsl:attribute name="spirit:vendor" select="parameters/parameter[@name = 'vendor']/@value"/>
-                <xsl:attribute name="spirit:version" select="parameters/parameter[@name = 'version']/@value"/>
-            </xsl:element>
-            <xsl:element name="spirit:configurableElementValues">
-                <xsl:if test="parameters/parameter[@name = 'componentType']/@value!=''">
-                    <xsl:element name="spirit:configurableElementValue">
-                        <xsl:attribute name="spirit:referenceId">componentType</xsl:attribute>
-                        <xsl:value-of select="parameters/parameter[@name = 'componentType']/@value"/>
-                    </xsl:element>
-                </xsl:if>
-                <xsl:element name="spirit:configurableElementValue">
-                    <xsl:attribute name="spirit:referenceId">refinement</xsl:attribute>
-                    <xsl:value-of select="parameters/parameter[@name = 'refinement']/@value"/>
-                </xsl:element>
-            </xsl:element>
-        </xsl:element>
-    </xsl:template>
-    
-    <!-- Component instances -->
-    <xsl:template match="vertex[@type != 'componentInstance' and @type != 'hierConnection']">
+    <xsl:template match="vertex[@type != 'hierConnection']">
         <xsl:element name="spirit:componentInstance">
             <xsl:element name="spirit:instanceName">
                 <xsl:value-of select="parameters/parameter[@name = 'id']/@value"/>
@@ -99,61 +84,25 @@
                 <xsl:attribute name="spirit:version" select="parameters/parameter[@name = 'version']/@value"/>
             </xsl:element>
             <xsl:element name="spirit:configurableElementValues">
-                <xsl:element name="spirit:configurableElementValue">
-                    <xsl:attribute name="spirit:referenceId">componentType</xsl:attribute>
-                    <xsl:value-of select="@type"/>
-                </xsl:element>
-                <xsl:element name="spirit:configurableElementValue">
-                    <xsl:attribute name="spirit:referenceId">refinement</xsl:attribute>
-                    <xsl:value-of select="parameters/parameter[@name = 'refinement']/@value"/>
-                </xsl:element>
-                
-                <!-- operator parameters -->
-                <xsl:if test="@type='operator'">
-                    <xsl:element name="spirit:configurableElementValue">
-                        <xsl:attribute name="spirit:referenceId">dataCopySpeed</xsl:attribute>
-                        <xsl:value-of select="parameters/parameter[@name = 'dataCopySpeed']/@value"/>
-                    </xsl:element>
-                </xsl:if>
-                
-                <!-- medium parameters -->
-                <xsl:if test="@type='medium'">
-                    <xsl:element name="spirit:configurableElementValue">
-                        <xsl:attribute name="spirit:referenceId">medium_dataRate</xsl:attribute>
-                        <xsl:value-of select="parameters/parameter[@name = 'medium_dataRate']/@value"/>
-                    </xsl:element>
-                    <xsl:element name="spirit:configurableElementValue">
-                        <xsl:attribute name="spirit:referenceId">medium_overhead</xsl:attribute>
-                        <xsl:value-of select="parameters/parameter[@name = 'medium_overhead']/@value"/>
-                    </xsl:element>
-                </xsl:if>
-                
-                <!-- node parameters -->
-                <xsl:if test="@type='parallelNode' or @type='contentionNode'">
-                    <xsl:element name="spirit:configurableElementValue">
-                        <xsl:attribute name="spirit:referenceId">node_dataRate</xsl:attribute>
-                        <xsl:value-of select="parameters/parameter[@name = 'dataRate']/@value"/>
-                    </xsl:element>
-                </xsl:if>
-                
-                <!-- dma parameters -->
-                <!-- <xsl:if test="@type='dma'">
-                    <xsl:apply-templates select="parameters/parameter[@name = 'dma driven link']/entry" mode="dma_drivenLinks"/>
-                </xsl:if> -->
             </xsl:element>
         </xsl:element>
     </xsl:template>
     
+    <!-- Component instances vendor extensions -->
+    <xsl:template match="vertex[@type != 'hierConnection']" mode="vendorExtensions">
+        <xsl:element name="slam:componentDescription">
+            <xsl:attribute name="slam:componentRef" select="parameters/parameter[@name = 'definition']/@value"/>
+            <xsl:attribute name="slam:componentType" select="@type"/>
+            <xsl:attribute name="slam:refinement" select="parameters/parameter[@name = 'refinement']/@value"/>
+        </xsl:element>
+    </xsl:template>
+    
     <!-- interconnections -->
-    <xsl:template match="edge[@type='interconnection' or @type = 'setup']">
+    <xsl:template match="edge[@type!='hierConnection']">
         <xsl:element name="spirit:interconnection">
             <xsl:element name="spirit:name">
                 <xsl:value-of select="parameters/parameter[@name = 'id']/@value"/>
             </xsl:element>
-            <xsl:if test="@type = 'setup'">
-                <xsl:element name="spirit:displayName">setup</xsl:element>
-                <xsl:element name="spirit:description"><xsl:value-of select="parameters/parameter[@name = 'setupTime']/@value"/></xsl:element>
-            </xsl:if>
             
             <xsl:element name="spirit:activeInterface">
                 <xsl:attribute name="spirit:busRef" select="parameters/parameter[@name = 'source port']/@value"/>
@@ -163,6 +112,25 @@
                 <xsl:attribute name="spirit:busRef" select="parameters/parameter[@name = 'target port']/@value"/>
                 <xsl:attribute name="spirit:componentRef" select="@target"/>
             </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- interconnections vendor extensions -->
+    <xsl:template match="edge[@type!='DataLink']" mode="vendorExtensions">
+        <xsl:variable name="directedLink">
+            <xsl:choose>
+                <xsl:when test="contains(@type,'undirected')">undirected</xsl:when>
+                <xsl:otherwise>directed</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="linkId" select="parameters/parameter[@name = 'id']/@value"/>
+        <xsl:variable name="linkType" select="@type"/>
+        <xsl:variable name="processedType" select="replace($linkType,$directedLink,'')"/>
+        
+        <xsl:element name="slam:linkDescription">
+            <xsl:attribute name="slam:linkType" select="$processedType"/>
+            <xsl:attribute name="slam:directedLink" select="$directedLink"/>
+            <xsl:attribute name="slam:referenceId" select="$linkId"/>
         </xsl:element>
     </xsl:template>
     

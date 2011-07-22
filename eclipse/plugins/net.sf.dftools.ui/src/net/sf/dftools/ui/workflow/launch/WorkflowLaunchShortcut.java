@@ -36,9 +36,9 @@ package net.sf.dftools.ui.workflow.launch;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dftools.ui.Activator;
 import net.sf.dftools.ui.workflow.ScenarioConfiguration;
 import net.sf.dftools.ui.workflow.WorkflowMessages;
-import net.sf.dftools.workflow.Activator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;

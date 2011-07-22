@@ -33,10 +33,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 
 package net.sf.dftools.workflow;
 
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -44,7 +41,7 @@ import org.osgi.framework.BundleContext;
  * 
  * @author mpelcat
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "net.sf.dftools.workflow"; //$NON-NLS-1$
@@ -89,24 +86,5 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
-	}
-
-	/**
-	 * Returns an image for the image file at the given plug-in relative path.
-	 * 
-	 * @param path
-	 *            the path
-	 * @return the image
-	 */
-	public static Image getImage(String path) {
-		ImageRegistry ir = plugin.getImageRegistry();
-		Image image = ir.get(path);
-		if (image == null) {
-			ImageDescriptor id = imageDescriptorFromPlugin(PLUGIN_ID, path);
-			image = id.createImage();
-			ir.put(path, image);
-		}
-
-		return image;
 	}
 }

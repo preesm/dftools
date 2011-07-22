@@ -39,8 +39,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
 
+import net.sf.dftools.ui.Activator;
 import net.sf.dftools.ui.workflow.WorkflowMessages;
-import net.sf.dftools.workflow.Activator;
 import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
 
 import org.eclipse.swt.graphics.Color;

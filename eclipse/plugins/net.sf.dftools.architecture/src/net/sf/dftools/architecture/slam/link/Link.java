@@ -23,7 +23,7 @@ import net.sf.dftools.architecture.slam.component.ComInterface;
  *   <li>{@link net.sf.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component Instance</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.link.Link#isOriented <em>Oriented</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}</li>
  * </ul>
  * </p>
  *
@@ -163,30 +163,30 @@ public interface Link extends ParameterizedElement {
 	void setUuid(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Oriented</b></em>' attribute.
+	 * Returns the value of the '<em><b>Directed</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Oriented</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Directed</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Oriented</em>' attribute.
-	 * @see #setOriented(boolean)
-	 * @see net.sf.dftools.architecture.slam.link.LinkPackage#getLink_Oriented()
+	 * @return the value of the '<em>Directed</em>' attribute.
+	 * @see #setDirected(boolean)
+	 * @see net.sf.dftools.architecture.slam.link.LinkPackage#getLink_Directed()
 	 * @model default="false" required="true"
 	 * @generated
 	 */
-	boolean isOriented();
+	boolean isDirected();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.link.Link#isOriented <em>Oriented</em>}' attribute.
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Oriented</em>' attribute.
-	 * @see #isOriented()
+	 * @param value the new value of the '<em>Directed</em>' attribute.
+	 * @see #isDirected()
 	 * @generated
 	 */
-	void setOriented(boolean value);
+	void setDirected(boolean value);
 
 } // Link

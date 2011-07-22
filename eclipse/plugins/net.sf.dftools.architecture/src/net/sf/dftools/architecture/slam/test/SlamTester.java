@@ -14,6 +14,7 @@ import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
@@ -49,10 +50,10 @@ public class SlamTester {
 		// duck you command line :)
 		Map<String, Object> extToFactoryMap = Resource.Factory.Registry.INSTANCE
 				.getExtensionToFactoryMap();
-		Object instance = extToFactoryMap.get("design");
+		Object instance = extToFactoryMap.get("slam");
 		if (instance == null) {
 			instance = new IPXACTResourceFactoryImpl();
-			extToFactoryMap.put("design", instance);
+			extToFactoryMap.put("slam", instance);
 		}
 
 		if (!EPackage.Registry.INSTANCE.containsKey(SlamPackage.eNS_URI)) {
@@ -63,14 +64,16 @@ public class SlamTester {
 		// Create a new empty resource.
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(URI
-				.createFileURI("d:/test.design"));
-		// Create and populate instances.
+				.createFileURI("d:/test.slam"));
+
+		// Creating a test design
 		Design design = SlamFactory.eINSTANCE.createDesign();
 		VLNV vlnv = AttributesFactory.eINSTANCE.createVLNV();
 		vlnv.setName("DualCore");
 		design.setVlnv(vlnv);
 		design.setComponentHolder(SlamFactory.eINSTANCE.createComponentHolder());
 
+		// Component that is refined by this design
 		if (design.getRefined() == null) {
 			Component refined = ComponentFactory.eINSTANCE.createComponent();
 			design.setRefined(refined);
@@ -79,16 +82,26 @@ public class SlamTester {
 		EPackage ePackage = ComponentPackage.eINSTANCE;
 		EClass eOperatorClass = (EClass) ePackage.getEClassifier("Operator");
 		EClass eRamClass = (EClass) ePackage.getEClassifier("Ram");
-		
+		EClass eComNodeClass = (EClass) ePackage.getEClassifier("ComNode");
+
+		// Creating components
 		vlnv = AttributesFactory.eINSTANCE.createVLNV();
 		vlnv.setName("x86");
-		Operator x86 = (Operator)design.getComponent(vlnv, eOperatorClass);
+		Operator x86 = (Operator) design.getComponent(vlnv, eOperatorClass);
 		ComInterface memItf = ComponentFactory.eINSTANCE.createComInterface();
 		memItf.setName("Mem");
 		x86.getInterfaces().add(memItf);
 		ComInterface ethItf = ComponentFactory.eINSTANCE.createComInterface();
 		ethItf.setName("Eth");
-		x86.getInterfaces().add(ethItf);
+		x86.getInterfaces().add(ethItf);		
+		
+		vlnv = AttributesFactory.eINSTANCE.createVLNV();
+		vlnv.setName("switch");
+		ComNode comNode = (ComNode)design.getComponent(vlnv, eComNodeClass);
+		ComInterface cnItf = ComponentFactory.eINSTANCE.createComInterface();
+		cnItf.setName("Mem");
+		x86.getInterfaces().add(cnItf);
+		comNode.setSpeed(112);
 
 		ComponentInstance uCore0 = SlamFactory.eINSTANCE
 				.createComponentInstance();
@@ -115,11 +128,22 @@ public class SlamTester {
 		uSharedMemory.setInstanceName("uSharedMemory");
 		uSharedMemory.setComponent(sharedMemory);
 
+		Parameter vp = AttributesFactory.eINSTANCE.createParameter();
+		vp.setKey("tata");
+		vp.setValue("33");
+		uSharedMemory.getParameters().add(vp);
+
+		ComponentInstance uComNode = SlamFactory.eINSTANCE
+				.createComponentInstance();
+		design.getComponentInstances().add(uComNode);
+		uComNode.setInstanceName("uComNode");
+		uComNode.setComponent(comNode);
+		
 		Link link = LinkFactory.eINSTANCE.createDataLink();
 		link.setSourceComponentInstance(uCore0);
 		link.setSourceInterface(memItf);
-		link.setDestinationComponentInstance(uSharedMemory);
-		link.setDestinationInterface(memItf2);
+		link.setDestinationComponentInstance(uComNode);
+		link.setDestinationInterface(cnItf);
 		Parameter linkp = AttributesFactory.eINSTANCE.createParameter();
 		linkp.setKey("tutu");
 		linkp.setValue("10");
@@ -133,6 +157,13 @@ public class SlamTester {
 		link = LinkFactory.eINSTANCE.createDataLink();
 		link.setSourceComponentInstance(uCore1);
 		link.setSourceInterface(memItf);
+		link.setDestinationComponentInstance(uComNode);
+		link.setDestinationInterface(cnItf);
+		design.getLinks().add(link);
+
+		link = LinkFactory.eINSTANCE.createDataLink();
+		link.setSourceComponentInstance(uComNode);
+		link.setSourceInterface(cnItf);
 		link.setDestinationComponentInstance(uSharedMemory);
 		link.setDestinationInterface(memItf2);
 		design.getLinks().add(link);
@@ -159,27 +190,30 @@ public class SlamTester {
 		design.getHierarchyPorts().add(hp);
 
 		resource.getContents().add(design);
-		/*
-		 * try { resource.save(null); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
+
+		try {
+			resource.save(null);
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 
 		// Demand load the resource into the resource set.
 		ResourceSet resourceSet2 = new ResourceSetImpl();
 		Resource resource2 = resourceSet2.getResource(
-				URI.createFileURI("d:/test.design"), true);
+				URI.createFileURI("d:/test.slam"), true);
 		// Extract the root object from the resource.
 		Design design2 = (Design) resource2.getContents().get(0);
 		System.out.println(design2.getVlnv().getName());
 
-		design2.getComponentInstance("uCore0").getComponent().getRefinement()
-				.getPath();
-		
+		//design2.getComponentInstance("uCore0").getComponent().getRefinement()
+		//		.getPath();
+
 		design2.getComponentHolder().getComponents().size();
 
 		ResourceSet resourceSet3 = new ResourceSetImpl();
 		Resource resource3 = resourceSet3.createResource(URI
-				.createFileURI("d:/test2.design"));
+				.createFileURI("d:/test2.slam"));
 		resource3.getContents().add(design2);
 		try {
 			resource3.save(null);

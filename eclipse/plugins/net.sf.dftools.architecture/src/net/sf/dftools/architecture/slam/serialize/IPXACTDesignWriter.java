@@ -13,11 +13,15 @@ import net.sf.dftools.architecture.slam.VLNVedElement;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComNode;
+import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.utils.DomUtil;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -53,8 +57,9 @@ public class IPXACTDesignWriter {
 		Element root = document.getDocumentElement();
 
 		// add additional namespace to the root element
-		root.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:slam", "http://sourceforge.net/projects/dftools/slam");
-		
+		root.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:slam",
+				"http://sourceforge.net/projects/dftools/slam");
+
 		writeVLNV(root, design, document);
 		writeComponentInstances(root, design, document);
 		writeLinks(root, design, document);
@@ -62,7 +67,7 @@ public class IPXACTDesignWriter {
 		vendorExtensions.write(root, document);
 
 		DomUtil.writeDocument(outputStream, document);
-		
+
 		try {
 			outputStream.close();
 		} catch (IOException e) {
@@ -118,11 +123,11 @@ public class IPXACTDesignWriter {
 		// Adding as component type the name of the component ecore EClass.
 		String componentRef = instance.getComponent().getVlnv().getName();
 		String componentType = instance.getComponent().eClass().getName();
-		
+
 		// The subdesign path holds the location of the refinement
 		String refinementPath = "";
 		Design refinement = instance.getComponent().getRefinement();
-		if(refinement != null){
+		if (refinement != null) {
 			refinementPath = refinement.getPath();
 		}
 
@@ -168,6 +173,17 @@ public class IPXACTDesignWriter {
 						document);
 			}
 		}
+
+		// Special case parameters
+		EPackage ePackage = ComponentPackage.eINSTANCE;
+		if (instance.getComponent().eClass() == (EClass) ePackage
+				.getEClassifier("ComNode")) {
+			ComNode comNode = (ComNode) instance.getComponent();
+			writeParameter(confsElt, "speed",
+					String.valueOf(comNode.getSpeed()), document);
+			String parallel = comNode.isParallel() ? "parallel" : "contention";
+			writeParameter(confsElt, "parallel", parallel, document);
+		}
 	}
 
 	private void writeInterconnection(Element parent, Link link,
@@ -182,10 +198,10 @@ public class IPXACTDesignWriter {
 
 		// No link can be stored with empty uuid
 		// It is generated if needed
-		if(link.getUuid() == null){
+		if (link.getUuid() == null) {
 			link.setUuid(UUID.randomUUID().toString());
 		}
-		
+
 		Element intfElt = document.createElement("spirit:interconnection");
 		parent.appendChild(intfElt);
 
@@ -206,13 +222,13 @@ public class IPXACTDesignWriter {
 		intf2Elt.setAttribute("spirit:busRef", destinationInterface.getName());
 
 		// Initializing vendor extensions
-		String linkType = link.eClass().getInstanceClassName();
-		IPXACTDesignVendorExtensions.LinkDescription description = vendorExtensions.new LinkDescription(link.getUuid(), link.isOriented(), linkType);
-		for(Parameter p : link.getParameters()){
-			description.getParameters().put(p.getKey(),p.getValue());
+		String linkType = link.eClass().getName();
+		IPXACTDesignVendorExtensions.LinkDescription description = vendorExtensions.new LinkDescription(
+				link.getUuid(), link.isDirected(), linkType);
+		for (Parameter p : link.getParameters()) {
+			description.getParameters().put(p.getKey(), p.getValue());
 		}
-		vendorExtensions.getLinkDescriptions().put(link.getUuid(),
-				description);
+		vendorExtensions.getLinkDescriptions().put(link.getUuid(), description);
 	}
 
 	private void writeLinks(Element parent, Design design, Document document) {

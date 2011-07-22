@@ -23,32 +23,6 @@
       </editor>
    </extension>
    <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
-            id="net.sf.dftools.ui.workflow.launchConfigurationType"
-            modes="run"
-            name="DFTools Workflow"
-            public="true">
-      </launchConfigurationType>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
-            type="net.sf.dftools.ui.workflow.launchConfigurationType">
-      </launchConfigurationTabGroup>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
-      <launchConfigurationTypeImage
-            configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
-            icon="icons/workflow.png"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
-      </launchConfigurationTypeImage>
-   </extension>
-   <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
             class="net.sf.dftools.ui.workflow.launch.WorkflowPropertyTester"
@@ -179,11 +153,6 @@
                   name="definition"
                   type="java.lang.String">
             </parameter>
-            <parameter
-                  default="-1"
-                  name="dataCopySpeed"
-                  type="java.lang.String">
-            </parameter>
          </vertexType>
          <edgeType
                directed="false"
@@ -199,7 +168,7 @@
             </parameter>
          </edgeType>
          <edgeType
-               directed="false"
+               directed="true"
                name="ControlLink">
             <color
                   blue="0"
@@ -250,15 +219,10 @@
                   name="definition"
                   type="java.lang.String">
             </parameter>
-            <parameter
-                  default="-1"
-                  name="dataCopySpeed"
-                  type="java.lang.String">
-            </parameter>
          </vertexType>
          <edgeType
                directed="false"
-               name="DataLink">
+               name="undirectedDataLink">
             <color
                   blue="0"
                   green="0"
@@ -277,6 +241,108 @@
                   type="java.lang.String">
             </parameter>
          </edgeType>
+         <vertexType
+               name="Dma">
+            <color
+                  blue="16"
+                  green="220"
+                  red="123">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="refinement"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="definition"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <edgeType
+               directed="true"
+               name="directedDataLink">
+            <color
+                  blue="0"
+                  green="0"
+                  red="0">
+            </color>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="source port"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="target port"
+                  type="java.lang.String">
+            </parameter>
+         </edgeType>
+         <vertexType
+               name="contentionComNode">
+            <color
+                  blue="16"
+                  green="220"
+                  red="123">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="speed"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
+         <vertexType
+               name="parallelComNode">
+            <color
+                  blue="16"
+                  green="220"
+                  red="123">
+            </color>
+            <shape
+                  type="roundedBox">
+            </shape>
+            <parameter
+                  name="id"
+                  type="java.lang.String">
+            </parameter>
+            <size
+                  height="40"
+                  width="40">
+            </size>
+            <parameter
+                  name="speed"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="refinement"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="definition"
+                  type="java.lang.String">
+            </parameter>
+         </vertexType>
       </configuration>
       <configuration
             extension="workflow"
@@ -382,5 +448,31 @@
                label="Task Variables">
          </propertyTab>
       </propertyTabs>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
+            id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
+            type="net.sf.dftools.ui.workflow.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
+            icon="icons/workflow.png"
+            id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
+            id="net.sf.dftools.ui.workflow.launchConfigurationType"
+            modes="run"
+            name="DFTools Workflow"
+            public="true">
+      </launchConfigurationType>
    </extension>
 </plugin>

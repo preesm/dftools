@@ -65,13 +65,15 @@ public class IPXACTDesignVendorExtensions {
 		
 		private Map<String,String> parameters = null;
 		
-		private Boolean oriented = false;
+		private Boolean directed = false;
 		
 		private String type = "";
 
-		public LinkDescription(String uuid, Boolean oriented, String type) {
+		public LinkDescription(String uuid, Boolean directed, String type) {
 			parameters = new HashMap<String, String>();
 			linkUuid = uuid;
+			this.type = type;
+			this.directed = directed;
 		}
 
 		public String getParameter(String name) {
@@ -90,8 +92,8 @@ public class IPXACTDesignVendorExtensions {
 			return linkUuid;
 		}
 
-		public Boolean isOriented() {
-			return oriented;
+		public Boolean isDirected() {
+			return directed;
 		}
 
 		public String getType() {
@@ -195,9 +197,9 @@ public class IPXACTDesignVendorExtensions {
 	 */
 	public void parseLinkDescription(Element parent, String uuid) {
 
-		Boolean oriented = Boolean.valueOf(parent.getAttribute("slam:orientedLink"));
+		Boolean directed = parent.getAttribute("slam:directedLink").equals("directed");
 		String type = parent.getAttribute("slam:linkType");
-		LinkDescription description = new LinkDescription(uuid, oriented, type);
+		LinkDescription description = new LinkDescription(uuid, directed, type);
 		
 		linkDescriptions.put(uuid, description);
 		
@@ -319,7 +321,8 @@ public class IPXACTDesignVendorExtensions {
 		parent.appendChild(linkElt);
 
 		linkElt.setAttribute("slam:referenceId", description.getLinkUuid());
-		linkElt.setAttribute("slam:orientedLink", String.valueOf(description.isOriented()));
+		String directed = description.isDirected()? "directed" : "undirected";
+		linkElt.setAttribute("slam:directedLink", directed);
 		linkElt.setAttribute("slam:linkType", description.getType());
 		
 		Map<String,String> parameters = description.getParameters();

@@ -136,11 +136,10 @@
             <xsl:variable name="componentName" select="spirit:componentRef/@spirit:name"/>
             
             <xsl:variable name="componentType">
-                <xsl:value-of>
+                <xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='parallel']"/>
                     <xsl:call-template name="getComponentType">
                         <xsl:with-param name="componentName" select="$componentName"/>
                     </xsl:call-template>
-                </xsl:value-of>
             </xsl:variable>
             
             <xsl:variable name="refinement">
@@ -177,23 +176,13 @@
                     </xsl:element>
                 </xsl:if>
                 
-                <!-- medium parameters -->
-                <xsl:if test="$componentType='medium'">
-                    <xsl:element name="parameter">
-                        <xsl:attribute name="name">medium_dataRate</xsl:attribute>
-                        <xsl:attribute name="value"><xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='medium_dataRate']"/></xsl:attribute>
-                    </xsl:element>
-                    <xsl:element name="parameter">
-                        <xsl:attribute name="name">medium_overhead</xsl:attribute>
-                        <xsl:attribute name="value"><xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='medium_overhead']"/></xsl:attribute>
-                    </xsl:element>
-                </xsl:if>
-                
                 <!-- node parameters -->
-                <xsl:if test="$componentType='parallelNode' or $componentType='contentionNode'">
+                <xsl:if test="$componentType='parallelComNode' or $componentType='contentionComNode'">
                     <xsl:element name="parameter">
-                        <xsl:attribute name="name">dataRate</xsl:attribute>
-                        <xsl:attribute name="value"><xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='node_dataRate']"/></xsl:attribute>
+                        <xsl:attribute name="name">speed</xsl:attribute>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='speed']"/>
+                        </xsl:attribute>
                     </xsl:element>
                 </xsl:if>
               
@@ -201,10 +190,16 @@
         </xsl:element>
     </xsl:template>
     
-    <!-- returns the refinement of a component -->
+    <!-- returns the type of an interconnection -->
     <xsl:template name="getInterconnectionType">
         <xsl:param name="interconnectionID"/>
         <xsl:value-of select="//slam:linkDescription[@slam:referenceId=$interconnectionID]/@slam:linkType"/>
+    </xsl:template>
+    
+    <!-- determines whether an interconnection is directed or not -->
+    <xsl:template name="getInterconnectionOrientation">
+        <xsl:param name="interconnectionID"/>
+        <xsl:value-of select="//slam:linkDescription[@slam:referenceId=$interconnectionID]/@slam:directedLink"/>
     </xsl:template>
     
     <!-- template for the interconnections -->
@@ -213,6 +208,11 @@
             <xsl:variable name="interconnectionID" select="spirit:name"/>
                 <xsl:attribute name="type">
                     <xsl:value-of>
+                        <xsl:value-of>
+                            <xsl:call-template name="getInterconnectionOrientation">
+                                <xsl:with-param name="interconnectionID" select="$interconnectionID"/>
+                            </xsl:call-template>
+                        </xsl:value-of>
                         <xsl:call-template name="getInterconnectionType">
                             <xsl:with-param name="interconnectionID" select="$interconnectionID"/>
                         </xsl:call-template>

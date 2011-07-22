@@ -126,13 +126,13 @@ public interface LinkPackage extends EPackage {
 	int LINK__UUID = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Oriented</b></em>' attribute.
+	 * The feature id for the '<em><b>Directed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__ORIENTED = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 5;
+	int LINK__DIRECTED = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Link</em>' class.
@@ -208,22 +208,13 @@ public interface LinkPackage extends EPackage {
 	int DATA_LINK__UUID = LINK__UUID;
 
 	/**
-	 * The feature id for the '<em><b>Oriented</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_LINK__ORIENTED = LINK__ORIENTED;
-
-	/**
 	 * The feature id for the '<em><b>Directed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_LINK__DIRECTED = LINK_FEATURE_COUNT + 0;
+	int DATA_LINK__DIRECTED = LINK__DIRECTED;
 
 	/**
 	 * The number of structural features of the '<em>Data Link</em>' class.
@@ -232,7 +223,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_LINK_FEATURE_COUNT = LINK_FEATURE_COUNT + 1;
+	int DATA_LINK_FEATURE_COUNT = LINK_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.link.impl.ControlLinkImpl <em>Control Link</em>}' class.
@@ -299,13 +290,22 @@ public interface LinkPackage extends EPackage {
 	int CONTROL_LINK__UUID = LINK__UUID;
 
 	/**
-	 * The feature id for the '<em><b>Oriented</b></em>' attribute.
+	 * The feature id for the '<em><b>Directed</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_LINK__ORIENTED = LINK__ORIENTED;
+	int CONTROL_LINK__DIRECTED = LINK__DIRECTED;
+
+	/**
+	 * The feature id for the '<em><b>Setup Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL_LINK__SETUP_TIME = LINK_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Control Link</em>' class.
@@ -314,7 +314,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_LINK_FEATURE_COUNT = LINK_FEATURE_COUNT + 0;
+	int CONTROL_LINK_FEATURE_COUNT = LINK_FEATURE_COUNT + 1;
 
 
 	/**
@@ -383,15 +383,15 @@ public interface LinkPackage extends EPackage {
 	EAttribute getLink_Uuid();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.link.Link#isOriented <em>Oriented</em>}'.
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Oriented</em>'.
-	 * @see net.sf.dftools.architecture.slam.link.Link#isOriented()
+	 * @return the meta object for the attribute '<em>Directed</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.Link#isDirected()
 	 * @see #getLink()
 	 * @generated
 	 */
-	EAttribute getLink_Oriented();
+	EAttribute getLink_Directed();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.link.DataLink <em>Data Link</em>}'.
@@ -404,17 +404,6 @@ public interface LinkPackage extends EPackage {
 	EClass getDataLink();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.link.DataLink#isDirected <em>Directed</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Directed</em>'.
-	 * @see net.sf.dftools.architecture.slam.link.DataLink#isDirected()
-	 * @see #getDataLink()
-	 * @generated
-	 */
-	EAttribute getDataLink_Directed();
-
-	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.link.ControlLink <em>Control Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -423,6 +412,17 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getControlLink();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.link.ControlLink#getSetupTime <em>Setup Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Setup Time</em>'.
+	 * @see net.sf.dftools.architecture.slam.link.ControlLink#getSetupTime()
+	 * @see #getControlLink()
+	 * @generated
+	 */
+	EAttribute getControlLink_SetupTime();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -497,12 +497,12 @@ public interface LinkPackage extends EPackage {
 		EAttribute LINK__UUID = eINSTANCE.getLink_Uuid();
 
 		/**
-		 * The meta object literal for the '<em><b>Oriented</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Directed</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LINK__ORIENTED = eINSTANCE.getLink_Oriented();
+		EAttribute LINK__DIRECTED = eINSTANCE.getLink_Directed();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.
@@ -515,14 +515,6 @@ public interface LinkPackage extends EPackage {
 		EClass DATA_LINK = eINSTANCE.getDataLink();
 
 		/**
-		 * The meta object literal for the '<em><b>Directed</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_LINK__DIRECTED = eINSTANCE.getDataLink_Directed();
-
-		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.link.impl.ControlLinkImpl <em>Control Link</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -531,6 +523,14 @@ public interface LinkPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONTROL_LINK = eINSTANCE.getControlLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Setup Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTROL_LINK__SETUP_TIME = eINSTANCE.getControlLink_SetupTime();
 
 	}
 

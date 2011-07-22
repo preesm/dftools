@@ -177,7 +177,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 			componentType = description.getComponentType();
 
 		}
-
+		
 		// Creates the component if necessary
 		// eClass is retrieved from the component type
 		if (design.containsComponent(vlnv)) {
@@ -187,7 +187,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 			EClass eClass = (EClass) ePackage.getEClassifier(componentType);
 			Component component = design.getComponent(vlnv, eClass);
 			instance.setComponent(component);
-
+			
 			// Looking for a refinement design in the project
 			if (description != null && !description.getRefinement().isEmpty()) {
 				String path = description.getRefinement();
@@ -288,6 +288,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 				if (type.equals("spirit:configurableElementValue")) {
 					String name = elt.getAttribute("spirit:referenceId");
 					String value = elt.getTextContent();
+					
 					Parameter param = AttributesFactory.eINSTANCE
 							.createParameter();
 					param.setKey(name);
@@ -340,7 +341,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 			// Creating the link with appropriate type
 			Link link = (Link)LinkFactory.eINSTANCE.create(_class);
 			
-			link.setOriented(linkDescription.isOriented());
+			link.setDirected(linkDescription.isDirected());
 			link.setUuid(linkUuid);
 			ComponentInstance sourceInstance = design
 					.getComponentInstance(componentInstanceRefs.get(0));
