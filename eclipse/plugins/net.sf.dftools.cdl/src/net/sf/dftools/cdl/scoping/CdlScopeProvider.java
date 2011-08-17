@@ -26,7 +26,7 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
- 
+
 package net.sf.dftools.cdl.scoping;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import net.sf.dftools.cdl.cdl.AstCore;
 import net.sf.dftools.cdl.cdl.AstDecl;
 import net.sf.dftools.cdl.cdl.AstField;
 import net.sf.dftools.cdl.cdl.AstType;
-import net.sf.dftools.cdl.cdl.AstTypeDecl;
+import net.sf.dftools.cdl.cdl.AstDeclType;
 
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
@@ -70,8 +70,8 @@ public class CdlScopeProvider<IScopedElement> extends
 
 		for (AstAttribute attr : clasz.getAttributes()) {
 			AstType attrType = attr.getType();
-			if (attrType instanceof AstTypeDecl) {
-				AstTypeDecl typeDecl = (AstTypeDecl) attrType;
+			if (attrType instanceof AstDeclType) {
+				AstDeclType typeDecl = (AstDeclType) attrType;
 				AstDecl decl = typeDecl.getType();
 				if (decl instanceof AstClass) {
 					attributes.addAll(getAstClassAttributes((AstClass) decl));

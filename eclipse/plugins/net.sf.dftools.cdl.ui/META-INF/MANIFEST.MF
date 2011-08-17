@@ -7,14 +7,15 @@ Bundle-SymbolicName: net.sf.dftools.cdl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: net.sf.dftools.cdl;visibility:=reexport,
  org.eclipse.xtext.ui,
+ org.eclipse.compare,
  org.eclipse.ui.editors;bundle-version="3.5.0",
  org.eclipse.ui.ide;bundle-version="3.5.0",
- org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.builder;bundle-version="2.0.0",
+ org.eclipse.xtext.ui.shared;bundle-version="2.0.0",
  org.eclipse.ui,
- org.eclipse.xtext.builder,
- org.antlr.runtime,
- org.eclipse.xtext.common.types.ui
-Import-Package: org.apache.log4j
+ org.antlr.runtime
+Import-Package: org.apache.log4j,
+ org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: net.sf.dftools.cdl.ui.internal.CdlActivator
 Export-Package: net.sf.dftools.cdl.ui.contentassist.antlr
