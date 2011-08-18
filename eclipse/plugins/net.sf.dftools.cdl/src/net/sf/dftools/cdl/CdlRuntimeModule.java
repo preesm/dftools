@@ -29,7 +29,7 @@
 
 package net.sf.dftools.cdl;
 
-import net.sf.dftools.cdl.naming.CdlQualifiedNameProvider;
+import net.sf.dftools.cdl.services.CdlQualifiedNameProvider;
 
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 

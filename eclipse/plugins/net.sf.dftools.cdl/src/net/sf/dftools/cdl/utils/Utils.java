@@ -29,13 +29,46 @@
 
 package net.sf.dftools.cdl.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.dftools.cdl.cdl.AstModule;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
 
+public class Utils {
 
-public class Util {
+	/**
+	 * Returns the ancestor of type ancestorClass of the ctx element 
+	 */
+	public static <C extends EObject> C ancestor(EObject ctx, Class<C> ancestorClass) {
+		return EcoreUtil2.getContainerOfType(ctx, ancestorClass);
+	}	
 
+	/**
+	 * like above, but using the EClass instead of the Java class object
+	 */
+	public static EObject ancestor(EObject ctx, EClass ancClass) {
+		EObject anc = ctx.eContainer();
+		while ( true ) {
+			if ( anc == null ) return null;
+			if ( ancClass.isInstance(anc)) return anc;
+			anc = anc.eContainer();
+		}
+	}	
+	
+	public static List<EObject> ancestors(EObject ctx, EClass ancClass) {
+		List<EObject> res = new ArrayList<EObject>();
+		EObject anc = ctx.eContainer();
+		while ( true ) {
+			if ( anc == null ) return res;
+			if ( ancClass.isInstance(anc)) res.add( anc );
+			anc = anc.eContainer();
+		}
+	}	
+	
 	/**
 	 * Returns the qualified name of the given entity as
 	 * <code>package + "." + name</code>. If <code>package</code> is

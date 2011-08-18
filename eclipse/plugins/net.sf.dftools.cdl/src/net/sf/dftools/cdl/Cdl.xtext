@@ -9,8 +9,8 @@ generate cdl "http://www.sf.net/dftools/cdl/Cdl"
 AstModule:
 	('package' package=QualifiedName ';')?
 	(imports+=Import)*
-	(('component' name=ID component=AstComponent)
-	| ('library' name=ID library=AstLibrary));
+	((is='component' name=ID component=AstComponent)
+	| (is='library' name=ID library=AstLibrary));
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildCard ';';
@@ -59,19 +59,16 @@ AstField:
 	domain=AstDomain '=' value=AstExpression ';';
 
 AstDomain:
-	AstPrimaryDomain ({AstDomainCall.left=current} '.' right=AstPrimaryDomain)*;
+	left=[AstAttribute] ( '.' right=AstDomain)?;
 
-AstPrimaryDomain returns AstDomain:
-	attribute=[AstAttribute];
-
-	///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // Library classes
 ///////////////////////////////////////////////////////////////////////////////
 AstDecl:
 	AstClass | AstEnum;
 
 AstClass:
-	'class' name=ID '{'
+	is='class' name=ID '{'
 	((attributes+=AstAttribute))*
 	'}';
 
@@ -79,7 +76,7 @@ AstAttribute:
 	type=AstType name=ID ('=' default=AstExpression)? ';';
 
 AstEnum:
-	'enum' name=ID '{'
+	is='enum' name=ID '{'
 	(constants+=AstEnumLiteral)
 	(',' (constants+=AstEnumLiteral))*
 	'}';
@@ -87,14 +84,14 @@ AstEnum:
 AstEnumLiteral returns AstSymbol:
 	{EnumLiteral} name=ID;
 
-///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 // Types
 ///////////////////////////////////////////////////////////////////////////////
 AstType:
 	AstBasicType | AstDeclType;
 
 AstDeclType:
-	type=[AstDecl];
+	typeRef=[AstDecl];
 
 AstBasicType:
 	name=('bool' | 'int' | 'long' | 'String');

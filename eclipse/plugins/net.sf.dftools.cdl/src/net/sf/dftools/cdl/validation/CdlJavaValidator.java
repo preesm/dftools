@@ -28,15 +28,32 @@
  */
 
 package net.sf.dftools.cdl.validation;
- 
+
+import net.sf.dftools.cdl.cdl.AstDecl;
+import net.sf.dftools.cdl.cdl.AstModule;
+import net.sf.dftools.cdl.cdl.CdlPackage;
+import net.sf.dftools.cdl.errors.CdlErrors;
+
+import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.validation.CheckType;
 
 public class CdlJavaValidator extends AbstractCdlJavaValidator {
 
-//	@Check
-//	public void checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.getName().charAt(0))) {
-//			warning("Name should start with a capital", MyDslPackage.GREETING__NAME);
-//		}
-//	}
+	@Check(CheckType.FAST)
+	public void checkClassNameStartsWithCapital(AstDecl d) {
+		if (!Character.isUpperCase(d.getName().charAt(0))) {
+			warning(d.getIs() + " name should start with a capital",
+					CdlPackage.Literals.AST_DECL__NAME, CdlErrors.ERROR_NAME,
+					d.getName());
+		}
+	}
 
+	@Check(CheckType.FAST)
+	public void checkModuleNameStartsWithCapital(AstModule m) {
+		if (!Character.isUpperCase(m.getName().charAt(0))) {
+			warning(m.getIs() + " name should start with a capital",
+					CdlPackage.Literals.AST_MODULE__NAME, CdlErrors.ERROR_NAME,
+					m.getName());
+		}
+	}
 }

@@ -29,17 +29,17 @@
 
 package net.sf.dftools.cdl.scoping;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
-import net.sf.dftools.cdl.cdl.AstAttribute;
 import net.sf.dftools.cdl.cdl.AstClass;
 import net.sf.dftools.cdl.cdl.AstCore;
 import net.sf.dftools.cdl.cdl.AstDecl;
+import net.sf.dftools.cdl.cdl.AstDeclType;
+import net.sf.dftools.cdl.cdl.AstDomain;
 import net.sf.dftools.cdl.cdl.AstField;
 import net.sf.dftools.cdl.cdl.AstType;
-import net.sf.dftools.cdl.cdl.AstDeclType;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
@@ -56,30 +56,30 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
  * @author Thavot Richard
  * 
  */
+
 public class CdlScopeProvider<IScopedElement> extends
 		AbstractDeclarativeScopeProvider {
 
-	public IScope scope_AstDomain_attribute(AstField field, EReference reference) {
+	public IScope scope_AstDomain_left(AstField field, EReference reference) {
 		AstCore core = (AstCore) field.eContainer();
-
-		return Scopes.scopeFor(getAstClassAttributes(core.getType()));
+		return Scopes.scopeFor(core.getType().getAttributes());
 	}
 
-	private List<AstAttribute> getAstClassAttributes(AstClass clasz) {
-		List<AstAttribute> attributes = new ArrayList<AstAttribute>();
-
-		for (AstAttribute attr : clasz.getAttributes()) {
-			AstType attrType = attr.getType();
-			if (attrType instanceof AstDeclType) {
-				AstDeclType typeDecl = (AstDeclType) attrType;
-				AstDecl decl = typeDecl.getType();
-				if (decl instanceof AstClass) {
-					attributes.addAll(getAstClassAttributes((AstClass) decl));
+	public IScope scope_AstDomain_left(AstDomain d, EReference reference) {
+		if (d.eContainer() instanceof AstField) {
+			AstCore core = (AstCore) ((AstField) d.eContainer()).eContainer();
+			return Scopes.scopeFor(core.getType().getAttributes());
+		} else if (d.eContainer() instanceof AstDomain) {
+			AstType type = ((AstDomain) d.eContainer()).getLeft().getType();
+			if (type instanceof AstDeclType) {
+				AstDecl declaration = ((AstDeclType) type).getTypeRef();
+				if (declaration instanceof AstClass) {
+					return Scopes.scopeFor(((AstClass) declaration)
+							.getAttributes());
 				}
 			}
 		}
-		attributes.addAll(clasz.getAttributes());
-
-		return attributes;
+		return Scopes.scopeFor(new LinkedList<EObject>());
 	}
+
 }
