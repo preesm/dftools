@@ -1,6 +1,6 @@
 package org.stdio;
 
-library ethernet {
+library  Ethernet {
 
 	enum EDomain {
 		PF_LOCAL,       // Host-internal protocols,

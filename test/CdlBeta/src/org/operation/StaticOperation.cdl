@@ -1,0 +1,47 @@
+package org.operation;
+
+import org.Operation.*;
+
+library StaticOperation {
+/*
+
+	static Module FpgaOperation{
+		
+		unary.BITNOT = 0;
+		unary.LOGIC_NOT = 0;
+		unary.MINUS = 0;
+		unary.NUM_ELTS = 0;
+		
+		binary.BITAND = 0;
+		binary.BITOR = 0;
+		binary.BITXOR = 0;
+		binary.DIV = 0;
+		binary.DIV_INT = 0;
+		binary.EQ = 0;
+		binary.EXP = 0;
+		binary.GE = 0;
+		binary.GT = 0;
+		binary.LE = 0;
+		binary.LOGIC_AND = 0;
+		binary.LOGIC_OR = 0;
+		binary.LT = 0;
+		binary.MINUS = 0;
+		binary.MOD = 0;
+		binary.NE = 0;
+		binary.PLUS = 0;
+		binary.SHIFT_LEFT = 0;
+		binary.SHIFT_RIGHT = 0;
+		binary.TIMES = 0;
+		
+		instruction.ASSIGN = 0;
+		instruction.CALL = 0;
+		instruction.LOAD = 0;
+		instruction.STORE = 0;
+		
+		node.IF = 0;
+		node.WHILE = 0;
+		
+	}
+
+*/
+}

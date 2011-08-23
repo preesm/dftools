@@ -1,0 +1,55 @@
+package org.weight;
+
+library Operation {
+
+	class Module {
+		Unary unary;
+		Binary binary;
+		Instruction instruction;
+		Node node;
+	}
+
+	class Unary {
+		int BITNOT;
+		int LOGIC_NOT;
+		int MINUS;
+		int NUM_ELTS;
+	}
+
+	class Binary{
+		int BITAND;
+		int BITOR;
+		int BITXOR;
+		int DIV;
+		int DIV_INT;
+		int EQ;
+		int EXP;
+		int GE;
+		int GT;
+		int LE;
+		int LOGIC_AND;
+		int LOGIC_OR;
+		int LT;
+		int MINUS;
+		int MOD;
+		int NE;
+		int PLUS;
+		int SHIFT_LEFT;
+		int SHIFT_RIGHT;
+		int TIMES;
+	}
+	
+	class Instruction{
+		int ASSIGN;
+		int CALL;
+		int LOAD;
+		int STORE;
+	}
+
+	class Node {
+		int IF;
+		int WHILE;
+	}
+
+
+}

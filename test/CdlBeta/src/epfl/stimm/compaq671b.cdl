@@ -5,7 +5,7 @@ import org.stdio.uart.*;
 import org.units.*;
 import org.memories.DDR2;
   
-component compaq671b() {
+component Compaq671b() {
 
 	/*operator CPU T8300 {
 		cores = 2;

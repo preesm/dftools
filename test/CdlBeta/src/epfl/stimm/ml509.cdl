@@ -1,11 +1,11 @@
 package epfl.stimm;
 
-import org.stdio.ethernet.*;
-import org.stdio.uart.*;
-import org.units.*;
-import org.memories.*;
+import org.stdio.Ethernet.*;
+import org.stdio.Uart.*;
+import org.module.Units.*;
+import org.module.Memories.*;
 
-component ml509 () {
+component Ml509 () {
 
 	operator FPGA V5 {
 		device = "xc5vlx110t";
@@ -15,9 +15,8 @@ component ml509 () {
 	
 	interface Ethernet eth0_TEST {
 		sockaddr.address = "192.168.1.11";
+		sockaddr.port = 1024;
 		sockaddr.addon.x = "Hello world!!!";
-		address = "192.168.1.11";
-		port = 1024;
 	}
 	
 	
@@ -28,13 +27,13 @@ component ml509 () {
 	
 	
 	memory DDR2 ddr {
-		speed = 400 * 10**6;
-		size = 256 * 10**6;
+		speed = 10;
+		size = 256 * 10;
 	} 
 	
 	memory SRAM ZBT {
-		speed = 200 * 10**6;
-		size = 9 * 10**6;
+		speed = 200 * 10;
+		size = 9 * (10 + 10);
 	}
 	
 }

@@ -1,6 +1,6 @@
 package org.stdio;
 
-library uart {
+library Uart {
 
 	enum EBaudrate {
 		EBaud110, EBaud300, EBaud600, EBaud1200, EBaud2400, EBaud4800, EBaud9600,

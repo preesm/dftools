@@ -1,6 +1,6 @@
-package org;
+package org.module;
 
-library units {
+library Units {
 
 	class CPU {
 		int cores;
@@ -16,5 +16,6 @@ library units {
 		String packaging;
 		String speed;
 	}
+
 
 }
