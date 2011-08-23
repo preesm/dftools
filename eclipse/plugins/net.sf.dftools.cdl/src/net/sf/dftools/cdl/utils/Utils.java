@@ -38,6 +38,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
 
+/**
+ * 
+ * @author Thavot Richard
+ *
+ */
 public class Utils {
 
 	/**

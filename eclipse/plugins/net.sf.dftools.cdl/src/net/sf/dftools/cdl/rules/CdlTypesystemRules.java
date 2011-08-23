@@ -26,64 +26,55 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
-package net.sf.dftools.cdl.typing;
+package net.sf.dftools.cdl.rules;
 
-import net.sf.dftools.cdl.cdl.AstClass;
-import net.sf.dftools.cdl.cdl.AstType;
-import net.sf.dftools.cdl.utils.TypeUtils;
+import java.util.Arrays;
+import java.util.List;
+
+import net.sf.dftools.cdl.typing.TypeResult;
 
 /**
  * 
  * @author Thavot Richard
  *
  */
-public class TypeResult {
+public class CdlTypesystemRules {
 
-	AstType type;
+	private static List<String> numberTypes = Arrays.asList("int", "long",
+			"float", "double");
 
-	public TypeResult(AstType type) {
-		this.type = type;
-	}
+	private static List<String> comparaisonOperators = Arrays.asList("==",
+			"!=", ">", "<", ">=", "<=");
 
-	public TypeResult() {
-	}
-
-	public TypeResult(AstClass containingClass) {
-		if (containingClass == null) {
-			this.type = null;
-		} else {
-			this.type = TypeUtils.createDeclType(containingClass);
+	public static TypeResult compatibleTypeUnordered(TypeResult type1,
+			TypeResult type2) {
+		List<String> numberTypes = Arrays.asList("int", "long", "float",
+				"double");
+		if (type1.equals(type2)) {
+			return type1;
+		} else if (numberTypes.contains(type1.toString())
+				&& numberTypes.contains(type2.toString())) {
+			return numberTypes.indexOf(type1.toString()) > numberTypes
+					.indexOf(type2.toString()) ? type1 : type2;
 		}
+		return new TypeResult();
 	}
 
-	public AstType getType() {
-		return type;
-	}
-
-	public void setType(AstType type) {
-		this.type = type;
-	}
-
-	@Override
-	public String toString() {
-		if (type != null) {
-			return TypeUtils.typeToString(type);
+	public static TypeResult compatibleTypeOrdered(TypeResult type1,
+			TypeResult type2) {
+		if (type1.equals(type2)) {
+			return type1;
+		} else if (numberTypes.contains(type1.toString())
+				&& numberTypes.contains(type2.toString())) {
+			int a = numberTypes.indexOf(type1.toString());
+			int b = numberTypes.indexOf(type2.toString());
+			return a > b ? type1 : null;
 		}
-		return "";
+		return new TypeResult();
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof TypeResult) {
-			String thisType = TypeUtils.typeToString(type);
-			String oType = TypeUtils.typeToString(((TypeResult) o).getType());
-			return thisType.equals(oType);
-		}
-		return false;
-	}
-
-	public boolean isEmpty() {
-		return type == null;
+	public static boolean isComparaisonOperator(String s) {
+		return comparaisonOperators.contains(s);
 	}
 
 }

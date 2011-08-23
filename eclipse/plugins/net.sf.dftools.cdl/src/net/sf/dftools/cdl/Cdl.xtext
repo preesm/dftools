@@ -59,9 +59,9 @@ AstField:
 	domain=AstDomain '=' value=AstExpression ';';
 
 AstDomain:
-	left=[AstAttribute] ( '.' right=AstDomain)?;
+	left=[AstAttribute] ('.' right=AstDomain)?;
 
-///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 // Library classes
 ///////////////////////////////////////////////////////////////////////////////
 AstDecl:
@@ -94,26 +94,16 @@ AstDeclType:
 	typeRef=[AstDecl];
 
 AstBasicType:
-	name=('bool' | 'int' | 'long' | 'String');
+	{AstBoolType} name='bool' |
+	{AstIntegerType} name='int' |
+	{AstLongType} name='long' |
+	{AstFloatType} name='float' |
+	{AstDoubleType} name='double' |
+	{AstStringType} name='String';
 
 	///////////////////////////////////////////////////////////////////////////////
 // Litterals
 ///////////////////////////////////////////////////////////////////////////////
-AstLiteral:
-	AstLiteralInteger | AstLiteralString | AstLiteralBool | AstLiteralDouble;
-
-AstLiteralInteger:
-	int=INT;
-
-AstLiteralString:
-	string=STRING;
-
-AstLiteralBool:
-	bool=BOOL;
-
-AstLiteralDouble:
-	double=DOUBLE;
-
 terminal BOOL returns ecore::EBoolean:
 	'true' | 'false';
 
@@ -126,47 +116,30 @@ terminal DOUBLE returns ecore::EDouble:
 // expressions
 ///////////////////////////////////////////////////////////////////////////////
 AstExpression:
-	AstExpressionAnd ({AstExpressionBinary.left=current} operator=('||' | 'or') right=AstExpressionAnd)*;
+	AstExpressionEquality;
 
-AstExpressionAnd returns AstExpression:
-	AstExpressionBitor ({AstExpressionBinary.left=current} operator=('&&' | 'and') right=AstExpressionBitor)*;
-
-AstExpressionBitor returns AstExpression:
-	AstExpressionBitxor ({AstExpressionBinary.left=current} operator='|' right=AstExpressionBitxor)*;
-
-AstExpressionBitxor returns AstExpression:
-	AstExpressionBitand ({AstExpressionBinary.left=current} operator='^' right=AstExpressionBitand)*;
-
-AstExpressionBitand returns AstExpression:
-	AstExpressionEq ({AstExpressionBinary.left=current} operator='&' right=AstExpressionEq)*;
-
-AstExpressionEq returns AstExpression:
-	AstExpressionRelational ({AstExpressionBinary.left=current} operator=('=' | '!=') right=AstExpressionRelational)*;
+AstExpressionEquality returns AstExpression:
+	AstExpressionRelational ({AstExpressionBinary.left=current} operator=('==' | '!=') right=AstExpressionRelational)*;
 
 AstExpressionRelational returns AstExpression:
-	AstExpressionShift ({AstExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=') right=AstExpressionShift)*;
+	AstExpressionAddition ({AstExpressionBinary.left=current} operator=('<' | '<=' | '>' | '>=')
+	right=AstExpressionAddition)*;
 
-AstExpressionShift returns AstExpression:
-	AstExpressionAdditive ({AstExpressionBinary.left=current} operator=('<<' | '>>') right=AstExpressionAdditive)*;
+AstExpressionAddition returns AstExpression:
+	AstExpressionMultiplication ({AstExpressionBinary.left=current} operator=('+' | '-')
+	right=AstExpressionMultiplication)*;
 
-AstExpressionAdditive returns AstExpression:
-	AstExpressionMultiplicative ({AstExpressionBinary.left=current} operator=('+' | '-')
-	right=AstExpressionMultiplicative)*;
-
-AstExpressionMultiplicative returns AstExpression:
-	AstExpressionExp ({AstExpressionBinary.left=current} operator=('*' | '/' | 'div' | 'mod') right=AstExpressionExp)*;
-
-AstExpressionExp returns AstExpression:
-	AstExpressionUnary ({AstExpressionBinary.left=current} operator='**' right=AstExpressionUnary)*;
+AstExpressionMultiplication returns AstExpression:
+	AstExpressionUnary ({AstExpressionBinary.left=current} operator=('*' | '/' | 'mod') right=AstExpressionUnary)*;
 
 AstExpressionUnary returns AstExpression:
-	{AstExpressionUnary} AstunaryOperator=('~' | '-' | 'not' | '#') expression=AstExpressionPostfix
-	| AstExpressionPostfix;
+	{AstExpressionUnary} operator=( '!'| '-' ) expression=AstExpressionAtomic | AstExpressionAtomic;
 
 AstExpressionAtomic returns AstExpression:
-	{AstSymbolRef} var=[AstSymbol|QualifiedName] |
-	{AstLiteralRef} value=AstLiteral;
+	{AstParenthesis} '(' expression=AstExpression ')' |
+	{AstSymbolRef} symbol=[AstSymbol|QualifiedName] |
+	{AstDoubleLiteral} value=DOUBLE |
+	{AstIntegerLiteral} value=INT |
+	{AstStringLiteral} value=STRING |
+	{AstBoolLiteral} value=BOOL;
 
-AstExpressionPostfix returns AstExpression:
-	'(' AstExpression ')' |
-	AstExpressionAtomic;

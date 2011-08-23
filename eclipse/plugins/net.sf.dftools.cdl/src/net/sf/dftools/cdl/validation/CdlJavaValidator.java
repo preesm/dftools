@@ -32,18 +32,25 @@ package net.sf.dftools.cdl.validation;
 import net.sf.dftools.cdl.cdl.AstDecl;
 import net.sf.dftools.cdl.cdl.AstModule;
 import net.sf.dftools.cdl.cdl.CdlPackage;
-import net.sf.dftools.cdl.errors.CdlErrors;
+import net.sf.dftools.cdl.errors.CdlError;
+import net.sf.dftools.cdl.rules.CdlRulesChecker;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 
+/**
+ * 
+ * @author Thavot Richard
+ *
+ */
 public class CdlJavaValidator extends AbstractCdlJavaValidator {
 
 	@Check(CheckType.FAST)
 	public void checkClassNameStartsWithCapital(AstDecl d) {
 		if (!Character.isUpperCase(d.getName().charAt(0))) {
 			warning(d.getIs() + " name should start with a capital",
-					CdlPackage.Literals.AST_DECL__NAME, CdlErrors.ERROR_NAME,
+					CdlPackage.Literals.AST_DECL__NAME, CdlError.ERROR_NAME,
 					d.getName());
 		}
 	}
@@ -52,8 +59,18 @@ public class CdlJavaValidator extends AbstractCdlJavaValidator {
 	public void checkModuleNameStartsWithCapital(AstModule m) {
 		if (!Character.isUpperCase(m.getName().charAt(0))) {
 			warning(m.getIs() + " name should start with a capital",
-					CdlPackage.Literals.AST_MODULE__NAME, CdlErrors.ERROR_NAME,
+					CdlPackage.Literals.AST_MODULE__NAME, CdlError.ERROR_NAME,
 					m.getName());
 		}
 	}
+
+	@Check(CheckType.NORMAL)
+	public void checkEObject(EObject o) {
+		CdlError e = new CdlRulesChecker(this).getRulesError(o);
+		if (e != null) {
+			error(e.getMessage(), o, e.getFeature(), e.getCode(),
+					e.getIssueData());
+		}
+	}
+
 }

@@ -38,7 +38,9 @@ import org.eclipse.xtext.conversion.impl.QualifiedNameValueConverter;
 import com.google.inject.Inject;
 
 /**
- * Converts "true" and "false" to booleans, and hexadecimal to integer.
+ * 
+ * @author Thavot Richard
+ *
  */
 public class CdlValueConverter extends DefaultTerminalConverters {
 

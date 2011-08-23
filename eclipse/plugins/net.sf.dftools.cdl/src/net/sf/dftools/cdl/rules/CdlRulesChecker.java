@@ -26,64 +26,57 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
-package net.sf.dftools.cdl.typing;
+package net.sf.dftools.cdl.rules;
 
-import net.sf.dftools.cdl.cdl.AstClass;
-import net.sf.dftools.cdl.cdl.AstType;
-import net.sf.dftools.cdl.utils.TypeUtils;
+import net.sf.dftools.cdl.cdl.AstExpressionBinary;
+import net.sf.dftools.cdl.cdl.AstField;
+import net.sf.dftools.cdl.cdl.AstModule;
+import net.sf.dftools.cdl.cdl.util.CdlSwitch;
+import net.sf.dftools.cdl.errors.CdlError;
+import net.sf.dftools.cdl.validation.CdlJavaValidator;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
+ * Type checker for cdl modules
  * 
  * @author Thavot Richard
- *
+ * 
  */
-public class TypeResult {
+public class CdlRulesChecker extends CdlSwitch<CdlError> {
 
-	AstType type;
+	@SuppressWarnings("unused")
+	private CdlJavaValidator validator;
 
-	public TypeResult(AstType type) {
-		this.type = type;
-	}
-
-	public TypeResult() {
-	}
-
-	public TypeResult(AstClass containingClass) {
-		if (containingClass == null) {
-			this.type = null;
-		} else {
-			this.type = TypeUtils.createDeclType(containingClass);
-		}
-	}
-
-	public AstType getType() {
-		return type;
-	}
-
-	public void setType(AstType type) {
-		this.type = type;
+	/**
+	 * Creates a new type checker.
+	 */
+	public CdlRulesChecker(CdlJavaValidator validator) {
+		this.validator = validator;
 	}
 
 	@Override
-	public String toString() {
-		if (type != null) {
-			return TypeUtils.typeToString(type);
-		}
-		return "";
+	public CdlError caseAstField(AstField f) {
+		CdlError result = CdlRules.checkFieldDuplication(f);
+		if (result == null) result = CdlRules.checkCompatibleType(f);
+		return result;
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof TypeResult) {
-			String thisType = TypeUtils.typeToString(type);
-			String oType = TypeUtils.typeToString(((TypeResult) o).getType());
-			return thisType.equals(oType);
-		}
-		return false;
+	public CdlError caseAstModule(AstModule m) {
+		return CdlRules.checkModuleName(m);
+	}
+	
+	@Override
+	public CdlError caseAstExpressionBinary(AstExpressionBinary e){
+		CdlError result = CdlRules.checkCompatibleType(e);
+		if(result == null) result = CdlRules.checkOperatorArgumentType(e);
+		return result;
 	}
 
-	public boolean isEmpty() {
-		return type == null;
+
+	public CdlError getRulesError(EObject object) {
+		return doSwitch(object);
 	}
 
 }
