@@ -154,6 +154,10 @@
                   name="definition"
                   type="java.lang.String">
             </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
+            </parameter>
          </vertexType>
          <edgeType
                directed="false"
@@ -192,6 +196,10 @@
                   name="setup time"
                   type="java.lang.String">
             </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
+            </parameter>
          </edgeType>
          <export>
             <xslt
@@ -224,6 +232,10 @@
                   name="definition"
                   type="java.lang.String">
             </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
+            </parameter>
          </vertexType>
          <edgeType
                directed="false"
@@ -244,6 +256,10 @@
             <parameter
                   name="target port"
                   type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
             </parameter>
          </edgeType>
          <vertexType
@@ -272,6 +288,10 @@
                   name="definition"
                   type="java.lang.String">
             </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
+            </parameter>
          </vertexType>
          <edgeType
                directed="true"
@@ -292,6 +312,10 @@
             <parameter
                   name="target port"
                   type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
             </parameter>
          </edgeType>
          <vertexType
@@ -315,6 +339,10 @@
             <parameter
                   name="speed"
                   type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
             </parameter>
          </vertexType>
          <vertexType
@@ -346,6 +374,10 @@
             <parameter
                   name="definition"
                   type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="custom parameters"
+                  type="java.util.Map">
             </parameter>
          </vertexType>
       </configuration>
@@ -441,6 +473,12 @@
                id="net.sf.dftools.ui.workflow.variables.section"
                tab="net.sf.dftools.ui.workflow.variables">
          </propertySection>
+         <propertySection
+               class="net.sf.dftools.ui.slam.properties.SlamComponentVariablesMapSection"
+               filter="net.sf.dftools.ui.slam.filters.SlamComponentFilter"
+               id="net.sf.dftools.ui.slam.vertex.parameters.section"
+               tab="net.sf.dftools.ui.slam.vertex.parameters">
+         </propertySection>
       </propertySections>
    </extension>
    <extension
@@ -451,6 +489,11 @@
                category="net.sf.graphiti.ui.properties.category.vertex"
                id="net.sf.dftools.ui.workflow.variables"
                label="Task Variables">
+         </propertyTab>
+         <propertyTab
+               category="net.sf.graphiti.ui.properties.category.vertex"
+               id="net.sf.dftools.ui.slam.vertex.parameters"
+               label="Custom Parameters">
          </propertyTab>
       </propertyTabs>
    </extension>

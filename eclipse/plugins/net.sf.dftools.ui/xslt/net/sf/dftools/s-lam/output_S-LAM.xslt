@@ -73,6 +73,12 @@
         </xsl:element>
     </xsl:template>
     
+    <!-- variables variable -->
+    <xsl:template match="entry" mode="variable">
+        <variable name="{@key}" value="{@value}"/>
+    </xsl:template>
+    
+    
     <!-- Component instances -->
     <xsl:template match="vertex[@type != 'hierConnection']">
         <xsl:element name="spirit:componentInstance">
@@ -87,8 +93,19 @@
                 <xsl:attribute name="spirit:version" select="parameters/parameter[@name = 'version']/@value"/>
             </xsl:element>
             <xsl:element name="spirit:configurableElementValues">
+                <xsl:apply-templates select="parameters/parameter[@name = 'custom parameters']"/>
             </xsl:element>
         </xsl:element>
+    </xsl:template>
+    
+    <!-- custom parameters declarations -->
+    <xsl:template match="parameter[@name = 'custom parameters']">
+        <xsl:for-each select="entry">
+            <xsl:element name="spirit:configurableElementValue">
+                <xsl:attribute name="spirit:referenceId" select="@key"/>
+                <xsl:value-of select="@value"/>
+            </xsl:element>
+        </xsl:for-each>
     </xsl:template>
     
     <!-- Component instances vendor extensions -->

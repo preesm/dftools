@@ -167,6 +167,10 @@
                     <xsl:attribute name="value"><xsl:value-of select="$refinement"/></xsl:attribute>
                 </xsl:element>
                 
+                <xsl:element name="parameter">
+                    <xsl:attribute name="name">custom parameters</xsl:attribute>
+                    <xsl:apply-templates select="spirit:configurableElementValues"/>
+                </xsl:element>
                 
                 <!-- operator parameters -->
                 <xsl:if test="$componentType='operator'">
@@ -186,6 +190,16 @@
               
             </xsl:element>
         </xsl:element>
+    </xsl:template>
+    
+    <!-- manage component custom parameters -->
+    <xsl:template match="spirit:configurableElementValues">
+        <xsl:for-each select="spirit:configurableElementValue">
+            <xsl:element name="entry">
+                <xsl:attribute name="key" select="@spirit:referenceId"/>
+                <xsl:attribute name="value" select="."/>
+            </xsl:element>
+        </xsl:for-each>
     </xsl:template>
     
     <!-- returns the type of an interconnection -->
