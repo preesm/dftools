@@ -97,6 +97,10 @@
             <xsl:attribute name="slam:componentRef" select="parameters/parameter[@name = 'definition']/@value"/>
             <xsl:attribute name="slam:componentType" select="@type"/>
             <xsl:attribute name="slam:refinement" select="parameters/parameter[@name = 'refinement']/@value"/>
+            
+            <xsl:if test="contains(@type,'ComNode')">
+                <xsl:attribute name="slam:speed" select="parameters/parameter[@name = 'speed']/@value"/>
+            </xsl:if> 
         </xsl:element>
     </xsl:template>
     
@@ -142,7 +146,7 @@
         <xsl:element name="slam:linkDescription">
             <xsl:attribute name="slam:linkType" select="$processedType"/>
             <xsl:attribute name="slam:directedLink" select="$directedLink"/>
-            <!-- An id is generated for the link if not present -->
+            <!-- An ID is generated for the link if not present -->
             <xsl:choose>
                 <xsl:when test="string-length($linkId)=0">
                     <xsl:attribute name="slam:referenceId" select="generate-id(.)"/>
@@ -151,6 +155,9 @@
                     <xsl:attribute name="slam:referenceId" select="$linkId"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:if test="contains($linkType,'ControlLink')">
+                <xsl:attribute name="slam:setupTime" select="parameters/parameter[@name = 'setup time']/@value"/>
+            </xsl:if>
         </xsl:element>
     </xsl:template>
     

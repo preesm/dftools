@@ -172,7 +172,7 @@
                 <xsl:if test="$componentType='operator'">
                     <xsl:element name="parameter">
                         <xsl:attribute name="name">dataCopySpeed</xsl:attribute>
-                        <xsl:attribute name="value"><xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='dataCopySpeed']"/></xsl:attribute>
+                        <xsl:attribute name="value" select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='dataCopySpeed']"/>
                     </xsl:element>
                 </xsl:if>
                 
@@ -180,9 +180,7 @@
                 <xsl:if test="$componentType='parallelComNode' or $componentType='contentionComNode'">
                     <xsl:element name="parameter">
                         <xsl:attribute name="name">speed</xsl:attribute>
-                        <xsl:attribute name="value">
-                            <xsl:value-of select="spirit:configurableElementValues/spirit:configurableElementValue[@spirit:referenceId='speed']"/>
-                        </xsl:attribute>
+                        <xsl:attribute name="value" select="//slam:componentDescription[@slam:componentRef=$componentName]/@slam:speed"/>
                     </xsl:element>
                 </xsl:if>
               
@@ -206,17 +204,26 @@
     <xsl:template match="spirit:interconnection">
         <xsl:element name="edge">
             <xsl:variable name="interconnectionID" select="spirit:name"/>
-                <xsl:attribute name="type">
-                    <xsl:value-of>
-                        <xsl:value-of>
-                            <xsl:call-template name="getInterconnectionOrientation">
-                                <xsl:with-param name="interconnectionID" select="$interconnectionID"/>
-                            </xsl:call-template>
-                        </xsl:value-of>
-                        <xsl:call-template name="getInterconnectionType">
-                            <xsl:with-param name="interconnectionID" select="$interconnectionID"/>
-                        </xsl:call-template>
-                    </xsl:value-of>
+            <xsl:variable name="interconnectionType">
+                <xsl:value-of>
+                    <xsl:call-template name="getInterconnectionType">
+                        <xsl:with-param name="interconnectionID" select="$interconnectionID"/>
+                    </xsl:call-template>
+                </xsl:value-of>
+            </xsl:variable>
+            <xsl:variable name="interconnectionOrientation">
+                <xsl:value-of>
+                    <xsl:call-template name="getInterconnectionOrientation">
+                        <xsl:with-param name="interconnectionID" select="$interconnectionID"/>
+                    </xsl:call-template>
+                </xsl:value-of>
+            </xsl:variable>
+            <!-- The edge type is given by the concatenation of the orientation and the type -->
+            <xsl:attribute name="type">
+                <xsl:if test="$interconnectionType='DataLink'">
+                    <xsl:value-of select="$interconnectionOrientation"/>
+                </xsl:if>
+                <xsl:value-of select="$interconnectionType"/>
             </xsl:attribute>
             
             <xsl:attribute name="source" select="spirit:activeInterface[1]/@spirit:componentRef"/>
@@ -224,16 +231,23 @@
             <xsl:element name="parameters">
                 <xsl:element name="parameter">
                     <xsl:attribute name="name">id</xsl:attribute>
-                    <xsl:attribute name="value"><xsl:value-of select="spirit:name"/></xsl:attribute>
+                    <xsl:attribute name="value" select="spirit:name"/>
                 </xsl:element>
                 <xsl:element name="parameter">
                     <xsl:attribute name="name">source port</xsl:attribute>
-                    <xsl:attribute name="value"><xsl:value-of select="spirit:activeInterface[1]/@spirit:busRef"/></xsl:attribute>
+                    <xsl:attribute name="value" select="spirit:activeInterface[1]/@spirit:busRef"/>
                 </xsl:element>
                 <xsl:element name="parameter">
                     <xsl:attribute name="name">target port</xsl:attribute>
-                    <xsl:attribute name="value"><xsl:value-of select="spirit:activeInterface[2]/@spirit:busRef"/></xsl:attribute>
+                    <xsl:attribute name="value" select="spirit:activeInterface[2]/@spirit:busRef"/>
                 </xsl:element>
+                <!-- control links have a specific 'setupTime' parameter -->
+                <xsl:if test="$interconnectionType='ControlLink'">
+                    <xsl:element name="parameter">
+                        <xsl:attribute name="name">setup time</xsl:attribute>
+                        <xsl:attribute name="value" select="//slam:linkDescription[@slam:referenceId=$interconnectionID]/@slam:setupTime"/>
+                    </xsl:element>
+                </xsl:if>
             </xsl:element>
         </xsl:element>
     </xsl:template>
