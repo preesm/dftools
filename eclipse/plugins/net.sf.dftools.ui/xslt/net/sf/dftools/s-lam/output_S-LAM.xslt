@@ -49,13 +49,16 @@
                 <xsl:apply-templates select="vertices/vertex[@type = 'hierConnection']"/>
             </xsl:element>
             
+            <!-- Managing vendor extensions -->
             <xsl:element name="spirit:vendorExtensions">
                 <xsl:element name="slam:componentDescriptions">
                     <xsl:for-each-group select="vertices/vertex[@type != 'hierConnection']" group-by="parameters/parameter[@name = 'definition']/@value">
+                        <!-- Even in case of several instances of the same component, there is always 1 vendor extension -->
                         <xsl:apply-templates select="current-group( )[1]" mode="vendorExtensions"/>
                     </xsl:for-each-group>
                 </xsl:element>
                 
+                <!-- Hierarchical connections have no vendor extension -->
                 <xsl:element name="slam:linkDescriptions">
                     <xsl:apply-templates select="edges/edge[@type != 'hierConnection']" mode="vendorExtensions"/>
                 </xsl:element>
@@ -101,7 +104,16 @@
     <xsl:template match="edge[@type!='hierConnection']">
         <xsl:element name="spirit:interconnection">
             <xsl:element name="spirit:name">
-                <xsl:value-of select="parameters/parameter[@name = 'id']/@value"/>
+                <xsl:variable name="linkId" select="parameters/parameter[@name = 'id']/@value"/>
+                <!-- An id is generated for the link if not present -->
+                <xsl:choose>
+                    <xsl:when test="string-length($linkId)=0">
+                        <xsl:value-of select="generate-id(.)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$linkId"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:element>
             
             <xsl:element name="spirit:activeInterface">
@@ -116,7 +128,7 @@
     </xsl:template>
     
     <!-- interconnections vendor extensions -->
-    <xsl:template match="edge[@type!='DataLink']" mode="vendorExtensions">
+    <xsl:template match="edge" mode="vendorExtensions">
         <xsl:variable name="directedLink">
             <xsl:choose>
                 <xsl:when test="contains(@type,'undirected')">undirected</xsl:when>
@@ -130,7 +142,15 @@
         <xsl:element name="slam:linkDescription">
             <xsl:attribute name="slam:linkType" select="$processedType"/>
             <xsl:attribute name="slam:directedLink" select="$directedLink"/>
-            <xsl:attribute name="slam:referenceId" select="$linkId"/>
+            <!-- An id is generated for the link if not present -->
+            <xsl:choose>
+                <xsl:when test="string-length($linkId)=0">
+                    <xsl:attribute name="slam:referenceId" select="generate-id(.)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="slam:referenceId" select="$linkId"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     

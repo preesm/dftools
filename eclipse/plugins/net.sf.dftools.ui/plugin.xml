@@ -130,9 +130,9 @@
          <vertexType
                name="Operator">
             <color
-                  blue="16"
-                  green="220"
-                  red="123">
+                  blue="140"
+                  green="81"
+                  red="19">
             </color>
             <shape
                   type="roundedBox">
@@ -171,9 +171,9 @@
                directed="true"
                name="ControlLink">
             <color
-                  blue="0"
-                  green="0"
-                  red="0">
+                  blue="41"
+                  green="213"
+                  red="165">
             </color>
             <parameter
                   name="id"
@@ -187,6 +187,10 @@
                   name="target port"
                   type="java.lang.String">
             </parameter>
+            <parameter
+                  name="setupTime"
+                  type="java.lang.String">
+            </parameter>
          </edgeType>
          <export>
             <xslt
@@ -196,9 +200,9 @@
          <vertexType
                name="Ram">
             <color
-                  blue="16"
-                  green="220"
-                  red="123">
+                  blue="41"
+                  green="213"
+                  red="165">
             </color>
             <shape
                   type="roundedBox">
@@ -244,9 +248,9 @@
          <vertexType
                name="Dma">
             <color
-                  blue="16"
-                  green="220"
-                  red="123">
+                  blue="150"
+                  green="229"
+                  red="200">
             </color>
             <shape
                   type="roundedBox">
@@ -292,9 +296,9 @@
          <vertexType
                name="contentionComNode">
             <color
-                  blue="16"
-                  green="220"
-                  red="123">
+                  blue="0"
+                  green="124"
+                  red="249">
             </color>
             <shape
                   type="roundedBox">
@@ -315,9 +319,9 @@
          <vertexType
                name="parallelComNode">
             <color
-                  blue="16"
-                  green="220"
-                  red="123">
+                  blue="191"
+                  green="223"
+                  red="255">
             </color>
             <shape
                   type="roundedBox">
