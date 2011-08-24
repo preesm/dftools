@@ -30,10 +30,14 @@ public final class SlamValidator implements IValidator {
 	@Override
 	public boolean validate(Graph graph, IFile file) {
 		boolean valid = true;
+		
 		valid &= validateEnablerEdges(graph, file);
 		valid &= validateEdgePorts(graph, file);
-		valid &= validateEdges(graph, file);
+		valid &= validateDataLinks(graph, file);
 		valid &= validateComNodes(graph, file);
+		valid &= validateControlLinks(graph, file);
+		valid &= validateHierarchicalConnections(graph, file);
+		valid &= validateComponents(graph, file);
 
 		return valid;
 	}
@@ -123,7 +127,7 @@ public final class SlamValidator implements IValidator {
 	 * link without a communication node (either parallel or with contention) is
 	 * not valid
 	 */
-	private boolean validateEdges(Graph graph, IFile file) {
+	private boolean validateDataLinks(Graph graph, IFile file) {
 		Boolean valid = true;
 		Boolean hasComNode = false;
 		for (Edge e : graph.edgeSet()) {
@@ -191,6 +195,142 @@ public final class SlamValidator implements IValidator {
 		return valid;
 	}
 
+	/**
+	 * A Control link must be between an operator and an enabler (Ram or Dma)
+	 * and specify a setupTime.
+	 */
+	private boolean validateControlLinks(Graph graph, IFile file) {
+		Boolean valid = true;
+		Boolean hasSetupTime = false;
+		Boolean hasOperatorSource = false;
+		Boolean hasEnablerTarget = false;
+		for (Edge e : graph.edgeSet()) {
+			if (e.getType().getName().equals("ControlLink")) {
+				hasSetupTime = false;
+				hasOperatorSource = false;
+				hasEnablerTarget = false;
+
+				String setupTime = (String) e.getValue("setup time");
+				if (setupTime != null && !setupTime.equals("")) {
+					hasSetupTime = true;
+				}
+
+				if (e.getSource() != null
+						&& e.getSource().getType().getName()
+								.contains("Operator")) {
+					hasOperatorSource = true;
+				}
+
+				if (e.getTarget() != null
+						&& (e.getTarget().getType().getName().contains("Ram") || e
+								.getTarget().getType().getName()
+								.contains("Dma"))) {
+					hasEnablerTarget = true;
+				}
+
+				if (!hasSetupTime || !hasOperatorSource || !hasEnablerTarget) {
+					createMarker(
+							file,
+							"Each control link must link an operator to an enabler (Ram or Dma) and specify a setup time.",
+							(String) e.getSource().getValue("id") + "->"
+									+ (String) e.getTarget().getValue("id"),
+							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+
+	/**
+	 * A hierarchical connection link must link an operator or a commmunication node and a hierarchical connection node
+	 */
+	private boolean validateHierarchicalConnections(Graph graph, IFile file) {
+		Boolean valid = true;
+		Boolean hasOperatorOrComNodeSource = false;
+		Boolean hasHierConnectionTarget = false;
+		Boolean hasOperatorOrComNodeTarget = false;
+		Boolean hasHierConnectionSource = false;
+
+		for (Edge e : graph.edgeSet()) {
+			if (e.getType().getName().equals("hierConnection")) {
+				hasOperatorOrComNodeSource = false;
+				hasHierConnectionTarget = false;
+				hasOperatorOrComNodeTarget = false;
+				hasHierConnectionSource = false;
+
+				Vertex source = e.getSource();
+				if (source != null) {
+					String sourceType = source.getType().getName();
+					if (sourceType.contains("Operator") || sourceType.contains("ComNode")) {
+						hasOperatorOrComNodeSource = true;
+					} else if (sourceType.contains("hierConnection")) {
+						hasHierConnectionSource = true;
+					}
+				}
+
+				Vertex target = e.getTarget();
+				if (target != null) {
+					String targetType = target.getType().getName();
+					if (targetType.contains("Operator") || targetType.contains("ComNode")) {
+						hasOperatorOrComNodeTarget = true;
+					} else if (targetType.contains("hierConnection")) {
+						hasHierConnectionTarget = true;
+					}
+				}
+
+				if (!((hasOperatorOrComNodeSource && hasHierConnectionTarget) || (hasHierConnectionSource && hasOperatorOrComNodeTarget))) {
+					createMarker(
+							file,
+							"A hierarchical connection link must link an operator or a commmunication node and a hierarchical connection node.",
+							(String) e.getSource().getValue("id") + "->"
+									+ (String) e.getTarget().getValue("id"),
+							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+
+
+	/**
+	 * Each component instance must specify a definition id that identifies the instanciated component.
+	 */
+	private boolean validateComponents(Graph graph, IFile file) {
+
+		boolean valid = true;
+		boolean hasRefName = false;
+
+		for (Vertex v : graph.vertexSet()) {
+			hasRefName = false;
+
+			String type = v.getType().getName();
+			if (!type.equals("hierConnection")) {
+				String refName = (String)v.getValue("definition");
+				
+				if(refName != null && !refName.equals("") && !refName.equals("default")){
+					hasRefName = true;
+				}
+
+				if (!hasRefName) {
+					v.setValue("definition", "default");
+					
+					createMarker(
+							file,
+							"Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+	
 	/**
 	 * Displays an error
 	 */
