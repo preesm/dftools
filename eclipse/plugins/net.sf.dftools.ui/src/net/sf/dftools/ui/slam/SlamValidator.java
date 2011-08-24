@@ -30,7 +30,8 @@ public final class SlamValidator implements IValidator {
 	@Override
 	public boolean validate(Graph graph, IFile file) {
 		boolean valid = true;
-		
+
+		valid &= validateGraph(graph, file);
 		valid &= validateEnablerEdges(graph, file);
 		valid &= validateEdgePorts(graph, file);
 		valid &= validateDataLinks(graph, file);
@@ -38,6 +39,48 @@ public final class SlamValidator implements IValidator {
 		valid &= validateControlLinks(graph, file);
 		valid &= validateHierarchicalConnections(graph, file);
 		valid &= validateComponents(graph, file);
+
+		return valid;
+	}
+
+	/**
+	 * A graph should have VLNV data.
+	 */
+	private boolean validateGraph(Graph graph, IFile file) {
+
+		boolean valid = true;
+		boolean lackVLNVElement = false;
+		
+		if(graph.getValue("vendor") == null){
+			graph.setValue("vendor", "");
+			lackVLNVElement = true;
+		}
+		
+		if(graph.getValue("library") == null){
+			graph.setValue("library", "");
+			lackVLNVElement = true;
+		}
+		
+		if(graph.getValue("name") == null || graph.getValue("name").equals("")){
+			if(file.getName() != null && file.getName().lastIndexOf('.') > 0){
+				graph.setValue("name", file.getName().substring(0,file.getName().lastIndexOf('.')));
+			}
+			lackVLNVElement = true;
+		}
+		
+		if(graph.getValue("version") == null){
+			graph.setValue("version", "");
+			lackVLNVElement = true;
+		}
+		
+		if (lackVLNVElement) {
+			createMarker(
+					file,
+					"A graph should have VLNV data. Default values set",
+					(String) graph.getValue("id"), IMarker.PROBLEM,
+					IMarker.SEVERITY_WARNING);
+			valid = false;
+		}
 
 		return valid;
 	}

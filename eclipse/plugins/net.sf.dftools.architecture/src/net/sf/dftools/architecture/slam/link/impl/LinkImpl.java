@@ -8,7 +8,6 @@ package net.sf.dftools.architecture.slam.link.impl;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.component.ComInterface;
-import net.sf.dftools.architecture.slam.impl.ParameterizedElementImpl;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkPackage;
 
@@ -16,6 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public abstract class LinkImpl extends ParameterizedElementImpl implements Link {
+public abstract class LinkImpl extends EObjectImpl implements Link {
 	/**
 	 * The cached value of the '{@link #getSourceInterface() <em>Source Interface</em>}' reference.
 	 * <!-- begin-user-doc -->

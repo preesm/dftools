@@ -7,8 +7,9 @@
 package net.sf.dftools.architecture.slam.link;
 
 import net.sf.dftools.architecture.slam.ComponentInstance;
-import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.component.ComInterface;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +32,7 @@ import net.sf.dftools.architecture.slam.component.ComInterface;
  * @model abstract="true"
  * @generated
  */
-public interface Link extends ParameterizedElement {
+public interface Link extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Source Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->

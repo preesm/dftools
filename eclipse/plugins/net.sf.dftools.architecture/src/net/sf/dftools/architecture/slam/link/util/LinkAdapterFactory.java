@@ -6,7 +6,6 @@
  */
 package net.sf.dftools.architecture.slam.link.util;
 
-import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.DataLink;
 import net.sf.dftools.architecture.slam.link.Link;
@@ -86,10 +85,6 @@ public class LinkAdapterFactory extends AdapterFactoryImpl {
 				return createControlLinkAdapter();
 			}
 			@Override
-			public Adapter caseParameterizedElement(ParameterizedElement object) {
-				return createParameterizedElementAdapter();
-			}
-			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -148,20 +143,6 @@ public class LinkAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createControlLinkAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.architecture.slam.ParameterizedElement <em>Parameterized Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see net.sf.dftools.architecture.slam.ParameterizedElement
-	 * @generated
-	 */
-	public Adapter createParameterizedElementAdapter() {
 		return null;
 	}
 

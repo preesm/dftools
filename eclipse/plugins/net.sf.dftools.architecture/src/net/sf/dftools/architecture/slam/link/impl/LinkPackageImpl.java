@@ -280,15 +280,14 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		SlamPackage theSlamPackage = (SlamPackage)EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI);
 		ComponentPackage theComponentPackage = (ComponentPackage)EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI);
+		SlamPackage theSlamPackage = (SlamPackage)EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		linkEClass.getESuperTypes().add(theSlamPackage.getParameterizedElement());
 		dataLinkEClass.getESuperTypes().add(this.getLink());
 		controlLinkEClass.getESuperTypes().add(this.getLink());
 

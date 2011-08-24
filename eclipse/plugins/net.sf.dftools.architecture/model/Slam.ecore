@@ -91,7 +91,7 @@
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="link" nsURI="http://net.sf.dftools/architecture/slam/link" nsPrefix="link">
-    <eClassifiers xsi:type="ecore:EClass" name="Link" abstract="true" eSuperTypes="#//ParameterizedElement">
+    <eClassifiers xsi:type="ecore:EClass" name="Link" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EReference" name="sourceInterface" lowerBound="1"
           eType="#//component/ComInterface"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="destinationInterface"

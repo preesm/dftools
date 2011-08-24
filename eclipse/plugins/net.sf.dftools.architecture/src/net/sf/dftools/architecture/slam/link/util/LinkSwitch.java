@@ -6,7 +6,6 @@
  */
 package net.sf.dftools.architecture.slam.link.util;
 
-import net.sf.dftools.architecture.slam.ParameterizedElement;
 import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.DataLink;
 import net.sf.dftools.architecture.slam.link.Link;
@@ -76,7 +75,6 @@ public class LinkSwitch<T> extends Switch<T> {
 			case LinkPackage.LINK: {
 				Link link = (Link)theEObject;
 				T result = caseLink(link);
-				if (result == null) result = caseParameterizedElement(link);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -84,7 +82,6 @@ public class LinkSwitch<T> extends Switch<T> {
 				DataLink dataLink = (DataLink)theEObject;
 				T result = caseDataLink(dataLink);
 				if (result == null) result = caseLink(dataLink);
-				if (result == null) result = caseParameterizedElement(dataLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -92,7 +89,6 @@ public class LinkSwitch<T> extends Switch<T> {
 				ControlLink controlLink = (ControlLink)theEObject;
 				T result = caseControlLink(controlLink);
 				if (result == null) result = caseLink(controlLink);
-				if (result == null) result = caseParameterizedElement(controlLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -142,21 +138,6 @@ public class LinkSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseControlLink(ControlLink object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Parameterized Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Parameterized Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseParameterizedElement(ParameterizedElement object) {
 		return null;
 	}
 

@@ -6,8 +6,6 @@
  */
 package net.sf.dftools.architecture.slam.link;
 
-import net.sf.dftools.architecture.slam.SlamPackage;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -72,22 +70,13 @@ public interface LinkPackage extends EPackage {
 	int LINK = 0;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK__PARAMETERS = SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>Source Interface</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__SOURCE_INTERFACE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 0;
+	int LINK__SOURCE_INTERFACE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Destination Interface</b></em>' reference.
@@ -96,7 +85,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__DESTINATION_INTERFACE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 1;
+	int LINK__DESTINATION_INTERFACE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Source Component Instance</b></em>' reference.
@@ -105,7 +94,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__SOURCE_COMPONENT_INSTANCE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 2;
+	int LINK__SOURCE_COMPONENT_INSTANCE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Destination Component Instance</b></em>' reference.
@@ -114,7 +103,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__DESTINATION_COMPONENT_INSTANCE = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 3;
+	int LINK__DESTINATION_COMPONENT_INSTANCE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Uuid</b></em>' attribute.
@@ -123,7 +112,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__UUID = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 4;
+	int LINK__UUID = 4;
 
 	/**
 	 * The feature id for the '<em><b>Directed</b></em>' attribute.
@@ -132,7 +121,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK__DIRECTED = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 5;
+	int LINK__DIRECTED = 5;
 
 	/**
 	 * The number of structural features of the '<em>Link</em>' class.
@@ -141,7 +130,7 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_FEATURE_COUNT = SlamPackage.PARAMETERIZED_ELEMENT_FEATURE_COUNT + 6;
+	int LINK_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class.
@@ -152,15 +141,6 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 */
 	int DATA_LINK = 1;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_LINK__PARAMETERS = LINK__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Source Interface</b></em>' reference.
@@ -234,15 +214,6 @@ public interface LinkPackage extends EPackage {
 	 * @generated
 	 */
 	int CONTROL_LINK = 2;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTROL_LINK__PARAMETERS = LINK__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Source Interface</b></em>' reference.

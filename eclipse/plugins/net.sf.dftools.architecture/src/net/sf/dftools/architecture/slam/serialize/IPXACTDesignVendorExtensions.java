@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
@@ -25,22 +26,30 @@ public class IPXACTDesignVendorExtensions {
 		 * ID representing the component
 		 */
 		private String componentRef;
-		
+
 		/**
-		 * Type (Operator, Ram...) of the ecore EClass representing the component
+		 * Type (Operator, Ram...) of the ecore EClass representing the
+		 * component
 		 */
 		private String componentType;
-		
+
 		/**
 		 * Eclipse path of the potential design refining the component
 		 */
 		private String refinement;
 
-		public ComponentDescription(String componentRef, String componentType, String refinement) {
+		/**
+		 * Parameters that vary depending on component type
+		 */
+		private Map<String, String> specificParameters = null;
+
+		public ComponentDescription(String componentRef, String componentType,
+				String refinement) {
 			super();
 			this.componentRef = componentRef;
 			this.componentType = componentType;
 			this.refinement = refinement;
+			specificParameters = new HashMap<String, String>();
 		}
 
 		public String getComponentRef() {
@@ -54,38 +63,42 @@ public class IPXACTDesignVendorExtensions {
 		public String getRefinement() {
 			return refinement;
 		}
+
+		public void addSpecificParameter(String key, String value) {
+			specificParameters.put(key, value);
+		}
+
+		public String getSpecificParameter(String key) {
+			return specificParameters.get(key);
+		}
+
+		public Map<String, String> getSpecificParameters() {
+			return specificParameters;
+		}
+
 	}
-	
+
 	/**
 	 * Class storing a link description in vendor extensions
 	 */
 	public class LinkDescription {
 		// Referencing the link
 		private String linkUuid = "";
-		
-		private Map<String,String> parameters = null;
-		
+
 		private Boolean directed = false;
-		
+
 		private String type = "";
 
+		/**
+		 * Parameters that vary depending on component type
+		 */
+		private Map<String, String> specificParameters = null;
+
 		public LinkDescription(String uuid, Boolean directed, String type) {
-			parameters = new HashMap<String, String>();
 			linkUuid = uuid;
 			this.type = type;
 			this.directed = directed;
-		}
-
-		public String getParameter(String name) {
-			return parameters.get(name);
-		}
-
-		public Map<String,String> getParameters() {
-			return parameters;
-		}
-		
-		public void addParameter(String name, String value){
-			parameters.put(name, value);
+			specificParameters = new HashMap<String, String>();
 		}
 
 		public String getLinkUuid() {
@@ -99,6 +112,18 @@ public class IPXACTDesignVendorExtensions {
 		public String getType() {
 			return type;
 		}
+
+		public void addSpecificParameter(String key, String value) {
+			specificParameters.put(key, value);
+		}
+
+		public String getSpecificParameter(String key) {
+			return specificParameters.get(key);
+		}
+
+		public Map<String, String> getSpecificParameters() {
+			return specificParameters;
+		}
 	}
 
 	/**
@@ -109,7 +134,7 @@ public class IPXACTDesignVendorExtensions {
 	/**
 	 * Description associated to each link referenced by uuid (unique id)
 	 */
-	private Map<String,LinkDescription> linkDescriptions = null;
+	private Map<String, LinkDescription> linkDescriptions = null;
 
 	public IPXACTDesignVendorExtensions() {
 		componentDescriptions = new HashMap<String, ComponentDescription>();
@@ -123,11 +148,11 @@ public class IPXACTDesignVendorExtensions {
 	public Map<String, ComponentDescription> getComponentDescriptions() {
 		return componentDescriptions;
 	}
-	
+
 	public LinkDescription getLinkDescription(String linkUuid) {
 		return linkDescriptions.get(linkUuid);
 	}
-	
+
 	public Map<String, LinkDescription> getLinkDescriptions() {
 		return linkDescriptions;
 	}
@@ -185,7 +210,7 @@ public class IPXACTDesignVendorExtensions {
 				String nodeName = node.getNodeName();
 				if (nodeName.equals("slam:linkDescription")) {
 					String uuid = element.getAttribute("slam:referenceId");
-					parseLinkDescription(element,uuid);
+					parseLinkDescription(element, uuid);
 				}
 			}
 			node = node.getNextSibling();
@@ -197,54 +222,23 @@ public class IPXACTDesignVendorExtensions {
 	 */
 	public void parseLinkDescription(Element parent, String uuid) {
 
-		Boolean directed = parent.getAttribute("slam:directedLink").equals("directed");
+		Boolean directed = parent.getAttribute("slam:directedLink").equals(
+				"directed");
 		String type = parent.getAttribute("slam:linkType");
 		LinkDescription description = new LinkDescription(uuid, directed, type);
-		
+
 		linkDescriptions.put(uuid, description);
 		
-		Node node = parent.getFirstChild();
-
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-				String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:linkParameters")) {
-					parseLinkParameters(element, description);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
-
-	/**
-	 * Parses description of a link
-	 */
-	public void parseLinkParameters(Element parent, LinkDescription description) {
-		Node node = parent.getFirstChild();
-
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				Element element = (Element) node;
-				String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:linkParameter")) {
-					parseLinkParameter(element, description);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
-	
-
-	/**
-	 * Parses descriptions of components
-	 */
-	public void parseLinkParameter(Element parent, LinkDescription description) {
-		String name = parent.getAttribute("slam:referenceId");
-		String value = parent.getTextContent();
-		description.addParameter(name, value);
+		// Retrieving known specific parameters
+		NamedNodeMap attributeMap = parent.getAttributes();
+		for (int j = 0; j < attributeMap.getLength(); j++) {
+	        String name = attributeMap.item(j).getNodeName();
+	        String value = attributeMap.item(j).getNodeValue();
+	        
+	        if(name.equals("slam:setupTime")){
+	        	description.addSpecificParameter(name, value);
+	        }
+	    }
 	}
 
 	/**
@@ -274,8 +268,33 @@ public class IPXACTDesignVendorExtensions {
 		String componentType = parent.getAttribute("slam:componentType");
 		String refinement = parent.getAttribute("slam:refinement");
 
+		// Specific case of com nodes for which the contention property
+		// is contatenated with the type
+		String parallelOrContentionNode = "";
+		if (componentType.contains("ComNode")) {
+			parallelOrContentionNode = componentType.replace("ComNode", "");
+			componentType = "ComNode";
+		}
+
 		ComponentDescription description = new ComponentDescription(
-				componentRef, componentType,refinement);
+				componentRef, componentType, refinement);
+
+		if (componentType.contains("ComNode")) {
+			description.addSpecificParameter("ComNodeType",
+					parallelOrContentionNode);
+		}
+
+		// Retrieving known specific parameters
+		NamedNodeMap attributeMap = parent.getAttributes();
+		for (int j = 0; j < attributeMap.getLength(); j++) {
+	        String name = attributeMap.item(j).getNodeName();
+	        String value = attributeMap.item(j).getNodeValue();
+	        
+	        if(name.equals("slam:speed")){
+	        	description.addSpecificParameter(name, value);
+	        }
+	    }
+
 		componentDescriptions.put(description.getComponentRef(), description);
 	}
 
@@ -283,58 +302,69 @@ public class IPXACTDesignVendorExtensions {
 	 * Writes the vendor extension inside a dom element
 	 */
 	public void write(Element parent, Document document) {
-		Element vendorExtensionsElt = document.createElement("spirit:vendorExtensions");
+		Element vendorExtensionsElt = document
+				.createElement("spirit:vendorExtensions");
 		parent.appendChild(vendorExtensionsElt);
-		
-		Element componentDescriptionsElt = document.createElement("slam:componentDescriptions");
+
+		Element componentDescriptionsElt = document
+				.createElement("slam:componentDescriptions");
 		vendorExtensionsElt.appendChild(componentDescriptionsElt);
-		
-		for(ComponentDescription description : componentDescriptions.values()){
-			writeComponentDescription(componentDescriptionsElt,description,document);
+
+		for (ComponentDescription description : componentDescriptions.values()) {
+			writeComponentDescription(componentDescriptionsElt, description,
+					document);
 		}
-		
-		Element linkDescriptionsElt = document.createElement("slam:linkDescriptions");
+
+		Element linkDescriptionsElt = document
+				.createElement("slam:linkDescriptions");
 		vendorExtensionsElt.appendChild(linkDescriptionsElt);
-		
-		for(LinkDescription description : linkDescriptions.values()){
-			writeLinkDescription(linkDescriptionsElt,description,document);
+
+		for (LinkDescription description : linkDescriptions.values()) {
+			writeLinkDescription(linkDescriptionsElt, description, document);
 		}
 	}
 
 	/**
 	 * Writes a component description inside a dom element
 	 */
-	public void writeComponentDescription(Element parent, ComponentDescription description, Document document) {
-		Element componentElt = document.createElement("slam:componentDescription");
+	public void writeComponentDescription(Element parent,
+			ComponentDescription description, Document document) {
+		Element componentElt = document
+				.createElement("slam:componentDescription");
 		parent.appendChild(componentElt);
 
-		componentElt.setAttribute("slam:componentRef", description.getComponentRef());
-		componentElt.setAttribute("slam:componentType", description.getComponentType());
-		componentElt.setAttribute("slam:refinement", description.getRefinement());
+		componentElt.setAttribute("slam:componentRef",
+				description.getComponentRef());
+		componentElt.setAttribute("slam:componentType",
+				description.getComponentType());
+		componentElt.setAttribute("slam:refinement",
+				description.getRefinement());
+
+		Map<String, String> parameters = description.getSpecificParameters();
+		if (!parameters.isEmpty()) {
+			for (String key : parameters.keySet()) {
+				componentElt.setAttribute(key, parameters.get(key));
+			}
+		}
 	}
 
 	/**
 	 * Writes a link description inside a dom element
 	 */
-	public void writeLinkDescription(Element parent, LinkDescription description, Document document) {
+	public void writeLinkDescription(Element parent,
+			LinkDescription description, Document document) {
 		Element linkElt = document.createElement("slam:linkDescription");
 		parent.appendChild(linkElt);
 
 		linkElt.setAttribute("slam:referenceId", description.getLinkUuid());
-		String directed = description.isDirected()? "directed" : "undirected";
+		String directed = description.isDirected() ? "directed" : "undirected";
 		linkElt.setAttribute("slam:directedLink", directed);
 		linkElt.setAttribute("slam:linkType", description.getType());
-		
-		Map<String,String> parameters = description.getParameters();
-		if(!parameters.isEmpty()){
-			Element paramsElt = document.createElement("slam:linkParameters");
-			linkElt.appendChild(paramsElt);
-			
-			for(String key : parameters.keySet()){
-				Element paramElt = document.createElement("slam:linkParameter");
-				paramElt.setAttribute("slam:referenceId", key);
-				paramElt.setTextContent(parameters.get(key));
-				paramsElt.appendChild(paramElt);
+
+		Map<String, String> parameters = description.getSpecificParameters();
+		if (!parameters.isEmpty()) {
+			for (String key : parameters.keySet()) {
+				linkElt.setAttribute(key, parameters.get(key));
 			}
 		}
 	}

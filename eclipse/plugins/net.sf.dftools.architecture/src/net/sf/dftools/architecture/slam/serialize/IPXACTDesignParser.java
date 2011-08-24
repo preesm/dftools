@@ -22,10 +22,12 @@ import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
+import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.slam.link.LinkPackage;
@@ -175,9 +177,8 @@ public class IPXACTDesignParser extends IPXACTParser {
 		String componentType = "Component";
 		if (description != null) {
 			componentType = description.getComponentType();
-
 		}
-		
+
 		// Creates the component if necessary
 		// eClass is retrieved from the component type
 		if (design.containsComponent(vlnv)) {
@@ -188,6 +189,14 @@ public class IPXACTDesignParser extends IPXACTParser {
 			Component component = design.getComponent(vlnv, eClass);
 			instance.setComponent(component);
 			
+			// Special component cases
+			if (component instanceof ComNode) {
+				((ComNode) component).setSpeed(Integer
+						.valueOf(description
+								.getSpecificParameter("slam:speed")));
+			}
+			
+
 			// Looking for a refinement design in the project
 			if (description != null && !description.getRefinement().isEmpty()) {
 				String path = description.getRefinement();
@@ -217,7 +226,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 					}
 				}
-
+				
 				// Code to look for the refinement locally
 				/*
 				 * IFile file = ResourcesPlugin.getWorkspace().getRoot()
@@ -288,7 +297,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 				if (type.equals("spirit:configurableElementValue")) {
 					String name = elt.getAttribute("spirit:referenceId");
 					String value = elt.getTextContent();
-					
+
 					Parameter param = AttributesFactory.eINSTANCE
 							.createParameter();
 					param.setKey(name);
@@ -326,21 +335,21 @@ public class IPXACTDesignParser extends IPXACTParser {
 		// Retrieving parameters from vendor extensions
 		LinkDescription linkDescription = vendorExtensions
 				.getLinkDescription(linkUuid);
-		
+
 		if (linkDescription != null) {
 
 			String linkType = "DataLink";
-			
-			if(!linkDescription.getType().isEmpty()){
+
+			if (!linkDescription.getType().isEmpty()) {
 				linkType = linkDescription.getType();
 			}
-			
+
 			EPackage eLinkPackage = LinkPackage.eINSTANCE;
 			EClass _class = (EClass) eLinkPackage.getEClassifier(linkType);
-			
+
 			// Creating the link with appropriate type
-			Link link = (Link)LinkFactory.eINSTANCE.create(_class);
-			
+			Link link = (Link) LinkFactory.eINSTANCE.create(_class);
+
 			link.setDirected(linkDescription.isDirected());
 			link.setUuid(linkUuid);
 			ComponentInstance sourceInstance = design
@@ -375,12 +384,13 @@ public class IPXACTDesignParser extends IPXACTParser {
 			}
 			link.setDestinationInterface(destinationInterface);
 
-			for (String key : linkDescription.getParameters().keySet()) {
-				Parameter p = AttributesFactory.eINSTANCE.createParameter();
-				p.setKey(key);
-				p.setValue(linkDescription.getParameters().get(key));
-				link.getParameters().add(p);
+			// Special link cases
+			if (link instanceof ControlLink) {
+				((ControlLink) link).setSetupTime(Integer
+						.valueOf(linkDescription
+								.getSpecificParameter("slam:setupTime")));
 			}
+
 			design.getLinks().add(link);
 		}
 

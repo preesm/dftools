@@ -144,15 +144,6 @@ public class SlamTester {
 		link.setSourceInterface(memItf);
 		link.setDestinationComponentInstance(uComNode);
 		link.setDestinationInterface(cnItf);
-		Parameter linkp = AttributesFactory.eINSTANCE.createParameter();
-		linkp.setKey("tutu");
-		linkp.setValue("10");
-		link.getParameters().add(linkp);
-		linkp = AttributesFactory.eINSTANCE.createParameter();
-		linkp.setKey("tata");
-		linkp.setValue("20");
-		link.getParameters().add(linkp);
-		design.getLinks().add(link);
 
 		link = LinkFactory.eINSTANCE.createDataLink();
 		link.setSourceComponentInstance(uCore1);
