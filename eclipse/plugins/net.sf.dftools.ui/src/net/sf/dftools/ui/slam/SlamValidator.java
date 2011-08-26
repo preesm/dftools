@@ -51,32 +51,34 @@ public final class SlamValidator implements IValidator {
 
 		boolean valid = true;
 		boolean lackVLNVElement = false;
-		
-		if(graph.getValue("vendor") == null){
+
+		if (graph.getValue("vendor") == null) {
 			graph.setValue("vendor", "");
 			lackVLNVElement = true;
 		}
-		
-		if(graph.getValue("library") == null){
+
+		if (graph.getValue("library") == null) {
 			graph.setValue("library", "");
 			lackVLNVElement = true;
 		}
-		
-		if(graph.getValue("name") == null || graph.getValue("name").equals("")){
-			if(file.getName() != null && file.getName().lastIndexOf('.') > 0){
-				graph.setValue("name", file.getName().substring(0,file.getName().lastIndexOf('.')));
+
+		if (graph.getValue("name") == null || graph.getValue("name").equals("")) {
+			if (file.getName() != null && file.getName().lastIndexOf('.') > 0) {
+				graph.setValue(
+						"name",
+						file.getName().substring(0,
+								file.getName().lastIndexOf('.')));
 			}
 			lackVLNVElement = true;
 		}
-		
-		if(graph.getValue("version") == null){
+
+		if (graph.getValue("version") == null) {
 			graph.setValue("version", "");
 			lackVLNVElement = true;
 		}
-		
+
 		if (lackVLNVElement) {
-			createMarker(
-					file,
+			createMarker(file,
 					"A graph should have VLNV data. Default values set",
 					(String) graph.getValue("id"), IMarker.PROBLEM,
 					IMarker.SEVERITY_WARNING);
@@ -288,7 +290,8 @@ public final class SlamValidator implements IValidator {
 	}
 
 	/**
-	 * A hierarchical connection link must link a commmunication node or an operator and a hierarchical connection node
+	 * A hierarchical connection link must link a commmunication node or an
+	 * operator and a hierarchical connection node
 	 */
 	private boolean validateHierarchicalConnections(Graph graph, IFile file) {
 		Boolean valid = true;
@@ -307,7 +310,8 @@ public final class SlamValidator implements IValidator {
 				Vertex source = e.getSource();
 				if (source != null) {
 					String sourceType = source.getType().getName();
-					if (sourceType.contains("ComNode") || sourceType.contains("Operator")) {
+					if (sourceType.contains("ComNode")
+							|| sourceType.contains("Operator")) {
 						hasComNodeOrOpSource = true;
 					} else if (sourceType.contains("hierConnection")) {
 						hasHierConnectionSource = true;
@@ -317,7 +321,8 @@ public final class SlamValidator implements IValidator {
 				Vertex target = e.getTarget();
 				if (target != null) {
 					String targetType = target.getType().getName();
-					if (targetType.contains("ComNode") || targetType.contains("Operator")) {
+					if (targetType.contains("ComNode")
+							|| targetType.contains("Operator")) {
 						hasComNodeOrOpTarget = true;
 					} else if (targetType.contains("hierConnection")) {
 						hasHierConnectionTarget = true;
@@ -339,9 +344,9 @@ public final class SlamValidator implements IValidator {
 		return valid;
 	}
 
-
 	/**
-	 * Each component instance must specify a definition id that identifies the instanciated component.
+	 * Each component instance must specify a definition id that identifies the
+	 * instanciated component.
 	 */
 	private boolean validateComponents(Graph graph, IFile file) {
 
@@ -353,15 +358,16 @@ public final class SlamValidator implements IValidator {
 
 			String type = v.getType().getName();
 			if (!type.equals("hierConnection")) {
-				String refName = (String)v.getValue("definition");
-				
-				if(refName != null && !refName.equals("") && !refName.equals("default")){
+				String refName = (String) v.getValue("definition");
+
+				if (refName != null && !refName.equals("")
+						&& !refName.equals("default")) {
 					hasRefName = true;
 				}
 
 				if (!hasRefName) {
 					v.setValue("definition", "default");
-					
+
 					createMarker(
 							file,
 							"Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"",
@@ -374,26 +380,24 @@ public final class SlamValidator implements IValidator {
 
 		return valid;
 	}
-	
+
 	/**
 	 * Each hierarchy port must have exactly one hierarchical connection.
 	 */
 	private boolean validateHierarchicalPorts(Graph graph, IFile file) {
 
 		boolean valid = true;
-		boolean hasLink = false;
 
 		for (Vertex v : graph.vertexSet()) {
-			hasLink = false;
-
 			String type = v.getType().getName();
 			if (type.contains("hierConnection")) {
 
-				int nbEdges = graph.incomingEdgesOf(v).size() + graph.outgoingEdgesOf(v).size();
+				int nbEdges = graph.incomingEdgesOf(v).size()
+						+ graph.outgoingEdgesOf(v).size();
 
 				if (nbEdges != 1) {
 					graph.removeVertex(v);
-					
+
 					createMarker(
 							file,
 							"Each hierarchy port must have exactly one hierarchical connection.",
@@ -406,7 +410,7 @@ public final class SlamValidator implements IValidator {
 
 		return valid;
 	}
-	
+
 	/**
 	 * Displays an error
 	 */

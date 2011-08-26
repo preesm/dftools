@@ -34,7 +34,7 @@ public class IPXACTDesignWriter {
 	/**
 	 * URI of the last opened file
 	 */
-	private URI uri;
+	public URI uri;
 	
 	/**
 	 * Information needed in the vendor extensions of the design

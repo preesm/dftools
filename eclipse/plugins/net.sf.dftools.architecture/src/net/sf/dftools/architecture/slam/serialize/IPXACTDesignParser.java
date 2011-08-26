@@ -66,7 +66,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 	/**
 	 * parsed input stream
 	 */
-	private FileInputStream fileInputStream;
+	public FileInputStream fileInputStream;
 
 	/**
 	 * IPXact parser constructor

@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.eclipse.emf.common.util.EList;
-
 import net.sf.dftools.architecture.slam.ComponentInstance;
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.SlamFactory;
@@ -20,12 +18,13 @@ import net.sf.dftools.architecture.slam.attributes.AttributesFactory;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.Component;
-import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.DataLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
+
+import org.eclipse.emf.common.util.EList;
 
 /**
  * Methods to flatten the hierarchy of a System-Level Architecture Model
