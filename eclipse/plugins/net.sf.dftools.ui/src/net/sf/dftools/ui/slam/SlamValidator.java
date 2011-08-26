@@ -37,6 +37,7 @@ public final class SlamValidator implements IValidator {
 		valid &= validateDataLinks(graph, file);
 		valid &= validateComNodes(graph, file);
 		valid &= validateControlLinks(graph, file);
+		valid &= validateHierarchicalPorts(graph, file);
 		valid &= validateHierarchicalConnections(graph, file);
 		valid &= validateComponents(graph, file);
 
@@ -287,27 +288,27 @@ public final class SlamValidator implements IValidator {
 	}
 
 	/**
-	 * A hierarchical connection link must link an operator or a commmunication node and a hierarchical connection node
+	 * A hierarchical connection link must link a commmunication node or an operator and a hierarchical connection node
 	 */
 	private boolean validateHierarchicalConnections(Graph graph, IFile file) {
 		Boolean valid = true;
-		Boolean hasOperatorOrComNodeSource = false;
+		Boolean hasComNodeOrOpSource = false;
 		Boolean hasHierConnectionTarget = false;
-		Boolean hasOperatorOrComNodeTarget = false;
+		Boolean hasComNodeOrOpTarget = false;
 		Boolean hasHierConnectionSource = false;
 
 		for (Edge e : graph.edgeSet()) {
 			if (e.getType().getName().equals("hierConnection")) {
-				hasOperatorOrComNodeSource = false;
+				hasComNodeOrOpSource = false;
 				hasHierConnectionTarget = false;
-				hasOperatorOrComNodeTarget = false;
+				hasComNodeOrOpTarget = false;
 				hasHierConnectionSource = false;
 
 				Vertex source = e.getSource();
 				if (source != null) {
 					String sourceType = source.getType().getName();
-					if (sourceType.contains("Operator") || sourceType.contains("ComNode")) {
-						hasOperatorOrComNodeSource = true;
+					if (sourceType.contains("ComNode") || sourceType.contains("Operator")) {
+						hasComNodeOrOpSource = true;
 					} else if (sourceType.contains("hierConnection")) {
 						hasHierConnectionSource = true;
 					}
@@ -316,17 +317,17 @@ public final class SlamValidator implements IValidator {
 				Vertex target = e.getTarget();
 				if (target != null) {
 					String targetType = target.getType().getName();
-					if (targetType.contains("Operator") || targetType.contains("ComNode")) {
-						hasOperatorOrComNodeTarget = true;
+					if (targetType.contains("ComNode") || targetType.contains("Operator")) {
+						hasComNodeOrOpTarget = true;
 					} else if (targetType.contains("hierConnection")) {
 						hasHierConnectionTarget = true;
 					}
 				}
 
-				if (!((hasOperatorOrComNodeSource && hasHierConnectionTarget) || (hasHierConnectionSource && hasOperatorOrComNodeTarget))) {
+				if (!((hasComNodeOrOpSource && hasHierConnectionTarget) || (hasHierConnectionSource && hasComNodeOrOpTarget))) {
 					createMarker(
 							file,
-							"A hierarchical connection link must link an operator or a commmunication node and a hierarchical connection node.",
+							"A hierarchical connection link must link a commmunication node or an operator and a hierarchical connection node.",
 							(String) e.getSource().getValue("id") + "->"
 									+ (String) e.getTarget().getValue("id"),
 							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
@@ -364,6 +365,38 @@ public final class SlamValidator implements IValidator {
 					createMarker(
 							file,
 							"Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+	
+	/**
+	 * Each hierarchy port must have exactly one hierarchical connection.
+	 */
+	private boolean validateHierarchicalPorts(Graph graph, IFile file) {
+
+		boolean valid = true;
+		boolean hasLink = false;
+
+		for (Vertex v : graph.vertexSet()) {
+			hasLink = false;
+
+			String type = v.getType().getName();
+			if (type.contains("hierConnection")) {
+
+				int nbEdges = graph.incomingEdgesOf(v).size() + graph.outgoingEdgesOf(v).size();
+
+				if (nbEdges != 1) {
+					graph.removeVertex(v);
+					
+					createMarker(
+							file,
+							"Each hierarchy port must have exactly one hierarchical connection.",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;

@@ -20,6 +20,7 @@ import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.utils.DomUtil;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -31,11 +32,17 @@ import org.w3c.dom.Element;
 public class IPXACTDesignWriter {
 
 	/**
+	 * URI of the last opened file
+	 */
+	private URI uri;
+	
+	/**
 	 * Information needed in the vendor extensions of the design
 	 */
 	private IPXACTDesignVendorExtensions vendorExtensions;
 
-	public IPXACTDesignWriter() {
+	public IPXACTDesignWriter(URI uri) {
+		this.uri = uri;
 		vendorExtensions = new IPXACTDesignVendorExtensions();
 	}
 
@@ -157,14 +164,12 @@ public class IPXACTDesignWriter {
 
 		EList<ComponentInstance> instances = design.getComponentInstances();
 
-		if (!instances.isEmpty()) {
-			Element cmpsElt = document
-					.createElement("spirit:componentInstances");
+		Element cmpsElt = document
+				.createElement("spirit:componentInstances");
 
-			parent.appendChild(cmpsElt);
-			for (ComponentInstance instance : instances) {
-				writeComponentInstance(cmpsElt, instance, document);
-			}
+		parent.appendChild(cmpsElt);
+		for (ComponentInstance instance : instances) {
+			writeComponentInstance(cmpsElt, instance, document);
 		}
 	}
 
@@ -241,13 +246,11 @@ public class IPXACTDesignWriter {
 	private void writeLinks(Element parent, Design design, Document document) {
 		EList<Link> links = design.getLinks();
 
-		if (!links.isEmpty()) {
-			Element intsElt = document.createElement("spirit:interconnections");
-			parent.appendChild(intsElt);
+		Element intsElt = document.createElement("spirit:interconnections");
+		parent.appendChild(intsElt);
 
-			for (Link link : links) {
-				writeInterconnection(intsElt, link, document);
-			}
+		for (Link link : links) {
+			writeInterconnection(intsElt, link, document);
 		}
 	}
 
@@ -272,15 +275,11 @@ public class IPXACTDesignWriter {
 	private void writeHierarchyPorts(Element parent, Design design,
 			Document document) {
 
-		EList<HierarchyPort> hierarchyPorts = design.getHierarchyPorts();
-		if (!hierarchyPorts.isEmpty()) {
+		Element intsElt = document.createElement("spirit:hierConnections");
+		parent.appendChild(intsElt);
 
-			Element intsElt = document.createElement("spirit:hierConnections");
-			parent.appendChild(intsElt);
-
-			for (HierarchyPort hierarchyPort : design.getHierarchyPorts()) {
-				writeHierarchyPort(intsElt, hierarchyPort, document);
-			}
+		for (HierarchyPort hierarchyPort : design.getHierarchyPorts()) {
+			writeHierarchyPort(intsElt, hierarchyPort, document);
 		}
 	}
 }

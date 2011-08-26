@@ -8,6 +8,7 @@ import java.util.Map;
 
 import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.SlamPackage;
+import net.sf.dftools.architecture.slam.process.SlamFlattener;
 import net.sf.dftools.architecture.slam.serialize.IPXACTResourceFactoryImpl;
 
 import org.eclipse.emf.common.util.URI;
@@ -50,14 +51,17 @@ public class SlamTester2 {
 		// Demand load the resource into the resource set.
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.getResource(
-				URI.createFileURI("D:/temp/S-LAM Test/src/test.slam"), true);
+				URI.createFileURI("D:/temp/S-LAM Test/src/top.slam"), true);
 		// Extract the root object from the resource.
 		Design design = (Design) resource.getContents().get(0);
 		System.out.println(design.getVlnv().getName());
 
+		SlamFlattener flattener = new SlamFlattener();
+		flattener.flattenAllLevels(design);
+		
 		ResourceSet resourceSet2 = new ResourceSetImpl();
 		Resource resource2 = resourceSet2.createResource(URI
-				.createFileURI("D:/temp/S-LAM Test/src/test_write.slam"));
+				.createFileURI("D:/temp/S-LAM Test/src/top_write.slam"));
 		resource2.getContents().add(design);
 		try {
 			resource2.save(null);

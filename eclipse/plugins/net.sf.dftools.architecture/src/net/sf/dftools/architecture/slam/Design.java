@@ -181,6 +181,7 @@ public interface Design extends VLNVedElement {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Gets the instances set in the design without managing the hierarchy
 	 * <!-- end-user-doc -->
 	 * @model required="true" nameRequired="true"
 	 * @generated

@@ -14,31 +14,30 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 
 /**
- * Resource implementation used to (de)serialize the System-Level Architecture Model
- * into IP-XACT.
+ * Resource implementation used to (de)serialize the System-Level Architecture
+ * Model into IP-XACT.
  * 
  * @author mpelcat
  */
 public class IPXACTResourceImpl extends ResourceImpl {
-
-	  /**
-	   * Constructor for XMIResourceImpl.
-	   * @param uri
-	   */
-	  public IPXACTResourceImpl(URI uri)
-	  {
-	    super(uri);
-	  }
+	
+	/**
+	 * Constructor for XMIResourceImpl.
+	 * 
+	 * @param uri
+	 */
+	public IPXACTResourceImpl(URI uri) {
+		super(uri);
+	}
 
 	@Override
 	public void doSave(OutputStream outputStream, Map<?, ?> options)
 			throws IOException {
-		
-		
-		IPXACTDesignWriter designWriter = new IPXACTDesignWriter();
-		
+
+		IPXACTDesignWriter designWriter = new IPXACTDesignWriter(uri);
+
 		Design design = (Design) this.getContents().get(0);
-		
+
 		designWriter.write(design, outputStream);
 	}
 
@@ -46,10 +45,10 @@ public class IPXACTResourceImpl extends ResourceImpl {
 	protected void doLoad(InputStream inputStream, Map<?, ?> options)
 			throws IOException {
 
-		IPXACTDesignParser designParser = new IPXACTDesignParser();
-		
-		Design design = designParser.parse(inputStream, null);
-		if (design != null && !getContents().contains(design)){
+		IPXACTDesignParser designParser = new IPXACTDesignParser(uri);
+
+		Design design = designParser.parse(inputStream, null, null);
+		if (design != null && !getContents().contains(design)) {
 			this.getContents().add(design);
 		}
 	}
