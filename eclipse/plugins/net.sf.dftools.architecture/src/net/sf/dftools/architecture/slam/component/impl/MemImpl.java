@@ -7,26 +7,26 @@
 package net.sf.dftools.architecture.slam.component.impl;
 
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
-import net.sf.dftools.architecture.slam.component.Ram;
+import net.sf.dftools.architecture.slam.component.Mem;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Ram</b></em>'.
+ * An implementation of the model object '<em><b>Mem</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class RamImpl extends EnablerImpl implements Ram {
+public class MemImpl extends EnablerImpl implements Mem {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RamImpl() {
+	protected MemImpl() {
 		super();
 	}
 
@@ -37,7 +37,7 @@ public class RamImpl extends EnablerImpl implements Ram {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ComponentPackage.Literals.RAM;
+		return ComponentPackage.Literals.MEM;
 	}
 
-} //RamImpl
+} //MemImpl

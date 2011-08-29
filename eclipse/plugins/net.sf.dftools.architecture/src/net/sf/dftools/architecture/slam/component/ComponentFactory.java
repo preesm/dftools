@@ -62,13 +62,13 @@ public interface ComponentFactory extends EFactory {
 	Dma createDma();
 
 	/**
-	 * Returns a new object of class '<em>Ram</em>'.
+	 * Returns a new object of class '<em>Mem</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Ram</em>'.
+	 * @return a new object of class '<em>Mem</em>'.
 	 * @generated
 	 */
-	Ram createRam();
+	Mem createMem();
 
 	/**
 	 * Returns a new object of class '<em>Hierarchy Port</em>'.

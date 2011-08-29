@@ -207,7 +207,7 @@
             </xslt>
          </export>
          <vertexType
-               name="Ram">
+               name="Mem">
             <color
                   blue="41"
                   green="213"
@@ -343,6 +343,14 @@
             <parameter
                   name="custom parameters"
                   type="java.util.Map">
+            </parameter>
+            <parameter
+                  name="refinement"
+                  type="java.lang.String">
+            </parameter>
+            <parameter
+                  name="definition"
+                  type="java.lang.String">
             </parameter>
          </vertexType>
          <vertexType

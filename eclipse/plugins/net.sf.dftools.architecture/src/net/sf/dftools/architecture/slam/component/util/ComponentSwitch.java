@@ -15,8 +15,8 @@ import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.Dma;
 import net.sf.dftools.architecture.slam.component.Enabler;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Mem;
 import net.sf.dftools.architecture.slam.component.Operator;
-import net.sf.dftools.architecture.slam.component.Ram;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -124,13 +124,13 @@ public class ComponentSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ComponentPackage.RAM: {
-				Ram ram = (Ram)theEObject;
-				T result = caseRam(ram);
-				if (result == null) result = caseEnabler(ram);
-				if (result == null) result = caseComponent(ram);
-				if (result == null) result = caseVLNVedElement(ram);
-				if (result == null) result = caseParameterizedElement(ram);
+			case ComponentPackage.MEM: {
+				Mem mem = (Mem)theEObject;
+				T result = caseMem(mem);
+				if (result == null) result = caseEnabler(mem);
+				if (result == null) result = caseComponent(mem);
+				if (result == null) result = caseVLNVedElement(mem);
+				if (result == null) result = caseParameterizedElement(mem);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -226,17 +226,17 @@ public class ComponentSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Ram</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Mem</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Ram</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Mem</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseRam(Ram object) {
+	public T caseMem(Mem object) {
 		return null;
 	}
 

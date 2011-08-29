@@ -3,6 +3,9 @@
  */
 package net.sf.dftools.ui.slam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.sf.graphiti.model.Edge;
 import net.sf.graphiti.model.Graph;
 import net.sf.graphiti.model.IValidator;
@@ -39,7 +42,7 @@ public final class SlamValidator implements IValidator {
 		valid &= validateControlLinks(graph, file);
 		valid &= validateHierarchicalPorts(graph, file);
 		valid &= validateHierarchicalConnections(graph, file);
-		valid &= validateComponents(graph, file);
+		valid &= validateComponentInstances(graph, file);
 
 		return valid;
 	}
@@ -102,7 +105,7 @@ public final class SlamValidator implements IValidator {
 			hasDataLink = false;
 
 			String type = v.getType().getName();
-			if (type.equals("Ram") || type.equals("Dma")) {
+			if (type.equals("Mem") || type.equals("Dma")) {
 				for (Edge e : graph.incomingEdgesOf(v)) {
 					String eType = e.getType().getName();
 					if (eType.equals("ControlLink")) {
@@ -122,7 +125,7 @@ public final class SlamValidator implements IValidator {
 				if (!receiveControlLink || !hasDataLink) {
 					createMarker(
 							file,
-							"An enabler (Ram or Dma) must at least receive a data link and a control link.",
+							"An enabler (Mem or Dma) must at least receive a data link and a control link.",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;
@@ -223,14 +226,14 @@ public final class SlamValidator implements IValidator {
 
 				String speed = (String) v.getValue("speed");
 				if (speed != null && !speed.equals("")
-						&& Integer.valueOf(speed) != 0) {
+						&& Float.valueOf(speed) != 0) {
 					hasSpeed = true;
 				}
 
 				if (!hasSpeed) {
 					createMarker(
 							file,
-							"A ComNode must specify a non-zero integer-valued speed.",
+							"A ComNode must specify a non-zero float-valued speed.",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;
@@ -242,7 +245,7 @@ public final class SlamValidator implements IValidator {
 	}
 
 	/**
-	 * A Control link must be between an operator and an enabler (Ram or Dma)
+	 * A Control link must be between an operator and an enabler (Mem or Dma)
 	 * and specify a setupTime.
 	 */
 	private boolean validateControlLinks(Graph graph, IFile file) {
@@ -268,7 +271,7 @@ public final class SlamValidator implements IValidator {
 				}
 
 				if (e.getTarget() != null
-						&& (e.getTarget().getType().getName().contains("Ram") || e
+						&& (e.getTarget().getType().getName().contains("Mem") || e
 								.getTarget().getType().getName()
 								.contains("Dma"))) {
 					hasEnablerTarget = true;
@@ -277,7 +280,7 @@ public final class SlamValidator implements IValidator {
 				if (!hasSetupTime || !hasOperatorSource || !hasEnablerTarget) {
 					createMarker(
 							file,
-							"Each control link must link an operator to an enabler (Ram or Dma) and specify a setup time.",
+							"Each control link must link an operator to an enabler (Mem or Dma) and specify a setup time.",
 							(String) e.getSource().getValue("id") + "->"
 									+ (String) e.getTarget().getValue("id"),
 							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
@@ -297,15 +300,11 @@ public final class SlamValidator implements IValidator {
 		Boolean valid = true;
 		Boolean hasComNodeOrOpSource = false;
 		Boolean hasHierConnectionTarget = false;
-		Boolean hasComNodeOrOpTarget = false;
-		Boolean hasHierConnectionSource = false;
 
 		for (Edge e : graph.edgeSet()) {
 			if (e.getType().getName().equals("hierConnection")) {
 				hasComNodeOrOpSource = false;
 				hasHierConnectionTarget = false;
-				hasComNodeOrOpTarget = false;
-				hasHierConnectionSource = false;
 
 				Vertex source = e.getSource();
 				if (source != null) {
@@ -313,26 +312,25 @@ public final class SlamValidator implements IValidator {
 					if (sourceType.contains("ComNode")
 							|| sourceType.contains("Operator")) {
 						hasComNodeOrOpSource = true;
-					} else if (sourceType.contains("hierConnection")) {
-						hasHierConnectionSource = true;
 					}
 				}
 
 				Vertex target = e.getTarget();
 				if (target != null) {
 					String targetType = target.getType().getName();
-					if (targetType.contains("ComNode")
-							|| targetType.contains("Operator")) {
-						hasComNodeOrOpTarget = true;
-					} else if (targetType.contains("hierConnection")) {
+					if (targetType.contains("hierConnection")) {
 						hasHierConnectionTarget = true;
 					}
 				}
 
-				if (!((hasComNodeOrOpSource && hasHierConnectionTarget) || (hasHierConnectionSource && hasComNodeOrOpTarget))) {
+				if (!(hasComNodeOrOpSource && hasHierConnectionTarget)) {
+
+					// Remove the edge that cannot be saved.
+					graph.removeEdge(e);
+
 					createMarker(
 							file,
-							"A hierarchical connection link must link a commmunication node or an operator and a hierarchical connection node.",
+							"A hierarchical connection link must link a commmunication node or an operator and a hierarchical connection node. It is undirected.",
 							(String) e.getSource().getValue("id") + "->"
 									+ (String) e.getTarget().getValue("id"),
 							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
@@ -348,21 +346,41 @@ public final class SlamValidator implements IValidator {
 	 * Each component instance must specify a definition id that identifies the
 	 * instanciated component.
 	 */
-	private boolean validateComponents(Graph graph, IFile file) {
+	private boolean validateComponentInstances(Graph graph, IFile file) {
 
 		boolean valid = true;
 		boolean hasRefName = false;
+		boolean conflictedRefinements = false;
+		Map<String, String> definitionToRefinement = new HashMap<String, String>();
 
 		for (Vertex v : graph.vertexSet()) {
 			hasRefName = false;
+			conflictedRefinements = false;
 
 			String type = v.getType().getName();
 			if (!type.equals("hierConnection")) {
-				String refName = (String) v.getValue("definition");
+				String definition = (String) v.getValue("definition");
 
-				if (refName != null && !refName.equals("")
-						&& !refName.equals("default")) {
+				// Testing if instances with the same definition have different
+				// refinements
+				if (definition != null && !definition.equals("")
+						&& !definition.equals("default")) {
 					hasRefName = true;
+
+					String refinement = (String) v.getValue("refinement");
+					if (definitionToRefinement.containsKey(definition)) {
+						boolean emptyRef = refinement.isEmpty();
+						String storedRefinement = definitionToRefinement
+								.get(definition);
+						boolean emptySRef = storedRefinement.isEmpty();
+						if ((emptyRef && !emptySRef)
+								|| (!emptyRef && emptySRef)
+								|| (!emptyRef && !emptySRef && !refinement
+										.equals(storedRefinement))) {
+							conflictedRefinements = true;
+						}
+					}
+					definitionToRefinement.put(definition, refinement);
 				}
 
 				if (!hasRefName) {
@@ -371,6 +389,16 @@ public final class SlamValidator implements IValidator {
 					createMarker(
 							file,
 							"Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+
+				if (conflictedRefinements) {
+
+					createMarker(
+							file,
+							"Two components with the same definition must have the same refinement",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;

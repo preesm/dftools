@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 public class SlamTester2 {
 
 	/**
+	 * Testing the S-LAM architecture model
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -47,11 +48,19 @@ public class SlamTester2 {
 					SlamPackage.eINSTANCE);
 		}
 
+		SlamTester2 tester = new SlamTester2();
+		//tester.flatten("../../../test/SlamBeta/testArchi/top.slam", "../../../test/SlamBeta/testArchi/top_write.slam");
+		tester.flatten("../../../test/SlamBeta/tci6488/top.slam", "../../../test/SlamBeta/tci6488/top_write.slam");
 
+	}
+	
+	private void flatten(String inputTopPath, String outputPath){
 		// Demand load the resource into the resource set.
 		ResourceSet resourceSet = new ResourceSetImpl();
+
+		//resourceSet.
 		Resource resource = resourceSet.getResource(
-				URI.createFileURI("D:/temp/S-LAM Test/src/top.slam"), true);
+				URI.createFileURI(inputTopPath), true);
 		// Extract the root object from the resource.
 		Design design = (Design) resource.getContents().get(0);
 		System.out.println(design.getVlnv().getName());
@@ -61,7 +70,7 @@ public class SlamTester2 {
 		
 		ResourceSet resourceSet2 = new ResourceSetImpl();
 		Resource resource2 = resourceSet2.createResource(URI
-				.createFileURI("D:/temp/S-LAM Test/src/top_write.slam"));
+				.createFileURI(outputPath));
 		resource2.getContents().add(design);
 		try {
 			resource2.save(null);

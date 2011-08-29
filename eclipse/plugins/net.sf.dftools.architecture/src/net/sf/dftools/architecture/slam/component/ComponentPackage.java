@@ -400,14 +400,14 @@ public interface ComponentPackage extends EPackage {
 	int DMA_FEATURE_COUNT = ENABLER_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.RamImpl <em>Ram</em>}' class.
+	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.MemImpl <em>Mem</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see net.sf.dftools.architecture.slam.component.impl.RamImpl
-	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getRam()
+	 * @see net.sf.dftools.architecture.slam.component.impl.MemImpl
+	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getMem()
 	 * @generated
 	 */
-	int RAM = 5;
+	int MEM = 5;
 
 	/**
 	 * The feature id for the '<em><b>Vlnv</b></em>' containment reference.
@@ -416,7 +416,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAM__VLNV = ENABLER__VLNV;
+	int MEM__VLNV = ENABLER__VLNV;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -425,7 +425,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAM__PARAMETERS = ENABLER__PARAMETERS;
+	int MEM__PARAMETERS = ENABLER__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
@@ -434,7 +434,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAM__INTERFACES = ENABLER__INTERFACES;
+	int MEM__INTERFACES = ENABLER__INTERFACES;
 
 	/**
 	 * The feature id for the '<em><b>Instances</b></em>' reference list.
@@ -443,7 +443,7 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAM__INSTANCES = ENABLER__INSTANCES;
+	int MEM__INSTANCES = ENABLER__INSTANCES;
 
 	/**
 	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
@@ -452,16 +452,16 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RAM__REFINEMENT = ENABLER__REFINEMENT;
+	int MEM__REFINEMENT = ENABLER__REFINEMENT;
 
 	/**
-	 * The number of structural features of the '<em>Ram</em>' class.
+	 * The number of structural features of the '<em>Mem</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RAM_FEATURE_COUNT = ENABLER_FEATURE_COUNT + 0;
+	int MEM_FEATURE_COUNT = ENABLER_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl <em>Hierarchy Port</em>}' class.
@@ -662,14 +662,14 @@ public interface ComponentPackage extends EPackage {
 	EClass getDma();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Ram <em>Ram</em>}'.
+	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Mem <em>Mem</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Ram</em>'.
-	 * @see net.sf.dftools.architecture.slam.component.Ram
+	 * @return the meta object for class '<em>Mem</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.Mem
 	 * @generated
 	 */
-	EClass getRam();
+	EClass getMem();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.HierarchyPort <em>Hierarchy Port</em>}'.
@@ -870,14 +870,14 @@ public interface ComponentPackage extends EPackage {
 		EClass DMA = eINSTANCE.getDma();
 
 		/**
-		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.RamImpl <em>Ram</em>}' class.
+		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.MemImpl <em>Mem</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see net.sf.dftools.architecture.slam.component.impl.RamImpl
-		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getRam()
+		 * @see net.sf.dftools.architecture.slam.component.impl.MemImpl
+		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getMem()
 		 * @generated
 		 */
-		EClass RAM = eINSTANCE.getRam();
+		EClass MEM = eINSTANCE.getMem();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl <em>Hierarchy Port</em>}' class.

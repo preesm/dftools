@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4">
+    <spirit:vendor/>
+    <spirit:name>test</spirit:name>
+    <spirit:library/>
+    <spirit:version/>
+    <spirit:componentInstances>
+        <spirit:componentInstance>
+            <spirit:instanceName>subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:interconnections>
+        <spirit:interconnection>
+            <spirit:name>e9f1e81c-bcb5-4b6c-b0da-b819c8be8065</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>782678a2-24c6-41af-9638-5451ce819bf6</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="Xbar"/>
+        </spirit:interconnection>
+    </spirit:interconnections>
+    <spirit:hierConnections>
+        <spirit:hierConnection spirit:interfaceRef="Mem">
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="Xbar"/>
+        </spirit:hierConnection>
+        <spirit:hierConnection spirit:interfaceRef="Eth">
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="Xbar"/>
+        </spirit:hierConnection>
+        <spirit:hierConnection spirit:interfaceRef="r">
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="subCore1"/>
+        </spirit:hierConnection>
+    </spirit:hierConnections>
+    <spirit:vendorExtensions>
+        <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:componentDescription slam:componentRef="superCore"
+                slam:componentType="Operator" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="Xbar"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="128"/>
+        </slam:componentDescriptions>
+        <slam:linkDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="e9f1e81c-bcb5-4b6c-b0da-b819c8be8065"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="782678a2-24c6-41af-9638-5451ce819bf6"/>
+        </slam:linkDescriptions>
+    </spirit:vendorExtensions>
+</spirit:design>

@@ -63,12 +63,12 @@ public interface ComNode extends Component {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Speed</em>' attribute.
-	 * @see #setSpeed(int)
+	 * @see #setSpeed(float)
 	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComNode_Speed()
 	 * @model default="1" required="true"
 	 * @generated
 	 */
-	int getSpeed();
+	float getSpeed();
 
 	/**
 	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.component.ComNode#getSpeed <em>Speed</em>}' attribute.
@@ -78,5 +78,5 @@ public interface ComNode extends Component {
 	 * @see #getSpeed()
 	 * @generated
 	 */
-	void setSpeed(int value);
+	void setSpeed(float value);
 } // ComNode

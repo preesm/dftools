@@ -83,12 +83,14 @@ public class SlamFlattener {
 					.getComponentInstances()) {
 				// We remove the replaced instance link from its component
 				Component refComponent = subInstance.getComponent();
-				refComponent.getInstances().remove(subInstance);
+				if (refComponent != null) {
+					refComponent.getInstances().remove(subInstance);
 
-				// If the component has no more instance, it is also removed
-				if (refComponent.getInstances().isEmpty()) {
-					design.getComponentHolder().getComponents()
-							.remove(refComponent);
+					// If the component has no more instance, it is also removed
+					if (refComponent.getInstances().isEmpty()) {
+						design.getComponentHolder().getComponents()
+								.remove(refComponent);
+					}
 				}
 			}
 		}
@@ -107,7 +109,7 @@ public class SlamFlattener {
 		Design subDesign = component.getRefinement();
 
 		insertComponentInstancesClones(subDesign.getComponentInstances(),
-				design, refMap);
+				design, instance, refMap);
 		insertInternalLinksClones(subDesign.getLinks(), design, refMap);
 
 		// Before removing the instance, hierarchical connections are managed if
@@ -205,12 +207,14 @@ public class SlamFlattener {
 	 */
 	private void insertComponentInstancesClones(
 			EList<ComponentInstance> instances, Design design,
+			ComponentInstance processedInstance,
 			Map<ComponentInstance, ComponentInstance> refMap) {
 		for (ComponentInstance originalInstance : instances) {
 			String originalName = originalInstance.getInstanceName();
 			ComponentInstance newInstance = SlamFactory.eINSTANCE
 					.createComponentInstance();
-			String newName = getUniqueInstanceName(originalName, design);
+			String newName = getUniqueInstanceName(originalName, design,
+					processedInstance.getInstanceName());
 			design.getComponentInstance(newName);
 			newInstance.setInstanceName(newName);
 			newInstance.setComponent(originalInstance.getComponent());
@@ -263,10 +267,18 @@ public class SlamFlattener {
 	}
 
 	/**
-	 * Creates a unique name adding _i with i big enough
+	 * Creates a unique name by prefixing the name by the upper design name
+	 * 
+	 * @param originalName
+	 *            the name in the original design
+	 * @param design
+	 *            the upper desing in which the component is instanciated
+	 * @param path
+	 *            the path to append to the name
 	 */
-	private String getUniqueInstanceName(String originalName, Design design) {
-		String name = originalName;
+	private String getUniqueInstanceName(String originalName, Design design,
+			String path) {
+		String name = path + "/" + originalName;
 		int i = 2;
 
 		while (design.getComponentInstance(name) != null) {

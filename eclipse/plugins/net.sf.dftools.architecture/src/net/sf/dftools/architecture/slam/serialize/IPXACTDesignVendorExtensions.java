@@ -28,7 +28,7 @@ public class IPXACTDesignVendorExtensions {
 		private String componentRef;
 
 		/**
-		 * Type (Operator, Ram...) of the ecore EClass representing the
+		 * Type (Operator, Mem...) of the ecore EClass representing the
 		 * component
 		 */
 		private String componentType;

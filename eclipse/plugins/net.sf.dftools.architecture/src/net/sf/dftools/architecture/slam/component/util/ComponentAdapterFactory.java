@@ -15,8 +15,8 @@ import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.Dma;
 import net.sf.dftools.architecture.slam.component.Enabler;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Mem;
 import net.sf.dftools.architecture.slam.component.Operator;
-import net.sf.dftools.architecture.slam.component.Ram;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -100,8 +100,8 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
 				return createDmaAdapter();
 			}
 			@Override
-			public Adapter caseRam(Ram object) {
-				return createRamAdapter();
+			public Adapter caseMem(Mem object) {
+				return createMemAdapter();
 			}
 			@Override
 			public Adapter caseHierarchyPort(HierarchyPort object) {
@@ -210,16 +210,16 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.architecture.slam.component.Ram <em>Ram</em>}'.
+	 * Creates a new adapter for an object of class '{@link net.sf.dftools.architecture.slam.component.Mem <em>Mem</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see net.sf.dftools.architecture.slam.component.Ram
+	 * @see net.sf.dftools.architecture.slam.component.Mem
 	 * @generated
 	 */
-	public Adapter createRamAdapter() {
+	public Adapter createMemAdapter() {
 		return null;
 	}
 

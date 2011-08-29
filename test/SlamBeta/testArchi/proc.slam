@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4">
+    <spirit:vendor/>
+    <spirit:name>proc</spirit:name>
+    <spirit:library/>
+    <spirit:version/>
+    <spirit:componentInstances>
+        <spirit:componentInstance>
+            <spirit:instanceName>uCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="x86"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>uCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="x86"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>uSharedMemory</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="SharedMemory" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>uComNode</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="switch"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>ethNode0</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>ethNode1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>uCore2</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="x86"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:interconnections>
+        <spirit:interconnection>
+            <spirit:name>e9f1e81c-bcb5-4b6c-b0da-b819c8be8065</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uCore0"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>782678a2-24c6-41af-9638-5451ce819bf6</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uCore1"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>85e30c0b-f694-40ce-8597-775e6d7a329c</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uComNode"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b5</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="uCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b6</spirit:name>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="uCore0"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b7</spirit:name>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="uCore1"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b8</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="uCore0"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b9</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uCore2"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2c10</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="uCore2"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2c11</spirit:name>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="uCore2"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="ethNode1"/>
+        </spirit:interconnection>
+    </spirit:interconnections>
+    <spirit:hierConnections>
+        <spirit:hierConnection spirit:interfaceRef="Eth0">
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="ethNode0"/>
+        </spirit:hierConnection>
+        <spirit:hierConnection spirit:interfaceRef="Eth1">
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="ethNode1"/>
+        </spirit:hierConnection>
+    </spirit:hierConnections>
+    <spirit:vendorExtensions>
+        <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:componentDescription slam:componentRef="x86"
+                slam:componentType="Operator" slam:refinement="core.slam"/>
+            <slam:componentDescription slam:componentRef="SharedMemory"
+                slam:componentType="Mem" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="switch"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="128"/>
+            <slam:componentDescription slam:componentRef="Eth"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="12"/>
+        </slam:componentDescriptions>
+        <slam:linkDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="e9f1e81c-bcb5-4b6c-b0da-b819c8be8065"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="782678a2-24c6-41af-9638-5451ce819bf6"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="85e30c0b-f694-40ce-8597-775e6d7a329c"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="w1aab2b5" slam:setupTime="12"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2b6"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2b7"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="w1aab2b8" slam:setupTime="10"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2b9"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="w1aab2c10" slam:setupTime="15"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2c11"/>
+        </slam:linkDescriptions>
+    </spirit:vendorExtensions>
+</spirit:design>

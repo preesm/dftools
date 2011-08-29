@@ -17,8 +17,8 @@ import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.Dma;
 import net.sf.dftools.architecture.slam.component.Enabler;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Mem;
 import net.sf.dftools.architecture.slam.component.Operator;
-import net.sf.dftools.architecture.slam.component.Ram;
 import net.sf.dftools.architecture.slam.impl.SlamPackageImpl;
 import net.sf.dftools.architecture.slam.link.LinkPackage;
 import net.sf.dftools.architecture.slam.link.impl.LinkPackageImpl;
@@ -77,7 +77,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ramEClass = null;
+	private EClass memEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -260,8 +260,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRam() {
-		return ramEClass;
+	public EClass getMem() {
+		return memEClass;
 	}
 
 	/**
@@ -379,7 +379,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
 		dmaEClass = createEClass(DMA);
 
-		ramEClass = createEClass(RAM);
+		memEClass = createEClass(MEM);
 
 		hierarchyPortEClass = createEClass(HIERARCHY_PORT);
 		createEReference(hierarchyPortEClass, HIERARCHY_PORT__EXTERNAL_INTERFACE);
@@ -430,7 +430,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 		comNodeEClass.getESuperTypes().add(this.getComponent());
 		enablerEClass.getESuperTypes().add(this.getComponent());
 		dmaEClass.getESuperTypes().add(this.getEnabler());
-		ramEClass.getESuperTypes().add(this.getEnabler());
+		memEClass.getESuperTypes().add(this.getEnabler());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -445,13 +445,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
 		initEClass(comNodeEClass, ComNode.class, "ComNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComNode_Parallel(), ecorePackage.getEBoolean(), "parallel", "true", 1, 1, ComNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComNode_Speed(), ecorePackage.getEInt(), "speed", "1", 1, 1, ComNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComNode_Speed(), ecorePackage.getEFloat(), "speed", "1", 1, 1, ComNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(enablerEClass, Enabler.class, "Enabler", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(dmaEClass, Dma.class, "Dma", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(ramEClass, Ram.class, "Ram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(memEClass, Mem.class, "Mem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(hierarchyPortEClass, HierarchyPort.class, "HierarchyPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHierarchyPort_ExternalInterface(), this.getComInterface(), null, "externalInterface", null, 1, 1, HierarchyPort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

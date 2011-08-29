@@ -13,8 +13,8 @@ import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.Dma;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Mem;
 import net.sf.dftools.architecture.slam.component.Operator;
-import net.sf.dftools.architecture.slam.component.Ram;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -70,7 +70,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
 			case ComponentPackage.OPERATOR: return createOperator();
 			case ComponentPackage.COM_NODE: return createComNode();
 			case ComponentPackage.DMA: return createDma();
-			case ComponentPackage.RAM: return createRam();
+			case ComponentPackage.MEM: return createMem();
 			case ComponentPackage.HIERARCHY_PORT: return createHierarchyPort();
 			case ComponentPackage.COM_INTERFACE: return createComInterface();
 			default:
@@ -123,9 +123,9 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Ram createRam() {
-		RamImpl ram = new RamImpl();
-		return ram;
+	public Mem createMem() {
+		MemImpl mem = new MemImpl();
+		return mem;
 	}
 
 	/**

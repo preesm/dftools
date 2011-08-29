@@ -215,7 +215,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 			// Special component cases
 			if (component instanceof ComNode) {
-				((ComNode) component).setSpeed(Integer.valueOf(description
+				((ComNode) component).setSpeed(Float.valueOf(description
 						.getSpecificParameter("slam:speed")));
 			}
 

@@ -9,13 +9,13 @@ package net.sf.dftools.architecture.slam.component;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Ram</b></em>'.
+ * A representation of the model object '<em><b>Mem</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getRam()
+ * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getMem()
  * @model
  * @generated
  */
-public interface Ram extends Enabler {
-} // Ram
+public interface Mem extends Enabler {
+} // Mem

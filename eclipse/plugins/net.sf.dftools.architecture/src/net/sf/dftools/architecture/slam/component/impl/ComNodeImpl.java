@@ -55,7 +55,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int SPEED_EDEFAULT = 1;
+	protected static final float SPEED_EDEFAULT = 1.0F;
 	/**
 	 * The cached value of the '{@link #getSpeed() <em>Speed</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -64,7 +64,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected int speed = SPEED_EDEFAULT;
+	protected float speed = SPEED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -111,7 +111,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getSpeed() {
+	public float getSpeed() {
 		return speed;
 	}
 
@@ -120,8 +120,8 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSpeed(int newSpeed) {
-		int oldSpeed = speed;
+	public void setSpeed(float newSpeed) {
+		float oldSpeed = speed;
 		speed = newSpeed;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_NODE__SPEED, oldSpeed, speed));
@@ -155,7 +155,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 				setParallel((Boolean)newValue);
 				return;
 			case ComponentPackage.COM_NODE__SPEED:
-				setSpeed((Integer)newValue);
+				setSpeed((Float)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

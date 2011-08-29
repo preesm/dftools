@@ -151,7 +151,7 @@ public class IPXACTDesignWriter {
 
 		// Managing specific link properties
 		if (instance.getComponent() instanceof ComNode) {
-			description.addSpecificParameter("slam:speed", Integer
+			description.addSpecificParameter("slam:speed", Float
 					.toString(((ComNode) instance.getComponent()).getSpeed()));
 		}
 
