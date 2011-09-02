@@ -45,8 +45,8 @@
         <spirit:hierConnection spirit:interfaceRef="scr">
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="core"/>
         </spirit:hierConnection>
-        <spirit:hierConnection spirit:interfaceRef="edmactl">
-            <spirit:activeInterface spirit:busRef="edmactl" spirit:componentRef="core"/>
+        <spirit:hierConnection spirit:interfaceRef="edmactrl">
+            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="core"/>
         </spirit:hierConnection>
     </spirit:hierConnections>
     <spirit:vendorExtensions>

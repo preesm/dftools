@@ -209,9 +209,9 @@
          <vertexType
                name="Mem">
             <color
-                  blue="41"
-                  green="213"
-                  red="165">
+                  blue="173"
+                  green="237"
+                  red="198">
             </color>
             <shape
                   type="roundedBox">
@@ -265,9 +265,9 @@
          <vertexType
                name="Dma">
             <color
-                  blue="150"
-                  green="229"
-                  red="200">
+                  blue="31"
+                  green="135"
+                  red="70">
             </color>
             <shape
                   type="roundedBox">

@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:design
+    xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4" xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+    <spirit:vendor/>
+    <spirit:library/>
+    <spirit:name>top.slam</spirit:name>
+    <spirit:version/>
+    <spirit:componentInstances>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uSharedMemory</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="SharedMemory" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uComNode</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="switch"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/ethNode0</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/ethNode1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uSharedMemory</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="SharedMemory" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uComNode</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="switch"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/ethNode0</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/ethNode1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>ethHub/ethSwitch1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>ethHub/ethSwitch2</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uSharedMemory</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="SharedMemory" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uComNode</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="switch"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/ethNode0</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/ethNode1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uSharedMemory</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="SharedMemory" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uComNode</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="switch"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/ethNode0</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/ethNode1</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Eth"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore0/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore0/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore0/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore1/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore1/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore1/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore2/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore2/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>a/uCore2/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore0/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore0/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore0/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore1/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore1/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore1/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore2/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore2/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>b/uCore2/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore0/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore0/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore0/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore1/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore1/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore1/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore2/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore2/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>c/uCore2/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore0/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore0/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore0/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore1/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore1/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore1/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore2/subCore0</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore2/subCore1</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="superCore" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="componentType">operator</spirit:configurableElementValue>
+                <spirit:configurableElementValue spirit:referenceId="dfgdfg">ffds</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>d/uCore2/Xbar</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="Xbar"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues>
+                <spirit:configurableElementValue spirit:referenceId="ngh">hfgh</spirit:configurableElementValue>
+            </spirit:configurableElementValues>
+        </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:interconnections>
+        <spirit:interconnection>
+            <spirit:name>w1aab2a</spirit:name>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="a/ethNode0"/>
+            <spirit:activeInterface spirit:busRef="eth0" spirit:componentRef="ethHub/ethSwitch1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b1</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth3" spirit:componentRef="ethHub/ethSwitch2"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="b/ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b2</spirit:name>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="c/ethNode1"/>
+            <spirit:activeInterface spirit:busRef="eth1" spirit:componentRef="ethHub/ethSwitch2"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>w1aab2b3</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth2" spirit:componentRef="ethHub/ethSwitch1"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="d/ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>c7c76b14-16e4-43b3-a155-71f69da7510c</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>f30c55fc-1597-4b4c-9355-89c402468d9c</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>4b5bfdfb-c9a1-4250-a9cf-58798ac6283d</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uComNode"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>4b8a4d98-5e50-47f4-8e23-a80d03d5fae3</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="a/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="a/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>11d90a04-5934-4e8d-a0de-dfbe4d3b8fb7</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="a/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="a/ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>b2c84de9-eba7-4ec5-8268-7f8d227f527d</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="a/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="a/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>e95560e7-ecf5-469e-a8e1-73dc0edf1825</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="a/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="a/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>5c2a92b4-1594-4673-a945-ef49ecda658e</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="a/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>e92aefef-f1e0-44ec-bbce-dec3d7884d0a</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="a/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="a/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>0b3ea370-9d1c-4d83-932b-4c7439f49e35</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="a/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="a/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>f36fcbb7-758d-476a-835a-be33cf98a8bc</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>5e4fd8e2-268f-4014-9032-a8f1c8d286d2</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>d4037c52-3f8b-4702-85ac-7adefce98125</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uComNode"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>fae7ca28-12fa-4f0b-94a9-17786791f858</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="b/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="b/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>9f662d14-346d-469d-8f70-f6cb99702317</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="b/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="b/ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>c7262af2-8eb0-4c58-bdec-e03e6f77cc07</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="b/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="b/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>9e34fd7d-475a-478a-bb8f-9f2076d2a5c5</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="b/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="b/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>36eabd16-9415-4f1a-b5b9-c286f5dee844</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="b/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>009fc303-f2e6-40a3-8937-d9dc2d85cfc4</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="b/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="b/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>62d7a57c-89cb-4e17-97a4-176d567a9d54</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="b/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="b/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>359ef42d-6cb7-4103-a28f-bed070b4581e</spirit:name>
+            <spirit:activeInterface spirit:busRef="internal" spirit:componentRef="ethHub/ethSwitch1"/>
+            <spirit:activeInterface spirit:busRef="internal" spirit:componentRef="ethHub/ethSwitch2"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>cc030376-6fda-4aa7-8aad-02db78dca657</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>8f4be2d1-245e-40e5-baaf-d83b20f412ad</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>6de3373f-fb4d-4a76-b730-953643db6c07</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uComNode"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>14ce8dcc-a9bc-41af-91e7-10c230d40de3</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="c/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="c/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>3695e509-87f7-44e0-9322-35820bf39906</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="c/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="c/ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>1dda0278-1021-4292-ad06-f93d62d55498</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="c/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="c/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>2229793d-aa38-4429-bf96-55b2f1d5594a</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="c/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="c/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>2f69f68a-dcca-401d-a773-31ce46cb2be0</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="c/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>67505b88-7041-4f84-8537-2fc0884684b9</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="c/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="c/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>0e074c3a-87e6-4005-89a0-eb264b54261c</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="c/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="c/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>2b911a87-51b6-41e1-84dd-94602784d989</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>831284b7-f9f9-4093-9613-74ada9f88a3e</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>fded1048-d4e7-4168-96c7-9c8e79db2979</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uComNode"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>ea28a1f7-a7c8-4ad5-a802-541027053a0e</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="d/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="d/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>af4b718c-bffd-4140-a187-dc3fd4522aa8</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="d/uCore0/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="d/ethNode0"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>c85fd2fa-9502-4ac9-bd91-0480a2b45e48</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="d/uCore1/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="d/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>f980134d-e0de-49f4-8c4b-f6e859433829</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="d/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="d/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>362cf192-11ce-4c38-98ee-fe5c38fe6f39</spirit:name>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Mem" spirit:componentRef="d/uComNode"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>381c22aa-93f7-42d9-8c9f-ac63d965e53a</spirit:name>
+            <spirit:activeInterface spirit:busRef="r" spirit:componentRef="d/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="t" spirit:componentRef="d/uSharedMemory"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>aad37a0d-1842-43bd-a555-7f2685a68875</spirit:name>
+            <spirit:activeInterface spirit:busRef="eth" spirit:componentRef="d/uCore2/Xbar"/>
+            <spirit:activeInterface spirit:busRef="Eth" spirit:componentRef="d/ethNode1"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>24e6dc6b-badb-404d-8a5e-1aad1009ab22</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore0/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>3bce99e0-69ed-437a-ab48-fb9a46eb37b7</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>5244d4d7-45d3-471e-acb9-b7335de466c9</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore1/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>f585de52-f21c-406f-b99a-83950d6c38c1</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>e5b4b749-6286-4233-955c-9a722c06966c</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore2/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>83aff3ab-996f-4a49-bcb9-c7d0945ab61b</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="a/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>1f227771-1682-4fb2-8578-97adc9b6a5ff</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore0/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>71df7b4e-76fa-4aca-9fa1-58fb287c9225</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>9037c165-aef2-4ea6-b897-95856170d716</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore1/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>43bbb63e-eb4e-4f22-8fa8-bd6e264864ff</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>d89db910-2a45-4c58-b7e7-39c83fcaf3a5</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore2/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>abe1d739-bac2-4b17-b2a9-397f89a3423a</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="b/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>00b97014-939c-4347-9cfa-395ca22ad07e</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore0/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>11dc45d1-697c-4f68-989d-4ee3331ff4b2</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>5f207a69-1aa9-4409-a611-6ea9e6cbf826</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore1/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>9f770f12-7746-4bc6-b83f-a74414cfafd0</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>1467be2c-0f7e-4457-86b6-55e1162faea4</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore2/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>9e3f2ef1-ba96-4021-a157-d4f15ffa94a5</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="c/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>ca4f577e-7388-400c-8acc-a5a52aee0f8c</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore0/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>b646a7b1-7339-49f8-a34a-9d2107e2f7a7</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore0/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore0/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>097d2caf-ce55-48d0-b2db-4ed8874eb371</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore1/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>0017ebcf-3e7b-4946-8988-de320bdcd7d9</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore1/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore1/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>20f48a25-ca78-4ffc-bd5a-a1f2e9dc452a</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore2/subCore0"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore2/Xbar"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>90275c34-acd7-4beb-a99e-e4c0e288472f</spirit:name>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore2/subCore1"/>
+            <spirit:activeInterface spirit:busRef="x" spirit:componentRef="d/uCore2/Xbar"/>
+        </spirit:interconnection>
+    </spirit:interconnections>
+    <spirit:hierConnections/>
+    <spirit:vendorExtensions>
+        <slam:componentDescriptions>
+            <slam:componentDescription slam:componentRef="Xbar"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="128.0"/>
+            <slam:componentDescription slam:componentRef="SharedMemory"
+                slam:componentType="Mem" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="superCore"
+                slam:componentType="Operator" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="eth"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="1.0"/>
+            <slam:componentDescription slam:componentRef="switch"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="128.0"/>
+            <slam:componentDescription slam:componentRef="Eth"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="12.0"/>
+        </slam:componentDescriptions>
+        <slam:linkDescriptions>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="2f69f68a-dcca-401d-a773-31ce46cb2be0"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="0e074c3a-87e6-4005-89a0-eb264b54261c"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="ca4f577e-7388-400c-8acc-a5a52aee0f8c"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="11d90a04-5934-4e8d-a0de-dfbe4d3b8fb7"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="4b8a4d98-5e50-47f4-8e23-a80d03d5fae3" slam:setupTime="12"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="3695e509-87f7-44e0-9322-35820bf39906"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="fded1048-d4e7-4168-96c7-9c8e79db2979"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="e92aefef-f1e0-44ec-bbce-dec3d7884d0a" slam:setupTime="15"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="4b5bfdfb-c9a1-4250-a9cf-58798ac6283d"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="DataLink" slam:referenceId="w1aab2b2"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2b3"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="DataLink" slam:referenceId="w1aab2b1"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="9f662d14-346d-469d-8f70-f6cb99702317"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="c7c76b14-16e4-43b3-a155-71f69da7510c"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="6de3373f-fb4d-4a76-b730-953643db6c07"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="f980134d-e0de-49f4-8c4b-f6e859433829" slam:setupTime="10"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="20f48a25-ca78-4ffc-bd5a-a1f2e9dc452a"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="d89db910-2a45-4c58-b7e7-39c83fcaf3a5"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="24e6dc6b-badb-404d-8a5e-1aad1009ab22"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="90275c34-acd7-4beb-a99e-e4c0e288472f"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="362cf192-11ce-4c38-98ee-fe5c38fe6f39"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="71df7b4e-76fa-4aca-9fa1-58fb287c9225"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="c7262af2-8eb0-4c58-bdec-e03e6f77cc07"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="9e3f2ef1-ba96-4021-a157-d4f15ffa94a5"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="1f227771-1682-4fb2-8578-97adc9b6a5ff"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="359ef42d-6cb7-4103-a28f-bed070b4581e"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="2b911a87-51b6-41e1-84dd-94602784d989"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="5e4fd8e2-268f-4014-9032-a8f1c8d286d2"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="9f770f12-7746-4bc6-b83f-a74414cfafd0"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="009fc303-f2e6-40a3-8937-d9dc2d85cfc4" slam:setupTime="15"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="0b3ea370-9d1c-4d83-932b-4c7439f49e35"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="11dc45d1-697c-4f68-989d-4ee3331ff4b2"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="abe1d739-bac2-4b17-b2a9-397f89a3423a"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="2229793d-aa38-4429-bf96-55b2f1d5594a" slam:setupTime="10"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="14ce8dcc-a9bc-41af-91e7-10c230d40de3" slam:setupTime="12"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="f30c55fc-1597-4b4c-9355-89c402468d9c"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="381c22aa-93f7-42d9-8c9f-ac63d965e53a" slam:setupTime="15"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="9037c165-aef2-4ea6-b897-95856170d716"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="83aff3ab-996f-4a49-bcb9-c7d0945ab61b"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="36eabd16-9415-4f1a-b5b9-c286f5dee844"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="d4037c52-3f8b-4702-85ac-7adefce98125"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="f36fcbb7-758d-476a-835a-be33cf98a8bc"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="aad37a0d-1842-43bd-a555-7f2685a68875"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="ea28a1f7-a7c8-4ad5-a802-541027053a0e" slam:setupTime="12"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="e5b4b749-6286-4233-955c-9a722c06966c"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="8f4be2d1-245e-40e5-baaf-d83b20f412ad"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="1467be2c-0f7e-4457-86b6-55e1162faea4"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="af4b718c-bffd-4140-a187-dc3fd4522aa8"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="cc030376-6fda-4aa7-8aad-02db78dca657"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="62d7a57c-89cb-4e17-97a4-176d567a9d54"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="b646a7b1-7339-49f8-a34a-9d2107e2f7a7"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="b2c84de9-eba7-4ec5-8268-7f8d227f527d"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="5244d4d7-45d3-471e-acb9-b7335de466c9"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="c85fd2fa-9502-4ac9-bd91-0480a2b45e48"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="00b97014-939c-4347-9cfa-395ca22ad07e"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="831284b7-f9f9-4093-9613-74ada9f88a3e"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="0017ebcf-3e7b-4946-8988-de320bdcd7d9"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="1dda0278-1021-4292-ad06-f93d62d55498"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="5c2a92b4-1594-4673-a945-ef49ecda658e"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="3bce99e0-69ed-437a-ab48-fb9a46eb37b7"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="f585de52-f21c-406f-b99a-83950d6c38c1"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="9e34fd7d-475a-478a-bb8f-9f2076d2a5c5" slam:setupTime="10"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="e95560e7-ecf5-469e-a8e1-73dc0edf1825" slam:setupTime="10"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="67505b88-7041-4f84-8537-2fc0884684b9" slam:setupTime="15"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="5f207a69-1aa9-4409-a611-6ea9e6cbf826"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink"
+                slam:referenceId="fae7ca28-12fa-4f0b-94a9-17786791f858" slam:setupTime="12"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="43bbb63e-eb4e-4f22-8fa8-bd6e264864ff"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2a"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="097d2caf-ce55-48d0-b2db-4ed8874eb371"/>
+        </slam:linkDescriptions>
+    </spirit:vendorExtensions>
+</spirit:design>

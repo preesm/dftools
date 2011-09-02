@@ -151,7 +151,7 @@ public class WorkflowLogger extends AbstractWorkflowLogger {
 		IConsoleManager mgr = ConsolePlugin.getDefault().getConsoleManager();
 
 		if (console == null) {
-			console = new MessageConsole("Preesm console", null);
+			console = new MessageConsole("DFTools Workflow console", null);
 			mgr.addConsoles(new IConsole[] { console });
 		}
 

@@ -138,6 +138,7 @@ public class SlamFlattener {
 			Design design, Design subDesign,
 			Map<ComponentInstance, ComponentInstance> refMap) {
 
+		//Iterating the upper graph links
 		Set<Link> links = new HashSet<Link>(design.getLinks());
 		for (Link link : links) {
 			if (link.getSourceComponentInstance().equals(instance)) {
@@ -172,6 +173,9 @@ public class SlamFlattener {
 			ComInterface itf = foundPort.getInternalInterface();
 			link.setSourceComponentInstance(instanceToConnect);
 			link.setSourceInterface(itf);
+		}
+		else{
+			//TODO: display error: hierarchy port not found 
 		}
 	}
 
