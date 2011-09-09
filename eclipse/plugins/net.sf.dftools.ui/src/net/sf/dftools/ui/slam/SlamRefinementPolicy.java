@@ -115,11 +115,17 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 	 * @param shell
 	 *            The active window's {@link Shell}.
 	 */
-	@Override
-	public String useExistingFile(final Vertex vertex, Shell shell) {
-		String filePath = FileUtils.browseFiles(shell,
-				"Please select an existing S-LAM network file:", "slam");
-
+	public String useExistingFile(final Vertex vertex, Shell shell, String extension) {
+		String filePath = null;
+				
+		if(extension.equals("slam")){
+			filePath = FileUtils.browseFiles(shell,
+					"Please select an existing S-LAM network file:", extension);
+		}else if(extension.equals("cdl")){
+			filePath = FileUtils.browseFiles(shell,
+					"Please select an existing CDL file:", extension);
+		}
+		
 		// Getting relative path
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(new Path(filePath));
@@ -142,19 +148,22 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 
 		// prompts the user to choose a file
 		final String message = "The selected instance can be refined by an existing "
-				+ "S-LAM network or by a list of S-LAM networks.";
+				+ "S-LAM network, by a list of S-LAM networks or by a Component Description" +
+				"Language (CDL) file.";
 		MessageDialog dialog = new MessageDialog(shell,
 				"Set/Update Refinement", null, message, MessageDialog.QUESTION,
-				new String[] { "Select network", "Select list of networks" }, 0);
+				new String[] { "Select network", "Select list of networks", "Select CDL file" }, 0);
 
 		int index = dialog.open();
 		String newRefinement = null;
 
 		// The user can select either a single new network or a list of networks
 		if (index == 0) {
-			newRefinement = useExistingFile(vertex, shell);
+			newRefinement = useExistingFile(vertex, shell, "slam");
 		} else if (index == 1) {
 			newRefinement = selectListOfNetworks(vertex, shell);
+		} else if (index == 2) {
+			newRefinement = useExistingFile(vertex, shell, "cdl");
 		}
 
 		return newRefinement;

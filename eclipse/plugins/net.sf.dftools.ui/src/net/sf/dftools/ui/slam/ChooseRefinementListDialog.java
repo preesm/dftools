@@ -57,7 +57,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 						.getSelection();
 				Object[] tableSelections = tableSelection.toArray();
 				if (type.equals("add")) {
-					String name = policy.useExistingFile(vertex, getShell());
+					String name = policy.useExistingFile(vertex, getShell(), "slam");
 					tableViewer.add(name);
 					refinementList.addName(name);
 				} else if (type.equals("remove")) {
