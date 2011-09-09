@@ -118,6 +118,10 @@
             <xsl:if test="contains(@type,'ComNode')">
                 <xsl:attribute name="slam:speed" select="parameters/parameter[@name = 'speed']/@value"/>
             </xsl:if> 
+            
+            <xsl:if test="contains(@type,'Mem')">
+                <xsl:attribute name="slam:size" select="parameters/parameter[@name = 'memSize']/@value"/>
+            </xsl:if> 
         </xsl:element>
     </xsl:template>
     

@@ -51,7 +51,6 @@ public class Operator extends Component {
 		return "fpga".equals(options.get("operatorType"));
 	}
 
-
 	@Override
 	public boolean isOperator() {
 		return true;

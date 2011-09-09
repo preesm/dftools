@@ -18,24 +18,28 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Component Instance</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Component Instance</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getComponent <em>Component</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getInstanceName <em>Instance Name</em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getComponent
+ * <em>Component</em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.impl.ComponentInstanceImpl#getInstanceName
+ * <em>Instance Name</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
-public class ComponentInstanceImpl extends ParameterizedElementImpl implements ComponentInstance {
+public class ComponentInstanceImpl extends ParameterizedElementImpl implements
+		ComponentInstance {
 	/**
-	 * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getComponent() <em>Component</em>}'
+	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getComponent()
 	 * @generated
 	 * @ordered
@@ -43,9 +47,10 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	protected Component component;
 
 	/**
-	 * The default value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #getInstanceName()
+	 * <em>Instance Name</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #getInstanceName()
 	 * @generated
 	 * @ordered
@@ -53,9 +58,10 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	protected static final String INSTANCE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getInstanceName()
+	 * <em>Instance Name</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
 	 * @see #getInstanceName()
 	 * @generated
 	 * @ordered
@@ -63,8 +69,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	protected String instanceName = INSTANCE_NAME_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected ComponentInstanceImpl() {
@@ -72,8 +78,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -82,25 +88,27 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Component getComponent() {
 		if (component != null && component.eIsProxy()) {
-			InternalEObject oldComponent = (InternalEObject)component;
-			component = (Component)eResolveProxy(oldComponent);
+			InternalEObject oldComponent = (InternalEObject) component;
+			component = (Component) eResolveProxy(oldComponent);
 			if (component != oldComponent) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent, component));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							SlamPackage.COMPONENT_INSTANCE__COMPONENT,
+							oldComponent, component));
 			}
 		}
 		return component;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Component basicGetComponent() {
@@ -108,42 +116,55 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	public NotificationChain basicSetComponent(Component newComponent, NotificationChain msgs) {
+	public NotificationChain basicSetComponent(Component newComponent,
+			NotificationChain msgs) {
 		Component oldComponent = component;
 		component = newComponent;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent, newComponent);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent,
+					newComponent);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
 		}
 		return msgs;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setComponent(Component newComponent) {
 		if (newComponent != component) {
 			NotificationChain msgs = null;
 			if (component != null)
-				msgs = ((InternalEObject)component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
+				msgs = ((InternalEObject) component).eInverseRemove(this,
+						ComponentPackage.COMPONENT__INSTANCES, Component.class,
+						msgs);
 			if (newComponent != null)
-				msgs = ((InternalEObject)newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
+				msgs = ((InternalEObject) newComponent).eInverseAdd(this,
+						ComponentPackage.COMPONENT__INSTANCES, Component.class,
+						msgs);
 			msgs = basicSetComponent(newComponent, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__COMPONENT, newComponent, newComponent));
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					SlamPackage.COMPONENT_INSTANCE__COMPONENT, newComponent,
+					newComponent));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getInstanceName() {
@@ -151,20 +172,22 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setInstanceName(String newInstanceName) {
 		String oldInstanceName = instanceName;
 		instanceName = newInstanceName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME, oldInstanceName, instanceName));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME,
+					oldInstanceName, instanceName));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public boolean isHierarchical() {
@@ -174,112 +197,119 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				if (component != null)
-					msgs = ((InternalEObject)component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
-				return basicSetComponent((Component)otherEnd, msgs);
+		case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
+			if (component != null)
+				msgs = ((InternalEObject) component).eInverseRemove(this,
+						ComponentPackage.COMPONENT__INSTANCES, Component.class,
+						msgs);
+			return basicSetComponent((Component) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				return basicSetComponent(null, msgs);
+		case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
+			return basicSetComponent(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				if (resolve) return getComponent();
-				return basicGetComponent();
-			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
-				return getInstanceName();
+		case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
+			if (resolve)
+				return getComponent();
+			return basicGetComponent();
+		case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
+			return getInstanceName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				setComponent((Component)newValue);
-				return;
-			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
-				setInstanceName((String)newValue);
-				return;
+		case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
+			setComponent((Component) newValue);
+			return;
+		case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
+			setInstanceName((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				setComponent((Component)null);
-				return;
-			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
-				setInstanceName(INSTANCE_NAME_EDEFAULT);
-				return;
+		case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
+			setComponent((Component) null);
+			return;
+		case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
+			setInstanceName(INSTANCE_NAME_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
-				return component != null;
-			case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
-				return INSTANCE_NAME_EDEFAULT == null ? instanceName != null : !INSTANCE_NAME_EDEFAULT.equals(instanceName);
+		case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
+			return component != null;
+		case SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME:
+			return INSTANCE_NAME_EDEFAULT == null ? instanceName != null
+					: !INSTANCE_NAME_EDEFAULT.equals(instanceName);
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (instanceName: ");
@@ -288,4 +318,4 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
 		return result.toString();
 	}
 
-} //ComponentInstanceImpl
+} // ComponentInstanceImpl

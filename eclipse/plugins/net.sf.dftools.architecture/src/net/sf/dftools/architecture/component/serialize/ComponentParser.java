@@ -199,7 +199,7 @@ public class ComponentParser {
 				if (eltType.equals("operatorType")) {
 					String operatorType = elt.getAttribute("kind");
 					options.put("operatorType", operatorType);
-					if("fpga".equals(operatorType)) {
+					if ("fpga".equals(operatorType)) {
 						options.put("fpgaType", elt.getAttribute("part"));
 					}
 				}

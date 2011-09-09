@@ -48,6 +48,7 @@ public class VLNV {
 		this.library = "";
 		this.version = "";
 	}
+
 	public VLNV(String vendor, String library, String name, String version) {
 		this.vendor = vendor;
 		this.library = library;

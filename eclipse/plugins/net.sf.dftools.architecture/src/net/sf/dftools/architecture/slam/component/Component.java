@@ -14,35 +14,43 @@ import net.sf.dftools.architecture.slam.VLNVedElement;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Component</b></em>'.
- * <!-- end-user-doc -->
- *
+ * <!-- begin-user-doc --> A representation of the model object '
+ * <em><b>Component</b></em>'. <!-- end-user-doc -->
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getInterfaces <em>Interfaces</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.component.Component#getInterfaces
+ * <em>Interfaces</em>}</li>
+ * <li>{@link net.sf.dftools.architecture.slam.component.Component#getInstances
+ * <em>Instances</em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.component.Component#getRefinement
+ * <em>Refinement</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent()
  * @model
  * @generated
  */
 public interface Component extends VLNVedElement, ParameterizedElement {
 	/**
-	 * Returns the value of the '<em><b>Interfaces</b></em>' containment reference list.
-	 * The list contents are of type {@link net.sf.dftools.architecture.slam.component.ComInterface}.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.ComInterface#getComponent <em>Component</em>}'.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Interfaces</b></em>' containment
+	 * reference list. The list contents are of type
+	 * {@link net.sf.dftools.architecture.slam.component.ComInterface}. It is
+	 * bidirectional and its opposite is '
+	 * {@link net.sf.dftools.architecture.slam.component.ComInterface#getComponent
+	 * <em>Component</em>}'. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Interfaces</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Interfaces</em>' containment reference list
+	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Interfaces</em>' containment reference list.
+	 * 
+	 * @return the value of the '<em>Interfaces</em>' containment reference
+	 *         list.
 	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Interfaces()
 	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getComponent
 	 * @model opposite="component" containment="true"
@@ -51,15 +59,18 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	EList<ComInterface> getInterfaces();
 
 	/**
-	 * Returns the value of the '<em><b>Instances</b></em>' reference list.
-	 * The list contents are of type {@link net.sf.dftools.architecture.slam.ComponentInstance}.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}'.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Instances</b></em>' reference list. The
+	 * list contents are of type
+	 * {@link net.sf.dftools.architecture.slam.ComponentInstance}. It is
+	 * bidirectional and its opposite is '
+	 * {@link net.sf.dftools.architecture.slam.ComponentInstance#getComponent
+	 * <em>Component</em>}'. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Instances</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Instances</em>' containment reference list
+	 * isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Instances</em>' reference list.
 	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Instances()
 	 * @see net.sf.dftools.architecture.slam.ComponentInstance#getComponent
@@ -69,14 +80,16 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	EList<ComponentInstance> getInstances();
 
 	/**
-	 * Returns the value of the '<em><b>Refinement</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}'.
-	 * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Refinement</b></em>' containment
+	 * reference. It is bidirectional and its opposite is '
+	 * {@link net.sf.dftools.architecture.slam.Design#getRefined
+	 * <em>Refined</em>}'. <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Refinement</em>' reference isn't clear,
-	 * there really should be more of a description here...
+	 * If the meaning of the '<em>Refinement</em>' reference isn't clear, there
+	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Refinement</em>' containment reference.
 	 * @see #setRefinement(Design)
 	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Refinement()
@@ -87,18 +100,22 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	Design getRefinement();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Refinement</em>' containment reference.
+	 * Sets the value of the '
+	 * {@link net.sf.dftools.architecture.slam.component.Component#getRefinement
+	 * <em>Refinement</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @param value
+	 *            the new value of the '<em>Refinement</em>' containment
+	 *            reference.
 	 * @see #getRefinement()
 	 * @generated
 	 */
 	void setRefinement(Design value);
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */

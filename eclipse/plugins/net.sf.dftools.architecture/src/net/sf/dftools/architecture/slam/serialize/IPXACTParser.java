@@ -21,7 +21,6 @@ public abstract class IPXACTParser {
 		super();
 	}
 
-
 	protected VLNV parseVLNV(Element parent) {
 		Node node = parent.getFirstChild();
 

@@ -187,7 +187,15 @@
                         <xsl:attribute name="value" select="//slam:componentDescription[@slam:componentRef=$componentName]/@slam:speed"/>
                     </xsl:element>
                 </xsl:if>
-              
+                
+                <!-- node parameters -->
+                <xsl:if test="$componentType='Mem'">
+                    <xsl:element name="parameter">
+                        <xsl:attribute name="name">memSize</xsl:attribute>
+                        <xsl:attribute name="value" select="//slam:componentDescription[@slam:componentRef=$componentName]/@slam:size"/>
+                    </xsl:element>
+                </xsl:if>
+                
             </xsl:element>
         </xsl:element>
     </xsl:template>

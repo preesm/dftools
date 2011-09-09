@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 
 public class ArchitectureUtil {
-	
+
 	/**
 	 * If it does not exist, creates the given folder. If the parent folders do
 	 * not exist either, create them.
@@ -53,7 +53,6 @@ public class ArchitectureUtil {
 			}
 		}
 	}
-	
 
 	/**
 	 * Returns the network in the given project that has the given qualified
@@ -102,7 +101,7 @@ public class ArchitectureUtil {
 
 		return null;
 	}
-	
+
 	/**
 	 * Returns the list of source folders of the given project as a list of
 	 * absolute workspace paths.
@@ -158,7 +157,7 @@ public class ArchitectureUtil {
 
 		return null;
 	}
-	
+
 	/**
 	 * Returns the list of ALL source folders of the required projects as well
 	 * as of the given project as a list of absolute workspace paths.

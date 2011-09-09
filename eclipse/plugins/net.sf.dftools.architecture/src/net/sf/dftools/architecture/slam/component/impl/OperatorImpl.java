@@ -12,18 +12,17 @@ import net.sf.dftools.architecture.slam.component.Operator;
 import org.eclipse.emf.ecore.EClass;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Operator</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Operator</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class OperatorImpl extends ComponentImpl implements Operator {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected OperatorImpl() {
@@ -31,8 +30,8 @@ public class OperatorImpl extends ComponentImpl implements Operator {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -40,4 +39,4 @@ public class OperatorImpl extends ComponentImpl implements Operator {
 		return ComponentPackage.Literals.OPERATOR;
 	}
 
-} //OperatorImpl
+} // OperatorImpl

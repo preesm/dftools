@@ -39,6 +39,7 @@ public final class SlamValidator implements IValidator {
 		valid &= validateEdgePorts(graph, file);
 		valid &= validateDataLinks(graph, file);
 		valid &= validateComNodes(graph, file);
+		valid &= validateMems(graph, file);
 		valid &= validateControlLinks(graph, file);
 		valid &= validateHierarchicalPorts(graph, file);
 		valid &= validateHierarchicalConnections(graph, file);
@@ -211,7 +212,7 @@ public final class SlamValidator implements IValidator {
 	}
 
 	/**
-	 * A Communication Node must specify a speed a speed.
+	 * A Communication Node must specify a speed.
 	 */
 	private boolean validateComNodes(Graph graph, IFile file) {
 
@@ -226,7 +227,7 @@ public final class SlamValidator implements IValidator {
 
 				String speed = (String) v.getValue("speed");
 				if (speed != null && !speed.equals("")
-						&& Float.valueOf(speed) != 0) {
+						&& Float.valueOf(speed) > 0) {
 					hasSpeed = true;
 				}
 
@@ -234,6 +235,75 @@ public final class SlamValidator implements IValidator {
 					createMarker(
 							file,
 							"A ComNode must specify a non-zero float-valued speed.",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+
+	/**
+	 * A memory Node must specify a size. Two memories with the same definition
+	 * must have the same size.
+	 */
+	private boolean validateMems(Graph graph, IFile file) {
+
+		boolean valid = true;
+		boolean hasSize = false;
+		boolean conflictedSizes = false;
+		Map<String, String> definitionToSize = new HashMap<String, String>();
+
+		for (Vertex v : graph.vertexSet()) {
+			hasSize = false;
+			conflictedSizes = false;
+
+			String type = v.getType().getName();
+			if (type.contains("Mem")) {
+
+				String size = (String) v.getValue("memSize");
+				String definition = (String) v.getValue("definition");
+
+				if (size != null && !size.equals("")
+						&& Integer.valueOf(size) > 0) {
+					hasSize = true;
+				}
+
+				// Testing if instances with the same definition have different
+				// sizes
+				if (definition != null && !definition.equals("")
+						&& !definition.equals("default")) {
+
+					if (definitionToSize.containsKey(definition)) {
+						boolean emptySize = (size == null) || size.isEmpty();
+						String storedSize = definitionToSize.get(definition);
+						boolean emptySSize = (storedSize == null)
+								|| storedSize.isEmpty();
+						if ((emptySize && !emptySSize)
+								|| (!emptySize && emptySSize)
+								|| (!emptySize && !emptySSize && !size
+										.equals(storedSize))) {
+							conflictedSizes = true;
+						}
+					}
+					definitionToSize.put(definition, size);
+				}
+
+				if (!hasSize) {
+					createMarker(
+							file,
+							"A memory must specify a non-zero integer-valued size.",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+
+				if (conflictedSizes) {
+					createMarker(
+							file,
+							"Two memories with the same definition must have the same size.",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;
@@ -260,7 +330,8 @@ public final class SlamValidator implements IValidator {
 				hasEnablerTarget = false;
 
 				String setupTime = (String) e.getValue("setup time");
-				if (setupTime != null && !setupTime.equals("")) {
+				if (setupTime != null && !setupTime.equals("")
+						&& Integer.valueOf(setupTime) >= 0) {
 					hasSetupTime = true;
 				}
 
@@ -280,7 +351,7 @@ public final class SlamValidator implements IValidator {
 				if (!hasSetupTime || !hasOperatorSource || !hasEnablerTarget) {
 					createMarker(
 							file,
-							"Each control link must link an operator to an enabler (Mem or Dma) and specify a setup time.",
+							"Each control link must link an operator to an enabler (Mem or Dma) and specify an integer-valued setup time.",
 							(String) e.getSource().getValue("id") + "->"
 									+ (String) e.getTarget().getValue("id"),
 							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
@@ -369,10 +440,12 @@ public final class SlamValidator implements IValidator {
 
 					String refinement = (String) v.getValue("refinement");
 					if (definitionToRefinement.containsKey(definition)) {
-						boolean emptyRef = (refinement == null) || refinement.isEmpty();
+						boolean emptyRef = (refinement == null)
+								|| refinement.isEmpty();
 						String storedRefinement = definitionToRefinement
 								.get(definition);
-						boolean emptySRef = (storedRefinement == null) || storedRefinement.isEmpty();
+						boolean emptySRef = (storedRefinement == null)
+								|| storedRefinement.isEmpty();
 						if ((emptyRef && !emptySRef)
 								|| (!emptyRef && emptySRef)
 								|| (!emptyRef && !emptySRef && !refinement

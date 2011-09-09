@@ -228,17 +228,17 @@ public class IPXACTDesignVendorExtensions {
 		LinkDescription description = new LinkDescription(uuid, directed, type);
 
 		linkDescriptions.put(uuid, description);
-		
+
 		// Retrieving known specific parameters
 		NamedNodeMap attributeMap = parent.getAttributes();
 		for (int j = 0; j < attributeMap.getLength(); j++) {
-	        String name = attributeMap.item(j).getNodeName();
-	        String value = attributeMap.item(j).getNodeValue();
-	        
-	        if(name.equals("slam:setupTime")){
-	        	description.addSpecificParameter(name, value);
-	        }
-	    }
+			String name = attributeMap.item(j).getNodeName();
+			String value = attributeMap.item(j).getNodeValue();
+
+			if (name.equals("slam:setupTime")) {
+				description.addSpecificParameter(name, value);
+			}
+		}
 	}
 
 	/**
@@ -287,13 +287,13 @@ public class IPXACTDesignVendorExtensions {
 		// Retrieving known specific parameters
 		NamedNodeMap attributeMap = parent.getAttributes();
 		for (int j = 0; j < attributeMap.getLength(); j++) {
-	        String name = attributeMap.item(j).getNodeName();
-	        String value = attributeMap.item(j).getNodeValue();
-	        
-	        if(name.equals("slam:speed")){
-	        	description.addSpecificParameter(name, value);
-	        }
-	    }
+			String name = attributeMap.item(j).getNodeName();
+			String value = attributeMap.item(j).getNodeValue();
+
+			if (name.equals("slam:speed")) {
+				description.addSpecificParameter(name, value);
+			}
+		}
 
 		componentDescriptions.put(description.getComponentRef(), description);
 	}

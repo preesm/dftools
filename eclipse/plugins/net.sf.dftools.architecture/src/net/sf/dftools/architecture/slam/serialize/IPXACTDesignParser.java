@@ -27,6 +27,7 @@ import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Mem;
 import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
@@ -217,6 +218,9 @@ public class IPXACTDesignParser extends IPXACTParser {
 			if (component instanceof ComNode) {
 				((ComNode) component).setSpeed(Float.valueOf(description
 						.getSpecificParameter("slam:speed")));
+			} else if (component instanceof Mem) {
+				((Mem) component).setSize(Integer.valueOf(description
+						.getSpecificParameter("slam:size")));
 			}
 
 		}

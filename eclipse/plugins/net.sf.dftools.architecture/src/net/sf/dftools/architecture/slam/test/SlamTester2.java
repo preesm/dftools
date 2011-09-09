@@ -26,10 +26,10 @@ public class SlamTester2 {
 
 	/**
 	 * Testing the S-LAM architecture model
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
 
 		// check that the factory is registered
 		// (only happens in command-line mode)
@@ -49,16 +49,18 @@ public class SlamTester2 {
 		}
 
 		SlamTester2 tester = new SlamTester2();
-		//tester.flatten("../../../test/SlamBeta/testArchi/top.slam", "../../../test/SlamBeta/testArchi/top_write.slam");
-		tester.flatten("../../../test/SlamBeta/tci6488/top.slam", "../../../test/SlamBeta/tci6488/top_write.slam");
+		// tester.flatten("../../../test/SlamBeta/testArchi/top.slam",
+		// "../../../test/SlamBeta/testArchi/top_write.slam");
+		tester.flatten("../../../test/SlamBeta/tci6488/top.slam",
+				"../../../test/SlamBeta/tci6488/top_write.slam");
 
 	}
-	
-	private void flatten(String inputTopPath, String outputPath){
+
+	private void flatten(String inputTopPath, String outputPath) {
 		// Demand load the resource into the resource set.
 		ResourceSet resourceSet = new ResourceSetImpl();
 
-		//resourceSet.
+		// resourceSet.
 		Resource resource = resourceSet.getResource(
 				URI.createFileURI(inputTopPath), true);
 		// Extract the root object from the resource.
@@ -67,7 +69,7 @@ public class SlamTester2 {
 
 		SlamFlattener flattener = new SlamFlattener();
 		flattener.flattenAllLevels(design);
-		
+
 		ResourceSet resourceSet2 = new ResourceSetImpl();
 		Resource resource2 = resourceSet2.createResource(URI
 				.createFileURI(outputPath));

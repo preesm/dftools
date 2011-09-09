@@ -237,6 +237,10 @@
                   name="custom parameters"
                   type="java.util.Map">
             </parameter>
+            <parameter
+                  name="memSize"
+                  type="java.lang.String">
+            </parameter>
          </vertexType>
          <edgeType
                directed="false"

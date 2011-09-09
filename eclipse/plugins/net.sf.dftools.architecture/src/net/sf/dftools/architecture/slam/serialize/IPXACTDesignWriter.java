@@ -15,6 +15,7 @@ import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
 import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
+import net.sf.dftools.architecture.slam.component.Mem;
 import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.utils.DomUtil;
@@ -35,7 +36,7 @@ public class IPXACTDesignWriter {
 	 * URI of the last opened file
 	 */
 	public URI uri;
-	
+
 	/**
 	 * Information needed in the vendor extensions of the design
 	 */
@@ -149,10 +150,15 @@ public class IPXACTDesignWriter {
 		IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions.new ComponentDescription(
 				componentRef, componentType, refinementPath);
 
-		// Managing specific link properties
+		// Managing specific component properties
 		if (instance.getComponent() instanceof ComNode) {
 			description.addSpecificParameter("slam:speed", Float
 					.toString(((ComNode) instance.getComponent()).getSpeed()));
+		} else if (instance.getComponent() instanceof Mem) {
+			description
+					.addSpecificParameter("slam:size",
+							Integer.toString(((Mem) instance.getComponent())
+									.getSize()));
 		}
 
 		vendorExtensions.getComponentDescriptions().put(componentRef,
@@ -164,8 +170,7 @@ public class IPXACTDesignWriter {
 
 		EList<ComponentInstance> instances = design.getComponentInstances();
 
-		Element cmpsElt = document
-				.createElement("spirit:componentInstances");
+		Element cmpsElt = document.createElement("spirit:componentInstances");
 
 		parent.appendChild(cmpsElt);
 		for (ComponentInstance instance : instances) {

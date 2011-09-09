@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
  * @author mpelcat
  */
 public class IPXACTResourceImpl extends ResourceImpl {
-	
+
 	/**
 	 * Constructor for XMIResourceImpl.
 	 * 
