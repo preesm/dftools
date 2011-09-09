@@ -175,7 +175,8 @@ public class SlamFlattener {
 			link.setSourceInterface(itf);
 		}
 		else{
-			//TODO: display error: hierarchy port not found 
+			//TODO: display error: hierarchy port not found
+			design.getLinks().remove(link);
 		}
 	}
 
@@ -203,6 +204,10 @@ public class SlamFlattener {
 			ComInterface itf = foundPort.getInternalInterface();
 			link.setDestinationComponentInstance(instanceToConnect);
 			link.setDestinationInterface(itf);
+		}
+		else{
+			//TODO: display error: hierarchy port not found
+			design.getLinks().remove(link);
 		}
 	}
 

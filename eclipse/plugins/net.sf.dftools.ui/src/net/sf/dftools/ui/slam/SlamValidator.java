@@ -369,10 +369,10 @@ public final class SlamValidator implements IValidator {
 
 					String refinement = (String) v.getValue("refinement");
 					if (definitionToRefinement.containsKey(definition)) {
-						boolean emptyRef = refinement.isEmpty();
+						boolean emptyRef = (refinement == null) || refinement.isEmpty();
 						String storedRefinement = definitionToRefinement
 								.get(definition);
-						boolean emptySRef = storedRefinement.isEmpty();
+						boolean emptySRef = (storedRefinement == null) || storedRefinement.isEmpty();
 						if ((emptyRef && !emptySRef)
 								|| (!emptyRef && emptySRef)
 								|| (!emptyRef && !emptySRef && !refinement

@@ -6,19 +6,19 @@
     <spirit:version/>
     <spirit:componentInstances>
         <spirit:componentInstance>
-            <spirit:instanceName>C64x+_1</spirit:instanceName>
+            <spirit:instanceName>C64x+MM_1</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="c64x+_module" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>C64x+_2</spirit:instanceName>
+            <spirit:instanceName>C64x+MM_2</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="c64x+_module" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
-            <spirit:instanceName>C64x+_3</spirit:instanceName>
+            <spirit:instanceName>C64x+MM_3</spirit:instanceName>
             <spirit:componentRef spirit:library=""
                 spirit:name="c64x+_module" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
@@ -45,32 +45,32 @@
     <spirit:interconnections>
         <spirit:interconnection>
             <spirit:name>w1aab2a</spirit:name>
-            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="C64x+_1"/>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="C64x+MM_1"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b1</spirit:name>
-            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="C64x+_2"/>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="C64x+MM_2"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b2</spirit:name>
-            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="C64x+_3"/>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="C64x+MM_3"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b3</spirit:name>
-            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+_1"/>
+            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+MM_1"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b4</spirit:name>
-            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+_2"/>
+            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+MM_2"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b5</spirit:name>
-            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+_3"/>
+            <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+MM_3"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>

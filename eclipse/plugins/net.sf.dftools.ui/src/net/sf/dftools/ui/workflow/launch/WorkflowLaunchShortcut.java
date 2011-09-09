@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dftools.ui.Activator;
+import net.sf.dftools.ui.util.FileUtils;
 import net.sf.dftools.ui.workflow.ScenarioConfiguration;
 import net.sf.dftools.ui.workflow.WorkflowMessages;
 
@@ -93,7 +94,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 				file.getFullPath().toString());
 
 		// We ask for the scenario to use with the selected workflow
-		String scenarioPath = EditorTools.browseFiles(PlatformUI.getWorkbench()
+		String scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(),
 				WorkflowMessages.getString("Workflow.browseScenarioTitle"),
 				"scenario");

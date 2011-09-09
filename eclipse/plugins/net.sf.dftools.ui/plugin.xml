@@ -83,6 +83,7 @@
       <configuration
             extension="slam"
             name="S-LAM Design"
+            refinement="net.sf.dftools.ui.slam.SlamRefinementPolicy"
             type="text/xml"
             validator="net.sf.dftools.ui.slam.SlamValidator">
          <graphType
