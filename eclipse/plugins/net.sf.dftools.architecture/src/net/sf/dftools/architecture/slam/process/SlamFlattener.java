@@ -44,6 +44,17 @@ public class SlamFlattener {
 	}
 
 	/**
+	 * Flattens n levels of a hierarchical architecture
+	 */
+	public void flatten(Design design, int n) {
+		int i = 0;
+		while (i < n) {
+			flattenUpperLevel(design);
+			i++;
+		}
+	}
+
+	/**
 	 * Flattens the upper level of a hierarchical architecture
 	 */
 	public void flattenUpperLevel(Design design) {
