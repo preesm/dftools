@@ -136,9 +136,15 @@ public class IPXACTDesignVendorExtensions {
 	 */
 	private Map<String, LinkDescription> linkDescriptions = null;
 
+	/**
+	 * Parameters of the current design
+	 */
+	private Map<String, String> designParameters = null;
+
 	public IPXACTDesignVendorExtensions() {
 		componentDescriptions = new HashMap<String, ComponentDescription>();
 		linkDescriptions = new HashMap<String, LinkDescription>();
+		designParameters = new HashMap<String, String>();
 	}
 
 	public ComponentDescription getComponentDescription(String componentRef) {
@@ -191,9 +197,63 @@ public class IPXACTDesignVendorExtensions {
 					parseComponentDescriptions(element);
 				} else if (nodeName.equals("slam:linkDescriptions")) {
 					parseLinkDescriptions(element);
+				} else if (nodeName.equals("slam:designDescription")) {
+					parseDesignDescription(element);
 				}
 			}
 			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * Parses description of a graph
+	 */
+	public void parseDesignDescription(Element parent) {
+		Node node = parent.getFirstChild();
+
+		// Parsing parameters
+		while (node != null) {
+			// this test allows us to skip #text nodes
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				String nodeName = node.getNodeName();
+				if (nodeName.equals("slam:parameters")) {
+					parseDesignParameters(element);
+				}
+			}
+			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * Parses description of a graph
+	 */
+	public void parseDesignParameters(Element parent) {
+		Node node = parent.getFirstChild();
+
+		// Parsing parameters
+		while (node != null) {
+			// this test allows us to skip #text nodes
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				String nodeName = node.getNodeName();
+				if (nodeName.equals("slam:parameter")) {
+					parseDesignParameter(element);
+				}
+			}
+			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * Parses description of a graph
+	 */
+	public void parseDesignParameter(Element parent) {
+		String key = parent.getAttribute("slam:key");
+		String value = parent.getAttribute("slam:value");
+
+		if (key != null && !key.isEmpty() && value != null && !value.isEmpty()) {
+			designParameters.put(key, value);
 		}
 	}
 
@@ -322,6 +382,30 @@ public class IPXACTDesignVendorExtensions {
 		for (LinkDescription description : linkDescriptions.values()) {
 			writeLinkDescription(linkDescriptionsElt, description, document);
 		}
+
+		Element designDescriptionElt = document
+				.createElement("slam:designDescription");
+		vendorExtensionsElt.appendChild(designDescriptionElt);
+
+		Element parametersElt = document.createElement("slam:parameters");
+		designDescriptionElt.appendChild(parametersElt);
+
+		for (String key : designParameters.keySet()) {
+			writeDesignParameter(linkDescriptionsElt, key,
+					designParameters.get(key), document);
+		}
+	}
+
+	/**
+	 * Writes a parameter of the design
+	 */
+	public void writeDesignParameter(Element parent, String key, String value,
+			Document document) {
+		Element parameterElt = document.createElement("slam:parameter");
+		parent.appendChild(parameterElt);
+
+		parameterElt.setAttribute("slam:key", key);
+		parameterElt.setAttribute("slam:value", value);
 	}
 
 	/**

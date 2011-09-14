@@ -17,28 +17,24 @@ import org.eclipse.emf.ecore.EClass;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Design</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link net.sf.dftools.architecture.slam.Design#getComponentInstances <em>
- * Component Instances</em>}</li>
- * <li>{@link net.sf.dftools.architecture.slam.Design#getLinks <em>Links</em>}</li>
- * <li>{@link net.sf.dftools.architecture.slam.Design#getHierarchyPorts <em>
- * Hierarchy Ports</em>}</li>
- * <li>{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined
- * </em>}</li>
- * <li>{@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}</li>
- * <li>{@link net.sf.dftools.architecture.slam.Design#getComponentHolder <em>
- * Component Holder</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getComponentInstances <em>Component Instances</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getLinks <em>Links</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getHierarchyPorts <em>Hierarchy Ports</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.Design#getComponentHolder <em>Component Holder</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign()
  * @model
  * @generated
  */
-public interface Design extends VLNVedElement {
+public interface Design extends VLNVedElement, ParameterizedElement {
 	/**
 	 * Returns the value of the '<em><b>Component Instances</b></em>'
 	 * containment reference list. The list contents are of type
@@ -59,16 +55,15 @@ public interface Design extends VLNVedElement {
 	EList<ComponentInstance> getComponentInstances();
 
 	/**
-	 * Returns the value of the '<em><b>Links</b></em>' containment reference
-	 * list. The list contents are of type
-	 * {@link net.sf.dftools.architecture.slam.link.Link}. <!-- begin-user-doc
+	 * Returns the value of the '<em><b>Links</b></em>' containment reference list.
+	 * The list contents are of type {@link net.sf.dftools.architecture.slam.link.Link}.
+	 * <!-- begin-user-doc
 	 * -->
 	 * <p>
 	 * If the meaning of the '<em>Links</em>' reference list isn't clear, there
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Links</em>' containment reference list.
 	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_Links()
 	 * @model containment="true"
@@ -97,14 +92,12 @@ public interface Design extends VLNVedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' container reference.
-	 * It is bidirectional and its opposite is '
-	 * {@link net.sf.dftools.architecture.slam.component.Component#getRefinement
-	 * <em>Refinement</em>}'. <!-- begin-user-doc -->
+	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the refined component does not exist, it is created.
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Refined</em>' container reference.
 	 * @see #setRefined(Component)
 	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_Refined()
@@ -115,13 +108,10 @@ public interface Design extends VLNVedElement {
 	Component getRefined();
 
 	/**
-	 * Sets the value of the '
-	 * {@link net.sf.dftools.architecture.slam.Design#getRefined
-	 * <em>Refined</em>}' container reference. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}' container reference.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Refined</em>' container reference.
+	 * @param value the new value of the '<em>Refined</em>' container reference.
 	 * @see #getRefined()
 	 * @generated
 	 */
@@ -145,12 +135,9 @@ public interface Design extends VLNVedElement {
 	String getPath();
 
 	/**
-	 * Sets the value of the '
-	 * {@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Path</em>' attribute.
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.Design#getPath <em>Path</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Path</em>' attribute.
 	 * @see #getPath()
 	 * @generated
 	 */
@@ -164,7 +151,6 @@ public interface Design extends VLNVedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Component Holder</em>' reference.
 	 * @see #setComponentHolder(ComponentHolder)
 	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_ComponentHolder()
@@ -174,13 +160,10 @@ public interface Design extends VLNVedElement {
 	ComponentHolder getComponentHolder();
 
 	/**
-	 * Sets the value of the '
-	 * {@link net.sf.dftools.architecture.slam.Design#getComponentHolder
-	 * <em>Component Holder</em>}' reference. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.Design#getComponentHolder <em>Component Holder</em>}' reference.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Component Holder</em>' reference.
+	 * @param value the new value of the '<em>Component Holder</em>' reference.
 	 * @see #getComponentHolder()
 	 * @generated
 	 */
@@ -188,7 +171,6 @@ public interface Design extends VLNVedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
@@ -196,7 +178,6 @@ public interface Design extends VLNVedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
@@ -205,7 +186,6 @@ public interface Design extends VLNVedElement {
 	/**
 	 * <!-- begin-user-doc --> Gets the instances set in the design without
 	 * managing the hierarchy <!-- end-user-doc -->
-	 * 
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
@@ -213,7 +193,6 @@ public interface Design extends VLNVedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @model required="true" nameRequired="true" classRequired="true"
 	 * @generated
 	 */

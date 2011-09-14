@@ -7,7 +7,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.IFilter;
 
 /**
- * This class filters s-lam components and edges to enable the correct property
+ * This class filters s-lam elements to enable the correct property
  * tabs
  * 
  * @author mpelcat
@@ -19,8 +19,9 @@ public class SlamComponentFilter implements IFilter {
 	public boolean select(Object toTest) {
 		if (toTest instanceof EditPart) {
 			Object model = ((EditPart) toTest).getModel();
-			
-			// Hierarchical connection vertices and edges have no custom parameters.
+
+			// Hierarchical connection vertices and edges have no custom
+			// parameters.
 			// Elements of other types have.
 			if (model instanceof Vertex) {
 				Vertex vertex = (Vertex) model;

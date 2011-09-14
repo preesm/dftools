@@ -16,13 +16,12 @@ import org.eclipse.emf.ecore.EClass;
  * <em><b>Operator</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class OperatorImpl extends ComponentImpl implements Operator {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected OperatorImpl() {
@@ -31,7 +30,6 @@ public class OperatorImpl extends ComponentImpl implements Operator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

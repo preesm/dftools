@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam"
     nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="slam">
-  <eClassifiers xsi:type="ecore:EClass" name="Design" eSuperTypes="#//VLNVedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Design" eSuperTypes="#//VLNVedElement #//ParameterizedElement">
     <eOperations name="containsComponentInstance" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>

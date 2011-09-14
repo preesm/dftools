@@ -40,6 +40,11 @@
                 <xsl:apply-templates select="spirit:version"/>
             </xsl:element>
             
+            <xsl:element name="parameter">
+                <xsl:attribute name="name">design parameters</xsl:attribute>
+                <xsl:apply-templates select="spirit:vendorExtensions/slam:designDescription/slam:parameters/slam:parameter" mode="design"/>
+            </xsl:element>
+            
             <!-- hierarchical connections and component references -->
             <xsl:element name="vertices">
                 <xsl:apply-templates select="spirit:componentInstances/spirit:componentInstance"/>
@@ -51,6 +56,14 @@
                 <xsl:apply-templates select="spirit:interconnections"/>
                 <xsl:apply-templates select="spirit:hierConnections" mode="edge"/>
             </xsl:element>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- template for graph parameters -->
+    <xsl:template match="slam:parameter" mode="design">
+        <xsl:element name="entry">
+            <xsl:attribute name="key" select="@slam:key"/>
+            <xsl:attribute name="value" select="@slam:value"/>
         </xsl:element>
     </xsl:template>
     

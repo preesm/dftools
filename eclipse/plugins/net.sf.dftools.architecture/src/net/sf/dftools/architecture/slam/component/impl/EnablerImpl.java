@@ -16,13 +16,12 @@ import org.eclipse.emf.ecore.EClass;
  * <em><b>Enabler</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class EnablerImpl extends ComponentImpl implements Enabler {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EnablerImpl() {
@@ -31,7 +30,6 @@ public abstract class EnablerImpl extends ComponentImpl implements Enabler {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

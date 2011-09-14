@@ -24,21 +24,18 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class AttributesPackageImpl extends EPackageImpl implements
 		AttributesPackage {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private EClass vlnvEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private EClass parameterEClass = null;
@@ -64,7 +61,6 @@ public class AttributesPackageImpl extends EPackageImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private static boolean isInited = false;
@@ -85,28 +81,17 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * @generated
 	 */
 	public static AttributesPackage init() {
-		if (isInited)
-			return (AttributesPackage) EPackage.Registry.INSTANCE
-					.getEPackage(AttributesPackage.eNS_URI);
+		if (isInited) return (AttributesPackage)EPackage.Registry.INSTANCE.getEPackage(AttributesPackage.eNS_URI);
 
 		// Obtain or create and register package
-		AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new AttributesPackageImpl());
+		AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AttributesPackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
-		ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI)
-				: ComponentPackage.eINSTANCE);
-		LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
+		SlamPackageImpl theSlamPackage = (SlamPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
+		ComponentPackageImpl theComponentPackage = (ComponentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI) : ComponentPackage.eINSTANCE);
+		LinkPackageImpl theLinkPackage = (LinkPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theAttributesPackage.createPackageContents();
@@ -123,15 +108,14 @@ public class AttributesPackageImpl extends EPackageImpl implements
 		// Mark meta-data to indicate it can't be changed
 		theAttributesPackage.freeze();
 
+  
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(AttributesPackage.eNS_URI,
-				theAttributesPackage);
+		EPackage.Registry.INSTANCE.put(AttributesPackage.eNS_URI, theAttributesPackage);
 		return theAttributesPackage;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EClass getVLNV() {
@@ -140,43 +124,38 @@ public class AttributesPackageImpl extends EPackageImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EAttribute getVLNV_Vendor() {
-		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)vlnvEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EAttribute getVLNV_Library() {
-		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)vlnvEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EAttribute getVLNV_Name() {
-		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)vlnvEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EAttribute getVLNV_Version() {
-		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)vlnvEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EClass getParameter() {
@@ -185,48 +164,43 @@ public class AttributesPackageImpl extends EPackageImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EAttribute getParameter_Key() {
-		return (EAttribute) parameterEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)parameterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EAttribute getParameter_Value() {
-		return (EAttribute) parameterEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)parameterEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributesFactory getAttributesFactory() {
-		return (AttributesFactory) getEFactoryInstance();
+		return (AttributesFactory)getEFactoryInstance();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private boolean isCreated = false;
 
 	/**
-	 * Creates the meta-model objects for the package. This method is guarded to
-	 * have no affect on any invocation but its first. <!-- begin-user-doc -->
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated)
-			return;
+		if (isCreated) return;
 		isCreated = true;
 
 		// Create classes and their features
@@ -243,7 +217,6 @@ public class AttributesPackageImpl extends EPackageImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	private boolean isInitialized = false;
@@ -256,8 +229,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized)
-			return;
+		if (isInitialized) return;
 		isInitialized = true;
 
 		// Initialize package
@@ -272,39 +244,15 @@ public class AttributesPackageImpl extends EPackageImpl implements
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(vlnvEClass,
-				net.sf.dftools.architecture.slam.attributes.VLNV.class, "VLNV",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVLNV_Vendor(), ecorePackage.getEString(), "vendor",
-				"", 1, 1,
-				net.sf.dftools.architecture.slam.attributes.VLNV.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVLNV_Library(), ecorePackage.getEString(), "library",
-				null, 1, 1,
-				net.sf.dftools.architecture.slam.attributes.VLNV.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVLNV_Name(), ecorePackage.getEString(), "name", null,
-				1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVLNV_Version(), ecorePackage.getEString(), "version",
-				null, 1, 1,
-				net.sf.dftools.architecture.slam.attributes.VLNV.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
-				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(vlnvEClass, net.sf.dftools.architecture.slam.attributes.VLNV.class, "VLNV", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVLNV_Vendor(), ecorePackage.getEString(), "vendor", "", 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Library(), ecorePackage.getEString(), "library", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Name(), ecorePackage.getEString(), "name", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVLNV_Version(), ecorePackage.getEString(), "version", null, 1, 1, net.sf.dftools.architecture.slam.attributes.VLNV.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getParameter_Key(), ecorePackage.getEString(), "key",
-				null, 1, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
-		initEAttribute(getParameter_Value(), ecorePackage.getEString(),
-				"value", null, 1, 1, Parameter.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEClass(parameterEClass, Parameter.class, "Parameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getParameter_Key(), ecorePackage.getEString(), "key", null, 1, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getParameter_Value(), ecorePackage.getEString(), "value", null, 1, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } // AttributesPackageImpl

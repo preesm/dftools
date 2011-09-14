@@ -20,34 +20,33 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class AttributesFactoryImpl extends EFactoryImpl implements
 		AttributesFactory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static AttributesFactory init() {
 		try {
-			AttributesFactory theAttributesFactory = (AttributesFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://net.sf.dftools/architecture/slam/attributes");
+			AttributesFactory theAttributesFactory = (AttributesFactory)EPackage.Registry.INSTANCE.getEFactory("http://net.sf.dftools/architecture/slam/attributes"); 
 			if (theAttributesFactory != null) {
 				return theAttributesFactory;
 			}
-		} catch (Exception exception) {
+		}
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new AttributesFactoryImpl();
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributesFactoryImpl() {
@@ -56,25 +55,20 @@ public class AttributesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case AttributesPackage.VLNV:
-			return createVLNV();
-		case AttributesPackage.PARAMETER:
-			return createParameter();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName()
-					+ "' is not a valid classifier");
+			case AttributesPackage.VLNV: return createVLNV();
+			case AttributesPackage.PARAMETER: return createParameter();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public VLNV createVLNV() {
@@ -84,7 +78,6 @@ public class AttributesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Parameter createParameter() {
@@ -94,16 +87,14 @@ public class AttributesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public AttributesPackage getAttributesPackage() {
-		return (AttributesPackage) getEPackage();
+		return (AttributesPackage)getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */

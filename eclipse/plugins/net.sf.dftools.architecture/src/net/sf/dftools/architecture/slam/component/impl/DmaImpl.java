@@ -16,13 +16,12 @@ import org.eclipse.emf.ecore.EClass;
  * <em><b>Dma</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class DmaImpl extends EnablerImpl implements Dma {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected DmaImpl() {
@@ -31,7 +30,6 @@ public class DmaImpl extends EnablerImpl implements Dma {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

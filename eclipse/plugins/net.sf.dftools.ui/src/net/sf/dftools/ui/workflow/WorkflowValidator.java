@@ -113,7 +113,7 @@ public class WorkflowValidator implements IValidator {
 						} catch (Exception e) {
 							createMarker(
 									file,
-									"Class associated to the workflow task not found.",
+									"Class associated to the workflow task not found. Is the class path exported?",
 									pluginId, IMarker.PROBLEM,
 									IMarker.SEVERITY_ERROR);
 							return true;
