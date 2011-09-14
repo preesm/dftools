@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.sf.dftools.architecture.slam.ComponentHolder;
@@ -32,7 +33,7 @@ import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.slam.link.LinkPackage;
-import net.sf.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensions.LinkDescription;
+import net.sf.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensionsParser.LinkDescription;
 import net.sf.dftools.architecture.utils.DomUtil;
 
 import org.eclipse.core.resources.IContainer;
@@ -62,7 +63,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 	/**
 	 * Information needed in the vendor extensions of the design
 	 */
-	private IPXACTDesignVendorExtensions vendorExtensions;
+	private IPXACTDesignVendorExtensionsParser vendorExtensions;
 
 	/**
 	 * parsed input stream
@@ -74,7 +75,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 	 */
 	public IPXACTDesignParser(URI uri) {
 		this.uri = uri;
-		vendorExtensions = new IPXACTDesignVendorExtensions();
+		vendorExtensions = new IPXACTDesignVendorExtensionsParser();
 	}
 
 	/**
@@ -112,7 +113,12 @@ public class IPXACTDesignParser extends IPXACTParser {
 		Document document = DomUtil.parseDocument(inputStream);
 		Element root = document.getDocumentElement();
 
+		// Parsing vendor extensions that will parameterize the model
 		vendorExtensions.parse(root);
+		
+		// Retrieving custom design parameters from vendor extensions
+		setDesignParameters(design);
+		
 		// Parsing the file content to fill the design
 		parseDesign(root, design);
 
@@ -126,6 +132,16 @@ public class IPXACTDesignParser extends IPXACTParser {
 		}
 
 		return design;
+	}
+	
+	private void setDesignParameters(Design design){
+		Map<String, String> designParameters = vendorExtensions.getDesignParameters();
+		for(String key : designParameters.keySet()){
+			Parameter p = AttributesFactory.eINSTANCE.createParameter();
+			p.setKey(key);
+			p.setValue(designParameters.get(key));
+			design.getParameters().add(p);
+		}
 	}
 
 	private void parseDesign(Element parent, Design design) {
@@ -197,7 +213,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 		// Component type is retrieved from vendor extensions if there are any.
 		// Otherwise, a generic component is created
-		IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions
+		IPXACTDesignVendorExtensionsParser.ComponentDescription description = vendorExtensions
 				.getComponentDescription(vlnv.getName());
 		String componentType = "Component";
 		if (description != null) {
@@ -231,7 +247,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		Set<Component> components = new HashSet<Component>(design
 				.getComponentHolder().getComponents());
 		for (Component component : components) {
-			IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions
+			IPXACTDesignVendorExtensionsParser.ComponentDescription description = vendorExtensions
 					.getComponentDescription(component.getVlnv().getName());
 
 			// Looking for a refinement design in the project

@@ -36,7 +36,9 @@
         </xsl:result-document>
         
         <xsl:element name="spirit:design">
-            <xsl:apply-templates select="parameters" mode="vlnv"/>
+            
+            <xsl:apply-templates select="parameters/parameter[@name != 'design parameters']" mode="vlnv"/>
+            
             <xsl:element name="spirit:componentInstances">
                 <xsl:apply-templates select="vertices/vertex[@type != 'hierConnection']"/>
             </xsl:element>    
@@ -62,14 +64,29 @@
                 <xsl:element name="slam:linkDescriptions">
                     <xsl:apply-templates select="edges/edge[@type != 'hierConnection']" mode="vendorExtensions"/>
                 </xsl:element>
+                
+                <!-- Hierarchical connections have no vendor extension -->
+                <xsl:element name="slam:designDescription">
+                    <xsl:element name="slam:parameters">
+                        <xsl:apply-templates select="parameters/parameter[@name = 'design parameters']/entry" mode="designparameters"/>
+                    </xsl:element>
+                </xsl:element>
             </xsl:element>
         </xsl:element>
     </xsl:template>
     
-    <!-- Design parameter declarations -->
+    <!-- Design VLNV parameter declarations -->
     <xsl:template match="parameter" mode="vlnv">
         <xsl:element name="spirit:{@name}">
             <xsl:value-of select="@value"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- Design custom parameter declarations -->
+    <xsl:template match="entry" mode="designparameters">
+        <xsl:element name="slam:parameter">
+            <xsl:attribute name="slam:key" select="@key"/>
+            <xsl:attribute name="slam:value" select="@value"/>
         </xsl:element>
     </xsl:template>
     

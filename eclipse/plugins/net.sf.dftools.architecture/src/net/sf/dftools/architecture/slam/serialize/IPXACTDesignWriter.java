@@ -13,10 +13,7 @@ import net.sf.dftools.architecture.slam.VLNVedElement;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.attributes.VLNV;
 import net.sf.dftools.architecture.slam.component.ComInterface;
-import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
-import net.sf.dftools.architecture.slam.component.Mem;
-import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.utils.DomUtil;
 
@@ -40,11 +37,10 @@ public class IPXACTDesignWriter {
 	/**
 	 * Information needed in the vendor extensions of the design
 	 */
-	private IPXACTDesignVendorExtensions vendorExtensions;
+	private IPXACTDesignVendorExtensionsWriter vendorExtensions = null;
 
 	public IPXACTDesignWriter(URI uri) {
 		this.uri = uri;
-		vendorExtensions = new IPXACTDesignVendorExtensions();
 	}
 
 	/**
@@ -57,6 +53,8 @@ public class IPXACTDesignWriter {
 	 */
 	public void write(Design design, OutputStream outputStream) {
 
+		vendorExtensions = new IPXACTDesignVendorExtensionsWriter(design);
+		
 		Document document = DomUtil.createDocument(
 				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
 				"spirit:design");
@@ -66,6 +64,7 @@ public class IPXACTDesignWriter {
 		root.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:slam",
 				"http://sourceforge.net/projects/dftools/slam");
 
+		//Writing elements and initializing vendor extensions
 		writeVLNV(root, design, document);
 		writeComponentInstances(root, design, document);
 		writeLinks(root, design, document);
@@ -125,44 +124,6 @@ public class IPXACTDesignWriter {
 		cmpElt.appendChild(confsElt);
 
 		writeParameters(confsElt, instance, document);
-
-		// Adding as component type the name of the component ecore EClass.
-		String componentRef = instance.getComponent().getVlnv().getName();
-		String componentType = instance.getComponent().eClass().getName();
-
-		// Communication node type is concatenated if necessary
-		if (componentType.equals("ComNode")) {
-			if (((ComNode) instance.getComponent()).isParallel())
-				componentType = "parallel" + componentType;
-			else
-				componentType = "contention" + componentType;
-
-		}
-
-		// The subdesign path holds the location of the refinement
-		String refinementPath = "";
-		Design refinement = instance.getComponent().getRefinement();
-		if (refinement != null) {
-			refinementPath = refinement.getPath();
-		}
-
-		// Initializing vendor extensions
-		IPXACTDesignVendorExtensions.ComponentDescription description = vendorExtensions.new ComponentDescription(
-				componentRef, componentType, refinementPath);
-
-		// Managing specific component properties
-		if (instance.getComponent() instanceof ComNode) {
-			description.addSpecificParameter("slam:speed", Float
-					.toString(((ComNode) instance.getComponent()).getSpeed()));
-		} else if (instance.getComponent() instanceof Mem) {
-			description
-					.addSpecificParameter("slam:size",
-							Integer.toString(((Mem) instance.getComponent())
-									.getSize()));
-		}
-
-		vendorExtensions.getComponentDescriptions().put(componentRef,
-				description);
 	}
 
 	private void writeComponentInstances(Element parent, Design design,
@@ -233,19 +194,6 @@ public class IPXACTDesignWriter {
 		intf2Elt.setAttribute("spirit:componentRef",
 				destinationComponentInstance.getInstanceName());
 		intf2Elt.setAttribute("spirit:busRef", destinationInterface.getName());
-
-		// Initializing vendor extensions
-		String linkType = link.eClass().getName();
-		IPXACTDesignVendorExtensions.LinkDescription description = vendorExtensions.new LinkDescription(
-				link.getUuid(), link.isDirected(), linkType);
-
-		vendorExtensions.getLinkDescriptions().put(link.getUuid(), description);
-
-		// Managing specific link properties
-		if (link instanceof ControlLink) {
-			description.addSpecificParameter("slam:setupTime",
-					Integer.toString(((ControlLink) link).getSetupTime()));
-		}
 	}
 
 	private void writeLinks(Element parent, Design design, Document document) {

@@ -38,11 +38,11 @@
                 <xsl:apply-templates select="spirit:library"/>
                 <xsl:apply-templates select="spirit:name"/>
                 <xsl:apply-templates select="spirit:version"/>
-            </xsl:element>
-            
-            <xsl:element name="parameter">
-                <xsl:attribute name="name">design parameters</xsl:attribute>
-                <xsl:apply-templates select="spirit:vendorExtensions/slam:designDescription/slam:parameters/slam:parameter" mode="design"/>
+                
+                <xsl:element name="parameter">
+                    <xsl:attribute name="name">design parameters</xsl:attribute>
+                    <xsl:apply-templates select="spirit:vendorExtensions/slam:designDescription/slam:parameters/slam:parameter" mode="design"/>
+                </xsl:element>
             </xsl:element>
             
             <!-- hierarchical connections and component references -->
