@@ -3,7 +3,7 @@
  */
 package net.sf.dftools.ui.slam;
 
-import net.sf.dftools.ui.slam.SlamRefinementPolicy.RefinementList;
+import net.sf.dftools.architecture.slam.serialize.RefinementList;
 import net.sf.graphiti.model.Vertex;
 
 import org.eclipse.jface.viewers.ILabelProvider;

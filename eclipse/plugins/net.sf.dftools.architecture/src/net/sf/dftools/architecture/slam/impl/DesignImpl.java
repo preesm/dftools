@@ -214,7 +214,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newRefined != null)
-				msgs = ((InternalEObject)newRefined).eInverseAdd(this, ComponentPackage.COMPONENT__REFINEMENT, Component.class, msgs);
+				msgs = ((InternalEObject)newRefined).eInverseAdd(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class, msgs);
 			msgs = basicSetRefined(newRefined, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -389,7 +389,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 			NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case SlamPackage.DESIGN__REFINED:
-				return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__REFINEMENT, Component.class, msgs);
+				return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}

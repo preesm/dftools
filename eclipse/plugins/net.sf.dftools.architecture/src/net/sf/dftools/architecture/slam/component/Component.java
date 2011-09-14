@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getInterfaces <em>Interfaces</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.component.Component#getRefinements <em>Refinements</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,32 +68,22 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 	EList<ComponentInstance> getInstances();
 
 	/**
-	 * Returns the value of the '<em><b>Refinement</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Refinements</b></em>' containment reference list.
+	 * The list contents are of type {@link net.sf.dftools.architecture.slam.Design}.
 	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.Design#getRefined <em>Refined</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Refinement</em>' reference isn't clear, there
-	 * really should be more of a description here...
+	 * If the meaning of the '<em>Refinements</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Refinement</em>' containment reference.
-	 * @see #setRefinement(Design)
-	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Refinement()
+	 * @return the value of the '<em>Refinements</em>' containment reference list.
+	 * @see net.sf.dftools.architecture.slam.component.ComponentPackage#getComponent_Refinements()
 	 * @see net.sf.dftools.architecture.slam.Design#getRefined
 	 * @model opposite="refined" containment="true"
 	 * @generated
 	 */
-	Design getRefinement();
-
-	/**
-	 * Sets the value of the '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * @param value the new value of the '<em>Refinement</em>' containment reference.
-	 * @see #getRefinement()
-	 * @generated
-	 */
-	void setRefinement(Design value);
+	EList<Design> getRefinements();
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->

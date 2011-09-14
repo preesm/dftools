@@ -22,7 +22,7 @@ import org.w3c.dom.Element;
 public class IPXACTDesignVendorExtensionsWriter {
 
 	private Design design;
-	
+
 	public IPXACTDesignVendorExtensionsWriter(Design design) {
 		this.design = design;
 	}
@@ -61,8 +61,8 @@ public class IPXACTDesignVendorExtensionsWriter {
 		designDescriptionElt.appendChild(parametersElt);
 
 		for (Parameter p : design.getParameters()) {
-			writeDesignParameter(parametersElt, p.getKey(),
-					p.getValue(), document);
+			writeDesignParameter(parametersElt, p.getKey(), p.getValue(),
+					document);
 		}
 	}
 
@@ -81,9 +81,9 @@ public class IPXACTDesignVendorExtensionsWriter {
 	/**
 	 * Writes a component description inside a dom element
 	 */
-	public void writeComponentDescription(Element parent,
-			Component component, Document document) {
-		
+	public void writeComponentDescription(Element parent, Component component,
+			Document document) {
+
 		// Adding as component type the name of the component ecore EClass.
 		String componentRef = component.getVlnv().getName();
 		String componentType = component.eClass().getName();
@@ -96,41 +96,37 @@ public class IPXACTDesignVendorExtensionsWriter {
 				componentType = "contention" + componentType;
 
 		}
-		
+
 		Element componentElt = document
 				.createElement("slam:componentDescription");
 		parent.appendChild(componentElt);
 
-		componentElt.setAttribute("slam:componentRef",
-				componentRef);
-		componentElt.setAttribute("slam:componentType",
-				componentType);
-		
-		String refinementPath = "";
-		Design refinement = component.getRefinement();
-		if (refinement != null) {
-			refinementPath = refinement.getPath();
-		}
-		
-		componentElt.setAttribute("slam:refinement",
-				refinementPath);
+		componentElt.setAttribute("slam:componentRef", componentRef);
+		componentElt.setAttribute("slam:componentType", componentType);
 
+		RefinementList list = new RefinementList();
+		for (Design subDesign : component.getRefinements()) {
+			list.addName(subDesign.getPath());
+		}
+		String refinementPath = list.toString();
+
+		componentElt.setAttribute("slam:refinement", refinementPath);
 
 		// Managing specific component properties
 		if (component instanceof ComNode) {
-			componentElt.setAttribute("slam:speed", Float.toString(((ComNode) component).getSpeed()));
+			componentElt.setAttribute("slam:speed",
+					Float.toString(((ComNode) component).getSpeed()));
 		} else if (component instanceof Mem) {
 			componentElt.setAttribute("slam:size",
-							Integer.toString(((Mem) component)
-									.getSize()));
+					Integer.toString(((Mem) component).getSize()));
 		}
 	}
 
 	/**
 	 * Writes a link description inside a dom element
 	 */
-	public void writeLinkDescription(Element parent,
-			Link link, Document document) {
+	public void writeLinkDescription(Element parent, Link link,
+			Document document) {
 		Element linkElt = document.createElement("slam:linkDescription");
 		parent.appendChild(linkElt);
 

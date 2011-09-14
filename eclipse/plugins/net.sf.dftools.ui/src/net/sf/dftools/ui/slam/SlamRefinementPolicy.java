@@ -28,11 +28,7 @@
  */
 package net.sf.dftools.ui.slam;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
+import net.sf.dftools.architecture.slam.serialize.RefinementList;
 import net.sf.dftools.ui.util.FileUtils;
 import net.sf.graphiti.model.DefaultRefinementPolicy;
 import net.sf.graphiti.model.Vertex;
@@ -57,56 +53,6 @@ import org.eclipse.ui.PlatformUI;
  * @author mpelcat
  */
 public class SlamRefinementPolicy extends DefaultRefinementPolicy {
-
-	/**
-	 * A complex refinement made of a list of files
-	 */
-	public class RefinementList {
-
-		List<String> nameList = new ArrayList<String>();
-
-		public RefinementList(String stringList) {
-			fromString(stringList);
-		}
-
-		public void addName(String name) {
-			nameList.add(name);
-		}
-
-		public void removeName(String name) {
-			Iterator<String> iterator = nameList.listIterator();
-			while (iterator.hasNext()) {
-				String next = iterator.next();
-				if (next.equals(name)) {
-					iterator.remove();
-				}
-			}
-		}
-
-		public void fromString(String stringList) {
-			nameList.addAll(Arrays.asList(stringList.split(",")));
-		}
-
-		public int size() {
-			return nameList.size();
-		}
-
-		public String[] toStringArray() {
-			return nameList.toArray(new String[0]);
-		}
-
-		@Override
-		public String toString() {
-			String stringList = "";
-			for (String fileName : nameList) {
-				stringList += fileName + ",";
-			}
-			if (!stringList.isEmpty()) {
-				stringList = stringList.substring(0, stringList.length() - 1);
-			}
-			return stringList;
-		}
-	}
 
 	/**
 	 * Ask the user to choose an existing S-LAM file to refine the selected

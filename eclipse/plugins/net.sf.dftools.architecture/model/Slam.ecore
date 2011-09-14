@@ -24,7 +24,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchyPorts" upperBound="-1"
         eType="#//component/HierarchyPort" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" eType="#//component/Component"
-        eOpposite="#//component/Component/refinement"/>
+        eOpposite="#//component/Component/refinements"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentHolder" lowerBound="1"
         eType="#//ComponentHolder"/>
@@ -58,8 +58,8 @@
           eType="#//component/ComInterface" containment="true" eOpposite="#//component/ComInterface/component"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="instances" upperBound="-1"
           eType="#//ComponentInstance" eOpposite="#//ComponentInstance/component"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="refinement" eType="#//Design"
-          containment="true" eOpposite="#//Design/refined"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="refinements" upperBound="-1"
+          eType="#//Design" containment="true" eOpposite="#//Design/refined"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Operator" eSuperTypes="#//component/Component"/>
     <eClassifiers xsi:type="ecore:EClass" name="ComNode" eSuperTypes="#//component/Component">

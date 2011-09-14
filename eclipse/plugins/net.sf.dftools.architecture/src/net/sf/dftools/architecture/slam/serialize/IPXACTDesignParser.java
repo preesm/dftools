@@ -101,7 +101,7 @@ public class IPXACTDesignParser extends IPXACTParser {
 		}
 
 		Design design = SlamFactory.eINSTANCE.createDesign();
-		refinedComponent.setRefinement(design);
+		refinedComponent.getRefinements().add(design);
 
 		// Creates a component holder in case of a top design.
 		// It is inherited in the case of a subdesign.
@@ -115,10 +115,10 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 		// Parsing vendor extensions that will parameterize the model
 		vendorExtensions.parse(root);
-		
+
 		// Retrieving custom design parameters from vendor extensions
 		setDesignParameters(design);
-		
+
 		// Parsing the file content to fill the design
 		parseDesign(root, design);
 
@@ -133,10 +133,11 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 		return design;
 	}
-	
-	private void setDesignParameters(Design design){
-		Map<String, String> designParameters = vendorExtensions.getDesignParameters();
-		for(String key : designParameters.keySet()){
+
+	private void setDesignParameters(Design design) {
+		Map<String, String> designParameters = vendorExtensions
+				.getDesignParameters();
+		for (String key : designParameters.keySet()) {
 			Parameter p = AttributesFactory.eINSTANCE.createParameter();
 			p.setKey(key);
 			p.setValue(designParameters.get(key));
@@ -252,37 +253,41 @@ public class IPXACTDesignParser extends IPXACTParser {
 
 			// Looking for a refinement design in the project
 			if (description != null && !description.getRefinement().isEmpty()) {
-				String refinementStringPath = description.getRefinement();
+				RefinementList list = new RefinementList(
+						description.getRefinement());
 
-				String base = uri.trimSegments(1).toFileString();
-				Path refinementPath = new Path(base + "/"
-						+ refinementStringPath);
-				refinementPath.toString();
-				URI refinementURI = URI
-						.createFileURI(refinementPath.toString());
-				File file = new File(refinementURI.toFileString());
+				for (String refinementStringPath : list.toStringArray()) {
 
-				if (file != null) {
-					// Read from an input stream
-					IPXACTDesignParser subParser = new IPXACTDesignParser(
-							refinementURI);
-					InputStream stream = null;
+					String base = uri.trimSegments(1).toFileString();
+					Path refinementPath = new Path(base + "/"
+							+ refinementStringPath);
+					refinementPath.toString();
+					URI refinementURI = URI.createFileURI(refinementPath
+							.toString());
+					File file = new File(refinementURI.toFileString());
 
-					try {
-						stream = new FileInputStream(file.getPath());
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					}
+					if (file != null) {
+						// Read from an input stream
+						IPXACTDesignParser subParser = new IPXACTDesignParser(
+								refinementURI);
+						InputStream stream = null;
 
-					if (stream != null) {
-						Design subDesign = subParser.parse(stream,
-								design.getComponentHolder(), component);
+						try {
+							stream = new FileInputStream(file.getPath());
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
 
-						// A design shares its component holder with its
-						// subdesigns
-						subDesign.setPath(refinementStringPath);
-						component.setRefinement(subDesign);
+						if (stream != null) {
+							Design subDesign = subParser.parse(stream,
+									design.getComponentHolder(), component);
 
+							// A design shares its component holder with its
+							// subdesigns
+							subDesign.setPath(refinementStringPath);
+							component.getRefinements().add(subDesign);
+
+						}
 					}
 				}
 			}

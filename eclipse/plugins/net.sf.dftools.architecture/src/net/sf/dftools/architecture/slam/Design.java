@@ -92,7 +92,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
+	 * It is bidirectional and its opposite is '{@link net.sf.dftools.architecture.slam.component.Component#getRefinements <em>Refinements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the refined component does not exist, it is created.
@@ -101,8 +101,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * @return the value of the '<em>Refined</em>' container reference.
 	 * @see #setRefined(Component)
 	 * @see net.sf.dftools.architecture.slam.SlamPackage#getDesign_Refined()
-	 * @see net.sf.dftools.architecture.slam.component.Component#getRefinement
-	 * @model opposite="refinement" transient="false"
+	 * @see net.sf.dftools.architecture.slam.component.Component#getRefinements
+	 * @model opposite="refinements" transient="false"
 	 * @generated
 	 */
 	Component getRefined();

@@ -53,8 +53,8 @@ public class SlamTester2 {
 		// "../../../test/SlamBeta/testArchi/top_write.slam");
 		//tester.flatten("../../../test/SlamBeta/tci6488/top.slam",
 		//		"../../../test/SlamBeta/tci6488/top_write.slam");
-		tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core.slam", "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core_write.slam");
-
+		//tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core.slam", "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core_write.slam");
+		tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top.slam", "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top_write.slam");
 	}
 
 	private void flatten(String inputTopPath, String outputPath) {

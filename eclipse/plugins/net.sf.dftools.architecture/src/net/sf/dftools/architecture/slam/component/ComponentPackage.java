@@ -101,12 +101,13 @@ public interface ComponentPackage extends EPackage {
 	int COMPONENT__INSTANCES = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT__REFINEMENT = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 3;
+	int COMPONENT__REFINEMENTS = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Component</em>' class. <!--
@@ -161,12 +162,13 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATOR__REFINEMENT = COMPONENT__REFINEMENT;
+	int OPERATOR__REFINEMENTS = COMPONENT__REFINEMENTS;
 
 	/**
 	 * The number of structural features of the '<em>Operator</em>' class. <!--
@@ -221,12 +223,13 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COM_NODE__REFINEMENT = COMPONENT__REFINEMENT;
+	int COM_NODE__REFINEMENTS = COMPONENT__REFINEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Parallel</b></em>' attribute. <!--
@@ -299,12 +302,13 @@ public interface ComponentPackage extends EPackage {
 	int ENABLER__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENABLER__REFINEMENT = COMPONENT__REFINEMENT;
+	int ENABLER__REFINEMENTS = COMPONENT__REFINEMENTS;
 
 	/**
 	 * The number of structural features of the '<em>Enabler</em>' class. <!--
@@ -359,12 +363,13 @@ public interface ComponentPackage extends EPackage {
 	int DMA__INSTANCES = ENABLER__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DMA__REFINEMENT = ENABLER__REFINEMENT;
+	int DMA__REFINEMENTS = ENABLER__REFINEMENTS;
 
 	/**
 	 * The number of structural features of the '<em>Dma</em>' class. <!--
@@ -419,12 +424,13 @@ public interface ComponentPackage extends EPackage {
 	int MEM__INSTANCES = ENABLER__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinement</b></em>' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MEM__REFINEMENT = ENABLER__REFINEMENT;
+	int MEM__REFINEMENTS = ENABLER__REFINEMENTS;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' attribute. <!--
@@ -561,14 +567,15 @@ public interface ComponentPackage extends EPackage {
 	EReference getComponent_Instances();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link net.sf.dftools.architecture.slam.component.Component#getRefinement <em>Refinement</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Refinement</em>'.
-	 * @see net.sf.dftools.architecture.slam.component.Component#getRefinement()
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.component.Component#getRefinements <em>Refinements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Refinements</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.Component#getRefinements()
 	 * @see #getComponent()
 	 * @generated
 	 */
-	EReference getComponent_Refinement();
+	EReference getComponent_Refinements();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Operator <em>Operator</em>}'.
@@ -780,12 +787,12 @@ public interface ComponentPackage extends EPackage {
 		EReference COMPONENT__INSTANCES = eINSTANCE.getComponent_Instances();
 
 		/**
-		 * The meta object literal for the '<em><b>Refinement</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!--
-		 * end-user-doc -->
+		 * The meta object literal for the '<em><b>Refinements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT__REFINEMENT = eINSTANCE.getComponent_Refinement();
+		EReference COMPONENT__REFINEMENTS = eINSTANCE.getComponent_Refinements();
 
 		/**
 		 * The meta object literal for the '

@@ -18,12 +18,10 @@ import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
 import net.sf.dftools.architecture.slam.impl.VLNVedElementImpl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
@@ -38,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl#getInterfaces <em>Interfaces</em>}</li>
  *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl#getInstances <em>Instances</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl#getRefinement <em>Refinement</em>}</li>
+ *   <li>{@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl#getRefinements <em>Refinements</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,13 +71,14 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	protected EList<ComponentInstance> instances;
 
 	/**
-	 * The cached value of the '{@link #getRefinement() <em>Refinement</em>}' containment reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getRefinement()
+	 * The cached value of the '{@link #getRefinements() <em>Refinements</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRefinements()
 	 * @generated
 	 * @ordered
 	 */
-	protected Design refinement;
+	protected EList<Design> refinements;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -132,44 +131,15 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Design getRefinement() {
-		return refinement;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetRefinement(Design newRefinement,
-			NotificationChain msgs) {
-		Design oldRefinement = refinement;
-		refinement = newRefinement;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT__REFINEMENT, oldRefinement, newRefinement);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Design> getRefinements() {
+		if (refinements == null) {
+			refinements = new EObjectContainmentWithInverseEList<Design>(Design.class, this, ComponentPackage.COMPONENT__REFINEMENTS, SlamPackage.DESIGN__REFINED);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRefinement(Design newRefinement) {
-		if (newRefinement != refinement) {
-			NotificationChain msgs = null;
-			if (refinement != null)
-				msgs = ((InternalEObject)refinement).eInverseRemove(this, SlamPackage.DESIGN__REFINED, Design.class, msgs);
-			if (newRefinement != null)
-				msgs = ((InternalEObject)newRefinement).eInverseAdd(this, SlamPackage.DESIGN__REFINED, Design.class, msgs);
-			msgs = basicSetRefinement(newRefinement, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT__REFINEMENT, newRefinement, newRefinement));
+		return refinements;
 	}
 
 	/**
@@ -203,10 +173,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInterfaces()).basicAdd(otherEnd, msgs);
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstances()).basicAdd(otherEnd, msgs);
-			case ComponentPackage.COMPONENT__REFINEMENT:
-				if (refinement != null)
-					msgs = ((InternalEObject)refinement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT__REFINEMENT, null, msgs);
-				return basicSetRefinement((Design)otherEnd, msgs);
+			case ComponentPackage.COMPONENT__REFINEMENTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getRefinements()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -225,8 +193,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 				return ((InternalEList<?>)getInterfaces()).basicRemove(otherEnd, msgs);
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return ((InternalEList<?>)getInstances()).basicRemove(otherEnd, msgs);
-			case ComponentPackage.COMPONENT__REFINEMENT:
-				return basicSetRefinement(null, msgs);
+			case ComponentPackage.COMPONENT__REFINEMENTS:
+				return ((InternalEList<?>)getRefinements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -244,8 +212,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 				return getInterfaces();
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return getInstances();
-			case ComponentPackage.COMPONENT__REFINEMENT:
-				return getRefinement();
+			case ComponentPackage.COMPONENT__REFINEMENTS:
+				return getRefinements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -270,8 +238,9 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 				getInstances().clear();
 				getInstances().addAll((Collection<? extends ComponentInstance>)newValue);
 				return;
-			case ComponentPackage.COMPONENT__REFINEMENT:
-				setRefinement((Design)newValue);
+			case ComponentPackage.COMPONENT__REFINEMENTS:
+				getRefinements().clear();
+				getRefinements().addAll((Collection<? extends Design>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -293,8 +262,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 			case ComponentPackage.COMPONENT__INSTANCES:
 				getInstances().clear();
 				return;
-			case ComponentPackage.COMPONENT__REFINEMENT:
-				setRefinement((Design)null);
+			case ComponentPackage.COMPONENT__REFINEMENTS:
+				getRefinements().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -313,8 +282,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 				return interfaces != null && !interfaces.isEmpty();
 			case ComponentPackage.COMPONENT__INSTANCES:
 				return instances != null && !instances.isEmpty();
-			case ComponentPackage.COMPONENT__REFINEMENT:
-				return refinement != null;
+			case ComponentPackage.COMPONENT__REFINEMENTS:
+				return refinements != null && !refinements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

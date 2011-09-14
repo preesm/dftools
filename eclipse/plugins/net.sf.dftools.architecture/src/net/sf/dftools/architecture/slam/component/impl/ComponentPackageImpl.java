@@ -184,10 +184,11 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComponent_Refinement() {
+	public EReference getComponent_Refinements() {
 		return (EReference)componentEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -348,7 +349,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 		componentEClass = createEClass(COMPONENT);
 		createEReference(componentEClass, COMPONENT__INTERFACES);
 		createEReference(componentEClass, COMPONENT__INSTANCES);
-		createEReference(componentEClass, COMPONENT__REFINEMENT);
+		createEReference(componentEClass, COMPONENT__REFINEMENTS);
 
 		operatorEClass = createEClass(OPERATOR);
 
@@ -417,7 +418,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 		initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getComponent_Interfaces(), this.getComInterface(), this.getComInterface_Component(), "interfaces", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getComponent_Instances(), theSlamPackage.getComponentInstance(), theSlamPackage.getComponentInstance_Component(), "instances", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComponent_Refinement(), theSlamPackage.getDesign(), theSlamPackage.getDesign_Refined(), "refinement", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Refinements(), theSlamPackage.getDesign(), theSlamPackage.getDesign_Refined(), "refinements", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		EOperation op = addEOperation(componentEClass, this.getComInterface(), "getInterface", 1, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE, IS_ORDERED);

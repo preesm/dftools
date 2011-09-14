@@ -27,7 +27,8 @@ import net.sf.dftools.architecture.slam.link.LinkFactory;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * Methods to flatten the hierarchy of a System-Level Architecture Model
+ * Methods to flatten the hierarchy of a System-Level Architecture Model. If
+ * multiple refinements are available for a component, the first is selected.
  * 
  * @author mpelcat
  */
@@ -67,14 +68,26 @@ public class SlamFlattener {
 				design.getComponentInstances());
 
 		for (ComponentInstance instance : componentInstances) {
-			if (instance.getComponent().getRefinement() != null) {
-				removedSubdesigns.add(instance.getComponent().getRefinement());
+			if (!instance.getComponent().getRefinements().isEmpty()) {
+				removedSubdesigns.add(instance.getComponent().getRefinements()
+						.get(0));
 				replaceInstanceByContent(design, instance);
 			}
 		}
 
 		// Removing all references to components no more instanciated
 		cleanComponentHolder(design, removedSubdesigns);
+	}
+
+	private void getAllInstances(Design design,
+			Set<ComponentInstance> globalInstances) {
+
+		for (ComponentInstance instance : design.getComponentInstances()) {
+			globalInstances.add(instance);
+			for (Design subDesign : instance.getComponent().getRefinements()) {
+				getAllInstances(subDesign, globalInstances);
+			}
+		}
 	}
 
 	/**
@@ -88,21 +101,22 @@ public class SlamFlattener {
 	private void cleanComponentHolder(Design design,
 			Set<Design> removedSubdesigns) {
 
-		for (Design subDesign : removedSubdesigns) {
-			// Remove all references to instances of the removed hierarchy level
-			for (ComponentInstance subInstance : subDesign
-					.getComponentInstances()) {
-				// We remove the replaced instance link from its component
-				Component refComponent = subInstance.getComponent();
-				if (refComponent != null) {
-					refComponent.getInstances().remove(subInstance);
+		// Getting all instances and their components from the design and its
+		// subdesigns
+		Set<ComponentInstance> globalInstances = new HashSet<ComponentInstance>();
+		Set<Component> globalComponents = new HashSet<Component>();
 
-					// If the component has no more instance, it is also removed
-					if (refComponent.getInstances().isEmpty()) {
-						design.getComponentHolder().getComponents()
-								.remove(refComponent);
-					}
-				}
+		getAllInstances(design, globalInstances);
+		for (ComponentInstance instance : globalInstances) {
+			globalComponents.add(instance.getComponent());
+		}
+
+		Set<Component> holderComponents = new HashSet<Component>(design
+				.getComponentHolder().getComponents());
+		for (Component component : holderComponents) {
+			// Remove all references to instances of the removed hierarchy level
+			if (!globalComponents.contains(component)) {
+				design.getComponentHolder().getComponents().remove(component);
 			}
 		}
 	}
@@ -117,7 +131,7 @@ public class SlamFlattener {
 		// instance in the design.
 		Map<ComponentInstance, ComponentInstance> refMap = new HashMap<ComponentInstance, ComponentInstance>();
 		Component component = instance.getComponent();
-		Design subDesign = component.getRefinement();
+		Design subDesign = component.getRefinements().get(0);
 
 		insertComponentInstancesClones(subDesign.getComponentInstances(),
 				design, instance, refMap);
@@ -310,7 +324,7 @@ public class SlamFlattener {
 	private boolean hasHierarchy(Design design) {
 
 		for (Component component : design.getComponentHolder().getComponents()) {
-			if (component.getRefinement() != null) {
+			if (!component.getRefinements().isEmpty()) {
 				return true;
 			}
 		}
