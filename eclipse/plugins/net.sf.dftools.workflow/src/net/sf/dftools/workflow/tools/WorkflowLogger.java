@@ -18,11 +18,11 @@ import org.eclipse.core.runtime.Platform;
  * 
  * @author mpelcat
  */
-public abstract class AbstractWorkflowLogger extends Logger {
+public abstract class WorkflowLogger extends Logger {
 
-	private static AbstractWorkflowLogger logger = null;
+	private static WorkflowLogger logger = null;
 
-	protected AbstractWorkflowLogger(String name, String resourceBundleName) {
+	protected WorkflowLogger(String name, String resourceBundleName) {
 		super(name, resourceBundleName);
 		// TODO Auto-generated constructor stub
 	}
@@ -32,7 +32,7 @@ public abstract class AbstractWorkflowLogger extends Logger {
 	 * 
 	 * @return a Logger
 	 */
-	public static AbstractWorkflowLogger getLogger() {
+	public static WorkflowLogger getLogger() {
 
 		if (logger == null) {
 			try {
@@ -48,8 +48,8 @@ public abstract class AbstractWorkflowLogger extends Logger {
 						Object obj = element.createExecutableExtension("type");
 
 						// and checks it actually is an ITransformation.
-						if (obj instanceof AbstractWorkflowLogger) {
-							logger = (AbstractWorkflowLogger) obj;
+						if (obj instanceof WorkflowLogger) {
+							logger = (WorkflowLogger) obj;
 
 							return logger;
 						}

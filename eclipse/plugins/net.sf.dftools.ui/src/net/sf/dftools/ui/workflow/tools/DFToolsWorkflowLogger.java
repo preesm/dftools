@@ -41,7 +41,7 @@ import java.util.logging.LogRecord;
 
 import net.sf.dftools.ui.Activator;
 import net.sf.dftools.ui.workflow.WorkflowMessages;
-import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
+import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -57,7 +57,7 @@ import org.eclipse.ui.console.MessageConsoleStream;
  * @author mwipliez
  * @author mpelcat
  */
-public class WorkflowLogger extends AbstractWorkflowLogger {
+public class DFToolsWorkflowLogger extends WorkflowLogger {
 
 
 	private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
@@ -73,7 +73,7 @@ public class WorkflowLogger extends AbstractWorkflowLogger {
 	/**
 	 * 
 	 */
-	public WorkflowLogger() {
+	public DFToolsWorkflowLogger() {
 		super(LOGGER_NAME, null);
 		LogManager.getLogManager().addLogger(this);
 

@@ -36,7 +36,7 @@ package net.sf.dftools.workflow.elements;
 import java.util.logging.Level;
 
 import net.sf.dftools.workflow.implement.AbstractScenarioImplementation;
-import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
+import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -131,7 +131,7 @@ public class ScenarioNode extends AbstractWorkflowNode {
 
 			return false;
 		} catch (CoreException e) {
-			AbstractWorkflowLogger.getLogger().log(Level.SEVERE,
+			WorkflowLogger.getLogger().log(Level.SEVERE,
 					"Failed to find the scenario from workflow");
 			return false;
 		}

@@ -6,7 +6,7 @@ import java.util.logging.Level;
 
 import net.sf.dftools.workflow.WorkflowException;
 import net.sf.dftools.workflow.implement.AbstractScenarioImplementation;
-import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
+import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 public class TestWorkflowScenario extends AbstractScenarioImplementation {
 
@@ -14,7 +14,7 @@ public class TestWorkflowScenario extends AbstractScenarioImplementation {
 	public Map<String, Object> extractData(String path)
 			throws WorkflowException {
 		Map<String, Object> outputs = new HashMap<String, Object>();
-		AbstractWorkflowLogger.getLogger().log(Level.INFO,
+		WorkflowLogger.getLogger().log(Level.INFO,
 				"Retrieving data from scenario");
 
 		outputs.put("algo", "algo1");

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import net.sf.dftools.workflow.implement.AbstractTaskImplementation;
-import net.sf.dftools.workflow.tools.AbstractWorkflowLogger;
+import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
@@ -16,7 +16,7 @@ public class TestWorkflowTask1 extends AbstractTaskImplementation {
 			Map<String, String> parameters, IProgressMonitor monitor,
 			String nodeName) {
 		Map<String, Object> outputs = new HashMap<String, Object>();
-		AbstractWorkflowLogger.getLogger().log(Level.INFO,
+		WorkflowLogger.getLogger().log(Level.INFO,
 				"Executing TestWorkflowTask1; node: " + nodeName);
 		outputs.put("superData", "superData1");
 		return outputs;
