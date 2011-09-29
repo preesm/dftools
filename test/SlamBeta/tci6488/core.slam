@@ -39,13 +39,13 @@
     <spirit:interconnections>
         <spirit:interconnection>
             <spirit:name>w1aab2a</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="C64x+"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="C64x+"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b1</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L1Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b2</spirit:name>
@@ -54,13 +54,13 @@
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b5</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b6</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
             <spirit:name>w1aab2b7</spirit:name>
@@ -75,17 +75,20 @@
         <spirit:hierConnection spirit:interfaceRef="edmactrl">
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="C64x+"/>
         </spirit:hierConnection>
+        <spirit:hierConnection spirit:interfaceRef="ddr2ctrl">
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="C64x+"/>
+        </spirit:hierConnection>
     </spirit:hierConnections>
     <spirit:vendorExtensions>
         <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:componentDescription slam:componentRef="c64x+"
-                slam:componentType="Operator" slam:refinement="test.cdl"/>
+                slam:componentType="Operator" slam:refinement=""/>
             <slam:componentDescription slam:componentRef="L1Cache"
-                slam:componentType="Mem" slam:refinement="" slam:size="100"/>
+                slam:componentType="Mem" slam:refinement="" slam:size="32768"/>
             <slam:componentDescription slam:componentRef="internalBus"
                 slam:componentType="parallelComNode" slam:refinement="" slam:speed="2"/>
             <slam:componentDescription slam:componentRef="L2"
-                slam:componentType="Mem" slam:refinement="" slam:size="100"/>
+                slam:componentType="Mem" slam:refinement="" slam:size="1048576"/>
         </slam:componentDescriptions>
         <slam:linkDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:linkDescription slam:directedLink="undirected"
@@ -101,5 +104,8 @@
             <slam:linkDescription slam:directedLink="directed"
                 slam:linkType="ControlLink" slam:referenceId="w1aab2b7" slam:setupTime="0"/>
         </slam:linkDescriptions>
+        <slam:designDescription xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:parameters/>
+        </slam:designDescription>
     </spirit:vendorExtensions>
 </spirit:design>

@@ -39,6 +39,7 @@ public final class SlamValidator implements IValidator {
 		valid &= validateEdgePorts(graph, file);
 		valid &= validateDataLinks(graph, file);
 		valid &= validateComNodes(graph, file);
+		valid &= validateDmas(graph, file);
 		valid &= validateMems(graph, file);
 		valid &= validateControlLinks(graph, file);
 		valid &= validateHierarchicalPorts(graph, file);
@@ -246,6 +247,40 @@ public final class SlamValidator implements IValidator {
 	}
 
 	/**
+	 * A Dma must specify a setup time.
+	 */
+	private boolean validateDmas(Graph graph, IFile file) {
+
+		boolean valid = true;
+		boolean hasSetupTime = false;
+
+		for (Vertex v : graph.vertexSet()) {
+			hasSetupTime = false;
+
+			String type = v.getType().getName();
+			if (type.contains("Dma")) {
+
+				String setupTime = (String) v.getValue("setupTime");
+				if (setupTime != null && !setupTime.equals("")
+						&& Integer.valueOf(setupTime) >= 0) {
+					hasSetupTime = true;
+				}
+
+				if (!hasSetupTime) {
+					createMarker(
+							file,
+							"A Dma must specify a positive integer-valued setup time.",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+
+	/**
 	 * A memory Node must specify a size. Two memories with the same definition
 	 * must have the same size.
 	 */
@@ -320,20 +355,12 @@ public final class SlamValidator implements IValidator {
 	 */
 	private boolean validateControlLinks(Graph graph, IFile file) {
 		Boolean valid = true;
-		Boolean hasSetupTime = false;
 		Boolean hasOperatorSource = false;
 		Boolean hasEnablerTarget = false;
 		for (Edge e : graph.edgeSet()) {
 			if (e.getType().getName().equals("ControlLink")) {
-				hasSetupTime = false;
 				hasOperatorSource = false;
 				hasEnablerTarget = false;
-
-				String setupTime = (String) e.getValue("setup time");
-				if (setupTime != null && !setupTime.equals("")
-						&& Integer.valueOf(setupTime) >= 0) {
-					hasSetupTime = true;
-				}
 
 				if (e.getSource() != null
 						&& e.getSource().getType().getName()
@@ -348,10 +375,10 @@ public final class SlamValidator implements IValidator {
 					hasEnablerTarget = true;
 				}
 
-				if (!hasSetupTime || !hasOperatorSource || !hasEnablerTarget) {
+				if (!hasOperatorSource || !hasEnablerTarget) {
 					createMarker(
 							file,
-							"Each control link must link an operator to an enabler (Mem or Dma) and specify an integer-valued setup time.",
+							"Each control link must link an operator to an enabler (Mem or Dma).",
 							(String) e.getSource().getValue("id") + "->"
 									+ (String) e.getTarget().getValue("id"),
 							IMarker.PROBLEM, IMarker.SEVERITY_ERROR);

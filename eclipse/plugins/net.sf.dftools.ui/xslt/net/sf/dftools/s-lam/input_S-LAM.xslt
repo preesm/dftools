@@ -209,6 +209,14 @@
                     </xsl:element>
                 </xsl:if>
                 
+                <!-- node parameters -->
+                <xsl:if test="$componentType='Dma'">
+                    <xsl:element name="parameter">
+                        <xsl:attribute name="name">setupTime</xsl:attribute>
+                        <xsl:attribute name="value" select="//slam:componentDescription[@slam:componentRef=$componentName]/@slam:setupTime"/>
+                    </xsl:element>
+                </xsl:if>
+                
             </xsl:element>
         </xsl:element>
     </xsl:template>
@@ -276,13 +284,6 @@
                     <xsl:attribute name="name">target port</xsl:attribute>
                     <xsl:attribute name="value" select="spirit:activeInterface[2]/@spirit:busRef"/>
                 </xsl:element>
-                <!-- control links have a specific 'setupTime' parameter -->
-                <xsl:if test="$interconnectionType='ControlLink'">
-                    <xsl:element name="parameter">
-                        <xsl:attribute name="name">setup time</xsl:attribute>
-                        <xsl:attribute name="value" select="//slam:linkDescription[@slam:referenceId=$interconnectionID]/@slam:setupTime"/>
-                    </xsl:element>
-                </xsl:if>
             </xsl:element>
         </xsl:element>
     </xsl:template>

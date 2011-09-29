@@ -70,7 +70,10 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="1"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Enabler" abstract="true" eSuperTypes="#//component/Component"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//component/Enabler"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Dma" eSuperTypes="#//component/Enabler">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="setupTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          defaultValueLiteral="0"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Mem" eSuperTypes="#//component/Enabler">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
@@ -110,10 +113,7 @@
           defaultValueLiteral="false"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link"/>
-    <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//link/Link">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="setupTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-          defaultValueLiteral="0"/>
-    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//link/Link"/>
   </eSubpackages>
   <eSubpackages name="attributes" nsURI="http://net.sf.dftools/architecture/slam/attributes"
       nsPrefix="attributes">

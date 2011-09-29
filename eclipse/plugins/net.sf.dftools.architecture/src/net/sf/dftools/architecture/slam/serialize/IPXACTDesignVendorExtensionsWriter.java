@@ -7,8 +7,8 @@ import net.sf.dftools.architecture.slam.Design;
 import net.sf.dftools.architecture.slam.attributes.Parameter;
 import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
+import net.sf.dftools.architecture.slam.component.Dma;
 import net.sf.dftools.architecture.slam.component.Mem;
-import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 
 import org.w3c.dom.Document;
@@ -119,6 +119,9 @@ public class IPXACTDesignVendorExtensionsWriter {
 		} else if (component instanceof Mem) {
 			componentElt.setAttribute("slam:size",
 					Integer.toString(((Mem) component).getSize()));
+		} else if (component instanceof Dma) {
+			componentElt.setAttribute("slam:setupTime",
+					Integer.toString(((Dma) component).getSetupTime()));
 		}
 	}
 
@@ -134,11 +137,5 @@ public class IPXACTDesignVendorExtensionsWriter {
 		String directed = link.isDirected() ? "directed" : "undirected";
 		linkElt.setAttribute("slam:directedLink", directed);
 		linkElt.setAttribute("slam:linkType", link.eClass().getName());
-
-		// Managing specific link properties
-		if (link instanceof ControlLink) {
-			linkElt.setAttribute("slam:setupTime",
-					Integer.toString(((ControlLink) link).getSetupTime()));
-		}
 	}
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4">
+    <spirit:vendor/>
+    <spirit:name>reconfig1</spirit:name>
+    <spirit:library/>
+    <spirit:version/>
+    <spirit:componentInstances>
+        <spirit:componentInstance>
+            <spirit:instanceName>FFT</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="fft"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>bus</spirit:instanceName>
+            <spirit:componentRef spirit:library="" spirit:name="bus"
+                spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:interconnections>
+        <spirit:interconnection>
+            <spirit:name>w1aab2a</spirit:name>
+            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="bus"/>
+            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="FFT"/>
+        </spirit:interconnection>
+    </spirit:interconnections>
+    <spirit:hierConnections>
+        <spirit:hierConnection spirit:interfaceRef="reconfigPort">
+            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="bus"/>
+        </spirit:hierConnection>
+    </spirit:hierConnections>
+    <spirit:vendorExtensions>
+        <slam:componentDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:componentDescription slam:componentRef="fft"
+                slam:componentType="Operator" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="bus"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="7"/>
+        </slam:componentDescriptions>
+        <slam:linkDescriptions xmlns:slam="http://sourceforge.net/projects/dftools/slam">
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="w1aab2a"/>
+        </slam:linkDescriptions>
+    </spirit:vendorExtensions>
+</spirit:design>

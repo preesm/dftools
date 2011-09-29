@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
 /**
- * A complex refinement made of a list of files.
- * Used to serialize multiple refinements.
+ * A complex refinement made of a list of files. Used to serialize multiple
+ * refinements.
  * 
  * @author mpelcat
  */
@@ -19,7 +20,7 @@ public class RefinementList {
 
 	public RefinementList() {
 	}
-	
+
 	public RefinementList(String stringList) {
 		fromString(stringList);
 	}

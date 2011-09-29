@@ -31,6 +31,12 @@
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
+            <spirit:instanceName>tci6488_1/DDR2_Ram</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="DDR2_Ram" spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
             <spirit:instanceName>tci6488_2/SCR</spirit:instanceName>
             <spirit:componentRef spirit:library="" spirit:name="scr"
                 spirit:vendor="" spirit:version=""/>
@@ -46,6 +52,12 @@
             <spirit:instanceName>tci6488_2/RapidIO</spirit:instanceName>
             <spirit:componentRef spirit:library="" spirit:name="RIO"
                 spirit:vendor="" spirit:version=""/>
+            <spirit:configurableElementValues/>
+        </spirit:componentInstance>
+        <spirit:componentInstance>
+            <spirit:instanceName>tci6488_2/DDR2_Ram</spirit:instanceName>
+            <spirit:componentRef spirit:library=""
+                spirit:name="DDR2_Ram" spirit:vendor="" spirit:version=""/>
             <spirit:configurableElementValues/>
         </spirit:componentInstance>
         <spirit:componentInstance>
@@ -241,272 +253,312 @@
             <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="tci6488_2/RapidIO"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>f3997205-0c1c-4bde-a663-64ac2a6508f2</spirit:name>
+            <spirit:name>6ccb3d46-1575-4e12-b458-472970684666</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>7a907d02-37ef-4eb9-a29e-f749a6f3798d</spirit:name>
+            <spirit:name>e4c5bf4e-4fdf-4b21-b393-d128155e8b7a</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>4e72b07e-1bbf-403f-849a-7ff44d989d9b</spirit:name>
+            <spirit:name>fcead8b3-004b-40fe-89a8-0d9c5c2ae4f8</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>564e4c7e-024b-4741-b865-7227abdd2372</spirit:name>
+            <spirit:name>ab4f33d0-8cdf-4a6c-865e-b06b46da5b22</spirit:name>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_1/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>bced4c41-9f99-453a-99e5-b835720d4c58</spirit:name>
+            <spirit:name>c630d438-5a83-4644-b9b7-b2aa2b0ac3b4</spirit:name>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_1/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>df2754f5-e589-46db-8e92-e907b9bd94b9</spirit:name>
+            <spirit:name>fbcd81bf-1224-4ca7-80c2-6fecad4dde12</spirit:name>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_1/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>9ec5afbe-d97a-4bd8-9e2f-36aaf36af758</spirit:name>
+            <spirit:name>c8bf08b3-84d0-4f1f-974a-bc9b4e88461d</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/SCR"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>8034b917-893d-4de4-8c7e-a0b9467bcb4b</spirit:name>
+            <spirit:name>286d506a-f777-473f-8f6a-352c9bab816e</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/SCR"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/RapidIO"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>b661229a-3f81-4234-82b8-ab9f62a3a5ca</spirit:name>
+            <spirit:name>694ad22f-8e3e-4b95-aa40-32ed863f19a6</spirit:name>
             <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="tci6488_1/RapidIO"/>
             <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="tci6488_1/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>c37eca7a-2846-437f-9714-a8ae6b63b46b</spirit:name>
+            <spirit:name>16918342-ed16-478a-9bf6-17b6705970ff</spirit:name>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/SCR"/>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_1/DDR2_Ram"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>51c38e0d-d5dd-473f-b591-45c915e79f01</spirit:name>
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
+            <spirit:activeInterface spirit:busRef="ctrl" spirit:componentRef="tci6488_1/DDR2_Ram"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>0cb02afe-31c6-4e13-a9ed-8d3e373aed35</spirit:name>
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
+            <spirit:activeInterface spirit:busRef="ctrl" spirit:componentRef="tci6488_1/DDR2_Ram"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>d222c522-e6b5-4d47-a49e-6cad0bad8246</spirit:name>
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
+            <spirit:activeInterface spirit:busRef="ctrl" spirit:componentRef="tci6488_1/DDR2_Ram"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>82442f6b-76a5-4fca-84bc-d24cd52aa9b5</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>1be6b5ea-3d3b-462a-8a79-8174340ef3ca</spirit:name>
+            <spirit:name>b2035849-bfb3-454c-be3f-12e9c99feddf</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>3d26e484-db2f-4a07-89d5-f9ac6a237aa2</spirit:name>
+            <spirit:name>0f71d0e8-bb27-4a2f-a267-5a91cb0533a7</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/SCR"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>989c570f-4f89-40e4-8cc0-f418e73c5246</spirit:name>
+            <spirit:name>8c8b272f-7e9b-4e8c-bd48-ce518a57f48a</spirit:name>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_2/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>a4ead57e-39e4-4016-a87d-1e0205057348</spirit:name>
+            <spirit:name>24019b5e-8b8c-46fc-a40b-1cbac369799f</spirit:name>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_2/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>b9fd67f6-558c-4bfb-b74f-803a4474cea0</spirit:name>
+            <spirit:name>b7c65895-e87e-4cbb-a2b2-b00846aa826c</spirit:name>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="edmactrl" spirit:componentRef="tci6488_2/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>60e641dd-a6f9-4b9b-8ce8-fa9b1c1d5244</spirit:name>
+            <spirit:name>d90b2f4b-9582-4ba5-a3f4-ae3abf6aaba9</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/SCR"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>d322a7ea-33c4-4653-a755-901d27a56ac1</spirit:name>
+            <spirit:name>799defa2-758f-4dbb-b691-771399bfea22</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/SCR"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/RapidIO"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>32f37f92-11d1-4535-8feb-eaf8b048fdde</spirit:name>
+            <spirit:name>a89fdf1e-b6b6-48dc-8df5-91616500b08e</spirit:name>
             <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="tci6488_2/RapidIO"/>
             <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="tci6488_2/EDMA3"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>fe5855f4-6892-4e1d-aac1-cd8eac4cfc3e</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
+            <spirit:name>600d2ae5-248d-4e0b-907d-d27d4f8020d9</spirit:name>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/SCR"/>
+            <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="tci6488_2/DDR2_Ram"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>40bf71f2-2b80-4648-ab27-d948e382c960</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L1Bus"/>
+            <spirit:name>9c0e178e-2bf2-4f80-a7ff-94da6ff6554c</spirit:name>
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
+            <spirit:activeInterface spirit:busRef="ctrl" spirit:componentRef="tci6488_2/DDR2_Ram"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>d03e6664-d078-4bf9-ab3d-3273dde256f9</spirit:name>
+            <spirit:name>36f89581-0cda-4794-8f4c-8f9474910650</spirit:name>
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
+            <spirit:activeInterface spirit:busRef="ctrl" spirit:componentRef="tci6488_2/DDR2_Ram"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>2d626f10-619d-4dcb-b244-e1aa36ce33c1</spirit:name>
+            <spirit:activeInterface spirit:busRef="ddr2ctrl" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
+            <spirit:activeInterface spirit:busRef="ctrl" spirit:componentRef="tci6488_2/DDR2_Ram"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>be26f538-4643-4188-9853-a8e51032ac18</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>5c03f86c-fab8-47d9-a6d7-747dc44c8828</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L1Bus"/>
+        </spirit:interconnection>
+        <spirit:interconnection>
+            <spirit:name>129bc7c0-0a02-414c-9009-e5294926353d</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_1/C64x+MM_1/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>282c7b9d-1b17-4e14-b05f-07f06f8a4475</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L1Cache"/>
+            <spirit:name>8747ea3b-28ca-4428-8032-d82dab62c411</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>d68cead7-17f6-47cd-8ba4-1496d59df2b4</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_1/L2Bus"/>
+            <spirit:name>63b716cd-32fe-40f7-9115-2c6f48d1ac41</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_1/L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>f92c306d-a9d7-4321-9543-e8c266f2226e</spirit:name>
+            <spirit:name>522219fa-1040-42a4-86f5-055528cd21e3</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_1/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_1/C64x+MM_1/L2"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>346aa35e-8af5-4425-9ac4-c6c1d6b74f55</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
+            <spirit:name>0da72cc6-62b2-4a50-bc83-f8ab391d4bb0</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>7c425f35-34b2-480e-9248-019cb40d1090</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L1Bus"/>
+            <spirit:name>4a5bd2e8-fb06-4937-828f-379550deecb4</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L1Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>996d26a2-c813-4534-b7c5-f53f07e8eb14</spirit:name>
+            <spirit:name>ddd2c180-c30b-4166-a765-27758ada9ae1</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_1/C64x+MM_2/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>5cce3814-3240-4ee1-b0a7-098b39366ca0</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L1Cache"/>
+            <spirit:name>b3148a90-4c7b-458d-9d11-23ff696495b8</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>b1f93b57-89e6-4bc8-b690-66718239ef16</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_2/L2Bus"/>
+            <spirit:name>2b9de43b-5727-4e0b-80b9-4249c209d04c</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_2/L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>a4636b5d-e4cf-4ab1-97f4-701166b7af25</spirit:name>
+            <spirit:name>b6ce09dd-8fe6-4cc7-9545-af881a163601</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_1/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_1/C64x+MM_2/L2"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>193704fd-c43d-45a7-b1fb-2755d1da00b2</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
+            <spirit:name>ab8dca39-1db6-4087-a4b7-e5011e502d8e</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>0be11107-f82b-4e5f-b5dd-0c7dd537aac1</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L1Bus"/>
+            <spirit:name>a35463df-ddc3-443f-9d4d-93a2da76a74c</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L1Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>3349b9be-123c-49bf-8e52-8ac7b99b5fd1</spirit:name>
+            <spirit:name>e032f882-c03a-4958-adbb-eb1c8b2315a8</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_1/C64x+MM_3/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>57f482ca-b384-4437-845a-5333ac5452e1</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L1Cache"/>
+            <spirit:name>a054535b-2c9c-4bc1-a069-21f426121ab8</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>48a4211a-a5d7-4514-849f-2b6ddb1ef468</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_1/C64x+MM_3/L2Bus"/>
+            <spirit:name>576b3f75-833f-4ad4-aa57-5d5c8dbcb3ed</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_1/C64x+MM_3/L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>e9940f0c-d2b8-470d-90d1-46b531cfeb26</spirit:name>
+            <spirit:name>c0a85d62-5f1a-4497-b975-d9c2cdb1a11f</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_1/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_1/C64x+MM_3/L2"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>9f992ae8-9233-4a81-a08d-263f1f2dd9c3</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
+            <spirit:name>254aeab7-b752-449a-82c5-0862a18cad43</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>a8cf196e-4f4d-4235-9014-25448bf30efd</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L1Bus"/>
+            <spirit:name>a3d1f91e-31f2-4a1a-b2cd-7ec6b5c9b1dd</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L1Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>f477e4e0-26ee-4f55-a433-e6409b6cb4de</spirit:name>
+            <spirit:name>04db3135-f489-4883-a199-251d532c7a96</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_2/C64x+MM_1/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>ad39c970-2ae8-4948-af50-c5b344e7e195</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L1Cache"/>
+            <spirit:name>ba26ef9e-d4af-4c99-b25a-a0e5ae5c7b3a</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>153e6875-b345-4050-a638-01a76fc35f32</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_1/L2Bus"/>
+            <spirit:name>837c2f2b-d83e-47dc-94ce-2840ccb7972b</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_1/L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>e5946697-b1d3-4774-9e56-eed162aa8c53</spirit:name>
+            <spirit:name>23a5cf66-c995-44b3-ad8b-5aedc6c6db36</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_2/C64x+MM_1/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_2/C64x+MM_1/L2"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>4da9acc1-e1df-4f45-b945-94d2dace8bef</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
+            <spirit:name>df8abbba-e57b-4f25-b23c-46ebfdff0338</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>14f6b701-cfcf-4625-82cd-5e8f209c1db3</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L1Bus"/>
+            <spirit:name>1c255e1e-77a2-44d7-9089-b4856a8552e2</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L1Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>801621f5-4fe1-437b-bbed-70e3dacb334f</spirit:name>
+            <spirit:name>61373802-df91-4b2f-a164-31875aef8d4c</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_2/C64x+MM_2/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>c29eb011-3eb0-4014-b4e7-cd95c0cc4b60</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L1Cache"/>
+            <spirit:name>1c471682-b098-4a4c-a81b-83733365d6aa</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>f63d3dc3-16cf-4293-b7d4-0ac921281dd2</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_2/L2Bus"/>
+            <spirit:name>07f41c70-b266-487f-b166-dda5cbc4af31</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_2/L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>ded0dbe1-c30e-415e-b143-9d791675c1f9</spirit:name>
+            <spirit:name>b64c95d4-f73d-4966-a1ea-93a2af2f32ce</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_2/C64x+MM_2/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_2/C64x+MM_2/L2"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>c57a797d-b597-44f8-af05-d9012ec22cff</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L1Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
+            <spirit:name>515cd6ef-05fb-4b86-b9da-3db12903134a</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L1Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>c5db0f58-5ff1-4829-bdd7-3dd06d5db4db</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L1Cache"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L1Bus"/>
+            <spirit:name>38aabecd-2fb7-40e1-a241-8dde84fd165d</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L1Cache"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L1Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>716a0593-9715-4507-bdc1-d617a9322c42</spirit:name>
+            <spirit:name>6876025a-d2d3-4ccc-83ea-c06aa3c31830</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_2/C64x+MM_3/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>db193a98-65cb-44a8-ba82-93c111f2a1d8</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L2Bus"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L1Cache"/>
+            <spirit:name>cc8b4091-de69-4604-b59c-c1bf070d72fd</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L2Bus"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L1Cache"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>c94ee458-79ba-45e0-8464-149d2e266930</spirit:name>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L2"/>
-            <spirit:activeInterface spirit:busRef="bus" spirit:componentRef="tci6488_2/C64x+MM_3/L2Bus"/>
+            <spirit:name>1140e1a4-cb79-4307-b82a-90b762c18849</spirit:name>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L2"/>
+            <spirit:activeInterface spirit:busRef="mem" spirit:componentRef="tci6488_2/C64x+MM_3/L2Bus"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>a516dffc-fe52-499b-b8ae-7369e66dfa1a</spirit:name>
+            <spirit:name>334571b3-266e-433a-ba36-99230b9833cf</spirit:name>
             <spirit:activeInterface spirit:busRef="memControl" spirit:componentRef="tci6488_2/C64x+MM_3/C64x+"/>
             <spirit:activeInterface spirit:busRef="control" spirit:componentRef="tci6488_2/C64x+MM_3/L2"/>
         </spirit:interconnection>
@@ -514,154 +566,157 @@
     <spirit:hierConnections/>
     <spirit:vendorExtensions>
         <slam:componentDescriptions>
-            <slam:componentDescription slam:componentRef="L2"
-                slam:componentType="Mem" slam:refinement=""/>
-            <slam:componentDescription slam:componentRef="internalBus"
-                slam:componentType="parallelComNode" slam:refinement="" slam:speed="2.0"/>
-            <slam:componentDescription slam:componentRef="scr"
-                slam:componentType="parallelComNode" slam:refinement="" slam:speed="2.0"/>
-            <slam:componentDescription slam:componentRef="L1Cache"
-                slam:componentType="Mem" slam:refinement=""/>
-            <slam:componentDescription slam:componentRef="c64x+"
-                slam:componentType="Operator" slam:refinement=""/>
-            <slam:componentDescription slam:componentRef="EDMA"
-                slam:componentType="Dma" slam:refinement=""/>
-            <slam:componentDescription slam:componentRef="RIO"
-                slam:componentType="parallelComNode" slam:refinement="" slam:speed="0.125"/>
             <slam:componentDescription slam:componentRef="RioSerialLink"
                 slam:componentType="parallelComNode" slam:refinement="" slam:speed="1.0"/>
+            <slam:componentDescription slam:componentRef="scr"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="2.0"/>
+            <slam:componentDescription slam:componentRef="EDMA"
+                slam:componentType="Dma" slam:refinement="" slam:setupTime="0"/>
+            <slam:componentDescription slam:componentRef="RIO"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="0.125"/>
+            <slam:componentDescription slam:componentRef="DDR2_Ram"
+                slam:componentType="Mem" slam:refinement="" slam:size="268435456"/>
+            <slam:componentDescription slam:componentRef="c64x+"
+                slam:componentType="Operator" slam:refinement=""/>
+            <slam:componentDescription slam:componentRef="L1Cache"
+                slam:componentType="Mem" slam:refinement="" slam:size="32768"/>
+            <slam:componentDescription slam:componentRef="internalBus"
+                slam:componentType="parallelComNode" slam:refinement="" slam:speed="2.0"/>
+            <slam:componentDescription slam:componentRef="L2"
+                slam:componentType="Mem" slam:refinement="" slam:size="1048576"/>
         </slam:componentDescriptions>
         <slam:linkDescriptions>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="a8cf196e-4f4d-4235-9014-25448bf30efd"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="b1f93b57-89e6-4bc8-b690-66718239ef16"/>
-            <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="801621f5-4fe1-437b-bbed-70e3dacb334f" slam:setupTime="0"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="9ec5afbe-d97a-4bd8-9e2f-36aaf36af758"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="7a907d02-37ef-4eb9-a29e-f749a6f3798d"/>
-            <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="a4636b5d-e4cf-4ab1-97f4-701166b7af25" slam:setupTime="0"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="48a4211a-a5d7-4514-849f-2b6ddb1ef468"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="57f482ca-b384-4437-845a-5333ac5452e1"/>
-            <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="f477e4e0-26ee-4f55-a433-e6409b6cb4de" slam:setupTime="0"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="32f37f92-11d1-4535-8feb-eaf8b048fdde"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="c5db0f58-5ff1-4829-bdd7-3dd06d5db4db"/>
+                slam:linkType="DataLink" slam:referenceId="w1aab2a"/>
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="w1aab2b1"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="b661229a-3f81-4234-82b8-ab9f62a3a5ca"/>
+                slam:linkType="DataLink" slam:referenceId="6ccb3d46-1575-4e12-b458-472970684666"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="fe5855f4-6892-4e1d-aac1-cd8eac4cfc3e"/>
+                slam:linkType="DataLink" slam:referenceId="e4c5bf4e-4fdf-4b21-b393-d128155e8b7a"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="4da9acc1-e1df-4f45-b945-94d2dace8bef"/>
+                slam:linkType="DataLink" slam:referenceId="fcead8b3-004b-40fe-89a8-0d9c5c2ae4f8"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="e5946697-b1d3-4774-9e56-eed162aa8c53" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="ab4f33d0-8cdf-4a6c-865e-b06b46da5b22"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="989c570f-4f89-40e4-8cc0-f418e73c5246" slam:setupTime="4000"/>
+                slam:linkType="ControlLink" slam:referenceId="c630d438-5a83-4644-b9b7-b2aa2b0ac3b4"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="ded0dbe1-c30e-415e-b143-9d791675c1f9" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="fbcd81bf-1224-4ca7-80c2-6fecad4dde12"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="c8bf08b3-84d0-4f1f-974a-bc9b4e88461d"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="286d506a-f777-473f-8f6a-352c9bab816e"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="694ad22f-8e3e-4b95-aa40-32ed863f19a6"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="16918342-ed16-478a-9bf6-17b6705970ff"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="f92c306d-a9d7-4321-9543-e8c266f2226e" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="51c38e0d-d5dd-473f-b591-45c915e79f01"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="564e4c7e-024b-4741-b865-7227abdd2372" slam:setupTime="4000"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="153e6875-b345-4050-a638-01a76fc35f32"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="1be6b5ea-3d3b-462a-8a79-8174340ef3ca"/>
+                slam:linkType="ControlLink" slam:referenceId="0cb02afe-31c6-4e13-a9ed-8d3e373aed35"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="bced4c41-9f99-453a-99e5-b835720d4c58" slam:setupTime="4000"/>
+                slam:linkType="ControlLink" slam:referenceId="d222c522-e6b5-4d47-a49e-6cad0bad8246"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="82442f6b-76a5-4fca-84bc-d24cd52aa9b5"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="b2035849-bfb3-454c-be3f-12e9c99feddf"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="0f71d0e8-bb27-4a2f-a267-5a91cb0533a7"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="996d26a2-c813-4534-b7c5-f53f07e8eb14" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="8c8b272f-7e9b-4e8c-bd48-ce518a57f48a"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="a4ead57e-39e4-4016-a87d-1e0205057348" slam:setupTime="4000"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="0be11107-f82b-4e5f-b5dd-0c7dd537aac1"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="4e72b07e-1bbf-403f-849a-7ff44d989d9b"/>
+                slam:linkType="ControlLink" slam:referenceId="24019b5e-8b8c-46fc-a40b-1cbac369799f"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="a516dffc-fe52-499b-b8ae-7369e66dfa1a" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="b7c65895-e87e-4cbb-a2b2-b00846aa826c"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="7c425f35-34b2-480e-9248-019cb40d1090"/>
+                slam:linkType="DataLink" slam:referenceId="d90b2f4b-9582-4ba5-a3f4-ae3abf6aaba9"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="8034b917-893d-4de4-8c7e-a0b9467bcb4b"/>
+                slam:linkType="DataLink" slam:referenceId="799defa2-758f-4dbb-b691-771399bfea22"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="193704fd-c43d-45a7-b1fb-2755d1da00b2"/>
+                slam:linkType="DataLink" slam:referenceId="a89fdf1e-b6b6-48dc-8df5-91616500b08e"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="9f992ae8-9233-4a81-a08d-263f1f2dd9c3"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="db193a98-65cb-44a8-ba82-93c111f2a1d8"/>
+                slam:linkType="DataLink" slam:referenceId="600d2ae5-248d-4e0b-907d-d27d4f8020d9"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="3349b9be-123c-49bf-8e52-8ac7b99b5fd1" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="9c0e178e-2bf2-4f80-a7ff-94da6ff6554c"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="df2754f5-e589-46db-8e92-e907b9bd94b9" slam:setupTime="4000"/>
+                slam:linkType="ControlLink" slam:referenceId="36f89581-0cda-4794-8f4c-8f9474910650"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="e9940f0c-d2b8-470d-90d1-46b531cfeb26" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="2d626f10-619d-4dcb-b244-e1aa36ce33c1"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="60e641dd-a6f9-4b9b-8ce8-fa9b1c1d5244"/>
+                slam:linkType="DataLink" slam:referenceId="be26f538-4643-4188-9853-a8e51032ac18"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="346aa35e-8af5-4425-9ac4-c6c1d6b74f55"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="c94ee458-79ba-45e0-8464-149d2e266930"/>
+                slam:linkType="DataLink" slam:referenceId="5c03f86c-fab8-47d9-a6d7-747dc44c8828"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="716a0593-9715-4507-bdc1-d617a9322c42" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="129bc7c0-0a02-414c-9009-e5294926353d"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="c37eca7a-2846-437f-9714-a8ae6b63b46b"/>
+                slam:linkType="DataLink" slam:referenceId="8747ea3b-28ca-4428-8032-d82dab62c411"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="f63d3dc3-16cf-4293-b7d4-0ac921281dd2"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="c57a797d-b597-44f8-af05-d9012ec22cff"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="ad39c970-2ae8-4948-af50-c5b344e7e195"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="d322a7ea-33c4-4653-a755-901d27a56ac1"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="3d26e484-db2f-4a07-89d5-f9ac6a237aa2"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="5cce3814-3240-4ee1-b0a7-098b39366ca0"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="f3997205-0c1c-4bde-a663-64ac2a6508f2"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="282c7b9d-1b17-4e14-b05f-07f06f8a4475"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="c29eb011-3eb0-4014-b4e7-cd95c0cc4b60"/>
+                slam:linkType="DataLink" slam:referenceId="63b716cd-32fe-40f7-9115-2c6f48d1ac41"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="b9fd67f6-558c-4bfb-b74f-803a4474cea0" slam:setupTime="4000"/>
+                slam:linkType="ControlLink" slam:referenceId="522219fa-1040-42a4-86f5-055528cd21e3"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="0da72cc6-62b2-4a50-bc83-f8ab391d4bb0"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="4a5bd2e8-fb06-4937-828f-379550deecb4"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink"
-                slam:referenceId="d03e6664-d078-4bf9-ab3d-3273dde256f9" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="ddd2c180-c30b-4166-a765-27758ada9ae1"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="40bf71f2-2b80-4648-ab27-d948e382c960"/>
+                slam:linkType="DataLink" slam:referenceId="b3148a90-4c7b-458d-9d11-23ff696495b8"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="14f6b701-cfcf-4625-82cd-5e8f209c1db3"/>
+                slam:linkType="DataLink" slam:referenceId="2b9de43b-5727-4e0b-80b9-4249c209d04c"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="b6ce09dd-8fe6-4cc7-9545-af881a163601"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="w1aab2a"/>
+                slam:linkType="DataLink" slam:referenceId="ab8dca39-1db6-4087-a4b7-e5011e502d8e"/>
             <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="d68cead7-17f6-47cd-8ba4-1496d59df2b4"/>
+                slam:linkType="DataLink" slam:referenceId="a35463df-ddc3-443f-9d4d-93a2da76a74c"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="e032f882-c03a-4958-adbb-eb1c8b2315a8"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="a054535b-2c9c-4bc1-a069-21f426121ab8"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="576b3f75-833f-4ad4-aa57-5d5c8dbcb3ed"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="c0a85d62-5f1a-4497-b975-d9c2cdb1a11f"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="254aeab7-b752-449a-82c5-0862a18cad43"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="a3d1f91e-31f2-4a1a-b2cd-7ec6b5c9b1dd"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="04db3135-f489-4883-a199-251d532c7a96"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="ba26ef9e-d4af-4c99-b25a-a0e5ae5c7b3a"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="837c2f2b-d83e-47dc-94ce-2840ccb7972b"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="23a5cf66-c995-44b3-ad8b-5aedc6c6db36"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="df8abbba-e57b-4f25-b23c-46ebfdff0338"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="1c255e1e-77a2-44d7-9089-b4856a8552e2"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="61373802-df91-4b2f-a164-31875aef8d4c"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="1c471682-b098-4a4c-a81b-83733365d6aa"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="07f41c70-b266-487f-b166-dda5cbc4af31"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="b64c95d4-f73d-4966-a1ea-93a2af2f32ce"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="515cd6ef-05fb-4b86-b9da-3db12903134a"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="38aabecd-2fb7-40e1-a241-8dde84fd165d"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="6876025a-d2d3-4ccc-83ea-c06aa3c31830"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="cc8b4091-de69-4604-b59c-c1bf070d72fd"/>
+            <slam:linkDescription slam:directedLink="undirected"
+                slam:linkType="DataLink" slam:referenceId="1140e1a4-cb79-4307-b82a-90b762c18849"/>
+            <slam:linkDescription slam:directedLink="directed"
+                slam:linkType="ControlLink" slam:referenceId="334571b3-266e-433a-ba36-99230b9833cf"/>
         </slam:linkDescriptions>
+        <slam:designDescription>
+            <slam:parameters/>
+        </slam:designDescription>
     </spirit:vendorExtensions>
 </spirit:design>

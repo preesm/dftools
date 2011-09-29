@@ -23,32 +23,33 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
+ * 
  * @generated
  */
 public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	/**
-	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc --> <!--
+	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public static SlamFactory init() {
 		try {
-			SlamFactory theSlamFactory = (SlamFactory)EPackage.Registry.INSTANCE.getEFactory("http://net.sf.dftools/architecture/slam"); 
+			SlamFactory theSlamFactory = (SlamFactory) EPackage.Registry.INSTANCE
+					.getEFactory("http://net.sf.dftools/architecture/slam");
 			if (theSlamFactory != null) {
 				return theSlamFactory;
 			}
-		}
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new SlamFactoryImpl();
 	}
 
 	/**
-	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SlamFactoryImpl() {
@@ -57,23 +58,31 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case SlamPackage.DESIGN: return createDesign();
-			case SlamPackage.COMPONENT_INSTANCE: return createComponentInstance();
-			case SlamPackage.VLN_VED_ELEMENT: return createVLNVedElement();
-			case SlamPackage.PARAMETERIZED_ELEMENT: return createParameterizedElement();
-			case SlamPackage.COMPONENT_HOLDER: return createComponentHolder();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		case SlamPackage.DESIGN:
+			return createDesign();
+		case SlamPackage.COMPONENT_INSTANCE:
+			return createComponentInstance();
+		case SlamPackage.VLN_VED_ELEMENT:
+			return createVLNVedElement();
+		case SlamPackage.PARAMETERIZED_ELEMENT:
+			return createParameterizedElement();
+		case SlamPackage.COMPONENT_HOLDER:
+			return createComponentHolder();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName()
+					+ "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Design createDesign() {
@@ -83,6 +92,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ComponentInstance createComponentInstance() {
@@ -92,6 +102,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public VLNVedElement createVLNVedElement() {
@@ -101,6 +112,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ParameterizedElement createParameterizedElement() {
@@ -110,6 +122,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ComponentHolder createComponentHolder() {
@@ -119,14 +132,16 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public SlamPackage getSlamPackage() {
-		return (SlamPackage)getEPackage();
+		return (SlamPackage) getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @deprecated
 	 * @generated
 	 */

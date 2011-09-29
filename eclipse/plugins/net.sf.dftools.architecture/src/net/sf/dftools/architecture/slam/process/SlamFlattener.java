@@ -277,9 +277,6 @@ public class SlamFlattener {
 				newLink = LinkFactory.eINSTANCE.createDataLink();
 			} else if (originalLink instanceof ControlLink) {
 				newLink = LinkFactory.eINSTANCE.createControlLink();
-				((ControlLink) newLink)
-						.setSetupTime(((ControlLink) originalLink)
-								.getSetupTime());
 			}
 
 			newLink.setDirected(originalLink.isDirected());

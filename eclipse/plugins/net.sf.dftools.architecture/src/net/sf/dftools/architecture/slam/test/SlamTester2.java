@@ -51,10 +51,12 @@ public class SlamTester2 {
 		SlamTester2 tester = new SlamTester2();
 		// tester.flatten("../../../test/SlamBeta/testArchi/top.slam",
 		// "../../../test/SlamBeta/testArchi/top_write.slam");
-		//tester.flatten("../../../test/SlamBeta/tci6488/top.slam",
-		//		"../../../test/SlamBeta/tci6488/top_write.slam");
-		//tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core.slam", "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core_write.slam");
-		tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top.slam", "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top_write.slam");
+		tester.flatten("../../../test/SlamBeta/tci6488/top.slam",
+				"../../../test/SlamBeta/tci6488/top_write.slam");
+		// tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core.slam",
+		// "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core_write.slam");
+		// tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top.slam",
+		// "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top_write.slam");
 	}
 
 	private void flatten(String inputTopPath, String outputPath) {

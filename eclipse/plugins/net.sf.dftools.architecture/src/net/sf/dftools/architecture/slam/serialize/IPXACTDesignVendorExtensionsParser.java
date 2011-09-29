@@ -145,8 +145,8 @@ public class IPXACTDesignVendorExtensionsParser {
 		linkDescriptions = new HashMap<String, LinkDescription>();
 		designParameters = new HashMap<String, String>();
 	}
-	
-	public Map<String, String> getDesignParameters(){
+
+	public Map<String, String> getDesignParameters() {
 		return designParameters;
 	}
 
@@ -348,6 +348,9 @@ public class IPXACTDesignVendorExtensionsParser {
 		} else if (componentType.contains("Mem")) {
 			description.addSpecificParameter("slam:size",
 					parent.getAttribute("slam:size"));
+		} else if (componentType.contains("Dma")) {
+			description.addSpecificParameter("slam:setupTime",
+					parent.getAttribute("slam:setupTime"));
 		}
 
 		// Retrieving known specific parameters

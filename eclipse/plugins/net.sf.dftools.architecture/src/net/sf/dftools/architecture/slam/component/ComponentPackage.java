@@ -23,43 +23,47 @@ import org.eclipse.emf.ecore.EReference;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * 
  * @see net.sf.dftools.architecture.slam.component.ComponentFactory
  * @model kind="package"
  * @generated
  */
 public interface ComponentPackage extends EPackage {
 	/**
-	 * The package name.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	String eNAME = "component";
 
 	/**
-	 * The package namespace URI.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	String eNS_URI = "http://net.sf.dftools/architecture/slam/component";
 
 	/**
-	 * The package namespace name.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	String eNS_PREFIX = "component";
 
 	/**
-	 * The singleton instance of the package.
-	 * <!-- begin-user-doc --> <!--
+	 * The singleton instance of the package. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	ComponentPackage eINSTANCE = net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl.init();
+	ComponentPackage eINSTANCE = net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl
+			.init();
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl <em>Component</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.ComponentImpl
+	 * <em>Component</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getComponent()
 	 * @generated
@@ -76,16 +80,18 @@ public interface ComponentPackage extends EPackage {
 	int COMPONENT__VLNV = SlamPackage.VLN_VED_ELEMENT__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int COMPONENT__PARAMETERS = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -101,9 +107,9 @@ public interface ComponentPackage extends EPackage {
 	int COMPONENT__INSTANCES = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -119,8 +125,10 @@ public interface ComponentPackage extends EPackage {
 	int COMPONENT_FEATURE_COUNT = SlamPackage.VLN_VED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.OperatorImpl <em>Operator</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.OperatorImpl
+	 * <em>Operator</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.OperatorImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getOperator()
 	 * @generated
@@ -137,16 +145,18 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__VLNV = COMPONENT__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int OPERATOR__PARAMETERS = COMPONENT__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -162,9 +172,9 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -180,8 +190,10 @@ public interface ComponentPackage extends EPackage {
 	int OPERATOR_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.ComNodeImpl <em>Com Node</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.ComNodeImpl
+	 * <em>Com Node</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComNodeImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getComNode()
 	 * @generated
@@ -198,16 +210,18 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE__VLNV = COMPONENT__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int COM_NODE__PARAMETERS = COMPONENT__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -223,9 +237,9 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -259,8 +273,10 @@ public interface ComponentPackage extends EPackage {
 	int COM_NODE_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.EnablerImpl <em>Enabler</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.EnablerImpl
+	 * <em>Enabler</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.EnablerImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getEnabler()
 	 * @generated
@@ -277,16 +293,18 @@ public interface ComponentPackage extends EPackage {
 	int ENABLER__VLNV = COMPONENT__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int ENABLER__PARAMETERS = COMPONENT__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -302,9 +320,9 @@ public interface ComponentPackage extends EPackage {
 	int ENABLER__INSTANCES = COMPONENT__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -320,8 +338,10 @@ public interface ComponentPackage extends EPackage {
 	int ENABLER_FEATURE_COUNT = COMPONENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.DmaImpl <em>Dma</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.DmaImpl
+	 * <em>Dma</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.DmaImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getDma()
 	 * @generated
@@ -338,16 +358,18 @@ public interface ComponentPackage extends EPackage {
 	int DMA__VLNV = ENABLER__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int DMA__PARAMETERS = ENABLER__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -363,13 +385,22 @@ public interface ComponentPackage extends EPackage {
 	int DMA__INSTANCES = ENABLER__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int DMA__REFINEMENTS = ENABLER__REFINEMENTS;
+
+	/**
+	 * The feature id for the '<em><b>Setup Time</b></em>' attribute. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 * @ordered
+	 */
+	int DMA__SETUP_TIME = ENABLER_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Dma</em>' class. <!--
@@ -378,11 +409,13 @@ public interface ComponentPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DMA_FEATURE_COUNT = ENABLER_FEATURE_COUNT + 0;
+	int DMA_FEATURE_COUNT = ENABLER_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.MemImpl <em>Mem</em>}' class.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.MemImpl
+	 * <em>Mem</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.MemImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getMem()
 	 * @generated
@@ -399,16 +432,18 @@ public interface ComponentPackage extends EPackage {
 	int MEM__VLNV = ENABLER__VLNV;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int MEM__PARAMETERS = ENABLER__PARAMETERS;
 
 	/**
-	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Interfaces</b></em>' containment reference
+	 * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -424,9 +459,9 @@ public interface ComponentPackage extends EPackage {
 	int MEM__INSTANCES = ENABLER__INSTANCES;
 
 	/**
-	 * The feature id for the '<em><b>Refinements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Refinements</b></em>' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -451,9 +486,11 @@ public interface ComponentPackage extends EPackage {
 	int MEM_FEATURE_COUNT = ENABLER_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl <em>Hierarchy Port</em>}' class.
-	 * <!-- begin-user-doc --> <!--
+	 * The meta object id for the '
+	 * {@link net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl
+	 * <em>Hierarchy Port</em>}' class. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
+	 * 
 	 * @see net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl
 	 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getHierarchyPort()
 	 * @generated
@@ -463,6 +500,7 @@ public interface ComponentPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>External Interface</b></em>' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -471,14 +509,16 @@ public interface ComponentPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Internal Interface</b></em>' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int HIERARCHY_PORT__INTERNAL_INTERFACE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Internal Component Instance</b></em>' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The feature id for the '<em><b>Internal Component Instance</b></em>'
+	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -487,6 +527,7 @@ public interface ComponentPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Hierarchy Port</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -507,6 +548,7 @@ public interface ComponentPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' container reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -515,6 +557,7 @@ public interface ComponentPackage extends EPackage {
 	/**
 	 * The feature id for the '<em><b>Bus Type</b></em>' containment reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -532,14 +575,17 @@ public interface ComponentPackage extends EPackage {
 	/**
 	 * The number of structural features of the '<em>Com Interface</em>' class.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
 	int COM_INTERFACE_FEATURE_COUNT = 3;
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Component <em>Component</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.Component
+	 * <em>Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Component</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Component
 	 * @generated
@@ -547,9 +593,12 @@ public interface ComponentPackage extends EPackage {
 	EClass getComponent();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.component.Component#getInterfaces <em>Interfaces</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Interfaces</em>'.
+	 * Returns the meta object for the containment reference list '
+	 * {@link net.sf.dftools.architecture.slam.component.Component#getInterfaces
+	 * <em>Interfaces</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '
+	 *         <em>Interfaces</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Component#getInterfaces()
 	 * @see #getComponent()
 	 * @generated
@@ -557,8 +606,10 @@ public interface ComponentPackage extends EPackage {
 	EReference getComponent_Interfaces();
 
 	/**
-	 * Returns the meta object for the reference list '{@link net.sf.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the reference list '
+	 * {@link net.sf.dftools.architecture.slam.component.Component#getInstances
+	 * <em>Instances</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference list '<em>Instances</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Component#getInstances()
 	 * @see #getComponent()
@@ -567,10 +618,12 @@ public interface ComponentPackage extends EPackage {
 	EReference getComponent_Instances();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.architecture.slam.component.Component#getRefinements <em>Refinements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Refinements</em>'.
+	 * Returns the meta object for the containment reference list '
+	 * {@link net.sf.dftools.architecture.slam.component.Component#getRefinements
+	 * <em>Refinements</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference list '
+	 *         <em>Refinements</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Component#getRefinements()
 	 * @see #getComponent()
 	 * @generated
@@ -578,8 +631,10 @@ public interface ComponentPackage extends EPackage {
 	EReference getComponent_Refinements();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Operator <em>Operator</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.Operator
+	 * <em>Operator</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Operator</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Operator
 	 * @generated
@@ -587,8 +642,10 @@ public interface ComponentPackage extends EPackage {
 	EClass getOperator();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.ComNode <em>Com Node</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.ComNode
+	 * <em>Com Node</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Com Node</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.ComNode
 	 * @generated
@@ -596,8 +653,10 @@ public interface ComponentPackage extends EPackage {
 	EClass getComNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComNode#isParallel <em>Parallel</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '
+	 * {@link net.sf.dftools.architecture.slam.component.ComNode#isParallel
+	 * <em>Parallel</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the attribute '<em>Parallel</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.ComNode#isParallel()
 	 * @see #getComNode()
@@ -606,8 +665,10 @@ public interface ComponentPackage extends EPackage {
 	EAttribute getComNode_Parallel();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComNode#getSpeed <em>Speed</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '
+	 * {@link net.sf.dftools.architecture.slam.component.ComNode#getSpeed
+	 * <em>Speed</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the attribute '<em>Speed</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.ComNode#getSpeed()
 	 * @see #getComNode()
@@ -616,8 +677,10 @@ public interface ComponentPackage extends EPackage {
 	EAttribute getComNode_Speed();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Enabler <em>Enabler</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.Enabler
+	 * <em>Enabler</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Enabler</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Enabler
 	 * @generated
@@ -625,8 +688,10 @@ public interface ComponentPackage extends EPackage {
 	EClass getEnabler();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Dma <em>Dma</em>}'.
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.Dma <em>Dma</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Dma</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Dma
 	 * @generated
@@ -634,8 +699,22 @@ public interface ComponentPackage extends EPackage {
 	EClass getDma();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.Mem <em>Mem</em>}'.
+	 * Returns the meta object for the attribute '
+	 * {@link net.sf.dftools.architecture.slam.component.Dma#getSetupTime
+	 * <em>Setup Time</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the attribute '<em>Setup Time</em>'.
+	 * @see net.sf.dftools.architecture.slam.component.Dma#getSetupTime()
+	 * @see #getDma()
+	 * @generated
+	 */
+	EAttribute getDma_SetupTime();
+
+	/**
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.Mem <em>Mem</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Mem</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Mem
 	 * @generated
@@ -643,8 +722,10 @@ public interface ComponentPackage extends EPackage {
 	EClass getMem();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.Mem#getSize <em>Size</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '
+	 * {@link net.sf.dftools.architecture.slam.component.Mem#getSize
+	 * <em>Size</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the attribute '<em>Size</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.Mem#getSize()
 	 * @see #getMem()
@@ -653,8 +734,10 @@ public interface ComponentPackage extends EPackage {
 	EAttribute getMem_Size();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.HierarchyPort <em>Hierarchy Port</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.HierarchyPort
+	 * <em>Hierarchy Port</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Hierarchy Port</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.HierarchyPort
 	 * @generated
@@ -688,10 +771,13 @@ public interface ComponentPackage extends EPackage {
 	EReference getHierarchyPort_InternalInterface();
 
 	/**
-	 * Returns the meta object for the reference '{@link net.sf.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance <em>Internal Component Instance</em>}'.
-	 * <!-- begin-user-doc --> <!--
+	 * Returns the meta object for the reference '
+	 * {@link net.sf.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance
+	 * <em>Internal Component Instance</em>}'. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * @return the meta object for the reference '<em>Internal Component Instance</em>'.
+	 * 
+	 * @return the meta object for the reference '
+	 *         <em>Internal Component Instance</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance()
 	 * @see #getHierarchyPort()
 	 * @generated
@@ -699,8 +785,10 @@ public interface ComponentPackage extends EPackage {
 	EReference getHierarchyPort_InternalComponentInstance();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.architecture.slam.component.ComInterface <em>Com Interface</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for class '
+	 * {@link net.sf.dftools.architecture.slam.component.ComInterface
+	 * <em>Com Interface</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Com Interface</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.ComInterface
 	 * @generated
@@ -708,8 +796,10 @@ public interface ComponentPackage extends EPackage {
 	EClass getComInterface();
 
 	/**
-	 * Returns the meta object for the container reference '{@link net.sf.dftools.architecture.slam.component.ComInterface#getComponent <em>Component</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the container reference '
+	 * {@link net.sf.dftools.architecture.slam.component.ComInterface#getComponent
+	 * <em>Component</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the container reference '<em>Component</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getComponent()
 	 * @see #getComInterface()
@@ -718,9 +808,12 @@ public interface ComponentPackage extends EPackage {
 	EReference getComInterface_Component();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link net.sf.dftools.architecture.slam.component.ComInterface#getBusType <em>Bus Type</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Bus Type</em>'.
+	 * Returns the meta object for the containment reference '
+	 * {@link net.sf.dftools.architecture.slam.component.ComInterface#getBusType
+	 * <em>Bus Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @return the meta object for the containment reference '<em>Bus Type</em>
+	 *         '.
 	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getBusType()
 	 * @see #getComInterface()
 	 * @generated
@@ -728,8 +821,10 @@ public interface ComponentPackage extends EPackage {
 	EReference getComInterface_BusType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.architecture.slam.component.ComInterface#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Returns the meta object for the attribute '
+	 * {@link net.sf.dftools.architecture.slam.component.ComInterface#getName
+	 * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see net.sf.dftools.architecture.slam.component.ComInterface#getName()
 	 * @see #getComInterface()
@@ -756,6 +851,7 @@ public interface ComponentPackage extends EPackage {
 	 * <li>and each data type</li>
 	 * </ul>
 	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	interface Literals {
@@ -772,27 +868,31 @@ public interface ComponentPackage extends EPackage {
 		EClass COMPONENT = eINSTANCE.getComponent();
 
 		/**
-		 * The meta object literal for the '<em><b>Interfaces</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc --> <!--
+		 * The meta object literal for the '<em><b>Interfaces</b></em>'
+		 * containment reference list feature. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference COMPONENT__INTERFACES = eINSTANCE.getComponent_Interfaces();
 
 		/**
-		 * The meta object literal for the '<em><b>Instances</b></em>' reference list feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Instances</b></em>' reference
+		 * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference COMPONENT__INSTANCES = eINSTANCE.getComponent_Instances();
 
 		/**
-		 * The meta object literal for the '<em><b>Refinements</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Refinements</b></em>'
+		 * containment reference list feature. <!-- begin-user-doc --> <!--
+		 * end-user-doc -->
+		 * 
 		 * @generated
 		 */
-		EReference COMPONENT__REFINEMENTS = eINSTANCE.getComponent_Refinements();
+		EReference COMPONENT__REFINEMENTS = eINSTANCE
+				.getComponent_Refinements();
 
 		/**
 		 * The meta object literal for the '
@@ -819,15 +919,17 @@ public interface ComponentPackage extends EPackage {
 		EClass COM_NODE = eINSTANCE.getComNode();
 
 		/**
-		 * The meta object literal for the '<em><b>Parallel</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Parallel</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EAttribute COM_NODE__PARALLEL = eINSTANCE.getComNode_Parallel();
 
 		/**
-		 * The meta object literal for the '<em><b>Speed</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Speed</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EAttribute COM_NODE__SPEED = eINSTANCE.getComNode_Speed();
@@ -845,8 +947,10 @@ public interface ComponentPackage extends EPackage {
 		EClass ENABLER = eINSTANCE.getEnabler();
 
 		/**
-		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.DmaImpl <em>Dma</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '
+		 * {@link net.sf.dftools.architecture.slam.component.impl.DmaImpl
+		 * <em>Dma</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @see net.sf.dftools.architecture.slam.component.impl.DmaImpl
 		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getDma()
 		 * @generated
@@ -854,8 +958,18 @@ public interface ComponentPackage extends EPackage {
 		EClass DMA = eINSTANCE.getDma();
 
 		/**
-		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.MemImpl <em>Mem</em>}' class.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Setup Time</b></em>'
+		 * attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
+		 * @generated
+		 */
+		EAttribute DMA__SETUP_TIME = eINSTANCE.getDma_SetupTime();
+
+		/**
+		 * The meta object literal for the '
+		 * {@link net.sf.dftools.architecture.slam.component.impl.MemImpl
+		 * <em>Mem</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @see net.sf.dftools.architecture.slam.component.impl.MemImpl
 		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getMem()
 		 * @generated
@@ -863,16 +977,19 @@ public interface ComponentPackage extends EPackage {
 		EClass MEM = eINSTANCE.getMem();
 
 		/**
-		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EAttribute MEM__SIZE = eINSTANCE.getMem_Size();
 
 		/**
-		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl <em>Hierarchy Port</em>}' class.
-		 * <!-- begin-user-doc --> <!--
+		 * The meta object literal for the '
+		 * {@link net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl
+		 * <em>Hierarchy Port</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
+		 * 
 		 * @see net.sf.dftools.architecture.slam.component.impl.HierarchyPortImpl
 		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getHierarchyPort()
 		 * @generated
@@ -880,18 +997,22 @@ public interface ComponentPackage extends EPackage {
 		EClass HIERARCHY_PORT = eINSTANCE.getHierarchyPort();
 
 		/**
-		 * The meta object literal for the '<em><b>External Interface</b></em>' reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>External Interface</b></em>'
+		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
-		EReference HIERARCHY_PORT__EXTERNAL_INTERFACE = eINSTANCE.getHierarchyPort_ExternalInterface();
+		EReference HIERARCHY_PORT__EXTERNAL_INTERFACE = eINSTANCE
+				.getHierarchyPort_ExternalInterface();
 
 		/**
-		 * The meta object literal for the '<em><b>Internal Interface</b></em>' reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Internal Interface</b></em>'
+		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
-		EReference HIERARCHY_PORT__INTERNAL_INTERFACE = eINSTANCE.getHierarchyPort_InternalInterface();
+		EReference HIERARCHY_PORT__INTERNAL_INTERFACE = eINSTANCE
+				.getHierarchyPort_InternalInterface();
 
 		/**
 		 * The meta object literal for the '
@@ -900,12 +1021,15 @@ public interface ComponentPackage extends EPackage {
 		 * 
 		 * @generated
 		 */
-		EReference HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE = eINSTANCE.getHierarchyPort_InternalComponentInstance();
+		EReference HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE = eINSTANCE
+				.getHierarchyPort_InternalComponentInstance();
 
 		/**
-		 * The meta object literal for the '{@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl <em>Com Interface</em>}' class.
-		 * <!-- begin-user-doc --> <!--
+		 * The meta object literal for the '
+		 * {@link net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl
+		 * <em>Com Interface</em>}' class. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
+		 * 
 		 * @see net.sf.dftools.architecture.slam.component.impl.ComInterfaceImpl
 		 * @see net.sf.dftools.architecture.slam.component.impl.ComponentPackageImpl#getComInterface()
 		 * @generated
@@ -913,23 +1037,28 @@ public interface ComponentPackage extends EPackage {
 		EClass COM_INTERFACE = eINSTANCE.getComInterface();
 
 		/**
-		 * The meta object literal for the '<em><b>Component</b></em>' container reference feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Component</b></em>' container
+		 * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
-		EReference COM_INTERFACE__COMPONENT = eINSTANCE.getComInterface_Component();
+		EReference COM_INTERFACE__COMPONENT = eINSTANCE
+				.getComInterface_Component();
 
 		/**
-		 * The meta object literal for the '<em><b>Bus Type</b></em>' containment reference feature.
-		 * <!-- begin-user-doc --> <!--
+		 * The meta object literal for the '<em><b>Bus Type</b></em>'
+		 * containment reference feature. <!-- begin-user-doc --> <!--
 		 * end-user-doc -->
+		 * 
 		 * @generated
 		 */
-		EReference COM_INTERFACE__BUS_TYPE = eINSTANCE.getComInterface_BusType();
+		EReference COM_INTERFACE__BUS_TYPE = eINSTANCE
+				.getComInterface_BusType();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute
+		 * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EAttribute COM_INTERFACE__NAME = eINSTANCE.getComInterface_Name();

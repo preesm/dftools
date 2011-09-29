@@ -138,6 +138,10 @@
             
             <xsl:if test="contains(@type,'Mem')">
                 <xsl:attribute name="slam:size" select="parameters/parameter[@name = 'memSize']/@value"/>
+            </xsl:if>  
+            
+            <xsl:if test="contains(@type,'Dma')">
+                <xsl:attribute name="slam:setupTime" select="parameters/parameter[@name = 'setupTime']/@value"/>
             </xsl:if> 
         </xsl:element>
     </xsl:template>
@@ -193,9 +197,6 @@
                     <xsl:attribute name="slam:referenceId" select="$linkId"/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:if test="contains($linkType,'ControlLink')">
-                <xsl:attribute name="slam:setupTime" select="parameters/parameter[@name = 'setup time']/@value"/>
-            </xsl:if>
         </xsl:element>
     </xsl:template>
     

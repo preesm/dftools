@@ -11,22 +11,24 @@ import org.eclipse.emf.ecore.EFactory;
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
  * create method for each non-abstract class of the model. <!-- end-user-doc -->
+ * 
  * @see net.sf.dftools.architecture.slam.SlamPackage
  * @generated
  */
 public interface SlamFactory extends EFactory {
 	/**
-	 * The singleton instance of the factory.
-	 * <!-- begin-user-doc --> <!--
+	 * The singleton instance of the factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
+	 * 
 	 * @generated
 	 */
-	SlamFactory eINSTANCE = net.sf.dftools.architecture.slam.impl.SlamFactoryImpl.init();
+	SlamFactory eINSTANCE = net.sf.dftools.architecture.slam.impl.SlamFactoryImpl
+			.init();
 
 	/**
-	 * Returns a new object of class '<em>Design</em>'.
-	 * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Design</em>'. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Design</em>'.
 	 * @generated
 	 */
@@ -69,9 +71,9 @@ public interface SlamFactory extends EFactory {
 	ComponentHolder createComponentHolder();
 
 	/**
-	 * Returns the package supported by this factory.
-	 * <!-- begin-user-doc -->
+	 * Returns the package supported by this factory. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @return the package supported by this factory.
 	 * @generated
 	 */

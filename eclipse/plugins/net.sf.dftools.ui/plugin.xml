@@ -211,10 +211,6 @@
                   type="java.lang.String">
             </parameter>
             <parameter
-                  name="setup time"
-                  type="java.lang.String">
-            </parameter>
-            <parameter
                   name="custom parameters"
                   type="java.util.Map">
             </parameter>
@@ -313,6 +309,10 @@
             <parameter
                   name="custom parameters"
                   type="java.util.Map">
+            </parameter>
+            <parameter
+                  name="setupTime"
+                  type="java.lang.String">
             </parameter>
          </vertexType>
          <edgeType

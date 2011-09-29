@@ -54,7 +54,7 @@ public class IPXACTDesignWriter {
 	public void write(Design design, OutputStream outputStream) {
 
 		vendorExtensions = new IPXACTDesignVendorExtensionsWriter(design);
-		
+
 		Document document = DomUtil.createDocument(
 				"http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
 				"spirit:design");
@@ -64,7 +64,7 @@ public class IPXACTDesignWriter {
 		root.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:slam",
 				"http://sourceforge.net/projects/dftools/slam");
 
-		//Writing elements and initializing vendor extensions
+		// Writing elements and initializing vendor extensions
 		writeVLNV(root, design, document);
 		writeComponentInstances(root, design, document);
 		writeLinks(root, design, document);

@@ -37,23 +37,33 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponentInstances <em>Component Instances</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getLinks <em>Links</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getHierarchyPorts <em>Hierarchy Ports</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getRefined <em>Refined</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getPath <em>Path</em>}</li>
- *   <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponentHolder <em>Component Holder</em>}</li>
+ * <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getParameters
+ * <em>Parameters</em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponentInstances
+ * <em>Component Instances</em>}</li>
+ * <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getLinks <em>
+ * Links</em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.impl.DesignImpl#getHierarchyPorts
+ * <em>Hierarchy Ports</em>}</li>
+ * <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getRefined <em>
+ * Refined</em>}</li>
+ * <li>{@link net.sf.dftools.architecture.slam.impl.DesignImpl#getPath <em>Path
+ * </em>}</li>
+ * <li>
+ * {@link net.sf.dftools.architecture.slam.impl.DesignImpl#getComponentHolder
+ * <em>Component Holder</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class DesignImpl extends VLNVedElementImpl implements Design {
 	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getParameters()
 	 * @generated
 	 * @ordered
@@ -72,8 +82,9 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	protected EList<ComponentInstance> componentInstances;
 
 	/**
-	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getLinks()
 	 * @generated
 	 * @ordered
@@ -94,6 +105,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	/**
 	 * The default value of the '{@link #getPath() <em>Path</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPath()
 	 * @generated
 	 * @ordered
@@ -103,6 +115,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	/**
 	 * The cached value of the '{@link #getPath() <em>Path</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getPath()
 	 * @generated
 	 * @ordered
@@ -110,11 +123,12 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	protected String path = PATH_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getComponentHolder() <em>Component Holder</em>}' reference.
-	 * <!-- begin-user-doc --> Component
+	 * The cached value of the '{@link #getComponentHolder()
+	 * <em>Component Holder</em>}' reference. <!-- begin-user-doc --> Component
 	 * definitions are common to all the designs of a hierarchical architecture
 	 * description. The holder keeps these definitions available from all
 	 * designs <!-- end-user-doc -->
+	 * 
 	 * @see #getComponentHolder()
 	 * @generated
 	 * @ordered
@@ -123,6 +137,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected DesignImpl() {
@@ -131,6 +146,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -139,91 +155,111 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Parameter> getParameters() {
 		if (parameters == null) {
-			parameters = new EObjectContainmentEList<Parameter>(Parameter.class, this, SlamPackage.DESIGN__PARAMETERS);
+			parameters = new EObjectContainmentEList<Parameter>(
+					Parameter.class, this, SlamPackage.DESIGN__PARAMETERS);
 		}
 		return parameters;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<ComponentInstance> getComponentInstances() {
 		if (componentInstances == null) {
-			componentInstances = new EObjectContainmentEList<ComponentInstance>(ComponentInstance.class, this, SlamPackage.DESIGN__COMPONENT_INSTANCES);
+			componentInstances = new EObjectContainmentEList<ComponentInstance>(
+					ComponentInstance.class, this,
+					SlamPackage.DESIGN__COMPONENT_INSTANCES);
 		}
 		return componentInstances;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Link> getLinks() {
 		if (links == null) {
-			links = new EObjectContainmentEList<Link>(Link.class, this, SlamPackage.DESIGN__LINKS);
+			links = new EObjectContainmentEList<Link>(Link.class, this,
+					SlamPackage.DESIGN__LINKS);
 		}
 		return links;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<HierarchyPort> getHierarchyPorts() {
 		if (hierarchyPorts == null) {
-			hierarchyPorts = new EObjectContainmentEList<HierarchyPort>(HierarchyPort.class, this, SlamPackage.DESIGN__HIERARCHY_PORTS);
+			hierarchyPorts = new EObjectContainmentEList<HierarchyPort>(
+					HierarchyPort.class, this,
+					SlamPackage.DESIGN__HIERARCHY_PORTS);
 		}
 		return hierarchyPorts;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Component getRefined() {
-		if (eContainerFeatureID() != SlamPackage.DESIGN__REFINED) return null;
-		return (Component)eContainer();
+		if (eContainerFeatureID() != SlamPackage.DESIGN__REFINED)
+			return null;
+		return (Component) eContainer();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetRefined(Component newRefined,
 			NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newRefined, SlamPackage.DESIGN__REFINED, msgs);
+		msgs = eBasicSetContainer((InternalEObject) newRefined,
+				SlamPackage.DESIGN__REFINED, msgs);
 		return msgs;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setRefined(Component newRefined) {
-		if (newRefined != eInternalContainer() || (eContainerFeatureID() != SlamPackage.DESIGN__REFINED && newRefined != null)) {
+		if (newRefined != eInternalContainer()
+				|| (eContainerFeatureID() != SlamPackage.DESIGN__REFINED && newRefined != null)) {
 			if (EcoreUtil.isAncestor(this, newRefined))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+				throw new IllegalArgumentException(
+						"Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newRefined != null)
-				msgs = ((InternalEObject)newRefined).eInverseAdd(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class, msgs);
+				msgs = ((InternalEObject) newRefined).eInverseAdd(this,
+						ComponentPackage.COMPONENT__REFINEMENTS,
+						Component.class, msgs);
 			msgs = basicSetRefined(newRefined, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__REFINED, newRefined, newRefined));
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					SlamPackage.DESIGN__REFINED, newRefined, newRefined));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public String getPath() {
@@ -232,26 +268,31 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setPath(String newPath) {
 		String oldPath = path;
 		path = newPath;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__PATH, oldPath, path));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					SlamPackage.DESIGN__PATH, oldPath, path));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ComponentHolder getComponentHolder() {
 		if (componentHolder != null && componentHolder.eIsProxy()) {
-			InternalEObject oldComponentHolder = (InternalEObject)componentHolder;
-			componentHolder = (ComponentHolder)eResolveProxy(oldComponentHolder);
+			InternalEObject oldComponentHolder = (InternalEObject) componentHolder;
+			componentHolder = (ComponentHolder) eResolveProxy(oldComponentHolder);
 			if (componentHolder != oldComponentHolder) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder, componentHolder));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							SlamPackage.DESIGN__COMPONENT_HOLDER,
+							oldComponentHolder, componentHolder));
 			}
 		}
 		return componentHolder;
@@ -259,6 +300,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public ComponentHolder basicGetComponentHolder() {
@@ -267,13 +309,16 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setComponentHolder(ComponentHolder newComponentHolder) {
 		ComponentHolder oldComponentHolder = componentHolder;
 		componentHolder = newComponentHolder;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder, componentHolder));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder,
+					componentHolder));
 	}
 
 	/**
@@ -344,203 +389,223 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SlamPackage.DESIGN__REFINED:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetRefined((Component)otherEnd, msgs);
+		case SlamPackage.DESIGN__REFINED:
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			return basicSetRefined((Component) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case SlamPackage.DESIGN__PARAMETERS:
-				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-			case SlamPackage.DESIGN__COMPONENT_INSTANCES:
-				return ((InternalEList<?>)getComponentInstances()).basicRemove(otherEnd, msgs);
-			case SlamPackage.DESIGN__LINKS:
-				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
-			case SlamPackage.DESIGN__HIERARCHY_PORTS:
-				return ((InternalEList<?>)getHierarchyPorts()).basicRemove(otherEnd, msgs);
-			case SlamPackage.DESIGN__REFINED:
-				return basicSetRefined(null, msgs);
+		case SlamPackage.DESIGN__PARAMETERS:
+			return ((InternalEList<?>) getParameters()).basicRemove(otherEnd,
+					msgs);
+		case SlamPackage.DESIGN__COMPONENT_INSTANCES:
+			return ((InternalEList<?>) getComponentInstances()).basicRemove(
+					otherEnd, msgs);
+		case SlamPackage.DESIGN__LINKS:
+			return ((InternalEList<?>) getLinks()).basicRemove(otherEnd, msgs);
+		case SlamPackage.DESIGN__HIERARCHY_PORTS:
+			return ((InternalEList<?>) getHierarchyPorts()).basicRemove(
+					otherEnd, msgs);
+		case SlamPackage.DESIGN__REFINED:
+			return basicSetRefined(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(
 			NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case SlamPackage.DESIGN__REFINED:
-				return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class, msgs);
+		case SlamPackage.DESIGN__REFINED:
+			return eInternalContainer().eInverseRemove(this,
+					ComponentPackage.COMPONENT__REFINEMENTS, Component.class,
+					msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SlamPackage.DESIGN__PARAMETERS:
-				return getParameters();
-			case SlamPackage.DESIGN__COMPONENT_INSTANCES:
-				return getComponentInstances();
-			case SlamPackage.DESIGN__LINKS:
-				return getLinks();
-			case SlamPackage.DESIGN__HIERARCHY_PORTS:
-				return getHierarchyPorts();
-			case SlamPackage.DESIGN__REFINED:
-				return getRefined();
-			case SlamPackage.DESIGN__PATH:
-				return getPath();
-			case SlamPackage.DESIGN__COMPONENT_HOLDER:
-				if (resolve) return getComponentHolder();
-				return basicGetComponentHolder();
+		case SlamPackage.DESIGN__PARAMETERS:
+			return getParameters();
+		case SlamPackage.DESIGN__COMPONENT_INSTANCES:
+			return getComponentInstances();
+		case SlamPackage.DESIGN__LINKS:
+			return getLinks();
+		case SlamPackage.DESIGN__HIERARCHY_PORTS:
+			return getHierarchyPorts();
+		case SlamPackage.DESIGN__REFINED:
+			return getRefined();
+		case SlamPackage.DESIGN__PATH:
+			return getPath();
+		case SlamPackage.DESIGN__COMPONENT_HOLDER:
+			if (resolve)
+				return getComponentHolder();
+			return basicGetComponentHolder();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case SlamPackage.DESIGN__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection<? extends Parameter>)newValue);
-				return;
-			case SlamPackage.DESIGN__COMPONENT_INSTANCES:
-				getComponentInstances().clear();
-				getComponentInstances().addAll((Collection<? extends ComponentInstance>)newValue);
-				return;
-			case SlamPackage.DESIGN__LINKS:
-				getLinks().clear();
-				getLinks().addAll((Collection<? extends Link>)newValue);
-				return;
-			case SlamPackage.DESIGN__HIERARCHY_PORTS:
-				getHierarchyPorts().clear();
-				getHierarchyPorts().addAll((Collection<? extends HierarchyPort>)newValue);
-				return;
-			case SlamPackage.DESIGN__REFINED:
-				setRefined((Component)newValue);
-				return;
-			case SlamPackage.DESIGN__PATH:
-				setPath((String)newValue);
-				return;
-			case SlamPackage.DESIGN__COMPONENT_HOLDER:
-				setComponentHolder((ComponentHolder)newValue);
-				return;
+		case SlamPackage.DESIGN__PARAMETERS:
+			getParameters().clear();
+			getParameters().addAll((Collection<? extends Parameter>) newValue);
+			return;
+		case SlamPackage.DESIGN__COMPONENT_INSTANCES:
+			getComponentInstances().clear();
+			getComponentInstances().addAll(
+					(Collection<? extends ComponentInstance>) newValue);
+			return;
+		case SlamPackage.DESIGN__LINKS:
+			getLinks().clear();
+			getLinks().addAll((Collection<? extends Link>) newValue);
+			return;
+		case SlamPackage.DESIGN__HIERARCHY_PORTS:
+			getHierarchyPorts().clear();
+			getHierarchyPorts().addAll(
+					(Collection<? extends HierarchyPort>) newValue);
+			return;
+		case SlamPackage.DESIGN__REFINED:
+			setRefined((Component) newValue);
+			return;
+		case SlamPackage.DESIGN__PATH:
+			setPath((String) newValue);
+			return;
+		case SlamPackage.DESIGN__COMPONENT_HOLDER:
+			setComponentHolder((ComponentHolder) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case SlamPackage.DESIGN__PARAMETERS:
-				getParameters().clear();
-				return;
-			case SlamPackage.DESIGN__COMPONENT_INSTANCES:
-				getComponentInstances().clear();
-				return;
-			case SlamPackage.DESIGN__LINKS:
-				getLinks().clear();
-				return;
-			case SlamPackage.DESIGN__HIERARCHY_PORTS:
-				getHierarchyPorts().clear();
-				return;
-			case SlamPackage.DESIGN__REFINED:
-				setRefined((Component)null);
-				return;
-			case SlamPackage.DESIGN__PATH:
-				setPath(PATH_EDEFAULT);
-				return;
-			case SlamPackage.DESIGN__COMPONENT_HOLDER:
-				setComponentHolder((ComponentHolder)null);
-				return;
+		case SlamPackage.DESIGN__PARAMETERS:
+			getParameters().clear();
+			return;
+		case SlamPackage.DESIGN__COMPONENT_INSTANCES:
+			getComponentInstances().clear();
+			return;
+		case SlamPackage.DESIGN__LINKS:
+			getLinks().clear();
+			return;
+		case SlamPackage.DESIGN__HIERARCHY_PORTS:
+			getHierarchyPorts().clear();
+			return;
+		case SlamPackage.DESIGN__REFINED:
+			setRefined((Component) null);
+			return;
+		case SlamPackage.DESIGN__PATH:
+			setPath(PATH_EDEFAULT);
+			return;
+		case SlamPackage.DESIGN__COMPONENT_HOLDER:
+			setComponentHolder((ComponentHolder) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SlamPackage.DESIGN__PARAMETERS:
-				return parameters != null && !parameters.isEmpty();
-			case SlamPackage.DESIGN__COMPONENT_INSTANCES:
-				return componentInstances != null && !componentInstances.isEmpty();
-			case SlamPackage.DESIGN__LINKS:
-				return links != null && !links.isEmpty();
-			case SlamPackage.DESIGN__HIERARCHY_PORTS:
-				return hierarchyPorts != null && !hierarchyPorts.isEmpty();
-			case SlamPackage.DESIGN__REFINED:
-				return getRefined() != null;
-			case SlamPackage.DESIGN__PATH:
-				return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
-			case SlamPackage.DESIGN__COMPONENT_HOLDER:
-				return componentHolder != null;
+		case SlamPackage.DESIGN__PARAMETERS:
+			return parameters != null && !parameters.isEmpty();
+		case SlamPackage.DESIGN__COMPONENT_INSTANCES:
+			return componentInstances != null && !componentInstances.isEmpty();
+		case SlamPackage.DESIGN__LINKS:
+			return links != null && !links.isEmpty();
+		case SlamPackage.DESIGN__HIERARCHY_PORTS:
+			return hierarchyPorts != null && !hierarchyPorts.isEmpty();
+		case SlamPackage.DESIGN__REFINED:
+			return getRefined() != null;
+		case SlamPackage.DESIGN__PATH:
+			return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT
+					.equals(path);
+		case SlamPackage.DESIGN__COMPONENT_HOLDER:
+			return componentHolder != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ParameterizedElement.class) {
 			switch (derivedFeatureID) {
-				case SlamPackage.DESIGN__PARAMETERS: return SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS;
-				default: return -1;
+			case SlamPackage.DESIGN__PARAMETERS:
+				return SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS;
+			default:
+				return -1;
 			}
 		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ParameterizedElement.class) {
 			switch (baseFeatureID) {
-				case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS: return SlamPackage.DESIGN__PARAMETERS;
-				default: return -1;
+			case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
+				return SlamPackage.DESIGN__PARAMETERS;
+			default:
+				return -1;
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
@@ -548,11 +613,13 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (path: ");

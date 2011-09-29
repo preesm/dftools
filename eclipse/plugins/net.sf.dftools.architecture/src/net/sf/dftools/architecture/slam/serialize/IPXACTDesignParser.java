@@ -27,9 +27,9 @@ import net.sf.dftools.architecture.slam.component.ComNode;
 import net.sf.dftools.architecture.slam.component.Component;
 import net.sf.dftools.architecture.slam.component.ComponentFactory;
 import net.sf.dftools.architecture.slam.component.ComponentPackage;
+import net.sf.dftools.architecture.slam.component.Dma;
 import net.sf.dftools.architecture.slam.component.HierarchyPort;
 import net.sf.dftools.architecture.slam.component.Mem;
-import net.sf.dftools.architecture.slam.link.ControlLink;
 import net.sf.dftools.architecture.slam.link.Link;
 import net.sf.dftools.architecture.slam.link.LinkFactory;
 import net.sf.dftools.architecture.slam.link.LinkPackage;
@@ -238,6 +238,9 @@ public class IPXACTDesignParser extends IPXACTParser {
 			} else if (component instanceof Mem) {
 				((Mem) component).setSize(Integer.valueOf(description
 						.getSpecificParameter("slam:size")));
+			} else if (component instanceof Dma) {
+				((Dma) component).setSetupTime(Integer.valueOf(description
+						.getSpecificParameter("slam:setupTime")));
 			}
 
 		}
@@ -433,18 +436,6 @@ public class IPXACTDesignParser extends IPXACTParser {
 						.add(destinationInterface);
 			}
 			link.setDestinationInterface(destinationInterface);
-
-			// Special link cases
-			if (link instanceof ControlLink) {
-				int setupTime;
-				try {
-					setupTime = Integer.valueOf(linkDescription
-							.getSpecificParameter("slam:setupTime"));
-				} catch (NumberFormatException e) {
-					setupTime = 0;
-				}
-				((ControlLink) link).setSetupTime(setupTime);
-			}
 
 			design.getLinks().add(link);
 		}
