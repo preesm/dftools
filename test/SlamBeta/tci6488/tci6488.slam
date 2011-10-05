@@ -127,7 +127,7 @@
             <slam:componentDescription slam:componentRef="scr"
                 slam:componentType="parallelComNode" slam:refinement="" slam:speed="2"/>
             <slam:componentDescription slam:componentRef="EDMA"
-                slam:componentType="Dma" slam:refinement="" slam:setupTime="0"/>
+                slam:componentType="Dma" slam:refinement="" slam:setupTime="712"/>
             <slam:componentDescription slam:componentRef="RIO"
                 slam:componentType="contentionComNode"
                 slam:refinement="" slam:speed="0.125"/>

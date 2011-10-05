@@ -367,7 +367,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->Creating the component if necessary<!-- end-user-doc -->
 	 * 
 	 * @generated NOT
 	 */

@@ -231,16 +231,27 @@ public class IPXACTDesignParser extends IPXACTParser {
 			Component component = design.getComponent(vlnv, eClass);
 			instance.setComponent(component);
 
-			// Special component cases
-			if (component instanceof ComNode) {
-				((ComNode) component).setSpeed(Float.valueOf(description
-						.getSpecificParameter("slam:speed")));
-			} else if (component instanceof Mem) {
-				((Mem) component).setSize(Integer.valueOf(description
-						.getSpecificParameter("slam:size")));
-			} else if (component instanceof Dma) {
-				((Dma) component).setSetupTime(Integer.valueOf(description
-						.getSpecificParameter("slam:setupTime")));
+			try {
+				// Special component cases
+				if (component instanceof ComNode) {
+					((ComNode) component).setSpeed(Float.valueOf(description
+							.getSpecificParameter("slam:speed")));
+					if("contention".equals(description
+							.getSpecificParameter("ComNodeType"))){
+						((ComNode) component).setParallel(false);
+					}
+					else{
+						((ComNode) component).setParallel(true);
+					}
+				} else if (component instanceof Mem) {
+					((Mem) component).setSize(Integer.valueOf(description
+							.getSpecificParameter("slam:size")));
+				} else if (component instanceof Dma) {
+					((Dma) component).setSetupTime(Integer.valueOf(description
+							.getSpecificParameter("slam:setupTime")));
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
 			}
 
 		}
