@@ -96,13 +96,13 @@
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="w1aab2b1"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink" slam:referenceId="w1aab2b2" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="w1aab2b2"/>
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="w1aab2b5"/>
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="w1aab2b6"/>
             <slam:linkDescription slam:directedLink="directed"
-                slam:linkType="ControlLink" slam:referenceId="w1aab2b7" slam:setupTime="0"/>
+                slam:linkType="ControlLink" slam:referenceId="w1aab2b7"/>
         </slam:linkDescriptions>
         <slam:designDescription xmlns:slam="http://sourceforge.net/projects/dftools/slam">
             <slam:parameters/>

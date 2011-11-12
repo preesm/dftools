@@ -90,11 +90,6 @@
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="RapidIO"/>
         </spirit:interconnection>
         <spirit:interconnection>
-            <spirit:name>w1aab2b9</spirit:name>
-            <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="RapidIO"/>
-            <spirit:activeInterface spirit:busRef="rio" spirit:componentRef="EDMA3"/>
-        </spirit:interconnection>
-        <spirit:interconnection>
             <spirit:name>w1aab2c10</spirit:name>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="SCR"/>
             <spirit:activeInterface spirit:busRef="scr" spirit:componentRef="DDR2_Ram"/>
@@ -151,8 +146,6 @@
                 slam:linkType="DataLink" slam:referenceId="w1aab2b6"/>
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="w1aab2b8"/>
-            <slam:linkDescription slam:directedLink="undirected"
-                slam:linkType="DataLink" slam:referenceId="w1aab2b9"/>
             <slam:linkDescription slam:directedLink="undirected"
                 slam:linkType="DataLink" slam:referenceId="w1aab2c10"/>
             <slam:linkDescription slam:directedLink="directed"
