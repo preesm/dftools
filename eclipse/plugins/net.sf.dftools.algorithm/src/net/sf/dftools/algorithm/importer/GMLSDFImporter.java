@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dftools.algorithm.exporter.GMLGenericExporter;
 import net.sf.dftools.algorithm.importer.old.GMLSDFImporterV1;
+import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
 /**
@@ -50,8 +52,10 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
 		GMLSDFImporter importer = new GMLSDFImporter();
 		SDFGraph graph = importer
 				.parse(new File(
-						"/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/FFT/Algo/Butterfly.graphml"));
+						"/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml"));
 		System.out.println("Graph " + graph + " parsed \n");
+		GMLGenericExporter exporter = new GMLGenericExporter();
+		exporter.export((AbstractGraph) graph, "/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml");
 	}
 
 	@Override

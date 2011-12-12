@@ -75,6 +75,15 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		}
 	}
 
+	public boolean addInterface(IInterface port) {
+		if (port.getDirection().equals(InterfaceDirection.Input)) {
+			return addSource((SDFInterfaceVertex) port);
+		} else if (port.getDirection().equals(InterfaceDirection.Output)) {
+			return addSink((SDFInterfaceVertex) port);
+		}
+		return false ;
+	}
+
 	/**
 	 * Add a Sink interface vertex linked to the given edge in the base graph
 	 * 
@@ -426,7 +435,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 	public String toString() {
 		return getName();
 	}
-	
+
 	@Override
 	public PropertyFactory getFactoryForProperty(String propertyName) {
 		// TODO Auto-generated method stub

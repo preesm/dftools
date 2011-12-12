@@ -3,9 +3,11 @@ package net.sf.dftools.algorithm.factories;
 import java.util.HashMap;
 
 import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.psdf.PSDFInitVertex;
 import net.sf.dftools.algorithm.model.psdf.PSDFSubInitVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
+import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 
 import org.w3c.dom.Element;
 
@@ -72,6 +74,18 @@ public class PSDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 	public SDFAbstractVertex createVertex(String kind) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public IInterface createInterface(String name, int dir) {
+		IInterface port;
+		if (dir == 1) {
+			port = new SDFSinkInterfaceVertex();
+		} else {
+			port = new SDFSinkInterfaceVertex();
+		}
+		port.setName(name);
+		return port;
 	}
 
 }

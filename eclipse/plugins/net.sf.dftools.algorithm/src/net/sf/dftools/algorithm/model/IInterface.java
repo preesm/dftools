@@ -32,6 +32,8 @@ public interface IInterface {
 	public void setDirection(InterfaceDirection direction);
 	
 	public String getName();
+	
+	public void setName(String name);
 
 
 }

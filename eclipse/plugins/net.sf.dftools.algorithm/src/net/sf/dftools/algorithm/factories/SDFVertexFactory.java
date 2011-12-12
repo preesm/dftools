@@ -3,6 +3,7 @@ package net.sf.dftools.algorithm.factories;
 import java.util.HashMap;
 
 import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.InterfaceDirection;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
@@ -26,15 +27,12 @@ import org.w3c.dom.Element;
  */
 public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 
-	
-	private static SDFVertexFactory instance ;
-	
-	private SDFVertexFactory(){
-		
+	private static SDFVertexFactory instance;
+
+	private SDFVertexFactory() {
+
 	}
-	
-	
-	
+
 	public SDFAbstractVertex createVertex(Element vertexElt) {
 		String kind = this.getProperty(vertexElt, AbstractVertex.KIND);
 		if (kind.equals(SDFVertex.VERTEX)) {
@@ -69,15 +67,14 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 	/**
 	 * @deprecated
 	 * 
-	 * Creates a vertex with the given parameters
-	 * Used when kind was a node attribute, now a property
+	 *             Creates a vertex with the given parameters Used when kind was
+	 *             a node attribute, now a property
 	 * 
 	 * @param attributes
 	 *            The attributes of the vertex
 	 * @return The created vertex
 	 */
-	public SDFAbstractVertex createVertex(
-			HashMap<String, String> attributes) {
+	public SDFAbstractVertex createVertex(HashMap<String, String> attributes) {
 		String kind = attributes.get("kind");
 		if (kind.equals(SDFVertex.VERTEX)) {
 			SDFVertex newVertex = new SDFVertex();
@@ -109,13 +106,11 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 	}
 
 	public static SDFVertexFactory getInstance() {
-		if(instance == null){
+		if (instance == null) {
 			instance = new SDFVertexFactory();
 		}
 		return instance;
 	}
-
-
 
 	@Override
 	public SDFAbstractVertex createVertex(String kind) {
@@ -123,4 +118,15 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 		return null;
 	}
 
+	@Override
+	public IInterface createInterface(String name, int dir){
+		IInterface port ;
+		if(dir == 1){
+			 port = new SDFSinkInterfaceVertex();
+		}else{
+			 port = new SDFSinkInterfaceVertex();
+		}
+		port.setName(name);
+		return port ;
+	}
 }

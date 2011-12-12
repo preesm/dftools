@@ -1,6 +1,7 @@
 package net.sf.dftools.algorithm.factories;
 
 import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
 import net.sf.dftools.algorithm.model.dag.edag.DAGBroadcastVertex;
 import net.sf.dftools.algorithm.model.dag.edag.DAGEndVertex;
@@ -53,6 +54,13 @@ public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
 		} else {
 			return new DAGVertex();
 		}
+	}
+
+
+	@Override
+	public IInterface createInterface(String name, int dir) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

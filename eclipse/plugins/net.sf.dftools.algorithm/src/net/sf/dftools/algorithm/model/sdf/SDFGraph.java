@@ -14,6 +14,7 @@ import net.sf.dftools.algorithm.factories.SDFVertexFactory;
 import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.PropertyBean;
 import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
@@ -99,6 +100,18 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			target.connectionAdded(newEdge);
 		}
 		return newEdge;
+	}
+
+	public SDFEdge addEdge(SDFAbstractVertex source, IInterface sourcePort,
+			SDFAbstractVertex target, IInterface targetPort) {
+		SDFEdge edge = this.addEdge(source, target);
+		edge.setSourceInterface((SDFInterfaceVertex) sourcePort);
+		source.setInterfaceVertexExternalLink(edge,
+				(SDFInterfaceVertex) sourcePort);
+		edge.setTargetInterface((SDFInterfaceVertex) targetPort);
+		target.setInterfaceVertexExternalLink(edge,
+				(SDFInterfaceVertex) targetPort);
+		return edge;
 	}
 
 	/**

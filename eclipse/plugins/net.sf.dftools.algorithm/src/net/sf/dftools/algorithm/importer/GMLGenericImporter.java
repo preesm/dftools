@@ -10,7 +10,6 @@ import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.IInterface;
-import net.sf.dftools.algorithm.model.generic.GenericInterface;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 
 import org.w3c.dom.Element;
@@ -74,7 +73,8 @@ public class GMLGenericImporter extends
 			}
 		}
 		if (sourcePort == null) {
-			sourcePort = new GenericInterface();
+			sourcePort = vertexFactory.createInterface(sourcePortName, 1);
+			vertexSource.addInterface(sourcePort);
 		}
 		String targetPortName = edgeElt.getAttribute("targetport");
 		for (IInterface sourcesPort : (List<IInterface>) vertexTarget
@@ -85,9 +85,11 @@ public class GMLGenericImporter extends
 		}
 
 		if (targetPort == null) {
-			targetPort = new GenericInterface();
+			targetPort = vertexFactory.createInterface(targetPortName, 0);
+			vertexTarget.addInterface(targetPort);
 		}
-		AbstractEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
+		AbstractEdge edge = parentGraph.addEdge(vertexSource, sourcePort,
+				vertexTarget, targetPort);
 		parseKeys(edgeElt, edge);
 	}
 
@@ -124,9 +126,11 @@ public class GMLGenericImporter extends
 			parseKeys(graphElt, graph);
 			return graph;
 		} catch (InstantiationException e) {
-			throw new InvalidModelException("Failed to parse graph with message :"+e.getMessage());
+			throw new InvalidModelException(
+					"Failed to parse graph with message :" + e.getMessage());
 		} catch (IllegalAccessException e) {
-			throw new InvalidModelException("Failed to parse graph with message :"+e.getMessage());
+			throw new InvalidModelException(
+					"Failed to parse graph with message :" + e.getMessage());
 		}
 	}
 

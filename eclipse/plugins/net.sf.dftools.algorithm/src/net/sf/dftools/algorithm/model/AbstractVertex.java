@@ -63,11 +63,8 @@ public abstract class AbstractVertex<G> extends Observable implements
 			add(KIND);
 		}
 	};
-	
-	
-	
-	protected List<IInterface> interfaces;
 
+	protected List<IInterface> interfaces;
 
 	/**
 	 * Creates a new Instance of Abstract vertex
@@ -91,8 +88,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 	public void accept(GraphVisitor visitor) throws SDF4JException {
 		visitor.visit(this);
 	}
-	
-	
+
 	/**
 	 * Add a list of interface to this vertex
 	 * 
@@ -102,21 +98,22 @@ public abstract class AbstractVertex<G> extends Observable implements
 	public void addInterfaces(List<IInterface> interfaces) {
 		interfaces.addAll(interfaces);
 	}
-	
+
 	/**
 	 * Add a list of interface to this vertex
 	 * 
 	 * @param interfaces
 	 *            The list of interface to add
 	 */
-	public void addInterface(IInterface port) {
+	public boolean addInterface(IInterface port) {
 		interfaces.add(port);
+		return true;
 	}
 
-	
-	public List<IInterface> getInterfaces(){
-		return interfaces ;
+	public List<IInterface> getInterfaces() {
+		return interfaces;
 	}
+
 	/**
 	 * Give this vertex parent graph
 	 * 
@@ -409,15 +406,15 @@ public abstract class AbstractVertex<G> extends Observable implements
 		}
 		return null;
 	}
-	
-	public String getPropertyStringValue(String propertyName){
-		if(this.getPropertyBean().getValue(propertyName) != null){
+
+	public String getPropertyStringValue(String propertyName) {
+		if (this.getPropertyBean().getValue(propertyName) != null) {
 			return this.getPropertyBean().getValue(propertyName).toString();
 		}
-		return null ;
+		return null;
 	}
-	
-	public void setPropertyValue(String propertyName, Object value){
+
+	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}
 }

@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dftools.algorithm.exporter.GMLGenericExporter;
+import net.sf.dftools.algorithm.importer.GMLSDFImporter;
 import net.sf.dftools.algorithm.importer.InvalidModelException;
-import net.sf.dftools.algorithm.importer.old.GMLSDFImporterV1;
 import net.sf.dftools.algorithm.model.AbstractGraph;
-import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
 public class SDFConverter {
@@ -36,16 +35,22 @@ public class SDFConverter {
 			}
 			while (files.size() > 0) {
 				File toTreat = files.get(0);
-				try {
+				GMLSDFImporter importer = new GMLSDFImporter();
+				SDFGraph graph = importer.parse(toTreat);
+				GMLGenericExporter exporter = new GMLGenericExporter();
+				exporter.export((AbstractGraph) graph,
+						toTreat.getAbsolutePath());
+				files.remove(0);
+				/*try {
 					boolean hasRefinement = false;
-					GMLSDFImporterV1 importer = new GMLSDFImporterV1();
+					GMLSDFImporter importer = new GMLSDFImporter();
 					SDFGraph graph = importer.parse(toTreat);
 					for (AbstractVertex v : graph.vertexSet()) {
 						if (v.getRefinement() instanceof AbstractGraph) {
 							String rName = ((AbstractGraph) v.getRefinement())
 									.getName();
-							String rpath = dir.getAbsolutePath() + File.separator+ rName
-									+ ".graphml";
+							String rpath = dir.getAbsolutePath()
+									+ File.separator + rName + ".graphml";
 							if (!convertedPath.contains(rpath)) {
 								File rFile = new File(rpath);
 								files.add(0, rFile);
@@ -59,14 +64,15 @@ public class SDFConverter {
 						GMLGenericExporter exporter = new GMLGenericExporter();
 						exporter.export((AbstractGraph) graph,
 								toTreat.getAbsolutePath());
-						
+
 					}
 				} catch (Exception e) {
-					System.out.println("Fails to convert file or already converted file: "
-							+ toTreat.getAbsolutePath());
+					System.out
+							.println("Fails to convert file or already converted file: "
+									+ toTreat.getAbsolutePath());
 					convertedPath.add(toTreat.getAbsolutePath());
 					files.remove(0);
-				}
+				}*/
 			}
 
 		}

@@ -34,7 +34,7 @@ import org.nfunk.jep.ParseException;
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AbstractGraph<V extends AbstractVertex, E extends AbstractEdge>
-		extends DirectedMultigraph<V , E> implements PropertySource,
+		extends DirectedMultigraph<V, E> implements PropertySource,
 		IRefinement, IExpressionSolver, IModelObserver, CloneableProperty {
 
 	/**
@@ -61,7 +61,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 * Property name for property variables
 	 */
 	public static final String MODEL = "model";
-	
+
 	/**
 	 * This graph parent vertex if it exist
 	 */
@@ -114,6 +114,30 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
 	public E addEdge(V source, V target) {
 		E edge = super.addEdge(source, target);
+		edge.setBase(this);
+		this.setChanged();
+		this.notifyObservers(edge);
+		return edge;
+	}
+
+	/**
+	 * Edge adding method used by parser
+	 * 
+	 * @param source
+	 *            The source vertex of the edge
+	 * @param sourcePort
+	 *            The source port of the edge
+	 * @param target
+	 *            The target vertex of the edge
+	 * @param targetPort
+	 *            The target port of the edge
+	 * @return
+	 */
+	public E addEdge(V source, IInterface sourcePort, V target,
+			IInterface targetPort) {
+		E edge = super.addEdge(source, target);
+		edge.setSourceLabel(sourcePort.getName());
+		edge.setTargetLabel(targetPort.getName());
 		edge.setBase(this);
 		this.setChanged();
 		this.notifyObservers(edge);
@@ -582,7 +606,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	}
 
 	public abstract AbstractGraph<V, E> clone();
-	
+
 	public abstract ModelVertexFactory<V> getVertexFactory();
 
 	public abstract boolean validateModel(Logger logger) throws SDF4JException;
@@ -601,12 +625,11 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		}
 	}
 
-	public String getPropertyStringValue(String propertyName){
+	public String getPropertyStringValue(String propertyName) {
 		return this.getPropertyBean().getValue(propertyName).toString();
 	}
-	
-	
-	public void setPropertyValue(String propertyName, Object value){
+
+	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}
 }
