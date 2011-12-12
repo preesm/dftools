@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import net.sf.dftools.algorithm.factories.DAGVertexFactory;
 import net.sf.dftools.algorithm.importer.GMLGenericImporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.visitors.DAGTransformation;
@@ -37,7 +37,7 @@ public class PSDFTest {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

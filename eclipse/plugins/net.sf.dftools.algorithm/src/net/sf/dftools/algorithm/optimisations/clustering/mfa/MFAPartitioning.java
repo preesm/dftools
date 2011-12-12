@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import net.sf.dftools.algorithm.SDFMath;
 import net.sf.dftools.algorithm.demo.SDFAdapterDemo;
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
@@ -57,7 +57,7 @@ public class MFAPartitioning {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -68,9 +68,9 @@ public class MFAPartitioning {
 		flatHier.flattenGraph(graph, 2);
 		flattGraph = flatHier.getOutput();
 		MFAPartitioning mfa = new MFAPartitioning(flattGraph, 2, 8, 1);
-		// Une température de départ trop haute, place le système dans une
+		// Une tempï¿½rature de dï¿½part trop haute, place le systï¿½me dans une
 		// situation instable
-		// , trop proche de la moyenne du système et n'arrive plus à migrer ...
+		// , trop proche de la moyenne du systï¿½me et n'arrive plus ï¿½ migrer ...
 		mfa.computeV2(1);
 		afterApplet.init(flattGraph);
 	}
@@ -458,8 +458,8 @@ public class MFAPartitioning {
 					+ nb[i] + "\n Facteur de repetition dans la partition " + i
 					+ " : " + gcd[i];
 		}
-		res += "\n Nombre de dépendances total : " + nbTot
-				+ "\n Nombre de dépendances coupés : " + nbCut;
+		res += "\n Nombre de dï¿½pendances total : " + nbTot
+				+ "\n Nombre de dï¿½pendances coupï¿½s : " + nbCut;
 
 		res += "\n";
 		for (Node n : nodes) {

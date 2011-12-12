@@ -1,186 +1,57 @@
 package net.sf.dftools.algorithm.importer;
 
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
-import net.sf.dftools.algorithm.factories.PSDFVertexFactory;
-import net.sf.dftools.algorithm.model.AbstractVertex;
-import net.sf.dftools.algorithm.model.parameters.Argument;
+import net.sf.dftools.algorithm.importer.old.GMLPSDFImporterV1;
 import net.sf.dftools.algorithm.model.psdf.PSDFGraph;
-import net.sf.dftools.algorithm.model.psdf.PSDFInitVertex;
-import net.sf.dftools.algorithm.model.psdf.PSDFSubInitVertex;
-import net.sf.dftools.algorithm.model.psdf.parameters.DomainParsingException;
-import net.sf.dftools.algorithm.model.psdf.parameters.DynamicParameterDomainFactory;
-import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicArgument;
-import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicParameter;
-import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
+import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+public class GMLPSDFImporter extends GMLModelParserWrapper<PSDFGraph> {
 
-public class GMLPSDFImporter extends GMLSDFImporter {
+	private GMLImporter<?, ?, ?> trueImporter;
 
-	PSDFGraph graph;
-
+	/**
+	 * COnstructs a new importer for SDF graphs
+	 */
 	public GMLPSDFImporter() {
-		super();
+		trueImporter = new GMLGenericImporter();
 	}
 
-	public PSDFGraph parseGraph(Element graphElt) {
-
-		graph = new PSDFGraph();
-		NodeList childList = graphElt.getChildNodes();
-		parseKeys(graphElt, graph);
-		parseParameters(graph, graphElt);
-		parseDynamicParameters(graph, graphElt);
-		parseVariables(graph, graphElt);
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("node")) {
-				Element vertexElt = (Element) childList.item(i);
-				graph.addVertex(parseNode(vertexElt));
-			}
-		}
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("edge")) {
-				Element edgeElt = (Element) childList.item(i);
-				parseEdge(edgeElt, graph);
-			}
-		}
-		return graph;
-	}
-
-	public SDFAbstractVertex parseNode(Element vertexElt) {
-
-		SDFAbstractVertex vertex;
-		HashMap<String, String> attributes = new HashMap<String, String>();
-		for (int i = 0; i < vertexElt.getAttributes().getLength(); i++) {
-			attributes.put(vertexElt.getAttributes().item(i).getNodeName(),
-					vertexElt.getAttributes().item(i).getNodeValue());
-		}
-		vertex = PSDFVertexFactory.getInstance().createVertex(attributes);
-		vertex.setId(vertexElt.getAttribute("id"));
-		vertex.setName(vertexElt.getAttribute("id"));
-		parseKeys(vertexElt, vertex);
-		vertexFromId.put(vertex.getId(), vertex);
-		parseArguments(vertex, vertexElt);
-		parseGraphDescription(vertex, vertexElt);
-		if (vertex instanceof PSDFInitVertex) {
-			parseAffectedParameters((PSDFInitVertex) vertex, vertexElt);
-		} else if (vertex instanceof PSDFSubInitVertex) {
-			parseAffectedParameters((PSDFSubInitVertex) vertex, vertexElt);
-		}
-		return vertex;
-	}
-
-	protected void parseDynamicParameters(PSDFGraph graph, Element parentElt) {
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data")
-					&& ((Element) childList.item(i)).getAttribute("key")
-							.equals("dynamic_parameters")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("parameter")) {
-						Element param = (Element) argsList.item(j);
-						PSDFDynamicParameter parameter = new PSDFDynamicParameter(
-								param.getAttribute("name"));
-						graph.addParameter(parameter);
-					}
-				}
+	public SDFGraph parse(File f) throws InvalidModelException,
+			FileNotFoundException {
+		try {
+			return (PSDFGraph) trueImporter.parse(f);
+		} catch (Exception e1) {
+			trueImporter = new GMLPSDFImporterV1();
+			try {
+				System.out
+						.println("Parsing using generic parser failed, trying specialized parser\n");
+				return (PSDFGraph) trueImporter.parse(f);
+			} catch (Exception e2) {
+				throw new InvalidModelException(
+						"Cannot parse file. Parsing failed with exception "
+								+ e2.getMessage());
 			}
 		}
 	}
 
-	protected void parseAffectedParameters(PSDFInitVertex initVertex,
-			Element parentElt) {
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data")
-					&& ((Element) childList.item(i)).getAttribute("key")
-							.equals("affected_parameters")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("parameter")) {
-						Element param = (Element) argsList.item(j);
-						PSDFDynamicParameter p = graph
-								.getDynamicParameter(param.getAttribute("name"));
-						if (p != null) {
-							initVertex.addAffectedParameter(p);
-							try {
-								if (param.getAttribute("value") != null) {
-									p
-											.setDomain(DynamicParameterDomainFactory
-													.create(param
-															.getAttribute("value")));
-								}
-							} catch (DomainParsingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	protected void parseAffectedParameters(PSDFSubInitVertex initVertex,
-			Element parentElt) {
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data")
-					&& ((Element) childList.item(i)).getAttribute("key")
-							.equals("affected_parameters")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("parameter")) {
-						Element param = (Element) argsList.item(j);
-						PSDFDynamicParameter p = graph
-								.getDynamicParameter(param.getAttribute("name"));
-						if (p != null) {
-							initVertex.addAffectedParameter(p);
-							try {
-								if (param.getAttribute("value") != null) {
-									p
-											.setDomain(DynamicParameterDomainFactory
-													.create(param
-															.getAttribute("value")));
-								}
-							} catch (DomainParsingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
-	protected void parseArguments(AbstractVertex vertex, Element parentElt) {
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data")
-					&& ((Element) childList.item(i)).getAttribute("key")
-							.equals("arguments")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("argument")) {
-						Element arg = (Element) argsList.item(j);
-						if (arg.getAttribute("value").charAt(0) == '$'
-								&& graph instanceof PSDFGraph) {
-							PSDFGraph pGraph = ((PSDFGraph) graph);
-							vertex.addArgument(new PSDFDynamicArgument(arg
-									.getAttribute("name"), pGraph
-									.getDynamicParameter(arg.getAttribute(
-											"value").substring(1))));
-						} else {
-							vertex.addArgument(new Argument(arg
-									.getAttribute("name"), arg
-									.getAttribute("value")));
-						}
-					}
-				}
+	@Override
+	public PSDFGraph parse(InputStream input, String path)
+			throws InvalidModelException, FileNotFoundException {
+		try {
+			return (PSDFGraph) trueImporter.parse(input, path);
+		} catch (Exception e1) {
+			trueImporter = new GMLPSDFImporterV1();
+			try {
+				System.out
+						.println("Parsing using generic parser failed, trying specialized parser\n");
+				return (PSDFGraph) trueImporter.parse(input, path);
+			} catch (Exception e2) {
+				throw new InvalidModelException(
+						"Cannot parse file. Parsing failed with exception "
+								+ e2.getMessage());
 			}
 		}
 	}

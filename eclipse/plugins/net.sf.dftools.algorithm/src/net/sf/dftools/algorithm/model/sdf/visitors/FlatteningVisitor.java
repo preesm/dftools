@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import net.sf.dftools.algorithm.demo.SDFAdapterDemo;
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.parameters.Parameter;
@@ -140,7 +140,7 @@ public class FlatteningVisitor implements GraphVisitor<SDFGraph, SDFAbstractVert
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SDF4JException e) {

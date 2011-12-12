@@ -89,7 +89,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	 *         is conected to
 	 */
 	public String getSourceLabel() {
-		if(getPropertyBean().getValue(SOURCE_PORT) != null){
+		if (getPropertyBean().getValue(SOURCE_PORT) != null) {
 			return (String) getPropertyBean().getValue(SOURCE_PORT).toString();
 		}
 		return null;
@@ -102,7 +102,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	 *         is conected to
 	 */
 	public String getTargetLabel() {
-		if(getPropertyBean().getValue(TARGET_PORT) != null){
+		if (getPropertyBean().getValue(TARGET_PORT) != null) {
 			return (String) getPropertyBean().getValue(TARGET_PORT).toString();
 		}
 		return null;
@@ -205,10 +205,13 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 			}
 		}
 	}
-	
-	
-	public String getPropertyStringValue(String propertyName){
+
+	public String getPropertyStringValue(String propertyName) {
 		return this.getPropertyBean().getValue(propertyName).toString();
+	}
+
+	public void setPropertyValue(String propertyName, Object value) {
+		this.getPropertyBean().setValue(propertyName, value);
 	}
 
 }

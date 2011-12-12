@@ -39,7 +39,7 @@ public class GMLDAGImporter extends
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dftools.algorithm.exporter.GMLGenericExporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
+import net.sf.dftools.algorithm.importer.old.GMLSDFImporterV1;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
@@ -14,7 +15,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 public class SDFConverter {
 
 	public static void main(String[] args) throws FileNotFoundException,
-			InvalidFileException {
+			InvalidModelException {
 		List<File> dirs = new ArrayList<File>();
 		List<File> files = new ArrayList<File>();
 		List<String> convertedPath = new ArrayList<String>();
@@ -37,7 +38,7 @@ public class SDFConverter {
 				File toTreat = files.get(0);
 				try {
 					boolean hasRefinement = false;
-					GMLOldSDFImporter importer = new GMLOldSDFImporter();
+					GMLSDFImporterV1 importer = new GMLSDFImporterV1();
 					SDFGraph graph = importer.parse(toTreat);
 					for (AbstractVertex v : graph.vertexSet()) {
 						if (v.getRefinement() instanceof AbstractGraph) {

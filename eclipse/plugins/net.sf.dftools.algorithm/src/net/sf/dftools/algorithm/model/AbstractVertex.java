@@ -416,4 +416,8 @@ public abstract class AbstractVertex<G> extends Observable implements
 		}
 		return null ;
 	}
+	
+	public void setPropertyValue(String propertyName, Object value){
+		this.getPropertyBean().setValue(propertyName, value);
+	}
 }

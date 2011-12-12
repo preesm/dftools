@@ -78,10 +78,10 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 * @param f
 	 *            The file to parse
 	 * @return The parsed graph
-	 * @throws InvalidFileException
+	 * @throws InvalidModelException
 	 * @throws FileNotFoundException
 	 */
-	public G parse(File f) throws InvalidFileException, FileNotFoundException {
+	public G parse(File f) throws InvalidModelException, FileNotFoundException {
 		this.path = f.getAbsolutePath();
 		return parse(new FileInputStream(f));
 	}
@@ -94,11 +94,11 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 * @param path
 	 *            The of the file to parse
 	 * @return The parsed graph
-	 * @throws InvalidFileException
+	 * @throws InvalidModelException
 	 * @throws FileNotFoundException
 	 */
-	public G parse(InputStream input, String path) throws InvalidFileException,
-			FileNotFoundException {
+	public G parse(InputStream input, String path)
+			throws InvalidModelException, FileNotFoundException {
 		this.path = path;
 		return parse(input);
 	}
@@ -109,56 +109,56 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 * @param input
 	 *            The InputStream to parse
 	 * @return The graph parsed from the document
-	 * @throws InvalidFileException
+	 * @throws InvalidModelException
 	 */
-	private G parse(InputStream input) throws InvalidFileException {
-			this.inputStream = input;
+	private G parse(InputStream input) throws InvalidModelException {
+		this.inputStream = input;
 
-			// using DOM3
-			DOMImplementationRegistry registry = null;
-			DOMImplementationLS impl = null;
-			try {
-				registry = DOMImplementationRegistry.newInstance();
-				impl = (DOMImplementationLS) registry
-						.getDOMImplementation("Core 3.0 XML 3.0 LS");
-			} catch (ClassCastException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		// using DOM3
+		DOMImplementationRegistry registry = null;
+		DOMImplementationLS impl = null;
+		try {
+			registry = DOMImplementationRegistry.newInstance();
+			impl = (DOMImplementationLS) registry
+					.getDOMImplementation("Core 3.0 XML 3.0 LS");
+		} catch (ClassCastException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		LSInput lsInput = impl.createLSInput();
+		lsInput.setByteStream(input);
+
+		// parse without comments and whitespace
+		LSParser builder = impl.createLSParser(
+				DOMImplementationLS.MODE_SYNCHRONOUS, null);
+		DOMConfiguration config = builder.getDomConfig();
+		config.setParameter("comments", false);
+		config.setParameter("element-content-whitespace", false);
+
+		Document doc = builder.parse(lsInput);
+
+		Element rootElt = (Element) doc.getFirstChild();
+		if (!rootElt.getNodeName().equals("graphml")) {
+			throw (new InvalidModelException());
+		}
+		recoverKeys(rootElt);
+		NodeList childList = rootElt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("graph")) {
+				Element graphElt = (Element) childList.item(i);
+				return parseGraph(graphElt);
 			}
-
-			LSInput lsInput = impl.createLSInput();
-			lsInput.setByteStream(input);
-
-			// parse without comments and whitespace
-			LSParser builder = impl.createLSParser(
-					DOMImplementationLS.MODE_SYNCHRONOUS, null);
-			DOMConfiguration config = builder.getDomConfig();
-			config.setParameter("comments", false);
-			config.setParameter("element-content-whitespace", false);
-
-			Document doc = builder.parse(lsInput);
-
-			Element rootElt = (Element) doc.getFirstChild();
-			if (!rootElt.getNodeName().equals("graphml")) {
-				throw (new InvalidFileException());
-			}
-			recoverKeys(rootElt);
-			NodeList childList = rootElt.getChildNodes();
-			for (int i = 0; i < childList.getLength(); i++) {
-				if (childList.item(i).getNodeName().equals("graph")) {
-					Element graphElt = (Element) childList.item(i);
-					return parseGraph(graphElt);
-				}
-			}
+		}
 		return null;
 	}
 
@@ -170,7 +170,8 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 * @param parentGraph
 	 *            The parent Graph of this Edge
 	 */
-	public abstract void parseEdge(Element edgeElt, G parentGraph);
+	public abstract void parseEdge(Element edgeElt, G parentGraph)
+			throws InvalidModelException;
 
 	/**
 	 * Parses a Graph in the DOM document
@@ -179,7 +180,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 *            The graph Element in the DOM document
 	 * @return The parsed Graph
 	 */
-	public abstract G parseGraph(Element graphElt);
+	public abstract G parseGraph(Element graphElt) throws InvalidModelException;
 
 	/**
 	 * Parses a key instance in the document
@@ -304,12 +305,12 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 					PropertyFactory factory = src
 							.getFactoryForProperty(propertyName);
 					if (factory != null) {
-						src.getPropertyBean().setValue(
+						src.setPropertyValue(
 								propertyName,
 								factory.create(childList.item(i)
 										.getTextContent()));
 					} else {
-						src.getPropertyBean().setValue(propertyName,
+						src.setPropertyValue(propertyName,
 								childList.item(i).getTextContent());
 					}
 				}
@@ -324,7 +325,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
-	public abstract V parseNode(Element vertexElt);
+	public abstract V parseNode(Element vertexElt) throws InvalidModelException;
 
 	/**
 	 * Parses an Interface from the DOM document
@@ -333,7 +334,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 *            The DOM Element to parse
 	 * @return The ineterface parsed from the DOM document
 	 */
-	public abstract V parsePort(Element portElt);
+	public abstract V parsePort(Element portElt) throws InvalidModelException;
 
 	/**
 	 * Recover the key set from the GML document
@@ -454,7 +455,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 
 	@SuppressWarnings("rawtypes")
 	protected void parseGraphDescription(AbstractVertex vertex,
-			Element parentElt) {
+			Element parentElt) throws InvalidModelException {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("data")
@@ -474,7 +475,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						} catch (InvalidFileException e) {
+						} catch (InvalidModelException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}

@@ -35,7 +35,7 @@ public class GMLGenericImporter extends
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -57,7 +57,8 @@ public class GMLGenericImporter extends
 	 * @param parentGraph
 	 *            The parent Graph of this Edge
 	 */
-	public void parseEdge(Element edgeElt, AbstractGraph parentGraph) {
+	public void parseEdge(Element edgeElt, AbstractGraph parentGraph)
+			throws InvalidModelException {
 		AbstractVertex vertexSource = vertexFromId.get(edgeElt
 				.getAttribute("source"));
 		AbstractVertex vertexTarget = vertexFromId.get(edgeElt
@@ -97,7 +98,8 @@ public class GMLGenericImporter extends
 	 *            The graph Element in the DOM document
 	 * @return The parsed graph
 	 */
-	public AbstractGraph parseGraph(Element graphElt) {
+	public AbstractGraph parseGraph(Element graphElt)
+			throws InvalidModelException {
 		String parseModel = parseModel(graphElt);
 		AbstractGraph graph;
 		try {
@@ -122,13 +124,10 @@ public class GMLGenericImporter extends
 			parseKeys(graphElt, graph);
 			return graph;
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new InvalidModelException("Failed to parse graph with message :"+e.getMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new InvalidModelException("Failed to parse graph with message :"+e.getMessage());
 		}
-		return null;
 	}
 
 	/**
@@ -138,8 +137,8 @@ public class GMLGenericImporter extends
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
-	public AbstractVertex parseNode(Element vertexElt) {
-
+	public AbstractVertex parseNode(Element vertexElt)
+			throws InvalidModelException {
 		AbstractVertex vertex;
 		vertex = vertexFactory.createVertex(vertexElt);
 		vertex.setId(vertexElt.getAttribute("id"));
@@ -152,7 +151,8 @@ public class GMLGenericImporter extends
 	}
 
 	@Override
-	public AbstractVertex parsePort(Element portElt) {
+	public AbstractVertex parsePort(Element portElt)
+			throws InvalidModelException {
 		return null;
 	}
 

@@ -9,7 +9,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
@@ -88,7 +88,7 @@ public class OptimizedToHSDFVisitor implements
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SDF4JException e) {

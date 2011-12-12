@@ -6,11 +6,18 @@ package net.sf.dftools.algorithm.importer;
  * @author jpiat
  * 
  */
-public class InvalidFileException extends Exception {
+public class InvalidModelException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8589958989242269799L;
 
+	public InvalidModelException(String msg) {
+		super(msg);
+	}
+
+	public InvalidModelException() {
+		super();
+	}
 }

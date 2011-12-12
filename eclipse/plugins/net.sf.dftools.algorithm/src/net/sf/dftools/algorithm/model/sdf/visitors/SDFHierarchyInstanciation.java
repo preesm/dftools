@@ -13,7 +13,7 @@ import net.sf.dftools.algorithm.demo.SDFAdapterDemo;
 import net.sf.dftools.algorithm.demo.SDFtoDAGDemo;
 import net.sf.dftools.algorithm.factories.DAGVertexFactory;
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
@@ -346,7 +346,7 @@ public class SDFHierarchyInstanciation implements
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SDF4JException e) {

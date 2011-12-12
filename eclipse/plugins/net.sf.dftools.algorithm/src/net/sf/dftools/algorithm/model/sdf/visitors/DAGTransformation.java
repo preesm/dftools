@@ -17,7 +17,7 @@ import net.sf.dftools.algorithm.factories.DAGVertexFactory;
 import net.sf.dftools.algorithm.factories.ModelVertexFactory;
 import net.sf.dftools.algorithm.generator.SDFRandomGraph;
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
-import net.sf.dftools.algorithm.importer.InvalidFileException;
+import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.iterators.SDFIterator;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
@@ -89,7 +89,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidFileException e) {
+		} catch (InvalidModelException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
