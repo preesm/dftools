@@ -17,6 +17,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -33,7 +34,7 @@ public class GMLSDFImporter extends
 	 * Main function allowing to debug the class
 	 * 
 	 * @param args
-	 * @throws InvalidExpressionException 
+	 * @throws InvalidExpressionException
 	 */
 	public static void main(String[] args) throws InvalidExpressionException {
 		SDFAdapterDemo applet = new SDFAdapterDemo();
@@ -104,7 +105,7 @@ public class GMLSDFImporter extends
 		vertexSource.setInterfaceVertexExternalLink(edge, sourcePort);
 		edge.setTargetInterface(targetPort);
 		vertexTarget.setInterfaceVertexExternalLink(edge, targetPort);
-		parseKeys(edgeElt, edge.getPropertyBean(), "edge");
+		parseKeys(edgeElt, edge);
 	}
 
 	/**
@@ -131,7 +132,7 @@ public class GMLSDFImporter extends
 				parseEdge(edgeElt, graph);
 			}
 		}
-		parseKeys(graphElt, graph.getPropertyBean(), "graph");
+		parseKeys(graphElt, graph);
 		return graph;
 	}
 
@@ -146,26 +147,28 @@ public class GMLSDFImporter extends
 				String path = graphDesc.getTextContent();
 				if (path.contains(".graphml")) {
 					if (this.path != null && path.length() > 0) {
-						String directoryPath = this.path.substring(0, this.path
-								.lastIndexOf("\\") + 1);
-						GMLGenericImporter importer = new GMLGenericImporter();
+						String directoryPath = this.path.substring(0,
+								this.path.lastIndexOf(File.separator) + 1);
+						GMLSDFImporter importer = new GMLSDFImporter();
 						try {
-							SDFGraph refine =  (SDFGraph) importer.parse(new File(
-									directoryPath + path));
+							File refinementFile = new File(directoryPath + path);
+							String fileName = refinementFile.getName();
+							fileName = fileName.substring(0, fileName.indexOf('.'));
+							SDFGraph refine = (SDFGraph) importer
+									.parse(refinementFile);
+							refine.setName(fileName);
 							vertex.setGraphDescription(refine);
 							for (SDFAbstractVertex refineVertex : refine
 									.vertexSet()) {
 								if (refineVertex instanceof SDFInterfaceVertex) {
 									if (((SDFInterfaceVertex) refineVertex)
 											.getDirection() == InterfaceDirection.Input) {
-										vertex
-												.addSource(((SDFInterfaceVertex) refineVertex)
-														.clone());
+										vertex.addSource(((SDFInterfaceVertex) refineVertex)
+												.clone());
 									} else if (((SDFInterfaceVertex) refineVertex)
 											.getDirection() == InterfaceDirection.Output) {
-										vertex
-												.addSink(((SDFInterfaceVertex) refineVertex)
-														.clone());
+										vertex.addSink(((SDFInterfaceVertex) refineVertex)
+												.clone());
 									}
 								}
 							}
@@ -177,7 +180,7 @@ public class GMLSDFImporter extends
 							e.printStackTrace();
 						}
 					}
-				} else if(path.length() > 0) {
+				} else if (path.length() > 0) {
 					vertex.setRefinement(new CodeRefinement(path));
 				}
 			}
@@ -199,10 +202,10 @@ public class GMLSDFImporter extends
 			attributes.put(vertexElt.getAttributes().item(i).getNodeName(),
 					vertexElt.getAttributes().item(i).getNodeValue());
 		}
-		vertex = SDFVertexFactory.createVertex(attributes);
+		vertex = SDFVertexFactory.getInstance().createVertex(attributes);
 		vertex.setId(vertexElt.getAttribute("id"));
 		vertex.setName(vertexElt.getAttribute("id"));
-		parseKeys(vertexElt, vertex.getPropertyBean(), "node");
+		parseKeys(vertexElt, vertex);
 		vertexFromId.put(vertex.getId(), vertex);
 		parseArguments(vertex, vertexElt);
 		parseGraphDescription(vertex, vertexElt);
@@ -212,6 +215,10 @@ public class GMLSDFImporter extends
 	@Override
 	public SDFAbstractVertex parsePort(Element portElt) {
 		return null;
+	}
+	
+	public void disableRefinementParsing(){
+		
 	}
 
 }

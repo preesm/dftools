@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jgrapht.EdgeFactory;
-import org.math.array.DoubleArray;
-import org.math.array.LinearAlgebra;
 import net.sf.dftools.algorithm.SDFMath;
+import net.sf.dftools.algorithm.factories.ModelVertexFactory;
 import net.sf.dftools.algorithm.factories.SDFEdgeFactory;
+import net.sf.dftools.algorithm.factories.SDFVertexFactory;
 import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.PropertyBean;
+import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -31,6 +31,10 @@ import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.sdf.visitors.TopologyVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
+
+import org.jgrapht.EdgeFactory;
+import org.math.array.DoubleArray;
+import org.math.array.LinearAlgebra;
 
 /**
  * Abstract Class representing an SDF graph
@@ -57,6 +61,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 */
 	public SDFGraph() {
 		super(new SDFEdgeFactory());
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "sdf");
 	}
 
 	/**
@@ -67,6 +72,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	public SDFGraph(EdgeFactory<SDFAbstractVertex, SDFEdge> ef) {
 		super(ef);
 		setName("");
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "sdf");
 	}
 
 	/**
@@ -78,11 +84,12 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	public SDFGraph(SDFEdgeFactory factory) {
 		super(factory);
 		setName("");
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "sdf");
 	}
 
 	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target) {
 		SDFEdge newEdge = super.addEdge(source, target);
-		properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
+		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
 		this.getPropertyBean().setValue(TOPOLOGY, null);
 		this.getPropertyBean().setValue(SCHEDULABLE, null);
 		if (source instanceof SDFForkVertex) {
@@ -123,7 +130,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	public boolean addVertex(SDFAbstractVertex vertex) {
 		if (super.addVertex(vertex)) {
-			properties.setValue(PropertyBean.PROPERTY_ADD, null, vertex);
 			this.getPropertyBean().setValue("topology", null);
 			return true;
 		}
@@ -713,6 +719,17 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				}
 			}
 		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ModelVertexFactory getVertexFactory() {
+		return SDFVertexFactory.getInstance();
+	}
+
+	@Override
+	public PropertyFactory getFactoryForProperty(String propertyName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

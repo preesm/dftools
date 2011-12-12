@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import org.jgrapht.Graph;
+import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.Parameter;
 import net.sf.dftools.algorithm.model.parameters.Variable;
@@ -16,8 +16,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
-import net.sf.dftools.algorithm.model.sdf.types.SDFNumericalEdgePropertyTypeFactory;
-import net.sf.dftools.algorithm.model.sdf.types.SDFTextualEdgePropertyTypeFactory;
+
 import org.w3c.dom.Element;
 
 /**
@@ -54,9 +53,8 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 		acqData.setName("acq_data");
 		graph.addVertex(acqData);
 
-
 		gen5.addArgument(new Argument("NB_COPY", "100"));
-		
+
 		SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
 		sensGen.setProd(new SDFIntEdgePropertyType(1));
 		sensGen.setCons(new SDFIntEdgePropertyType(1));
@@ -87,10 +85,11 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 	 * 
 	 * @param args
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) {
 		SDFGraph graph = createTestComGraph();
-		GMLSDFExporter exporter = new GMLSDFExporter();
-		exporter.export(graph, "D:\\test.graphml");
+		GMLGenericExporter exporter = new GMLGenericExporter();
+		exporter.export((AbstractGraph) graph, "./test.graphml");
 	}
 
 	private String path;
@@ -100,35 +99,19 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 	 */
 	public GMLSDFExporter() {
 		super();
-		addKey(SDFEdge.EDGE_PROD, SDFEdge.EDGE_PROD, "edge", "int",
-				SDFNumericalEdgePropertyTypeFactory.class);
-		addKey(SDFEdge.EDGE_DELAY, SDFEdge.EDGE_DELAY, "edge", "int",
-				SDFNumericalEdgePropertyTypeFactory.class);
-		addKey(SDFEdge.EDGE_CONS, SDFEdge.EDGE_CONS, "edge", "int",
-				SDFNumericalEdgePropertyTypeFactory.class);
-		addKey(SDFVertex.REFINEMENT, SDFVertex.REFINEMENT, "node", "string",
-				null);
-		addKey(SDFAbstractVertex.ARGUMENTS, SDFAbstractVertex.ARGUMENTS,
-				"node", null, null);
-		addKey(SDFGraph.PARAMETERS, SDFGraph.PARAMETERS,
-				"graph", null, null);
-		addKey(SDFGraph.VARIABLES, SDFGraph.VARIABLES, "graph",
-				null, null);
-		addKey(SDFEdge.DATA_TYPE, SDFEdge.DATA_TYPE, "edge", "string",
-				SDFTextualEdgePropertyTypeFactory.class);
 	}
 
-	public void export(Graph<SDFAbstractVertex, SDFEdge> graph, String path) {
+	public void export(AbstractGraph<SDFAbstractVertex, SDFEdge> graph,
+			String path) {
 		this.path = path;
 		try {
 			exportGraph(graph);
-			transform( new FileOutputStream(path));
+			transform(new FileOutputStream(path));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Export an Edge in the Document
@@ -149,8 +132,8 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 		}
 		Element edgeElt = createEdge(parentELement, edge.getSource().getName(),
 				edge.getTarget().getName(), sourcePort, targetPort);
-		exportKeys("edge", edgeElt, edge.getPropertyBean());
-		return edgeElt ;
+		exportKeys(edge, "edge", edgeElt);
+		return edgeElt;
 	}
 
 	/**
@@ -161,13 +144,13 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 	 * @param out
 	 *            The OutputStream to write
 	 */
-	public Element exportGraph(Graph<SDFAbstractVertex, SDFEdge> graph) {
+	public Element exportGraph(AbstractGraph<SDFAbstractVertex, SDFEdge> graph) {
 		addKeySet(rootElt);
 		SDFGraph myGraph = (SDFGraph) graph;
 		Element graphElt = createGraph(rootElt, true);
 		graphElt.setAttribute("edgedefault", "directed");
 		graphElt.setAttribute("kind", "sdf");
-		exportKeys("graph", graphElt, myGraph.getPropertyBean());
+		exportKeys(graph, "graph", graphElt);
 		if (myGraph.getParameters() != null) {
 			exportParameters(myGraph.getParameters(), graphElt);
 		}
@@ -175,15 +158,13 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 			exportVariables(myGraph.getVariables(), graphElt);
 		}
 		for (SDFAbstractVertex child : myGraph.vertexSet()) {
-				exportNode(child, graphElt);
+			exportNode(child, graphElt);
 		}
 		for (SDFEdge edge : myGraph.edgeSet()) {
 			exportEdge(edge, graphElt);
 		}
-		return graphElt ;
+		return graphElt;
 	}
-	
-	
 
 	/**
 	 * Exports a Vertex in the DOM document
@@ -197,38 +178,45 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 	protected Element exportNode(SDFAbstractVertex vertex, Element parentELement) {
 
 		Element vertexElt = createNode(parentELement, vertex.getName());
-		vertexElt.setAttribute(SDFAbstractVertex.KIND, (String) vertex
-				.getPropertyBean().getValue(SDFAbstractVertex.KIND));
-		if(vertex instanceof SDFInterfaceVertex){
-			vertexElt.setAttribute("port_direction", ((SDFInterfaceVertex)vertex).getDirection().toString());
+		if (vertex instanceof SDFInterfaceVertex) {
+			vertexElt.setAttribute("port_direction",
+					((SDFInterfaceVertex) vertex).getDirection().toString());
 		}
-		if (vertex.getGraphDescription() != null && vertex.getGraphDescription().getName().length() > 0) {
-			String filePath = vertex.getGraphDescription().getName() ;
-			if(! filePath.contains(".xml")){
-				filePath = filePath+".xml" ;
+		if (vertex.getGraphDescription() != null
+				&& vertex.getGraphDescription().getName().length() > 0) {
+			String filePath = vertex.getGraphDescription().getName();
+			if (!filePath.contains(".xml")) {
+				filePath = filePath + ".xml";
 				vertex.getGraphDescription().setName(filePath);
 			}
 			filePath.replace(File.separator, "/");
-			String thisPathPrefix = path.substring(0, path.lastIndexOf(File.separator)+1);
-			
-			if(filePath.lastIndexOf("/") > 0 && filePath.contains(thisPathPrefix)){
-				if(filePath.compareTo(thisPathPrefix) > 0){
-					vertex.getGraphDescription().setName(filePath.substring(filePath.length()-filePath.compareTo(thisPathPrefix)));
-					GMLSDFExporter decExporter = new GMLSDFExporter() ;
-					decExporter.export(vertex.getGraphDescription(), filePath.substring(filePath.length()-filePath.compareTo(thisPathPrefix)));
+			String thisPathPrefix = path.substring(0,
+					path.lastIndexOf(File.separator) + 1);
+
+			if (filePath.lastIndexOf("/") > 0
+					&& filePath.contains(thisPathPrefix)) {
+				if (filePath.compareTo(thisPathPrefix) > 0) {
+					vertex.getGraphDescription().setName(
+							filePath.substring(filePath.length()
+									- filePath.compareTo(thisPathPrefix)));
+					GMLSDFExporter decExporter = new GMLSDFExporter();
+					decExporter.export(
+							vertex.getGraphDescription(),
+							filePath.substring(filePath.length()
+									- filePath.compareTo(thisPathPrefix)));
 				}
-			}else{
-				GMLSDFExporter decExporter = new GMLSDFExporter() ;
-				decExporter.export(vertex.getGraphDescription(), thisPathPrefix+filePath);
+			} else {
+				GMLSDFExporter decExporter = new GMLSDFExporter();
+				decExporter.export(vertex.getGraphDescription(), thisPathPrefix
+						+ filePath);
 			}
 		}
-		exportKeys("node", vertexElt, vertex.getPropertyBean());
+		exportKeys(vertex, "node", vertexElt);
 		if (vertex.getArguments() != null) {
 			exportArguments(vertex.getArguments(), vertexElt);
 		}
-		return vertexElt ;
+		return vertexElt;
 	}
-
 
 	/**
 	 * Exports an interface
@@ -240,11 +228,13 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 	 */
 	protected Element exportPort(SDFAbstractVertex interfaceVertex,
 			Element parentELement) {
-		Element interfaceElt = createPort(parentELement, interfaceVertex
-				.getName());
-		interfaceElt.setAttribute("port_direction", ((SDFInterfaceVertex)interfaceVertex).getDirection().toString());
-		exportKeys("port", interfaceElt, interfaceVertex.getPropertyBean());
-		return interfaceElt ;
+		Element interfaceElt = createPort(parentELement,
+				interfaceVertex.getName());
+		interfaceElt.setAttribute("port_direction",
+				((SDFInterfaceVertex) interfaceVertex).getDirection()
+						.toString());
+		exportKeys(interfaceVertex, "port", interfaceElt);
+		return interfaceElt;
 	}
 
 }

@@ -2,14 +2,18 @@ package net.sf.dftools.algorithm.model.dag;
 
 import java.util.logging.Logger;
 
-import org.jgrapht.EdgeFactory;
-import org.jgrapht.alg.CycleDetector;
 import net.sf.dftools.algorithm.exceptions.CreateCycleException;
 import net.sf.dftools.algorithm.exceptions.CreateMultigraphException;
 import net.sf.dftools.algorithm.factories.DAGEdgeFactory;
+import net.sf.dftools.algorithm.factories.DAGVertexFactory;
+import net.sf.dftools.algorithm.factories.ModelVertexFactory;
 import net.sf.dftools.algorithm.model.AbstractGraph;
+import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+
+import org.jgrapht.EdgeFactory;
+import org.jgrapht.alg.CycleDetector;
 
 /**
  * Class used to represent a Directed Acyclic Graph
@@ -32,6 +36,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 	 */
 	public DirectedAcyclicGraph() {
 		super(new DAGEdgeFactory());
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "dag");
 	}
 
 	/**
@@ -42,6 +47,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 	 */
 	public DirectedAcyclicGraph(EdgeFactory<DAGVertex, DAGEdge> arg0) {
 		super(arg0);
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "dag");
 	}
 	
 	/**
@@ -137,6 +143,17 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 	
 	public void setCorrespondingSDFGraph(SDFGraph graph){
 		this.getPropertyBean().setValue(SDF, graph) ;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ModelVertexFactory getVertexFactory(){
+		return DAGVertexFactory.getInstance();
+	}
+
+	@Override
+	public PropertyFactory getFactoryForProperty(String propertyName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

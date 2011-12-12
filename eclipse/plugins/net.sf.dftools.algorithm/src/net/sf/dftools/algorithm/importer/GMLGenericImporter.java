@@ -1,53 +1,159 @@
 package net.sf.dftools.algorithm.importer;
 
-import net.sf.dftools.algorithm.factories.SDFEdgeFactory;
-import net.sf.dftools.algorithm.model.PropertySource;
-import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
-import net.sf.dftools.algorithm.model.sdf.SDFEdge;
-import net.sf.dftools.algorithm.model.sdf.SDFGraph;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import net.sf.dftools.algorithm.exporter.GMLGenericExporter;
+import net.sf.dftools.algorithm.factories.ModelGraphFactory;
+import net.sf.dftools.algorithm.model.AbstractEdge;
+import net.sf.dftools.algorithm.model.AbstractGraph;
+import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.IInterface;
+import net.sf.dftools.algorithm.model.generic.GenericInterface;
+import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
+
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class GMLGenericImporter extends GMLImporter{
+public class GMLGenericImporter extends
+		GMLImporter<AbstractGraph, AbstractVertex, AbstractEdge> {
 
-	private GMLImporter<SDFGraph,SDFAbstractVertex,SDFEdge> importer ; 
-	
-	public GMLGenericImporter(){
-		super(new SDFEdgeFactory()) ;
-	}
-
-	@Override
-	public void parseEdge(Element edgeElt, PropertySource parentGraph) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public SDFGraph parseGraph(Element graphElt) {
-		if(graphElt.getAttribute("kind") != null && graphElt.getAttribute("kind").equals("sdf")){
-			importer = new GMLSDFImporter() ;
-		}else if(graphElt.getAttribute("kind") != null && graphElt.getAttribute("kind").equals("psdf")){
-			importer = new GMLPSDFImporter() ;
-		}else{
-			importer = new GMLSDFImporter() ;
+	/**
+	 * Main function allowing to debug the class
+	 * 
+	 * @param args
+	 * @throws InvalidExpressionException
+	 */
+	public static void main(String[] args) throws InvalidExpressionException {
+		GMLGenericImporter importer = new GMLGenericImporter();
+		try {
+			AbstractGraph graph = importer.parse(new File("./test.graphml"));
+			GMLGenericExporter exporter = new GMLGenericExporter();
+			exporter.export(graph, "./copy-test.graphml");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		importer.classKeySet = this.classKeySet ;
-		importer.inputStream = this.inputStream ;
-		importer.path = this.path ;
-		importer.vertexFromId = this.vertexFromId ;
-		return importer.parseGraph(graphElt);
+
+	}
+
+	/**
+	 * COnstructs a new importer for SDF graphs
+	 */
+	public GMLGenericImporter() {
+		super(null);
+	}
+
+	/**
+	 * Parses an Edge in the DOM document
+	 * 
+	 * @param edgeElt
+	 *            The DOM Element
+	 * @param parentGraph
+	 *            The parent Graph of this Edge
+	 */
+	public void parseEdge(Element edgeElt, AbstractGraph parentGraph) {
+		AbstractVertex vertexSource = vertexFromId.get(edgeElt
+				.getAttribute("source"));
+		AbstractVertex vertexTarget = vertexFromId.get(edgeElt
+				.getAttribute("target"));
+
+		IInterface sourcePort = null;
+		IInterface targetPort = null;
+		String sourcePortName = edgeElt.getAttribute("sourceport");
+		for (IInterface sinksPort : (List<IInterface>) vertexSource
+				.getInterfaces()) {
+			if (sinksPort.getName().equals(sourcePortName)) {
+				sourcePort = sinksPort;
+			}
+		}
+		if (sourcePort == null) {
+			sourcePort = new GenericInterface();
+		}
+		String targetPortName = edgeElt.getAttribute("targetport");
+		for (IInterface sourcesPort : (List<IInterface>) vertexTarget
+				.getInterfaces()) {
+			if (sourcesPort.getName().equals(targetPortName)) {
+				targetPort = sourcesPort;
+			}
+		}
+
+		if (targetPort == null) {
+			targetPort = new GenericInterface();
+		}
+		AbstractEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
+		parseKeys(edgeElt, edge);
+	}
+
+	/**
+	 * Parses a Graph in the DOM document
+	 * 
+	 * @param graphElt
+	 *            The graph Element in the DOM document
+	 * @return The parsed graph
+	 */
+	public AbstractGraph parseGraph(Element graphElt) {
+		String parseModel = parseModel(graphElt);
+		AbstractGraph graph;
+		try {
+			graph = ModelGraphFactory.getModel(parseModel);
+			this.edgeFactory = graph.getEdgeFactory();
+			this.vertexFactory = graph.getVertexFactory();
+			NodeList childList = graphElt.getChildNodes();
+			parseParameters(graph, graphElt);
+			parseVariables(graph, graphElt);
+			for (int i = 0; i < childList.getLength(); i++) {
+				if (childList.item(i).getNodeName().equals("node")) {
+					Element vertexElt = (Element) childList.item(i);
+					graph.addVertex(parseNode(vertexElt));
+				}
+			}
+			for (int i = 0; i < childList.getLength(); i++) {
+				if (childList.item(i).getNodeName().equals("edge")) {
+					Element edgeElt = (Element) childList.item(i);
+					parseEdge(edgeElt, graph);
+				}
+			}
+			parseKeys(graphElt, graph);
+			return graph;
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * Parses a Vertex from the DOM document
+	 * 
+	 * @param vertexElt
+	 *            The node Element in the DOM document
+	 * @return The parsed node
+	 */
+	public AbstractVertex parseNode(Element vertexElt) {
+
+		AbstractVertex vertex;
+		vertex = vertexFactory.createVertex(vertexElt);
+		vertex.setId(vertexElt.getAttribute("id"));
+		vertex.setName(vertexElt.getAttribute("id"));
+		parseKeys(vertexElt, vertex);
+		vertexFromId.put(vertex.getId(), vertex);
+		parseArguments(vertex, vertexElt);
+		parseGraphDescription(vertex, vertexElt);
+		return vertex;
 	}
 
 	@Override
-	public SDFAbstractVertex parseNode(Element vertexElt) {
-		return importer.parseNode(vertexElt);
+	public AbstractVertex parsePort(Element portElt) {
+		return null;
 	}
 
-	@Override
-	public SDFAbstractVertex parsePort(Element portElt) {
-		// TODO Auto-generated method stub
-		return importer.parsePort(portElt);
-	}
-	
-	
 }

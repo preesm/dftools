@@ -7,10 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import jscl.math.JSCLInteger;
-
 import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.InterfaceDirection;
 import net.sf.dftools.algorithm.model.PropertyBean;
+import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.PropertySource;
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -32,11 +33,14 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 	 */
 	public static final String NB_REPEAT = "nbRepeat";
 
+	static {
+		{
+			public_properties.add(NB_REPEAT);
+		}
+	};
+
 	protected List<SDFInterfaceVertex> sinks;
 
-	/*
-	 * (non-javadoc)
-	 */
 	protected List<SDFInterfaceVertex> sources;
 
 	/**
@@ -48,6 +52,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		sinks = new ArrayList<SDFInterfaceVertex>();
 		sources = new ArrayList<SDFInterfaceVertex>();
 		this.setId(UUID.randomUUID().toString());
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -57,12 +62,15 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 	 * @param interfaces
 	 *            The list of interface to add
 	 */
-	public void addInterfaces(List<SDFInterfaceVertex> interfaces) {
-		for (SDFInterfaceVertex vertex : interfaces) {
-			if (vertex.getDirection() == InterfaceDirection.Input) {
-				sources.add(vertex);
-			} else if (vertex.getDirection() == InterfaceDirection.Output) {
-				sinks.add(vertex);
+	public void addInterfaces(List<IInterface> interfaces) {
+		super.addInterfaces(interfaces);
+		for (IInterface vertex : interfaces) {
+			if (vertex instanceof SDFInterfaceVertex
+					&& vertex.getDirection() == InterfaceDirection.Input) {
+				sources.add((SDFInterfaceVertex) vertex);
+			} else if (vertex instanceof SDFInterfaceVertex
+					&& vertex.getDirection() == InterfaceDirection.Output) {
+				sinks.add((SDFInterfaceVertex) vertex);
 			}
 		}
 	}
@@ -77,6 +85,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		if (sinks == null) {
 			sinks = new ArrayList<SDFInterfaceVertex>();
 		}
+		super.addInterface(sink);
 		sinks.add(sink);
 		if (this.getGraphDescription() != null
 				&& this.getGraphDescription().getVertex(sink.getName()) == null) {
@@ -96,6 +105,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		if (sources == null) {
 			sources = new ArrayList<SDFInterfaceVertex>();
 		}
+		super.addInterface(src);
 		sources.add(src);
 		if (this.getGraphDescription() != null
 				&& this.getGraphDescription().getVertex(src.getName()) == null) {
@@ -358,12 +368,11 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 						source.getName());
 				if (this.getGraphDescription().outgoingEdgesOf(truePort).size() == 0) {
 					if (logger != null) {
-						logger
-								.log(
-										Level.INFO,
-										"interface "
-												+ source.getName()
-												+ " has no inside connection and will be removed for further processing.\n Outside connection has been taken into account for reptition factor computation");
+						logger.log(
+								Level.INFO,
+								"interface "
+										+ source.getName()
+										+ " has no inside connection and will be removed for further processing.\n Outside connection has been taken into account for reptition factor computation");
 					}
 					sources.remove(i);
 					this.getGraphDescription().removeVertex(source);
@@ -383,12 +392,11 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 						sink.getName());
 				if (this.getGraphDescription().incomingEdgesOf(truePort).size() == 0) {
 					if (logger != null) {
-						logger
-								.log(
-										Level.INFO,
-										"interface "
-												+ sink.getName()
-												+ " has no inside connection, consider removing this interface if unused");
+						logger.log(
+								Level.INFO,
+								"interface "
+										+ sink.getName()
+										+ " has no inside connection, consider removing this interface if unused");
 						throw (new SDF4JException(
 								"interface "
 										+ sink.getName()
@@ -417,6 +425,12 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 
 	public String toString() {
 		return getName();
+	}
+	
+	@Override
+	public PropertyFactory getFactoryForProperty(String propertyName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

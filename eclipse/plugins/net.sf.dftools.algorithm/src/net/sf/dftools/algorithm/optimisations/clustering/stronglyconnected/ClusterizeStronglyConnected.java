@@ -3,7 +3,6 @@ package net.sf.dftools.algorithm.optimisations.clustering.stronglyconnected;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.jgrapht.alg.StrongConnectivityInspector;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
@@ -11,6 +10,8 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.optimisations.clustering.Clusterize;
+
+import org.jgrapht.alg.StrongConnectivityInspector;
 
 /**
  * Class to clusterize strongly connected components

@@ -25,7 +25,8 @@ public class Key {
 	 * @param type
 	 *            The type of the value of this key (string, int, double)
 	 * @param desc
-	 *            The class name of the properties value (SDFEdgePorperty.class) ...
+	 *            The class name of the properties value (SDFEdgePorperty.class)
+	 *            ...
 	 */
 	public Key(String name, String applyTo, String type, Class<?> desc) {
 		this.name = name;
@@ -67,7 +68,7 @@ public class Key {
 	 * @return The STring representation of this key type
 	 */
 	public String getType() {
-		return type ;
+		return type;
 	}
 
 	/**
@@ -79,7 +80,6 @@ public class Key {
 		return desc;
 	}
 
-
 	/**
 	 * Sets this key d
 	 * 
@@ -89,4 +89,13 @@ public class Key {
 		this.id = id;
 	}
 
+	public boolean equals(Object key) {
+		if (key instanceof Key) {
+			Key kKey = (Key) key;
+			return kKey.applyTo.equals(this.applyTo) && kKey.id.equals(this.id)
+					&& kKey.name.equals(this.name)
+					&& kKey.type.equals(this.type);
+		}
+		return false;
+	}
 }

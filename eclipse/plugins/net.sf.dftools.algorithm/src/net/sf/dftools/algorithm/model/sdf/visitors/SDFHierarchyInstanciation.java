@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 
-import org.jgrapht.alg.CycleDetector;
 import net.sf.dftools.algorithm.demo.SDFAdapterDemo;
 import net.sf.dftools.algorithm.demo.SDFtoDAGDemo;
 import net.sf.dftools.algorithm.factories.DAGVertexFactory;
@@ -27,6 +26,8 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
+
+import org.jgrapht.alg.CycleDetector;
 
 /**
  * Visitor used to transform an SDF into an Homogeneous SDF (for all edges :
@@ -336,7 +337,7 @@ public class SDFHierarchyInstanciation implements
 					"D:\\IDCT2D\\idct2dCadOptim.graphml"));
 			SDFHierarchyFlattening visitor = new SDFHierarchyFlattening();
 			DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<DirectedAcyclicGraph>(
-					new DirectedAcyclicGraph(), new DAGVertexFactory());
+					new DirectedAcyclicGraph(),DAGVertexFactory.getInstance());
 			visitor.flattenGraph(demoGraph, 1);
 			visitor.getOutput().accept(dageur);
 			applet2.init(visitor.getOutput());

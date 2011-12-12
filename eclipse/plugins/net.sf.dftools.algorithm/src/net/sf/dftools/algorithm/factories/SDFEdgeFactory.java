@@ -1,10 +1,11 @@
 package net.sf.dftools.algorithm.factories;
 
-import org.jgrapht.EdgeFactory;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
+
+import org.jgrapht.EdgeFactory;
 
 /**
  * Class used as an EdgeFactory to provides SDFAbstractGraph with convenient

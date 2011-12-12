@@ -2,7 +2,6 @@ package net.sf.dftools.algorithm.model.psdf.parameters;
 
 import jscl.math.Expression;
 import jscl.text.ParseException;
-
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.parameters.NoIntegerValueException;

@@ -1,6 +1,7 @@
 package net.sf.dftools.algorithm.model.sdf.types;
 
 import net.sf.dftools.algorithm.model.AbstractEdgePropertyType;
+import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.parameters.ExpressionValue;
 
 /**
@@ -9,8 +10,22 @@ import net.sf.dftools.algorithm.model.parameters.ExpressionValue;
  * @author jpiat
  * 
  */
-public class SDFNumericalEdgePropertyTypeFactory {
+public class SDFNumericalEdgePropertyTypeFactory implements PropertyFactory{
 
+	
+	private static SDFNumericalEdgePropertyTypeFactory instance ;
+	
+	private SDFNumericalEdgePropertyTypeFactory(){
+		
+	}
+	
+	public static SDFNumericalEdgePropertyTypeFactory getInstance(){
+		if(instance == null){
+			instance = new SDFNumericalEdgePropertyTypeFactory();
+		}
+		return instance ;
+	}
+	
 	/**
 	 * Creates a new SDFExpressionEdgePropertyType given the expression expr
 	 * 
@@ -18,7 +33,7 @@ public class SDFNumericalEdgePropertyTypeFactory {
 	 *            The expression
 	 * @return The created SDFExpressionEdgePropertyType
 	 */
-	public static AbstractEdgePropertyType<?> getSDFEdgePropertyType(
+	public AbstractEdgePropertyType<?> getSDFEdgePropertyType(
 			String expr) {
 		try{
 			int value = Integer.decode(expr);
@@ -35,7 +50,17 @@ public class SDFNumericalEdgePropertyTypeFactory {
 	 *            The integer value
 	 * @return The created SDFIntEdgePropertyType
 	 */
-	public static AbstractEdgePropertyType<?> getSDFEdgePropertyType(int val) {
+	public AbstractEdgePropertyType<?> getSDFEdgePropertyType(int val) {
 		return new SDFIntEdgePropertyType(val);
+	}
+
+	@Override
+	public Object create(Object value) {
+		if(value instanceof String){
+			return getSDFEdgePropertyType((String) value);
+		}else if(value instanceof Integer){
+			return getSDFEdgePropertyType((Integer) value);
+		}
+		return null ;
 	}
 }

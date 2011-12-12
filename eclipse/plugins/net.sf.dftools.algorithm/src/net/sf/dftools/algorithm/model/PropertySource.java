@@ -1,5 +1,7 @@
 package net.sf.dftools.algorithm.model;
 
+import java.util.List;
+
 /**
  * Interface for object using a property bean to store properties
  * @author jpiat
@@ -18,4 +20,10 @@ public interface PropertySource {
 	 * @param props The properties to be copied
 	 */
 	public void copyProperties(PropertySource props);
+	
+	
+	public List<String> getPublicProperties();
+	public PropertyFactory getFactoryForProperty(String propertyName);
+	
+	public String getPropertyStringValue(String propertyName);
 }

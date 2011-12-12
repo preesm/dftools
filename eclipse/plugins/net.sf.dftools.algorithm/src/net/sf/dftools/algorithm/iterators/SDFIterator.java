@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
-import org.jgrapht.event.TraversalListener;
-import org.jgrapht.traverse.GraphIterator;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
+
+import org.jgrapht.event.TraversalListener;
+import org.jgrapht.traverse.GraphIterator;
 
 /**
  * Class used to iterate over a SDF following the dependencies order

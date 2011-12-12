@@ -80,18 +80,19 @@ public class SDFVertex extends SDFAbstractVertex {
 		return newVertex;
 	}
 
-	@SuppressWarnings("rawtypes")
+
+
 	@Override
-	public void connectionAdded(AbstractEdge e) {
-		// Nothing to do for the moment
+	public void connectionAdded(AbstractEdge<?, ?> e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public void connectionRemoved(AbstractEdge e) {
-		// Nothing to do for the moment
+	public void connectionRemoved(AbstractEdge<?, ?> e) {
+		// TODO Auto-generated method stub
+		
 	}
-
 
 
 

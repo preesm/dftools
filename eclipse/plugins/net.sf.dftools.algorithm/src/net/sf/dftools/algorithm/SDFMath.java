@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
-import org.math.array.DoubleArray;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
@@ -13,6 +12,8 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+
+import org.math.array.DoubleArray;
 
 /**
  * Provides static math method useful for SDF analysis

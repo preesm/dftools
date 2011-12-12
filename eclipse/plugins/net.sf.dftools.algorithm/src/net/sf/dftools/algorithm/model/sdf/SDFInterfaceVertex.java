@@ -3,15 +3,14 @@ package net.sf.dftools.algorithm.model.sdf;
 import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.InterfaceDirection;
 
-
-
 /**
  * Class used to represent the interfaces of a Hierarchical vertex
  * 
  * @author jpiat
  * 
  */
-public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements IInterface{
+public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
+		IInterface {
 
 	/**
 	 * Name of the property containing the direction
@@ -21,12 +20,18 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 	 * String representation of the type of data carried by this port
 	 */
 	public final static String DATA_TYPE = "data_type";
-	
+
 	/**
 	 * Kind of node
 	 */
-	public static final String PORT ="port"; 
-	
+	public static final String PORT = "port";
+
+	 static {
+		{
+			public_properties.add(PORT_DIRECTION);
+			public_properties.add(DATA_TYPE);
+		}
+	};
 
 	/**
 	 * Creates a new SDFInterfaceVertex with the default direction (SINK)
@@ -50,7 +55,6 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 	}
 
 	public abstract SDFInterfaceVertex clone();
-		
 
 	public boolean equals(Object e) {
 		if (e instanceof SDFInterfaceVertex) {
@@ -67,10 +71,9 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 	 * @return The direction of this interface
 	 */
 	public InterfaceDirection getDirection() {
-		return (InterfaceDirection) getPropertyBean()
-				.getValue(PORT_DIRECTION, InterfaceDirection.class);
+		return (InterfaceDirection) getPropertyBean().getValue(PORT_DIRECTION,
+				InterfaceDirection.class);
 	}
-
 
 	/**
 	 * Set this interface direction
@@ -78,9 +81,10 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 	 * @param direction
 	 */
 	public void setDirection(String direction) {
-		getPropertyBean().setValue(PORT_DIRECTION, InterfaceDirection.fromString(direction));
+		getPropertyBean().setValue(PORT_DIRECTION,
+				InterfaceDirection.fromString(direction));
 	}
-	
+
 	/**
 	 * Set this interface direction
 	 * 
@@ -89,27 +93,27 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 	public void setDirection(InterfaceDirection direction) {
 		getPropertyBean().setValue(PORT_DIRECTION, direction);
 	}
-	
+
 	/**
 	 * Sets the type of data on this interface
+	 * 
 	 * @param type
 	 */
-	public void setDataType(String type){
+	public void setDataType(String type) {
 		getPropertyBean().setValue(DATA_TYPE, type);
 	}
-	
-	
-	public Object getNbRepeat(){
-		return 1 ;
-	}
-	/**
-	 * Gives the type of data on this interface
-	 * @return The string representation of the type of data on this interface
-	 */
-	public String getDataType(){
-		return (String) getPropertyBean()
-		.getValue(DATA_TYPE, String.class);
+
+	public Object getNbRepeat() {
+		return 1;
 	}
 
+	/**
+	 * Gives the type of data on this interface
+	 * 
+	 * @return The string representation of the type of data on this interface
+	 */
+	public String getDataType() {
+		return (String) getPropertyBean().getValue(DATA_TYPE, String.class);
+	}
 
 }

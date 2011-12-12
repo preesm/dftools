@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import org.jgrapht.alg.StrongConnectivityInspector;
 import net.sf.dftools.algorithm.SDFMath;
 import net.sf.dftools.algorithm.demo.SDFAdapterDemo;
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
@@ -24,6 +23,8 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+
+import org.jgrapht.alg.StrongConnectivityInspector;
 
 public class HyperplanMethod {
 

@@ -8,6 +8,7 @@ import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.AbstractVertexPropertyType;
 import net.sf.dftools.algorithm.model.PropertyBean;
+import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.PropertySource;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
@@ -39,6 +40,13 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 	 */
 	public static final String SDF_VERTEX = "sdf_vertex";
 
+	
+	static {
+		{
+			public_properties.add(TIME);
+			public_properties.add(NB_REPEAT);
+		}
+	};
 
 	/**
 	 * Creates a new DAGVertex
@@ -181,16 +189,21 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public void connectionAdded(AbstractEdge e) {
-		// Nothing to do for the moment
+	public PropertyFactory getFactoryForProperty(String propertyName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public void connectionRemoved(AbstractEdge e) {
-		// Nothing to do for the moment
+	public void connectionAdded(AbstractEdge<?, ?> e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void connectionRemoved(AbstractEdge<?, ?> e) {
+		// TODO Auto-generated method stub
 		
 	}
 

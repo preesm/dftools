@@ -1,8 +1,9 @@
 package net.sf.dftools.algorithm.factories;
 
-import org.jgrapht.EdgeFactory;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
+
+import org.jgrapht.EdgeFactory;
 
 /**
  * Factory to create DAG edges

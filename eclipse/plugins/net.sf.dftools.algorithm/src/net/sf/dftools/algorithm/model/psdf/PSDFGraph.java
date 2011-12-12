@@ -1,7 +1,6 @@
 package net.sf.dftools.algorithm.model.psdf;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -10,9 +9,10 @@ import java.util.logging.Logger;
 import jscl.math.Expression;
 import jscl.math.Generic;
 import jscl.text.ParseException;
-
-import org.nfunk.jep.JEP;
-import org.nfunk.jep.Node;
+import net.sf.dftools.algorithm.factories.ModelVertexFactory;
+import net.sf.dftools.algorithm.factories.PSDFEdgeFactory;
+import net.sf.dftools.algorithm.factories.PSDFVertexFactory;
+import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.parameters.NoIntegerValueException;
 import net.sf.dftools.algorithm.model.parameters.Parameter;
@@ -32,9 +32,14 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
+import org.jgrapht.EdgeFactory;
+import org.nfunk.jep.JEP;
+import org.nfunk.jep.Node;
+
 /**
- * Class representing Parameterized SDF graph see "Parameterized Dataflow Modeling for DSP Systems" 
- * Bishnupriya Bhattacharya and Shuvra S. Bhattacharyya
+ * Class representing Parameterized SDF graph see
+ * "Parameterized Dataflow Modeling for DSP Systems" Bishnupriya Bhattacharya
+ * and Shuvra S. Bhattacharyya
  * 
  * @author jpiat
  * 
@@ -54,11 +59,19 @@ public class PSDFGraph extends SDFGraph {
 	 * Property name for property inits
 	 */
 	public static final String INIT = "init";
+	
+	
+	
 
-	/**
-	 * Property name for property dynamic_parameters
-	 */
-	public static final String DYNAMIC_PARAMETERS = "dynamic_parameters";
+	public PSDFGraph() {
+		super(new PSDFEdgeFactory());
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "psdf");
+	}
+
+	public PSDFGraph(EdgeFactory<SDFAbstractVertex, SDFEdge> ef) {
+		super(ef);
+		this.getPropertyBean().setValue(AbstractGraph.MODEL, "psdf");
+	}
 
 	/**
 	 * Adds a vertex to the graph
@@ -77,16 +90,19 @@ public class PSDFGraph extends SDFGraph {
 
 	/**
 	 * Sets the sub-init vertex of the graph
-	 * @param subInit The sub-init vertex to set
+	 * 
+	 * @param subInit
+	 *            The sub-init vertex to set
 	 */
 	public void setSubInitVertex(PSDFSubInitVertex subInit) {
 		this.getPropertyBean().setValue(SUB_INIT, subInit);
 	}
 
-	
 	/**
 	 * Sets the init vertex of the graph
-	 * @param init The init vertex to set
+	 * 
+	 * @param init
+	 *            The init vertex to set
 	 */
 	public void setInitVertex(PSDFInitVertex init) {
 		this.getPropertyBean().setValue(INIT, init);
@@ -94,6 +110,7 @@ public class PSDFGraph extends SDFGraph {
 
 	/**
 	 * Gives the sub-init vertex of the graph
+	 * 
 	 * @return The PSDFSubInitVertex of the graph
 	 */
 	public PSDFSubInitVertex getSubInitVertex() {
@@ -106,6 +123,7 @@ public class PSDFGraph extends SDFGraph {
 
 	/**
 	 * Gives the init vertex of the graph
+	 * 
 	 * @return The PSDFInitVertex of the graph
 	 */
 	public PSDFInitVertex getInitVertex() {
@@ -226,29 +244,13 @@ public class PSDFGraph extends SDFGraph {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void addDynamicParameter(PSDFDynamicParameter p) {
-		if (this.getPropertyBean().getValue(DYNAMIC_PARAMETERS, HashMap.class) == null) {
-			this.getPropertyBean().setValue(DYNAMIC_PARAMETERS,
-					new HashMap<String, PSDFDynamicParameter>());
-		}
-		((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean()
-				.getValue(DYNAMIC_PARAMETERS)).put(p.getName(), p);
-	}
-
-	@SuppressWarnings("unchecked")
 	public PSDFDynamicParameter getDynamicParameter(String p) {
-		if (this.getPropertyBean().getValue(DYNAMIC_PARAMETERS, HashMap.class) != null) {
-			return ((HashMap<String, PSDFDynamicParameter>) this
-					.getPropertyBean().getValue(DYNAMIC_PARAMETERS)).get(p);
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public Collection<PSDFDynamicParameter> getDynamicParameters() {
-		if (this.getPropertyBean().getValue(DYNAMIC_PARAMETERS, HashMap.class) != null) {
-			return ((HashMap<String, PSDFDynamicParameter>) this
-					.getPropertyBean().getValue(DYNAMIC_PARAMETERS)).values();
+		if (this.getPropertyBean().getValue(PARAMETERS, HashMap.class) != null) {
+			Parameter param = ((HashMap<String, Parameter>) this
+					.getPropertyBean().getValue(PARAMETERS)).get(p);
+			if (param instanceof PSDFDynamicParameter) {
+				return (PSDFDynamicParameter) param;
+			}
 		}
 		return null;
 	}
@@ -279,13 +281,13 @@ public class PSDFGraph extends SDFGraph {
 							PSDFDynamicArgument dArg = (PSDFDynamicArgument) this
 									.getParentVertex().getArgument(
 											par.getName());
-							this.addDynamicParameter(new PSDFDynamicParameter(
-									par.getName(), dArg));
+							this.addParameter(new PSDFDynamicParameter(par
+									.getName(), dArg));
 						}
 					}
 				}
 				for (SDFAbstractVertex child : vertexSet()) {
-					//logger.finest(child.getName()+" x"+child.getGenericNbRepeat
+					// logger.finest(child.getName()+" x"+child.getGenericNbRepeat
 					// ());
 					System.out.println(child.getName() + " x"
 							+ child.getNbRepeat());
@@ -393,11 +395,10 @@ public class PSDFGraph extends SDFGraph {
 							&& !(vertex instanceof IPSDFSpecificVertex)) {
 						this.removeVertex(vertex);
 						if (logger != null) {
-							logger
-									.log(
-											Level.INFO,
-											vertex.getName()
-													+ " has been removed because it doesn't produce or consume data. \n This vertex has been used for repetition factor computation");
+							logger.log(
+									Level.INFO,
+									vertex.getName()
+											+ " has been removed because it doesn't produce or consume data. \n This vertex has been used for repetition factor computation");
 						}
 					} else {
 						i++;
@@ -422,13 +423,14 @@ public class PSDFGraph extends SDFGraph {
 			matchCopies.put(vertices, newVertex);
 		}
 		for (SDFEdge edge : edgeSet()) {
-			SDFEdge newEdge = newGraph.addEdge(matchCopies
-					.get(edge.getSource()), matchCopies.get(edge.getTarget()));
+			SDFEdge newEdge = newGraph.addEdge(
+					matchCopies.get(edge.getSource()),
+					matchCopies.get(edge.getTarget()));
 			for (SDFInterfaceVertex sink : matchCopies.get(edge.getSource())
 					.getSinks()) {
 				if (edge.getTargetInterface() != null
-						&& edge.getTargetInterface().getName().equals(
-								sink.getName())) {
+						&& edge.getTargetInterface().getName()
+								.equals(sink.getName())) {
 					matchCopies.get(edge.getSource())
 							.setInterfaceVertexExternalLink(newEdge, sink);
 				}
@@ -436,8 +438,8 @@ public class PSDFGraph extends SDFGraph {
 			for (SDFInterfaceVertex source : matchCopies.get(edge.getTarget())
 					.getSources()) {
 				if (edge.getSourceInterface() != null
-						&& edge.getSourceInterface().getName().equals(
-								source.getName())) {
+						&& edge.getSourceInterface().getName()
+								.equals(source.getName())) {
 					matchCopies.get(edge.getTarget())
 							.setInterfaceVertexExternalLink(newEdge, source);
 				}
@@ -451,51 +453,61 @@ public class PSDFGraph extends SDFGraph {
 	}
 
 	@Override
-	public int solveExpression(String expression, Value caller)throws InvalidExpressionException, NoIntegerValueException {
-		try{
-		JEP jep = new JEP();
-		if (this.getVariables() != null /* && !(caller instanceof Argument) */) {
-			for (String var : this.getVariables().keySet()) {
-				if (this.getVariable(var) == caller
-						|| this.getVariable(var).getValue().equals(expression)) {
-					break;
-				} else {
-					jep.addVariable(var, this.getVariable(var).intValue());
+	public int solveExpression(String expression, Value caller)
+			throws InvalidExpressionException, NoIntegerValueException {
+		try {
+			JEP jep = new JEP();
+			if (this.getVariables() != null /* && !(caller instanceof Argument) */) {
+				for (String var : this.getVariables().keySet()) {
+					if (this.getVariable(var) == caller
+							|| this.getVariable(var).getValue()
+									.equals(expression)) {
+						break;
+					} else {
+						jep.addVariable(var, this.getVariable(var).intValue());
+					}
 				}
 			}
-		}
-		if (this.getParameters() != null && this.getParentVertex() != null) {
-			for (String arg : this.getParameters().keySet()) {
-				try {
-					Integer paramValue = this.getParameters().get(arg)
-							.getValue();
-					if (paramValue == null) {
-						paramValue = this.getParentVertex().getArgument(arg)
-								.intValue();
-						this.getParameters().get(arg).setValue(paramValue);
+			if (this.getParameters() != null && this.getParentVertex() != null) {
+				for (String arg : this.getParameters().keySet()) {
+					try {
+						Integer paramValue = this.getParameters().get(arg)
+								.getValue();
+						if (paramValue == null) {
+							paramValue = this.getParentVertex()
+									.getArgument(arg).intValue();
+							this.getParameters().get(arg).setValue(paramValue);
+						}
+						jep.addVariable(arg, paramValue);
+					} catch (NoIntegerValueException e) {
+						if (expression.contains(arg)) {
+							throw (new NoIntegerValueException(expression
+									+ " is a dynamic expression"));
+						}
+						e.printStackTrace();
 					}
-					jep.addVariable(arg, paramValue);
-				} catch (NoIntegerValueException e) {
-					if(expression.contains(arg)){
-						throw(new NoIntegerValueException(expression+" is a dynamic expression"));
-					}
-					e.printStackTrace();
 				}
 			}
+			Node expressionMainNode = jep.parse(expression);
+			Object result = jep.evaluate(expressionMainNode);
+			if (result instanceof Double) {
+				// System.out.println(expression+"="+result);
+				return ((Double) result).intValue();
+			} else if (result instanceof Integer) {
+				// System.out.println(expression+"="+result);
+				return ((Integer) result).intValue();
+			} else {
+				throw (new InvalidExpressionException(
+						"Not a numerical expression"));
+			}
+		} catch (org.nfunk.jep.ParseException e) {
+			throw (new InvalidExpressionException(expression
+					+ " cannot be resolved"));
 		}
-		Node expressionMainNode = jep.parse(expression);
-		Object result = jep.evaluate(expressionMainNode);
-		if (result instanceof Double) {
-			// System.out.println(expression+"="+result);
-			return ((Double) result).intValue();
-		} else if (result instanceof Integer) {
-			// System.out.println(expression+"="+result);
-			return ((Integer) result).intValue();
-		} else {
-			throw (new InvalidExpressionException("Not a numerical expression"));
-		}
-		}catch(org.nfunk.jep.ParseException e){
-			throw(new InvalidExpressionException(expression+" cannot be resolved"));
-		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ModelVertexFactory getVertexFactory() {
+		return PSDFVertexFactory.getInstance();
 	}
 }

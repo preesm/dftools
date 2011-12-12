@@ -30,6 +30,8 @@ public interface IInterface {
 	 * @param direction
 	 */
 	public void setDirection(InterfaceDirection direction);
+	
+	public String getName();
 
 
 }

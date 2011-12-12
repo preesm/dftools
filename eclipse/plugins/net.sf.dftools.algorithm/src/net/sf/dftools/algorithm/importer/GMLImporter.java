@@ -9,15 +9,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.jgrapht.EdgeFactory;
 import net.sf.dftools.algorithm.exporter.Key;
+import net.sf.dftools.algorithm.factories.ModelVertexFactory;
+import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
+import net.sf.dftools.algorithm.model.CodeRefinement;
 import net.sf.dftools.algorithm.model.PropertyBean;
+import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.PropertySource;
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.Parameter;
 import net.sf.dftools.algorithm.model.parameters.Variable;
+
+import org.jgrapht.EdgeFactory;
 import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,10 +42,11 @@ import org.w3c.dom.ls.LSParser;
  * @param <V>
  * @param <E>
  */
-public abstract class GMLImporter<G extends PropertySource, V extends PropertySource, E extends PropertySource> {
+public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVertex, E extends AbstractEdge> {
 
 	protected HashMap<String, List<Key>> classKeySet;
 	protected EdgeFactory<V, E> edgeFactory;
+	protected ModelVertexFactory<V> vertexFactory;
 	protected InputStream inputStream;
 	protected String path;
 	protected HashMap<String, V> vertexFromId = new HashMap<String, V>();
@@ -106,7 +112,6 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 	 * @throws InvalidFileException
 	 */
 	private G parse(InputStream input) throws InvalidFileException {
-		try {
 			this.inputStream = input;
 
 			// using DOM3
@@ -154,9 +159,6 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 					return parseGraph(graphElt);
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 
@@ -197,9 +199,6 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 			return null;
 		}
 		String key = dataElt.getAttribute("key");
-		if (dataElt.getTextContent().equals("")) {
-			return null;
-		}
 		for (Key oneKey : keySet) {
 			// Ignoring special keys
 			if (oneKey.getId().equals(key) && oneKey.getType() != null
@@ -240,14 +239,14 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 						if (toUse == null) {
 							return null;
 						}
-						Object value = toUse.invoke(null,param);
+						Object value = toUse.invoke(null, param);
 						result.add(oneKey.getName());
 						result.add(value);
-					}else{
+					} else {
 						result.add(oneKey.getName());
 						result.add(param);
 					}
-					
+
 					return result;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -269,7 +268,7 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 	 * @param eltType
 	 *            The type of the element
 	 */
-	public void parseKeys(Element elt, PropertyBean bean, String eltType) {
+	public void old_parseKeys(Element elt, PropertyBean bean, String eltType) {
 		NodeList childList = elt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("data")) {
@@ -277,6 +276,42 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 						eltType);
 				if (value != null) {
 					bean.setValue((String) value.get(0), value.get(1));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Parse an element keys
+	 * 
+	 * @param elt
+	 *            The DOM element parent of the keys
+	 * @param src
+	 *            The property source to fill
+	 * @param eltType
+	 *            The type of the element
+	 */
+	public void parseKeys(Element elt, PropertySource src) {
+		NodeList childList = elt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("data")) {
+				String key = ((Element) childList.item(i)).getAttribute("key");
+				if ((!(key.equals("arguments") || key.equals("parameters") || key
+						.equals("variables")))
+						&& src.getPublicProperties().contains(key)) {
+					String propertyName = ((Element) childList.item(i))
+							.getAttribute("key");
+					PropertyFactory factory = src
+							.getFactoryForProperty(propertyName);
+					if (factory != null) {
+						src.getPropertyBean().setValue(
+								propertyName,
+								factory.create(childList.item(i)
+										.getTextContent()));
+					} else {
+						src.getPropertyBean().setValue(propertyName,
+								childList.item(i).getTextContent());
+					}
 				}
 			}
 		}
@@ -312,89 +347,145 @@ public abstract class GMLImporter<G extends PropertySource, V extends PropertySo
 			Node childNode = childList.item(i);
 			if (childNode.getNodeName().equals("key")) {
 				Element childElt = (Element) childNode;
-				try {
-					String attrName = childElt.getAttribute("attr.name");
-					String typeParamType = childElt.getAttribute("attr.type");
-					if (typeParamType == "") {
-						typeParamType = null;
+				// try {
+				String attrName = childElt.getAttribute("attr.name");
+				String typeParamType = childElt.getAttribute("attr.type");
+				if (typeParamType == "") {
+					typeParamType = null;
+				}
+				String isFor = childElt.getAttribute("for");
+				String id = childElt.getAttribute("id");
+				NodeList keyChild = childElt.getChildNodes();
+				Class<?> type = null;
+				/*
+				 * for (int j = 0; j < keyChild.getLength(); j++) { Node descElt
+				 * = keyChild.item(j); if (descElt.getNodeName().equals("desc"))
+				 * { String desc = descElt.getTextContent(); Class. type =
+				 * Class.forName(desc); } }
+				 */
+				Key newKey = new Key(attrName, isFor, typeParamType, type);
+				newKey.setId(id);
+				List<Key> keys;
+				if ((keys = classKeySet.get(isFor)) == null) {
+					keys = new ArrayList<Key>();
+					classKeySet.put(isFor, keys);
+				}
+				keys.add(newKey);
+				/*
+				 * } catch (ClassNotFoundException e) { // TODO Auto-generated
+				 * catch block e.printStackTrace(); }
+				 */
+			}
+		}
+
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void parseArguments(AbstractVertex vertex, Element parentElt) {
+		NodeList childList = parentElt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("data")
+					&& ((Element) childList.item(i)).getAttribute("key")
+							.equals("arguments")) {
+				NodeList argsList = childList.item(i).getChildNodes();
+				for (int j = 0; j < argsList.getLength(); j++) {
+					if (argsList.item(j).getNodeName().equals("argument")) {
+						Element arg = (Element) argsList.item(j);
+						vertex.addArgument(new Argument(arg
+								.getAttribute("name"), arg
+								.getAttribute("value")));
 					}
-					String isFor = childElt.getAttribute("for");
-					String id = childElt.getAttribute("id");
-					NodeList keyChild = childElt.getChildNodes();
-					Class<?> type = null;
-					for (int j = 0; j < keyChild.getLength(); j++) {
-						Node descElt = keyChild.item(j);
-						if (descElt.getNodeName().equals("desc")) {
-							String desc = descElt.getTextContent();
-							type = Class.forName(desc);
+				}
+			}
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void parseParameters(AbstractGraph graph, Element parentElt) {
+		NodeList childList = parentElt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("data")
+					&& ((Element) childList.item(i)).getAttribute("key")
+							.equals("parameters")) {
+				NodeList argsList = childList.item(i).getChildNodes();
+				for (int j = 0; j < argsList.getLength(); j++) {
+					if (argsList.item(j).getNodeName().equals("parameter")) {
+						Element param = (Element) argsList.item(j);
+						graph.addParameter(new Parameter(param
+								.getAttribute("name")));
+					}
+				}
+			}
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected String parseModel(Element parentElt) {
+		NodeList childList = parentElt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("data")
+					&& ((Element) childList.item(i)).getAttribute("key")
+							.equals(AbstractGraph.MODEL)) {
+				return childList.item(i).getTextContent();
+			}
+		}
+		return "generic";
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void parseVariables(AbstractGraph graph, Element parentElt) {
+		NodeList childList = parentElt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("data")
+					&& ((Element) childList.item(i)).getAttribute("key")
+							.equals("variables")) {
+				NodeList argsList = childList.item(i).getChildNodes();
+				for (int j = 0; j < argsList.getLength(); j++) {
+					if (argsList.item(j).getNodeName().equals("variable")) {
+						Element var = (Element) argsList.item(j);
+						graph.addVariable(new Variable(
+								var.getAttribute("name"), var
+										.getAttribute("value")));
+					}
+				}
+			}
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected void parseGraphDescription(AbstractVertex vertex,
+			Element parentElt) {
+		NodeList childList = parentElt.getChildNodes();
+		for (int i = 0; i < childList.getLength(); i++) {
+			if (childList.item(i).getNodeName().equals("data")
+					&& ((Element) childList.item(i)).getAttribute("key")
+							.equals(AbstractVertex.REFINEMENT)) {
+				Element graphDesc = (Element) childList.item(i);
+				String path = graphDesc.getTextContent();
+				if (path.contains(".graphml")) {
+					if (this.path != null && path.length() > 0) {
+						String directoryPath = this.path.substring(0,
+								this.path.lastIndexOf(File.separator) + 1);
+						GMLGenericImporter importer = new GMLGenericImporter();
+						try {
+							AbstractGraph refine = importer.parse(new File(
+									directoryPath + path));
+							vertex.setGraphDescription(refine);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (InvalidFileException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
-					Key newKey = new Key(attrName, isFor, typeParamType, type);
-					newKey.setId(id);
-					List<Key> keys;
-					if ((keys = classKeySet.get(isFor)) == null) {
-						keys = new ArrayList<Key>();
-						classKeySet.put(isFor, keys);
-					}
-					keys.add(newKey);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} else if (path.length() > 0) {
+					vertex.setRefinement(new CodeRefinement(path));
 				}
 			}
 		}
-
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected void parseArguments(AbstractVertex vertex, Element parentElt){
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals("arguments")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("argument")){
-						Element arg = (Element) argsList.item(j);
-						vertex.addArgument(new Argument(arg.getAttribute("name"), arg.getAttribute("value")));
-					}
-				}
-			}
-		}
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected void parseParameters(AbstractGraph graph, Element parentElt){
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals("parameters")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("parameter")){
-						Element param = (Element) argsList.item(j);
-						graph.addParameter(new Parameter(param.getAttribute("name")));
-					}
-				}
-			}
-		}
-	}
-	
-	
-	@SuppressWarnings("rawtypes")
-	protected void parseVariables(AbstractGraph graph, Element parentElt){
-		NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals("variables")) {
-				NodeList argsList = childList.item(i).getChildNodes();
-				for (int j = 0; j < argsList.getLength(); j++) {
-					if (argsList.item(j).getNodeName().equals("variable")){
-						Element var = (Element) argsList.item(j);
-						graph.addVariable(new Variable(var.getAttribute("name"), var.getAttribute("value")));
-					}
-				}
-			}
-		}
-	}
-	
 	/**
 	 * Sets thi Importer key set
 	 * 

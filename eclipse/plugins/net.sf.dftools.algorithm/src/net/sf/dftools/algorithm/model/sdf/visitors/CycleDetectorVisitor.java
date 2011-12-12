@@ -2,12 +2,13 @@ package net.sf.dftools.algorithm.model.sdf.visitors;
 
 import java.util.Vector;
 
-import org.jgrapht.alg.CycleDetector;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFVertex;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+
+import org.jgrapht.alg.CycleDetector;
 
 /**
  * Visitor to use to detect cycle in a hierarchical graph

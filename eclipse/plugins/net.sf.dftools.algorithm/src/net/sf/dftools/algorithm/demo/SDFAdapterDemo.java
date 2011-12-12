@@ -9,14 +9,6 @@ import java.util.Vector;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-import org.jgraph.JGraph;
-import org.jgraph.graph.AttributeMap;
-import org.jgraph.graph.DefaultGraphCell;
-import org.jgraph.graph.GraphConstants;
-import org.jgrapht.alg.CycleDetector;
-import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.traverse.GraphIterator;
-import org.jgrapht.traverse.TopologicalOrderIterator;
 import net.sf.dftools.algorithm.iterators.SDFIterator;
 import net.sf.dftools.algorithm.model.listenable.SDFListenableGraph;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -28,6 +20,15 @@ import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.sdf.visitors.ToHSDFVisitor;
 import net.sf.dftools.algorithm.model.sdf.visitors.TopologyVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+
+import org.jgraph.JGraph;
+import org.jgraph.graph.AttributeMap;
+import org.jgraph.graph.DefaultGraphCell;
+import org.jgraph.graph.GraphConstants;
+import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.traverse.GraphIterator;
+import org.jgrapht.traverse.TopologicalOrderIterator;
 
 /**
  * Demo class to demonstrate the display features of this package

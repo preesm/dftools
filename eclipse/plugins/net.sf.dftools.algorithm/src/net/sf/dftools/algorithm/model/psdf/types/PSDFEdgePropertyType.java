@@ -33,7 +33,6 @@ public class PSDFEdgePropertyType extends AbstractEdgePropertyType<String>{
 	}
 	@Override
 	public int intValue() throws InvalidExpressionException {
-		
 		return 0;
 	}
 

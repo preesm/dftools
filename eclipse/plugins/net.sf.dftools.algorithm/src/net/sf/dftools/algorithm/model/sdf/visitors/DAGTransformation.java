@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import org.jgrapht.alg.CycleDetector;
 import net.sf.dftools.algorithm.SDFMath;
 import net.sf.dftools.algorithm.demo.SDFAdapterDemo;
 import net.sf.dftools.algorithm.demo.SDFtoDAGDemo;
 import net.sf.dftools.algorithm.exceptions.CreateCycleException;
 import net.sf.dftools.algorithm.exceptions.CreateMultigraphException;
 import net.sf.dftools.algorithm.factories.DAGVertexFactory;
+import net.sf.dftools.algorithm.factories.ModelVertexFactory;
 import net.sf.dftools.algorithm.generator.SDFRandomGraph;
 import net.sf.dftools.algorithm.importer.GMLSDFImporter;
 import net.sf.dftools.algorithm.importer.InvalidFileException;
@@ -44,6 +44,8 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+
+import org.jgrapht.alg.CycleDetector;
 
 /**
  * Visitor to use to transform a SDF Graph in a Directed Acyclic Graph
@@ -92,7 +94,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			e.printStackTrace();
 		}
 		DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<DirectedAcyclicGraph>(
-				new DirectedAcyclicGraph(), new DAGVertexFactory());
+				new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
 		try {
 			demoGraph.accept(dageur);
 		} catch (SDF4JException e) {
@@ -110,7 +112,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	}
 
 	private T outputGraph;
-	private DAGVertexFactory factory;
+	private ModelVertexFactory<DAGVertex> factory;
 
 	/**
 	 * Builds a new DAGTransformation visitor,
@@ -120,7 +122,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	 * @param vertexFactory
 	 *            The factory used to create vertices
 	 */
-	public DAGTransformation(T outputGraph, DAGVertexFactory vertexFactory) {
+	public DAGTransformation(T outputGraph, ModelVertexFactory<DAGVertex> vertexFactory) {
 		this.outputGraph = outputGraph;
 		factory = vertexFactory;
 	}

@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @author jpiat
  *
  */
-public class ParameterSet extends HashMap<String, Parameter>{
+public class ParameterSet extends HashMap<String, Parameter> {
 
 	/**
 	 * 

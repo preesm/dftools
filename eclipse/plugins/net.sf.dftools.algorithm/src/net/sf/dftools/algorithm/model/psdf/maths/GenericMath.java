@@ -9,8 +9,6 @@ import java.util.Vector;
 import jscl.math.Expression;
 import jscl.math.Generic;
 import jscl.text.ParseException;
-
-import org.jgrapht.alg.ConnectivityInspector;
 import net.sf.dftools.algorithm.model.psdf.IPSDFSpecificVertex;
 import net.sf.dftools.algorithm.model.psdf.PSDFGraph;
 import net.sf.dftools.algorithm.model.psdf.maths.symbolic.DivisionFactory;
@@ -19,6 +17,8 @@ import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+
+import org.jgrapht.alg.ConnectivityInspector;
 
 /**
  * Provides static math method useful for SDF analysis

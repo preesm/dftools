@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
 
-import org.jgrapht.alg.CycleDetector;
-import org.jgrapht.event.TraversalListener;
-import org.jgrapht.traverse.GraphIterator;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
 import net.sf.dftools.algorithm.model.dag.DirectedAcyclicGraph;
+
+import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.event.TraversalListener;
+import org.jgrapht.traverse.GraphIterator;
 
 /**
  * Class used to iterate over a DAG following the dependencies order

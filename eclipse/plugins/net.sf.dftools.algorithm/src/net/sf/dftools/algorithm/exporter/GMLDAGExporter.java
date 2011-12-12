@@ -3,11 +3,12 @@ package net.sf.dftools.algorithm.exporter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import org.jgrapht.Graph;
+import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
 import net.sf.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import net.sf.dftools.algorithm.model.dag.types.DAGDefaultEdgePropertyType;
+
 import org.w3c.dom.Element;
 
 /**
@@ -68,8 +69,7 @@ public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
 		GMLDAGExporter exporter = new GMLDAGExporter();
 		try {
 			exporter.exportGraph(graph);
-			exporter.transform(new FileOutputStream(
-			"C:\\test_dag_gml.xml"));
+			exporter.transform(new FileOutputStream("C:\\test_dag_gml.xml"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -80,17 +80,14 @@ public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
 	 */
 	public GMLDAGExporter() {
 		super();
-		addKey(DAGVertex.NAME, DAGVertex.NAME, "vertex", "string", String.class);
-		addKey(DAGEdge.WEIGHT, DAGEdge.WEIGHT, "edge", "int",
-				DAGDefaultEdgePropertyType.class);
 	}
 
 	@Override
-	public void export(Graph<DAGVertex, DAGEdge> graph, String path) {
-		this.path = path ;
+	public void export(AbstractGraph<DAGVertex, DAGEdge> graph, String path) {
+		this.path = path;
 		try {
 			exportGraph(graph);
-			transform( new FileOutputStream(path));
+			transform(new FileOutputStream(path));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,18 +98,18 @@ public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
 	protected Element exportEdge(DAGEdge edge, Element parentELement) {
 		Element edgeElt = createEdge(parentELement, edge.getSource().getId(),
 				edge.getTarget().getId());
-		exportKeys("edge", edgeElt, edge.getPropertyBean());
-		return edgeElt ;
+		exportKeys(edge, "edge", edgeElt);
+		return edgeElt;
 	}
 
 	@Override
-	public Element exportGraph(Graph<DAGVertex, DAGEdge> graph) {
+	public Element exportGraph(AbstractGraph<DAGVertex, DAGEdge> graph) {
 		try {
 			addKeySet(rootElt);
 			DirectedAcyclicGraph myGraph = (DirectedAcyclicGraph) graph;
 			Element graphElt = createGraph(rootElt, true);
 			graphElt.setAttribute("edgedefault", "directed");
-			exportKeys("graph", graphElt, myGraph.getPropertyBean());
+			exportKeys(graph, "graph", graphElt);
 			if (myGraph.getParameters() != null) {
 				exportParameters(myGraph.getParameters(), graphElt);
 			}
@@ -126,27 +123,28 @@ public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
 			for (DAGEdge edge : myGraph.edgeSet()) {
 				exportEdge(edge, graphElt);
 			}
-			return graphElt ;
+			return graphElt;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null ;
+		return null;
 
 	}
 
 	@Override
 	protected Element exportNode(DAGVertex vertex, Element parentELement) {
 		Element vertexElt = createNode(parentELement, vertex.getId());
-		exportKeys("vertex", vertexElt, vertex.getPropertyBean());
+		exportKeys(vertex, "vertex", vertexElt);
 		if (vertex.getArguments() != null) {
 			exportArguments(vertex.getArguments(), vertexElt);
 		}
-		return vertexElt ;
+		return vertexElt;
 	}
 
 	@Override
-	protected Element exportPort(DAGVertex interfaceVertex, Element parentELement) {
-		return null ;
+	protected Element exportPort(DAGVertex interfaceVertex,
+			Element parentELement) {
+		return null;
 	}
 
 }

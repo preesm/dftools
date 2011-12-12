@@ -6,11 +6,6 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
-import org.jgraph.JGraph;
-import org.jgrapht.alg.CycleDetector;
-import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.traverse.GraphIterator;
-import org.jgrapht.traverse.TopologicalOrderIterator;
 import net.sf.dftools.algorithm.factories.DAGVertexFactory;
 import net.sf.dftools.algorithm.generator.SDFRandomGraph;
 import net.sf.dftools.algorithm.iterators.DAGIterator;
@@ -22,6 +17,12 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.visitors.DAGTransformation;
 import net.sf.dftools.algorithm.model.sdf.visitors.TopologyVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+
+import org.jgraph.JGraph;
+import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.traverse.GraphIterator;
+import org.jgrapht.traverse.TopologicalOrderIterator;
 
 /**
  * Test class to test the translation of an SDF graph to a Directed Acyclic
@@ -43,42 +44,41 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
 	 * @param args
 	 *            ignored.
 	 */
-	public static void main(String [] args){
+	public static void main(String[] args) {
 		int nbVertex = 10, minInDegree = 1, maxInDegree = 3, minOutDegree = 1, maxOutDegree = 3;
 		SDFAdapterDemo applet1 = new SDFAdapterDemo();
 		SDFtoDAGDemo applet2 = new SDFtoDAGDemo();
 
 		// Creates a random SDF graph
 		int minrate = 1, maxrate = 15;
-		try{
-		SDFRandomGraph test = new SDFRandomGraph();
-		SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree,
-				maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
-		//SDFGraph demoGraph =createTestComGraph();
-		TopologyVisitor topo = new TopologyVisitor();
 		try {
-			demoGraph.accept(topo);
-		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
+			SDFRandomGraph test = new SDFRandomGraph();
+			SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree,
+					maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+			// SDFGraph demoGraph =createTestComGraph();
+			TopologyVisitor topo = new TopologyVisitor();
+			try {
+				demoGraph.accept(topo);
+			} catch (SDF4JException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			applet1.init(demoGraph);
+
+			DAGTransformation<DirectedAcyclicGraph> visitor = new DAGTransformation<DirectedAcyclicGraph>(
+					new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
+			try {
+				demoGraph.accept(visitor);
+			} catch (SDF4JException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			applet2.init(visitor.getOutput());
+			visitor.getOutput();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		applet1.init(demoGraph);
-		
-		
-		
-		DAGTransformation<DirectedAcyclicGraph> visitor = new DAGTransformation<DirectedAcyclicGraph>(new DirectedAcyclicGraph(), new DAGVertexFactory()) ;
-		try {
-			demoGraph.accept(visitor);
-		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		applet2.init(visitor.getOutput());
-		visitor.getOutput();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
+
 	}
 
 	private DAGListenableGraph model;
@@ -110,8 +110,8 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
 		}
 
 		for (DAGEdge edge : graph.edgeSet()) {
-			DAGEdge newEdge = model.addEdge(graph.getEdgeSource(edge), graph
-					.getEdgeTarget(edge));
+			DAGEdge newEdge = model.addEdge(graph.getEdgeSource(edge),
+					graph.getEdgeTarget(edge));
 			for (String propertyKey : edge.getPropertyBean().keys()) {
 				Object property = edge.getPropertyBean().getValue(propertyKey);
 				newEdge.getPropertyBean().setValue(propertyKey, property);

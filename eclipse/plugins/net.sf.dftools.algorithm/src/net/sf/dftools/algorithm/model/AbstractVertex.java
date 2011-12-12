@@ -18,8 +18,8 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
  * 
  */
 @SuppressWarnings("unchecked")
-public abstract class AbstractVertex<G> extends
-		Observable implements PropertySource, Observer, CloneableProperty {
+public abstract class AbstractVertex<G> extends Observable implements
+		PropertySource, Observer, CloneableProperty {
 
 	protected PropertyBean properties;
 
@@ -54,24 +54,69 @@ public abstract class AbstractVertex<G> extends
 	 */
 	public static final String KIND = "kind";
 
+	@SuppressWarnings("serial")
+	protected static List<String> public_properties = new ArrayList<String>() {
+		{
+			add(ARGUMENTS);
+			add(REFINEMENT);
+			add(NAME);
+			add(KIND);
+		}
+	};
+	
+	
+	
+	protected List<IInterface> interfaces;
+
+
 	/**
 	 * Creates a new Instance of Abstract vertex
 	 * 
 	 */
 	public AbstractVertex() {
 		properties = new PropertyBean();
+		interfaces = new ArrayList<IInterface>();
+	}
+
+	public List<String> getPublicProperties() {
+		return public_properties;
 	}
 
 	/**
 	 * @param visitor
 	 *            The visitor to accept
-	 * @throws SDF4JException 
+	 * @throws SDF4JException
 	 */
 	@SuppressWarnings("rawtypes")
-	public void accept(GraphVisitor visitor) throws SDF4JException{
+	public void accept(GraphVisitor visitor) throws SDF4JException {
 		visitor.visit(this);
 	}
+	
+	
+	/**
+	 * Add a list of interface to this vertex
+	 * 
+	 * @param interfaces
+	 *            The list of interface to add
+	 */
+	public void addInterfaces(List<IInterface> interfaces) {
+		interfaces.addAll(interfaces);
+	}
+	
+	/**
+	 * Add a list of interface to this vertex
+	 * 
+	 * @param interfaces
+	 *            The list of interface to add
+	 */
+	public void addInterface(IInterface port) {
+		interfaces.add(port);
+	}
 
+	
+	public List<IInterface> getInterfaces(){
+		return interfaces ;
+	}
 	/**
 	 * Give this vertex parent graph
 	 * 
@@ -113,7 +158,7 @@ public abstract class AbstractVertex<G> extends
 	public String getName() {
 		return (String) properties.getValue(NAME);
 	}
-	
+
 	/**
 	 * Gives this graph info property
 	 * 
@@ -138,8 +183,7 @@ public abstract class AbstractVertex<G> extends
 	 * @return The vertex's refinement
 	 */
 	public IRefinement getRefinement() {
-		return (IRefinement) properties.getValue(REFINEMENT,
-				IRefinement.class);
+		return (IRefinement) properties.getValue(REFINEMENT, IRefinement.class);
 	}
 
 	/**
@@ -181,7 +225,7 @@ public abstract class AbstractVertex<G> extends
 	public void setName(String name) {
 		properties.setValue(NAME, properties.getValue(NAME), name);
 	}
-	
+
 	/**
 	 * Set this graph info property
 	 * 
@@ -217,7 +261,8 @@ public abstract class AbstractVertex<G> extends
 	}
 
 	public void copyProperties(PropertySource props) {
-		List<String> keys = new ArrayList<String>(props.getPropertyBean().keys());
+		List<String> keys = new ArrayList<String>(props.getPropertyBean()
+				.keys());
 		for (String key : keys) {
 			if (!key.equals(AbstractVertex.BASE)) {
 				if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
@@ -243,8 +288,8 @@ public abstract class AbstractVertex<G> extends
 	public Argument getArgument(String name) {
 		if (properties.getValue(ARGUMENTS) != null) {
 			Argument arg = ((ArgumentSet) properties.getValue(ARGUMENTS))
-			.getArgument(name);
-			if(arg != null){
+					.getArgument(name);
+			if (arg != null) {
 				arg.setExpressionSolver(this.getBase());
 			}
 			return arg;
@@ -259,7 +304,8 @@ public abstract class AbstractVertex<G> extends
 	 */
 	public ArgumentSet getArguments() {
 		if (properties.getValue(ARGUMENTS) != null) {
-			((ArgumentSet) properties.getValue(ARGUMENTS)).setExpressionSolver(this.getBase());
+			((ArgumentSet) properties.getValue(ARGUMENTS))
+					.setExpressionSolver(this.getBase());
 			return ((ArgumentSet) properties.getValue(ARGUMENTS));
 		}
 		return null;
@@ -313,52 +359,61 @@ public abstract class AbstractVertex<G> extends
 	public String getKind() {
 		return (String) properties.getValue(KIND, String.class);
 	}
-	
-	
+
 	/**
 	 * Notify the vertex that it has been connected using the given edge
+	 * 
 	 * @param e
 	 */
-	public abstract void connectionAdded(AbstractEdge<?,?> e);
+	public abstract void connectionAdded(AbstractEdge<?, ?> e);
 
-	
 	/**
 	 * Notify the vertex that it has been disconnected froms the given edge
+	 * 
 	 * @param e
 	 */
-	public abstract void connectionRemoved(AbstractEdge<?,?> e);
+	public abstract void connectionRemoved(AbstractEdge<?, ?> e);
 
 	@SuppressWarnings("rawtypes")
 	public boolean equals(Object e) {
 		if (e instanceof AbstractVertex) {
-			return ((AbstractVertex)e).getName().equals(this.getName());
+			return ((AbstractVertex) e).getName().equals(this.getName());
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Gives the edge this interface is associated to 
-	 * @param port The for which to look for edges
+	 * Gives the edge this interface is associated to
+	 * 
+	 * @param port
+	 *            The for which to look for edges
 	 * @return The found edge, null if not edge match the given port
 	 */
 	@SuppressWarnings("rawtypes")
 	public AbstractEdge getAssociatedEdge(IInterface port) {
 		AbstractVertex portVertex = (AbstractVertex) port;
 		for (Object edgeObj : getBase().incomingEdgesOf(this)) {
-			AbstractEdge edge = (AbstractEdge) edgeObj ;
-			if ((edge.getTargetLabel() != null && edge.getTargetLabel()
-					.equals(portVertex.getName()))) {
+			AbstractEdge edge = (AbstractEdge) edgeObj;
+			if ((edge.getTargetLabel() != null && edge.getTargetLabel().equals(
+					portVertex.getName()))) {
 				return edge;
 			}
 		}
 		for (Object edgeObj : getBase().outgoingEdgesOf(this)) {
-			AbstractEdge edge = (AbstractEdge) edgeObj ;
+			AbstractEdge edge = (AbstractEdge) edgeObj;
 			if (edge.getTargetLabel() != null
 					&& edge.getTargetLabel().equals(portVertex.getName())) {
 				return edge;
 			}
 		}
 		return null;
+	}
+	
+	public String getPropertyStringValue(String propertyName){
+		if(this.getPropertyBean().getValue(propertyName) != null){
+			return this.getPropertyBean().getValue(propertyName).toString();
+		}
+		return null ;
 	}
 }

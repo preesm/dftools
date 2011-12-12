@@ -14,35 +14,7 @@ import java.util.Set;
  * @author Matthieu Wipliez
  */
 public class PropertyBean extends Observable implements Cloneable, Serializable {
-	/**
-	 * String for the "child added" property. Set when a vertex or a port is
-	 * added to a vertex.
-	 */
-	public static final String PROPERTY_ADD = "child added";
 
-	/**
-	 * String for the "destination port" property. Set when a port becomes the
-	 * destination of a dependency.
-	 */
-	public static final String PROPERTY_DST_PORT = "destination port";
-
-	/**
-	 * String for the "name" property. Set when the name of a vertex or a port
-	 * changes. This includes when it is first set.
-	 */
-	public static final String PROPERTY_NAME = "name";
-
-	/**
-	 * String for the "child removed" property. Set when a vertex or a port is
-	 * removed from a vertex.
-	 */
-	public static final String PROPERTY_REMOVE = "child removed";
-
-	/**
-	 * String for the "source port" property. Set when a port becomes the source
-	 * of a dependency.
-	 */
-	public static final String PROPERTY_SRC_PORT = "source port";
 
 	static final long serialVersionUID = 1;
 

@@ -22,7 +22,7 @@ public class PSDFTest {
 					"D:\\Preesm\\trunk\\tests\\PSDF\\Algo\\decimate.graphml"));
 			testGraph.validateModel(Logger.getLogger("error log"));
 			DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<DirectedAcyclicGraph>(
-					new DirectedAcyclicGraph(), new DAGVertexFactory());
+					new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
 			try {
 				testGraph.accept(dageur);
 			} catch (SDF4JException e) {

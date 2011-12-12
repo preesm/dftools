@@ -13,6 +13,7 @@ import net.sf.dftools.algorithm.model.psdf.parameters.DynamicParameterDomainFact
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicArgument;
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicParameter;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -28,7 +29,7 @@ public class GMLPSDFImporter extends GMLSDFImporter {
 
 		graph = new PSDFGraph();
 		NodeList childList = graphElt.getChildNodes();
-		parseKeys(graphElt, graph.getPropertyBean(), "graph");
+		parseKeys(graphElt, graph);
 		parseParameters(graph, graphElt);
 		parseDynamicParameters(graph, graphElt);
 		parseVariables(graph, graphElt);
@@ -55,10 +56,10 @@ public class GMLPSDFImporter extends GMLSDFImporter {
 			attributes.put(vertexElt.getAttributes().item(i).getNodeName(),
 					vertexElt.getAttributes().item(i).getNodeValue());
 		}
-		vertex = PSDFVertexFactory.createVertex(attributes);
+		vertex = PSDFVertexFactory.getInstance().createVertex(attributes);
 		vertex.setId(vertexElt.getAttribute("id"));
 		vertex.setName(vertexElt.getAttribute("id"));
-		parseKeys(vertexElt, vertex.getPropertyBean(), "node");
+		parseKeys(vertexElt, vertex);
 		vertexFromId.put(vertex.getId(), vertex);
 		parseArguments(vertex, vertexElt);
 		parseGraphDescription(vertex, vertexElt);
@@ -82,7 +83,7 @@ public class GMLPSDFImporter extends GMLSDFImporter {
 						Element param = (Element) argsList.item(j);
 						PSDFDynamicParameter parameter = new PSDFDynamicParameter(
 								param.getAttribute("name"));
-						graph.addDynamicParameter(parameter);
+						graph.addParameter(parameter);
 					}
 				}
 			}

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.jgrapht.Graph;
+import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
-import net.sf.dftools.algorithm.model.PropertyBean;
+import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.PropertySource;
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.ArgumentSet;
@@ -15,6 +15,8 @@ import net.sf.dftools.algorithm.model.parameters.Parameter;
 import net.sf.dftools.algorithm.model.parameters.ParameterSet;
 import net.sf.dftools.algorithm.model.parameters.Variable;
 import net.sf.dftools.algorithm.model.parameters.VariableSet;
+import net.sf.dftools.algorithm.model.sdf.SDFGraph;
+
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,7 +36,8 @@ import org.w3c.dom.ls.LSSerializer;
  * @param <E>
  *            The edge type
  */
-public abstract class GMLExporter<V extends PropertySource, E extends PropertySource> {
+@SuppressWarnings("rawtypes")
+public abstract class GMLExporter<V extends AbstractVertex, E extends AbstractEdge> {
 
 	protected Document domDocument;
 	protected String path;
@@ -43,14 +46,18 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 
 	protected int index = 0;
 	protected Element rootElt;
+	protected Element graphElt;
 
 	/**
 	 * Creates a new Instance of GMLExporter
 	 */
 	public GMLExporter() {
 		classKeySet = new HashMap<String, List<Key>>();
-		addKey(AbstractGraph.NAME, AbstractGraph.NAME, "graph",
-				"string", null);
+		addKey(AbstractGraph.PARAMETERS, SDFGraph.PARAMETERS, "graph", null,
+				null);
+		addKey(AbstractGraph.VARIABLES, SDFGraph.VARIABLES, "graph", null, null);
+		addKey(AbstractVertex.ARGUMENTS, AbstractVertex.ARGUMENTS, "node",
+				null, null);
 		DOMImplementationRegistry registry;
 		DOMImplementation impl;
 		try {
@@ -87,7 +94,7 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 	 * @param desc
 	 *            This key description
 	 */
-	public void addKey(String name, String elt, String type, Class<?> desc) {
+	private void addKey(String name, String elt, String type, Class<?> desc) {
 		Key key = new Key(name, elt, type, desc);
 		if (classKeySet.get(elt) == null) {
 			ArrayList<Key> keys = new ArrayList<Key>();
@@ -107,7 +114,7 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 	 * @param type
 	 * @param desc
 	 */
-	protected void addKey(String id, String name, String elt, String type,
+	private void addKey(String id, String name, String elt, String type,
 			Class<?> desc) {
 		Key key = new Key(name, elt, type, desc);
 		if (classKeySet.get(elt) == null) {
@@ -139,6 +146,23 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 					desc.setTextContent(key.getTypeClass().getName());
 				}
 			}
+		}
+	}
+
+	protected void addKey(String eltType, Key key) {
+		key.setId(key.getName());
+		if (classKeySet.get(eltType) == null) {
+			classKeySet.put(eltType, new ArrayList<Key>());
+		}
+		if (!classKeySet.get(eltType).contains(key)) {
+			classKeySet.get(eltType).add(key);
+			Element newElt = domDocument.createElement("key");
+			newElt.setAttribute("for", key.getApplyTo());
+			newElt.setAttribute("attr.name", key.getName());
+			if (key.getType() != null) {
+				newElt.setAttribute("attr.type", key.getType());
+			}
+			rootElt.insertBefore(newElt, graphElt);
 		}
 	}
 
@@ -212,7 +236,7 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 	 */
 	public Element createGraph(Element parentElement, boolean directed) {
 		Element newElt = appendChild(parentElement, "graph");
-
+		graphElt = newElt;
 		if (directed) {
 			newElt.setAttribute("edgedefault", "directed");
 		}
@@ -257,15 +281,14 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 	 * @param path
 	 *            The path where to export the graph
 	 */
-	public abstract void export(Graph<V, E> graph, String path);
+	public abstract void export(AbstractGraph<V, E> graph, String path);
 
-	/**
+	/*
 	 * Export an Edge in the Document
 	 * 
-	 * @param edge
-	 *            The edge to export
-	 * @param parentELement
-	 *            The DOM document parent Element
+	 * @param edge The edge to export
+	 * 
+	 * @param parentELement The DOM document parent Element
 	 */
 	protected abstract Element exportEdge(E edge, Element parentELement);
 
@@ -277,18 +300,24 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 	 * @param out
 	 *            The OutputStream to write
 	 */
-	public abstract Element exportGraph(Graph<V, E> graph);
+	public abstract Element exportGraph(AbstractGraph<V, E> graph);
 
-	protected void exportKeys(String forElt, Element parentElt,
-			PropertyBean eltBean) {
-		if (classKeySet.get(forElt) != null) {
-			for (Key key : classKeySet.get(forElt)) {
-				if (eltBean.getValue(key.getName()) != null
-						&& key.getType() != null) {
+	protected void exportKeys(PropertySource source, String forElt,
+			Element parentElt) {
+		for (String key : source.getPublicProperties()) {
+			if (!(key.equals("parameters") || key.equals("variables") || key
+					.equals("arguments"))) {
+				if (source.getPropertyStringValue(key) != null) {
 					Element dataElt = appendChild(parentElt, "data");
-					dataElt.setAttribute("key", key.getId());
-					dataElt.setTextContent((String) eltBean.getValue(
-							key.getName()).toString());
+					dataElt.setAttribute("key", key);
+					dataElt.setTextContent(source.getPropertyStringValue(key));
+					if (source.getPropertyBean().getValue(key) != null && source.getPropertyBean().getValue(key) instanceof Number) {
+						this.addKey(forElt, new Key(key, forElt, "int", null));
+					} else {
+						this.addKey(forElt,
+								new Key(key, forElt, "string", null));
+					}
+
 				}
 			}
 		}
@@ -312,7 +341,8 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 	 * @param parentELement
 	 *            The DOM parent Element of this Interface
 	 */
-	protected abstract Element exportPort(V interfaceVertex, Element parentELement);
+	protected abstract Element exportPort(V interfaceVertex,
+			Element parentELement);
 
 	/**
 	 * Gives this Exporter key set
@@ -350,7 +380,7 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 		serializer.getDomConfig().setParameter("format-pretty-print", true);
 		serializer.write(domDocument, output);
 	}
-	
+
 	protected void exportParameters(ParameterSet parameters,
 			Element parentELement) {
 		Element dataElt = appendChild(parentELement, "data");
@@ -380,5 +410,5 @@ public abstract class GMLExporter<V extends PropertySource, E extends PropertySo
 			varElt.setAttribute("value", var.getValue());
 		}
 	}
-	
+
 }

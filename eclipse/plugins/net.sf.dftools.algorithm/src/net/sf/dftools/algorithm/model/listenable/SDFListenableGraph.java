@@ -5,6 +5,10 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
+import net.sf.dftools.algorithm.model.sdf.SDFEdge;
+import net.sf.dftools.algorithm.model.sdf.SDFGraph;
+
 import org.jgraph.graph.Edge;
 import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
@@ -12,9 +16,6 @@ import org.jgrapht.event.GraphEdgeChangeEvent;
 import org.jgrapht.event.GraphListener;
 import org.jgrapht.event.GraphVertexChangeEvent;
 import org.jgrapht.event.VertexSetListener;
-import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
-import net.sf.dftools.algorithm.model.sdf.SDFEdge;
-import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
 /**
  * Class used to represent a listenable SDFGraph
