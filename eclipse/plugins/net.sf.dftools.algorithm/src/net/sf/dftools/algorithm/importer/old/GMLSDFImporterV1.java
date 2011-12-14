@@ -9,6 +9,7 @@ import net.sf.dftools.algorithm.factories.SDFEdgeFactory;
 import net.sf.dftools.algorithm.factories.SDFVertexFactory;
 import net.sf.dftools.algorithm.importer.GMLGenericImporter;
 import net.sf.dftools.algorithm.importer.GMLImporter;
+import net.sf.dftools.algorithm.importer.GMLSDFImporter;
 import net.sf.dftools.algorithm.importer.InvalidModelException;
 import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.CodeRefinement;
@@ -153,7 +154,7 @@ public class GMLSDFImporterV1 extends
 					if (this.path != null && path.length() > 0) {
 						String directoryPath = this.path.substring(0,
 								this.path.lastIndexOf(File.separator) + 1);
-						GMLSDFImporterV1 importer = new GMLSDFImporterV1();
+						GMLSDFImporter importer = new GMLSDFImporter();
 						try {
 							File refinementFile = new File(directoryPath + path);
 							String fileName = refinementFile.getName();

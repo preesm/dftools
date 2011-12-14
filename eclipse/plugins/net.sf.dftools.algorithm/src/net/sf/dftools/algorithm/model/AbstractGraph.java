@@ -60,7 +60,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	/**
 	 * Property name for property variables
 	 */
-	public static final String MODEL = "model";
+	public static final String MODEL = "kind";
 
 	/**
 	 * This graph parent vertex if it exist

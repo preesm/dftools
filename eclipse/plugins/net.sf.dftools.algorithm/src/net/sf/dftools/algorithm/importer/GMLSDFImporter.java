@@ -55,17 +55,20 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
 						"/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml"));
 		System.out.println("Graph " + graph + " parsed \n");
 		GMLGenericExporter exporter = new GMLGenericExporter();
-		exporter.export((AbstractGraph) graph, "/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml");
+		exporter.export(
+				(AbstractGraph) graph,
+				"/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml");
 	}
 
 	@Override
 	public SDFGraph parse(InputStream input, String path)
 			throws InvalidModelException, FileNotFoundException {
+
 		try {
 			return (SDFGraph) trueImporter.parse(input, path);
 		} catch (Exception e1) {
-			trueImporter = new GMLSDFImporterV1();
 			try {
+				trueImporter = new GMLSDFImporterV1();
 				System.out
 						.println("Parsing using generic parser failed, trying specialized parser\n");
 				return (SDFGraph) trueImporter.parse(input, path);
