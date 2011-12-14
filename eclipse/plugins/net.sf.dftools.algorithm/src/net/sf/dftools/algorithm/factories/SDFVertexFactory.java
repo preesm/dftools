@@ -124,7 +124,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 		if(dir == 1){
 			 port = new SDFSinkInterfaceVertex();
 		}else{
-			 port = new SDFSinkInterfaceVertex();
+			 port = new SDFSourceInterfaceVertex();
 		}
 		port.setName(name);
 		return port ;
