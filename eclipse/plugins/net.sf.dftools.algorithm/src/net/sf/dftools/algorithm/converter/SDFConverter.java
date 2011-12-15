@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dftools.algorithm.exporter.GMLGenericExporter;
-import net.sf.dftools.algorithm.importer.GMLSDFImporter;
 import net.sf.dftools.algorithm.importer.InvalidModelException;
+import net.sf.dftools.algorithm.importer.old.GMLSDFImporterV1;
 import net.sf.dftools.algorithm.model.AbstractGraph;
+import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
 public class SDFConverter {
@@ -18,7 +19,7 @@ public class SDFConverter {
 		List<File> dirs = new ArrayList<File>();
 		List<File> files = new ArrayList<File>();
 		List<String> convertedPath = new ArrayList<String>();
-		String dirPath = "/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/";
+		String dirPath = args[0];
 		File root = new File(dirPath);
 		dirs.add(root);
 		while (dirs.size() > 0) {
@@ -35,15 +36,9 @@ public class SDFConverter {
 			}
 			while (files.size() > 0) {
 				File toTreat = files.get(0);
-				GMLSDFImporter importer = new GMLSDFImporter();
-				SDFGraph graph = importer.parse(toTreat);
-				GMLGenericExporter exporter = new GMLGenericExporter();
-				exporter.export((AbstractGraph) graph,
-						toTreat.getAbsolutePath());
-				files.remove(0);
-				/*try {
+				try {
 					boolean hasRefinement = false;
-					GMLSDFImporter importer = new GMLSDFImporter();
+					GMLSDFImporterV1 importer = new GMLSDFImporterV1();
 					SDFGraph graph = importer.parse(toTreat);
 					for (AbstractVertex v : graph.vertexSet()) {
 						if (v.getRefinement() instanceof AbstractGraph) {
@@ -64,6 +59,8 @@ public class SDFConverter {
 						GMLGenericExporter exporter = new GMLGenericExporter();
 						exporter.export((AbstractGraph) graph,
 								toTreat.getAbsolutePath());
+						convertedPath.add(toTreat.getAbsolutePath());
+						files.remove(0);
 
 					}
 				} catch (Exception e) {
@@ -72,7 +69,7 @@ public class SDFConverter {
 									+ toTreat.getAbsolutePath());
 					convertedPath.add(toTreat.getAbsolutePath());
 					files.remove(0);
-				}*/
+				}
 			}
 
 		}

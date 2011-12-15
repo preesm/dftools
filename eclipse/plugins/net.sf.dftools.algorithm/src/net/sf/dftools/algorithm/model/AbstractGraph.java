@@ -626,7 +626,10 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	}
 
 	public String getPropertyStringValue(String propertyName) {
-		return this.getPropertyBean().getValue(propertyName).toString();
+		if(this.getPropertyBean().getValue(propertyName) != null){
+			return this.getPropertyBean().getValue(propertyName).toString();
+		}
+		return null ;
 	}
 
 	public void setPropertyValue(String propertyName, Object value) {
