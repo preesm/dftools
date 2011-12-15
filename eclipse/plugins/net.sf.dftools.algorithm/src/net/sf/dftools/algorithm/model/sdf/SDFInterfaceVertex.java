@@ -26,7 +26,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 	 */
 	public static final String PORT = "port";
 
-	 static {
+	static {
 		{
 			public_properties.add(PORT_DIRECTION);
 			public_properties.add(DATA_TYPE);
@@ -116,4 +116,12 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 		return (String) getPropertyBean().getValue(DATA_TYPE, String.class);
 	}
 
+	public void setPropertyValue(String propertyName, Object value) {
+		if(propertyName.equals(PORT_DIRECTION) && value instanceof String){
+			super.setPropertyValue(propertyName, InterfaceDirection.fromString((String) value));
+		}else{
+			super.setPropertyValue(propertyName, value);
+		}
+		
+	}
 }

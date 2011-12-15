@@ -25,6 +25,7 @@ public interface PropertySource {
 	 */
 	public void copyProperties(PropertySource props);
 
+	
 	public List<String> getPublicProperties();
 
 	public PropertyFactory getFactoryForProperty(String propertyName);
