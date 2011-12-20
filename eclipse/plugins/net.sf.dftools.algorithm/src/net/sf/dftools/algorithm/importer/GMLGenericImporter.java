@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import net.sf.dftools.algorithm.exporter.GMLGenericExporter;
 import net.sf.dftools.algorithm.factories.ModelGraphFactory;
 import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
 import net.sf.dftools.algorithm.model.IInterface;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
+import net.sf.dftools.algorithm.model.psdf.PSDFGraph;
+import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -28,9 +29,21 @@ public class GMLGenericImporter extends
 	public static void main(String[] args) throws InvalidExpressionException {
 		GMLGenericImporter importer = new GMLGenericImporter();
 		try {
-			AbstractGraph graph = importer.parse(new File("./test.graphml"));
-			GMLGenericExporter exporter = new GMLGenericExporter();
-			exporter.export(graph, "./copy-test.graphml");
+			AbstractGraph graph = importer
+					.parse(new File(
+							"/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/PSDF/Algo/psdf-testbench.graphml"));
+			if (graph instanceof PSDFGraph) {
+				PSDFGraph psdfGraph = (PSDFGraph) graph;
+				psdfGraph.getDynamicParameter("dp");
+				psdfGraph.getParameter("n");
+				if(psdfGraph.isSchedulable()){
+					System.out.println("graph :" + graph.toString()+" i schedulable");
+					for(SDFAbstractVertex v : psdfGraph.vertexSet()){
+						System.out.println("vertex :" + v.getName()+" x "+v.getNbRepeat().toString());
+					}
+				}
+			}
+			System.out.println("graph :" + graph.toString());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +127,7 @@ public class GMLGenericImporter extends
 			for (int i = 0; i < childList.getLength(); i++) {
 				if (childList.item(i).getNodeName().equals("node")) {
 					Element vertexElt = (Element) childList.item(i);
-					graph.addVertex(parseNode(vertexElt));
+					parseNode(vertexElt, graph);
 				}
 			}
 			for (int i = 0; i < childList.getLength(); i++) {
@@ -141,13 +154,14 @@ public class GMLGenericImporter extends
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
-	public AbstractVertex parseNode(Element vertexElt)
+	public AbstractVertex parseNode(Element vertexElt, AbstractGraph parentGraph)
 			throws InvalidModelException {
 		AbstractVertex vertex;
 		vertex = vertexFactory.createVertex(vertexElt);
 		vertex.setId(vertexElt.getAttribute("id"));
 		vertex.setName(vertexElt.getAttribute("id"));
 		parseKeys(vertexElt, vertex);
+		parentGraph.addVertex(vertex);
 		vertexFromId.put(vertex.getId(), vertex);
 		parseArguments(vertex, vertexElt);
 		parseGraphDescription(vertex, vertexElt);
@@ -155,7 +169,7 @@ public class GMLGenericImporter extends
 	}
 
 	@Override
-	public AbstractVertex parsePort(Element portElt)
+	public AbstractVertex parsePort(Element portElt, AbstractGraph parentGraph)
 			throws InvalidModelException {
 		return null;
 	}

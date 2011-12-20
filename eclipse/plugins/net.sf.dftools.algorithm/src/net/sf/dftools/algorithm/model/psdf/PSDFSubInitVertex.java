@@ -9,57 +9,62 @@ import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicParameter;
 import net.sf.dftools.algorithm.model.psdf.types.PSDFEdgePropertyType;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
-public class PSDFSubInitVertex extends SDFAbstractVertex implements IPSDFSpecificVertex{
-	
+public class PSDFSubInitVertex extends SDFAbstractVertex implements
+		IPSDFSpecificVertex {
 
-	public static final String SUB_INIT ="sub_init";
-	
+	public static final String SUB_INIT = "sub_init";
+
 	public static final String AFFECTED_PARAMETERS = "affected_parameters";
-	
-	public PSDFSubInitVertex(){
+
+	public PSDFSubInitVertex() {
 		super();
 		this.setKind(SUB_INIT);
 	}
 
 	@SuppressWarnings("unchecked")
 	public void addAffectedParameter(PSDFDynamicParameter p) {
-		if(this.getPropertyBean().getValue(AFFECTED_PARAMETERS, HashMap.class) == null){
-			this.getPropertyBean().setValue(AFFECTED_PARAMETERS, new HashMap<String, PSDFDynamicParameter>());
+		if (this.getPropertyBean().getValue(AFFECTED_PARAMETERS, HashMap.class) == null) {
+			this.getPropertyBean().setValue(AFFECTED_PARAMETERS,
+					new HashMap<String, PSDFDynamicParameter>());
 		}
-		((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean().getValue(AFFECTED_PARAMETERS)).put(p.getName(), p);
+		((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean()
+				.getValue(AFFECTED_PARAMETERS)).put(p.getName(), p);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public PSDFDynamicParameter getAffectedParameter(String p){
-		if(this.getPropertyBean().getValue(AFFECTED_PARAMETERS, HashMap.class) == null){
-			this.getPropertyBean().setValue(AFFECTED_PARAMETERS, new HashMap<String, PSDFDynamicParameter>());
+	public PSDFDynamicParameter getAffectedParameter(String p) {
+		if (this.getPropertyBean().getValue(AFFECTED_PARAMETERS, HashMap.class) == null) {
+			this.getPropertyBean().setValue(AFFECTED_PARAMETERS,
+					new HashMap<String, PSDFDynamicParameter>());
 		}
-		return ((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean().getValue(AFFECTED_PARAMETERS)).get(p);
+		return ((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean()
+				.getValue(AFFECTED_PARAMETERS)).get(p);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public Collection<PSDFDynamicParameter> getAffectedParameters(){
-		if(this.getPropertyBean().getValue(AFFECTED_PARAMETERS) == null){
-			this.getPropertyBean().setValue(AFFECTED_PARAMETERS, new HashMap<String, PSDFDynamicParameter>());
+	public Collection<PSDFDynamicParameter> getAffectedParameters() {
+		if (this.getPropertyBean().getValue(AFFECTED_PARAMETERS) == null) {
+			this.getPropertyBean().setValue(AFFECTED_PARAMETERS,
+					new HashMap<String, PSDFDynamicParameter>());
 		}
-		return ((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean().getValue(AFFECTED_PARAMETERS)).values();
+		return ((HashMap<String, PSDFDynamicParameter>) this.getPropertyBean()
+				.getValue(AFFECTED_PARAMETERS)).values();
 	}
-	
-	
-	public int computeTypeValue(PSDFEdgePropertyType type){
-		return 0 ;
-	}
-	
-	@Override
-	public void connectionAdded(AbstractEdge<?,?> e) {
-		// TODO Auto-generated method stub
-		
+
+	public int computeTypeValue(PSDFEdgePropertyType type) {
+		return 0;
 	}
 
 	@Override
-	public void connectionRemoved(AbstractEdge<?,?> e) {
+	public void connectionAdded(AbstractEdge<?, ?> e) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void connectionRemoved(AbstractEdge<?, ?> e) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -69,7 +74,7 @@ public class PSDFSubInitVertex extends SDFAbstractVertex implements IPSDFSpecifi
 			if (this.getPropertyBean().getValue(key) != null) {
 				Object val = this.getPropertyBean().getValue(key);
 				newVertex.getPropertyBean().setValue(key, val);
-			} 
+			}
 		}
 		try {
 			newVertex.setNbRepeat(this.getNbRepeat());
@@ -78,6 +83,5 @@ public class PSDFSubInitVertex extends SDFAbstractVertex implements IPSDFSpecifi
 		}
 		return newVertex;
 	}
-
 
 }

@@ -8,6 +8,7 @@ import net.sf.dftools.algorithm.model.psdf.PSDFInitVertex;
 import net.sf.dftools.algorithm.model.psdf.PSDFSubInitVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
+import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 
 import org.w3c.dom.Element;
 
@@ -38,9 +39,6 @@ public class PSDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 	 */
 	public SDFAbstractVertex createVertex(HashMap<String, String> attributes) {
 		String kind = attributes.get("kind");
-		if (SDFVertexFactory.getInstance().createVertex(attributes) != null) {
-			return SDFVertexFactory.getInstance().createVertex(attributes);
-		}
 		if (kind.equals(PSDFInitVertex.INIT)) {
 			PSDFInitVertex newVertex = new PSDFInitVertex();
 			newVertex.setName("default");
@@ -49,15 +47,13 @@ public class PSDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 			PSDFSubInitVertex newVertex = new PSDFSubInitVertex();
 			newVertex.setName("default");
 			return newVertex;
+		} else {
+			return SDFVertexFactory.getInstance().createVertex(attributes);
 		}
-		return null;
 	}
 
 	public SDFAbstractVertex createVertex(Element vertexElt) {
 		String kind = this.getProperty(vertexElt, AbstractVertex.KIND);
-		if (SDFVertexFactory.getInstance().createVertex(vertexElt) != null) {
-			return SDFVertexFactory.getInstance().createVertex(vertexElt);
-		}
 		if (kind.equals(PSDFInitVertex.INIT)) {
 			PSDFInitVertex newVertex = new PSDFInitVertex();
 			newVertex.setName("default");
@@ -66,8 +62,9 @@ public class PSDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 			PSDFSubInitVertex newVertex = new PSDFSubInitVertex();
 			newVertex.setName("default");
 			return newVertex;
+		} else {
+			return SDFVertexFactory.getInstance().createVertex(vertexElt);
 		}
-		return null;
 	}
 
 	@Override
@@ -82,7 +79,7 @@ public class PSDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 		if (dir == 1) {
 			port = new SDFSinkInterfaceVertex();
 		} else {
-			port = new SDFSinkInterfaceVertex();
+			port = new SDFSourceInterfaceVertex();
 		}
 		port.setName(name);
 		return port;

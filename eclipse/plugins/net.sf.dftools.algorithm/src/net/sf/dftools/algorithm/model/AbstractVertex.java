@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.ArgumentSet;
+import net.sf.dftools.algorithm.model.parameters.factories.ArgumentFactory;
 import net.sf.dftools.algorithm.model.sdf.visitors.GraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
@@ -417,4 +418,6 @@ public abstract class AbstractVertex<G> extends Observable implements
 	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}
+
+
 }

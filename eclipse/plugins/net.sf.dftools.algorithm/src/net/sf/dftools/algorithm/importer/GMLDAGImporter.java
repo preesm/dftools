@@ -75,7 +75,7 @@ public class GMLDAGImporter extends
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("node")) {
 				Element vertexElt = (Element) childList.item(i);
-				graph.addVertex(parseNode(vertexElt));
+				parseNode(vertexElt, graph);
 			}
 		}
 		for (int i = 0; i < childList.getLength(); i++) {
@@ -88,8 +88,10 @@ public class GMLDAGImporter extends
 	}
 
 	@Override
-	public DAGVertex parseNode(Element vertexElt) {
+	public DAGVertex parseNode(Element vertexElt,
+			DirectedAcyclicGraph parentGraph) {
 		DAGVertex vertex = new DAGVertex();
+		parentGraph.addVertex(vertex);
 		vertex.setId(vertexElt.getAttribute("id"));
 		vertexFromId.put(vertex.getId(), vertex);
 		parseKeys(vertexElt, vertex);
@@ -98,7 +100,7 @@ public class GMLDAGImporter extends
 	}
 
 	@Override
-	public DAGVertex parsePort(Element portElt) {
+	public DAGVertex parsePort(Element portElt, DirectedAcyclicGraph parentGraph) {
 		// TODO Auto-generated method stub
 		return null;
 	}

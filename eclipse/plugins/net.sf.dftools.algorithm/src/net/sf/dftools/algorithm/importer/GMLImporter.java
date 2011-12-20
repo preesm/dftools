@@ -305,13 +305,11 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 					PropertyFactory factory = src
 							.getFactoryForProperty(propertyName);
 					if (factory != null) {
-						src.setPropertyValue(
-								propertyName,
-								factory.create(childList.item(i)
-										.getTextContent()));
+						src.setPropertyValue(propertyName, factory
+								.create(childList.item(i).getTextContent()));
 					} else {
-						src.setPropertyValue(propertyName,
-								childList.item(i).getTextContent());
+						src.setPropertyValue(propertyName, childList.item(i)
+								.getTextContent());
 					}
 				}
 			}
@@ -325,7 +323,8 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
-	public abstract V parseNode(Element vertexElt) throws InvalidModelException;
+	public abstract V parseNode(Element vertexElt, G parentGraph)
+			throws InvalidModelException;
 
 	/**
 	 * Parses an Interface from the DOM document
@@ -334,7 +333,8 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 *            The DOM Element to parse
 	 * @return The ineterface parsed from the DOM document
 	 */
-	public abstract V parsePort(Element portElt) throws InvalidModelException;
+	public abstract V parsePort(Element portElt, G parentGraph)
+			throws InvalidModelException;
 
 	/**
 	 * Recover the key set from the GML document
@@ -381,7 +381,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected void parseArguments(AbstractVertex vertex, Element parentElt) {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
@@ -392,9 +392,12 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 				for (int j = 0; j < argsList.getLength(); j++) {
 					if (argsList.item(j).getNodeName().equals("argument")) {
 						Element arg = (Element) argsList.item(j);
-						vertex.addArgument(new Argument(arg
-								.getAttribute("name"), arg
-								.getAttribute("value")));
+						Argument vArg = vertex
+								.getBase()
+								.getArgumentFactory(vertex)
+								.create(arg.getAttribute("name"),
+										arg.getAttribute("value"));
+						vertex.addArgument(vArg);
 					}
 				}
 			}
@@ -412,8 +415,9 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 				for (int j = 0; j < argsList.getLength(); j++) {
 					if (argsList.item(j).getNodeName().equals("parameter")) {
 						Element param = (Element) argsList.item(j);
-						graph.addParameter(new Parameter(param
-								.getAttribute("name")));
+						Parameter gParam = graph.getParameterFactory().create(
+								param.getAttribute("name"));
+						graph.addParameter(gParam);
 					}
 				}
 			}

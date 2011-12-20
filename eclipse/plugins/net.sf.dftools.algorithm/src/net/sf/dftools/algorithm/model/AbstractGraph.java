@@ -15,6 +15,8 @@ import net.sf.dftools.algorithm.model.parameters.ParameterSet;
 import net.sf.dftools.algorithm.model.parameters.Value;
 import net.sf.dftools.algorithm.model.parameters.Variable;
 import net.sf.dftools.algorithm.model.parameters.VariableSet;
+import net.sf.dftools.algorithm.model.parameters.factories.ArgumentFactory;
+import net.sf.dftools.algorithm.model.parameters.factories.ParameterFactory;
 import net.sf.dftools.algorithm.model.sdf.visitors.GraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
@@ -635,4 +637,14 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}
+	
+	public ParameterFactory getParameterFactory(){
+		return new ParameterFactory(this);
+	}
+	
+	public ArgumentFactory getArgumentFactory(V v) {
+		return new ArgumentFactory(v);
+	}
+	
+	
 }

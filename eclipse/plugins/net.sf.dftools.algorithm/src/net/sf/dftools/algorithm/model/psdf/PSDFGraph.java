@@ -18,10 +18,14 @@ import net.sf.dftools.algorithm.model.parameters.NoIntegerValueException;
 import net.sf.dftools.algorithm.model.parameters.Parameter;
 import net.sf.dftools.algorithm.model.parameters.Value;
 import net.sf.dftools.algorithm.model.parameters.Variable;
+import net.sf.dftools.algorithm.model.parameters.factories.ArgumentFactory;
+import net.sf.dftools.algorithm.model.parameters.factories.ParameterFactory;
 import net.sf.dftools.algorithm.model.psdf.maths.GenericMath;
 import net.sf.dftools.algorithm.model.psdf.maths.NotSchedulableException;
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicArgument;
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicParameter;
+import net.sf.dftools.algorithm.model.psdf.parameters.factories.DynamicArgumentFactory;
+import net.sf.dftools.algorithm.model.psdf.parameters.factories.DynamicParameterFactory;
 import net.sf.dftools.algorithm.model.psdf.types.PSDFEdgePropertyType;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
@@ -59,9 +63,6 @@ public class PSDFGraph extends SDFGraph {
 	 * Property name for property inits
 	 */
 	public static final String INIT = "init";
-	
-	
-	
 
 	public PSDFGraph() {
 		super(new PSDFEdgeFactory());
@@ -79,7 +80,7 @@ public class PSDFGraph extends SDFGraph {
 	public boolean addVertex(SDFAbstractVertex vertex) {
 		if (vertex instanceof PSDFInitVertex) {
 			this.setInitVertex((PSDFInitVertex) vertex);
-			return true;
+			return super.addVertex(vertex);
 		} else if (vertex instanceof PSDFSubInitVertex) {
 			this.setSubInitVertex((PSDFSubInitVertex) vertex);
 			return super.addVertex(vertex);
@@ -509,5 +510,13 @@ public class PSDFGraph extends SDFGraph {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ModelVertexFactory getVertexFactory() {
 		return PSDFVertexFactory.getInstance();
+	}
+
+	public ParameterFactory getParameterFactory() {
+		return new DynamicParameterFactory(this);
+	}
+
+	public ArgumentFactory getArgumentFactory(SDFAbstractVertex v) {
+		return new DynamicArgumentFactory(v);
 	}
 }
