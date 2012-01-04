@@ -12,10 +12,18 @@ public class PSDFDynamicParameter extends Parameter implements DynamicValue {
 
 	public PSDFDynamicParameter(String name) {
 		super(name);
+		if(name.contains("{")){
+			this.setName(name.substring(0, name.indexOf("{")));
+			try {
+				domain = DynamicParameterDomainFactory.create(name.substring(name.indexOf("{")));
+			} catch (DomainParsingException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public PSDFDynamicParameter(String name, DynamicValue value) {
-		super(name);
+		this(name);
 		this.value = value ;
 	}
 

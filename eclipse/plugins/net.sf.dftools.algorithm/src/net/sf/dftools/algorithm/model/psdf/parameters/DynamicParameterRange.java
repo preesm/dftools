@@ -25,7 +25,7 @@ public class DynamicParameterRange extends ADynamicParameterDomain{
 	}
 	
 	public String toString(){
-		return "range = {"+min+"-"+max+"}";
+		return "{"+min+".."+max+"}";
 	}
 
 }
