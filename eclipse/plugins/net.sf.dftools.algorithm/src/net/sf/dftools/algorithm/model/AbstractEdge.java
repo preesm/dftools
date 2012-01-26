@@ -207,7 +207,13 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	}
 
 	public String getPropertyStringValue(String propertyName) {
-		return this.getPropertyBean().getValue(propertyName).toString();
+		Object o = this.getPropertyBean().getValue(propertyName);
+		if(o != null){
+			return o.toString();
+		}
+		else{
+			return "";
+		}
 	}
 
 	public void setPropertyValue(String propertyName, Object value) {
