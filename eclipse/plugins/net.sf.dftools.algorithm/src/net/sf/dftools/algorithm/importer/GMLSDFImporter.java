@@ -46,6 +46,7 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
 		}
 	}
 
+	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 	public static void main(String[] args) throws FileNotFoundException,
 			InvalidModelException {
 		List<File> dirs = new ArrayList<File>();

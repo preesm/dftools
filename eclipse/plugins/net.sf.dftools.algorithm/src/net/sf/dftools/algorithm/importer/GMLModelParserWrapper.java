@@ -9,6 +9,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
 public abstract class GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
 
+	@SuppressWarnings("unused")
 	private GMLImporter<G, ?, ?> importer;
 
 	public abstract SDFGraph parse(File f) throws InvalidModelException,

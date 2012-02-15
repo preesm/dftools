@@ -10,6 +10,11 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public GenericGraph(GenericEdgeFactory factory) {
 		super(factory);
 	}

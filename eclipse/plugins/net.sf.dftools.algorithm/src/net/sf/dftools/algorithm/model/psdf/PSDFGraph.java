@@ -507,8 +507,7 @@ public class PSDFGraph extends SDFGraph {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ModelVertexFactory getVertexFactory() {
+	public ModelVertexFactory<?> getVertexFactory() {
 		return PSDFVertexFactory.getInstance();
 	}
 

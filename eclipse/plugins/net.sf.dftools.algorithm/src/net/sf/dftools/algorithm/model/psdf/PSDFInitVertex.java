@@ -6,10 +6,8 @@ import java.util.HashMap;
 import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
-import net.sf.dftools.algorithm.model.parameters.factories.ArgumentFactory;
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicArgument;
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicParameter;
-import net.sf.dftools.algorithm.model.psdf.parameters.factories.DynamicArgumentFactory;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
 public class PSDFInitVertex extends SDFAbstractVertex implements

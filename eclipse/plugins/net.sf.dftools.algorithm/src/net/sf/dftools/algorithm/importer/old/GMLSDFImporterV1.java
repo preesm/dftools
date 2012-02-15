@@ -207,6 +207,7 @@ public class GMLSDFImporterV1 extends
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
+	@SuppressWarnings("deprecation")
 	public SDFAbstractVertex parseNode(Element vertexElt, SDFGraph parentGraph)
 			throws InvalidModelException {
 

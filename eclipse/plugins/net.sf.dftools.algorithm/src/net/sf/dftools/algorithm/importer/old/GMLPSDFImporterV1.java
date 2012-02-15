@@ -49,6 +49,7 @@ public class GMLPSDFImporterV1 extends GMLSDFImporterV1 {
 		return graph;
 	}
 
+	@SuppressWarnings("deprecation")
 	public SDFAbstractVertex parseNode(Element vertexElt)
 			throws InvalidModelException {
 

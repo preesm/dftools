@@ -36,8 +36,7 @@ import org.w3c.dom.ls.LSSerializer;
  * @param <E>
  *            The edge type
  */
-@SuppressWarnings("rawtypes")
-public abstract class GMLExporter<V extends AbstractVertex, E extends AbstractEdge> {
+public abstract class GMLExporter<V extends AbstractVertex<?>, E extends AbstractEdge<?, ?>> {
 
 	protected Document domDocument;
 	protected String path;
@@ -94,6 +93,7 @@ public abstract class GMLExporter<V extends AbstractVertex, E extends AbstractEd
 	 * @param desc
 	 *            This key description
 	 */
+	@SuppressWarnings("unused")
 	private void addKey(String name, String elt, String type, Class<?> desc) {
 		Key key = new Key(name, elt, type, desc);
 		if (classKeySet.get(elt) == null) {
@@ -311,7 +311,8 @@ public abstract class GMLExporter<V extends AbstractVertex, E extends AbstractEd
 					Element dataElt = appendChild(parentElt, "data");
 					dataElt.setAttribute("key", key);
 					dataElt.setTextContent(source.getPropertyStringValue(key));
-					if (source.getPropertyBean().getValue(key) != null && source.getPropertyBean().getValue(key) instanceof Number) {
+					if (source.getPropertyBean().getValue(key) != null
+							&& source.getPropertyBean().getValue(key) instanceof Number) {
 						this.addKey(forElt, new Key(key, forElt, "int", null));
 					} else {
 						this.addKey(forElt,

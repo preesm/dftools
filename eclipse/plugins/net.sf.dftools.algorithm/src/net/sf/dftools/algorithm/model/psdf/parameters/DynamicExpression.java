@@ -7,6 +7,7 @@ import net.sf.dftools.algorithm.model.parameters.IExpressionSolver;
 public class DynamicExpression implements DynamicValue {
 
 	private String value;
+	@SuppressWarnings("unused")
 	private IExpressionSolver solver;
 
 	public DynamicExpression(String value, IExpressionSolver solver) {

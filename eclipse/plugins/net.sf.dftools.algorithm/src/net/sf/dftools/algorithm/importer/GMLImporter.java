@@ -42,7 +42,7 @@ import org.w3c.dom.ls.LSParser;
  * @param <V>
  * @param <E>
  */
-public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVertex, E extends AbstractEdge> {
+public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends AbstractVertex<?>, E extends AbstractEdge<?, ?>> {
 
 	protected HashMap<String, List<Key>> classKeySet;
 	protected EdgeFactory<V, E> edgeFactory;
@@ -342,6 +342,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 	 * @param rootElt
 	 *            The rootElt of the document
 	 */
+	@SuppressWarnings("unused")
 	public void recoverKeys(Element rootElt) {
 		NodeList childList = rootElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
@@ -381,8 +382,8 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected void parseArguments(AbstractVertex vertex, Element parentElt) {
+	@SuppressWarnings({ "unchecked" })
+	protected void parseArguments(AbstractVertex<?> vertex, Element parentElt) {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("data")
@@ -404,8 +405,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected void parseParameters(AbstractGraph graph, Element parentElt) {
+	protected void parseParameters(AbstractGraph<?, ?> graph, Element parentElt) {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("data")
@@ -424,7 +424,6 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	protected String parseModel(Element parentElt) {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
@@ -437,8 +436,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 		return "generic";
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected void parseVariables(AbstractGraph graph, Element parentElt) {
+	protected void parseVariables(AbstractGraph<?, ?> graph, Element parentElt) {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("data")
@@ -457,8 +455,7 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	protected void parseGraphDescription(AbstractVertex vertex,
+	protected void parseGraphDescription(AbstractVertex<?> vertex,
 			Element parentElt) throws InvalidModelException {
 		NodeList childList = parentElt.getChildNodes();
 		for (int i = 0; i < childList.getLength(); i++) {
@@ -473,8 +470,8 @@ public abstract class GMLImporter<G extends AbstractGraph, V extends AbstractVer
 								this.path.lastIndexOf(File.separator) + 1);
 						GMLGenericImporter importer = new GMLGenericImporter();
 						try {
-							AbstractGraph refine = importer.parse(new File(
-									directoryPath + path));
+							AbstractGraph<?, ?> refine = importer
+									.parse(new File(directoryPath + path));
 							vertex.setGraphDescription(refine);
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block

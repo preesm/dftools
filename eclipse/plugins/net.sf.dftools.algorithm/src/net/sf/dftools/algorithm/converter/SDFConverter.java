@@ -14,6 +14,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 
 public class SDFConverter {
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws FileNotFoundException,
 			InvalidModelException {
 		List<File> dirs = new ArrayList<File>();

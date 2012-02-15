@@ -7,7 +7,7 @@ import net.sf.dftools.algorithm.model.PropertyFactory;
 public class GenericVertex extends AbstractVertex<GenericGraph> {
 
 	@Override
-	public AbstractVertex clone() {
+	public AbstractVertex<?> clone() {
 		GenericVertex newVertex = new GenericVertex();
 		for (String key : this.getPropertyBean().keys()) {
 			if (this.getPropertyBean().getValue(key) != null) {
