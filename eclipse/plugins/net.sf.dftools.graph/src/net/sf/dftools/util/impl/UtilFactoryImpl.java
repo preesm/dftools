@@ -66,6 +66,10 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 		switch (eClass.getClassifierID()) {
 		case UtilPackage.ATTRIBUTE:
 			return createAttribute();
+		case UtilPackage.WRAPPER_STRING:
+			return createWrapperString();
+		case UtilPackage.WRAPPER_XML:
+			return createWrapperXml();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName()
 					+ "' is not a valid classifier");
@@ -87,6 +91,33 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 		attribute.setName(name);
 		attribute.setValue(value);
 		return attribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WrapperString createWrapperString() {
+		WrapperStringImpl wrapperString = new WrapperStringImpl();
+		return wrapperString;
+	}
+
+	@Override
+	public WrapperString createWrapperString(String value) {
+		WrapperStringImpl wrapperString = new WrapperStringImpl();
+		wrapperString.setString(value);
+		return wrapperString;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WrapperXml createWrapperXml() {
+		WrapperXmlImpl wrapperXml = new WrapperXmlImpl();
+		return wrapperXml;
 	}
 
 	/**
