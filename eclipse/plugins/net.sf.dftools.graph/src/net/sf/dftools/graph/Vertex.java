@@ -8,6 +8,9 @@ package net.sf.dftools.graph;
 
 import java.util.List;
 
+import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.Nameable;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -70,7 +73,7 @@ public interface Vertex extends Nameable {
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
-	 * The list contents are of type {@link net.sf.dftools.graph.Attribute}.
+	 * The list contents are of type {@link net.sf.dftools.util.Attribute}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attributes</em>' containment reference list

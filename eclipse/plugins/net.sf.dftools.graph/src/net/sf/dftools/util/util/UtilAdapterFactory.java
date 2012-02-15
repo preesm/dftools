@@ -1,20 +1,14 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
-package net.sf.dftools.graph.util;
+package net.sf.dftools.util.util;
 
-import net.sf.dftools.graph.Edge;
-import net.sf.dftools.graph.Graph;
-import net.sf.dftools.graph.GraphPackage;
-import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
+
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -22,17 +16,17 @@ import org.eclipse.emf.ecore.EObject;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see net.sf.dftools.graph.GraphPackage
+ * @see net.sf.dftools.util.UtilPackage
  * @generated
  */
-public class GraphAdapterFactory extends AdapterFactoryImpl {
+public class UtilAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static GraphPackage modelPackage;
+	protected static UtilPackage modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
@@ -40,9 +34,9 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GraphAdapterFactory() {
+	public UtilAdapterFactory() {
 		if (modelPackage == null) {
-			modelPackage = GraphPackage.eINSTANCE;
+			modelPackage = UtilPackage.eINSTANCE;
 		}
 	}
 
@@ -71,20 +65,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GraphSwitch<Adapter> modelSwitch = new GraphSwitch<Adapter>() {
+	protected UtilSwitch<Adapter> modelSwitch = new UtilSwitch<Adapter>() {
 		@Override
-		public Adapter caseGraph(Graph object) {
-			return createGraphAdapter();
-		}
-
-		@Override
-		public Adapter caseVertex(Vertex object) {
-			return createVertexAdapter();
-		}
-
-		@Override
-		public Adapter caseEdge(Edge object) {
-			return createEdgeAdapter();
+		public Adapter caseAttribute(Attribute object) {
+			return createAttributeAdapter();
 		}
 
 		@Override
@@ -112,16 +96,16 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.graph.Graph <em>Graph</em>}'.
+	 * Creates a new adapter for an object of class '{@link net.sf.dftools.util.Attribute <em>Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see net.sf.dftools.graph.Graph
+	 * @see net.sf.dftools.util.Attribute
 	 * @generated
 	 */
-	public Adapter createGraphAdapter() {
+	public Adapter createAttributeAdapter() {
 		return null;
 	}
 
@@ -140,34 +124,6 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.graph.Vertex <em>Vertex</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see net.sf.dftools.graph.Vertex
-	 * @generated
-	 */
-	public Adapter createVertexAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.graph.Edge <em>Edge</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see net.sf.dftools.graph.Edge
-	 * @generated
-	 */
-	public Adapter createEdgeAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for the default case.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null.
@@ -179,4 +135,4 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //GraphAdapterFactory
+} //UtilAdapterFactory

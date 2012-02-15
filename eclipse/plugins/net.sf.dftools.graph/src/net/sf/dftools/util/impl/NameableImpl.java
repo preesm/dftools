@@ -4,13 +4,13 @@
  *
  * $Id$
  */
-package net.sf.dftools.graph.impl;
+package net.sf.dftools.util.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dftools.graph.GraphPackage;
-import net.sf.dftools.graph.Nameable;
+import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.UtilPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.NameableImpl#getName <em>Name</em>}</li>
+ *   <li>{@link net.sf.dftools.util.impl.NameableImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,8 +67,8 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GraphPackage.NAMEABLE__NAME:
-				return getName();
+		case UtilPackage.NAMEABLE__NAME:
+			return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -81,8 +81,9 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GraphPackage.NAMEABLE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case UtilPackage.NAMEABLE__NAME:
+			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
+					.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -95,9 +96,9 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GraphPackage.NAMEABLE__NAME:
-				setName((String)newValue);
-				return;
+		case UtilPackage.NAMEABLE__NAME:
+			setName((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -109,7 +110,7 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GraphPackage.Literals.NAMEABLE;
+		return UtilPackage.Literals.NAMEABLE;
 	}
 
 	/**
@@ -120,9 +121,9 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GraphPackage.NAMEABLE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
+		case UtilPackage.NAMEABLE__NAME:
+			setName(NAME_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -148,7 +149,7 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 			return name.substring(0, index);
 		}
 	}
-	
+
 	@Override
 	public List<String> getPackageAsList() {
 		String[] segments = name == null ? new String[0] : name.split("\\.");
@@ -181,9 +182,9 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.NAMEABLE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					UtilPackage.NAMEABLE__NAME, oldName, name));
 	}
-
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -192,7 +193,8 @@ public abstract class NameableImpl extends EObjectImpl implements Nameable {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

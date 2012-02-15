@@ -4,17 +4,15 @@
  *
  * $Id$
  */
-package net.sf.dftools.graph.impl;
+package net.sf.dftools.util.impl;
 
-import net.sf.dftools.graph.Attribute;
-import net.sf.dftools.graph.GraphPackage;
+import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.UtilPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -25,8 +23,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.AttributeImpl#getName <em>Name</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.AttributeImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link net.sf.dftools.util.impl.AttributeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link net.sf.dftools.util.impl.AttributeImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,7 +77,7 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return GraphPackage.Literals.ATTRIBUTE;
+		return UtilPackage.Literals.ATTRIBUTE;
 	}
 
 	/**
@@ -100,7 +98,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.ATTRIBUTE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					UtilPackage.ATTRIBUTE__NAME, oldName, name));
 	}
 
 	/**
@@ -110,11 +109,12 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	 */
 	public EObject getValue() {
 		if (value != null && value.eIsProxy()) {
-			InternalEObject oldValue = (InternalEObject)value;
+			InternalEObject oldValue = (InternalEObject) value;
 			value = eResolveProxy(oldValue);
 			if (value != oldValue) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GraphPackage.ATTRIBUTE__VALUE, oldValue, value));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							UtilPackage.ATTRIBUTE__VALUE, oldValue, value));
 			}
 		}
 		return value;
@@ -138,7 +138,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 		EObject oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GraphPackage.ATTRIBUTE__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					UtilPackage.ATTRIBUTE__VALUE, oldValue, value));
 	}
 
 	/**
@@ -149,11 +150,12 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GraphPackage.ATTRIBUTE__NAME:
-				return getName();
-			case GraphPackage.ATTRIBUTE__VALUE:
-				if (resolve) return getValue();
-				return basicGetValue();
+		case UtilPackage.ATTRIBUTE__NAME:
+			return getName();
+		case UtilPackage.ATTRIBUTE__VALUE:
+			if (resolve)
+				return getValue();
+			return basicGetValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,12 +168,12 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GraphPackage.ATTRIBUTE__NAME:
-				setName((String)newValue);
-				return;
-			case GraphPackage.ATTRIBUTE__VALUE:
-				setValue((EObject)newValue);
-				return;
+		case UtilPackage.ATTRIBUTE__NAME:
+			setName((String) newValue);
+			return;
+		case UtilPackage.ATTRIBUTE__VALUE:
+			setValue((EObject) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -184,12 +186,12 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GraphPackage.ATTRIBUTE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case GraphPackage.ATTRIBUTE__VALUE:
-				setValue((EObject)null);
-				return;
+		case UtilPackage.ATTRIBUTE__NAME:
+			setName(NAME_EDEFAULT);
+			return;
+		case UtilPackage.ATTRIBUTE__VALUE:
+			setValue((EObject) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -202,10 +204,11 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GraphPackage.ATTRIBUTE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case GraphPackage.ATTRIBUTE__VALUE:
-				return value != null;
+		case UtilPackage.ATTRIBUTE__NAME:
+			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
+					.equals(name);
+		case UtilPackage.ATTRIBUTE__VALUE:
+			return value != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -217,7 +220,8 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+		if (eIsProxy())
+			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");

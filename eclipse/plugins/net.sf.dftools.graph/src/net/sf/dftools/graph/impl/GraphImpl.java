@@ -86,7 +86,8 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	 */
 	public EList<Vertex> getVertices() {
 		if (vertices == null) {
-			vertices = new EObjectContainmentEList<Vertex>(Vertex.class, this, GraphPackage.GRAPH__VERTICES);
+			vertices = new EObjectContainmentEList<Vertex>(Vertex.class, this,
+					GraphPackage.GRAPH__VERTICES);
 		}
 		return vertices;
 	}
@@ -98,7 +99,8 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	 */
 	public EList<Edge> getEdges() {
 		if (edges == null) {
-			edges = new EObjectContainmentEList<Edge>(Edge.class, this, GraphPackage.GRAPH__EDGES);
+			edges = new EObjectContainmentEList<Edge>(Edge.class, this,
+					GraphPackage.GRAPH__EDGES);
 		}
 		return edges;
 	}
@@ -109,12 +111,14 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GraphPackage.GRAPH__VERTICES:
-				return ((InternalEList<?>)getVertices()).basicRemove(otherEnd, msgs);
-			case GraphPackage.GRAPH__EDGES:
-				return ((InternalEList<?>)getEdges()).basicRemove(otherEnd, msgs);
+		case GraphPackage.GRAPH__VERTICES:
+			return ((InternalEList<?>) getVertices()).basicRemove(otherEnd,
+					msgs);
+		case GraphPackage.GRAPH__EDGES:
+			return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -127,10 +131,10 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GraphPackage.GRAPH__VERTICES:
-				return getVertices();
-			case GraphPackage.GRAPH__EDGES:
-				return getEdges();
+		case GraphPackage.GRAPH__VERTICES:
+			return getVertices();
+		case GraphPackage.GRAPH__EDGES:
+			return getEdges();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -144,14 +148,14 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GraphPackage.GRAPH__VERTICES:
-				getVertices().clear();
-				getVertices().addAll((Collection<? extends Vertex>)newValue);
-				return;
-			case GraphPackage.GRAPH__EDGES:
-				getEdges().clear();
-				getEdges().addAll((Collection<? extends Edge>)newValue);
-				return;
+		case GraphPackage.GRAPH__VERTICES:
+			getVertices().clear();
+			getVertices().addAll((Collection<? extends Vertex>) newValue);
+			return;
+		case GraphPackage.GRAPH__EDGES:
+			getEdges().clear();
+			getEdges().addAll((Collection<? extends Edge>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -164,12 +168,12 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GraphPackage.GRAPH__VERTICES:
-				getVertices().clear();
-				return;
-			case GraphPackage.GRAPH__EDGES:
-				getEdges().clear();
-				return;
+		case GraphPackage.GRAPH__VERTICES:
+			getVertices().clear();
+			return;
+		case GraphPackage.GRAPH__EDGES:
+			getEdges().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -182,10 +186,10 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GraphPackage.GRAPH__VERTICES:
-				return vertices != null && !vertices.isEmpty();
-			case GraphPackage.GRAPH__EDGES:
-				return edges != null && !edges.isEmpty();
+		case GraphPackage.GRAPH__VERTICES:
+			return vertices != null && !vertices.isEmpty();
+		case GraphPackage.GRAPH__EDGES:
+			return edges != null && !edges.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

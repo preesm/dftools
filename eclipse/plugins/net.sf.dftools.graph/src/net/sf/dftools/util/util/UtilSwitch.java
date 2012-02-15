@@ -1,19 +1,12 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
-package net.sf.dftools.graph.util;
+package net.sf.dftools.util.util;
 
-import net.sf.dftools.graph.Edge;
-import net.sf.dftools.graph.Graph;
-import net.sf.dftools.graph.GraphPackage;
-import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.util.Switch;
 
 /**
@@ -26,17 +19,17 @@ import org.eclipse.emf.ecore.util.Switch;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see net.sf.dftools.graph.GraphPackage
+ * @see net.sf.dftools.util.UtilPackage
  * @generated
  */
-public class GraphSwitch<T> extends Switch<T> {
+public class UtilSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static GraphPackage modelPackage;
+	protected static UtilPackage modelPackage;
 
 	/**
 	 * Creates an instance of the switch.
@@ -44,9 +37,9 @@ public class GraphSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GraphSwitch() {
+	public UtilSwitch() {
 		if (modelPackage == null) {
-			modelPackage = GraphPackage.eINSTANCE;
+			modelPackage = UtilPackage.eINSTANCE;
 		}
 	}
 
@@ -73,25 +66,16 @@ public class GraphSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case GraphPackage.GRAPH: {
-			Graph graph = (Graph) theEObject;
-			T result = caseGraph(graph);
+		case UtilPackage.ATTRIBUTE: {
+			Attribute attribute = (Attribute) theEObject;
+			T result = caseAttribute(attribute);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case GraphPackage.VERTEX: {
-			Vertex vertex = (Vertex) theEObject;
-			T result = caseVertex(vertex);
-			if (result == null)
-				result = caseNameable(vertex);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case GraphPackage.EDGE: {
-			Edge edge = (Edge) theEObject;
-			T result = caseEdge(edge);
+		case UtilPackage.NAMEABLE: {
+			Nameable nameable = (Nameable) theEObject;
+			T result = caseNameable(nameable);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -102,17 +86,17 @@ public class GraphSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Graph</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Graph</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Attribute</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseGraph(Graph object) {
+	public T caseAttribute(Attribute object) {
 		return null;
 	}
 
@@ -132,36 +116,6 @@ public class GraphSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Vertex</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Vertex</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseVertex(Vertex object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Edge</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Edge</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEdge(Edge object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -177,4 +131,4 @@ public class GraphSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //GraphSwitch
+} //UtilSwitch

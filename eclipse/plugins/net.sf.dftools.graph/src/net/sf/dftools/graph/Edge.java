@@ -6,6 +6,8 @@
  */
 package net.sf.dftools.graph;
 
+import net.sf.dftools.util.Attribute;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -87,7 +89,7 @@ public interface Edge extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
-	 * The list contents are of type {@link net.sf.dftools.graph.Attribute}.
+	 * The list contents are of type {@link net.sf.dftools.util.Attribute}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,

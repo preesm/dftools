@@ -4,23 +4,23 @@
  *
  * $Id$
  */
-package net.sf.dftools.graph;
+package net.sf.dftools.util;
 
 import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Attribute</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link net.sf.dftools.graph.Attribute#getName <em>Name</em>}</li>
- * <li>{@link net.sf.dftools.graph.Attribute#getValue <em>Value</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
- * 
- * @see net.sf.dftools.graph.GraphPackage#getAttribute()
+ *
+ * @see net.sf.dftools.util.UtilPackage#getAttribute()
  * @model
  * @generated
  */
@@ -54,11 +54,9 @@ public interface Attribute extends EObject {
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.graph.Attribute#getName
-	 * <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Name</em>' attribute.
+	 * Sets the value of the '{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
 	 * @see #getName()
 	 * @generated
 	 */
@@ -82,11 +80,9 @@ public interface Attribute extends EObject {
 	EObject getValue();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.graph.Attribute#getValue
-	 * <em>Value</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Value</em>' reference.
+	 * Sets the value of the '{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value</em>' reference.
 	 * @see #getValue()
 	 * @generated
 	 */

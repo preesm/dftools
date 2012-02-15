@@ -6,7 +6,8 @@
  */
 package net.sf.dftools.graph;
 
-import org.eclipse.emf.ecore.EAttribute;
+import net.sf.dftools.util.UtilPackage;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -97,34 +98,6 @@ public interface GraphPackage extends EPackage {
 	int GRAPH_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.graph.impl.NameableImpl <em>Nameable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see net.sf.dftools.graph.impl.NameableImpl
-	 * @see net.sf.dftools.graph.impl.GraphPackageImpl#getNameable()
-	 * @generated
-	 */
-	int NAMEABLE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMEABLE__NAME = 0;
-
-	/**
-	 * The number of structural features of the '<em>Nameable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMEABLE_FEATURE_COUNT = 1;
-
-	/**
 	 * The meta object id for the '{@link net.sf.dftools.graph.impl.VertexImpl <em>Vertex</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -132,7 +105,7 @@ public interface GraphPackage extends EPackage {
 	 * @see net.sf.dftools.graph.impl.GraphPackageImpl#getVertex()
 	 * @generated
 	 */
-	int VERTEX = 2;
+	int VERTEX = 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -141,7 +114,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__NAME = NAMEABLE__NAME;
+	int VERTEX__NAME = UtilPackage.NAMEABLE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
@@ -150,7 +123,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__OUTGOING = NAMEABLE_FEATURE_COUNT + 0;
+	int VERTEX__OUTGOING = UtilPackage.NAMEABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
@@ -159,7 +132,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__INCOMING = NAMEABLE_FEATURE_COUNT + 1;
+	int VERTEX__INCOMING = UtilPackage.NAMEABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -168,7 +141,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__ATTRIBUTES = NAMEABLE_FEATURE_COUNT + 2;
+	int VERTEX__ATTRIBUTES = UtilPackage.NAMEABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Vertex</em>' class.
@@ -177,7 +150,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX_FEATURE_COUNT = NAMEABLE_FEATURE_COUNT + 3;
+	int VERTEX_FEATURE_COUNT = UtilPackage.NAMEABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.graph.impl.EdgeImpl <em>Edge</em>}' class.
@@ -187,7 +160,7 @@ public interface GraphPackage extends EPackage {
 	 * @see net.sf.dftools.graph.impl.GraphPackageImpl#getEdge()
 	 * @generated
 	 */
-	int EDGE = 3;
+	int EDGE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -226,44 +199,6 @@ public interface GraphPackage extends EPackage {
 	int EDGE_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.graph.impl.AttributeImpl <em>Attribute</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see net.sf.dftools.graph.impl.AttributeImpl
-	 * @see net.sf.dftools.graph.impl.GraphPackageImpl#getAttribute()
-	 * @generated
-	 */
-	int ATTRIBUTE = 4;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE__VALUE = 1;
-
-	/**
-	 * The number of structural features of the '<em>Attribute</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ATTRIBUTE_FEATURE_COUNT = 2;
-
-
-	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.graph.Graph <em>Graph</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -294,27 +229,6 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGraph_Edges();
-
-	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.graph.Nameable <em>Nameable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Nameable</em>'.
-	 * @see net.sf.dftools.graph.Nameable
-	 * @generated
-	 */
-	EClass getNameable();
-
-	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.graph.Nameable#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see net.sf.dftools.graph.Nameable#getName()
-	 * @see #getNameable()
-	 * @generated
-	 */
-	EAttribute getNameable_Name();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.graph.Vertex <em>Vertex</em>}'.
@@ -403,38 +317,6 @@ public interface GraphPackage extends EPackage {
 	EReference getEdge_Attributes();
 
 	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.graph.Attribute <em>Attribute</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Attribute</em>'.
-	 * @see net.sf.dftools.graph.Attribute
-	 * @generated
-	 */
-	EClass getAttribute();
-
-	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.graph.Attribute#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see net.sf.dftools.graph.Attribute#getName()
-	 * @see #getAttribute()
-	 * @generated
-	 */
-	EAttribute getAttribute_Name();
-
-	/**
-	 * Returns the meta object for the reference '{@link net.sf.dftools.graph.Attribute#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Value</em>'.
-	 * @see net.sf.dftools.graph.Attribute#getValue()
-	 * @see #getAttribute()
-	 * @generated
-	 */
-	EReference getAttribute_Value();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -481,24 +363,6 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GRAPH__EDGES = eINSTANCE.getGraph_Edges();
-
-		/**
-		 * The meta object literal for the '{@link net.sf.dftools.graph.impl.NameableImpl <em>Nameable</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see net.sf.dftools.graph.impl.NameableImpl
-		 * @see net.sf.dftools.graph.impl.GraphPackageImpl#getNameable()
-		 * @generated
-		 */
-		EClass NAMEABLE = eINSTANCE.getNameable();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute NAMEABLE__NAME = eINSTANCE.getNameable_Name();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.graph.impl.VertexImpl <em>Vertex</em>}' class.
@@ -567,32 +431,6 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EDGE__ATTRIBUTES = eINSTANCE.getEdge_Attributes();
-
-		/**
-		 * The meta object literal for the '{@link net.sf.dftools.graph.impl.AttributeImpl <em>Attribute</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see net.sf.dftools.graph.impl.AttributeImpl
-		 * @see net.sf.dftools.graph.impl.GraphPackageImpl#getAttribute()
-		 * @generated
-		 */
-		EClass ATTRIBUTE = eINSTANCE.getAttribute();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ATTRIBUTE__NAME = eINSTANCE.getAttribute_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ATTRIBUTE__VALUE = eINSTANCE.getAttribute_Value();
 
 	}
 

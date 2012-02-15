@@ -6,7 +6,6 @@
  */
 package net.sf.dftools.graph.impl;
 
-import net.sf.dftools.graph.Attribute;
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphFactory;
@@ -22,14 +21,23 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static GraphPackage getPackage() {
+		return GraphPackage.eINSTANCE;
+	}
+
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static GraphFactory init() {
@@ -46,26 +54,17 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public GraphFactoryImpl() {
 		super();
 	}
 
-	@Override
-	public Attribute createAttribute(String name, EObject value) {
-		AttributeImpl attribute = new AttributeImpl();
-		attribute.setName(name);
-		attribute.setValue(value);
-		return attribute;
-	}
-
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -77,8 +76,6 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 			return createVertex();
 		case GraphPackage.EDGE:
 			return createEdge();
-		case GraphPackage.ATTRIBUTE:
-			return createAttribute();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName()
 					+ "' is not a valid classifier");
@@ -87,27 +84,6 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Graph createGraph() {
-		GraphImpl graph = new GraphImpl();
-		return graph;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public Vertex createVertex() {
-		VertexImpl vertex = new VertexImpl();
-		return vertex;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Edge createEdge() {
@@ -117,32 +93,28 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
-	public Attribute createAttribute() {
-		AttributeImpl attribute = new AttributeImpl();
-		return attribute;
+	public Graph createGraph() {
+		GraphImpl graph = new GraphImpl();
+		return graph;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * @generated
+	 */
+	public Vertex createVertex() {
+		VertexImpl vertex = new VertexImpl();
+		return vertex;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GraphPackage getGraphPackage() {
 		return (GraphPackage) getEPackage();
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @deprecated
-	 * @generated
-	 */
-	@Deprecated
-	public static GraphPackage getPackage() {
-		return GraphPackage.eINSTANCE;
 	}
 
 } // GraphFactoryImpl
