@@ -12,16 +12,13 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
+import net.sf.dftools.graph.util.GraphAdapterFactory;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -32,18 +29,20 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getEdges <em>Edges</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getVertices <em>Vertices</em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.GraphImpl#getEdges <em>Edges</em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.GraphImpl#getVertices <em>Vertices</em>}
+ * </li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
-	 * The cached value of the '{@link #getEdges() <em>Edges</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getEdges() <em>Edges</em>}' containment
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getEdges()
 	 * @generated
 	 * @ordered
@@ -51,8 +50,9 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	protected EList<Edge> edges;
 
 	/**
-	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}'
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getVertices()
 	 * @generated
 	 * @ordered
@@ -61,14 +61,19 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected GraphImpl() {
 		super();
+
+		// add adapter to automatically update the graph when necessary
+		eAdapters().add(new GraphAdapterFactory().createGraphAdapter());
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -84,6 +89,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -98,6 +104,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -113,6 +120,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -133,6 +141,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -142,6 +151,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -159,6 +169,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Edge> getEdges() {
@@ -171,6 +182,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Vertex> getVertices() {
