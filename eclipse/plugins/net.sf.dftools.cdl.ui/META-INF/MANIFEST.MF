@@ -18,4 +18,5 @@ Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: net.sf.dftools.cdl.ui.internal.CdlActivator
-Export-Package: net.sf.dftools.cdl.ui.contentassist.antlr
+Export-Package: net.sf.dftools.cdl.ui.contentassist.antlr,
+ net.sf.dftools.cdl.ui.contentassist
