@@ -28,45 +28,24 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Vertex</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Vertex</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getOutgoing <em>Outgoing</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class VertexImpl extends NameableImpl implements Vertex {
-	/**
-	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutgoing()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Edge> outgoing;
-
-	/**
-	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIncoming()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Edge> incoming;
 
 	/**
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getAttributes()
 	 * @generated
 	 * @ordered
@@ -74,8 +53,25 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	protected EList<Attribute> attributes;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getIncoming()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Edge> incoming;
+
+	/**
+	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getOutgoing()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Edge> outgoing;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected VertexImpl() {
@@ -83,8 +79,105 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case GraphPackage.VERTEX__ATTRIBUTES:
+			return getAttributes();
+		case GraphPackage.VERTEX__INCOMING:
+			return getIncoming();
+		case GraphPackage.VERTEX__OUTGOING:
+			return getOutgoing();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case GraphPackage.VERTEX__INCOMING:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncoming())
+					.basicAdd(otherEnd, msgs);
+		case GraphPackage.VERTEX__OUTGOING:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getOutgoing())
+					.basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case GraphPackage.VERTEX__ATTRIBUTES:
+			return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd,
+					msgs);
+		case GraphPackage.VERTEX__INCOMING:
+			return ((InternalEList<?>) getIncoming()).basicRemove(otherEnd,
+					msgs);
+		case GraphPackage.VERTEX__OUTGOING:
+			return ((InternalEList<?>) getOutgoing()).basicRemove(otherEnd,
+					msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case GraphPackage.VERTEX__ATTRIBUTES:
+			return attributes != null && !attributes.isEmpty();
+		case GraphPackage.VERTEX__INCOMING:
+			return incoming != null && !incoming.isEmpty();
+		case GraphPackage.VERTEX__OUTGOING:
+			return outgoing != null && !outgoing.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case GraphPackage.VERTEX__ATTRIBUTES:
+			getAttributes().clear();
+			getAttributes().addAll((Collection<? extends Attribute>) newValue);
+			return;
+		case GraphPackage.VERTEX__INCOMING:
+			getIncoming().clear();
+			getIncoming().addAll((Collection<? extends Edge>) newValue);
+			return;
+		case GraphPackage.VERTEX__OUTGOING:
+			getOutgoing().clear();
+			getOutgoing().addAll((Collection<? extends Edge>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -93,31 +186,23 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Edge> getOutgoing() {
-		if (outgoing == null) {
-			outgoing = new EObjectWithInverseResolvingEList<Edge>(Edge.class,
-					this, GraphPackage.VERTEX__OUTGOING,
-					GraphPackage.EDGE__SOURCE);
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case GraphPackage.VERTEX__ATTRIBUTES:
+			getAttributes().clear();
+			return;
+		case GraphPackage.VERTEX__INCOMING:
+			getIncoming().clear();
+			return;
+		case GraphPackage.VERTEX__OUTGOING:
+			getOutgoing().clear();
+			return;
 		}
-		return outgoing;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Edge> getIncoming() {
-		if (incoming == null) {
-			incoming = new EObjectWithInverseResolvingEList<Edge>(Edge.class,
-					this, GraphPackage.VERTEX__INCOMING,
-					GraphPackage.EDGE__TARGET);
-		}
-		return incoming;
+		super.eUnset(featureID);
 	}
 
 	@Override
@@ -131,8 +216,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<Attribute> getAttributes() {
@@ -141,6 +225,32 @@ public class VertexImpl extends NameableImpl implements Vertex {
 					Attribute.class, this, GraphPackage.VERTEX__ATTRIBUTES);
 		}
 		return attributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Edge> getIncoming() {
+		if (incoming == null) {
+			incoming = new EObjectWithInverseResolvingEList<Edge>(Edge.class,
+					this, GraphPackage.VERTEX__INCOMING,
+					GraphPackage.EDGE__TARGET);
+		}
+		return incoming;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Edge> getOutgoing() {
+		if (outgoing == null) {
+			outgoing = new EObjectWithInverseResolvingEList<Edge>(Edge.class,
+					this, GraphPackage.VERTEX__OUTGOING,
+					GraphPackage.EDGE__SOURCE);
+		}
+		return outgoing;
 	}
 
 	@Override
@@ -167,128 +277,4 @@ public class VertexImpl extends NameableImpl implements Vertex {
 		return successors;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case GraphPackage.VERTEX__OUTGOING:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getOutgoing())
-					.basicAdd(otherEnd, msgs);
-		case GraphPackage.VERTEX__INCOMING:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncoming())
-					.basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case GraphPackage.VERTEX__OUTGOING:
-			return ((InternalEList<?>) getOutgoing()).basicRemove(otherEnd,
-					msgs);
-		case GraphPackage.VERTEX__INCOMING:
-			return ((InternalEList<?>) getIncoming()).basicRemove(otherEnd,
-					msgs);
-		case GraphPackage.VERTEX__ATTRIBUTES:
-			return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd,
-					msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case GraphPackage.VERTEX__OUTGOING:
-			return getOutgoing();
-		case GraphPackage.VERTEX__INCOMING:
-			return getIncoming();
-		case GraphPackage.VERTEX__ATTRIBUTES:
-			return getAttributes();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case GraphPackage.VERTEX__OUTGOING:
-			getOutgoing().clear();
-			getOutgoing().addAll((Collection<? extends Edge>) newValue);
-			return;
-		case GraphPackage.VERTEX__INCOMING:
-			getIncoming().clear();
-			getIncoming().addAll((Collection<? extends Edge>) newValue);
-			return;
-		case GraphPackage.VERTEX__ATTRIBUTES:
-			getAttributes().clear();
-			getAttributes().addAll((Collection<? extends Attribute>) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case GraphPackage.VERTEX__OUTGOING:
-			getOutgoing().clear();
-			return;
-		case GraphPackage.VERTEX__INCOMING:
-			getIncoming().clear();
-			return;
-		case GraphPackage.VERTEX__ATTRIBUTES:
-			getAttributes().clear();
-			return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case GraphPackage.VERTEX__OUTGOING:
-			return outgoing != null && !outgoing.isEmpty();
-		case GraphPackage.VERTEX__INCOMING:
-			return incoming != null && !incoming.isEmpty();
-		case GraphPackage.VERTEX__ATTRIBUTES:
-			return attributes != null && !attributes.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
-
-} //VertexImpl
+} // VertexImpl

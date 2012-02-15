@@ -23,37 +23,27 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Graph</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '
+ * <em><b>Graph</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getVertices <em>Vertices</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getEdges <em>Edges</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getVertices <em>Vertices</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class GraphImpl extends EObjectImpl implements Graph {
-	/**
-	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVertices()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Vertex> vertices;
 
 	/**
 	 * The cached value of the '{@link #getEdges() <em>Edges</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getEdges()
 	 * @generated
 	 * @ordered
@@ -61,8 +51,16 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	protected EList<Edge> edges;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}' reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getVertices()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Vertex> vertices;
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected GraphImpl() {
@@ -70,8 +68,71 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case GraphPackage.GRAPH__EDGES:
+			return getEdges();
+		case GraphPackage.GRAPH__VERTICES:
+			return getVertices();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case GraphPackage.GRAPH__EDGES:
+			return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case GraphPackage.GRAPH__EDGES:
+			return edges != null && !edges.isEmpty();
+		case GraphPackage.GRAPH__VERTICES:
+			return vertices != null && !vertices.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case GraphPackage.GRAPH__EDGES:
+			getEdges().clear();
+			getEdges().addAll((Collection<? extends Edge>) newValue);
+			return;
+		case GraphPackage.GRAPH__VERTICES:
+			getVertices().clear();
+			getVertices().addAll((Collection<? extends Vertex>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -80,21 +141,24 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Vertex> getVertices() {
-		if (vertices == null) {
-			vertices = new EObjectContainmentEList<Vertex>(Vertex.class, this,
-					GraphPackage.GRAPH__VERTICES);
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case GraphPackage.GRAPH__EDGES:
+			getEdges().clear();
+			return;
+		case GraphPackage.GRAPH__VERTICES:
+			getVertices().clear();
+			return;
 		}
-		return vertices;
+		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<Edge> getEdges() {
@@ -106,92 +170,15 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case GraphPackage.GRAPH__VERTICES:
-			return ((InternalEList<?>) getVertices()).basicRemove(otherEnd,
-					msgs);
-		case GraphPackage.GRAPH__EDGES:
-			return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
+	public EList<Vertex> getVertices() {
+		if (vertices == null) {
+			vertices = new EObjectResolvingEList<Vertex>(Vertex.class, this,
+					GraphPackage.GRAPH__VERTICES);
 		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+		return vertices;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case GraphPackage.GRAPH__VERTICES:
-			return getVertices();
-		case GraphPackage.GRAPH__EDGES:
-			return getEdges();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case GraphPackage.GRAPH__VERTICES:
-			getVertices().clear();
-			getVertices().addAll((Collection<? extends Vertex>) newValue);
-			return;
-		case GraphPackage.GRAPH__EDGES:
-			getEdges().clear();
-			getEdges().addAll((Collection<? extends Edge>) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case GraphPackage.GRAPH__VERTICES:
-			getVertices().clear();
-			return;
-		case GraphPackage.GRAPH__EDGES:
-			getEdges().clear();
-			return;
-		}
-		super.eUnset(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case GraphPackage.GRAPH__VERTICES:
-			return vertices != null && !vertices.isEmpty();
-		case GraphPackage.GRAPH__EDGES:
-			return edges != null && !edges.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
-
-} //GraphImpl
+} // GraphImpl

@@ -9,100 +9,61 @@ package net.sf.dftools.graph;
 import net.sf.dftools.util.Attribute;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Edge</b></em>'.
- * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link net.sf.dftools.graph.Edge#getSource <em>Source</em>}</li>
- *   <li>{@link net.sf.dftools.graph.Edge#getTarget <em>Target</em>}</li>
- *   <li>{@link net.sf.dftools.graph.Edge#getAttributes <em>Attributes</em>}</li>
- * </ul>
- * </p>
- *
- * @see net.sf.dftools.graph.GraphPackage#getEdge()
+ * This class defines an edge. An edge has a source vertex and a target vertex,
+ * as well as a list of attributes.
+ * 
  * @model
- * @generated
  */
 public interface Edge extends EObject {
+
+	Attribute getAttribute(String name);
+
 	/**
-	 * Returns the value of the '<em><b>Source</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.graph.Vertex#getOutgoing <em>Outgoing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Source</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(Vertex)
-	 * @see net.sf.dftools.graph.GraphPackage#getEdge_Source()
-	 * @see net.sf.dftools.graph.Vertex#getOutgoing
+	 * Returns the attributes of this edge.
+	 * 
+	 * @return the attributes of this edge
+	 * 
+	 * @model containment="true"
+	 */
+	EList<Attribute> getAttributes();
+
+	/**
+	 * Returns the source vertex of this edge. This has an opposite relation to
+	 * {@link Vertex#getOutgoing()}.
+	 * 
+	 * @return the source vertex of this edge
+	 * 
 	 * @model opposite="outgoing"
-	 * @generated
 	 */
 	Vertex getSource();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.graph.Edge#getSource <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' reference.
-	 * @see #getSource()
-	 * @generated
-	 */
-	void setSource(Vertex value);
-
-	/**
-	 * Returns the value of the '<em><b>Target</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.graph.Vertex#getIncoming <em>Incoming</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Target</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(Vertex)
-	 * @see net.sf.dftools.graph.GraphPackage#getEdge_Target()
-	 * @see net.sf.dftools.graph.Vertex#getIncoming
+	 * Returns the target vertex of this edge. This has an opposite relation to
+	 * {@link Vertex#getIncoming()}.
+	 * 
+	 * @return the target vertex of this edge
+	 * 
 	 * @model opposite="incoming"
-	 * @generated
 	 */
 	Vertex getTarget();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.graph.Edge#getTarget <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' reference.
-	 * @see #getTarget()
-	 * @generated
+	 * Sets the source vertex of this edge.
+	 * 
+	 * @param source
+	 *            the new source of this edge
 	 */
-	void setTarget(Vertex value);
+	void setSource(Vertex source);
 
 	/**
-	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
-	 * The list contents are of type {@link net.sf.dftools.util.Attribute}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attributes</em>' containment reference list.
-	 * @see net.sf.dftools.graph.GraphPackage#getEdge_Attributes()
-	 * @model containment="true"
-	 * @generated
+	 * Sets the target vertex of this edge.
+	 * 
+	 * @param target
+	 *            the new target of this edge
 	 */
-	EList<Attribute> getAttributes();
+	void setTarget(Vertex target);
 
-	Attribute getAttribute(String name);
-
-} // Edge
+}

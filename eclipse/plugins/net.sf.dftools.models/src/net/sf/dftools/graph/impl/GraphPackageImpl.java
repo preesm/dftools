@@ -137,7 +137,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getGraph_Vertices() {
-		return (EReference) graphEClass.getEStructuralFeatures().get(0);
+		return (EReference) graphEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getGraph_Edges() {
-		return (EReference) graphEClass.getEStructuralFeatures().get(1);
+		return (EReference) graphEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getVertex_Outgoing() {
-		return (EReference) vertexEClass.getEStructuralFeatures().get(0);
+		return (EReference) vertexEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getVertex_Attributes() {
-		return (EReference) vertexEClass.getEStructuralFeatures().get(2);
+		return (EReference) vertexEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -200,15 +200,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getEdge_Source() {
-		return (EReference) edgeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEdge_Target() {
 		return (EReference) edgeEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -217,8 +208,17 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEdge_Attributes() {
+	public EReference getEdge_Target() {
 		return (EReference) edgeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdge_Attributes() {
+		return (EReference) edgeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -251,18 +251,18 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		// Create classes and their features
 		graphEClass = createEClass(GRAPH);
-		createEReference(graphEClass, GRAPH__VERTICES);
 		createEReference(graphEClass, GRAPH__EDGES);
+		createEReference(graphEClass, GRAPH__VERTICES);
 
 		vertexEClass = createEClass(VERTEX);
-		createEReference(vertexEClass, VERTEX__OUTGOING);
-		createEReference(vertexEClass, VERTEX__INCOMING);
 		createEReference(vertexEClass, VERTEX__ATTRIBUTES);
+		createEReference(vertexEClass, VERTEX__INCOMING);
+		createEReference(vertexEClass, VERTEX__OUTGOING);
 
 		edgeEClass = createEClass(EDGE);
+		createEReference(edgeEClass, EDGE__ATTRIBUTES);
 		createEReference(edgeEClass, EDGE__SOURCE);
 		createEReference(edgeEClass, EDGE__TARGET);
-		createEReference(edgeEClass, EDGE__ATTRIBUTES);
 	}
 
 	/**
@@ -303,34 +303,38 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		// Initialize classes and features; add operations and parameters
 		initEClass(graphEClass, Graph.class, "Graph", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGraph_Vertices(), this.getVertex(), null, "vertices",
-				null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGraph_Edges(), this.getEdge(), null, "edges", null,
 				0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
+		initEReference(getGraph_Vertices(), this.getVertex(), null, "vertices",
+				null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(vertexEClass, Vertex.class, "Vertex", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getVertex_Outgoing(), this.getEdge(),
-				this.getEdge_Source(), "outgoing", null, 0, -1, Vertex.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
+		initEReference(getVertex_Attributes(), theUtilPackage.getAttribute(),
+				null, "attributes", null, 0, -1, Vertex.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVertex_Incoming(), this.getEdge(),
 				this.getEdge_Target(), "incoming", null, 0, -1, Vertex.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
-		initEReference(getVertex_Attributes(), theUtilPackage.getAttribute(),
-				null, "attributes", null, 0, -1, Vertex.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVertex_Outgoing(), this.getEdge(),
+				this.getEdge_Source(), "outgoing", null, 0, -1, Vertex.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		initEClass(edgeEClass, Edge.class, "Edge", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEdge_Attributes(), theUtilPackage.getAttribute(),
+				null, "attributes", null, 0, -1, Edge.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdge_Source(), this.getVertex(),
 				this.getVertex_Outgoing(), "source", null, 0, 1, Edge.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
@@ -341,10 +345,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
-		initEReference(getEdge_Attributes(), theUtilPackage.getAttribute(),
-				null, "attributes", null, 0, -1, Edge.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

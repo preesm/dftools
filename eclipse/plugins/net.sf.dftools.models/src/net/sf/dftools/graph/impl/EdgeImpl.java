@@ -29,42 +29,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class EdgeImpl extends EObjectImpl implements Edge {
-	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected Vertex source;
-
-	@Override
-	public Attribute getAttribute(String name) {
-		for (Attribute attribute : getAttributes()) {
-			if (name.equals(attribute.getName())) {
-				return attribute;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
-	protected Vertex target;
 
 	/**
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -74,6 +47,24 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * @ordered
 	 */
 	protected EList<Attribute> attributes;
+
+	/**
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected Vertex source;
+
+	/**
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getTarget()
+	 * @generated
+	 * @ordered
+	 */
+	protected Vertex target;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -87,34 +78,16 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	protected EClass eStaticClass() {
-		return GraphPackage.Literals.EDGE;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Vertex getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject) source;
-			source = (Vertex) eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							GraphPackage.EDGE__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Vertex basicGetSource() {
 		return source;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Vertex basicGetTarget() {
+		return target;
 	}
 
 	/**
@@ -141,52 +114,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(Vertex newSource) {
-		if (newSource != source) {
-			NotificationChain msgs = null;
-			if (source != null)
-				msgs = ((InternalEObject) source).eInverseRemove(this,
-						GraphPackage.VERTEX__OUTGOING, Vertex.class, msgs);
-			if (newSource != null)
-				msgs = ((InternalEObject) newSource).eInverseAdd(this,
-						GraphPackage.VERTEX__OUTGOING, Vertex.class, msgs);
-			msgs = basicSetSource(newSource, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphPackage.EDGE__SOURCE, newSource, newSource));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Vertex getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject) target;
-			target = (Vertex) eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							GraphPackage.EDGE__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Vertex basicGetTarget() {
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
 	public NotificationChain basicSetTarget(Vertex newTarget,
 			NotificationChain msgs) {
 		Vertex oldTarget = target;
@@ -207,33 +134,21 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTarget(Vertex newTarget) {
-		if (newTarget != target) {
-			NotificationChain msgs = null;
-			if (target != null)
-				msgs = ((InternalEObject) target).eInverseRemove(this,
-						GraphPackage.VERTEX__INCOMING, Vertex.class, msgs);
-			if (newTarget != null)
-				msgs = ((InternalEObject) newTarget).eInverseAdd(this,
-						GraphPackage.VERTEX__INCOMING, Vertex.class, msgs);
-			msgs = basicSetTarget(newTarget, msgs);
-			if (msgs != null)
-				msgs.dispatch();
-		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphPackage.EDGE__TARGET, newTarget, newTarget));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Attribute> getAttributes() {
-		if (attributes == null) {
-			attributes = new EObjectContainmentEList<Attribute>(
-					Attribute.class, this, GraphPackage.EDGE__ATTRIBUTES);
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case GraphPackage.EDGE__ATTRIBUTES:
+			return getAttributes();
+		case GraphPackage.EDGE__SOURCE:
+			if (resolve)
+				return getSource();
+			return basicGetSource();
+		case GraphPackage.EDGE__TARGET:
+			if (resolve)
+				return getTarget();
+			return basicGetTarget();
 		}
-		return attributes;
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -266,13 +181,13 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case GraphPackage.EDGE__ATTRIBUTES:
+			return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd,
+					msgs);
 		case GraphPackage.EDGE__SOURCE:
 			return basicSetSource(null, msgs);
 		case GraphPackage.EDGE__TARGET:
 			return basicSetTarget(null, msgs);
-		case GraphPackage.EDGE__ATTRIBUTES:
-			return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd,
-					msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -282,20 +197,16 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * @generated
 	 */
 	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GraphPackage.EDGE__SOURCE:
-			if (resolve)
-				return getSource();
-			return basicGetSource();
-		case GraphPackage.EDGE__TARGET:
-			if (resolve)
-				return getTarget();
-			return basicGetTarget();
 		case GraphPackage.EDGE__ATTRIBUTES:
-			return getAttributes();
+			return attributes != null && !attributes.isEmpty();
+		case GraphPackage.EDGE__SOURCE:
+			return source != null;
+		case GraphPackage.EDGE__TARGET:
+			return target != null;
 		}
-		return super.eGet(featureID, resolve, coreType);
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -306,15 +217,15 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case GraphPackage.EDGE__ATTRIBUTES:
+			getAttributes().clear();
+			getAttributes().addAll((Collection<? extends Attribute>) newValue);
+			return;
 		case GraphPackage.EDGE__SOURCE:
 			setSource((Vertex) newValue);
 			return;
 		case GraphPackage.EDGE__TARGET:
 			setTarget((Vertex) newValue);
-			return;
-		case GraphPackage.EDGE__ATTRIBUTES:
-			getAttributes().clear();
-			getAttributes().addAll((Collection<? extends Attribute>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -325,19 +236,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * @generated
 	 */
 	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case GraphPackage.EDGE__SOURCE:
-			setSource((Vertex) null);
-			return;
-		case GraphPackage.EDGE__TARGET:
-			setTarget((Vertex) null);
-			return;
-		case GraphPackage.EDGE__ATTRIBUTES:
-			getAttributes().clear();
-			return;
-		}
-		super.eUnset(featureID);
+	protected EClass eStaticClass() {
+		return GraphPackage.Literals.EDGE;
 	}
 
 	/**
@@ -345,16 +245,117 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	 * @generated
 	 */
 	@Override
-	public boolean eIsSet(int featureID) {
+	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GraphPackage.EDGE__SOURCE:
-			return source != null;
-		case GraphPackage.EDGE__TARGET:
-			return target != null;
 		case GraphPackage.EDGE__ATTRIBUTES:
-			return attributes != null && !attributes.isEmpty();
+			getAttributes().clear();
+			return;
+		case GraphPackage.EDGE__SOURCE:
+			setSource((Vertex) null);
+			return;
+		case GraphPackage.EDGE__TARGET:
+			setTarget((Vertex) null);
+			return;
 		}
-		return super.eIsSet(featureID);
+		super.eUnset(featureID);
+	}
+
+	@Override
+	public Attribute getAttribute(String name) {
+		for (Attribute attribute : getAttributes()) {
+			if (name.equals(attribute.getName())) {
+				return attribute;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Attribute> getAttributes() {
+		if (attributes == null) {
+			attributes = new EObjectContainmentEList<Attribute>(
+					Attribute.class, this, GraphPackage.EDGE__ATTRIBUTES);
+		}
+		return attributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Vertex getSource() {
+		if (source != null && source.eIsProxy()) {
+			InternalEObject oldSource = (InternalEObject) source;
+			source = (Vertex) eResolveProxy(oldSource);
+			if (source != oldSource) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							GraphPackage.EDGE__SOURCE, oldSource, source));
+			}
+		}
+		return source;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Vertex getTarget() {
+		if (target != null && target.eIsProxy()) {
+			InternalEObject oldTarget = (InternalEObject) target;
+			target = (Vertex) eResolveProxy(oldTarget);
+			if (target != oldTarget) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							GraphPackage.EDGE__TARGET, oldTarget, target));
+			}
+		}
+		return target;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSource(Vertex newSource) {
+		if (newSource != source) {
+			NotificationChain msgs = null;
+			if (source != null)
+				msgs = ((InternalEObject) source).eInverseRemove(this,
+						GraphPackage.VERTEX__OUTGOING, Vertex.class, msgs);
+			if (newSource != null)
+				msgs = ((InternalEObject) newSource).eInverseAdd(this,
+						GraphPackage.VERTEX__OUTGOING, Vertex.class, msgs);
+			msgs = basicSetSource(newSource, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphPackage.EDGE__SOURCE, newSource, newSource));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTarget(Vertex newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject) target).eInverseRemove(this,
+						GraphPackage.VERTEX__INCOMING, Vertex.class, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject) newTarget).eInverseAdd(this,
+						GraphPackage.VERTEX__INCOMING, Vertex.class, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphPackage.EDGE__TARGET, newTarget, newTarget));
 	}
 
 } // EdgeImpl

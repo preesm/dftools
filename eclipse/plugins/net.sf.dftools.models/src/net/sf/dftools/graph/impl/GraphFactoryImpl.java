@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * @generated
  */
 public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
+
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @deprecated

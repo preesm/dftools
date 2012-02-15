@@ -71,22 +71,22 @@ public interface GraphPackage extends EPackage {
 	int GRAPH = 0;
 
 	/**
-	 * The feature id for the '<em><b>Vertices</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GRAPH__VERTICES = 0;
-
-	/**
 	 * The feature id for the '<em><b>Edges</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH__EDGES = 1;
+	int GRAPH__EDGES = 0;
+
+	/**
+	 * The feature id for the '<em><b>Vertices</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRAPH__VERTICES = 1;
 
 	/**
 	 * The number of structural features of the '<em>Graph</em>' class.
@@ -117,13 +117,13 @@ public interface GraphPackage extends EPackage {
 	int VERTEX__NAME = UtilPackage.NAMEABLE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__OUTGOING = UtilPackage.NAMEABLE_FEATURE_COUNT + 0;
+	int VERTEX__ATTRIBUTES = UtilPackage.NAMEABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
@@ -135,13 +135,13 @@ public interface GraphPackage extends EPackage {
 	int VERTEX__INCOMING = UtilPackage.NAMEABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__ATTRIBUTES = UtilPackage.NAMEABLE_FEATURE_COUNT + 2;
+	int VERTEX__OUTGOING = UtilPackage.NAMEABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Vertex</em>' class.
@@ -163,13 +163,22 @@ public interface GraphPackage extends EPackage {
 	int EDGE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE__ATTRIBUTES = 0;
+
+	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDGE__SOURCE = 0;
+	int EDGE__SOURCE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
@@ -178,16 +187,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EDGE__TARGET = 1;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE__ATTRIBUTES = 2;
+	int EDGE__TARGET = 2;
 
 	/**
 	 * The number of structural features of the '<em>Edge</em>' class.
@@ -209,10 +209,10 @@ public interface GraphPackage extends EPackage {
 	EClass getGraph();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.graph.Graph#getVertices <em>Vertices</em>}'.
+	 * Returns the meta object for the reference list '{@link net.sf.dftools.graph.Graph#getVertices <em>Vertices</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Vertices</em>'.
+	 * @return the meta object for the reference list '<em>Vertices</em>'.
 	 * @see net.sf.dftools.graph.Graph#getVertices()
 	 * @see #getGraph()
 	 * @generated
@@ -349,7 +349,7 @@ public interface GraphPackage extends EPackage {
 		EClass GRAPH = eINSTANCE.getGraph();
 
 		/**
-		 * The meta object literal for the '<em><b>Vertices</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Vertices</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
