@@ -10,6 +10,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: net.sf.dftools.graph,
  net.sf.dftools.graph.impl,
  net.sf.dftools.graph.util,
+ net.sf.dftools.graph.visit,
  net.sf.dftools.util,
  net.sf.dftools.util.impl
 Require-Bundle: org.eclipse.core.runtime,
