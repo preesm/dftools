@@ -33,6 +33,8 @@ public interface GraphFactory extends EFactory {
 	 */
 	Edge createEdge();
 
+	Edge createEdge(Vertex source, Vertex target);
+
 	/**
 	 * Returns a new object of class '<em>Graph</em>'.
 	 * <!-- begin-user-doc -->
@@ -41,7 +43,7 @@ public interface GraphFactory extends EFactory {
 	 * @generated
 	 */
 	Graph createGraph();
-
+	
 	/**
 	 * Returns a new object of class '<em>Vertex</em>'.
 	 * <!-- begin-user-doc -->
