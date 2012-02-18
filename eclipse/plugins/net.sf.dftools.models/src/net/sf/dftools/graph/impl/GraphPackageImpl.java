@@ -14,6 +14,7 @@ import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.UtilPackage;
 import net.sf.dftools.util.impl.UtilPackageImpl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -27,6 +28,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
  * @generated
  */
 public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -217,6 +219,15 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEdge_BackEdge() {
+		return (EAttribute) edgeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getEdge_Attributes() {
 		return (EReference) edgeEClass.getEStructuralFeatures().get(0);
 	}
@@ -263,6 +274,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEReference(edgeEClass, EDGE__ATTRIBUTES);
 		createEReference(edgeEClass, EDGE__SOURCE);
 		createEReference(edgeEClass, EDGE__TARGET);
+		createEAttribute(edgeEClass, EDGE__BACK_EDGE);
 	}
 
 	/**
@@ -344,6 +356,10 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				this.getVertex_Incoming(), "target", null, 0, 1, Edge.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEAttribute(getEdge_BackEdge(), ecorePackage.getEBoolean(),
+				"backEdge", null, 0, 1, Edge.class, IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 
 		// Create resource

@@ -8,6 +8,7 @@ package net.sf.dftools.graph;
 
 import net.sf.dftools.util.UtilPackage;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -190,13 +191,22 @@ public interface GraphPackage extends EPackage {
 	int EDGE__TARGET = 2;
 
 	/**
+	 * The feature id for the '<em><b>Back Edge</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE__BACK_EDGE = 3;
+
+	/**
 	 * The number of structural features of the '<em>Edge</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDGE_FEATURE_COUNT = 3;
+	int EDGE_FEATURE_COUNT = 4;
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.graph.Graph <em>Graph</em>}'.
@@ -304,6 +314,17 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEdge_Target();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.graph.Edge#isBackEdge <em>Back Edge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Back Edge</em>'.
+	 * @see net.sf.dftools.graph.Edge#isBackEdge()
+	 * @see #getEdge()
+	 * @generated
+	 */
+	EAttribute getEdge_BackEdge();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.graph.Edge#getAttributes <em>Attributes</em>}'.
@@ -423,6 +444,14 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EDGE__TARGET = eINSTANCE.getEdge_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Back Edge</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EDGE__BACK_EDGE = eINSTANCE.getEdge_BackEdge();
 
 		/**
 		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.

@@ -122,7 +122,7 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGraphAdapter() {
-		return new GraphAdapter();
+		return null;
 	}
 
 	/**

@@ -61,8 +61,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
 	 */
 	protected GraphImpl() {
 		super();

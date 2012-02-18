@@ -51,6 +51,16 @@ public interface Edge extends EObject {
 	Vertex getTarget();
 
 	/**
+	 * Returns <code>true</code> if this edge points to a node previously
+	 * visited.
+	 * 
+	 * @return <code>true</code> if this edge points to a node previously
+	 *         visited
+	 * @model transient="true"
+	 */
+	boolean isBackEdge();
+
+	/**
 	 * Sets the value of the attribute with the given name to the given value.
 	 * If no attribute exists with the given name, a new attribute is created.
 	 * 
@@ -60,6 +70,14 @@ public interface Edge extends EObject {
 	 *            value to set
 	 */
 	void setAttribute(String name, EObject value);
+
+	/**
+	 * Sets the "back edge" flag to true or false.
+	 * 
+	 * @param backEdge
+	 *            a boolean
+	 */
+	void setBackEdge(boolean backEdge);
 
 	/**
 	 * Sets the source vertex of this edge.

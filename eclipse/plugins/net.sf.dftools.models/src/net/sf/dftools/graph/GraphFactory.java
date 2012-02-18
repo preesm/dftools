@@ -43,7 +43,7 @@ public interface GraphFactory extends EFactory {
 	 * @generated
 	 */
 	Graph createGraph();
-	
+
 	/**
 	 * Returns a new object of class '<em>Vertex</em>'.
 	 * <!-- begin-user-doc -->
