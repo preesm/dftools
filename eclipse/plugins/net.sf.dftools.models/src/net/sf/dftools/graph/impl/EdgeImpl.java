@@ -12,11 +12,13 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.UtilFactory;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -314,6 +316,18 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 			}
 		}
 		return target;
+	}
+
+	@Override
+	public void setAttribute(String name, EObject value) {
+		for (Attribute attribute : getAttributes()) {
+			if (name.equals(attribute.getName())) {
+				attribute.setValue(value);
+				return;
+			}
+		}
+
+		getAttributes().add(UtilFactory.eINSTANCE.createAttribute(name, value));
 	}
 
 	/**

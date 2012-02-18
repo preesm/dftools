@@ -51,6 +51,17 @@ public interface Edge extends EObject {
 	Vertex getTarget();
 
 	/**
+	 * Sets the value of the attribute with the given name to the given value.
+	 * If no attribute exists with the given name, a new attribute is created.
+	 * 
+	 * @param name
+	 *            name of the attribute
+	 * @param value
+	 *            value to set
+	 */
+	void setAttribute(String name, EObject value);
+
+	/**
 	 * Sets the source vertex of this edge.
 	 * 
 	 * @param source
