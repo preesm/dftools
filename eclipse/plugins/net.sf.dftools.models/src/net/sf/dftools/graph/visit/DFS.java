@@ -28,6 +28,7 @@
  */
 package net.sf.dftools.graph.visit;
 
+import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Vertex;
 
 /**
@@ -36,7 +37,7 @@ import net.sf.dftools.graph.Vertex;
  * @author Matthieu Wipliez
  * 
  */
-public class DFS extends Search {
+public class DFS extends Ordering {
 
 	/**
 	 * Builds the list of vertices that can be reached from the given vertex
@@ -49,9 +50,29 @@ public class DFS extends Search {
 		doSwitch(vertex);
 	}
 
+	/**
+	 * Builds the search starting from the given vertex.
+	 * 
+	 * @param v
+	 *            a vertex
+	 */
 	@Override
-	protected void addVertex(Vertex vertex) {
-		visitList.addLast(vertex);
+	public Void caseVertex(Vertex v) {
+		visited.add(v);
+		vertices.add(v);
+
+		for (Edge edge : v.getOutgoing()) {
+			Vertex w = edge.getTarget();
+			if (visited.contains(w)) {
+				// edge goes to a node already visited
+				edge.setBackEdge(true);
+			} else {
+				edge.setBackEdge(false);
+				caseVertex(w);
+			}
+		}
+
+		return null;
 	}
 
 }

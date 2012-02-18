@@ -28,6 +28,9 @@
  */
 package net.sf.dftools.graph.visit;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import net.sf.dftools.graph.Vertex;
 
 /**
@@ -36,7 +39,7 @@ import net.sf.dftools.graph.Vertex;
  * @author Matthieu Wipliez
  * 
  */
-public class BFS extends Search {
+public class BFS extends Ordering {
 
 	/**
 	 * Builds the list of vertices that can be reached from the given vertex
@@ -49,9 +52,31 @@ public class BFS extends Search {
 		doSwitch(vertex);
 	}
 
+	/**
+	 * Builds the search starting from the given vertex.
+	 * 
+	 * @param vertex
+	 *            a vertex
+	 */
 	@Override
-	protected void addVertex(Vertex vertex) {
-		visitList.addFirst(vertex);
+	public Void caseVertex(Vertex vertex) {
+		Deque<Vertex> visitList = new ArrayDeque<Vertex>();
+		visitList.addLast(vertex);
+
+		while (!visitList.isEmpty()) {
+			Vertex next = visitList.removeFirst();
+
+			// only adds the successors if they have not been visited yet.
+			if (!visited.contains(next)) {
+				visited.add(next);
+				vertices.add(next);
+				for (Vertex succ : next.getSuccessors()) {
+					visitList.addLast(succ);
+				}
+			}
+		}
+
+		return null;
 	}
 
 }
