@@ -67,10 +67,11 @@ public abstract class Search extends Ordering {
 
 		while (!visitList.isEmpty()) {
 			Vertex next = visitList.removeFirst();
-			vertices.add(next);
 
-			if (!visited.contains(vertex)) {
-				visited.add(vertex);
+			// only adds the successors if they have not been visited yet.
+			if (!visited.contains(next)) {
+				visited.add(next);
+				vertices.add(next);
 				for (Vertex succ : next.getSuccessors()) {
 					addVertex(succ);
 				}
