@@ -28,55 +28,55 @@
  */
 package net.sf.dftools.graph.visit;
 
-import net.sf.dftools.graph.Graph;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import net.sf.dftools.graph.Vertex;
 
 /**
- * This class defines a topological sorter. This visitor can be used in two
- * ways: 1) by calling <code>doSwitch</code> on a graph to obtain its
- * topological order (updates the topological order by visiting all its vertices
- * that do not have outgoing edges) 2) by calling <code>doSwitch</code> on a
- * vertex to update the topological order by recursively visiting the
- * predecessors of that vertex.
+ * This class defines common attributes and methods for BFS/DFS.
  * 
  * @author Matthieu Wipliez
  * 
  */
-public class TopologicalSorter extends Ordering {
+public abstract class Search extends Ordering {
 
-	/**
-	 * Creates a new topological sorter.
-	 */
-	public TopologicalSorter() {
+	protected final Deque<Vertex> visitList;
+
+	public Search() {
+		visitList = new ArrayDeque<Vertex>();
 	}
 
 	/**
-	 * Builds the topological order of the given graph by calling
-	 * {@link #caseVertex(Vertex)} for each vertex of the given graph that has
-	 * no outgoing edges.
+	 * Adds the given vertex to the visit list.
 	 * 
-	 * @param graph
-	 *            a graph
+	 * @param vertex
+	 *            a vertex
 	 */
-	@Override
-	public Void caseGraph(Graph graph) {
-		for (Vertex vertex : graph.getVertices()) {
-			if (vertex.getOutgoing().isEmpty()) {
-				caseVertex(vertex);
-			}
-		}
-		return null;
-	}
+	abstract protected void addVertex(Vertex vertex);
 
+	/**
+	 * Builds the search starting from the given vertex.
+	 * 
+	 * @param vertex
+	 *            a vertex
+	 */
 	@Override
 	public Void caseVertex(Vertex vertex) {
-		if (!visited.contains(vertex)) {
-			visited.add(vertex);
-			for (Vertex pred : vertex.getPredecessors()) {
-				caseVertex(pred);
+		addVertex(vertex);
+
+		while (!visitList.isEmpty()) {
+			Vertex next = visitList.removeFirst();
+			vertices.add(next);
+
+			if (!visited.contains(vertex)) {
+				visited.add(vertex);
+				for (Vertex succ : next.getSuccessors()) {
+					addVertex(succ);
+				}
 			}
-			vertices.add(vertex);
 		}
+
 		return null;
 	}
 

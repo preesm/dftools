@@ -28,56 +28,30 @@
  */
 package net.sf.dftools.graph.visit;
 
-import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.Vertex;
 
 /**
- * This class defines a topological sorter. This visitor can be used in two
- * ways: 1) by calling <code>doSwitch</code> on a graph to obtain its
- * topological order (updates the topological order by visiting all its vertices
- * that do not have outgoing edges) 2) by calling <code>doSwitch</code> on a
- * vertex to update the topological order by recursively visiting the
- * predecessors of that vertex.
+ * This class defines Breadth-First Search (DFS) for a graph.
  * 
  * @author Matthieu Wipliez
  * 
  */
-public class TopologicalSorter extends Ordering {
+public class BFS extends Search {
 
 	/**
-	 * Creates a new topological sorter.
-	 */
-	public TopologicalSorter() {
-	}
-
-	/**
-	 * Builds the topological order of the given graph by calling
-	 * {@link #caseVertex(Vertex)} for each vertex of the given graph that has
-	 * no outgoing edges.
+	 * Builds the list of vertices that can be reached from the given vertex
+	 * using breadth-first search.
 	 * 
-	 * @param graph
-	 *            a graph
+	 * @param vertex
+	 *            a vertex
 	 */
-	@Override
-	public Void caseGraph(Graph graph) {
-		for (Vertex vertex : graph.getVertices()) {
-			if (vertex.getOutgoing().isEmpty()) {
-				caseVertex(vertex);
-			}
-		}
-		return null;
+	public BFS(Vertex vertex) {
+		doSwitch(vertex);
 	}
 
 	@Override
-	public Void caseVertex(Vertex vertex) {
-		if (!visited.contains(vertex)) {
-			visited.add(vertex);
-			for (Vertex pred : vertex.getPredecessors()) {
-				caseVertex(pred);
-			}
-			vertices.add(vertex);
-		}
-		return null;
+	protected void addVertex(Vertex vertex) {
+		visitList.addFirst(vertex);
 	}
 
 }

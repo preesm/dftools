@@ -28,56 +28,41 @@
  */
 package net.sf.dftools.graph.visit;
 
-import net.sf.dftools.graph.Graph;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.sf.dftools.graph.Vertex;
+import net.sf.dftools.graph.util.GraphSwitch;
 
 /**
- * This class defines a topological sorter. This visitor can be used in two
- * ways: 1) by calling <code>doSwitch</code> on a graph to obtain its
- * topological order (updates the topological order by visiting all its vertices
- * that do not have outgoing edges) 2) by calling <code>doSwitch</code> on a
- * vertex to update the topological order by recursively visiting the
- * predecessors of that vertex.
+ * This class defines an ordering.
  * 
  * @author Matthieu Wipliez
  * 
  */
-public class TopologicalSorter extends Ordering {
+public abstract class Ordering extends GraphSwitch<Void> {
+
+	protected final List<Vertex> vertices;
+
+	protected final Set<Vertex> visited;
 
 	/**
 	 * Creates a new topological sorter.
 	 */
-	public TopologicalSorter() {
+	public Ordering() {
+		vertices = new ArrayList<Vertex>();
+		visited = new HashSet<Vertex>();
 	}
 
 	/**
-	 * Builds the topological order of the given graph by calling
-	 * {@link #caseVertex(Vertex)} for each vertex of the given graph that has
-	 * no outgoing edges.
+	 * Returns the list of vertices in the specified order.
 	 * 
-	 * @param graph
-	 *            a graph
+	 * @return the list of vertices in the specified order
 	 */
-	@Override
-	public Void caseGraph(Graph graph) {
-		for (Vertex vertex : graph.getVertices()) {
-			if (vertex.getOutgoing().isEmpty()) {
-				caseVertex(vertex);
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public Void caseVertex(Vertex vertex) {
-		if (!visited.contains(vertex)) {
-			visited.add(vertex);
-			for (Vertex pred : vertex.getPredecessors()) {
-				caseVertex(pred);
-			}
-			vertices.add(vertex);
-		}
-		return null;
+	public List<Vertex> getVertices() {
+		return vertices;
 	}
 
 }
