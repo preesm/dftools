@@ -112,17 +112,11 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.graph.Graph <em>Graph</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
+	 * Creates a new graph adapter.
 	 * @return the new adapter.
-	 * @see net.sf.dftools.graph.Graph
-	 * @generated
 	 */
 	public Adapter createGraphAdapter() {
-		return null;
+		return new GraphAdapter();
 	}
 
 	/**
