@@ -34,7 +34,7 @@ import java.util.Deque;
 import net.sf.dftools.graph.Vertex;
 
 /**
- * This class defines Breadth-First Search (DFS) for a graph.
+ * This class defines Breadth-First Search (BFS) for a graph.
  * 
  * @author Matthieu Wipliez
  * 
