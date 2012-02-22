@@ -390,7 +390,10 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	public void setAttribute(String name, Object value) {
 		for (Attribute attribute : getAttributes()) {
 			if (name.equals(attribute.getName())) {
-				if (value instanceof EObject) {
+				if (value instanceof EObject
+						&& ((EObject) value).eContainer() == null) {
+					// only add to attribute if the value is not already
+					// contained
 					attribute.setValue((EObject) value);
 				} else {
 					attribute.setRuntimeValue(value);

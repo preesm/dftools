@@ -93,7 +93,8 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 	public Attribute createAttribute(String name, Object value) {
 		AttributeImpl attribute = new AttributeImpl();
 		attribute.setName(name);
-		if (value instanceof EObject) {
+		if (value instanceof EObject && ((EObject) value).eContainer() == null) {
+			// only add to attribute if the value is not already contained
 			attribute.setValue((EObject) value);
 		} else {
 			attribute.setRuntimeValue(value);

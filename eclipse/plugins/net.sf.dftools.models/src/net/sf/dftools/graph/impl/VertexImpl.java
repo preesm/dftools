@@ -33,19 +33,23 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getAttributes <em>Attributes</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getIncoming <em>Incoming</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getOutgoing <em>Outgoing</em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.VertexImpl#getAttributes <em>Attributes
+ * </em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.VertexImpl#getIncoming <em>Incoming
+ * </em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.VertexImpl#getOutgoing <em>Outgoing
+ * </em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getAttributes()
 	 * @generated
 	 * @ordered
@@ -53,8 +57,9 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	protected EList<Attribute> attributes;
 
 	/**
-	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}'
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getIncoming()
 	 * @generated
 	 * @ordered
@@ -62,8 +67,9 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	protected EList<Edge> incoming;
 
 	/**
-	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}'
+	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getOutgoing()
 	 * @generated
 	 * @ordered
@@ -72,6 +78,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected VertexImpl() {
@@ -80,6 +87,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -97,6 +105,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -116,6 +125,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -137,6 +147,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -154,6 +165,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -178,6 +190,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -187,6 +200,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -217,6 +231,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Attribute> getAttributes() {
@@ -229,6 +244,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Edge> getIncoming() {
@@ -242,6 +258,7 @@ public class VertexImpl extends NameableImpl implements Vertex {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Edge> getOutgoing() {
@@ -281,7 +298,10 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	public void setAttribute(String name, Object value) {
 		for (Attribute attribute : getAttributes()) {
 			if (name.equals(attribute.getName())) {
-				if (value instanceof EObject) {
+				if (value instanceof EObject
+						&& ((EObject) value).eContainer() == null) {
+					// only add to attribute if the value is not already
+					// contained
 					attribute.setValue((EObject) value);
 				} else {
 					attribute.setRuntimeValue(value);
