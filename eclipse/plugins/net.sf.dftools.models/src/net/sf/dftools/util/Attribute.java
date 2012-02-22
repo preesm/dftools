@@ -27,16 +27,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Attribute extends EObject {
 
-	String CUSTOM = "Custom";
-
-	String FLAG = "Flag";
-
-	String STRING = "String";
-
-	String TYPE = "Type";
-
-	String VALUE = "Value";
-
 	/**
 	 * Returns the name of this attribute.
 	 * 
