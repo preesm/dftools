@@ -11,19 +11,17 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Attribute</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}</li>
- * <li>{@link net.sf.dftools.util.Attribute#getContainedValue <em>Contained
- * Value</em>}</li>
- * <li>{@link net.sf.dftools.util.Attribute#getPojoValue <em>Pojo Value</em>}</li>
- * <li>{@link net.sf.dftools.util.Attribute#getReferencedValue <em>Referenced
- * Value</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getContainedValue <em>Contained Value</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getPojoValue <em>Pojo Value</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getReferencedValue <em>Referenced Value</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see net.sf.dftools.util.UtilPackage#getAttribute()
  * @model
  * @generated

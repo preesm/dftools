@@ -2,13 +2,16 @@
  */
 package net.sf.dftools.util.util;
 
-import net.sf.dftools.util.*;
+import net.sf.dftools.util.Attributable;
+import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.UtilPackage;
+import net.sf.dftools.util.WrapperString;
+import net.sf.dftools.util.WrapperXml;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

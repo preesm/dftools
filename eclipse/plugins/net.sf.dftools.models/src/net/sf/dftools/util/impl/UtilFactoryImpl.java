@@ -2,14 +2,16 @@
  */
 package net.sf.dftools.util.impl;
 
-import net.sf.dftools.util.*;
+import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.UtilFactory;
+import net.sf.dftools.util.UtilPackage;
+import net.sf.dftools.util.WrapperString;
+import net.sf.dftools.util.WrapperXml;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**

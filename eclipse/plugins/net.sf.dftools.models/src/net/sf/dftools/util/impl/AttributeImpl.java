@@ -43,13 +43,13 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The default value of the '{@link #getPojoValue() <em>Pojo Value</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getPojoValue()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object POJO_VALUE_EDEFAULT = null;
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getContainedValue() <em>Contained Value</em>}' containment reference.
@@ -62,13 +62,13 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 	protected EObject containedValue;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getPojoValue() <em>Pojo Value</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getPojoValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected String name = NAME_EDEFAULT;
+	protected static final Object POJO_VALUE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getPojoValue() <em>Pojo Value</em>}' attribute.

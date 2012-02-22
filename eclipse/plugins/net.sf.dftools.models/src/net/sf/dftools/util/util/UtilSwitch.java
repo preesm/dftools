@@ -2,11 +2,15 @@
  */
 package net.sf.dftools.util.util;
 
-import net.sf.dftools.util.*;
+import net.sf.dftools.util.Attributable;
+import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.UtilPackage;
+import net.sf.dftools.util.WrapperString;
+import net.sf.dftools.util.WrapperXml;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
 /**
