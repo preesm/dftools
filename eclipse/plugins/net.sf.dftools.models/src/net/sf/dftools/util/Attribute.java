@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}</li>
  *   <li>{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}</li>
+ *   <li>{@link net.sf.dftools.util.Attribute#getRuntimeValue <em>Runtime Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,55 +38,51 @@ public interface Attribute extends EObject {
 	String VALUE = "Value";
 
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute. <!--
-	 * begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear, there really
-	 * should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+	 * Returns the name of this attribute.
 	 * 
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see net.sf.dftools.graph.GraphPackage#getAttribute_Name()
+	 * @return the name of this attribute
 	 * @model
-	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
+	 * Returns the runtime value associated with this attribute. This field is
+	 * reserved for runtime-only values, as it is not serialized.
+	 * 
+	 * @model transient="true"
 	 */
-	void setName(String value);
+	Object getRuntimeValue();
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' reference. <!--
-	 * begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value</em>' reference isn't clear, there
-	 * really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
+	 * Returns the value contained in this attribute. To use a runtime value,
+	 * use the {@link #getRuntimeValue()} method.
 	 * 
-	 * @return the value of the '<em>Value</em>' reference.
-	 * @see #setValue(EObject)
-	 * @see net.sf.dftools.graph.GraphPackage#getAttribute_Value()
-	 * @model
-	 * @generated
+	 * @model containment="true"
 	 */
 	EObject getValue();
 
 	/**
-	 * Sets the value of the '{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' reference.
-	 * @see #getValue()
-	 * @generated
+	 * Sets the name of this attribute.
+	 * 
+	 * @param name
+	 *            the new name of this attribute
+	 */
+	void setName(String name);
+
+	/**
+	 * Sets the new runtime value associated with this attribute.
+	 * 
+	 * @param value
+	 *            the new runtime value
+	 */
+	void setRuntimeValue(Object value);
+
+	/**
+	 * Sets the value contained in this attribute.
+	 * 
+	 * @param value
+	 *            the new value of this attribute.
 	 */
 	void setValue(EObject value);
 
-} // Attribute
+}

@@ -66,13 +66,17 @@ public interface Edge extends EObject {
 	 * and inserted at the beginning of the attribute list. This makes it easier
 	 * to reference attributes by their index (the last attribute that was added
 	 * will be at index 0, not index getAttributes().size() - 1).
+	 * <p>
+	 * If the given value is not an instance of EObject, it is set as a runtime
+	 * value of the attribute.
+	 * </p>
 	 * 
 	 * @param name
 	 *            name of the attribute
 	 * @param value
 	 *            value to set
 	 */
-	void setAttribute(String name, EObject value);
+	void setAttribute(String name, Object value);
 
 	/**
 	 * Sets the "back edge" flag to true or false.

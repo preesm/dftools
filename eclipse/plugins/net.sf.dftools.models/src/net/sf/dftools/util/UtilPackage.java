@@ -75,7 +75,7 @@ public interface UtilPackage extends EPackage {
 	int ATTRIBUTE__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' reference.
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -84,13 +84,22 @@ public interface UtilPackage extends EPackage {
 	int ATTRIBUTE__VALUE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Runtime Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE__RUNTIME_VALUE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FEATURE_COUNT = 2;
+	int ATTRIBUTE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.util.impl.NameableImpl <em>Nameable</em>}' class.
@@ -198,15 +207,26 @@ public interface UtilPackage extends EPackage {
 	EAttribute getAttribute_Name();
 
 	/**
-	 * Returns the meta object for the reference '{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Value</em>'.
+	 * @return the meta object for the containment reference '<em>Value</em>'.
 	 * @see net.sf.dftools.util.Attribute#getValue()
 	 * @see #getAttribute()
 	 * @generated
 	 */
 	EReference getAttribute_Value();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.util.Attribute#getRuntimeValue <em>Runtime Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Runtime Value</em>'.
+	 * @see net.sf.dftools.util.Attribute#getRuntimeValue()
+	 * @see #getAttribute()
+	 * @generated
+	 */
+	EAttribute getAttribute_RuntimeValue();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.util.Nameable <em>Nameable</em>}'.
@@ -312,12 +332,21 @@ public interface UtilPackage extends EPackage {
 		EAttribute ATTRIBUTE__NAME = eINSTANCE.getAttribute_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference ATTRIBUTE__VALUE = eINSTANCE.getAttribute_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Runtime Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ATTRIBUTE__RUNTIME_VALUE = eINSTANCE
+				.getAttribute_RuntimeValue();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.util.impl.NameableImpl <em>Nameable</em>}' class.

@@ -3,7 +3,6 @@
 package net.sf.dftools.util;
 
 import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
@@ -29,7 +28,7 @@ public interface UtilFactory extends EFactory {
 	 */
 	Attribute createAttribute();
 
-	Attribute createAttribute(String name, EObject value);
+	Attribute createAttribute(String name, Object value);
 
 	/**
 	 * Returns a new object of class '<em>Wrapper String</em>'.

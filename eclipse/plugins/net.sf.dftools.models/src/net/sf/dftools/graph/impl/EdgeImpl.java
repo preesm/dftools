@@ -32,20 +32,22 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getAttributes <em>Attributes</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#isBackEdge <em>Back Edge</em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getAttributes <em>Attributes
+ * </em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
+ * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#isBackEdge <em>Back Edge</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}'
+	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getAttributes()
 	 * @generated
 	 * @ordered
@@ -55,6 +57,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getSource()
 	 * @generated
 	 * @ordered
@@ -64,6 +67,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -71,9 +75,9 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	protected Vertex target;
 
 	/**
-	 * The default value of the '{@link #isBackEdge() <em>Back Edge</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The default value of the '{@link #isBackEdge() <em>Back Edge</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #isBackEdge()
 	 * @generated
 	 * @ordered
@@ -81,9 +85,9 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	protected static final boolean BACK_EDGE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isBackEdge() <em>Back Edge</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * The cached value of the '{@link #isBackEdge() <em>Back Edge</em>}'
+	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @see #isBackEdge()
 	 * @generated
 	 * @ordered
@@ -92,6 +96,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected EdgeImpl() {
@@ -100,6 +105,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Vertex basicGetSource() {
@@ -108,6 +114,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Vertex basicGetTarget() {
@@ -116,6 +123,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetSource(Vertex newSource,
@@ -136,6 +144,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetTarget(Vertex newTarget,
@@ -156,6 +165,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -179,6 +189,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -201,6 +212,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -220,6 +232,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -238,8 +251,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -256,6 +269,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -281,6 +295,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -290,6 +305,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -323,6 +339,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public EList<Attribute> getAttributes() {
@@ -335,6 +352,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Vertex getSource() {
@@ -352,6 +370,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public Vertex getTarget() {
@@ -368,10 +387,14 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	}
 
 	@Override
-	public void setAttribute(String name, EObject value) {
+	public void setAttribute(String name, Object value) {
 		for (Attribute attribute : getAttributes()) {
 			if (name.equals(attribute.getName())) {
-				attribute.setValue(value);
+				if (value instanceof EObject) {
+					attribute.setValue((EObject) value);
+				} else {
+					attribute.setRuntimeValue(value);
+				}
 				return;
 			}
 		}
@@ -381,6 +404,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setSource(Vertex newSource) {
@@ -402,6 +426,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setTarget(Vertex newTarget) {
@@ -422,8 +447,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public boolean isBackEdge() {
@@ -431,8 +456,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public void setBackEdge(boolean newBackEdge) {

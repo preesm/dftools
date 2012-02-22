@@ -28,6 +28,7 @@
     <genClasses ecoreClass="Util.ecore#//Attribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Util.ecore#//Attribute/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Util.ecore#//Attribute/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Util.ecore#//Attribute/runtimeValue"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Util.ecore#//Nameable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Util.ecore#//Nameable/name"/>

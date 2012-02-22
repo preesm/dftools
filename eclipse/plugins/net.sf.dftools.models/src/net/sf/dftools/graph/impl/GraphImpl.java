@@ -29,20 +29,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link net.sf.dftools.graph.impl.GraphImpl#getEdges <em>Edges</em>}</li>
- * <li>{@link net.sf.dftools.graph.impl.GraphImpl#getVertices <em>Vertices</em>}
- * </li>
+ *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getEdges <em>Edges</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.GraphImpl#getVertices <em>Vertices</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
-	 * The cached value of the '{@link #getEdges() <em>Edges</em>}' containment
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getEdges() <em>Edges</em>}' containment reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getEdges()
 	 * @generated
 	 * @ordered
@@ -50,9 +48,8 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	protected EList<Edge> edges;
 
 	/**
-	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}'
-	 * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}' reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getVertices()
 	 * @generated
 	 * @ordered
@@ -71,7 +68,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -87,7 +83,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -102,7 +97,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -118,7 +112,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -139,7 +132,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -149,7 +141,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -167,7 +158,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Edge> getEdges() {
@@ -180,7 +170,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public EList<Vertex> getVertices() {

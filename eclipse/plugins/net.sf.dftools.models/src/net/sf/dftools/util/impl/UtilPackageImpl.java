@@ -162,6 +162,15 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAttribute_RuntimeValue() {
+		return (EAttribute) attributeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNameable() {
 		return nameableEClass;
 	}
@@ -243,6 +252,7 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 		attributeEClass = createEClass(ATTRIBUTE);
 		createEAttribute(attributeEClass, ATTRIBUTE__NAME);
 		createEReference(attributeEClass, ATTRIBUTE__VALUE);
+		createEAttribute(attributeEClass, ATTRIBUTE__RUNTIME_VALUE);
 
 		nameableEClass = createEClass(NAMEABLE);
 		createEAttribute(nameableEClass, NAMEABLE__NAME);
@@ -297,8 +307,12 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 				IS_ORDERED);
 		initEReference(getAttribute_Value(), theEcorePackage.getEObject(),
 				null, "value", null, 0, 1, Attribute.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAttribute_RuntimeValue(),
+				ecorePackage.getEJavaObject(), "runtimeValue", null, 0, 1,
+				Attribute.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nameableEClass, Nameable.class, "Nameable", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -278,10 +278,14 @@ public class VertexImpl extends NameableImpl implements Vertex {
 	}
 
 	@Override
-	public void setAttribute(String name, EObject value) {
+	public void setAttribute(String name, Object value) {
 		for (Attribute attribute : getAttributes()) {
 			if (name.equals(attribute.getName())) {
-				attribute.setValue(value);
+				if (value instanceof EObject) {
+					attribute.setValue((EObject) value);
+				} else {
+					attribute.setRuntimeValue(value);
+				}
 				return;
 			}
 		}
