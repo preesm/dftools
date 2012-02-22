@@ -12,6 +12,7 @@ import net.sf.dftools.util.Attribute;
 import net.sf.dftools.util.Nameable;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * This class defines a vertex. A vertex has incoming edges and outgoing edges.
@@ -64,5 +65,19 @@ public interface Vertex extends Nameable {
 	 * @return the list of successors of this vertex
 	 */
 	List<Vertex> getSuccessors();
+
+	/**
+	 * Sets the value of the attribute with the given name to the given value.
+	 * If no attribute exists with the given name, a new attribute is created
+	 * and inserted at the beginning of the attribute list. This makes it easier
+	 * to reference attributes by their index (the last attribute that was added
+	 * will be at index 0, not index getAttributes().size() - 1).
+	 * 
+	 * @param name
+	 *            name of the attribute
+	 * @param value
+	 *            value to set
+	 */
+	void setAttribute(String name, EObject value);
 
 }

@@ -6,6 +6,8 @@
  */
 package net.sf.dftools.graph.impl;
 
+import static net.sf.dftools.util.UtilFactory.eINSTANCE;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,12 +19,10 @@ import net.sf.dftools.util.Attribute;
 import net.sf.dftools.util.impl.NameableImpl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -275,6 +275,18 @@ public class VertexImpl extends NameableImpl implements Vertex {
 			}
 		}
 		return successors;
+	}
+
+	@Override
+	public void setAttribute(String name, EObject value) {
+		for (Attribute attribute : getAttributes()) {
+			if (name.equals(attribute.getName())) {
+				attribute.setValue(value);
+				return;
+			}
+		}
+
+		getAttributes().add(0, eINSTANCE.createAttribute(name, value));
 	}
 
 } // VertexImpl

@@ -6,13 +6,14 @@
  */
 package net.sf.dftools.graph.impl;
 
+import static net.sf.dftools.util.UtilFactory.eINSTANCE;
+
 import java.util.Collection;
 
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.Attribute;
-import net.sf.dftools.util.UtilFactory;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -375,7 +376,7 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 			}
 		}
 
-		getAttributes().add(UtilFactory.eINSTANCE.createAttribute(name, value));
+		getAttributes().add(0, eINSTANCE.createAttribute(name, value));
 	}
 
 	/**

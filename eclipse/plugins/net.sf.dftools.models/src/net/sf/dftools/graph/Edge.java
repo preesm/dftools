@@ -62,7 +62,10 @@ public interface Edge extends EObject {
 
 	/**
 	 * Sets the value of the attribute with the given name to the given value.
-	 * If no attribute exists with the given name, a new attribute is created.
+	 * If no attribute exists with the given name, a new attribute is created
+	 * and inserted at the beginning of the attribute list. This makes it easier
+	 * to reference attributes by their index (the last attribute that was added
+	 * will be at index 0, not index getAttributes().size() - 1).
 	 * 
 	 * @param name
 	 *            name of the attribute
