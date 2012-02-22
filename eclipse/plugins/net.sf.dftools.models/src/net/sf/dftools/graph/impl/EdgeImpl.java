@@ -6,25 +6,16 @@
  */
 package net.sf.dftools.graph.impl;
 
-import static net.sf.dftools.util.UtilFactory.eINSTANCE;
-
-import java.util.Collection;
-
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.util.Attribute;
+import net.sf.dftools.util.impl.AttributableImpl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -32,32 +23,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getAttributes <em>Attributes
- * </em>}</li>
- * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
- * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
- * <li>{@link net.sf.dftools.graph.impl.EdgeImpl#isBackEdge <em>Back Edge</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#isBackEdge <em>Back Edge</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
-public class EdgeImpl extends EObjectImpl implements Edge {
-
-	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @see #getAttributes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Attribute> attributes;
+public class EdgeImpl extends AttributableImpl implements Edge {
 
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getSource()
 	 * @generated
 	 * @ordered
@@ -67,7 +45,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -75,9 +52,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	protected Vertex target;
 
 	/**
-	 * The default value of the '{@link #isBackEdge() <em>Back Edge</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #isBackEdge() <em>Back Edge</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #isBackEdge()
 	 * @generated
 	 * @ordered
@@ -85,9 +61,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 	protected static final boolean BACK_EDGE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isBackEdge() <em>Back Edge</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #isBackEdge() <em>Back Edge</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #isBackEdge()
 	 * @generated
 	 * @ordered
@@ -96,7 +71,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected EdgeImpl() {
@@ -105,7 +79,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Vertex basicGetSource() {
@@ -114,7 +87,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Vertex basicGetTarget() {
@@ -123,7 +95,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetSource(Vertex newSource,
@@ -144,7 +115,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public NotificationChain basicSetTarget(Vertex newTarget,
@@ -165,14 +135,11 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GraphPackage.EDGE__ATTRIBUTES:
-			return getAttributes();
 		case GraphPackage.EDGE__SOURCE:
 			if (resolve)
 				return getSource();
@@ -189,7 +156,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -212,16 +178,12 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd,
 			int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case GraphPackage.EDGE__ATTRIBUTES:
-			return ((InternalEList<?>) getAttributes()).basicRemove(otherEnd,
-					msgs);
 		case GraphPackage.EDGE__SOURCE:
 			return basicSetSource(null, msgs);
 		case GraphPackage.EDGE__TARGET:
@@ -232,14 +194,11 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GraphPackage.EDGE__ATTRIBUTES:
-			return attributes != null && !attributes.isEmpty();
 		case GraphPackage.EDGE__SOURCE:
 			return source != null;
 		case GraphPackage.EDGE__TARGET:
@@ -252,34 +211,11 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (backEdge: ");
-		result.append(backEdge);
-		result.append(')');
-		return result.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GraphPackage.EDGE__ATTRIBUTES:
-			getAttributes().clear();
-			getAttributes().addAll((Collection<? extends Attribute>) newValue);
-			return;
 		case GraphPackage.EDGE__SOURCE:
 			setSource((Vertex) newValue);
 			return;
@@ -295,7 +231,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -305,15 +240,11 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GraphPackage.EDGE__ATTRIBUTES:
-			getAttributes().clear();
-			return;
 		case GraphPackage.EDGE__SOURCE:
 			setSource((Vertex) null);
 			return;
@@ -327,32 +258,8 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 		super.eUnset(featureID);
 	}
 
-	@Override
-	public Attribute getAttribute(String name) {
-		for (Attribute attribute : getAttributes()) {
-			if (name.equals(attribute.getName())) {
-				return attribute;
-			}
-		}
-		return null;
-	}
-
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public EList<Attribute> getAttributes() {
-		if (attributes == null) {
-			attributes = new EObjectContainmentEList<Attribute>(
-					Attribute.class, this, GraphPackage.EDGE__ATTRIBUTES);
-		}
-		return attributes;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Vertex getSource() {
@@ -370,7 +277,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Vertex getTarget() {
@@ -386,28 +292,28 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 		return target;
 	}
 
-	@Override
-	public void setAttribute(String name, Object value) {
-		for (Attribute attribute : getAttributes()) {
-			if (name.equals(attribute.getName())) {
-				if (value instanceof EObject
-						&& ((EObject) value).eContainer() == null) {
-					// only add to attribute if the value is not already
-					// contained
-					attribute.setValue((EObject) value);
-				} else {
-					attribute.setRuntimeValue(value);
-				}
-				return;
-			}
-		}
-
-		getAttributes().add(0, eINSTANCE.createAttribute(name, value));
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isBackEdge() {
+		return backEdge;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * @generated
+	 */
+	public void setBackEdge(boolean newBackEdge) {
+		boolean oldBackEdge = backEdge;
+		backEdge = newBackEdge;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphPackage.EDGE__BACK_EDGE, oldBackEdge, backEdge));
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setSource(Vertex newSource) {
@@ -429,7 +335,6 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setTarget(Vertex newTarget) {
@@ -451,24 +356,18 @@ public class EdgeImpl extends EObjectImpl implements Edge {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
-	public boolean isBackEdge() {
-		return backEdge;
-	}
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 */
-	public void setBackEdge(boolean newBackEdge) {
-		boolean oldBackEdge = backEdge;
-		backEdge = newBackEdge;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphPackage.EDGE__BACK_EDGE, oldBackEdge, backEdge));
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (backEdge: ");
+		result.append(backEdge);
+		result.append(')');
+		return result.toString();
 	}
 
 } // EdgeImpl

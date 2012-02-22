@@ -166,15 +166,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getVertex_Outgoing() {
-		return (EReference) vertexEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getVertex_Incoming() {
 		return (EReference) vertexEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -183,7 +174,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVertex_Attributes() {
+	public EReference getVertex_Incoming() {
 		return (EReference) vertexEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -202,7 +193,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getEdge_Source() {
-		return (EReference) edgeEClass.getEStructuralFeatures().get(1);
+		return (EReference) edgeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -211,7 +202,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getEdge_Target() {
-		return (EReference) edgeEClass.getEStructuralFeatures().get(2);
+		return (EReference) edgeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -220,16 +211,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EAttribute getEdge_BackEdge() {
-		return (EAttribute) edgeEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEdge_Attributes() {
-		return (EReference) edgeEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) edgeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -266,12 +248,10 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEReference(graphEClass, GRAPH__VERTICES);
 
 		vertexEClass = createEClass(VERTEX);
-		createEReference(vertexEClass, VERTEX__ATTRIBUTES);
 		createEReference(vertexEClass, VERTEX__INCOMING);
 		createEReference(vertexEClass, VERTEX__OUTGOING);
 
 		edgeEClass = createEClass(EDGE);
-		createEReference(edgeEClass, EDGE__ATTRIBUTES);
 		createEReference(edgeEClass, EDGE__SOURCE);
 		createEReference(edgeEClass, EDGE__TARGET);
 		createEAttribute(edgeEClass, EDGE__BACK_EDGE);
@@ -310,7 +290,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		vertexEClass.getESuperTypes().add(theUtilPackage.getNameable());
+		vertexEClass.getESuperTypes().add(theUtilPackage.getAttributable());
+		edgeEClass.getESuperTypes().add(theUtilPackage.getAttributable());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(graphEClass, Graph.class, "Graph", !IS_ABSTRACT,
@@ -326,10 +307,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		initEClass(vertexEClass, Vertex.class, "Vertex", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getVertex_Attributes(), theUtilPackage.getAttribute(),
-				null, "attributes", null, 0, -1, Vertex.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVertex_Incoming(), this.getEdge(),
 				this.getEdge_Target(), "incoming", null, 0, -1, Vertex.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
@@ -343,10 +320,6 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		initEClass(edgeEClass, Edge.class, "Edge", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEdge_Attributes(), theUtilPackage.getAttribute(),
-				null, "attributes", null, 0, -1, Edge.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEdge_Source(), this.getVertex(),
 				this.getVertex_Outgoing(), "source", null, 0, 1, Edge.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,

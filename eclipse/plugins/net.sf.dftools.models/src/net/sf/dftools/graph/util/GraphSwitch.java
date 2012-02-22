@@ -10,7 +10,7 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.Attributable;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -84,7 +84,7 @@ public class GraphSwitch<T> extends Switch<T> {
 			Vertex vertex = (Vertex) theEObject;
 			T result = caseVertex(vertex);
 			if (result == null)
-				result = caseNameable(vertex);
+				result = caseAttributable(vertex);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -92,6 +92,8 @@ public class GraphSwitch<T> extends Switch<T> {
 		case GraphPackage.EDGE: {
 			Edge edge = (Edge) theEObject;
 			T result = caseEdge(edge);
+			if (result == null)
+				result = caseAttributable(edge);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -117,17 +119,17 @@ public class GraphSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Nameable</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Attributable</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Nameable</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Attributable</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseNameable(Nameable object) {
+	public T caseAttributable(Attributable object) {
 		return null;
 	}
 

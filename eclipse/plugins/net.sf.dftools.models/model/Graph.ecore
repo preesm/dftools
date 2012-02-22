@@ -7,17 +7,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="vertices" upperBound="-1"
         eType="#//Vertex"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Vertex" eSuperTypes="Util.ecore#//Nameable">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
-        eType="ecore:EClass Util.ecore#//Attribute" containment="true" resolveProxies="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Vertex" eSuperTypes="Util.ecore#//Attributable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" upperBound="-1"
         eType="#//Edge" eOpposite="#//Edge/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" upperBound="-1"
         eType="#//Edge" eOpposite="#//Edge/source"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Edge">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
-        eType="ecore:EClass Util.ecore#//Attribute" containment="true" resolveProxies="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Edge" eSuperTypes="Util.ecore#//Attributable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Vertex"
         eOpposite="#//Vertex/outgoing"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Vertex"

@@ -87,6 +87,11 @@ public class UtilAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseAttributable(Attributable object) {
+			return createAttributableAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -158,6 +163,20 @@ public class UtilAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWrapperXmlAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link net.sf.dftools.util.Attributable <em>Attributable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see net.sf.dftools.util.Attributable
+	 * @generated
+	 */
+	public Adapter createAttributableAdapter() {
 		return null;
 	}
 

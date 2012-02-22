@@ -10,7 +10,7 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.Attributable;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -88,8 +88,8 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseNameable(Nameable object) {
-			return createNameableAdapter();
+		public Adapter caseAttributable(Attributable object) {
+			return createAttributableAdapter();
 		}
 
 		@Override
@@ -120,16 +120,16 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.util.Nameable <em>Nameable</em>}'.
+	 * Creates a new adapter for an object of class '{@link net.sf.dftools.util.Attributable <em>Attributable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see net.sf.dftools.util.Nameable
+	 * @see net.sf.dftools.util.Attributable
 	 * @generated
 	 */
-	public Adapter createNameableAdapter() {
+	public Adapter createAttributableAdapter() {
 		return null;
 	}
 

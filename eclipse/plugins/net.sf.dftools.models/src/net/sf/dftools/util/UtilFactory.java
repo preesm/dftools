@@ -3,6 +3,7 @@
 package net.sf.dftools.util;
 
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
@@ -28,12 +29,33 @@ public interface UtilFactory extends EFactory {
 	 */
 	Attribute createAttribute();
 
+	/**
+	 * Creates a new attribute with the given name and POJO value.
+	 * 
+	 * @param name
+	 *            name of the attribute
+	 * @param value
+	 *            a POJO
+	 * @return a new attribute
+	 */
 	Attribute createAttribute(String name, Object value);
 
 	/**
-	 * Returns a new object of class '<em>Wrapper String</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * Creates a new attribute with the given name and value. If the given value
+	 * has no container, the new attribute becomes its new container.
+	 * 
+	 * @param name
+	 *            name of the attribute
+	 * @param value
+	 *            an EMF EObject
+	 * @return a new attribute
+	 */
+	Attribute createAttribute(String name, EObject value);
+
+	/**
+	 * Returns a new object of class '<em>Wrapper String</em>'. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Wrapper String</em>'.
 	 * @generated
 	 */
@@ -43,8 +65,8 @@ public interface UtilFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>Wrapper Xml</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
 	 * @return a new object of class '<em>Wrapper Xml</em>'.
 	 * @generated
 	 */

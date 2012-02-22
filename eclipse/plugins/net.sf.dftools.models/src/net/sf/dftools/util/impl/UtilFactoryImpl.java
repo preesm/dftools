@@ -15,13 +15,11 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */
@@ -31,9 +29,9 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 	}
 
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static UtilFactory init() {
@@ -50,9 +48,9 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public UtilFactoryImpl() {
@@ -61,7 +59,6 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -81,7 +78,6 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Attribute createAttribute() {
@@ -93,18 +89,20 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 	public Attribute createAttribute(String name, Object value) {
 		AttributeImpl attribute = new AttributeImpl();
 		attribute.setName(name);
-		if (value instanceof EObject && ((EObject) value).eContainer() == null) {
-			// only add to attribute if the value is not already contained
-			attribute.setValue((EObject) value);
-		} else {
-			attribute.setRuntimeValue(value);
-		}
+		attribute.setPojoValue(value);
+		return attribute;
+	}
+
+	@Override
+	public Attribute createAttribute(String name, EObject value) {
+		AttributeImpl attribute = new AttributeImpl();
+		attribute.setName(name);
+		attribute.setValue(value);
 		return attribute;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public WrapperString createWrapperString() {
@@ -121,7 +119,6 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public WrapperXml createWrapperXml() {
@@ -131,7 +128,6 @@ public class UtilFactoryImpl extends EFactoryImpl implements UtilFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public UtilPackage getUtilPackage() {

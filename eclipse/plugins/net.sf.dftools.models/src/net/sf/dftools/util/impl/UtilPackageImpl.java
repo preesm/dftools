@@ -6,6 +6,7 @@ import net.sf.dftools.graph.GraphPackage;
 
 import net.sf.dftools.graph.impl.GraphPackageImpl;
 
+import net.sf.dftools.util.Attributable;
 import net.sf.dftools.util.Attribute;
 import net.sf.dftools.util.Nameable;
 import net.sf.dftools.util.UtilFactory;
@@ -55,6 +56,13 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * @generated
 	 */
 	private EClass wrapperXmlEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass attributableEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -153,7 +161,7 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getAttribute_Value() {
+	public EReference getAttribute_ContainedValue() {
 		return (EReference) attributeEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -162,8 +170,17 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAttribute_RuntimeValue() {
+	public EAttribute getAttribute_PojoValue() {
 		return (EAttribute) attributeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAttribute_ReferencedValue() {
+		return (EReference) attributeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -225,6 +242,24 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAttributable() {
+		return attributableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAttributable_Attributes() {
+		return (EReference) attributableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public UtilFactory getUtilFactory() {
 		return (UtilFactory) getEFactoryInstance();
 	}
@@ -251,8 +286,9 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 		// Create classes and their features
 		attributeEClass = createEClass(ATTRIBUTE);
 		createEAttribute(attributeEClass, ATTRIBUTE__NAME);
-		createEReference(attributeEClass, ATTRIBUTE__VALUE);
-		createEAttribute(attributeEClass, ATTRIBUTE__RUNTIME_VALUE);
+		createEReference(attributeEClass, ATTRIBUTE__CONTAINED_VALUE);
+		createEAttribute(attributeEClass, ATTRIBUTE__POJO_VALUE);
+		createEReference(attributeEClass, ATTRIBUTE__REFERENCED_VALUE);
 
 		nameableEClass = createEClass(NAMEABLE);
 		createEAttribute(nameableEClass, NAMEABLE__NAME);
@@ -262,6 +298,9 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 
 		wrapperXmlEClass = createEClass(WRAPPER_XML);
 		createEAttribute(wrapperXmlEClass, WRAPPER_XML__XML);
+
+		attributableEClass = createEClass(ATTRIBUTABLE);
+		createEReference(attributableEClass, ATTRIBUTABLE__ATTRIBUTES);
 	}
 
 	/**
@@ -305,14 +344,20 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 				null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
-		initEReference(getAttribute_Value(), theEcorePackage.getEObject(),
-				null, "value", null, 0, 1, Attribute.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAttribute_RuntimeValue(),
-				ecorePackage.getEJavaObject(), "runtimeValue", null, 0, 1,
-				Attribute.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAttribute_ContainedValue(),
+				theEcorePackage.getEObject(), null, "containedValue", null, 0,
+				1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAttribute_PojoValue(), ecorePackage.getEJavaObject(),
+				"pojoValue", null, 0, 1, Attribute.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEReference(getAttribute_ReferencedValue(),
+				theEcorePackage.getEObject(), null, "referencedValue", null, 0,
+				1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(nameableEClass, Nameable.class, "Nameable", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -334,6 +379,13 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 				null, 0, 1, WrapperXml.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+
+		initEClass(attributableEClass, Attributable.class, "Attributable",
+				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAttributable_Attributes(), this.getAttribute(), null,
+				"attributes", null, 0, -1, Attributable.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -8,8 +8,7 @@ package net.sf.dftools.graph;
 
 import java.util.List;
 
-import net.sf.dftools.util.Attribute;
-import net.sf.dftools.util.Nameable;
+import net.sf.dftools.util.Attributable;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,18 +19,7 @@ import org.eclipse.emf.common.util.EList;
  * 
  * @model
  */
-public interface Vertex extends Nameable {
-
-	Attribute getAttribute(String name);
-
-	/**
-	 * Returns the attributes of this vertex.
-	 * 
-	 * @return the attributes of this vertex
-	 * 
-	 * @model containment="true"
-	 */
-	EList<Attribute> getAttributes();
+public interface Vertex extends Attributable {
 
 	/**
 	 * Returns the list of incoming edges.
@@ -64,23 +52,5 @@ public interface Vertex extends Nameable {
 	 * @return the list of successors of this vertex
 	 */
 	List<Vertex> getSuccessors();
-
-	/**
-	 * Sets the value of the attribute with the given name to the given value.
-	 * If no attribute exists with the given name, a new attribute is created
-	 * and inserted at the beginning of the attribute list. This makes it easier
-	 * to reference attributes by their index (the last attribute that was added
-	 * will be at index 0, not index getAttributes().size() - 1).
-	 * <p>
-	 * If the given value is not an instance of EObject, it is set as a runtime
-	 * value of the attribute.
-	 * </p>
-	 * 
-	 * @param name
-	 *            name of the attribute
-	 * @param value
-	 *            value to set
-	 */
-	void setAttribute(String name, Object value);
 
 }

@@ -75,22 +75,31 @@ public interface UtilPackage extends EPackage {
 	int ATTRIBUTE__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * The feature id for the '<em><b>Contained Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE__VALUE = 1;
+	int ATTRIBUTE__CONTAINED_VALUE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Runtime Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Pojo Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE__RUNTIME_VALUE = 2;
+	int ATTRIBUTE__POJO_VALUE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Referenced Value</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE__REFERENCED_VALUE = 3;
 
 	/**
 	 * The number of structural features of the '<em>Attribute</em>' class.
@@ -99,7 +108,7 @@ public interface UtilPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FEATURE_COUNT = 3;
+	int ATTRIBUTE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.util.impl.NameableImpl <em>Nameable</em>}' class.
@@ -186,6 +195,34 @@ public interface UtilPackage extends EPackage {
 	int WRAPPER_XML_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link net.sf.dftools.util.impl.AttributableImpl <em>Attributable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see net.sf.dftools.util.impl.AttributableImpl
+	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getAttributable()
+	 * @generated
+	 */
+	int ATTRIBUTABLE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTABLE__ATTRIBUTES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Attributable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTABLE_FEATURE_COUNT = 1;
+
+	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.util.Attribute <em>Attribute</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -207,26 +244,37 @@ public interface UtilPackage extends EPackage {
 	EAttribute getAttribute_Name();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link net.sf.dftools.util.Attribute#getContainedValue <em>Contained Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see net.sf.dftools.util.Attribute#getValue()
+	 * @return the meta object for the containment reference '<em>Contained Value</em>'.
+	 * @see net.sf.dftools.util.Attribute#getContainedValue()
 	 * @see #getAttribute()
 	 * @generated
 	 */
-	EReference getAttribute_Value();
+	EReference getAttribute_ContainedValue();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.util.Attribute#getRuntimeValue <em>Runtime Value</em>}'.
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.util.Attribute#getPojoValue <em>Pojo Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Runtime Value</em>'.
-	 * @see net.sf.dftools.util.Attribute#getRuntimeValue()
+	 * @return the meta object for the attribute '<em>Pojo Value</em>'.
+	 * @see net.sf.dftools.util.Attribute#getPojoValue()
 	 * @see #getAttribute()
 	 * @generated
 	 */
-	EAttribute getAttribute_RuntimeValue();
+	EAttribute getAttribute_PojoValue();
+
+	/**
+	 * Returns the meta object for the reference '{@link net.sf.dftools.util.Attribute#getReferencedValue <em>Referenced Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Value</em>'.
+	 * @see net.sf.dftools.util.Attribute#getReferencedValue()
+	 * @see #getAttribute()
+	 * @generated
+	 */
+	EReference getAttribute_ReferencedValue();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.util.Nameable <em>Nameable</em>}'.
@@ -292,6 +340,27 @@ public interface UtilPackage extends EPackage {
 	EAttribute getWrapperXml_Xml();
 
 	/**
+	 * Returns the meta object for class '{@link net.sf.dftools.util.Attributable <em>Attributable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Attributable</em>'.
+	 * @see net.sf.dftools.util.Attributable
+	 * @generated
+	 */
+	EClass getAttributable();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.util.Attributable#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
+	 * @see net.sf.dftools.util.Attributable#getAttributes()
+	 * @see #getAttributable()
+	 * @generated
+	 */
+	EReference getAttributable_Attributes();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -332,21 +401,30 @@ public interface UtilPackage extends EPackage {
 		EAttribute ATTRIBUTE__NAME = eINSTANCE.getAttribute_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Contained Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ATTRIBUTE__VALUE = eINSTANCE.getAttribute_Value();
+		EReference ATTRIBUTE__CONTAINED_VALUE = eINSTANCE
+				.getAttribute_ContainedValue();
 
 		/**
-		 * The meta object literal for the '<em><b>Runtime Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Pojo Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ATTRIBUTE__RUNTIME_VALUE = eINSTANCE
-				.getAttribute_RuntimeValue();
+		EAttribute ATTRIBUTE__POJO_VALUE = eINSTANCE.getAttribute_PojoValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Referenced Value</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ATTRIBUTE__REFERENCED_VALUE = eINSTANCE
+				.getAttribute_ReferencedValue();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.util.impl.NameableImpl <em>Nameable</em>}' class.
@@ -401,6 +479,25 @@ public interface UtilPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute WRAPPER_XML__XML = eINSTANCE.getWrapperXml_Xml();
+
+		/**
+		 * The meta object literal for the '{@link net.sf.dftools.util.impl.AttributableImpl <em>Attributable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see net.sf.dftools.util.impl.AttributableImpl
+		 * @see net.sf.dftools.util.impl.UtilPackageImpl#getAttributable()
+		 * @generated
+		 */
+		EClass ATTRIBUTABLE = eINSTANCE.getAttributable();
+
+		/**
+		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ATTRIBUTABLE__ATTRIBUTES = eINSTANCE
+				.getAttributable_Attributes();
 
 	}
 

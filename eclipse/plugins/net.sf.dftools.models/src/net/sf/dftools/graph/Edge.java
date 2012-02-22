@@ -6,29 +6,15 @@
  */
 package net.sf.dftools.graph;
 
-import net.sf.dftools.util.Attribute;
-
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import net.sf.dftools.util.Attributable;
 
 /**
  * This class defines an edge. An edge has a source vertex and a target vertex,
  * as well as a list of attributes.
  * 
- * @model
+ * @model extends="Attributable"
  */
-public interface Edge extends EObject {
-
-	Attribute getAttribute(String name);
-
-	/**
-	 * Returns the attributes of this edge.
-	 * 
-	 * @return the attributes of this edge
-	 * 
-	 * @model containment="true"
-	 */
-	EList<Attribute> getAttributes();
+public interface Edge extends Attributable {
 
 	/**
 	 * Returns the source vertex of this edge. This has an opposite relation to
@@ -59,24 +45,6 @@ public interface Edge extends EObject {
 	 * @model transient="true"
 	 */
 	boolean isBackEdge();
-
-	/**
-	 * Sets the value of the attribute with the given name to the given value.
-	 * If no attribute exists with the given name, a new attribute is created
-	 * and inserted at the beginning of the attribute list. This makes it easier
-	 * to reference attributes by their index (the last attribute that was added
-	 * will be at index 0, not index getAttributes().size() - 1).
-	 * <p>
-	 * If the given value is not an instance of EObject, it is set as a runtime
-	 * value of the attribute.
-	 * </p>
-	 * 
-	 * @param name
-	 *            name of the attribute
-	 * @param value
-	 *            value to set
-	 */
-	void setAttribute(String name, Object value);
 
 	/**
 	 * Sets the "back edge" flag to true or false.

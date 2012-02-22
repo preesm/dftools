@@ -11,21 +11,34 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Attribute</b></em>'. <!-- end-user-doc -->
- *
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}</li>
- *   <li>{@link net.sf.dftools.util.Attribute#getValue <em>Value</em>}</li>
- *   <li>{@link net.sf.dftools.util.Attribute#getRuntimeValue <em>Runtime Value</em>}</li>
+ * <li>{@link net.sf.dftools.util.Attribute#getName <em>Name</em>}</li>
+ * <li>{@link net.sf.dftools.util.Attribute#getContainedValue <em>Contained
+ * Value</em>}</li>
+ * <li>{@link net.sf.dftools.util.Attribute#getPojoValue <em>Pojo Value</em>}</li>
+ * <li>{@link net.sf.dftools.util.Attribute#getReferencedValue <em>Referenced
+ * Value</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see net.sf.dftools.util.UtilPackage#getAttribute()
  * @model
  * @generated
  */
 public interface Attribute extends EObject {
+
+	/**
+	 * Returns the value contained in this attribute. A value may be associated
+	 * with this attribute but not necessarily contained in it, see
+	 * {@link #getReferencedValue()} for that.
+	 * 
+	 * @return the value contained in this attribute
+	 * @model containment="true"
+	 */
+	EObject getContainedValue();
 
 	/**
 	 * Returns the name of this attribute.
@@ -36,20 +49,37 @@ public interface Attribute extends EObject {
 	String getName();
 
 	/**
-	 * Returns the runtime value associated with this attribute. This field is
-	 * reserved for runtime-only values, as it is not serialized.
+	 * Returns the POJO value contained in this attribute. Note: if this
+	 * attribute is serialized, this value will be serialized as well.
 	 * 
-	 * @model transient="true"
+	 * @model
 	 */
-	Object getRuntimeValue();
+	Object getPojoValue();
 
 	/**
-	 * Returns the value contained in this attribute. To use a runtime value,
-	 * use the {@link #getRuntimeValue()} method.
+	 * Returns the value referenced by this attribute. This value may or may not
+	 * return the same value as {@link #getContainedValue()}.
 	 * 
-	 * @model containment="true"
+	 * @return the value referenced by this attribute
+	 * @model
 	 */
-	EObject getValue();
+	EObject getReferencedValue();
+
+	/**
+	 * Returns the value contained in this attribute, looking in the following
+	 * order: 1) POJO, 2) referenced 3) contained.
+	 * 
+	 * @return the value
+	 */
+	Object getValue();
+
+	/**
+	 * Sets the value contained in this attribute.
+	 * 
+	 * @param value
+	 *            the new value contained in this attribute
+	 */
+	void setContainedValue(EObject value);
 
 	/**
 	 * Sets the name of this attribute.
@@ -60,19 +90,28 @@ public interface Attribute extends EObject {
 	void setName(String name);
 
 	/**
-	 * Sets the new runtime value associated with this attribute.
+	 * Sets the new value of this attribute. If the given value has no
+	 * container, this attribute becomes its new container.
 	 * 
 	 * @param value
-	 *            the new runtime value
-	 */
-	void setRuntimeValue(Object value);
-
-	/**
-	 * Sets the value contained in this attribute.
-	 * 
-	 * @param value
-	 *            the new value of this attribute.
+	 *            the new EObject value of this attribute
 	 */
 	void setValue(EObject value);
+
+	/**
+	 * Sets the new POJO value contained in this attribute.
+	 * 
+	 * @param value
+	 *            the new POJO value contained in this attribute
+	 */
+	void setPojoValue(Object value);
+
+	/**
+	 * Sets the value referenced by this attribute.
+	 * 
+	 * @param value
+	 *            the new value referenced by this attribute
+	 */
+	void setReferencedValue(EObject value);
 
 }
