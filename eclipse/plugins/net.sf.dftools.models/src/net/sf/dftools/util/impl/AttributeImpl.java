@@ -358,7 +358,7 @@ public class AttributeImpl extends EObjectImpl implements Attribute {
 
 	@Override
 	public void setValue(EObject value) {
-		if (value.eContainer() == null) {
+		if (value != null && value.eContainer() == null) {
 			// if value is not contained, add it to the contained value
 			setContainedValue(value);
 		}
