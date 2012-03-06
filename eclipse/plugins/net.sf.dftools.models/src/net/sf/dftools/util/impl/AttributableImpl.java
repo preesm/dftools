@@ -195,4 +195,29 @@ public abstract class AttributableImpl extends EObjectImpl implements
 		getAttributes().add(0, eINSTANCE.createAttribute(name, value));
 	}
 
+	@Override
+	public boolean isProc() {
+		return false;
+	}
+	
+	@Override
+	public boolean isVar() {
+		return false;
+	}
+	
+	@Override
+	public boolean isAction() {
+		return false;
+	}
+	
+	@Override
+	public boolean isVertex() {
+		return false;
+	}
+	
+	@Override
+	public boolean isEdge() {
+		return false;
+	}
+	
 }

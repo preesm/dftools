@@ -77,5 +77,40 @@ public interface Attributable extends EObject {
 	 *            an EMF object
 	 */
 	void setAttribute(String name, EObject value);
+	
+	/**
+	 * Returns <code>true</code> if the attributable is a procedure.
+	 * 
+	 * @return <code>true</code> if the attributable is a procedure
+	 */
+	boolean isProc();
+	
+	/**
+	 * Returns <code>true</code> if the attributable is a var.
+	 * 
+	 * @return <code>true</code> if the attributable is a var
+	 */
+	boolean isVar();
+	
+	/**
+	 * Returns <code>true</code> if the attributable is an action.
+	 * 
+	 * @return <code>true</code> if the attributable is an action
+	 */
+	boolean isAction();
+	
+	/**
+	 * Returns <code>true</code> if the attributable is a vertex.
+	 * 
+	 * @return <code>true</code> if the attributable is a vertex
+	 */
+	boolean isVertex();
+	
+	/**
+	 * Returns <code>true</code> if the attributable is an edge.
+	 * 
+	 * @return <code>true</code> if the attributable is an edge
+	 */
+	boolean isEdge();
 
 }

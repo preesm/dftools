@@ -226,4 +226,8 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 		return successors;
 	}
 
+	@Override
+	public boolean isVertex() {
+		return true;
+	}
 } // VertexImpl

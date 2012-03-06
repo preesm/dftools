@@ -370,4 +370,8 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 		return result.toString();
 	}
 
+	@Override
+	public boolean isEdge() {
+		return true;
+	}
 } // EdgeImpl
