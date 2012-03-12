@@ -31,6 +31,7 @@ package net.sf.dftools.util.impl;
 import static net.sf.dftools.util.UtilFactory.eINSTANCE;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import net.sf.dftools.util.Attributable;
 import net.sf.dftools.util.Attribute;
@@ -150,6 +151,11 @@ public abstract class AttributableImpl extends EObjectImpl implements
 	}
 
 	@Override
+	public Attribute getAttribute(int index) {
+		return getAttributes().get(index);
+	}
+
+	@Override
 	public Attribute getAttribute(String name) {
 		for (Attribute attribute : getAttributes()) {
 			if (name.equals(attribute.getName())) {
@@ -169,6 +175,18 @@ public abstract class AttributableImpl extends EObjectImpl implements
 					Attribute.class, this, UtilPackage.ATTRIBUTABLE__ATTRIBUTES);
 		}
 		return attributes;
+	}
+
+	@Override
+	public void removeAttribute(String name) {
+		Iterator<Attribute> it = getAttributes().iterator();
+		while (it.hasNext()) {
+			Attribute attribute = it.next();
+			if (name.equals(attribute.getName())) {
+				it.remove();
+				return;
+			}
+		}
 	}
 
 	@Override

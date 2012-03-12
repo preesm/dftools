@@ -40,6 +40,17 @@ import org.eclipse.emf.ecore.EObject;
 public interface Attributable extends EObject {
 
 	/**
+	 * Returns the nth attribute. If no such attribute exists, throws an
+	 * IndexOutOfBoundsException.
+	 * 
+	 * @param index
+	 *            index of an attribute
+	 * @return an attribute
+	 * @throws IndexOutOfBoundsException
+	 */
+	Attribute getAttribute(int index);
+
+	/**
 	 * Returns the first attribute that has the given name. If no such attribute
 	 * exists, return <code>null</code>.
 	 * 
@@ -59,18 +70,12 @@ public interface Attributable extends EObject {
 	EList<Attribute> getAttributes();
 
 	/**
-	 * Sets the value of the attribute with the given name to the given value.
-	 * If no attribute exists with the given name, a new attribute is created
-	 * and inserted at the beginning of the attribute list. This makes it easier
-	 * to reference attributes by their index (the last attribute that was added
-	 * will be at index 0, not index getAttributes().size() - 1).
+	 * Removes the first attribute that has the given name.
 	 * 
 	 * @param name
-	 *            name of the attribute
-	 * @param value
-	 *            a POJO
+	 *            name of an attribute
 	 */
-	void setAttribute(String name, Object value);
+	void removeAttribute(String name);
 
 	/**
 	 * Sets the value of the attribute with the given name to the given value.
@@ -85,5 +90,19 @@ public interface Attributable extends EObject {
 	 *            an EMF object
 	 */
 	void setAttribute(String name, EObject value);
+
+	/**
+	 * Sets the value of the attribute with the given name to the given value.
+	 * If no attribute exists with the given name, a new attribute is created
+	 * and inserted at the beginning of the attribute list. This makes it easier
+	 * to reference attributes by their index (the last attribute that was added
+	 * will be at index 0, not index getAttributes().size() - 1).
+	 * 
+	 * @param name
+	 *            name of the attribute
+	 * @param value
+	 *            a POJO
+	 */
+	void setAttribute(String name, Object value);
 
 }
