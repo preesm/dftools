@@ -38,7 +38,6 @@ import java.util.Map;
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.graph.util.GraphSwitch;
 
 /**
  * This class implements Tarjan's strongly connected components algorithm.
@@ -46,7 +45,7 @@ import net.sf.dftools.graph.util.GraphSwitch;
  * @author Matthieu Wipliez
  * 
  */
-public class SccFinder extends GraphSwitch<List<List<Vertex>>> {
+public class SccFinder {
 
 	private int index;
 
@@ -64,8 +63,7 @@ public class SccFinder extends GraphSwitch<List<List<Vertex>>> {
 		stack = new ArrayDeque<Vertex>();
 	}
 
-	@Override
-	public List<List<Vertex>> caseGraph(Graph graph) {
+	public List<List<Vertex>> visitGraph(Graph graph) {
 		sccs = new ArrayList<List<Vertex>>();
 		index = 0;
 		for (Vertex vertex : graph.getVertices()) {
