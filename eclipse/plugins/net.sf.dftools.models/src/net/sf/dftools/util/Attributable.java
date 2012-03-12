@@ -39,6 +39,14 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Attributable extends EObject {
 
+	/**
+	 * Returns the first attribute that has the given name. If no such attribute
+	 * exists, return <code>null</code>.
+	 * 
+	 * @param name
+	 *            name of an attribute
+	 * @return an attribute or <code>null</code>
+	 */
 	Attribute getAttribute(String name);
 
 	/**
@@ -77,40 +85,5 @@ public interface Attributable extends EObject {
 	 *            an EMF object
 	 */
 	void setAttribute(String name, EObject value);
-	
-	/**
-	 * Returns <code>true</code> if the attributable is a procedure.
-	 * 
-	 * @return <code>true</code> if the attributable is a procedure
-	 */
-	boolean isProc();
-	
-	/**
-	 * Returns <code>true</code> if the attributable is a var.
-	 * 
-	 * @return <code>true</code> if the attributable is a var
-	 */
-	boolean isVar();
-	
-	/**
-	 * Returns <code>true</code> if the attributable is an action.
-	 * 
-	 * @return <code>true</code> if the attributable is an action
-	 */
-	boolean isAction();
-	
-	/**
-	 * Returns <code>true</code> if the attributable is a vertex.
-	 * 
-	 * @return <code>true</code> if the attributable is a vertex
-	 */
-	boolean isVertex();
-	
-	/**
-	 * Returns <code>true</code> if the attributable is an edge.
-	 * 
-	 * @return <code>true</code> if the attributable is an edge
-	 */
-	boolean isEdge();
 
 }
