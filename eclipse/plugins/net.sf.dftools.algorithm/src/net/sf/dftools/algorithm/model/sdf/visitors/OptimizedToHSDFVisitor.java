@@ -25,7 +25,7 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
 /**
- * Visitor used to transform an SDF into an Homogeneous SDF (for all edges :
+ * Visitor used to transform an SDF into a single-rate SDF (for all edges :
  * prod = cons)
  * 
  * @author jpiat
@@ -354,7 +354,7 @@ public class OptimizedToHSDFVisitor implements
 				}
 			}
 			transformsTop(sdf, outputGraph);
-			treatExplodeImplodePattern(outputGraph);
+			manageExplodeImplodePattern(outputGraph);
 		} catch (InvalidExpressionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -370,7 +370,7 @@ public class OptimizedToHSDFVisitor implements
 		 */
 	}
 
-	protected void treatExplodeImplodePattern(SDFGraph graph)
+	protected void manageExplodeImplodePattern(SDFGraph graph)
 			throws InvalidExpressionException {
 
 		List<SDFEdge> edges = new ArrayList<SDFEdge>(graph.edgeSet());
@@ -412,7 +412,5 @@ public class OptimizedToHSDFVisitor implements
 		}
 
 	}
-	
-	
 
 }

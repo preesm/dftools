@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import net.sf.dftools.workflow.WorkflowException;
+import net.sf.dftools.workflow.elements.Workflow;
 import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -126,11 +127,13 @@ public abstract class AbstractTaskImplementation extends
 	 *            requested
 	 * @param nodeName
 	 *            name of the graph node that triggered this execution
+	 * @param workflow
+	 * 			  the workflow that launched the task
 	 * @return a map associating output objects to their data type in the graph
 	 */
 	public abstract Map<String, Object> execute(Map<String, Object> inputs,
 			Map<String, String> parameters, IProgressMonitor monitor,
-			String nodeName) throws WorkflowException;
+			String nodeName, Workflow workflow) throws WorkflowException;
 
 	/**
 	 * Returns the task parameters and their default values. These parameters

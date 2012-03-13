@@ -25,7 +25,7 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
 /**
- * Visitor used to transform an SDF into an Homogeneous SDF (for all edges :
+ * Visitor used to transform an SDF into a single-rate SDF (for all edges :
  * prod = cons)
  * 
  * @author jpiat

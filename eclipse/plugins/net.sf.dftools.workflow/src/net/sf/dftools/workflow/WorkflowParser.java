@@ -88,9 +88,10 @@ public class WorkflowParser extends DefaultHandler2 {
 	public Workflow parse(String fileName) {
 
 		Path relativePath = new Path(fileName);
+		workflow.setPath(relativePath);
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(relativePath);
-
+		
 		try {
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(this);

@@ -36,6 +36,7 @@ package net.sf.dftools.workflow.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
@@ -52,6 +53,11 @@ public class Workflow extends
 	 */
 	private static final long serialVersionUID = -908014142930559238L;
 
+	/**
+	 * Path of the file that contains the workflow
+	 */
+	private Path path = null;
+
 	public Workflow() {
 		super(WorkflowEdge.class);
 	}
@@ -67,6 +73,14 @@ public class Workflow extends
 		}
 
 		return nodeList;
+	}
+	
+	public void setPath(Path path) {
+		this.path = path;
+	}
+	
+	public String getProjectName() {
+		return path.segment(0);
 	}
 
 	public boolean hasScenario() {

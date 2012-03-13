@@ -303,7 +303,7 @@ public class WorkflowManager {
 
 						// execution
 						outputs = task.execute(inputs,
-								taskNode.getParameters(), monitor, nodeId);
+								taskNode.getParameters(), monitor, nodeId, workflow);
 
 						// Each node execution is equivalent for the monitor
 						monitor.worked(1);
