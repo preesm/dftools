@@ -47,7 +47,7 @@ public class DFS extends Ordering {
 	 *            a vertex
 	 */
 	public DFS(Vertex vertex) {
-		doSwitch(vertex);
+		visitVertex(vertex);
 	}
 
 	/**
@@ -56,8 +56,7 @@ public class DFS extends Ordering {
 	 * @param v
 	 *            a vertex
 	 */
-	@Override
-	public Void caseVertex(Vertex v) {
+	public void visitVertex(Vertex v) {
 		visited.add(v);
 		vertices.add(v);
 
@@ -68,11 +67,9 @@ public class DFS extends Ordering {
 				edge.setBackEdge(true);
 			} else {
 				edge.setBackEdge(false);
-				caseVertex(w);
+				visitVertex(w);
 			}
 		}
-
-		return null;
 	}
 
 }

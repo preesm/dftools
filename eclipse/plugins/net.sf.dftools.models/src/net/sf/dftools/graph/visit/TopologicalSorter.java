@@ -28,6 +28,8 @@
  */
 package net.sf.dftools.graph.visit;
 
+import java.util.List;
+
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.Vertex;
 
@@ -49,7 +51,7 @@ public class TopologicalSorter extends Ordering {
 	 */
 	public TopologicalSorter() {
 	}
-
+	
 	/**
 	 * Builds the topological order of the given graph by calling
 	 * {@link #caseVertex(Vertex)} for each vertex of the given graph that has
@@ -58,26 +60,23 @@ public class TopologicalSorter extends Ordering {
 	 * @param graph
 	 *            a graph
 	 */
-	@Override
-	public Void caseGraph(Graph graph) {
+	public List<Vertex> visitGraph(Graph graph) {
 		for (Vertex vertex : graph.getVertices()) {
 			if (vertex.getOutgoing().isEmpty()) {
-				caseVertex(vertex);
+				visitVertex(vertex);
 			}
 		}
-		return null;
+		return vertices;
 	}
 
-	@Override
-	public Void caseVertex(Vertex vertex) {
+	public void visitVertex(Vertex vertex) {
 		if (!visited.contains(vertex)) {
 			visited.add(vertex);
 			for (Vertex pred : vertex.getPredecessors()) {
-				caseVertex(pred);
+				visitVertex(pred);
 			}
 			vertices.add(vertex);
 		}
-		return null;
 	}
 
 }

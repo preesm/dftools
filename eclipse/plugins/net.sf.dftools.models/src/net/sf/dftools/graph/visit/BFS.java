@@ -49,7 +49,7 @@ public class BFS extends Ordering {
 	 *            a vertex
 	 */
 	public BFS(Vertex vertex) {
-		doSwitch(vertex);
+		visitVertex(vertex);
 	}
 
 	/**
@@ -58,8 +58,7 @@ public class BFS extends Ordering {
 	 * @param vertex
 	 *            a vertex
 	 */
-	@Override
-	public Void caseVertex(Vertex vertex) {
+	public void visitVertex(Vertex vertex) {
 		Deque<Vertex> visitList = new ArrayDeque<Vertex>();
 		visitList.addLast(vertex);
 
@@ -75,8 +74,6 @@ public class BFS extends Ordering {
 				}
 			}
 		}
-
-		return null;
 	}
 
 }

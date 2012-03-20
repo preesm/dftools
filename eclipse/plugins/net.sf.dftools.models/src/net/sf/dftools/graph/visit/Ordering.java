@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.graph.util.GraphSwitch;
 
 /**
  * This class defines an ordering.
@@ -42,7 +41,7 @@ import net.sf.dftools.graph.util.GraphSwitch;
  * @author Matthieu Wipliez
  * 
  */
-public abstract class Ordering extends GraphSwitch<Void> {
+public abstract class Ordering {
 
 	protected final List<Vertex> vertices;
 
