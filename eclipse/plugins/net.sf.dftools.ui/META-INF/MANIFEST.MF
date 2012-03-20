@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI
 Bundle-SymbolicName: net.sf.dftools.ui;singleton:=true
-Bundle-Version: 0.0.2.v20120320
+Bundle-Version: 0.1.0.v20120320
 Bundle-Activator: net.sf.dftools.ui.Activator
 Require-Bundle: net.sf.graphiti.model,
  net.sf.graphiti.ui,
