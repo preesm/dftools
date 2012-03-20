@@ -2,7 +2,7 @@
 <feature
       id="net.sf.dftools.feature"
       label="DFTools Feature"
-      version="0.0.1"
+      version="0.0.2.v20120320"
       provider-name="IETR/INSA">
 
    <description>
@@ -47,7 +47,42 @@ knowledge of the CeCILL-C license and that you accept its terms.
    </url>
 
    <plugin
+         id="net.sf.dftools.algorithm"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="net.sf.dftools.architecture"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.dftools.architecture.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.dftools.cdl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.dftools.cdl.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="net.sf.dftools.models"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -62,6 +97,13 @@ knowledge of the CeCILL-C license and that you accept its terms.
 
    <plugin
          id="net.sf.dftools.workflow"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.stringtemplate"
          download-size="0"
          install-size="0"
          version="0.0.0"
