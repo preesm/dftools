@@ -168,6 +168,36 @@ public class GraphImpl extends EObjectImpl implements Graph {
 		return edges;
 	}
 
+	@Override
+	public Vertex getEntry() {
+		Vertex first = null;
+		for (Vertex vertex : getVertices()) {
+			if (vertex.getIncoming().isEmpty()) {
+				if (first != null) {
+					// first vertex already found, returns null
+					return null;
+				}
+				first = vertex;
+			}
+		}
+		return first;
+	}
+
+	@Override
+	public Vertex getExit() {
+		Vertex last = null;
+		for (Vertex vertex : getVertices()) {
+			if (vertex.getOutgoing().isEmpty()) {
+				if (last != null) {
+					// last vertex already found, returns null
+					return null;
+				}
+				last = vertex;
+			}
+		}
+		return last;
+	}
+
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
