@@ -12,7 +12,6 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
-import net.sf.dftools.graph.util.GraphAdapterFactory;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -58,12 +57,10 @@ public class GraphImpl extends EObjectImpl implements Graph {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
 	 */
 	protected GraphImpl() {
 		super();
-
-		// add adapter to automatically update the graph when necessary
-		eAdapters().add(new GraphAdapterFactory().createGraphAdapter());
 	}
 
 	/**
