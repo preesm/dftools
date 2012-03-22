@@ -112,11 +112,10 @@ public class GraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new graph adapter.
-	 * @return the new adapter.
+	 * @generated
 	 */
 	public Adapter createGraphAdapter() {
-		return new GraphAdapter();
+		return null;
 	}
 
 	/**

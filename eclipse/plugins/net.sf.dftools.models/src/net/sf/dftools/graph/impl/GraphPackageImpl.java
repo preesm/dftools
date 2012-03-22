@@ -302,7 +302,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				!IS_DERIVED, IS_ORDERED);
 		initEReference(getGraph_Vertices(), this.getVertex(), null, "vertices",
 				null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(vertexEClass, Vertex.class, "Vertex", !IS_ABSTRACT,

@@ -81,7 +81,7 @@ public interface GraphPackage extends EPackage {
 	int GRAPH__EDGES = 0;
 
 	/**
-	 * The feature id for the '<em><b>Vertices</b></em>' reference list.
+	 * The feature id for the '<em><b>Vertices</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -210,10 +210,10 @@ public interface GraphPackage extends EPackage {
 	EClass getGraph();
 
 	/**
-	 * Returns the meta object for the reference list '{@link net.sf.dftools.graph.Graph#getVertices <em>Vertices</em>}'.
+	 * Returns the meta object for the containment reference list '{@link net.sf.dftools.graph.Graph#getVertices <em>Vertices</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Vertices</em>'.
+	 * @return the meta object for the containment reference list '<em>Vertices</em>'.
 	 * @see net.sf.dftools.graph.Graph#getVertices()
 	 * @see #getGraph()
 	 * @generated
@@ -339,7 +339,7 @@ public interface GraphPackage extends EPackage {
 		EClass GRAPH = eINSTANCE.getGraph();
 
 		/**
-		 * The meta object literal for the '<em><b>Vertices</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Vertices</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

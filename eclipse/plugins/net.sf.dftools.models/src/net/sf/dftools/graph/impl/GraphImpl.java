@@ -6,7 +6,9 @@
  */
 package net.sf.dftools.graph.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
@@ -19,7 +21,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -47,7 +48,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	protected EList<Edge> edges;
 
 	/**
-	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}' reference list.
+	 * The cached value of the '{@link #getVertices() <em>Vertices</em>}' containment reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getVertices()
 	 * @generated
@@ -88,6 +89,9 @@ public class GraphImpl extends EObjectImpl implements Graph {
 		switch (featureID) {
 		case GraphPackage.GRAPH__EDGES:
 			return ((InternalEList<?>) getEdges()).basicRemove(otherEnd, msgs);
+		case GraphPackage.GRAPH__VERTICES:
+			return ((InternalEList<?>) getVertices()).basicRemove(otherEnd,
+					msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -201,10 +205,44 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	 */
 	public EList<Vertex> getVertices() {
 		if (vertices == null) {
-			vertices = new EObjectResolvingEList<Vertex>(Vertex.class, this,
+			vertices = new EObjectContainmentEList<Vertex>(Vertex.class, this,
 					GraphPackage.GRAPH__VERTICES);
 		}
 		return vertices;
+	}
+
+	@Override
+	public void remove(Edge edge) {
+		edge.setSource(null);
+		edge.setTarget(null);
+
+		getEdges().remove(edge);
+	}
+
+	@Override
+	public void remove(Vertex vertex) {
+		removeEdges(new ArrayList<Edge>(vertex.getIncoming()));
+		removeEdges(new ArrayList<Edge>(vertex.getOutgoing()));
+
+		getVertices().remove(vertex);
+	}
+
+	@Override
+	public void removeEdges(List<? extends Edge> edges) {
+		for (Edge transition : edges) {
+			transition.setSource(null);
+			transition.setTarget(null);
+		}
+		getEdges().removeAll(edges);
+	}
+
+	@Override
+	public void removeVertices(List<? extends Vertex> vertices) {
+		for (Vertex vertex : vertices) {
+			removeEdges(new ArrayList<Edge>(vertex.getIncoming()));
+			removeEdges(new ArrayList<Edge>(vertex.getOutgoing()));
+		}
+		getVertices().removeAll(vertices);
 	}
 
 } // GraphImpl
