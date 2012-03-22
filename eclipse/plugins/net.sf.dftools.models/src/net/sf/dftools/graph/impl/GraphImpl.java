@@ -64,6 +64,11 @@ public class GraphImpl extends EObjectImpl implements Graph {
 		super();
 	}
 
+	@Override
+	public void add(Vertex vertex) {
+		getVertices().add(vertex);
+	}
+
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated

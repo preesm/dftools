@@ -22,6 +22,15 @@ import org.eclipse.emf.ecore.EObject;
 public interface Graph extends EObject {
 
 	/**
+	 * Adds the given vertex to this graph's vertices. Subclasses may (and are
+	 * expected to) override to add the given vertex to reference lists.
+	 * 
+	 * @param vertex
+	 *            a vertex
+	 */
+	void add(Vertex vertex);
+
+	/**
 	 * Returns the list of this graph's edges.
 	 * 
 	 * @return the list of this graph's edges
