@@ -111,34 +111,6 @@ public interface UtilPackage extends EPackage {
 	int ATTRIBUTE_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.util.impl.NameableImpl <em>Nameable</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see net.sf.dftools.util.impl.NameableImpl
-	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getNameable()
-	 * @generated
-	 */
-	int NAMEABLE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMEABLE__NAME = 0;
-
-	/**
-	 * The number of structural features of the '<em>Nameable</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMEABLE_FEATURE_COUNT = 1;
-
-	/**
 	 * The meta object id for the '{@link net.sf.dftools.util.impl.WrapperStringImpl <em>Wrapper String</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -146,7 +118,7 @@ public interface UtilPackage extends EPackage {
 	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getWrapperString()
 	 * @generated
 	 */
-	int WRAPPER_STRING = 2;
+	int WRAPPER_STRING = 1;
 
 	/**
 	 * The feature id for the '<em><b>String</b></em>' attribute.
@@ -174,7 +146,7 @@ public interface UtilPackage extends EPackage {
 	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getWrapperXml()
 	 * @generated
 	 */
-	int WRAPPER_XML = 3;
+	int WRAPPER_XML = 2;
 
 	/**
 	 * The feature id for the '<em><b>Xml</b></em>' attribute.
@@ -202,7 +174,7 @@ public interface UtilPackage extends EPackage {
 	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getAttributable()
 	 * @generated
 	 */
-	int ATTRIBUTABLE = 4;
+	int ATTRIBUTABLE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -275,27 +247,6 @@ public interface UtilPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAttribute_ReferencedValue();
-
-	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.util.Nameable <em>Nameable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Nameable</em>'.
-	 * @see net.sf.dftools.util.Nameable
-	 * @generated
-	 */
-	EClass getNameable();
-
-	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.util.Nameable#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see net.sf.dftools.util.Nameable#getName()
-	 * @see #getNameable()
-	 * @generated
-	 */
-	EAttribute getNameable_Name();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.util.WrapperString <em>Wrapper String</em>}'.
@@ -425,24 +376,6 @@ public interface UtilPackage extends EPackage {
 		 */
 		EReference ATTRIBUTE__REFERENCED_VALUE = eINSTANCE
 				.getAttribute_ReferencedValue();
-
-		/**
-		 * The meta object literal for the '{@link net.sf.dftools.util.impl.NameableImpl <em>Nameable</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see net.sf.dftools.util.impl.NameableImpl
-		 * @see net.sf.dftools.util.impl.UtilPackageImpl#getNameable()
-		 * @generated
-		 */
-		EClass NAMEABLE = eINSTANCE.getNameable();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute NAMEABLE__NAME = eINSTANCE.getNameable_Name();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.util.impl.WrapperStringImpl <em>Wrapper String</em>}' class.

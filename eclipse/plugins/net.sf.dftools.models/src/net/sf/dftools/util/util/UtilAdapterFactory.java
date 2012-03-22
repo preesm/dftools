@@ -4,7 +4,6 @@ package net.sf.dftools.util.util;
 
 import net.sf.dftools.util.Attributable;
 import net.sf.dftools.util.Attribute;
-import net.sf.dftools.util.Nameable;
 import net.sf.dftools.util.UtilPackage;
 import net.sf.dftools.util.WrapperString;
 import net.sf.dftools.util.WrapperXml;
@@ -75,11 +74,6 @@ public class UtilAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseNameable(Nameable object) {
-			return createNameableAdapter();
-		}
-
-		@Override
 		public Adapter caseWrapperString(WrapperString object) {
 			return createWrapperStringAdapter();
 		}
@@ -124,20 +118,6 @@ public class UtilAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAttributeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link net.sf.dftools.util.Nameable <em>Nameable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see net.sf.dftools.util.Nameable
-	 * @generated
-	 */
-	public Adapter createNameableAdapter() {
 		return null;
 	}
 

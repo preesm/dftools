@@ -3,23 +3,19 @@
 package net.sf.dftools.util.impl;
 
 import net.sf.dftools.graph.GraphPackage;
-
 import net.sf.dftools.graph.impl.GraphPackageImpl;
-
 import net.sf.dftools.util.Attributable;
 import net.sf.dftools.util.Attribute;
-import net.sf.dftools.util.Nameable;
 import net.sf.dftools.util.UtilFactory;
 import net.sf.dftools.util.UtilPackage;
-
 import net.sf.dftools.util.WrapperString;
 import net.sf.dftools.util.WrapperXml;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -35,13 +31,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * @generated
 	 */
 	private EClass attributeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass nameableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -188,24 +177,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getNameable() {
-		return nameableEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getNameable_Name() {
-		return (EAttribute) nameableEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getWrapperString() {
 		return wrapperStringEClass;
 	}
@@ -290,9 +261,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 		createEAttribute(attributeEClass, ATTRIBUTE__POJO_VALUE);
 		createEReference(attributeEClass, ATTRIBUTE__REFERENCED_VALUE);
 
-		nameableEClass = createEClass(NAMEABLE);
-		createEAttribute(nameableEClass, NAMEABLE__NAME);
-
 		wrapperStringEClass = createEClass(WRAPPER_STRING);
 		createEAttribute(wrapperStringEClass, WRAPPER_STRING__STRING);
 
@@ -358,13 +326,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 				1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-
-		initEClass(nameableEClass, Nameable.class, "Nameable", IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getNameable_Name(), ecorePackage.getEString(), "name",
-				null, 0, 1, Nameable.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
 
 		initEClass(wrapperStringEClass, WrapperString.class, "WrapperString",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

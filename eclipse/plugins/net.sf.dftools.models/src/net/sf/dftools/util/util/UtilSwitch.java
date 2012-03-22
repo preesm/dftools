@@ -4,7 +4,6 @@ package net.sf.dftools.util.util;
 
 import net.sf.dftools.util.Attributable;
 import net.sf.dftools.util.Attribute;
-import net.sf.dftools.util.Nameable;
 import net.sf.dftools.util.UtilPackage;
 import net.sf.dftools.util.WrapperString;
 import net.sf.dftools.util.WrapperXml;
@@ -77,13 +76,6 @@ public class UtilSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case UtilPackage.NAMEABLE: {
-			Nameable nameable = (Nameable) theEObject;
-			T result = caseNameable(nameable);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case UtilPackage.WRAPPER_STRING: {
 			WrapperString wrapperString = (WrapperString) theEObject;
 			T result = caseWrapperString(wrapperString);
@@ -122,21 +114,6 @@ public class UtilSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAttribute(Attribute object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Nameable</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Nameable</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseNameable(Nameable object) {
 		return null;
 	}
 

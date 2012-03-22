@@ -212,5 +212,5 @@ public abstract class AttributableImpl extends EObjectImpl implements
 
 		getAttributes().add(0, eINSTANCE.createAttribute(name, value));
 	}
-	
+
 }
