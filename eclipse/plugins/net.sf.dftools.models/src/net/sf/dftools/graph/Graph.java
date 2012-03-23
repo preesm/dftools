@@ -31,6 +31,18 @@ public interface Graph extends EObject {
 	void add(Vertex vertex);
 
 	/**
+	 * Creates and adds an edge to this graph between the two given source and
+	 * target vertices.
+	 * 
+	 * @param source
+	 *            source vertex
+	 * @param target
+	 *            target vertex
+	 * @return the newly-created edge
+	 */
+	Edge add(Vertex source, Vertex target);
+
+	/**
 	 * Returns the list of this graph's edges.
 	 * 
 	 * @return the list of this graph's edges

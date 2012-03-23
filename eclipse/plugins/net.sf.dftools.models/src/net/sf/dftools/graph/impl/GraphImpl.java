@@ -12,6 +12,7 @@ import java.util.List;
 
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Graph;
+import net.sf.dftools.graph.GraphFactory;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 
@@ -67,6 +68,15 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	@Override
 	public void add(Vertex vertex) {
 		getVertices().add(vertex);
+	}
+
+	@Override
+	public Edge add(Vertex source, Vertex target) {
+		Edge edge = GraphFactory.eINSTANCE.createEdge();
+		edge.setSource(source);
+		edge.setTarget(target);
+		getEdges().add(edge);
+		return edge;
 	}
 
 	/**

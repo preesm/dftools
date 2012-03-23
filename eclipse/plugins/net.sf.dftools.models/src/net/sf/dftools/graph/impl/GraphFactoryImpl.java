@@ -92,14 +92,6 @@ public class GraphFactoryImpl extends EFactoryImpl implements GraphFactory {
 		return edge;
 	}
 
-	@Override
-	public Edge createEdge(Vertex source, Vertex target) {
-		EdgeImpl edge = new EdgeImpl();
-		edge.setSource(source);
-		edge.setTarget(target);
-		return edge;
-	}
-
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
