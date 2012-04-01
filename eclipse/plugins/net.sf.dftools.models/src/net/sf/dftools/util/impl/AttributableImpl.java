@@ -178,6 +178,16 @@ public abstract class AttributableImpl extends EObjectImpl implements
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
+	public <T> T getValue(String name) {
+		Attribute attribute = getAttribute(name);
+		if (attribute == null) {
+			return null;
+		}
+		return (T) attribute.getValue();
+	}
+
+	@Override
 	public void removeAttribute(String name) {
 		Iterator<Attribute> it = getAttributes().iterator();
 		while (it.hasNext()) {

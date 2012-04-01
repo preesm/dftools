@@ -70,6 +70,16 @@ public interface Attributable extends EObject {
 	EList<Attribute> getAttributes();
 
 	/**
+	 * Returns the value of the first attribute that has the given name. If no
+	 * such attribute exists, return <code>null</code>.
+	 * 
+	 * @param name
+	 *            name of an attribute
+	 * @return the value of an attribute or <code>null</code>
+	 */
+	<T> T getValue(String name);
+
+	/**
 	 * Removes the first attribute that has the given name.
 	 * 
 	 * @param name
