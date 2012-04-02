@@ -53,26 +53,6 @@ public interface UtilFactory extends EFactory {
 	Attribute createAttribute(String name, EObject value);
 
 	/**
-	 * Returns a new object of class '<em>Wrapper String</em>'. <!--
-	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @return a new object of class '<em>Wrapper String</em>'.
-	 * @generated
-	 */
-	WrapperString createWrapperString();
-
-	WrapperString createWrapperString(String value);
-
-	/**
-	 * Returns a new object of class '<em>Wrapper Xml</em>'.
-	 * <!-- begin-user-doc
-	 * --> <!-- end-user-doc -->
-	 * @return a new object of class '<em>Wrapper Xml</em>'.
-	 * @generated
-	 */
-	WrapperXml createWrapperXml();
-
-	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

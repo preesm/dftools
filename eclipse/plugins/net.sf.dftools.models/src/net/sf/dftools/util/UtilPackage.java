@@ -111,62 +111,6 @@ public interface UtilPackage extends EPackage {
 	int ATTRIBUTE_FEATURE_COUNT = 4;
 
 	/**
-	 * The meta object id for the '{@link net.sf.dftools.util.impl.WrapperStringImpl <em>Wrapper String</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see net.sf.dftools.util.impl.WrapperStringImpl
-	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getWrapperString()
-	 * @generated
-	 */
-	int WRAPPER_STRING = 1;
-
-	/**
-	 * The feature id for the '<em><b>String</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRAPPER_STRING__STRING = 0;
-
-	/**
-	 * The number of structural features of the '<em>Wrapper String</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRAPPER_STRING_FEATURE_COUNT = 1;
-
-	/**
-	 * The meta object id for the '{@link net.sf.dftools.util.impl.WrapperXmlImpl <em>Wrapper Xml</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see net.sf.dftools.util.impl.WrapperXmlImpl
-	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getWrapperXml()
-	 * @generated
-	 */
-	int WRAPPER_XML = 2;
-
-	/**
-	 * The feature id for the '<em><b>Xml</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRAPPER_XML__XML = 0;
-
-	/**
-	 * The number of structural features of the '<em>Wrapper Xml</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRAPPER_XML_FEATURE_COUNT = 1;
-
-	/**
 	 * The meta object id for the '{@link net.sf.dftools.util.impl.AttributableImpl <em>Attributable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,7 +118,7 @@ public interface UtilPackage extends EPackage {
 	 * @see net.sf.dftools.util.impl.UtilPackageImpl#getAttributable()
 	 * @generated
 	 */
-	int ATTRIBUTABLE = 3;
+	int ATTRIBUTABLE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -247,48 +191,6 @@ public interface UtilPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAttribute_ReferencedValue();
-
-	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.util.WrapperString <em>Wrapper String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Wrapper String</em>'.
-	 * @see net.sf.dftools.util.WrapperString
-	 * @generated
-	 */
-	EClass getWrapperString();
-
-	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.util.WrapperString#getString <em>String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>String</em>'.
-	 * @see net.sf.dftools.util.WrapperString#getString()
-	 * @see #getWrapperString()
-	 * @generated
-	 */
-	EAttribute getWrapperString_String();
-
-	/**
-	 * Returns the meta object for class '{@link net.sf.dftools.util.WrapperXml <em>Wrapper Xml</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Wrapper Xml</em>'.
-	 * @see net.sf.dftools.util.WrapperXml
-	 * @generated
-	 */
-	EClass getWrapperXml();
-
-	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.util.WrapperXml#getXml <em>Xml</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Xml</em>'.
-	 * @see net.sf.dftools.util.WrapperXml#getXml()
-	 * @see #getWrapperXml()
-	 * @generated
-	 */
-	EAttribute getWrapperXml_Xml();
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.util.Attributable <em>Attributable</em>}'.
@@ -376,42 +278,6 @@ public interface UtilPackage extends EPackage {
 		 */
 		EReference ATTRIBUTE__REFERENCED_VALUE = eINSTANCE
 				.getAttribute_ReferencedValue();
-
-		/**
-		 * The meta object literal for the '{@link net.sf.dftools.util.impl.WrapperStringImpl <em>Wrapper String</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see net.sf.dftools.util.impl.WrapperStringImpl
-		 * @see net.sf.dftools.util.impl.UtilPackageImpl#getWrapperString()
-		 * @generated
-		 */
-		EClass WRAPPER_STRING = eINSTANCE.getWrapperString();
-
-		/**
-		 * The meta object literal for the '<em><b>String</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute WRAPPER_STRING__STRING = eINSTANCE.getWrapperString_String();
-
-		/**
-		 * The meta object literal for the '{@link net.sf.dftools.util.impl.WrapperXmlImpl <em>Wrapper Xml</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see net.sf.dftools.util.impl.WrapperXmlImpl
-		 * @see net.sf.dftools.util.impl.UtilPackageImpl#getWrapperXml()
-		 * @generated
-		 */
-		EClass WRAPPER_XML = eINSTANCE.getWrapperXml();
-
-		/**
-		 * The meta object literal for the '<em><b>Xml</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute WRAPPER_XML__XML = eINSTANCE.getWrapperXml_Xml();
 
 		/**
 		 * The meta object literal for the '{@link net.sf.dftools.util.impl.AttributableImpl <em>Attributable</em>}' class.

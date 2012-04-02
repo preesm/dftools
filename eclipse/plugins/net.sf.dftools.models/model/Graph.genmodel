@@ -29,12 +29,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Util.ecore#//Attribute/pojoValue"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Util.ecore#//Attribute/referencedValue"/>
     </genClasses>
-    <genClasses ecoreClass="Util.ecore#//WrapperString">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Util.ecore#//WrapperString/string"/>
-    </genClasses>
-    <genClasses ecoreClass="Util.ecore#//WrapperXml">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Util.ecore#//WrapperXml/xml"/>
-    </genClasses>
     <genClasses ecoreClass="Util.ecore#//Attributable">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Util.ecore#//Attributable/attributes"/>
     </genClasses>

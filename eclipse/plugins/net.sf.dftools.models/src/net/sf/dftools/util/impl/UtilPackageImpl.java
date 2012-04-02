@@ -8,8 +8,6 @@ import net.sf.dftools.util.Attributable;
 import net.sf.dftools.util.Attribute;
 import net.sf.dftools.util.UtilFactory;
 import net.sf.dftools.util.UtilPackage;
-import net.sf.dftools.util.WrapperString;
-import net.sf.dftools.util.WrapperXml;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -31,20 +29,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * @generated
 	 */
 	private EClass attributeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass wrapperStringEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass wrapperXmlEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -177,42 +161,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getWrapperString() {
-		return wrapperStringEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getWrapperString_String() {
-		return (EAttribute) wrapperStringEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getWrapperXml() {
-		return wrapperXmlEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getWrapperXml_Xml() {
-		return (EAttribute) wrapperXmlEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getAttributable() {
 		return attributableEClass;
 	}
@@ -260,12 +208,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 		createEReference(attributeEClass, ATTRIBUTE__CONTAINED_VALUE);
 		createEAttribute(attributeEClass, ATTRIBUTE__POJO_VALUE);
 		createEReference(attributeEClass, ATTRIBUTE__REFERENCED_VALUE);
-
-		wrapperStringEClass = createEClass(WRAPPER_STRING);
-		createEAttribute(wrapperStringEClass, WRAPPER_STRING__STRING);
-
-		wrapperXmlEClass = createEClass(WRAPPER_XML);
-		createEAttribute(wrapperXmlEClass, WRAPPER_XML__XML);
 
 		attributableEClass = createEClass(ATTRIBUTABLE);
 		createEReference(attributableEClass, ATTRIBUTABLE__ATTRIBUTES);
@@ -326,20 +268,6 @@ public class UtilPackageImpl extends EPackageImpl implements UtilPackage {
 				1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
-
-		initEClass(wrapperStringEClass, WrapperString.class, "WrapperString",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getWrapperString_String(), ecorePackage.getEString(),
-				"string", null, 0, 1, WrapperString.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
-
-		initEClass(wrapperXmlEClass, WrapperXml.class, "WrapperXml",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getWrapperXml_Xml(), ecorePackage.getEString(), "xml",
-				null, 0, 1, WrapperXml.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
 
 		initEClass(attributableEClass, Attributable.class, "Attributable",
 				IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
