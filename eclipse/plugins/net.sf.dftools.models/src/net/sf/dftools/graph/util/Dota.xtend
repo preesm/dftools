@@ -52,15 +52,25 @@ class Dota {
 	def printDot(Graph graph) '''
 		digraph G {
 			node [label="", shape=box];
+			«FOR vertex : graph.vertices»
+			«print(vertex)»
+			«ENDFOR»
 			«FOR edge : graph.edges»
-			«printEdge(edge)»
+			«print(edge)»
 			«ENDFOR»
 		}
 	'''
 
-	def private printEdge(Edge edge) '''
+	def private print(Edge edge) '''
 		node_«getId(edge.source)» -> node_«getId(edge.target)»;
 	'''
+
+	def private print(Vertex vertex) {
+		var attr = vertex.getAttribute("name")
+		'''
+		node_«getId(vertex)»«IF attr != null» [label="«attr.value»"]«ENDIF»;
+		'''
+	}
 
 	def private getId(Vertex vertex) {
 		var id = vertexMap.get(vertex)
