@@ -185,7 +185,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	}
 
 	@Override
-	public Vertex getEntry() {
+	public Vertex getFirst() {
 		Vertex first = null;
 		for (Vertex vertex : getVertices()) {
 			if (vertex.getIncoming().isEmpty()) {
@@ -200,7 +200,7 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	}
 
 	@Override
-	public Vertex getExit() {
+	public Vertex getLast() {
 		Vertex last = null;
 		for (Vertex vertex : getVertices()) {
 			if (vertex.getOutgoing().isEmpty()) {

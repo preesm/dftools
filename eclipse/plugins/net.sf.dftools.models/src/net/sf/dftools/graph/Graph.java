@@ -51,24 +51,24 @@ public interface Graph extends EObject {
 	EList<Edge> getEdges();
 
 	/**
-	 * Returns the entry vertex of this graph. The entry vertex, if it exists,
+	 * Returns the first vertex of this graph. The first vertex, if it exists,
 	 * is the one vertex of the graph that has no incoming edges. If there are
 	 * no such vertices, or several such vertices, this method returns
-	 * <code>null</code> .
+	 * <code>null</code>.
 	 * 
-	 * @return the entry vertex of this graph, or <code>null</code>
+	 * @return the first vertex of this graph, or <code>null</code>
 	 */
-	Vertex getEntry();
+	Vertex getFirst();
 
 	/**
-	 * Returns the exit vertex of this graph. The exit vertex, if it exists, is
+	 * Returns the last vertex of this graph. The last vertex, if it exists, is
 	 * the one vertex of the graph that has no outgoing edges. If there are no
 	 * such vertices, or several such vertices, this method returns
-	 * <code>null</code> .
+	 * <code>null</code>.
 	 * 
-	 * @return the exit vertex of this graph, or <code>null</code>
+	 * @return the last vertex of this graph, or <code>null</code>
 	 */
-	Vertex getExit();
+	Vertex getLast();
 
 	/**
 	 * Returns the list of this graph's vertices.
