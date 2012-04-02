@@ -30,6 +30,8 @@
 package net.sf.dftools.util.util;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.AbstractList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -55,6 +57,20 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
  * 
  */
 public class EcoreHelper {
+
+	private static Field modCount;
+
+	static {
+		try {
+			modCount = AbstractList.class.getDeclaredField("modCount");
+
+			// set accessible
+			modCount.setAccessible(true);
+		} catch (Exception e) {
+			// should never happen
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Returns the container of <code>ele</code> with the given type, or
@@ -140,6 +156,21 @@ public class EcoreHelper {
 	}
 
 	/**
+	 * Returns the IFile associated with the given resource.
+	 * 
+	 * @param resource
+	 *            a resource
+	 * @throws CoreException
+	 *             if something goes wrong
+	 */
+	public static IFile getFile(Resource resource) throws CoreException {
+		String fullPath = resource.getURI().toPlatformString(true);
+		IPath path = new Path(fullPath);
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		return root.getFile(path);
+	}
+
+	/**
 	 * Finds the feature of the given object that has the given name, and
 	 * returns its value as a list.
 	 * 
@@ -156,18 +187,24 @@ public class EcoreHelper {
 	}
 
 	/**
-	 * Returns the IFile associated with the given resource.
+	 * Returns the "modCount" of the given object. The object must extend
+	 * AbstractList. If the field cannot be retrieved,
+	 * <code>(int) System.currentTimeMillis()</code> is returned.
 	 * 
-	 * @param resource
-	 *            a resource
-	 * @throws CoreException
-	 *             if something goes wrong
+	 * @param obj
+	 *            an object that is supposed to extend AbstractList
+	 * @return the modCount if available, or a timestamp
 	 */
-	public static IFile getFile(Resource resource) throws CoreException {
-		String fullPath = resource.getURI().toPlatformString(true);
-		IPath path = new Path(fullPath);
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		return root.getFile(path);
+	public static int getModCount(Object obj) {
+		if (obj instanceof AbstractList<?>) {
+			try {
+				return modCount.getInt(obj);
+			} catch (Exception e) {
+				// should never happen
+				e.printStackTrace();
+			}
+		}
+		return (int) System.currentTimeMillis();
 	}
 
 	/**

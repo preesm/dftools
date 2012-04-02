@@ -14,6 +14,7 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.impl.AttributableImpl;
+import net.sf.dftools.util.util.EcoreHelper;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -54,6 +55,14 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	 * @ordered
 	 */
 	protected EList<Edge> outgoing;
+
+	private List<Vertex> predecessors;
+
+	private int predecessorsModCount;
+
+	private List<Vertex> successors;
+
+	private int successorsModCount;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -204,7 +213,14 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 
 	@Override
 	public List<Vertex> getPredecessors() {
-		List<Vertex> predecessors = new ArrayList<Vertex>();
+		// some dark magic to avoid creating this list all the time
+		int modCount = EcoreHelper.getModCount(getIncoming());
+		if (predecessors != null && modCount == predecessorsModCount) {
+			return predecessors;
+		}
+
+		predecessorsModCount = modCount;
+		predecessors = new ArrayList<Vertex>();
 		for (Edge edge : getIncoming()) {
 			Vertex source = edge.getSource();
 			if (!predecessors.contains(source)) {
@@ -216,7 +232,14 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 
 	@Override
 	public List<Vertex> getSuccessors() {
-		List<Vertex> successors = new ArrayList<Vertex>();
+		// some dark magic to avoid creating this list all the time
+		int modCount = EcoreHelper.getModCount(getOutgoing());
+		if (successors != null && modCount == successorsModCount) {
+			return successors;
+		}
+
+		successorsModCount = modCount;
+		successors = new ArrayList<Vertex>();
 		for (Edge edge : getOutgoing()) {
 			Vertex target = edge.getTarget();
 			if (!successors.contains(target)) {
