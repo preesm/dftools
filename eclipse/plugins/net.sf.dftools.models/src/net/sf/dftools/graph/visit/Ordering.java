@@ -56,6 +56,17 @@ public abstract class Ordering {
 	}
 
 	/**
+	 * Creates a new topological sorter.
+	 * 
+	 * @param n
+	 *            the expected number of vertices
+	 */
+	protected Ordering(int n) {
+		vertices = new ArrayList<Vertex>(n);
+		visited = new HashSet<Vertex>(n);
+	}
+
+	/**
 	 * Returns the list of vertices in the specified order.
 	 * 
 	 * @return the list of vertices in the specified order
