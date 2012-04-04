@@ -40,23 +40,76 @@ import net.sf.dftools.graph.Vertex;
 public class DFS extends Ordering {
 
 	/**
+	 * Creates a new DFS. This constructor only delegates to
+	 * <code>super(n)</code> and does not perform any visit.
+	 * 
+	 * @param n
+	 *            the expected number of vertices
+	 */
+	protected DFS(int n) {
+		super(n);
+	}
+
+	/**
+	 * Builds the list of vertices that can be reached from the given vertex
+	 * using depth-first search. Equivalent to <code>this(vertex, false)</code>
+	 * 
+	 * @param vertex
+	 *            a vertex
+	 * @see {@link #DFS(Vertex, boolean)}
+	 */
+	public DFS(Vertex vertex) {
+		this(vertex, false);
+	}
+
+	/**
 	 * Builds the list of vertices that can be reached from the given vertex
 	 * using depth-first search.
 	 * 
 	 * @param vertex
 	 *            a vertex
+	 * @param order
+	 *            if <code>true</code>, the vertices are visited in a post-order
+	 *            manner, otherwise in a pre-order manner
 	 */
-	public DFS(Vertex vertex) {
-		visitVertex(vertex);
+	public DFS(Vertex vertex, boolean order) {
+		if (order) {
+			visitPost(vertex);
+		} else {
+			visitPre(vertex);
+		}
 	}
 
 	/**
-	 * Builds the search starting from the given vertex.
+	 * Visits the given vertex and its successors in a post-order manner.
 	 * 
 	 * @param v
 	 *            a vertex
 	 */
-	public void visitVertex(Vertex v) {
+	public void visitPost(Vertex v) {
+		visited.add(v);
+
+		for (Edge edge : v.getOutgoing()) {
+			Vertex w = edge.getTarget();
+			if (visited.contains(w)) {
+				// edge goes to a node already visited
+				edge.setBackEdge(true);
+			} else {
+				edge.setBackEdge(false);
+				visitPost(w);
+			}
+		}
+
+		vertices.add(v);
+	}
+
+	/**
+	 * Visits the given vertex and its successors in a pre-order manner.
+	 * 
+	 * @param v
+	 *            a vertex
+	 */
+	public void visitPre(Vertex v) {
 		visited.add(v);
 		vertices.add(v);
 
@@ -67,7 +120,7 @@ public class DFS extends Ordering {
 				edge.setBackEdge(true);
 			} else {
 				edge.setBackEdge(false);
-				visitVertex(w);
+				visitPre(w);
 			}
 		}
 	}
