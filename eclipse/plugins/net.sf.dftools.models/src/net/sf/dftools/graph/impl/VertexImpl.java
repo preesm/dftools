@@ -14,12 +14,14 @@ import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.impl.AttributableImpl;
+import org.eclipse.emf.common.notify.Notification;
 import net.sf.dftools.util.util.EcoreHelper;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getNumber <em>Number</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getOutgoing <em>Outgoing</em>}</li>
  * </ul>
  * </p>
@@ -39,6 +42,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class VertexImpl extends AttributableImpl implements Vertex {
 
 	/**
+	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int NUMBER_EDEFAULT = 0;
+
+	/**
 	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getIncoming()
@@ -46,6 +59,16 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	 * @ordered
 	 */
 	protected EList<Edge> incoming;
+
+	/**
+	 * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNumber()
+	 * @generated
+	 * @ordered
+	 */
+	protected int number = NUMBER_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference list.
@@ -81,6 +104,8 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 		switch (featureID) {
 		case GraphPackage.VERTEX__INCOMING:
 			return getIncoming();
+		case GraphPackage.VERTEX__NUMBER:
+			return getNumber();
 		case GraphPackage.VERTEX__OUTGOING:
 			return getOutgoing();
 		}
@@ -133,6 +158,8 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 		switch (featureID) {
 		case GraphPackage.VERTEX__INCOMING:
 			return incoming != null && !incoming.isEmpty();
+		case GraphPackage.VERTEX__NUMBER:
+			return number != NUMBER_EDEFAULT;
 		case GraphPackage.VERTEX__OUTGOING:
 			return outgoing != null && !outgoing.isEmpty();
 		}
@@ -150,6 +177,9 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 		case GraphPackage.VERTEX__INCOMING:
 			getIncoming().clear();
 			getIncoming().addAll((Collection<? extends Edge>) newValue);
+			return;
+		case GraphPackage.VERTEX__NUMBER:
+			setNumber((Integer) newValue);
 			return;
 		case GraphPackage.VERTEX__OUTGOING:
 			getOutgoing().clear();
@@ -178,6 +208,9 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 		case GraphPackage.VERTEX__INCOMING:
 			getIncoming().clear();
 			return;
+		case GraphPackage.VERTEX__NUMBER:
+			setNumber(NUMBER_EDEFAULT);
+			return;
 		case GraphPackage.VERTEX__OUTGOING:
 			getOutgoing().clear();
 			return;
@@ -196,6 +229,15 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 					GraphPackage.EDGE__TARGET);
 		}
 		return incoming;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getNumber() {
+		return number;
 	}
 
 	/**
@@ -249,4 +291,32 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 		return successors;
 	}
 
-} // VertexImpl
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNumber(int newNumber) {
+		int oldNumber = number;
+		number = newNumber;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphPackage.VERTEX__NUMBER, oldNumber, number));
+	}
+
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuffer result = new StringBuffer();
+		if (eIsSet(GraphPackage.VERTEX__NUMBER)) {
+			result.append("(");
+			result.append(getNumber());
+			result.append(") ");
+		}
+		result.append(super.toString());
+		return result.toString();
+	}
+
+}

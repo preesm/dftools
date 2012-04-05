@@ -127,13 +127,22 @@ public interface GraphPackage extends EPackage {
 	int VERTEX__INCOMING = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VERTEX__NUMBER = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX__OUTGOING = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 1;
+	int VERTEX__OUTGOING = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Vertex</em>' class.
@@ -142,7 +151,7 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VERTEX_FEATURE_COUNT = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 2;
+	int VERTEX_FEATURE_COUNT = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link net.sf.dftools.graph.impl.EdgeImpl <em>Edge</em>}' class.
@@ -251,6 +260,17 @@ public interface GraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getVertex_Outgoing();
+
+	/**
+	 * Returns the meta object for the attribute '{@link net.sf.dftools.graph.Vertex#getNumber <em>Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Number</em>'.
+	 * @see net.sf.dftools.graph.Vertex#getNumber()
+	 * @see #getVertex()
+	 * @generated
+	 */
+	EAttribute getVertex_Number();
 
 	/**
 	 * Returns the meta object for the reference list '{@link net.sf.dftools.graph.Vertex#getIncoming <em>Incoming</em>}'.
@@ -371,6 +391,14 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VERTEX__OUTGOING = eINSTANCE.getVertex_Outgoing();
+
+		/**
+		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VERTEX__NUMBER = eINSTANCE.getVertex_Number();
 
 		/**
 		 * The meta object literal for the '<em><b>Incoming</b></em>' reference list feature.

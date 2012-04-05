@@ -166,7 +166,16 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getVertex_Outgoing() {
-		return (EReference) vertexEClass.getEStructuralFeatures().get(1);
+		return (EReference) vertexEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getVertex_Number() {
+		return (EAttribute) vertexEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -249,6 +258,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		vertexEClass = createEClass(VERTEX);
 		createEReference(vertexEClass, VERTEX__INCOMING);
+		createEAttribute(vertexEClass, VERTEX__NUMBER);
 		createEReference(vertexEClass, VERTEX__OUTGOING);
 
 		edgeEClass = createEClass(EDGE);
@@ -311,6 +321,10 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 				this.getEdge_Target(), "incoming", null, 0, -1, Vertex.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEAttribute(getVertex_Number(), ecorePackage.getEInt(), "number",
+				null, 0, 1, Vertex.class, IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 		initEReference(getVertex_Outgoing(), this.getEdge(),
 				this.getEdge_Source(), "outgoing", null, 0, -1, Vertex.class,

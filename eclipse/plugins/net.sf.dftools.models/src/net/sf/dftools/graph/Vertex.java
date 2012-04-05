@@ -30,6 +30,16 @@ public interface Vertex extends Attributable {
 	EList<Edge> getIncoming();
 
 	/**
+	 * Returns the number associated with this vertex. If the vertex has not
+	 * been assigned a number, this returns 0. This field is filled by visit
+	 * algorithms.
+	 * 
+	 * @return the number associated with this vertex
+	 * @model transient="true"
+	 */
+	int getNumber();
+
+	/**
 	 * Returns the list of outgoing edges.
 	 * 
 	 * @return the list of outgoing edges
@@ -52,5 +62,13 @@ public interface Vertex extends Attributable {
 	 * @return the list of successors of this vertex
 	 */
 	List<Vertex> getSuccessors();
+
+	/**
+	 * Sets the number associated with this vertex.
+	 * 
+	 * @param number
+	 *            a positive integer greater than 0
+	 */
+	void setNumber(int number);
 
 }
