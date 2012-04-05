@@ -76,6 +76,8 @@ public class DFS extends Ordering {
 	 * @param order
 	 *            if <code>true</code>, the vertices are visited in a post-order
 	 *            manner, otherwise in a pre-order manner
+	 * @throws NullPointerException
+	 *             if the given vertex is not contained in a graph
 	 */
 	public DFS(Vertex vertex, boolean order) {
 		super(vertex.getGraph().getVertices().size());
