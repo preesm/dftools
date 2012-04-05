@@ -40,6 +40,11 @@ import net.sf.dftools.graph.Vertex;
 public class DFS extends Ordering {
 
 	/**
+	 * current number. Starts at one.
+	 */
+	private int num = 1;
+
+	/**
 	 * Creates a new DFS. This constructor only delegates to
 	 * <code>super(n)</code> and does not perform any visit.
 	 * 
@@ -73,6 +78,7 @@ public class DFS extends Ordering {
 	 *            manner, otherwise in a pre-order manner
 	 */
 	public DFS(Vertex vertex, boolean order) {
+		super(vertex.getGraph().getVertices().size());
 		if (order) {
 			visitPost(vertex);
 		} else {
@@ -81,12 +87,25 @@ public class DFS extends Ordering {
 	}
 
 	/**
+	 * Visits the given vertex. Adds it to the vertices list and sets its
+	 * number.
+	 * 
+	 * @param v
+	 *            a vertex
+	 */
+	protected void visit(Vertex v) {
+		vertices.add(v);
+		v.setNumber(num);
+		num++;
+	}
+
+	/**
 	 * Visits the given vertex and its successors in a post-order manner.
 	 * 
 	 * @param v
 	 *            a vertex
 	 */
-	public void visitPost(Vertex v) {
+	public final void visitPost(Vertex v) {
 		visited.add(v);
 
 		for (Edge edge : v.getOutgoing()) {
@@ -96,7 +115,7 @@ public class DFS extends Ordering {
 			}
 		}
 
-		vertices.add(v);
+		visit(v);
 	}
 
 	/**
@@ -105,9 +124,9 @@ public class DFS extends Ordering {
 	 * @param v
 	 *            a vertex
 	 */
-	public void visitPre(Vertex v) {
+	public final void visitPre(Vertex v) {
 		visited.add(v);
-		vertices.add(v);
+		visit(v);
 
 		for (Edge edge : v.getOutgoing()) {
 			Vertex w = edge.getTarget();
