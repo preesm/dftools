@@ -28,30 +28,21 @@
  */
 package net.sf.dftools.graph.visit;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.Vertex;
 
 /**
- * This class defines a topological sorter. This visitor can be used in two
- * ways: 1) by calling <code>doSwitch</code> on a graph to obtain its
- * topological order (updates the topological order by visiting all its vertices
- * that do not have outgoing edges) 2) by calling <code>doSwitch</code> on a
- * vertex to update the topological order by recursively visiting the
- * predecessors of that vertex.
+ * This class defines a topological sorter.
  * 
  * @author Matthieu Wipliez
  * 
  */
-public class TopologicalSorter extends Ordering {
+public class TopologicalSorter extends DFS {
 
-	/**
-	 * Creates a new topological sorter.
-	 */
-	public TopologicalSorter() {
-	}
-	
 	/**
 	 * Builds the topological order of the given graph by calling
 	 * {@link #caseVertex(Vertex)} for each vertex of the given graph that has
@@ -60,23 +51,37 @@ public class TopologicalSorter extends Ordering {
 	 * @param graph
 	 *            a graph
 	 */
-	public List<Vertex> visitGraph(Graph graph) {
-		for (Vertex vertex : graph.getVertices()) {
-			if (vertex.getOutgoing().isEmpty()) {
-				visitVertex(vertex);
+	@SuppressWarnings("unchecked")
+	public TopologicalSorter(Graph graph, List<? extends Vertex> entries) {
+		super(graph.getVertices().size());
+
+		if (entries == null) {
+			entries = new ArrayList<Vertex>();
+			for (Vertex vertex : graph.getVertices()) {
+				if (vertex.getIncoming().isEmpty()) {
+					((List<Vertex>) entries).add(vertex);
+				}
 			}
 		}
-		return vertices;
+
+		if (entries.isEmpty()) {
+			// no entry point in the graph, take the first vertex
+			visitPost(graph.getVertices().get(0));
+		} else {
+			for (Vertex vertex : entries) {
+				visitPost(vertex);
+			}
+		}
+
+		Collections.reverse(vertices);
 	}
 
-	public void visitVertex(Vertex vertex) {
-		if (!visited.contains(vertex)) {
-			visited.add(vertex);
-			for (Vertex pred : vertex.getPredecessors()) {
-				visitVertex(pred);
-			}
-			vertices.add(vertex);
-		}
+	/**
+	 * Creates a new topological sorter.
+	 */
+	public TopologicalSorter(Vertex vertex) {
+		super(vertex, true);
+		Collections.reverse(vertices);
 	}
 
 }
