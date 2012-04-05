@@ -46,10 +46,9 @@ public class ReversePostOrder extends DFS {
 
 	/**
 	 * Creates the reverse post-ordering of the given graph, starting from the
-	 * given entries. If <code>entries</code> are <code>null</code>, this method
-	 * visits the graph to find entry vertices. If <code>entries</code> is empty
-	 * (as given to the constructor or if no entries could be found), the first
-	 * vertex of the graph is used.
+	 * given entries. If <code>entries</code> is <code>null</code> or empty,
+	 * this method visits the graph to find entry vertices. If no entry vertex
+	 * is found, the first vertex of the graph is used.
 	 * 
 	 * @param graph
 	 *            a graph
@@ -60,7 +59,7 @@ public class ReversePostOrder extends DFS {
 	public ReversePostOrder(Graph graph, List<? extends Vertex> entries) {
 		super(graph.getVertices().size());
 
-		if (entries == null) {
+		if (entries == null || entries.isEmpty()) {
 			entries = new ArrayList<Vertex>();
 			for (Vertex vertex : graph.getVertices()) {
 				if (vertex.getIncoming().isEmpty()) {
