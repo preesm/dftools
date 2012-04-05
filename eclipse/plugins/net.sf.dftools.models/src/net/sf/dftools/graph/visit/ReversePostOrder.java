@@ -41,7 +41,7 @@ import net.sf.dftools.graph.Vertex;
  * @author Matthieu Wipliez
  * 
  */
-public class TopologicalSorter extends DFS {
+public class ReversePostOrder extends DFS {
 
 	/**
 	 * Builds the topological order of the given graph by calling
@@ -52,7 +52,7 @@ public class TopologicalSorter extends DFS {
 	 *            a graph
 	 */
 	@SuppressWarnings("unchecked")
-	public TopologicalSorter(Graph graph, List<? extends Vertex> entries) {
+	public ReversePostOrder(Graph graph, List<? extends Vertex> entries) {
 		super(graph.getVertices().size());
 
 		if (entries == null) {
@@ -79,7 +79,7 @@ public class TopologicalSorter extends DFS {
 	/**
 	 * Creates a new topological sorter.
 	 */
-	public TopologicalSorter(Vertex vertex) {
+	public ReversePostOrder(Vertex vertex) {
 		super(vertex, true);
 		Collections.reverse(vertices);
 	}
