@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 import net.sf.dftools.graph.Edge;
+import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.impl.AttributableImpl;
@@ -216,6 +217,11 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 			return;
 		}
 		super.eUnset(featureID);
+	}
+
+	@Override
+	public Graph getGraph() {
+		return (Graph) eContainer();
 	}
 
 	/**

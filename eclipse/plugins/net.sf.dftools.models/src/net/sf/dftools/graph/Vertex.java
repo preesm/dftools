@@ -22,6 +22,15 @@ import org.eclipse.emf.common.util.EList;
 public interface Vertex extends Attributable {
 
 	/**
+	 * Returns the graph in which this vertex is contained, or <code>null</code>
+	 * if it is not contained in a graph. This is equivalent to
+	 * <code>(Graph) eContainer()</code>.
+	 * 
+	 * @return the graph that contains this vertex
+	 */
+	Graph getGraph();
+
+	/**
 	 * Returns the list of incoming edges.
 	 * 
 	 * @return the list of incoming edges
