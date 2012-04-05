@@ -42,6 +42,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class VertexImpl extends AttributableImpl implements Vertex {
 
 	/**
+	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @see #getIncoming()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Edge> incoming;
+
+	/**
 	 * The default value of the '{@link #getNumber() <em>Number</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -50,15 +59,6 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	 * @ordered
 	 */
 	protected static final int NUMBER_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #getIncoming()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Edge> incoming;
 
 	/**
 	 * The cached value of the '{@link #getNumber() <em>Number</em>}' attribute.

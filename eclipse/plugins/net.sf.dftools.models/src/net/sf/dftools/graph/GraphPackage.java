@@ -191,22 +191,13 @@ public interface GraphPackage extends EPackage {
 	int EDGE__TARGET = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Back Edge</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE__BACK_EDGE = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Edge</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EDGE_FEATURE_COUNT = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 3;
+	int EDGE_FEATURE_COUNT = UtilPackage.ATTRIBUTABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * Returns the meta object for class '{@link net.sf.dftools.graph.Graph <em>Graph</em>}'.
@@ -316,17 +307,6 @@ public interface GraphPackage extends EPackage {
 	EReference getEdge_Target();
 
 	/**
-	 * Returns the meta object for the attribute '{@link net.sf.dftools.graph.Edge#isBackEdge <em>Back Edge</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Back Edge</em>'.
-	 * @see net.sf.dftools.graph.Edge#isBackEdge()
-	 * @see #getEdge()
-	 * @generated
-	 */
-	EAttribute getEdge_BackEdge();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -433,14 +413,6 @@ public interface GraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EDGE__TARGET = eINSTANCE.getEdge_Target();
-
-		/**
-		 * The meta object literal for the '<em><b>Back Edge</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EDGE__BACK_EDGE = eINSTANCE.getEdge_BackEdge();
 
 	}
 

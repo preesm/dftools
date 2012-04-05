@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#isBackEdge <em>Back Edge</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,24 +49,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 	 * @ordered
 	 */
 	protected Vertex target;
-
-	/**
-	 * The default value of the '{@link #isBackEdge() <em>Back Edge</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #isBackEdge()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean BACK_EDGE_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isBackEdge() <em>Back Edge</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @see #isBackEdge()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean backEdge = BACK_EDGE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -148,8 +129,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 			if (resolve)
 				return getTarget();
 			return basicGetTarget();
-		case GraphPackage.EDGE__BACK_EDGE:
-			return isBackEdge();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -203,8 +182,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 			return source != null;
 		case GraphPackage.EDGE__TARGET:
 			return target != null;
-		case GraphPackage.EDGE__BACK_EDGE:
-			return backEdge != BACK_EDGE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -221,9 +198,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 			return;
 		case GraphPackage.EDGE__TARGET:
 			setTarget((Vertex) newValue);
-			return;
-		case GraphPackage.EDGE__BACK_EDGE:
-			setBackEdge((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -250,9 +224,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 			return;
 		case GraphPackage.EDGE__TARGET:
 			setTarget((Vertex) null);
-			return;
-		case GraphPackage.EDGE__BACK_EDGE:
-			setBackEdge(BACK_EDGE_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -296,26 +267,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isBackEdge() {
-		return backEdge;
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBackEdge(boolean newBackEdge) {
-		boolean oldBackEdge = backEdge;
-		backEdge = newBackEdge;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GraphPackage.EDGE__BACK_EDGE, oldBackEdge, backEdge));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
 	public void setSource(Vertex newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -352,22 +303,6 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					GraphPackage.EDGE__TARGET, newTarget, newTarget));
-	}
-
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (backEdge: ");
-		result.append(backEdge);
-		result.append(')');
-		return result.toString();
 	}
 
 } // EdgeImpl

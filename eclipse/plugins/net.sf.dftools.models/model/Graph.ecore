@@ -20,7 +20,5 @@
         eOpposite="#//Vertex/outgoing"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Vertex"
         eOpposite="#//Vertex/incoming"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backEdge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        transient="true"/>
   </eClassifiers>
 </ecore:EPackage>

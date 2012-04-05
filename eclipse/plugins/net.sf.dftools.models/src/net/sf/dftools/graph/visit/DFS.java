@@ -91,11 +91,7 @@ public class DFS extends Ordering {
 
 		for (Edge edge : v.getOutgoing()) {
 			Vertex w = edge.getTarget();
-			if (visited.contains(w)) {
-				// edge goes to a node already visited
-				edge.setBackEdge(true);
-			} else {
-				edge.setBackEdge(false);
+			if (!visited.contains(w)) {
 				visitPost(w);
 			}
 		}
@@ -115,11 +111,7 @@ public class DFS extends Ordering {
 
 		for (Edge edge : v.getOutgoing()) {
 			Vertex w = edge.getTarget();
-			if (visited.contains(w)) {
-				// edge goes to a node already visited
-				edge.setBackEdge(true);
-			} else {
-				edge.setBackEdge(false);
+			if (!visited.contains(w)) {
 				visitPre(w);
 			}
 		}
