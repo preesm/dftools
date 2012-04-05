@@ -30,6 +30,7 @@ package net.sf.dftools.graph.visit;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ import net.sf.dftools.graph.Vertex;
  * @author Matthieu Wipliez
  * 
  */
-public abstract class Ordering {
+public abstract class Ordering implements Iterable<Vertex> {
 
 	protected final List<Vertex> vertices;
 
@@ -73,6 +74,11 @@ public abstract class Ordering {
 	 */
 	public List<Vertex> getVertices() {
 		return vertices;
+	}
+
+	@Override
+	public Iterator<Vertex> iterator() {
+		return vertices.iterator();
 	}
 
 }
