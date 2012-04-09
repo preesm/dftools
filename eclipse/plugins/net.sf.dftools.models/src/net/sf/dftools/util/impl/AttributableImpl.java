@@ -188,6 +188,11 @@ public abstract class AttributableImpl extends EObjectImpl implements
 	}
 
 	@Override
+	public boolean hasAttribute(String name) {
+		return getAttribute(name) != null;
+	}
+
+	@Override
 	public void removeAttribute(String name) {
 		Iterator<Attribute> it = getAttributes().iterator();
 		while (it.hasNext()) {

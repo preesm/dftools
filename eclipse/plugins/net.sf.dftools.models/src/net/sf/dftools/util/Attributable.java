@@ -80,6 +80,16 @@ public interface Attributable extends EObject {
 	<T> T getValue(String name);
 
 	/**
+	 * Returns <code>true</code> if this object has an attribute with the given
+	 * name. This can be used to quickly check if a "flag" attribute is present.
+	 * 
+	 * @param name
+	 *            name of an attribute
+	 * @return <code>true</code> if there is an attribute with the given name
+	 */
+	boolean hasAttribute(String name);
+
+	/**
 	 * Removes the first attribute that has the given name.
 	 * 
 	 * @param name
