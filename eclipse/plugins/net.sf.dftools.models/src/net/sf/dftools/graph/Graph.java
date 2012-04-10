@@ -22,6 +22,15 @@ import org.eclipse.emf.ecore.EObject;
 public interface Graph extends EObject {
 
 	/**
+	 * Adds the given edge to this graph's edges. Subclasses may (and are
+	 * expected to) override to add the given edge to reference lists.
+	 * 
+	 * @param edge
+	 *            an edge
+	 */
+	void add(Edge edge);
+
+	/**
 	 * Adds the given vertex to this graph's vertices. Subclasses may (and are
 	 * expected to) override to add the given vertex to reference lists.
 	 * 

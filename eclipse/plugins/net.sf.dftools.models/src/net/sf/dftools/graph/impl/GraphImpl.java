@@ -66,6 +66,11 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	}
 
 	@Override
+	public void add(Edge edge) {
+		getEdges().add(edge);
+	}
+
+	@Override
 	public void add(Vertex vertex) {
 		getVertices().add(vertex);
 	}
