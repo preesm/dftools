@@ -28,6 +28,9 @@
  */
 package net.sf.dftools.graph.visit;
 
+import java.util.List;
+import java.util.ListIterator;
+
 import net.sf.dftools.graph.Edge;
 import net.sf.dftools.graph.Vertex;
 
@@ -102,7 +105,9 @@ public class DFS extends Ordering {
 	}
 
 	/**
-	 * Visits the given vertex and its successors in a post-order manner.
+	 * Visits the given vertex and its successors in a post-order manner. The
+	 * successors are visited in a reverse order (i.e. last successor is visited
+	 * first) to give a more natural reverse post-ordering.
 	 * 
 	 * @param v
 	 *            a vertex
@@ -110,8 +115,10 @@ public class DFS extends Ordering {
 	public final void visitPost(Vertex v) {
 		visited.add(v);
 
-		for (Edge edge : v.getOutgoing()) {
-			Vertex w = edge.getTarget();
+		List<Edge> edges = v.getOutgoing();
+		ListIterator<Edge> it = edges.listIterator(edges.size());
+		while (it.hasPrevious()) {
+			Vertex w = it.previous().getTarget();
 			if (!visited.contains(w)) {
 				visitPost(w);
 			}
