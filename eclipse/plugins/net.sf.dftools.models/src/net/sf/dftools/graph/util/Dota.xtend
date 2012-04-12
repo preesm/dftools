@@ -68,7 +68,7 @@ class Dota {
 	def private print(Vertex vertex) {
 		var attr = vertex.getAttribute("name")
 		'''
-		node_«getId(vertex)»«IF attr != null» [label="«attr.value»"]«ENDIF»;
+		node_«getId(vertex)» [label="(«vertex.number»)«IF attr != null» «attr.value»«ENDIF»"];
 		'''
 	}
 
