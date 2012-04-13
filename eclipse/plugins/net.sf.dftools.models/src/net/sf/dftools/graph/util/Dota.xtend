@@ -61,13 +61,17 @@ class Dota {
 		}
 	'''
 
-	def private print(Edge edge) '''
-		node_«getId(edge.source)» -> node_«getId(edge.target)» «IF !edge.label.empty » [label="(«edge.label»"]; «ENDIF»;
-	'''
+	def private print(Edge edge) {
+		var label = edge.label
+		'''
+		node_«getId(edge.source)» -> node_«getId(edge.target)» «IF label != null && !label.empty » [label="(«edge.label»"]; «ENDIF»;
+		'''
+	}
 
 	def private print(Vertex vertex) {
+		var label = vertex.label
 		'''
-		node_«getId(vertex)» [label="(«vertex.number»)«IF !vertex.label.empty » «vertex.label»«ENDIF»"];
+		node_«getId(vertex)» [label="(«vertex.number»)«IF label != null && !label.empty» «label»«ENDIF»"];
 		'''
 	}
 
