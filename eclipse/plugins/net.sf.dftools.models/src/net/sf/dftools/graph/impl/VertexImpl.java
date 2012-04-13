@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getIncoming <em>Incoming</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getNumber <em>Number</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.VertexImpl#getOutgoing <em>Outgoing</em>}</li>
@@ -41,6 +42,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class VertexImpl extends AttributableImpl implements Vertex {
+
+	/**
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LABEL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected String label = LABEL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
@@ -103,6 +124,8 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case GraphPackage.VERTEX__LABEL:
+			return getLabel();
 		case GraphPackage.VERTEX__INCOMING:
 			return getIncoming();
 		case GraphPackage.VERTEX__NUMBER:
@@ -157,6 +180,9 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case GraphPackage.VERTEX__LABEL:
+			return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT
+					.equals(label);
 		case GraphPackage.VERTEX__INCOMING:
 			return incoming != null && !incoming.isEmpty();
 		case GraphPackage.VERTEX__NUMBER:
@@ -175,6 +201,9 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case GraphPackage.VERTEX__LABEL:
+			setLabel((String) newValue);
+			return;
 		case GraphPackage.VERTEX__INCOMING:
 			getIncoming().clear();
 			getIncoming().addAll((Collection<? extends Edge>) newValue);
@@ -200,12 +229,37 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLabel() {
+		return label;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLabel(String newLabel) {
+		String oldLabel = label;
+		label = newLabel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphPackage.VERTEX__LABEL, oldLabel, label));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case GraphPackage.VERTEX__LABEL:
+			setLabel(LABEL_EDEFAULT);
+			return;
 		case GraphPackage.VERTEX__INCOMING:
 			getIncoming().clear();
 			return;

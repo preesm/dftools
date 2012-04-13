@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link net.sf.dftools.graph.impl.EdgeImpl#getTarget <em>Target</em>}</li>
  * </ul>
@@ -31,6 +32,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class EdgeImpl extends AttributableImpl implements Edge {
+
+	/**
+	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LABEL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected String label = LABEL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
@@ -121,6 +142,8 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case GraphPackage.EDGE__LABEL:
+			return getLabel();
 		case GraphPackage.EDGE__SOURCE:
 			if (resolve)
 				return getSource();
@@ -178,6 +201,9 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case GraphPackage.EDGE__LABEL:
+			return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT
+					.equals(label);
 		case GraphPackage.EDGE__SOURCE:
 			return source != null;
 		case GraphPackage.EDGE__TARGET:
@@ -187,12 +213,32 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy())
+			return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (label: ");
+		result.append(label);
+		result.append(')');
+		return result.toString();
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case GraphPackage.EDGE__LABEL:
+			setLabel((String) newValue);
+			return;
 		case GraphPackage.EDGE__SOURCE:
 			setSource((Vertex) newValue);
 			return;
@@ -213,12 +259,37 @@ public class EdgeImpl extends AttributableImpl implements Edge {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLabel() {
+		return label;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLabel(String newLabel) {
+		String oldLabel = label;
+		label = newLabel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GraphPackage.EDGE__LABEL, oldLabel, label));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case GraphPackage.EDGE__LABEL:
+			setLabel(LABEL_EDEFAULT);
+			return;
 		case GraphPackage.EDGE__SOURCE:
 			setSource((Vertex) null);
 			return;

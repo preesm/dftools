@@ -28,11 +28,11 @@
  */
 package net.sf.dftools.graph.util
 
-import net.sf.dftools.graph.Graph
-import net.sf.dftools.graph.Edge
-import net.sf.dftools.graph.Vertex
-import java.util.Map
 import java.util.HashMap
+import java.util.Map
+import net.sf.dftools.graph.Edge
+import net.sf.dftools.graph.Graph
+import net.sf.dftools.graph.Vertex
 
 /**
  * This class defines a (very) simple Graph to DOT converter.
@@ -62,13 +62,12 @@ class Dota {
 	'''
 
 	def private print(Edge edge) '''
-		node_«getId(edge.source)» -> node_«getId(edge.target)»;
+		node_«getId(edge.source)» -> node_«getId(edge.target)» «IF !edge.label.empty » [label="(«edge.label»"]; «ENDIF»;
 	'''
 
 	def private print(Vertex vertex) {
-		var attr = vertex.getAttribute("name")
 		'''
-		node_«getId(vertex)» [label="(«vertex.number»)«IF attr != null» «attr.value»«ENDIF»"];
+		node_«getId(vertex)» [label="(«vertex.number»)«IF !vertex.label.empty » «vertex.label»«ENDIF»"];
 		'''
 	}
 

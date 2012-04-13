@@ -8,6 +8,7 @@
         eType="#//Vertex" containment="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Vertex" eSuperTypes="Util.ecore#//Attributable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" upperBound="-1"
         eType="#//Edge" eOpposite="#//Edge/target"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -16,6 +17,7 @@
         eType="#//Edge" eOpposite="#//Edge/source"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Edge" eSuperTypes="Util.ecore#//Attributable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Vertex"
         eOpposite="#//Vertex/outgoing"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Vertex"
