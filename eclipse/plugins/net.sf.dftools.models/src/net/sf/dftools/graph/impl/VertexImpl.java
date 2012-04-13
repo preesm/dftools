@@ -375,7 +375,11 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 			result.append(getNumber());
 			result.append(") ");
 		}
-		result.append(super.toString());
+		if (eIsSet(GraphPackage.VERTEX__LABEL)) {
+			result.append(getLabel());
+		} else {
+			result.append(super.toString());
+		}
 		return result.toString();
 	}
 
