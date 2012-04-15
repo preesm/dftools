@@ -32,10 +32,19 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * This class defines an attributable object.
- * 
- * @author Matthieu Wipliez
+ *<!-- begin-user-doc -->This class defines an
+ *         attributable object.<!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link net.sf.dftools.util.Attributable#getAttributes <em>Attributes</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see net.sf.dftools.util.UtilPackage#getAttributable()
  * @model abstract="true"
+ * @generated
  */
 public interface Attributable extends EObject {
 
@@ -61,11 +70,13 @@ public interface Attributable extends EObject {
 	Attribute getAttribute(String name);
 
 	/**
-	 * Returns the attributes of this vertex.
-	 * 
-	 * @return the attributes of this vertex
-	 * 
+	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
+	 * The list contents are of type {@link net.sf.dftools.util.Attribute}.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @return the value of the '<em>Attributes</em>' containment reference list.
+	 * @see net.sf.dftools.util.UtilPackage#getAttributable_Attributes()
 	 * @model containment="true"
+	 * @generated
 	 */
 	EList<Attribute> getAttributes();
 

@@ -13,11 +13,24 @@ import net.sf.dftools.util.Attributable;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * This class defines a vertex. A vertex has incoming edges and outgoing edges.
- * It also has a list of attributes. The predecessor/successor information is
- * actually deduced from the incoming/outgoing edges.
- * 
+ * <!-- begin-user-doc -->This class defines a vertex. A vertex has incoming
+ * edges and outgoing edges. It also has a list of attributes. The
+ * predecessor/successor information is actually deduced from the
+ * incoming/outgoing edges.<!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link net.sf.dftools.graph.Vertex#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.Vertex#getLabel <em>Label</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.Vertex#getNumber <em>Number</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.Vertex#getOutgoing <em>Outgoing</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see net.sf.dftools.graph.GraphPackage#getVertex()
  * @model
+ * @generated
  */
 public interface Vertex extends Attributable {
 
@@ -31,36 +44,52 @@ public interface Vertex extends Attributable {
 	Graph getGraph();
 
 	/**
-	 * Returns the list of incoming edges.
-	 * 
-	 * @return the list of incoming edges
+	 * Returns the value of the '<em><b>Incoming</b></em>' reference list.
+	 * The list contents are of type {@link net.sf.dftools.graph.Edge}.
+	 * It is bidirectional and its opposite is '{@link net.sf.dftools.graph.Edge#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @return the value of the '<em>Incoming</em>' reference list.
+	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Incoming()
+	 * @see net.sf.dftools.graph.Edge#getTarget
 	 * @model opposite="target"
+	 * @generated
 	 */
 	EList<Edge> getIncoming();
 
 	/**
-	 * Returns the label of this vertex.
-	 * 
-	 * @return the label of this vertex
+	 * Returns the value of the '<em><b>Label</b></em>' attribute.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @return the value of the '<em>Label</em>' attribute.
+	 * @see #setLabel(String)
+	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Label()
 	 * @model
+	 * @generated
 	 */
 	String getLabel();
 
 	/**
-	 * Returns the number associated with this vertex. If the vertex has not
-	 * been assigned a number, this returns 0. This field is filled by visit
-	 * algorithms.
-	 * 
-	 * @return the number associated with this vertex
+	 * Returns the value of the '<em><b>Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->Returns the number associated with this vertex. If
+	 * the vertex has not been assigned a number, this returns 0. This field is
+	 * filled by visit algorithms.<!-- end-user-doc -->
+	 * @return the value of the '<em>Number</em>' attribute.
+	 * @see #setNumber(int)
+	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Number()
 	 * @model transient="true"
+	 * @generated
 	 */
 	int getNumber();
 
 	/**
-	 * Returns the list of outgoing edges.
-	 * 
-	 * @return the list of outgoing edges
+	 * Returns the value of the '<em><b>Outgoing</b></em>' reference list.
+	 * The list contents are of type {@link net.sf.dftools.graph.Edge}.
+	 * It is bidirectional and its opposite is '{@link net.sf.dftools.graph.Edge#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @return the value of the '<em>Outgoing</em>' reference list.
+	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Outgoing()
+	 * @see net.sf.dftools.graph.Edge#getSource
 	 * @model opposite="source"
+	 * @generated
 	 */
 	EList<Edge> getOutgoing();
 
@@ -81,19 +110,21 @@ public interface Vertex extends Attributable {
 	List<Vertex> getSuccessors();
 
 	/**
-	 * Sets the label of this vertex.
-	 * 
-	 * @param value
-	 *            the new label
+	 * Sets the value of the '{@link net.sf.dftools.graph.Vertex#getLabel <em>Label</em>}' attribute.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @param value the new value of the '<em>Label</em>' attribute.
+	 * @see #getLabel()
+	 * @generated
 	 */
-	void setLabel(String label);
+	void setLabel(String value);
 
 	/**
-	 * Sets the number associated with this vertex.
-	 * 
-	 * @param number
-	 *            a positive integer greater than 0
+	 * Sets the value of the '{@link net.sf.dftools.graph.Vertex#getNumber <em>Number</em>}' attribute.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @param value the new value of the '<em>Number</em>' attribute.
+	 * @see #getNumber()
+	 * @generated
 	 */
-	void setNumber(int number);
+	void setNumber(int value);
 
 }

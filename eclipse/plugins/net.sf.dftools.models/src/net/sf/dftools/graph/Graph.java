@@ -11,13 +11,21 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * This class defines a graph model as a list of vertices and edges, which are
+ * <!-- begin-user-doc -->This class defines a graph model as a list of vertices and edges, which are
  * both contained in this graph. The model supports hierarchy by making Graph
- * extends Vertex.
- * 
- * @author Matthieu Wipliez
- * @author Herve Yviquel
+ * extends Vertex.<!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link net.sf.dftools.graph.Graph#getEdges <em>Edges</em>}</li>
+ *   <li>{@link net.sf.dftools.graph.Graph#getVertices <em>Vertices</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see net.sf.dftools.graph.GraphPackage#getGraph()
  * @model
+ * @generated
  */
 public interface Graph extends Vertex {
 
@@ -52,10 +60,13 @@ public interface Graph extends Vertex {
 	Edge add(Vertex source, Vertex target);
 
 	/**
-	 * Returns the list of this graph's edges.
-	 * 
-	 * @return the list of this graph's edges
+	 * Returns the value of the '<em><b>Edges</b></em>' containment reference list.
+	 * The list contents are of type {@link net.sf.dftools.graph.Edge}.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @return the value of the '<em>Edges</em>' containment reference list.
+	 * @see net.sf.dftools.graph.GraphPackage#getGraph_Edges()
 	 * @model containment="true"
+	 * @generated
 	 */
 	EList<Edge> getEdges();
 
@@ -80,10 +91,13 @@ public interface Graph extends Vertex {
 	Vertex getLast();
 
 	/**
-	 * Returns the list of this graph's vertices.
-	 * 
-	 * @return the list of this graph's vertices
+	 * Returns the value of the '<em><b>Vertices</b></em>' containment reference list.
+	 * The list contents are of type {@link net.sf.dftools.graph.Vertex}.
+	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * @return the value of the '<em>Vertices</em>' containment reference list.
+	 * @see net.sf.dftools.graph.GraphPackage#getGraph_Vertices()
 	 * @model containment="true"
+	 * @generated
 	 */
 	EList<Vertex> getVertices();
 
