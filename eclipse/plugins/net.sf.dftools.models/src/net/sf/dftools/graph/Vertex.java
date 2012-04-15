@@ -22,32 +22,6 @@ import org.eclipse.emf.common.util.EList;
 public interface Vertex extends Attributable {
 
 	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Label()
-	 * @model
-	 * @generated
-	 */
-	String getLabel();
-
-	/**
-	 * Sets the value of the '{@link net.sf.dftools.graph.Vertex#getLabel <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
-	 * @generated
-	 */
-	void setLabel(String value);
-
-	/**
 	 * Returns the graph in which this vertex is contained, or <code>null</code>
 	 * if it is not contained in a graph. This is equivalent to
 	 * <code>(Graph) eContainer()</code>.
@@ -63,6 +37,14 @@ public interface Vertex extends Attributable {
 	 * @model opposite="target"
 	 */
 	EList<Edge> getIncoming();
+
+	/**
+	 * Returns the label of this vertex.
+	 * 
+	 * @return the label of this vertex
+	 * @model
+	 */
+	String getLabel();
 
 	/**
 	 * Returns the number associated with this vertex. If the vertex has not
@@ -97,6 +79,14 @@ public interface Vertex extends Attributable {
 	 * @return the list of successors of this vertex
 	 */
 	List<Vertex> getSuccessors();
+
+	/**
+	 * Sets the label of this vertex.
+	 * 
+	 * @param value
+	 *            the new label
+	 */
+	void setLabel(String label);
 
 	/**
 	 * Sets the number associated with this vertex.

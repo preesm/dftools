@@ -77,6 +77,10 @@ public class GraphSwitch<T> extends Switch<T> {
 			Graph graph = (Graph) theEObject;
 			T result = caseGraph(graph);
 			if (result == null)
+				result = caseVertex(graph);
+			if (result == null)
+				result = caseAttributable(graph);
+			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}

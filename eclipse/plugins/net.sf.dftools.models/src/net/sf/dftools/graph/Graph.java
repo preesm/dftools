@@ -9,17 +9,17 @@ package net.sf.dftools.graph;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 /**
- * This class defines a graph as a list of vertices and edges, which are both
- * contained in this graph.
+ * This class defines a graph model as a list of vertices and edges, which are
+ * both contained in this graph. The model supports hierarchy by making Graph
+ * extends Vertex.
  * 
  * @author Matthieu Wipliez
  * @author Herve Yviquel
  * @model
  */
-public interface Graph extends EObject {
+public interface Graph extends Vertex {
 
 	/**
 	 * Adds the given edge to this graph's edges. Subclasses may (and are

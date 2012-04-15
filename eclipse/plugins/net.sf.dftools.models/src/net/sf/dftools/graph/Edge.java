@@ -17,30 +17,12 @@ import net.sf.dftools.util.Attributable;
 public interface Edge extends Attributable {
 
 	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Label</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Label</em>' attribute.
-	 * @see #setLabel(String)
-	 * @see net.sf.dftools.graph.GraphPackage#getEdge_Label()
+	 * Returns the label of this edge.
+	 * 
+	 * @return the label of this edge
 	 * @model
-	 * @generated
 	 */
 	String getLabel();
-
-	/**
-	 * Sets the value of the '{@link net.sf.dftools.graph.Edge#getLabel <em>Label</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Label</em>' attribute.
-	 * @see #getLabel()
-	 * @generated
-	 */
-	void setLabel(String value);
 
 	/**
 	 * Returns the source vertex of this edge. This has an opposite relation to
@@ -61,6 +43,14 @@ public interface Edge extends Attributable {
 	 * @model opposite="incoming"
 	 */
 	Vertex getTarget();
+
+	/**
+	 * Sets the label of this edge.
+	 * 
+	 * @param value
+	 *            the new label
+	 */
+	void setLabel(String value);
 
 	/**
 	 * Sets the source vertex of this edge.

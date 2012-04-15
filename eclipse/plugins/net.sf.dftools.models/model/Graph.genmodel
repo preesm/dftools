@@ -13,10 +13,12 @@
     </genClasses>
     <genClasses ecoreClass="Graph.ecore#//Vertex">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Graph.ecore#//Vertex/incoming"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Graph.ecore#//Vertex/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Graph.ecore#//Vertex/number"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Graph.ecore#//Vertex/outgoing"/>
     </genClasses>
     <genClasses ecoreClass="Graph.ecore#//Edge">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Graph.ecore#//Edge/label"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Graph.ecore#//Edge/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Graph.ecore#//Edge/target"/>
     </genClasses>

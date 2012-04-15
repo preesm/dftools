@@ -166,7 +166,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EAttribute getVertex_Label() {
-		return (EAttribute) vertexEClass.getEStructuralFeatures().get(0);
+		return (EAttribute) vertexEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -193,7 +193,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 	 * @generated
 	 */
 	public EReference getVertex_Incoming() {
-		return (EReference) vertexEClass.getEStructuralFeatures().get(1);
+		return (EReference) vertexEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -266,8 +266,8 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		createEReference(graphEClass, GRAPH__VERTICES);
 
 		vertexEClass = createEClass(VERTEX);
-		createEAttribute(vertexEClass, VERTEX__LABEL);
 		createEReference(vertexEClass, VERTEX__INCOMING);
+		createEAttribute(vertexEClass, VERTEX__LABEL);
 		createEAttribute(vertexEClass, VERTEX__NUMBER);
 		createEReference(vertexEClass, VERTEX__OUTGOING);
 
@@ -304,14 +304,13 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 		// Obtain other dependent packages
 		UtilPackage theUtilPackage = (UtilPackage) EPackage.Registry.INSTANCE
 				.getEPackage(UtilPackage.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage) EPackage.Registry.INSTANCE
-				.getEPackage(EcorePackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		graphEClass.getESuperTypes().add(this.getVertex());
 		vertexEClass.getESuperTypes().add(theUtilPackage.getAttributable());
 		edgeEClass.getESuperTypes().add(theUtilPackage.getAttributable());
 
@@ -329,14 +328,14 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		initEClass(vertexEClass, Vertex.class, "Vertex", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVertex_Label(), theEcorePackage.getEString(),
-				"label", null, 0, 1, Vertex.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
 		initEReference(getVertex_Incoming(), this.getEdge(),
 				this.getEdge_Target(), "incoming", null, 0, -1, Vertex.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEAttribute(getVertex_Label(), ecorePackage.getEString(), "label",
+				null, 0, 1, Vertex.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 		initEAttribute(getVertex_Number(), ecorePackage.getEInt(), "number",
 				null, 0, 1, Vertex.class, IS_TRANSIENT, !IS_VOLATILE,
@@ -350,7 +349,7 @@ public class GraphPackageImpl extends EPackageImpl implements GraphPackage {
 
 		initEClass(edgeEClass, Edge.class, "Edge", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEdge_Label(), theEcorePackage.getEString(), "label",
+		initEAttribute(getEdge_Label(), ecorePackage.getEString(), "label",
 				null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
