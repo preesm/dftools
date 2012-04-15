@@ -44,10 +44,19 @@ public interface Vertex extends Attributable {
 	Graph getGraph();
 
 	/**
-	 * Returns the value of the '<em><b>Incoming</b></em>' reference list.
-	 * The list contents are of type {@link net.sf.dftools.graph.Edge}.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.graph.Edge#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * Returns the hierarchy of this vertex as a list of graphs.
+	 * 
+	 * @return the hierarchy of this vertex
+	 */
+	List<Graph> getHierarchy();
+
+	/**
+	 * Returns the value of the '<em><b>Incoming</b></em>' reference list. The
+	 * list contents are of type {@link net.sf.dftools.graph.Edge}. It is
+	 * bidirectional and its opposite is '
+	 * {@link net.sf.dftools.graph.Edge#getTarget <em>Target</em>}'. <!--
+	 * begin-user-doc --><!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Incoming</em>' reference list.
 	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Incoming()
 	 * @see net.sf.dftools.graph.Edge#getTarget
@@ -57,8 +66,9 @@ public interface Vertex extends Attributable {
 	EList<Edge> getIncoming();
 
 	/**
-	 * Returns the value of the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Label</b></em>' attribute. <!--
+	 * begin-user-doc --><!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
 	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Label()
@@ -68,10 +78,11 @@ public interface Vertex extends Attributable {
 	String getLabel();
 
 	/**
-	 * Returns the value of the '<em><b>Number</b></em>' attribute.
-	 * <!-- begin-user-doc -->Returns the number associated with this vertex. If
-	 * the vertex has not been assigned a number, this returns 0. This field is
+	 * Returns the value of the '<em><b>Number</b></em>' attribute. <!--
+	 * begin-user-doc -->Returns the number associated with this vertex. If the
+	 * vertex has not been assigned a number, this returns 0. This field is
 	 * filled by visit algorithms.<!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Number</em>' attribute.
 	 * @see #setNumber(int)
 	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Number()
@@ -81,10 +92,12 @@ public interface Vertex extends Attributable {
 	int getNumber();
 
 	/**
-	 * Returns the value of the '<em><b>Outgoing</b></em>' reference list.
-	 * The list contents are of type {@link net.sf.dftools.graph.Edge}.
-	 * It is bidirectional and its opposite is '{@link net.sf.dftools.graph.Edge#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc --><!-- end-user-doc -->
+	 * Returns the value of the '<em><b>Outgoing</b></em>' reference list. The
+	 * list contents are of type {@link net.sf.dftools.graph.Edge}. It is
+	 * bidirectional and its opposite is '
+	 * {@link net.sf.dftools.graph.Edge#getSource <em>Source</em>}'. <!--
+	 * begin-user-doc --><!-- end-user-doc -->
+	 * 
 	 * @return the value of the '<em>Outgoing</em>' reference list.
 	 * @see net.sf.dftools.graph.GraphPackage#getVertex_Outgoing()
 	 * @see net.sf.dftools.graph.Edge#getSource

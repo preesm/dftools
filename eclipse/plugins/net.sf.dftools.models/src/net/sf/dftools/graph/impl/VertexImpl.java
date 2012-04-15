@@ -8,6 +8,7 @@ package net.sf.dftools.graph.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.dftools.graph.Edge;
@@ -15,9 +16,9 @@ import net.sf.dftools.graph.Graph;
 import net.sf.dftools.graph.GraphPackage;
 import net.sf.dftools.graph.Vertex;
 import net.sf.dftools.util.impl.AttributableImpl;
-import org.eclipse.emf.common.notify.Notification;
 import net.sf.dftools.util.util.EcoreHelper;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -254,6 +255,18 @@ public class VertexImpl extends AttributableImpl implements Vertex {
 	@Override
 	public Graph getGraph() {
 		return (Graph) eContainer();
+	}
+
+	@Override
+	public List<Graph> getHierarchy() {
+		List<Graph> graphs = new ArrayList<Graph>();
+		Graph parent = getGraph();
+		while (parent != null) {
+			graphs.add(parent);
+			parent = parent.getGraph();
+		}
+		Collections.reverse(graphs);
+		return graphs;
 	}
 
 	/**
