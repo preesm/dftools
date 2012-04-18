@@ -11,9 +11,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc -->This class defines a graph model as a list of vertices and edges, which are
- * both contained in this graph. The model supports hierarchy by making Graph
- * extends Vertex.<!-- end-user-doc -->
+ * <!-- begin-user-doc -->This class defines a graph model as a list of vertices
+ * and edges, which are both contained in this graph. The model supports
+ * hierarchy by making Graph extends Vertex.<!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
@@ -127,6 +127,14 @@ public interface Graph extends Vertex {
 	 *            a list of edges
 	 */
 	void removeEdges(List<? extends Edge> edges);
+
+	/**
+	 * Removes all edges of the given vertex.
+	 * 
+	 * @param vertex
+	 *            a vertex
+	 */
+	void removeEdgesOf(Vertex vertex);
 
 	/**
 	 * Removes all given vertices from the list of vertices, along with all

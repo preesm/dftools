@@ -6,7 +6,6 @@
  */
 package net.sf.dftools.graph.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -240,26 +239,40 @@ public class GraphImpl extends VertexImpl implements Graph {
 
 	@Override
 	public void remove(Vertex vertex) {
-		removeEdges(new ArrayList<Edge>(vertex.getIncoming()));
-		removeEdges(new ArrayList<Edge>(vertex.getOutgoing()));
-
+		removeEdgesOf(vertex);
 		getVertices().remove(vertex);
 	}
 
 	@Override
 	public void removeEdges(List<? extends Edge> edges) {
-		for (Edge transition : edges) {
-			transition.setSource(null);
-			transition.setTarget(null);
+		// trick so that this method works without the need to copy edges
+		int i = 0;
+		int size = edges.size();
+		while (i < edges.size()) {
+			Edge edge = edges.get(i);
+			edge.setSource(null);
+			edge.setTarget(null);
+
+			if (size == edges.size()) {
+				// only increment if the list's size did not change
+				i++;
+			}
 		}
+
+		// now remove them from the edges field
 		getEdges().removeAll(edges);
+	}
+
+	@Override
+	public void removeEdgesOf(Vertex vertex) {
+		removeEdges(vertex.getIncoming());
+		removeEdges(vertex.getOutgoing());
 	}
 
 	@Override
 	public void removeVertices(List<? extends Vertex> vertices) {
 		for (Vertex vertex : vertices) {
-			removeEdges(new ArrayList<Edge>(vertex.getIncoming()));
-			removeEdges(new ArrayList<Edge>(vertex.getOutgoing()));
+			removeEdgesOf(vertex);
 		}
 		getVertices().removeAll(vertices);
 	}
