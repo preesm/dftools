@@ -245,21 +245,22 @@ public class GraphImpl extends VertexImpl implements Graph {
 
 	@Override
 	public void removeEdges(List<? extends Edge> edges) {
-		// FIRST remove edges from the edges field
-		// because the list may be modified by the loop below
-		getEdges().removeAll(edges);
-
-		// THEN disconnect the edges to remove them from incoming/outgoing
+		// disconnect the edges to remove them from incoming/outgoing
 		// trick so that this method works without the need to copy edges
 		int i = 0;
 		int size = edges.size();
 		while (i < edges.size()) {
 			Edge edge = edges.get(i);
+
+			// disconnect this edge
 			edge.setSource(null);
 			edge.setTarget(null);
 
+			// remove edge from this graph
+			getEdges().remove(edge);
+
+			// only increment if the list's size did not change
 			if (size == edges.size()) {
-				// only increment if the list's size did not change
 				i++;
 			}
 		}
