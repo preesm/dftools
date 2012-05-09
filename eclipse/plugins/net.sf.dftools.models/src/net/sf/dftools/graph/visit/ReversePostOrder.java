@@ -70,7 +70,9 @@ public class ReversePostOrder extends DFS {
 
 		if (entries.isEmpty()) {
 			// no entry point in the graph, take the first vertex
-			visitPost(graph.getVertices().get(0));
+			if (!graph.getVertices().isEmpty()) {
+				visitPost(graph.getVertices().get(0));
+			}
 		} else {
 			for (Vertex vertex : entries) {
 				visitPost(vertex);
