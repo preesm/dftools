@@ -93,7 +93,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
 		this.getPropertyBean().setValue(TOPOLOGY, null);
 		this.getPropertyBean().setValue(SCHEDULABLE, null);
-		if (source instanceof SDFForkVertex) {
+		if (source instanceof SDFForkVertex || source instanceof SDFBroadcastVertex) {
 			source.connectionAdded(newEdge);
 		} else if (target instanceof SDFJoinVertex
 				|| target instanceof SDFRoundBufferVertex) {
