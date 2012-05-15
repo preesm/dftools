@@ -86,15 +86,15 @@ public class SDFRandomGraph {
 	 * 
 	 * @param graph is the graph to make consistent 
 	 */
-	public static void makeConsistentConnectedActors(SDFGraph graph) {
+	public static void makeConsistentConnectedActors(SDFGraph graph, int rateMultiplier) {
 		Rational RatioSrcDst;
 		for (SDFAbstractVertex Src :graph.vertexSet()){
 			for (SDFAbstractVertex Dst :graph.vertexSet()) {
 				if (graph.containsEdge(Src, Dst)) {
 					RatioSrcDst = Rational.div(fractions.get(Src), fractions
 							.get(Dst));
-					graph.getEdge(Src, Dst).setProd(new SDFIntEdgePropertyType((RatioSrcDst.getDenum())));
-					graph.getEdge(Src, Dst).setCons(new SDFIntEdgePropertyType( RatioSrcDst.getNum()));
+					graph.getEdge(Src, Dst).setProd(new SDFIntEdgePropertyType(RatioSrcDst.getDenum()*rateMultiplier));
+					graph.getEdge(Src, Dst).setCons(new SDFIntEdgePropertyType(  RatioSrcDst.getNum()*rateMultiplier));
 				}
 			}
 		}
@@ -144,6 +144,41 @@ public class SDFRandomGraph {
 	public SDFRandomGraph() {
 		adapters.add(this);
 	}
+	
+	/**
+	 * 
+	 * Creates a new schedulable Random graph, 
+     * by setting the number of vertices and who have random numbers of sources and sinks.
+     * Moreover the production and consumption between two vertices is randomly set.
+	 * 
+	 * @param nbVertex is the number of vertices to create in the graph
+	 * @param minInDegree is the minimum sinks of each vertex
+	 * @param maxInDegree is the maximum sinks of each vertex
+	 * @param minOutDegree is the minimum sources of each vertex
+	 * @param maxOutDegree is the maximum sources of each vertex
+	 * @param minRate is the minimum production and consumption on edge
+	 * @param maxRate is the maximum production and consumption on edge
+	 * @param rateMultiplier a coefficient multiplying ALL productions and consumption
+	 *            rates of the generated sdf.
+	 * 
+	 * @return The created random graph
+	 * @throws SDF4JException 
+	 * @throws InvalidExpressionException 
+	 * 
+	 */
+	public SDFGraph createRandomGraph(int nbVertex, int minInDegree,
+			int maxInDegree, int minOutDegree, int maxOutDegree, int minRate,
+			int maxRate) throws SDF4JException{
+		try {
+			return createRandomGraph(nbVertex,minInDegree,
+					maxInDegree,  minOutDegree,  maxOutDegree,  minRate,
+					maxRate,1,1);
+		} catch (InvalidExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw(new SDF4JException(e.getMessage()));
+		}
+	}
 
 	/**
 	 * 
@@ -158,6 +193,8 @@ public class SDFRandomGraph {
 	 * @param maxOutDegree is the maximum sources of each vertex
 	 * @param minRate is the minimum production and consumption on edge
 	 * @param maxRate is the maximum production and consumption on edge
+	 * @param rateMultiplier a coefficient multiplying ALL productions and consumption
+	 *            rates of the generated sdf.
 	 * 
 	 * @return The created random graph
 	 * @throws SDF4JException 
@@ -166,11 +203,11 @@ public class SDFRandomGraph {
 	 */
 	public SDFGraph createRandomGraph(int nbVertex, int minInDegree,
 			int maxInDegree, int minOutDegree, int maxOutDegree, int minRate,
-			int maxRate) throws SDF4JException{
+			int maxRate, int rateMultiplier) throws SDF4JException{
 		try {
 			return createRandomGraph(nbVertex,minInDegree,
 					maxInDegree,  minOutDegree,  maxOutDegree,  minRate,
-					maxRate,1);
+					maxRate,rateMultiplier,1);
 		} catch (InvalidExpressionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,6 +228,8 @@ public class SDFRandomGraph {
 	 * @param maxOutDegree The maximum sources of each vertex
 	 * @param minRate The minimum production and consumption on edge
 	 * @param maxRate The maximum production and consumption on edge
+	 * @param rateMultiplier a coefficient multiplying ALL productions and consumption
+	 *            rates of the generated sdf.
 	 * @param nbSensors Exact number of input vertices in the graph
 	 * 
 	 * @return The created random graph
@@ -199,7 +238,7 @@ public class SDFRandomGraph {
 	 */
 	public SDFGraph createRandomGraph(int nbVertex, int minInDegree,
 			int maxInDegree, int minOutDegree, int maxOutDegree, int minRate,
-			int maxRate,int nbSensors) throws InvalidExpressionException {
+			int maxRate, int rateMultiplier, int nbSensors) throws InvalidExpressionException {
 		
 		
 		int[] nbSinksVertex = new int[nbVertex];
@@ -314,7 +353,7 @@ public class SDFRandomGraph {
 		}
 		
 		// Make the graph consistent
-		makeConsistentConnectedActors(graph);
+		makeConsistentConnectedActors(graph,rateMultiplier);
 
 		// Place Delays on Edge
 		PlaceDelay(graph,nbVertexgraph,Sensors);

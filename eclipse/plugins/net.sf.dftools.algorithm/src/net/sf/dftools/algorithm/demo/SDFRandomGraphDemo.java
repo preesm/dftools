@@ -32,7 +32,7 @@ public class SDFRandomGraphDemo{
 		SDFRandomGraph test = new SDFRandomGraph();
 		TopologyVisitor topo = new TopologyVisitor();
 		SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree,
-				maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate,15);
+				maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate,15,1);
 		try {
 			demoGraph.accept(topo);
 		} catch (SDF4JException e) {
