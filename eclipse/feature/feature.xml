@@ -82,13 +82,6 @@ knowledge of the CeCILL-C license and that you accept its terms.
          unpack="false"/>
 
    <plugin
-         id="net.sf.dftools.models"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="net.sf.dftools.ui"
          download-size="0"
          install-size="0"
@@ -97,13 +90,6 @@ knowledge of the CeCILL-C license and that you accept its terms.
 
    <plugin
          id="net.sf.dftools.workflow"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.stringtemplate"
          download-size="0"
          install-size="0"
          version="0.0.0"
