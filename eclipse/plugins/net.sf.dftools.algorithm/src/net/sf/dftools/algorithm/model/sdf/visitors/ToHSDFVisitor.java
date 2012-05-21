@@ -120,6 +120,7 @@ public class ToHSDFVisitor implements
 							.intValue()));
 					newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd()
 							.intValue()));
+					newEdge.setDataType(edge.getDataType());
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
 				}
@@ -140,6 +141,7 @@ public class ToHSDFVisitor implements
 							.intValue()));
 					newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons()
 							.intValue()));
+					newEdge.setDataType(edge.getDataType());
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
 				}

@@ -322,6 +322,7 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 						* target.getNbRepeatAsInteger()));
 				newEdge.setSourceInterface(output);
 				newEdge.setTargetInterface(treatEdge.getTargetInterface());
+				newEdge.setDataType(treatEdge.getDataType());
 				parentGraph.removeEdge(treatEdge);
 				outEdges.remove(0);
 			}
@@ -353,6 +354,7 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 						* treatEdge.getTarget().getNbRepeatAsInteger()));
 				newEdge.setSourceInterface(output);
 				newEdge.setTargetInterface(treatEdge.getTargetInterface());
+				newEdge.setDataType(treatEdge.getDataType());
 				parentGraph.removeEdge(treatEdge);
 				outEdges.remove(0);
 			}
