@@ -55,6 +55,7 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 				parentGraph.addVertex(cloneVertex);
 				matchCopies.put(trueVertex, cloneVertex);
 				cloneVertex.copyProperties(trueVertex);
+				cloneVertex.setNbRepeat(trueVertex.getNbRepeatAsInteger() * vertex.getNbRepeatAsInteger());
 				cloneVertex.setName(vertex.getName() + "_"
 						+ cloneVertex.getName());
 				if (trueVertex.getArguments() != null) {
@@ -79,6 +80,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			SDFAbstractVertex sourceVertex = null;
 			SDFAbstractVertex targetVertex = null;
 			int delayValue = 0;
+			int prodValue = 0 ;
+			int consValue = 0 ;
 			if (edges.get(i).getSource() instanceof SDFInterfaceVertex) {
 				SDFInterfaceVertex sourceInterface = (SDFInterfaceVertex) edges
 						.get(i).getSource();
@@ -87,6 +90,7 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 							.getSource();
 					delayValue = vertex.getAssociatedEdge(sourceInterface)
 							.getDelay().intValue();
+					prodValue = vertex.getAssociatedEdge(sourceInterface).getProd().intValue() ;
 					edges.get(i).setSourceInterface(
 							vertex.getAssociatedEdge(sourceInterface)
 									.getSourceInterface());
@@ -94,6 +98,7 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 
 			} else {
 				sourceVertex = matchCopies.get(edges.get(i).getSource());
+				prodValue = edges.get(i).getProd().intValue();
 			}
 			if (edges.get(i).getTarget() instanceof SDFInterfaceVertex) {
 				SDFInterfaceVertex targetInterface = (SDFInterfaceVertex) edges
@@ -103,6 +108,7 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 							.getTarget();
 					delayValue = vertex.getAssociatedEdge(targetInterface)
 							.getDelay().intValue();
+					consValue = vertex.getAssociatedEdge(targetInterface).getCons().intValue() ;
 					edges.get(i).setTargetInterface(
 							vertex.getAssociatedEdge(targetInterface)
 									.getTargetInterface());
@@ -110,15 +116,14 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 
 			} else {
 				targetVertex = matchCopies.get(edges.get(i).getTarget());
+				consValue = edges.get(i).getCons().intValue() ;
 			}
 			if (sourceVertex != null && targetVertex != null) {
 				SDFEdge newEdge = parentGraph.addEdge(sourceVertex,
 						targetVertex);
 				newEdge.copyProperties(edges.get(i));
-				newEdge.setCons(new SDFIntEdgePropertyType(edges.get(i)
-						.getCons().intValue()));
-				newEdge.setProd(new SDFIntEdgePropertyType(edges.get(i)
-						.getProd().intValue()));
+				newEdge.setCons(new SDFIntEdgePropertyType(consValue));
+				newEdge.setProd(new SDFIntEdgePropertyType(prodValue));
 				if (delayValue != 0) {
 					newEdge.setDelay(new SDFIntEdgePropertyType(delayValue));
 				}

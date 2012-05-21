@@ -139,7 +139,7 @@ public class SDFHierarchyInstanciation implements
 		while (totProd < (edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger())) {
 			// testing this block for inserting explode and implode vertices
 			if ((rest < (edge.getProd().intValue() * (edge.getSource().getNbRepeatAsInteger()/sourceCopies.size())))
-					&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
+ 					&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
 					/*&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)*/) {
 				SDFAbstractVertex explodeVertex = new SDFForkVertex();
 				
@@ -220,7 +220,20 @@ public class SDFHierarchyInstanciation implements
 					.getEdgeSource(edge));
 			Vector<SDFAbstractVertex> targetCopies = matchCopies.get(sdf
 					.getEdgeTarget(edge));
-			linkRepetitions(sdf, output, edge, sourceCopies, targetCopies);
+			if(sourceCopies.size() == 1 && targetCopies.size() == 1){ // no copies !
+				SDFEdge newEdge = output.addEdge(sourceCopies.get(0), targetCopies.get(0));
+				newEdge.copyProperties(edge);
+				newEdge.setDelay(new SDFIntEdgePropertyType(edge.getDelay().intValue()));
+				newEdge.setProd(new SDFIntEdgePropertyType(edge.getProd()
+						.intValue()));
+				newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons().intValue()));
+				newEdge.setDataType(edge.getDataType());
+				newEdge.setSourceInterface(edge.getSourceInterface());
+				newEdge.setTargetInterface(edge.getTargetInterface());
+				
+			}else{
+				linkRepetitions(sdf, output, edge, sourceCopies, targetCopies);
+			}
 			for (int i = 0; i < sourceCopies.size(); i++) {
 				if (sourceCopies.get(i) instanceof SDFForkVertex && sdf.getVertex(sourceCopies.get(i).getName()) == null) {
 					SDFAbstractVertex trueSource = null;
@@ -266,11 +279,20 @@ public class SDFHierarchyInstanciation implements
 					copies.add(copy);
 					output.addVertex(copy);
 				} else if (vertex.getGraphDescription() != null) {
-					for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
+					CycleDetector<SDFAbstractVertex, SDFEdge> cycleDetector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
+							vertex.getGraphDescription());
+					if(cycleDetector.detectCycles()){
+						for (int i = 0; i < vertex.getNbRepeatAsInteger() ; i++) {
+							SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+									.clone();
+							copy.setName(copy.getName() + "_" + i);
+							copy.setNbRepeat(1);
+							output.addVertex(copy);
+							copies.add(copy);
+						}
+					}else{
 						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 								.clone();
-						copy.setName(copy.getName() + "_" + i);
-						copy.setNbRepeat(1);
 						output.addVertex(copy);
 						copies.add(copy);
 					}
