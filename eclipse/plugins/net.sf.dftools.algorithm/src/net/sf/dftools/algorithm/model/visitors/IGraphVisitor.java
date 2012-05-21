@@ -1,9 +1,8 @@
-package net.sf.dftools.algorithm.model.sdf.visitors;
+package net.sf.dftools.algorithm.model.visitors;
 
 import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.AbstractGraph;
 import net.sf.dftools.algorithm.model.AbstractVertex;
-import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
  * Interface of the SDF visitor
@@ -15,7 +14,7 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
  * 
  */
 @SuppressWarnings("rawtypes")
-public interface GraphVisitor<G extends AbstractGraph,V extends AbstractVertex,E extends AbstractEdge> {
+public interface IGraphVisitor<G extends AbstractGraph,V extends AbstractVertex,E extends AbstractEdge> {
 
 	/**
 	 * Visit the given edge
