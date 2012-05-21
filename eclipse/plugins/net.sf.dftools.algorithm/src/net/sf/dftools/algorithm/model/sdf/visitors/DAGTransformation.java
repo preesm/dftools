@@ -43,6 +43,7 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 import org.jgrapht.alg.CycleDetector;
@@ -56,7 +57,7 @@ import org.jgrapht.alg.CycleDetector;
  * 
  */
 public class DAGTransformation<T extends DirectedAcyclicGraph> implements
-		GraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+		IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Main method for debug purposes ...

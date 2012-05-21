@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import net.sf.dftools.algorithm.model.sdf.visitors.GraphVisitor;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 
 /**
  * Abstract class common to all edges
@@ -60,7 +60,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	 * @param visitor
 	 *            The visitor to accept
 	 */
-	public void accept(GraphVisitor visitor) {
+	public void accept(IGraphVisitor visitor) {
 		visitor.visit(this);
 	}
 

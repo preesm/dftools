@@ -10,6 +10,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
@@ -21,7 +22,7 @@ import org.math.array.LinearAlgebra;
  * @author jpiat
  * 
  */
-public class TopologyVisitor implements GraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+public class TopologyVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	boolean schedulable = true ;
 

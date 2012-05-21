@@ -17,7 +17,7 @@ import net.sf.dftools.algorithm.model.parameters.Variable;
 import net.sf.dftools.algorithm.model.parameters.VariableSet;
 import net.sf.dftools.algorithm.model.parameters.factories.ArgumentFactory;
 import net.sf.dftools.algorithm.model.parameters.factories.ParameterFactory;
-import net.sf.dftools.algorithm.model.sdf.visitors.GraphVisitor;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 import org.jgrapht.EdgeFactory;
@@ -165,7 +165,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 *            The visitor to accept
 	 * @throws SDF4JException
 	 */
-	public void accept(GraphVisitor visitor) throws SDF4JException {
+	public void accept(IGraphVisitor visitor) throws SDF4JException {
 		visitor.visit(this);
 	}
 
@@ -645,6 +645,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	public ArgumentFactory getArgumentFactory(V v) {
 		return new ArgumentFactory(v);
 	}
+
 	
 	
 }

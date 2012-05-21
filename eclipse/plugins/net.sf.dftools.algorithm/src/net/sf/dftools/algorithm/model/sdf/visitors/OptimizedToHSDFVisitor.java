@@ -21,6 +21,7 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
@@ -32,7 +33,7 @@ import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
  * 
  */
 public class OptimizedToHSDFVisitor implements
-		GraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+		IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Test the visitor

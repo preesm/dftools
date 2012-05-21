@@ -24,6 +24,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
@@ -37,7 +38,7 @@ import org.jgrapht.alg.CycleDetector;
  * 
  */
 public class SDFHierarchyInstanciation implements
-		GraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+		IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	private SDFGraph outputGraph;
 
@@ -137,7 +138,7 @@ public class SDFHierarchyInstanciation implements
 				.intValue());
 		while (totProd < (edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger())) {
 			// testing this block for inserting explode and implode vertices
-			if ((rest < edge.getProd().intValue())
+			if ((rest < (edge.getProd().intValue() * (edge.getSource().getNbRepeatAsInteger()/sourceCopies.size())))
 					&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
 					/*&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)*/) {
 				SDFAbstractVertex explodeVertex = new SDFForkVertex();
@@ -152,13 +153,12 @@ public class SDFHierarchyInstanciation implements
 				newEdge.setDelay(new SDFIntEdgePropertyType(0));
 				newEdge.setProd(new SDFIntEdgePropertyType(edge.getProd()
 						.intValue()));
-				newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd()
-						.intValue()));
+				newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
 				newEdge.setDataType(edge.getDataType());
 				newEdge.setSourceInterface(edge.getSourceInterface());
 				newEdge.setTargetInterface(edge.getTargetInterface());
 			}
-			if ((rest < edge.getCons().intValue() )
+			if ((rest < (edge.getCons().intValue() * (edge.getTarget().getNbRepeatAsInteger()/targetCopies.size())) )
 					&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)) {
 				SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 				output.addVertex(implodeVertex);
@@ -169,8 +169,8 @@ public class SDFHierarchyInstanciation implements
 				SDFEdge newEdge = output.addEdge(implodeVertex, originVertex);
 				newEdge.copyProperties(edge);
 				newEdge.setDelay(new SDFIntEdgePropertyType(0));
-				newEdge.setProd(new SDFIntEdgePropertyType(edge.getCons()
-						.intValue()));
+				newEdge.setProd(new SDFIntEdgePropertyType((edge.getCons()
+						.intValue()/targetCopies.size()) * sourceCopies.size()));
 				newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons()
 						.intValue()));
 				newEdge.setDataType(edge.getDataType());

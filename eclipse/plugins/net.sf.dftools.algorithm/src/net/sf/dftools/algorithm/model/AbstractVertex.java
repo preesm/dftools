@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.ArgumentSet;
-import net.sf.dftools.algorithm.model.sdf.visitors.GraphVisitor;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
@@ -85,7 +85,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 	 * @throws SDF4JException
 	 */
 	@SuppressWarnings("rawtypes")
-	public void accept(GraphVisitor visitor) throws SDF4JException {
+	public void accept(IGraphVisitor visitor) throws SDF4JException {
 		visitor.visit(this);
 	}
 

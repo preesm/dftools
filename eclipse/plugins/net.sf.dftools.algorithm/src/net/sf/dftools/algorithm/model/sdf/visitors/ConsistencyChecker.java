@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
@@ -14,7 +15,7 @@ import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
  * @author jpiat
  *
  */
-public class ConsistencyChecker implements GraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	private boolean isConsistent ;
 	@Override

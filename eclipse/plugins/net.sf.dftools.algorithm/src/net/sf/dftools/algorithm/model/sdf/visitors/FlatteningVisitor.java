@@ -19,6 +19,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
@@ -27,7 +28,7 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
  * @author jpiat
  * 
  */
-public class FlatteningVisitor implements GraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Creates a known graph

@@ -6,6 +6,7 @@ import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
 import net.sf.dftools.algorithm.model.sdf.SDFVertex;
+import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 import org.jgrapht.alg.CycleDetector;
@@ -16,7 +17,7 @@ import org.jgrapht.alg.CycleDetector;
  * @author jpiat
  * 
  */
-public class CycleDetectorVisitor implements GraphVisitor<SDFGraph, SDFVertex, SDFEdge> {
+public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, SDFEdge> {
 
 	private Vector<SDFGraph> containsCycles = new Vector<SDFGraph>();
 	private boolean hasCycle = true;
