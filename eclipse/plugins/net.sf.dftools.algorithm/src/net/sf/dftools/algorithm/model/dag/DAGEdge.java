@@ -46,7 +46,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
 	}
 
 	/**
-	 * Gives this DAGEdge weght
+	 * Gives this DAGEdge weight
 	 * 
 	 * @return This DAGEdge weight
 	 */
