@@ -279,6 +279,7 @@ public class SDFHierarchyInstanciation implements
 					copies.add(copy);
 					output.addVertex(copy);
 				} else if (vertex.getGraphDescription() != null) {
+					@SuppressWarnings("unchecked")
 					CycleDetector<SDFAbstractVertex, SDFEdge> cycleDetector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
 							vertex.getGraphDescription());
 					if(cycleDetector.detectCycles()){

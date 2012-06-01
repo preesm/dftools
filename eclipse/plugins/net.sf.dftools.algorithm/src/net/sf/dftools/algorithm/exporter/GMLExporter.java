@@ -93,8 +93,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
 	 * @param desc
 	 *            This key description
 	 */
-	@SuppressWarnings("unused")
-	private void addKey(String name, String elt, String type, Class<?> desc) {
+	protected void addKey(String name, String elt, String type, Class<?> desc) {
 		Key key = new Key(name, elt, type, desc);
 		if (classKeySet.get(elt) == null) {
 			ArrayList<Key> keys = new ArrayList<Key>();

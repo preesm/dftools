@@ -308,6 +308,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 	 */
 	@Override
 	public String toString() {
+		return this.instanceName;
+		/*
 		if (eIsProxy())
 			return super.toString();
 
@@ -316,6 +318,7 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 		result.append(instanceName);
 		result.append(')');
 		return result.toString();
+		*/
 	}
 
 } // ComponentInstanceImpl
