@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: net.sf.dftools.cdl
 Bundle-Vendor: My Company
-Bundle-Version: 0.1.0.v20120320
+Bundle-Version: 0.1.0.v20120612
 Bundle-SymbolicName: net.sf.dftools.cdl; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="2.0.0";visibility:=reexport,
