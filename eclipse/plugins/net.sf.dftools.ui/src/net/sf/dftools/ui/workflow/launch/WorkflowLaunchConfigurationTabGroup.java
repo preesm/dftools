@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -34,13 +34,15 @@ knowledge of the CeCILL-C license and that you accept its terms.
 package net.sf.dftools.ui.workflow.launch;
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
-import org.eclipse.debug.ui.EnvironmentTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
- * @author Matthieu Wipliez
+ * Creating the tabs displaying launch properties for a workflow.
+ * The only options here are a scenario path and a workflow path.
  * 
+ * @author Matthieu Wipliez
+ * @author mpelcat
  */
 public class WorkflowLaunchConfigurationTabGroup extends
 		AbstractLaunchConfigurationTabGroup {
@@ -56,7 +58,7 @@ public class WorkflowLaunchConfigurationTabGroup extends
 		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
 				new WorkFlowLaunchWorkflowTab(),
 				// new WorkFlowLaunchArchitectureTab(),
-				new WorkFlowLaunchScenarioTab(), new EnvironmentTab() };
+				new WorkFlowLaunchScenarioTab()};
 		this.setTabs(tabs);
 	}
 

@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -35,11 +35,13 @@ package net.sf.dftools.ui.workflow.launch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import net.sf.dftools.ui.Activator;
 import net.sf.dftools.ui.util.FileUtils;
 import net.sf.dftools.ui.workflow.ScenarioConfiguration;
 import net.sf.dftools.ui.workflow.WorkflowMessages;
+import net.sf.dftools.ui.workflow.tools.DFToolsWorkflowLogger;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -71,7 +73,8 @@ import org.eclipse.ui.part.FileEditorInput;
 public class WorkflowLaunchShortcut implements ILaunchShortcut {
 
 	/**
-	 * Creates configuration that references a given scenario
+	 * Creates configuration that references given workflow and scenario.
+	 * The configuration is only created if non-existing.
 	 */
 	public static ILaunchConfiguration createLaunchConfiguration(IFile file) {
 
@@ -80,18 +83,21 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 				.getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID);
 
 		ILaunchConfigurationWorkingCopy workingCopy;
+		
+		String workflowPath = file.getFullPath().toString();
+		
 		try {
-			String fullPath = file.getFullPath().toString();
-			String launchConfigurationName = manager
-					.generateLaunchConfigurationName(fullPath);
+			String launchConfigurationName = workflowPath.replaceAll("/", "_");
+			
 			workingCopy = type.newInstance(null, launchConfigurationName);
 		} catch (CoreException e) {
+			DFToolsWorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
 			return null;
 		}
 
 		workingCopy.setAttribute(
 				WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME,
-				file.getFullPath().toString());
+				workflowPath);
 
 		// We ask for the scenario to use with the selected workflow
 		String scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench()
