@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
+import net.sf.dftools.workflow.WorkflowManager;
 import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 /**
@@ -52,7 +53,7 @@ public abstract class AbstractWorkflowNodeImplementation {
 			if (!outputPrototype.keySet().contains(outputPortName)) {
 				WorkflowLogger.getLogger().logFromProperty(
 						Level.SEVERE, "Workflow.FalseOutputEdge",
-						outputPortName);
+						outputPortName, WorkflowManager.IGNORE_PORT_NAME);
 				return false;
 			}
 		}

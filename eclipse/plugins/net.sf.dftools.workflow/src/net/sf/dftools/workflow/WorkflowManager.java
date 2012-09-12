@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -62,7 +62,7 @@ public class WorkflowManager {
 	 * Ports with this name are ignored when exchanging data. They just specify
 	 * precedence.
 	 */
-	private static String IGNORE_PORT_NAME = "void";
+	public static String IGNORE_PORT_NAME = "void";
 
 	public WorkflowManager() {
 		super();
