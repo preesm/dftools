@@ -262,7 +262,7 @@ public class SDFRandomGraph {
 			double min2,max2;
 			// Add a new vertex to the graph
 			SDFVertex Vertex = new SDFVertex();
-			Vertex.setName("Vertex " + (nbVertexgraph));
+			Vertex.setName("Vertex_" + (nbVertexgraph));
 			arrayVertex[nbVertexgraph] = Vertex;
 			Vertex.getPropertyBean().setValue(CLUSTER, 0);
 			graph.addVertex(arrayVertex[nbVertexgraph]);
