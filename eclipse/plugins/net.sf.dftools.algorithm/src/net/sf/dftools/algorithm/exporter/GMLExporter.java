@@ -82,29 +82,6 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
 	}
 
 	/**
-	 * Add a key to this exporter
-	 * 
-	 * @param name
-	 *            The name of the Key
-	 * @param elt
-	 *            The Class this key applies to
-	 * @param type
-	 *            The value type of this key
-	 * @param desc
-	 *            This key description
-	 */
-	protected void addKey(String name, String elt, String type, Class<?> desc) {
-		Key key = new Key(name, elt, type, desc);
-		if (classKeySet.get(elt) == null) {
-			ArrayList<Key> keys = new ArrayList<Key>();
-			classKeySet.put(elt, keys);
-		}
-		key.setId("k" + index);
-		index++;
-		classKeySet.get(elt).add(key);
-	}
-
-	/**
 	 * Adds a key with the speicified informations
 	 * 
 	 * @param id
