@@ -92,7 +92,11 @@ public class Key {
 	public boolean equals(Object key) {
 		if (key instanceof Key) {
 			Key kKey = (Key) key;
-			return kKey.applyTo.equals(this.applyTo) && kKey.id.equals(this.id)
+			// Since when it exists, the id is always equal to the name, we remove
+			// the equality test for this.id
+			// @author Karol Desnos
+			// @date 2012.10.17
+			return kKey.applyTo.equals(this.applyTo)
 					&& kKey.name.equals(this.name)
 					&& kKey.type.equals(this.type);
 		}
