@@ -1,5 +1,6 @@
 package net.sf.dftools.algorithm.model.dag;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import net.sf.dftools.algorithm.exceptions.CreateCycleException;
@@ -72,11 +73,25 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 			CycleDetector<DAGVertex, DAGEdge> detector = new CycleDetector<DAGVertex, DAGEdge>(
 					this);
 			if (detector.detectCyclesContainingVertex(source)) {
+				Set<DAGVertex> cycle = detector.findCyclesContainingVertex(source);
+				String cycleString = "Added edge forms a cycle: {";
+				for(DAGVertex vertex : cycle){
+					cycleString += vertex.getName() + " ";
+				}	
+				cycleString+="}";
+				
 				this.removeEdge(newEdge);
-				throw (new CreateCycleException());
+				throw ((new CreateCycleException(cycleString)));
 			} else if (detector.detectCyclesContainingVertex(target)) {
+				Set<DAGVertex> cycle = detector.findCyclesContainingVertex(target);
+				String cycleString = "Added edge forms a cycle: {";
+				for(DAGVertex vertex : cycle){
+					cycleString += vertex.getName() + " ";
+				}	
+				cycleString+="}";
+				
 				this.removeEdge(newEdge);
-				throw (new CreateCycleException());
+				throw ((new CreateCycleException(cycleString)));
 			}
 			return newEdge;
 		}

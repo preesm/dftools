@@ -114,8 +114,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 
 	@Override
 	public SDFAbstractVertex createVertex(String kind) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("Unimplemented method");
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package net.sf.dftools.algorithm.model.sdf.visitors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 
@@ -26,10 +27,11 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
 /**
- * Visitor used to transform an SDF into a single-rate SDF (for all edges :
- * prod = cons)
+ * Visitor used to transform an SDF into a single-rate SDF (for all edges : prod
+ * = cons)
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public class ToHSDFVisitor implements
@@ -79,40 +81,105 @@ public class ToHSDFVisitor implements
 		return outputGraph;
 	}
 
+	/**
+	 * This method adds the {@link SDFEdge}s to the output Single-Rate
+	 * {@link SDFGraph}.
+	 * 
+	 * @param sdf
+	 *            the input {@link SDFGraph}
+	 * @param matchCopies
+	 *            a {@link Map} that associates each {@link SDFVertex} of the
+	 *            input {@link SDFGraph} to its corresponding {@link SDFVertex}
+	 *            in the output Single-Rate {@link SDFGraph}.
+	 * @param output
+	 *            the output Single-Rate {@link SDFGraph} where the
+	 *            {@link SDFVertex} have already been inserted by
+	 *            {@link #transformsTop(SDFGraph, SDFGraph)}.
+	 * @throws InvalidExpressionException
+	 */
 	private void linkVerticesTop(SDFGraph sdf,
 			HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies,
 			SDFGraph output) throws InvalidExpressionException {
 
+		// Scan the edges of the input graph
 		for (SDFEdge edge : sdf.edgeSet()) {
-			sdf.getEdgeSource(edge);
-			sdf.getEdgeTarget(edge);
+			// sdf.getEdgeSource(edge); -- Removed by kdesnos on the 2012.01.11
+			// sdf.getEdgeTarget(edge); -- Removed by kdesnos on the 2012.01.11
 			SDFInterfaceVertex inputVertex = null;
 			SDFInterfaceVertex outputVertex = null;
+
+			// Retrieve the duplicates of the source and target of the current
+			// edge
 			Vector<SDFAbstractVertex> sourceCopies = matchCopies.get(sdf
 					.getEdgeSource(edge));
 			Vector<SDFAbstractVertex> targetCopies = matchCopies.get(sdf
 					.getEdgeTarget(edge));
 			int nbDelays = edge.getDelay().intValue();
-			int totProd = 0;
-			int sourceProd = 0;
-			int targetCons = 0;
+
+			// Index of the currently processed sourceVertex among the
+			// duplicates of the current edge source.
+			int sourceIndex = 0;
+
+			// targetIndex is used to know which duplicates of the target will
+			// be targeted by the currently indexed copy of the source.
+			// Example:
+			// Given an edge between A and B where:
+			// A produces 1, B consumes 1, there are 2 delays on the edge.
+			// A is duplicated 3 times and B 3 times also
+			// targetIndex = (2/1)%3 = 2
+			// A_0 will target B_(0+targetIndex%3) = B_2
 			int targetIndex = (nbDelays / edge.getCons().intValue())
-					% targetCopies.size(), sourceIndex = 0;
+					% targetCopies.size();
+
+			// This int represent the number of iteration separating the
+			// currently indexed source and target (between which an edge is
+			// added)
+			// If this int is > to 0, this means that the added edge must have
+			// delays (with delay=prod=cons of the added edge).
+			// With the previous example:
+			// A_1 will target B_(1+targetIndex%3) = B_0 (with a delay of 1)
+			// A_2 will target B_(2+targetIndex%3) = B_1 (with a delay of 1)
+			int iterationDiff = (nbDelays / edge.getCons().intValue())
+					/ targetCopies.size();
+
+			// rest is both the production and consumption rate on the created
+			// edge.
+			// it is initialized with the minimum rate of the original edge
+			// (min(prod,cons))
 			int rest = Math.min(edge.getProd().intValue(), edge.getCons()
 					.intValue());
-			int startIndex = targetIndex;
+
+			// totProd is updated to store the number of token consumed by the
+			// targets that are "satisfied" by the added edges.
+			int totProd = 0;
+			// sourceProd and targetCons are respectively used to store the
+			// number of token produced and consumed by the currently "indexed"
+			// copy of the
+			// source and target. Once this number reach the total number of
+			// token "produced"/"consumed" by the indexed source/target, the
+			// index is incremented.
+			int sourceProd = 0;
+			int targetCons = 0;
+			// Until all consumed token are "satisfied"
 			while (totProd < (edge.getCons().intValue() * targetCopies.size())) {
-				// testing this block for inserting explode and implode vertices
+				// Testing zone beginning
+				// for inserting explode and implode vertices
 				if (rest < edge.getProd().intValue()
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)) {
+					// If an exlode must be added
 					SDFAbstractVertex explodeVertex = new SDFForkVertex();
 					output.addVertex(explodeVertex);
 					SDFAbstractVertex originVertex = (SDFAbstractVertex) sourceCopies
 							.get(sourceIndex);
 					explodeVertex.setName("explode_" + originVertex.getName()
 							+ "_" + edge.getSourceInterface().getName());
+
+					// Replace the source vertex by the explode in the
+					// sourceCopies list
 					sourceCopies.set(sourceIndex, explodeVertex);
+
+					// Add an edge between the source and the explode
 					SDFEdge newEdge = output.addEdge(originVertex,
 							explodeVertex);
 					newEdge.setDelay(new SDFIntEdgePropertyType(0));
@@ -127,13 +194,19 @@ public class ToHSDFVisitor implements
 				if (rest < edge.getCons().intValue()
 						&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)
 						&& !(targetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)) {
+					// If an implode must be added
 					SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 					output.addVertex(implodeVertex);
 					SDFAbstractVertex originVertex = (SDFAbstractVertex) targetCopies
 							.get(targetIndex);
 					implodeVertex.setName("implode_" + originVertex.getName()
 							+ "_" + edge.getTargetInterface().getName());
+
+					// Replace the target vertex by the implode one in the
+					// targetCopies List
 					targetCopies.set(targetIndex, implodeVertex);
+
+					// Add an edge between the implode and the target
 					SDFEdge newEdge = output.addEdge(implodeVertex,
 							originVertex);
 					newEdge.setDelay(new SDFIntEdgePropertyType(0));
@@ -146,25 +219,38 @@ public class ToHSDFVisitor implements
 					newEdge.setTargetInterface(edge.getTargetInterface());
 				}
 				// end of testing zone
+
+				// Create the new Edge for the output graph
 				SDFEdge newEdge = output.addEdge(sourceCopies.get(sourceIndex),
 						targetCopies.get(targetIndex));
+
+				// Set the source interface of the new edge
 				if (sourceCopies.get(sourceIndex).getSink(
 						edge.getSourceInterface().getName()) != null) {
+					// if the source already has the appropriate interface
 					newEdge.setSourceInterface(sourceCopies.get(sourceIndex)
 							.getSink(edge.getSourceInterface().getName()));
 				} else {
+					// if the source does not have the interface.
 					newEdge.setSourceInterface(edge.getSourceInterface()
 							.clone());
 				}
+
+				// Set the target interface of the new edge
 				if (targetCopies.get(targetIndex).getSource(
 						edge.getTargetInterface().getName()) != null) {
+					// if the target already has the appropriate interface
 					newEdge.setTargetInterface(targetCopies.get(targetIndex)
 							.getSource(edge.getTargetInterface().getName()));
 				} else {
+					// if the target does not have the interface.
 					newEdge.setTargetInterface(edge.getTargetInterface()
 							.clone());
 				}
+				// kdesnos: This lines cancel the previous if..else block ?
 				newEdge.setTargetInterface(edge.getTargetInterface().clone());
+
+				// Associate the interfaces to the new edge
 				if (targetCopies.get(targetIndex) instanceof SDFVertex) {
 					if (((SDFVertex) targetCopies.get(targetIndex))
 							.getAssociatedInterface(edge) != null) {
@@ -185,22 +271,57 @@ public class ToHSDFVisitor implements
 										outputVertex);
 					}
 				}
+
+				// Set the properties of the new edge
 				newEdge.copyProperties(edge);
 				newEdge.setProd(new SDFIntEdgePropertyType(rest));
 				newEdge.setCons(new SDFIntEdgePropertyType(rest));
-				if ((targetIndex == 0 || targetIndex < startIndex)
-						&& nbDelays > 0) {
-					newEdge.setDelay(new SDFIntEdgePropertyType(edge.getCons()
-							.intValue()));
-					nbDelays = nbDelays - edge.getCons().intValue();
+
+				// If the edge has a delay and that delay still exist in the
+				// SRSDF (i.e. if the source & target do not belong to the same
+				// "iteration")
+				if (iterationDiff > 0) {
+					int addedDelays = (iterationDiff * newEdge.getCons()
+							.intValue());
+					// Check that there are enough delays available
+					if (nbDelays < addedDelays) {
+						// kdesnos: I added this check, but it will most
+						// probably never happen
+						throw new RuntimeException(
+								"Insufficient delays on edge "
+										+ edge.getSource().getName() + "."
+										+ edge.getSourceInterface().getName()
+										+ "=>" + edge.getTarget().getName()
+										+ "."
+										+ edge.getTargetInterface().getName()
+										+ ". At least " + addedDelays
+										+ " delays missing.");
+					}
+					newEdge.setDelay(new SDFIntEdgePropertyType(addedDelays));
+					nbDelays = nbDelays - addedDelays;
 				} else {
 					newEdge.setDelay(new SDFIntEdgePropertyType(0));
 				}
+
+				// Update the number of token produced/consumed by the currently
+				// indexed source/target
 				sourceProd += rest;
 				targetCons += rest;
+				// Update the totProd for the current edge (totProd is used in
+				// the condition of the While loop)
 				totProd += rest;
+
+				// backup the current indexes to update the iteration difference
+				// after the if..else block
+				int oldSourceIndex = sourceIndex;
+				int oldTargetIndex = targetIndex;
+				// Update the indexes for the source/target copies that will be
+				// "linked" during the next iteration
 				if (sourceProd == edge.getProd().intValue()
 						&& targetCons == edge.getCons().intValue()) {
+					// If all token produced and consumed by the indexed source
+					// and target were transmitted by added edges, update both
+					// indexed.
 					sourceIndex = (sourceIndex + 1) % sourceCopies.size();
 					sourceProd = 0;
 					targetIndex = (targetIndex + 1) % targetCopies.size();
@@ -208,8 +329,14 @@ public class ToHSDFVisitor implements
 					rest = Math.min(edge.getProd().intValue(), edge.getCons()
 							.intValue());
 				} else if (sourceProd == edge.getProd().intValue()) {
+					// If all token produced by the currently indexed source
+					// copy were transmitted with an added edge, update the
+					// source index
 					sourceIndex = (sourceIndex + 1) % sourceCopies.size();
 					sourceProd = 0;
+					// The prod/cons rate of the nex edge is the minimum between
+					// the nr of token produced by the newly indexed source and
+					// the number of token "not yet" satisfied for the target.
 					rest = Math.min(edge.getCons().intValue() - targetCons,
 							edge.getProd().intValue());
 				} else if (targetCons == edge.getCons().intValue()) {
@@ -218,6 +345,21 @@ public class ToHSDFVisitor implements
 					rest = Math.min(edge.getProd().intValue() - sourceProd,
 							edge.getCons().intValue());
 				}
+
+				// Update the iteration difference
+				// If the new source has an index inferior to the previous, this
+				// means that the currently indexed source copy belong to the
+				// next iteration. Consequently, the iteration difference is
+				// decremented
+				iterationDiff = (sourceIndex < oldSourceIndex) ? iterationDiff - 1
+						: iterationDiff;
+				// If the new target has an index inferior to the previous, this
+				// means that the currently indexed target copy belong to the
+				// next iteration. Consequently, the iteration difference is
+				// incremented
+				iterationDiff = (targetIndex < oldTargetIndex) ? iterationDiff + 1
+						: iterationDiff;
+
 				// next line should manage extended hierarchy interpretation
 				if ((totProd == (edge.getCons().intValue() * targetCopies
 						.size()))
@@ -252,22 +394,45 @@ public class ToHSDFVisitor implements
 		}
 	}
 
+	/**
+	 * This method transforms a schedulable {@link SDFGraph} into its equivalent
+	 * Single-Rate {@link SDFGraph}. The method duplicate the vertices according
+	 * to the Repetition Vector of the {@link SDFGraph} then create the
+	 * appropriate {@link SDFEdge}s through a call to
+	 * {@link #linkVerticesTop(SDFGraph, HashMap, SDFGraph)}.
+	 * 
+	 * @param graph
+	 *            the input {@link SDFGraph}
+	 * @param output
+	 *            the Single-Rate output {@link SDFGraph}
+	 * @throws SDF4JException
+	 * @throws InvalidExpressionException
+	 */
 	private void transformsTop(SDFGraph graph, SDFGraph output)
 			throws SDF4JException, InvalidExpressionException {
+		// This map associates each vertex of the input graph to corresponding
+		// instances in the output graph
 		HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies = new HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>>();
+
 		if (graph.isSchedulable()) {
-			// insertImplodeExplodesVertices(graph);
+			// Scan the vertices of the input graph
 			for (SDFAbstractVertex vertex : graph.vertexSet()) {
 				Vector<SDFAbstractVertex> copies = new Vector<SDFAbstractVertex>();
 				matchCopies.put(vertex, copies);
+
+				// If the vertex is an interface, it will not be duplicated,
+				// simply copy it in the output graph
 				if (vertex instanceof SDFInterfaceVertex) {
 					SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 							.clone();
 					copies.add(copy);
 					output.addVertex(copy);
 				} else {
+					// If the vertex is not an interface, duplicate it as many
+					// times as needed to obtain single rates edges
 					VisitorOutput.getLogger().log(Level.INFO,
 							vertex.getName() + " x" + vertex.getNbRepeat());
+					// If the vertex does not need to be duplicated
 					if (vertex.getNbRepeatAsInteger() == 1) {
 						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 								.clone();
@@ -275,6 +440,7 @@ public class ToHSDFVisitor implements
 						output.addVertex(copy);
 						copies.add(copy);
 					} else {
+						// If the vertex needs to be duplicated
 						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
 							SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 									.clone();
@@ -287,6 +453,7 @@ public class ToHSDFVisitor implements
 
 				}
 			}
+			// The output graph has all its vertices, now deal with the edges
 			linkVerticesTop(graph, matchCopies, output);
 			output.getPropertyBean().setValue("schedulable", true);
 		} else {
@@ -343,8 +510,6 @@ public class ToHSDFVisitor implements
 		 * sdfVertex.getGraphDescription().accept(this); }
 		 */
 	}
-
-	
 
 	private static SDFGraph createTestComGraph() {
 
