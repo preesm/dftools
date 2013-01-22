@@ -29,8 +29,8 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 	 * Creates a new SDFIterator on the given SDFGraph
 	 * 
 	 * @param graph
-	 *            THe graph to iterate over
-	 * @throws InvalidExpressionException 
+	 *            The graph to iterate over
+	 * @throws InvalidExpressionException
 	 */
 	public SDFIterator(SDFGraph graph) throws InvalidExpressionException {
 		this.graph = graph;
@@ -96,68 +96,130 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
 	@Override
 	public SDFAbstractVertex next() {
-		try{
-		if (hasNext()) {
-			SDFAbstractVertex next = stack.get(0);
-			treated.add(next);
-			Set<SDFEdge> outgoingEdges = graph.outgoingEdgesOf(next);
-			for (SDFEdge edge : outgoingEdges) {
-				if (graph.getEdgeTarget(edge) != next) {
-					boolean prevTreated = true;
-					SDFAbstractVertex fol = graph.getEdgeTarget(edge);
-					for (SDFEdge incomingEdge : graph.incomingEdgesOf(fol)) {
-						if (graph.getEdgeSource(incomingEdge) != fol
-								&& graph.getEdgeSource(incomingEdge) != next) {
-							prevTreated = prevTreated
-									&& ((treated.contains(graph
-											.getEdgeSource(incomingEdge))) || incomingEdge
-											.getDelay().intValue() >= incomingEdge
-											.getCons().intValue());
+		try {
+			// If the iterator has a next
+			if (hasNext()) {
+				// Get the returned value from the stack
+				SDFAbstractVertex next = stack.get(0);
+				// Add it to the list of already treated vertices (so as not to
+				// "treat" it twice)
+				treated.add(next);
+
+				// Check if the current vertex has a successor that was not yet
+				// treated.
+				Set<SDFEdge> outgoingEdges = graph.outgoingEdgesOf(next);
+				for (SDFEdge edge : outgoingEdges) {
+					// If the current outgoingEdge is not a self loop on the
+					// current vertex
+					if (graph.getEdgeTarget(edge) != next) {
+						// Boolean indicating if all predecessors of the target
+						// of the current edge were previously treated (in which
+						// case the target of the current edge must be added to
+						// the stack).
+						boolean prevTreated = true;
+						SDFAbstractVertex fol = graph.getEdgeTarget(edge);
+						// Check if all predecessors of the target of the
+						// current edge were already treated
+						for (SDFEdge incomingEdge : graph.incomingEdgesOf(fol)) {
+							// Ignore the incomingEdge if this is a self loop or
+							// the edge coming from the current vertex (i.e. the
+							// returned vertex)
+							if (graph.getEdgeSource(incomingEdge) != fol
+									&& graph.getEdgeSource(incomingEdge) != next) {
+								// prevTreated stays true if:
+								// The source of the incomingEdge has already
+								// been treated OR
+								// The delay of the incomingEdge is greater or
+								// equal to the consumption rate of this edge
+								prevTreated = prevTreated
+										&& ((treated.contains(graph
+												.getEdgeSource(incomingEdge))) || incomingEdge
+												.getDelay().intValue() >= incomingEdge
+												.getCons().intValue());
+							}
+						}
+						if (prevTreated && !treated.contains(fol)
+								&& !stack.contains(fol)) {
+							stack.add(fol);
 						}
 					}
-					if (prevTreated && !treated.contains(fol) && !stack.contains(fol)) {
-						stack.add(fol);
-					}
 				}
+				stack.remove(0);
+				return next;
 			}
-			stack.remove(0);
-			return next;
-		}
-		}catch(InvalidExpressionException e){
+		} catch (InvalidExpressionException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	private List<SDFAbstractVertex> originOf(SDFAbstractVertex origin,
-			List<SDFAbstractVertex> treated) throws InvalidExpressionException {
-		List<SDFAbstractVertex> previous = new ArrayList<SDFAbstractVertex>();
+	/**
+	 * This recursive methods search the origin for a given
+	 * {@link SDFAbstractVertex vertex}. Finding the "origin" of a vertex
+	 * consist in searching recursively the origin of all predecessors of the
+	 * given {@link SDFAbstractVertex vertex} until a {@link SDFAbstractVertex
+	 * vertex} with no predecessor is found. One {@link SDFAbstractVertex} may
+	 * have one or several "origins"
+	 * 
+	 * @param vertex
+	 *            the {@link SDFAbstractVertex} whose origins are searched
+	 * @param notTreated
+	 *            the list of not treated {@link SDFAbstractVertex vertices}
+	 *            (i.e. {@link SDFAbstractVertex vertices} not yet encountered
+	 *            in recursive calls)
+	 * @return list of {@link SDFAbstractVertex vertices} that are at the origin
+	 *         of the given {@link SDFAbstractVertex vertex}.
+	 * @throws InvalidExpressionException
+	 */
+	private List<SDFAbstractVertex> originOf(SDFAbstractVertex vertex,
+			List<SDFAbstractVertex> notTreated)
+			throws InvalidExpressionException {
+		List<SDFAbstractVertex> origins = new ArrayList<SDFAbstractVertex>();
 		int added = 0;
-		for (SDFEdge edge : graph.incomingEdgesOf(origin)) {
-			if (treated.contains(graph.getEdgeSource(edge))) {
-				treated.remove(graph.getEdgeSource(edge));
-				if (graph.getEdgeSource(edge) != origin
-						&& edge.getDelay().intValue() == 0) {
+		// Scan the predecessor of the current vertex (if any)
+		for (SDFEdge edge : graph.incomingEdgesOf(vertex)) {
+			// If the current edge is not a self-loop and has an insufficient
+			// delay to be a source
+			if (graph.getEdgeSource(edge) != vertex
+					&& edge.getDelay().intValue() < edge.getCons().intValue()) {
+				// Then the current vertex is NOT an "origin", call originOf on
+				// its the current predecessor.
+				// If the predecessor was not yet encountered in recursive calls
+				// to originOf.
+				if (notTreated.contains(graph.getEdgeSource(edge))) {
+					notTreated.remove(graph.getEdgeSource(edge));
+
 					added++;
-					List<SDFAbstractVertex> prevOrig = originOf(graph
-							.getEdgeSource(edge), treated);
-					for (SDFAbstractVertex vertex : prevOrig) {
-						if (!previous.contains(vertex)) {
-							previous.add(vertex);
+					List<SDFAbstractVertex> predecessorOrigins = originOf(
+							graph.getEdgeSource(edge), notTreated);
+
+					// Add the origins of the predecessor to the origins of the
+					// current vertex.
+					for (SDFAbstractVertex origin : predecessorOrigins) {
+						if (!origins.contains(origin)) {
+							origins.add(origin);
 						}
 					}
+
+				} else {
+					// The predecessor was already encountered in recursive
+					// calls to originOf
+					// ignore it but increment added to know that the current
+					// vertex is not an origin
+					added++;
 				}
-			} else {
-				added++;
 			}
 		}
+
+		// If added is still equal to 0 after scanning all predecessors of the
+		// vertex, this means that the current vertex is an origin
 		if (added == 0) {
-			treated.remove(origin);
-			if (!previous.contains(origin)) {
-				previous.add(origin);
+			notTreated.remove(vertex);
+			if (!origins.contains(vertex)) { // Probably useless check
+				origins.add(vertex);
 			}
 		}
-		return previous;
+		return origins;
 	}
 
 	@Override
