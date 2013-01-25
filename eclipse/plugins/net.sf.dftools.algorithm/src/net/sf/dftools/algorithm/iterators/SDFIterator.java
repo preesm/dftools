@@ -1,6 +1,7 @@
 package net.sf.dftools.algorithm.iterators;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -17,6 +18,7 @@ import org.jgrapht.traverse.GraphIterator;
  * Class used to iterate over a SDF following the dependencies order
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
@@ -48,6 +50,33 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 			}
 		}
 		System.out.println(stack);
+
+		// Check if all vertices are reachable through this iterator
+		// First, backup the stack
+		ArrayList<SDFAbstractVertex> stackBackup = new ArrayList<SDFAbstractVertex>(
+				stack);
+		// Then iterate
+		Set<SDFAbstractVertex> reached = new HashSet<SDFAbstractVertex>();
+		while (this.hasNext()) {
+			reached.add(this.next());
+		}
+
+		// Check if all vertices were reached
+		if (reached.size() != graph.vertexSet().size()) {
+			// Find the non-reacheable vertices
+			List<SDFAbstractVertex> unreachable = new ArrayList<SDFAbstractVertex>(
+					graph.vertexSet());
+			unreachable.removeAll(reached);
+			throw new RuntimeException(
+					"Not all graph vertices are reachable with the SDFIterator.\n"
+							+ "Possible cause: There is a cycle without delay.\n"
+							+ " Unreached Vertices: " + unreachable);
+		}
+
+		// If the check was successful, restore the backed-up stack and clean
+		// treated
+		stack = stackBackup;
+		treated = new Vector<SDFAbstractVertex>();
 	}
 
 	/**

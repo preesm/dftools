@@ -116,52 +116,55 @@ public class ToHSDFVisitor implements
 					.getEdgeTarget(edge));
 			int nbDelays = edge.getDelay().intValue();
 
-			// Index of the currently processed sourceVertex among the
-			// duplicates of the current edge source.
-			int sourceIndex = 0;
+			// Total number of token exchanged (produced and consumed) for this
+			// edge
+			int totalNbTokens = edge.getCons().intValue() * targetCopies.size();
 
-			// targetIndex is used to know which duplicates of the target will
-			// be targeted by the currently indexed copy of the source.
-			// Example:
-			// Given an edge between A and B where:
-			// A produces 1, B consumes 1, there are 2 delays on the edge.
-			// A is duplicated 3 times and B 3 times also
-			// targetIndex = (2/1)%3 = 2
-			// A_0 will target B_(0+targetIndex%3) = B_2
-			int targetIndex = (nbDelays / edge.getCons().intValue())
-					% targetCopies.size();
-
-			// This int represent the number of iteration separating the
-			// currently indexed source and target (between which an edge is
-			// added)
-			// If this int is > to 0, this means that the added edge must have
-			// delays (with delay=prod=cons of the added edge).
-			// With the previous example:
-			// A_1 will target B_(1+targetIndex%3) = B_0 (with a delay of 1)
-			// A_2 will target B_(2+targetIndex%3) = B_1 (with a delay of 1)
-			int iterationDiff = (nbDelays / edge.getCons().intValue())
-					/ targetCopies.size();
-
-			// rest is both the production and consumption rate on the created
-			// edge.
-			// it is initialized with the minimum rate of the original edge
-			// (min(prod,cons))
-			int rest = Math.min(edge.getProd().intValue(), edge.getCons()
-					.intValue());
+			// Absolute target is the targeted consumed token among the total
+			// number of consumed/produced tokens
+			int absoluteTarget = nbDelays;
+			int absoluteSource = 0;
 
 			// totProd is updated to store the number of token consumed by the
 			// targets that are "satisfied" by the added edges.
 			int totProd = 0;
-			// sourceProd and targetCons are respectively used to store the
-			// number of token produced and consumed by the currently "indexed"
-			// copy of the
-			// source and target. Once this number reach the total number of
-			// token "produced"/"consumed" by the indexed source/target, the
-			// index is incremented.
-			int sourceProd = 0;
-			int targetCons = 0;
+
 			// Until all consumed token are "satisfied"
 			while (totProd < (edge.getCons().intValue() * targetCopies.size())) {
+
+				// Index of the currently processed sourceVertex among the
+				// duplicates of the current edge source.
+				int sourceIndex = (absoluteSource / edge.getProd().intValue())
+						% sourceCopies.size();
+				// targetIndex is used to know which duplicates of the target
+				// will
+				// be targeted by the currently indexed copy of the source.
+				int targetIndex = (absoluteTarget / edge.getCons().intValue())
+						% targetCopies.size();
+
+				// sourceProd and targetCons are the number of token already
+				// produced/consumed by the currently indexed source/target
+				int sourceProd = absoluteSource % edge.getProd().intValue();
+				int targetCons = absoluteTarget % edge.getCons().intValue();
+
+				// rest is both the production and consumption rate on the
+				// created edge.
+				int rest = Math.min(edge.getProd().intValue() - sourceProd,
+						edge.getCons().intValue() - targetCons);
+
+				// This int represent the number of iteration separating the
+				// currently indexed source and target (between which an edge is
+				// added)
+				// If this int is > to 0, this means that the added edge must
+				// have
+				// delays (with delay=prod=cons of the added edge).
+				// With the previous example:
+				// A_1 will target B_(1+targetIndex%3) = B_0 (with a delay of 1)
+				// A_2 will target B_(2+targetIndex%3) = B_1 (with a delay of 1)
+				// Warning, this integer division is not factorable
+				int iterationDiff = absoluteTarget / totalNbTokens
+						- absoluteSource / totalNbTokens;
+
 				// Testing zone beginning
 				// for inserting explode and implode vertices
 				if (rest < edge.getProd().intValue()
@@ -305,69 +308,24 @@ public class ToHSDFVisitor implements
 
 				// Update the number of token produced/consumed by the currently
 				// indexed source/target
-				sourceProd += rest;
-				targetCons += rest;
+				absoluteTarget += rest;
+				absoluteSource += rest;
+
 				// Update the totProd for the current edge (totProd is used in
 				// the condition of the While loop)
 				totProd += rest;
 
-				// backup the current indexes to update the iteration difference
-				// after the if..else block
-				int oldSourceIndex = sourceIndex;
-				int oldTargetIndex = targetIndex;
-				// Update the indexes for the source/target copies that will be
-				// "linked" during the next iteration
-				if (sourceProd == edge.getProd().intValue()
-						&& targetCons == edge.getCons().intValue()) {
-					// If all token produced and consumed by the indexed source
-					// and target were transmitted by added edges, update both
-					// indexed.
-					sourceIndex = (sourceIndex + 1) % sourceCopies.size();
-					sourceProd = 0;
-					targetIndex = (targetIndex + 1) % targetCopies.size();
-					targetCons = 0;
-					rest = Math.min(edge.getProd().intValue(), edge.getCons()
-							.intValue());
-				} else if (sourceProd == edge.getProd().intValue()) {
-					// If all token produced by the currently indexed source
-					// copy were transmitted with an added edge, update the
-					// source index
-					sourceIndex = (sourceIndex + 1) % sourceCopies.size();
-					sourceProd = 0;
-					// The prod/cons rate of the nex edge is the minimum between
-					// the nr of token produced by the newly indexed source and
-					// the number of token "not yet" satisfied for the target.
-					rest = Math.min(edge.getCons().intValue() - targetCons,
-							edge.getProd().intValue());
-				} else if (targetCons == edge.getCons().intValue()) {
-					targetIndex = (targetIndex + 1) % targetCopies.size();
-					targetCons = 0;
-					rest = Math.min(edge.getProd().intValue() - sourceProd,
-							edge.getCons().intValue());
-				}
-
-				// Update the iteration difference
-				// If the new source has an index inferior to the previous, this
-				// means that the currently indexed source copy belong to the
-				// next iteration. Consequently, the iteration difference is
-				// decremented
-				iterationDiff = (sourceIndex < oldSourceIndex) ? iterationDiff - 1
-						: iterationDiff;
-				// If the new target has an index inferior to the previous, this
-				// means that the currently indexed target copy belong to the
-				// next iteration. Consequently, the iteration difference is
-				// incremented
-				iterationDiff = (targetIndex < oldTargetIndex) ? iterationDiff + 1
-						: iterationDiff;
-
-				// next line should manage extended hierarchy interpretation
+				// In case of a round buffer
+				// If all needed tokens were already produced
+				// but not all tokens were produced (i.e. not all source copies
+				// were considered yet)
 				if ((totProd == (edge.getCons().intValue() * targetCopies
 						.size()))
 						&& targetCopies.get(0) instanceof SDFInterfaceVertex
-						&& sourceIndex < sourceCopies.size()) {
+						&& (absoluteSource / edge.getProd().intValue()) < sourceCopies
+								.size()) {
 					totProd = 0;
 				}
-
 			}
 			for (int i = 0; i < sourceCopies.size(); i++) {
 				if (sourceCopies.get(i) instanceof SDFForkVertex
