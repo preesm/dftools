@@ -34,7 +34,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 	 *            The graph to iterate over
 	 * @throws InvalidExpressionException
 	 */
-	public SDFIterator(SDFGraph graph) throws InvalidExpressionException {
+	public SDFIterator(SDFGraph graph) throws InvalidExpressionException, RuntimeException {
 		this.graph = graph;
 		stack = new ArrayList<SDFAbstractVertex>();
 		treated = new Vector<SDFAbstractVertex>();
@@ -70,7 +70,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 			throw new RuntimeException(
 					"Not all graph vertices are reachable with the SDFIterator.\n"
 							+ "Possible cause: There is a cycle without delay.\n"
-							+ " Unreached Vertices: " + unreachable);
+							+ "Unreachable Vertices: " + unreachable);
 		}
 
 		// If the check was successful, restore the backed-up stack and clean

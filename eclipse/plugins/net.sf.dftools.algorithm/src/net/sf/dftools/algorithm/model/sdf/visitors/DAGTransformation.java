@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sf.dftools.algorithm.SDFMath;
@@ -45,6 +46,7 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
+import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 import org.jgrapht.alg.CycleDetector;
 
@@ -52,6 +54,7 @@ import org.jgrapht.alg.CycleDetector;
  * Visitor to use to transform a SDF Graph in a Directed Acyclic Graph
  * 
  * @author pthebault
+ * @author kdesnos
  * @param <T>
  *            The DAG type of the output dag
  * 
@@ -328,7 +331,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 						} catch (CreateCycleException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						} catch (RuntimeException e){
+							Logger logger = WorkflowLogger.getLogger();
+							logger.log(
+									Level.SEVERE,
+									"Error in the DAG creation:\n"
+											+ e.getMessage()
+											+ "\nCheck the single-rate SDF to identify where delays are missing.");
+						} catch (RuntimeException e) {
 							e.printStackTrace();
 						}
 					}
@@ -350,7 +359,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	 * 
 	 * @param graph
 	 *            The graph to treat
-	 *          
+	 * 
 	 * @throws InvalidExpressionException
 	 */
 	private void treatCycles(SDFGraph graph) throws InvalidExpressionException {
@@ -428,23 +437,16 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		// }
 		// }
 		// }
-		/*{
-			CycleDetector<SDFAbstractVertex, SDFEdge> detect = new CycleDetector<SDFAbstractVertex, SDFEdge>(
-					graph);
-			List<SDFAbstractVertex> vert = new ArrayList<SDFAbstractVertex>(
-					graph.vertexSet());
-			while (vert.size() > 0) {
-				SDFAbstractVertex vertex = vert.get(0);
-				Set<SDFAbstractVertex> cycle = detect
-						.findCyclesContainingVertex(vertex);
-				if (cycle.size() > 0) {
-					vert.removeAll(cycle);
-					cycles.add(cycle);
-				}
-				vert.remove(vertex);
-			}
-		}*/
-		
+		/*
+		 * { CycleDetector<SDFAbstractVertex, SDFEdge> detect = new
+		 * CycleDetector<SDFAbstractVertex, SDFEdge>( graph);
+		 * List<SDFAbstractVertex> vert = new ArrayList<SDFAbstractVertex>(
+		 * graph.vertexSet()); while (vert.size() > 0) { SDFAbstractVertex
+		 * vertex = vert.get(0); Set<SDFAbstractVertex> cycle = detect
+		 * .findCyclesContainingVertex(vertex); if (cycle.size() > 0) {
+		 * vert.removeAll(cycle); cycles.add(cycle); } vert.remove(vertex); } }
+		 */
+
 		return;
 	}
 
@@ -480,14 +482,12 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			endVertex.setEndReference(initVertex);
 			graph.addVertex(endVertex);
 
-			SDFEdge initEdge = graph.addEdge(initVertex,
-					loop.getTarget());
+			SDFEdge initEdge = graph.addEdge(initVertex, loop.getTarget());
 			initEdge.copyProperties(loop);
 			initEdge.setSourceInterface(sink_init);
 			initEdge.setDelay(new SDFIntEdgePropertyType(0));
 
-			SDFEdge endEdge = graph
-					.addEdge(loop.getSource(), endVertex);
+			SDFEdge endEdge = graph.addEdge(loop.getSource(), endVertex);
 			endEdge.copyProperties(loop);
 			endEdge.setTargetInterface(source_end);
 			endEdge.setDelay(new SDFIntEdgePropertyType(0));
@@ -550,14 +550,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 
 	public void visit(SDFGraph sdf) throws SDF4JException {
 		try {
-			
+
 			int k = 5;
-			while(k-- > 0){
-			treatCycles(sdf);
-			treatDelays(sdf);
+			while (k-- > 0) {
+				treatCycles(sdf);
+				treatDelays(sdf);
 			}
-			
-			
+
 			ArrayList<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(
 					sdf.vertexSet());
 			for (int i = 0; i < vertices.size(); i++) {

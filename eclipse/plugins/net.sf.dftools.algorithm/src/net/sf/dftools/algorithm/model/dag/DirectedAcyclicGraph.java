@@ -20,6 +20,7 @@ import org.jgrapht.alg.CycleDetector;
  * Class used to represent a Directed Acyclic Graph
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
