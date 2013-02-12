@@ -215,21 +215,13 @@ public final class SlamValidator implements IValidator {
 
 		boolean valid = true;
 		boolean hasSpeed = false;
-		boolean isNotDefault = false;
 
 		for (Vertex v : graph.vertexSet()) {
 			hasSpeed = false;
-			isNotDefault = false;
 
 			String type = v.getType().getName();
 			if (type.contains("ComNode")) {
 
-				String definition = (String) v.getValue("definition");
-				if (definition != null && !definition.equals("")
-						&& !definition.equals("default")) {
-					isNotDefault = true;				
-				}
-				
 				String speed = (String) v.getValue("speed");
 				if (speed != null && !speed.equals("")
 						&& Float.valueOf(speed) > 0) {
@@ -240,15 +232,6 @@ public final class SlamValidator implements IValidator {
 					createMarker(
 							file,
 							"A ComNode must specify a non-zero float-valued speed.",
-							(String) v.getValue("id"), IMarker.PROBLEM,
-							IMarker.SEVERITY_ERROR);
-					valid = false;
-				}
-				
-				if (!isNotDefault) {
-					createMarker(
-							file,
-							"A ComNode type must not be default.",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;
