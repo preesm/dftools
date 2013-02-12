@@ -94,25 +94,21 @@ public final class SlamValidator implements IValidator {
 	}
 
 	/**
-	 * An enabler must at least receive a data link and a control link.
+	 * An enabler must at least receive a data link.
 	 */
 	private boolean validateEnablerEdges(Graph graph, IFile file) {
 
 		boolean valid = true;
-		boolean receiveControlLink = false;
 		boolean hasDataLink = false;
 
 		for (Vertex v : graph.vertexSet()) {
-			receiveControlLink = false;
 			hasDataLink = false;
 
 			String type = v.getType().getName();
 			if (type.equals("Mem") || type.equals("Dma")) {
 				for (Edge e : graph.incomingEdgesOf(v)) {
 					String eType = e.getType().getName();
-					if (eType.equals("ControlLink")) {
-						receiveControlLink = true;
-					} else if (eType.contains("DataLink")) {
+					if (eType.contains("DataLink")) {
 						hasDataLink = true;
 					}
 				}
@@ -124,10 +120,10 @@ public final class SlamValidator implements IValidator {
 					}
 				}
 
-				if (!receiveControlLink || !hasDataLink) {
+				if (!hasDataLink) {
 					createMarker(
 							file,
-							"An enabler (Mem or Dma) must at least receive a data link and a control link.",
+							"An enabler (Mem or Dma) must at least receive a data link",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;
@@ -219,13 +215,21 @@ public final class SlamValidator implements IValidator {
 
 		boolean valid = true;
 		boolean hasSpeed = false;
+		boolean isNotDefault = false;
 
 		for (Vertex v : graph.vertexSet()) {
 			hasSpeed = false;
+			isNotDefault = false;
 
 			String type = v.getType().getName();
 			if (type.contains("ComNode")) {
 
+				String definition = (String) v.getValue("definition");
+				if (definition != null && !definition.equals("")
+						&& !definition.equals("default")) {
+					isNotDefault = true;				
+				}
+				
 				String speed = (String) v.getValue("speed");
 				if (speed != null && !speed.equals("")
 						&& Float.valueOf(speed) > 0) {
@@ -236,6 +240,15 @@ public final class SlamValidator implements IValidator {
 					createMarker(
 							file,
 							"A ComNode must specify a non-zero float-valued speed.",
+							(String) v.getValue("id"), IMarker.PROBLEM,
+							IMarker.SEVERITY_ERROR);
+					valid = false;
+				}
+				
+				if (!isNotDefault) {
+					createMarker(
+							file,
+							"A ComNode type must not be default.",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;
