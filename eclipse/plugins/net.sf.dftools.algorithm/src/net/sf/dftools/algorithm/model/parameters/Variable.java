@@ -88,5 +88,11 @@ public class Variable{
 			this.value = new ExpressionValue(value);
 		}
 	}
+	
+	public Variable clone(){
+		Variable var = new Variable(this.name);
+		var.setValue(this.value.getValue());
+		return var ;
+	}
 
 }

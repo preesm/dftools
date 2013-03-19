@@ -93,7 +93,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
 		this.getPropertyBean().setValue(TOPOLOGY, null);
 		this.getPropertyBean().setValue(SCHEDULABLE, null);
-		if (source instanceof SDFForkVertex || source instanceof SDFBroadcastVertex) {
+		if (source instanceof SDFForkVertex
+				|| source instanceof SDFBroadcastVertex) {
 			source.connectionAdded(newEdge);
 		} else if (target instanceof SDFJoinVertex
 				|| target instanceof SDFRoundBufferVertex) {
@@ -560,30 +561,25 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			}
 			if (this.isSchedulable(logger)) {
 				this.computeVRB();
-				if (this.getVariables() != null) {
-					for (Variable var : this.getVariables().values()) {
-						int val;
-						try {
-							val = var.intValue();
-							var.setValue(String.valueOf(val));
-						} catch (NoIntegerValueException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+				/*
+				 * if (this.getVariables() != null) { for (Variable var :
+				 * this.getVariables().values()) { int val; try { val =
+				 * var.intValue(); var.setValue(String.valueOf(val)); } catch
+				 * (NoIntegerValueException e) { // TODO Auto-generated catch
+				 * block e.printStackTrace(); } } }
+				 */// TODO: variable should only need to be resolved once, but
+					// keep memory of their integer value
 				for (SDFAbstractVertex child : vertexSet()) {
 					validateChild(child, logger);
 				}
 				// solving all the parameter for the rest of the processing ...
-				for (SDFEdge edge : edgeSet()) {
-					edge.setDelay(new SDFIntEdgePropertyType(edge.getDelay()
-							.intValue()));
-					edge.setCons(new SDFIntEdgePropertyType(edge.getCons()
-							.intValue()));
-					edge.setProd(new SDFIntEdgePropertyType(edge.getProd()
-							.intValue()));
-				}
+				/*
+				 * for (SDFEdge edge : edgeSet()) { edge.setDelay(new
+				 * SDFIntEdgePropertyType(edge.getDelay() .intValue()));
+				 * edge.setCons(new SDFIntEdgePropertyType(edge.getCons()
+				 * .intValue())); edge.setProd(new
+				 * SDFIntEdgePropertyType(edge.getProd() .intValue())); }
+				 */
 				int i = 0;
 				while (i < this.vertexSet().size()) {
 					SDFAbstractVertex vertex = (SDFAbstractVertex) (this

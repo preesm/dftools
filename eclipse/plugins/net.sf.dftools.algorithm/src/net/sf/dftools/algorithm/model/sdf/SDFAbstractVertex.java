@@ -420,13 +420,12 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 					int val;
 					try {
 						val = arg.intValue();
-						arg.setValue(String.valueOf(val));
+						//arg.setValue(String.valueOf(val));//TODO: was meant to solve arguments once for all ...
 					} catch (NoIntegerValueException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-
 			}
 		}
 		return true;

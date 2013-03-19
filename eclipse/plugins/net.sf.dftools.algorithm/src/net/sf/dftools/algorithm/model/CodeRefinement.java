@@ -33,7 +33,11 @@ public class CodeRefinement implements IRefinement, CloneableProperty{
 		/**
 		 * Interface Description Language
 		 */
-		IDL;
+		IDL,
+		/**
+		 * Text refinement, not a path 
+		 */
+		TEXT;
 		
 		/**
 		 * Gives a Language corresponding to the given extension
@@ -51,8 +55,9 @@ public class CodeRefinement implements IRefinement, CloneableProperty{
 				return JAVA ;
 			}else if(s.equals(".idl")){
 				return IDL ;
+			}else{
+				return TEXT ;
 			}
-			return null ;
 		}
 	}
 	
@@ -65,7 +70,11 @@ public class CodeRefinement implements IRefinement, CloneableProperty{
 	 */
 	public CodeRefinement(String name){
 		fileName = name ;
-		lang = Language.fromExtension(name.substring(name.lastIndexOf("."), name.length()));
+		if(name.lastIndexOf(".") < 0){
+			lang = Language.TEXT ;
+		}else{
+			lang = Language.fromExtension(name.substring(name.lastIndexOf("."), name.length()));
+		}	
 	}
 	
 	

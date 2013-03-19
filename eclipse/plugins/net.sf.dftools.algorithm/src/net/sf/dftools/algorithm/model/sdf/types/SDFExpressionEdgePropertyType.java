@@ -55,7 +55,7 @@ public class SDFExpressionEdgePropertyType extends
 		this.getValue().setExpressionSolver(solver);
 		computedValue = null;
 	}
-
+	
 	@Override
 	public String toString() {
 		return value.toString();

@@ -8,7 +8,8 @@ Bundle-Vendor: IETR
 Require-Bundle: org.eclipse.core.runtime,
  org.jgrapht;bundle-version="0.8.2",
  net.sf.dftools.workflow;bundle-version="0.1.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
+ JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: net.sf.dftools.algorithm,
  net.sf.dftools.algorithm.demo,

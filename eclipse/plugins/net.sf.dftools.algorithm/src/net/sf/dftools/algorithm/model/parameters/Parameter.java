@@ -49,4 +49,12 @@ public class Parameter{
 	public void setValue(Integer value){
 		this.value = value ;
 	}
+	
+	public Parameter clone(){
+		Parameter par = new Parameter(this.name);
+		par.setValue(this.value);
+		return par ;
+	}
+	
+	
 }
