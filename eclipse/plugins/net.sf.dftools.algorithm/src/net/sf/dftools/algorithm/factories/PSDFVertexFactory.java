@@ -37,6 +37,7 @@ public class PSDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 	 *            The attributes of the vertex
 	 * @return The created vertex
 	 */
+	@SuppressWarnings("deprecation")
 	public SDFAbstractVertex createVertex(HashMap<String, String> attributes) {
 		String kind = attributes.get("kind");
 		if (kind.equals(PSDFInitVertex.INIT)) {

@@ -156,7 +156,10 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("graph")) {
 				Element graphElt = (Element) childList.item(i);
-				return parseGraph(graphElt);
+				G graph =  parseGraph(graphElt);
+				// Record the path of the graph
+				graph.setPropertyValue(AbstractGraph.PATH, path);
+				return graph;
 			}
 		}
 		return null;

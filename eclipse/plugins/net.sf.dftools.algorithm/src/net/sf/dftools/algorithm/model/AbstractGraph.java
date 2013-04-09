@@ -63,6 +63,11 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 * Property name for property variables
 	 */
 	public static final String MODEL = "kind";
+	
+	/**
+	 * Property name to store the path of the file of the graph.
+	 */
+	public static final String PATH = "path";
 
 	/**
 	 * This graph parent vertex if it exist

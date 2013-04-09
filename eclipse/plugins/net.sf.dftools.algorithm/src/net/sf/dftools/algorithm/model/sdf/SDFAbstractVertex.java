@@ -417,6 +417,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		if (this.getArguments() != null) {
 			for (Argument arg : this.getArguments().values()) {
 				if (!(arg instanceof PSDFDynamicArgument)) {
+					@SuppressWarnings("unused")
 					int val;
 					try {
 						val = arg.intValue();

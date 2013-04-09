@@ -20,8 +20,6 @@ import net.sf.dftools.algorithm.model.PropertyFactory;
 import net.sf.dftools.algorithm.model.dag.DAGEdge;
 import net.sf.dftools.algorithm.model.dag.DAGVertex;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
-import net.sf.dftools.algorithm.model.parameters.NoIntegerValueException;
-import net.sf.dftools.algorithm.model.parameters.Variable;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
