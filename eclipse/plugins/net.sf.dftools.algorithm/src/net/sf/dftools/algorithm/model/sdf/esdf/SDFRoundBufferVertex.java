@@ -42,7 +42,12 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 	 * @return The connection index of the edge
 	 */
 	public Integer getEdgeIndex(SDFEdge edge) {
-		return getConnections().get(edge);
+		for (Integer index : getConnections().keySet()) {
+			if (getConnections().get(index).equals(edge)) {
+				return index;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -50,8 +55,8 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 	 */
 	public List<SDFEdge> getIncomingConnections() {
 		List<SDFEdge> edges = new ArrayList<SDFEdge>(getConnections().size());
-		for (SDFEdge edge : getConnections().keySet()) {
-			edges.add(getConnections().get(edge), edge);
+		for (Integer index : getConnections().keySet()) {
+			edges.add(index, getConnections().get(index));
 		}
 		return edges;
 	}
@@ -65,15 +70,11 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 	 *            The index in the connections
 	 */
 	public void setConnectionIndex(SDFEdge edge, int index) {
-		Map<SDFEdge, Integer> connections = getConnections();
+		Map<Integer, SDFEdge> connections = getConnections();
 		SDFEdge connectionToRemove = null;
-		for (SDFEdge existingConnections : connections.keySet()) {
-			if (connections.get(existingConnections) == index) {
-				connectionToRemove = existingConnections;
-			}
-		}
+		connectionToRemove = connections.get(index);
 		connections.remove(connectionToRemove);
-		connections.put(edge, index);
+		connections.put(index, edge);
 	}
 
 	@Override

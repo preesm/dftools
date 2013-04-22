@@ -50,7 +50,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 	}
 
 	protected void addConnection(SDFEdge newEdge) {
-		getConnections().put(newEdge, getConnections().size());
+		getConnections().put(getConnections().size(), newEdge);
 	}
 
 	protected void removeConnection(SDFEdge newEdge) {
@@ -77,15 +77,20 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 	 * @return The connection index of the edge
 	 */
 	public Integer getEdgeIndex(SDFEdge edge) {
-		return getConnections().get(edge);
+		for(Integer idx : getConnections().keySet()){
+			if(getConnections().get(idx).equals(edge)){
+				return idx;
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Map<SDFEdge, Integer> getConnections() {
-		Map<SDFEdge, Integer> connections;
-		if ((connections = (Map<SDFEdge, Integer>) this.getPropertyBean()
+	protected Map<Integer, SDFEdge> getConnections() {
+		Map<Integer, SDFEdge> connections;
+		if ((connections = (Map<Integer, SDFEdge>) this.getPropertyBean()
 				.getValue(EDGES_ORDER)) == null) {
-			connections = new HashMap<SDFEdge, Integer>();
+			connections = new HashMap<Integer, SDFEdge>();
 			this.getPropertyBean().setValue(EDGES_ORDER, connections);
 		}
 		return connections;
