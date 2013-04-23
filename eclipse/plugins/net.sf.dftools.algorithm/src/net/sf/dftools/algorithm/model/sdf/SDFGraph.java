@@ -39,6 +39,7 @@ import org.math.array.LinearAlgebra;
  * Abstract Class representing an SDF graph
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
@@ -438,6 +439,30 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return properties;
 	}
 
+	public boolean removeEdge(SDFEdge edge) {
+		// Use the removeEdge(vertex,vertex) method to make sure that all
+		// properties are updated
+		SDFEdge e = removeEdge(edge.getSource(), edge.getTarget());
+		return e != null;
+	}
+
+	/**
+	 * This method is used to remove an {@link SDFEdge} from a {@link SDFGraph}.
+	 * Side effects are: the deletion of the {@link SDFSourceInterfaceVertex}
+	 * and {@link SDFSinkInterfaceVertex} associated to this {@link SDFEdge}
+	 * (even if several vertices are linked to this interface). For
+	 * {@link SDFForkVertex} and {@link SDFJoinVertex}, the ordered list of
+	 * input/output edges is updated.
+	 * 
+	 * @param sourceVertex
+	 *            the source {@link SDFVertex} of the removed {@link SDFEdge}
+	 * @param targetVertex
+	 *            the target {@link SDFVertex} of the removed {@link SDFEdge}
+	 * @return the removed {@link SDFEdge}
+	 * 
+	 * @see AbstractGraph#removeEdge(AbstractVertex, AbstractVertex)
+	 * 
+	 */
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
 		SDFEdge edge = super.removeEdge(sourceVertex, targetVertex);

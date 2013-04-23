@@ -17,12 +17,15 @@ import net.sf.dftools.algorithm.model.parameters.Argument;
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.parameters.NoIntegerValueException;
 import net.sf.dftools.algorithm.model.psdf.parameters.PSDFDynamicArgument;
+import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
+import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
  * Abstract class representing SDF Vertices
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
@@ -81,7 +84,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		} else if (port.getDirection().equals(InterfaceDirection.Output)) {
 			return addSink((SDFInterfaceVertex) port);
 		}
-		return false ;
+		return false;
 	}
 
 	/**
@@ -255,21 +258,38 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 
 	/**
 	 * Remove the interface vertex connected to the given edge in the parent
-	 * graph
+	 * graph. If the interface is are still connected to an edge, they are not
+	 * removed. This may happen when a removed edge was replaced just before
+	 * being removed, the replacement edge and the removed edge are thus briefly
+	 * connected to the same interface.
 	 * 
 	 * @param edge
 	 */
 	public void removeSink(SDFEdge edge) {
-		sinks.remove(edge.getSourceInterface());
+		// Check if the interface is still used before removing it
+		SDFSinkInterfaceVertex sinkInterface = (SDFSinkInterfaceVertex) edge
+				.getSourceInterface();
+		if (this.getAssociatedEdge(sinkInterface) == null) {
+			sinks.remove(sinkInterface);
+		}
 	}
 
 	/**
 	 * Removes the interface vertex linked to the given edge in the base graph
+	 * If the interface is are still connected to an edge, they are not removed.
+	 * This may happen when a removed edge was replaced just before being
+	 * removed, the replacement edge and the removed edge are thus briefly
+	 * connected to the same interface.
 	 * 
 	 * @param edge
 	 */
 	public void removeSource(SDFEdge edge) {
-		sources.remove(edge.getTargetInterface());
+		// Check if the interface is still used before removing it
+		SDFSourceInterfaceVertex sourceInterface = (SDFSourceInterfaceVertex) edge
+				.getTargetInterface();
+		if (this.getAssociatedEdge(sourceInterface) == null) {
+			sources.remove(sourceInterface);
+		}
 	}
 
 	/**
@@ -421,7 +441,8 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 					int val;
 					try {
 						val = arg.intValue();
-						//arg.setValue(String.valueOf(val));//TODO: was meant to solve arguments once for all ...
+						// arg.setValue(String.valueOf(val));//TODO: was meant
+						// to solve arguments once for all ...
 					} catch (NoIntegerValueException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
