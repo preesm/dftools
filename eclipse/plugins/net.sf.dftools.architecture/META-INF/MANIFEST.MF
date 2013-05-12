@@ -5,7 +5,7 @@ Bundle-SymbolicName: net.sf.dftools.architecture;singleton:=true
 Bundle-Version: 0.1.0.v20121206
 Bundle-ClassPath: .
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: net.sf.dftools.architecture.component,
  net.sf.dftools.architecture.design,
  net.sf.dftools.architecture.design.serialize,
