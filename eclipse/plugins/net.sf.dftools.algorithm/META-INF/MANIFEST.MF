@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Algorithm
 Bundle-SymbolicName: net.sf.dftools.algorithm
-Bundle-Version: 0.1.0.v20121206
+Bundle-Version: 0.7.0.v20130512
 Bundle-Activator: net.sf.dftools.algorithm.Activator
 Bundle-Vendor: IETR
 Require-Bundle: org.eclipse.core.runtime,
