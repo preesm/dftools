@@ -87,6 +87,18 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		this.getPropertyBean().setValue(AbstractGraph.MODEL, "sdf");
 	}
 
+	public SDFEdge addEdge(SDFAbstractVertex source, IInterface sourcePort,
+			SDFAbstractVertex target, IInterface targetPort) {
+		SDFEdge edge = this.addEdge(source, target);
+		edge.setSourceInterface((SDFInterfaceVertex) sourcePort);
+		source.setInterfaceVertexExternalLink(edge,
+				(SDFInterfaceVertex) sourcePort);
+		edge.setTargetInterface((SDFInterfaceVertex) targetPort);
+		target.setInterfaceVertexExternalLink(edge,
+				(SDFInterfaceVertex) targetPort);
+		return edge;
+	}
+
 	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target) {
 		SDFEdge newEdge = super.addEdge(source, target);
 		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
@@ -100,18 +112,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			target.connectionAdded(newEdge);
 		}
 		return newEdge;
-	}
-
-	public SDFEdge addEdge(SDFAbstractVertex source, IInterface sourcePort,
-			SDFAbstractVertex target, IInterface targetPort) {
-		SDFEdge edge = this.addEdge(source, target);
-		edge.setSourceInterface((SDFInterfaceVertex) sourcePort);
-		source.setInterfaceVertexExternalLink(edge,
-				(SDFInterfaceVertex) sourcePort);
-		edge.setTargetInterface((SDFInterfaceVertex) targetPort);
-		target.setInterfaceVertexExternalLink(edge,
-				(SDFInterfaceVertex) targetPort);
-		return edge;
 	}
 
 	/**
@@ -222,6 +222,31 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	}
 
 	/**
+	 * Compute the vrb of this graph and affect the nbRepeat property to
+	 * vertices
+	 * 
+	 * @throws InvalidExpressionException
+	 */
+	protected boolean computeVRB() throws InvalidExpressionException {
+		HashMap<SDFAbstractVertex, Integer> vrb;
+		double[][] topo = this.getTopologyMatrix();
+		if (this.getParentVertex() != null) {
+			vrb = SDFMath.computeRationnalVRBWithInterfaces(this);
+		} else if (Array.getLength(topo) == 0) {
+			vrb = new HashMap<SDFAbstractVertex, Integer>();
+			for (SDFAbstractVertex vertex : this.vertexSet()) {
+				vrb.put(vertex, 1);
+			}
+		} else {
+			vrb = SDFMath.computeRationnalVRB(this);
+		}
+		for (SDFAbstractVertex vertex : vrb.keySet()) {
+			vertex.setNbRepeat(vrb.get(vertex));
+		}
+		return true;
+	}
+
+	/**
 	 * Fill this graph object with the given graph content
 	 * 
 	 * @param content
@@ -281,6 +306,12 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return null;
 	}
 
+	@Override
+	public PropertyFactory getFactoryForProperty(String propertyName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Gives this graph's topology matrix as an array of array of double
 	 * 
@@ -324,29 +355,52 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return topo;
 	}
 
-	/**
-	 * Compute the vrb of this graph and affect the nbRepeat property to
-	 * vertices
-	 * 
-	 * @throws InvalidExpressionException
-	 */
-	protected boolean computeVRB() throws InvalidExpressionException {
-		HashMap<SDFAbstractVertex, Integer> vrb;
-		double[][] topo = this.getTopologyMatrix();
-		if (this.getParentVertex() != null) {
-			vrb = SDFMath.computeRationnalVRBWithInterfaces(this);
-		} else if (Array.getLength(topo) == 0) {
-			vrb = new HashMap<SDFAbstractVertex, Integer>();
-			for (SDFAbstractVertex vertex : this.vertexSet()) {
-				vrb.put(vertex, 1);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ModelVertexFactory getVertexFactory() {
+		return SDFVertexFactory.getInstance();
+	}
+
+	private void insertBroadcast(SDFVertex vertex) {
+		HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>> connections = new HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>>();
+		for (SDFEdge edge : this.outgoingEdgesOf(vertex)) {
+			if (connections.get(edge.getSourceInterface()) == null) {
+				connections.put(edge.getSourceInterface(),
+						new ArrayList<SDFEdge>());
 			}
-		} else {
-			vrb = SDFMath.computeRationnalVRB(this);
+			connections.get(edge.getSourceInterface()).add(edge);
 		}
-		for (SDFAbstractVertex vertex : vrb.keySet()) {
-			vertex.setNbRepeat(vrb.get(vertex));
+		for (SDFInterfaceVertex port : connections.keySet()) {
+			if (connections.get(port).size() > 1) {
+				SDFBroadcastVertex broadcastPort = new SDFBroadcastVertex();
+				broadcastPort.setName("br_" + vertex.getName() + "_"
+						+ port.getName());
+				SDFSourceInterfaceVertex inPort = new SDFSourceInterfaceVertex();
+				inPort.setName("in");
+				SDFSinkInterfaceVertex outPort = new SDFSinkInterfaceVertex();
+				outPort.setName("out");
+				broadcastPort.addSink(outPort);
+				broadcastPort.addSource(inPort);
+				this.addVertex(broadcastPort);
+				SDFEdge baseEdge = this.addEdge(vertex, broadcastPort);
+				baseEdge.setSourceInterface(port);
+				baseEdge.setTargetInterface(inPort);
+				for (SDFEdge oldEdge : connections.get(port)) {
+					SDFEdge newEdge = this.addEdge(broadcastPort,
+							oldEdge.getTarget());
+					newEdge.setSourceInterface(outPort);
+					newEdge.setTargetInterface(oldEdge.getTargetInterface());
+					newEdge.setProd(oldEdge.getProd());
+					newEdge.setCons(oldEdge.getCons());
+					newEdge.setDelay(oldEdge.getDelay());
+					newEdge.setDataType(oldEdge.getDataType());
+					baseEdge.setProd(oldEdge.getProd().clone());
+					baseEdge.setCons(oldEdge.getProd().clone());
+					baseEdge.setDelay(new SDFIntEdgePropertyType(0));
+					baseEdge.setDataType(oldEdge.getDataType());
+					this.removeEdge(oldEdge);
+				}
+			}
 		}
-		return true;
 	}
 
 	/**
@@ -439,18 +493,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return properties;
 	}
 
-	public boolean removeEdge(SDFEdge edge) {
-		// Use the removeEdge(vertex,vertex) method to make sure that all
-		// properties are updated
-		SDFEdge e = removeEdge(edge.getSource(), edge.getTarget());
-		return e != null;
-	}
-
 	/**
 	 * This method is used to remove an {@link SDFEdge} from a {@link SDFGraph}.
 	 * Side effects are: the deletion of the {@link SDFSourceInterfaceVertex}
 	 * and {@link SDFSinkInterfaceVertex} associated to this {@link SDFEdge}
-	 * (even if several vertices are linked to this interface). For
+	 * (unless several vertices are linked to this interface). For
 	 * {@link SDFForkVertex} and {@link SDFJoinVertex}, the ordered list of
 	 * input/output edges is updated.
 	 * 
@@ -462,9 +509,17 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * 
 	 * @see AbstractGraph#removeEdge(AbstractVertex, AbstractVertex)
 	 * 
+	 * @deprecated The method is deprecated.
+	 *             {@link AbstractGraph#removeEdge(AbstractEdge)} should be used
+	 *             instead. Indeed, if several edges link the source and the
+	 *             target vertex, a random edge will be removed.
+	 * 
 	 */
+	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
+		checkMultipleEdges(sourceVertex, targetVertex);
+		@SuppressWarnings("deprecation")
 		SDFEdge edge = super.removeEdge(sourceVertex, targetVertex);
 		if (edge != null) {
 			if (sourceVertex instanceof SDFVertex) {
@@ -481,6 +536,44 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			}
 		}
 		return edge;
+	}
+
+	/**
+	 * This method is used to remove an {@link SDFEdge} from a {@link SDFGraph}.
+	 * Side effects are: the deletion of the {@link SDFSourceInterfaceVertex}
+	 * and {@link SDFSinkInterfaceVertex} associated to this {@link SDFEdge}
+	 * (unless several vertices are linked to this interface). For
+	 * {@link SDFForkVertex} and {@link SDFJoinVertex}, the ordered list of
+	 * input/output edges is updated.
+	 * 
+	 * @param edge
+	 *            the removed {@link SDFEdge}
+	 * @return <code>true</code> if the edge was correctly removed,
+	 *         <code>false</code> else.
+	 * 
+	 * @see AbstractGraph#removeEdge(SDFEdge)
+	 * 
+	 * 
+	 */
+	public boolean removeEdge(SDFEdge edge) {
+		boolean res = super.removeEdge(edge);
+		if (res) {
+			SDFAbstractVertex sourceVertex = edge.getSource();
+			SDFAbstractVertex targetVertex = edge.getSource();
+			if (sourceVertex instanceof SDFVertex) {
+				((SDFVertex) sourceVertex).removeSink(edge);
+			}
+			if (targetVertex instanceof SDFVertex) {
+				((SDFVertex) targetVertex).removeSource(edge);
+			}
+
+			if (sourceVertex instanceof SDFForkVertex) {
+				((SDFForkVertex) sourceVertex).connectionRemoved(edge);
+			} else if (targetVertex instanceof SDFJoinVertex) {
+				((SDFJoinVertex) targetVertex).connectionRemoved(edge);
+			}
+		}
+		return res;
 	}
 
 	public String toString() {
@@ -570,112 +663,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	}
 
-	/**
-	 * Validate the model's schedulability
-	 * 
-	 * @return True if the model is valid, false otherwise ...
-	 * @throws SDF4JException
-	 * @throws InvalidExpressionException
-	 */
-	public boolean validateModel(Logger logger) throws SDF4JException {
-		try {
-			if (this.getPropertyBean().getValue(VALID_MODEL) != null) {
-				return (Boolean) this.getPropertyBean().getValue(VALID_MODEL);
-			}
-			if (this.isSchedulable(logger)) {
-				this.computeVRB();
-				/*
-				 * if (this.getVariables() != null) { for (Variable var :
-				 * this.getVariables().values()) { int val; try { val =
-				 * var.intValue(); var.setValue(String.valueOf(val)); } catch
-				 * (NoIntegerValueException e) { // TODO Auto-generated catch
-				 * block e.printStackTrace(); } } }
-				 */// TODO: variable should only need to be resolved once, but
-					// keep memory of their integer value
-				for (SDFAbstractVertex child : vertexSet()) {
-					validateChild(child, logger);
-				}
-				// solving all the parameter for the rest of the processing ...
-				/*
-				 * for (SDFEdge edge : edgeSet()) { edge.setDelay(new
-				 * SDFIntEdgePropertyType(edge.getDelay() .intValue()));
-				 * edge.setCons(new SDFIntEdgePropertyType(edge.getCons()
-				 * .intValue())); edge.setProd(new
-				 * SDFIntEdgePropertyType(edge.getProd() .intValue())); }
-				 */
-				int i = 0;
-				while (i < this.vertexSet().size()) {
-					SDFAbstractVertex vertex = (SDFAbstractVertex) (this
-							.vertexSet().toArray()[i]);
-					if (this.outgoingEdgesOf(vertex).size() == 0
-							&& this.incomingEdgesOf(vertex).size() == 0) {
-						this.removeVertex(vertex);
-						if (logger != null) {
-							logger.log(
-									Level.INFO,
-									vertex.getName()
-											+ " has been removed because it doesn't produce or consume data. \n This vertex has been used for repetition factor computation");
-						}
-					} else {
-						if (vertex instanceof SDFVertex) {
-							insertBroadcast((SDFVertex) vertex);
-						}
-						i++;
-					}
-				}
-
-				this.getPropertyBean().setValue(VALID_MODEL, true);
-				return true;
-			}
-			return false;
-		} catch (InvalidExpressionException e) {
-			throw new SDF4JException(this.getName() + ": " + e.getMessage());
-		}
-	}
-
-	private void insertBroadcast(SDFVertex vertex) {
-		HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>> connections = new HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>>();
-		for (SDFEdge edge : this.outgoingEdgesOf(vertex)) {
-			if (connections.get(edge.getSourceInterface()) == null) {
-				connections.put(edge.getSourceInterface(),
-						new ArrayList<SDFEdge>());
-			}
-			connections.get(edge.getSourceInterface()).add(edge);
-		}
-		for (SDFInterfaceVertex port : connections.keySet()) {
-			if (connections.get(port).size() > 1) {
-				SDFBroadcastVertex broadcastPort = new SDFBroadcastVertex();
-				broadcastPort.setName("br_" + vertex.getName() + "_"
-						+ port.getName());
-				SDFSourceInterfaceVertex inPort = new SDFSourceInterfaceVertex();
-				inPort.setName("in");
-				SDFSinkInterfaceVertex outPort = new SDFSinkInterfaceVertex();
-				outPort.setName("out");
-				broadcastPort.addSink(outPort);
-				broadcastPort.addSource(inPort);
-				this.addVertex(broadcastPort);
-				SDFEdge baseEdge = this.addEdge(vertex, broadcastPort);
-				baseEdge.setSourceInterface(port);
-				baseEdge.setTargetInterface(inPort);
-				for (SDFEdge oldEdge : connections.get(port)) {
-					SDFEdge newEdge = this.addEdge(broadcastPort,
-							oldEdge.getTarget());
-					newEdge.setSourceInterface(outPort);
-					newEdge.setTargetInterface(oldEdge.getTargetInterface());
-					newEdge.setProd(oldEdge.getProd());
-					newEdge.setCons(oldEdge.getCons());
-					newEdge.setDelay(oldEdge.getDelay());
-					newEdge.setDataType(oldEdge.getDataType());
-					baseEdge.setProd(oldEdge.getProd().clone());
-					baseEdge.setCons(oldEdge.getProd().clone());
-					baseEdge.setDelay(new SDFIntEdgePropertyType(0));
-					baseEdge.setDataType(oldEdge.getDataType());
-					this.removeEdge(oldEdge);
-				}
-			}
-		}
-	}
-
 	private void validateChild(SDFAbstractVertex child, Logger logger)
 			throws InvalidExpressionException, SDF4JException {
 
@@ -753,15 +740,67 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ModelVertexFactory getVertexFactory() {
-		return SDFVertexFactory.getInstance();
-	}
+	/**
+	 * Validate the model's schedulability
+	 * 
+	 * @return True if the model is valid, false otherwise ...
+	 * @throws SDF4JException
+	 * @throws InvalidExpressionException
+	 */
+	public boolean validateModel(Logger logger) throws SDF4JException {
+		try {
+			if (this.getPropertyBean().getValue(VALID_MODEL) != null) {
+				return (Boolean) this.getPropertyBean().getValue(VALID_MODEL);
+			}
+			if (this.isSchedulable(logger)) {
+				this.computeVRB();
+				/*
+				 * if (this.getVariables() != null) { for (Variable var :
+				 * this.getVariables().values()) { int val; try { val =
+				 * var.intValue(); var.setValue(String.valueOf(val)); } catch
+				 * (NoIntegerValueException e) { // TODO Auto-generated catch
+				 * block e.printStackTrace(); } } }
+				 */// TODO: variable should only need to be resolved once, but
+					// keep memory of their integer value
+				for (SDFAbstractVertex child : vertexSet()) {
+					validateChild(child, logger);
+				}
+				// solving all the parameter for the rest of the processing ...
+				/*
+				 * for (SDFEdge edge : edgeSet()) { edge.setDelay(new
+				 * SDFIntEdgePropertyType(edge.getDelay() .intValue()));
+				 * edge.setCons(new SDFIntEdgePropertyType(edge.getCons()
+				 * .intValue())); edge.setProd(new
+				 * SDFIntEdgePropertyType(edge.getProd() .intValue())); }
+				 */
+				int i = 0;
+				while (i < this.vertexSet().size()) {
+					SDFAbstractVertex vertex = (SDFAbstractVertex) (this
+							.vertexSet().toArray()[i]);
+					if (this.outgoingEdgesOf(vertex).size() == 0
+							&& this.incomingEdgesOf(vertex).size() == 0) {
+						this.removeVertex(vertex);
+						if (logger != null) {
+							logger.log(
+									Level.INFO,
+									vertex.getName()
+											+ " has been removed because it doesn't produce or consume data. \n This vertex has been used for repetition factor computation");
+						}
+					} else {
+						if (vertex instanceof SDFVertex) {
+							insertBroadcast((SDFVertex) vertex);
+						}
+						i++;
+					}
+				}
 
-	@Override
-	public PropertyFactory getFactoryForProperty(String propertyName) {
-		// TODO Auto-generated method stub
-		return null;
+				this.getPropertyBean().setValue(VALID_MODEL, true);
+				return true;
+			}
+			return false;
+		} catch (InvalidExpressionException e) {
+			throw new SDF4JException(this.getName() + ": " + e.getMessage());
+		}
 	}
 
 }

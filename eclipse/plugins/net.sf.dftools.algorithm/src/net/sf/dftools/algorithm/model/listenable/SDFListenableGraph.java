@@ -21,7 +21,7 @@ import org.jgrapht.event.VertexSetListener;
  * Class used to represent a listenable SDFGraph
  * 
  * @author jpiat
- * 
+ * @author kdesnos
  */
 public class SDFListenableGraph extends SDFGraph implements
 		ListenableGraph<SDFAbstractVertex, SDFEdge> {
@@ -322,8 +322,11 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#removeEdge(Object, Object)
 	 */
+	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
+		checkMultipleEdges(sourceVertex, targetVertex);
+		@SuppressWarnings("deprecation")
 		SDFEdge e = super.removeEdge(sourceVertex, targetVertex);
 
 		if (e != null) {

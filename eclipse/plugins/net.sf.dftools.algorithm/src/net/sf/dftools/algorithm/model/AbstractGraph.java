@@ -30,6 +30,7 @@ import org.nfunk.jep.ParseException;
  * Abstract class common to all graphs
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  * @param <V>
  * @param <E>
@@ -63,7 +64,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 * Property name for property variables
 	 */
 	public static final String MODEL = "kind";
-	
+
 	/**
 	 * Property name to store the path of the file of the graph.
 	 */
@@ -100,31 +101,13 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		hasChanged = false;
 	}
 
-	public List<String> getPublicProperties() {
-		return public_properties;
-	}
-
-	public boolean addVertex(V vertex) {
-		int number = 0;
-		String name = vertex.getName();
-		while (this.getVertex(name) != null) {
-			name = vertex.getName() + "_" + number;
-			number++;
-		}
-		vertex.setName(name);
-		boolean result = super.addVertex(vertex);
-		vertex.setBase(this);
-		this.setChanged();
-		this.notifyObservers(vertex);
-		return result;
-	}
-
-	public E addEdge(V source, V target) {
-		E edge = super.addEdge(source, target);
-		edge.setBase(this);
-		this.setChanged();
-		this.notifyObservers(edge);
-		return edge;
+	/**
+	 * @param visitor
+	 *            The visitor to accept
+	 * @throws SDF4JException
+	 */
+	public void accept(IGraphVisitor visitor) throws SDF4JException {
+		visitor.visit(this);
 	}
 
 	/**
@@ -151,85 +134,135 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		return edge;
 	}
 
-	public boolean removeVertex(V vertex) {
-		boolean result = super.removeVertex(vertex);
-		this.setChanged();
-		this.notifyObservers(vertex);
-		return result;
-	}
-
-	public E removeEdge(V source, V target) {
-		E edge = super.removeEdge(source, target);
+	public E addEdge(V source, V target) {
+		E edge = super.addEdge(source, target);
+		edge.setBase(this);
 		this.setChanged();
 		this.notifyObservers(edge);
 		return edge;
 	}
 
 	/**
-	 * @param visitor
-	 *            The visitor to accept
-	 * @throws SDF4JException
+	 * Add an observer to this graph model
+	 * 
+	 * @param o
+	 *            Te observer to be added
 	 */
-	public void accept(IGraphVisitor visitor) throws SDF4JException {
-		visitor.visit(this);
+	public void addObserver(IModelObserver o) {
+		observers.add(o);
 	}
 
 	/**
-	 * Gives this graph name
+	 * Add the given parameter to his graph parameter set
 	 * 
-	 * @return The name of this graph
+	 * @param param
+	 *            The parameter to add
 	 */
-	public String getName() {
-		return (String) properties.getValue(NAME);
+	public void addParameter(Parameter param) {
+		if (properties.getValue(PARAMETERS) == null) {
+			setParameterSet(new ParameterSet());
+		}
+		((ParameterSet) properties.getValue(PARAMETERS)).addParameter(param);
 	}
 
 	/**
-	 * Gives this graph PropertyBean
+	 * Add the given variable to his graph parameter set
 	 * 
-	 * @return This Graph PropertyBean
+	 * @param var
+	 *            The variable to add
 	 */
-	public PropertyBean getPropertyBean() {
-		return properties;
+	public void addVariable(Variable var) {
+		if (properties.getValue(VARIABLES) == null) {
+			setVariableSet(new VariableSet());
+		}
+		((VariableSet) properties.getValue(VARIABLES)).addVariable(var);
+		var.setExpressionSolver(this);
+	}
+
+	public boolean addVertex(V vertex) {
+		int number = 0;
+		String name = vertex.getName();
+		while (this.getVertex(name) != null) {
+			name = vertex.getName() + "_" + number;
+			number++;
+		}
+		vertex.setName(name);
+		boolean result = super.addVertex(vertex);
+		vertex.setBase(this);
+		this.setChanged();
+		this.notifyObservers(vertex);
+		return result;
 	}
 
 	/**
-	 * Gives the vertex with the given name
+	 * This method check whether the source and target {@link AbstractVertex
+	 * vertices} passed as parameter are linked by a unique edge. If several
+	 * edges link the two vertices, a {@link RuntimeException} is thrown.
 	 * 
-	 * @param name
-	 *            The vertex name
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
+	 * @param source
+	 *            the source {@link AbstractVertex} of the {@link AbstractEdge}
+	 * @param target
+	 *            the target {@link AbstractVertex} of the {@link AbstractEdge}
+	 * @throws RuntimeException
+	 *             if there are several {@link AbstractEdge} between the source
+	 *             and the target
 	 */
-	public V getVertex(String name) {
-		for (V vertex : vertexSet()) {
-			if (vertex.getName().equals(name)) {
-				return vertex;
+	protected void checkMultipleEdges(V source, V target)
+			throws RuntimeException {
+		// Check if the source and target have a unique edge between them
+		if (this.getAllEdges(source, target).size() > 1) {
+			throw new RuntimeException(
+					"removeEdge(source,target) cannot be used.\n"
+							+ "Reason: there are "
+							+ this.getAllEdges(source, target).size()
+							+ " edges between actors " + source + " and "
+							+ target);
+		}
+	}
+
+	/**
+	 * Indicates that this object has no longer changed, or that it has already
+	 * notified all of its observers of its most recent change, so that the
+	 * hasChanged method will now return false.
+	 */
+	public void clearChanged() {
+		hasChanged = true;
+	}
+
+	/**
+	 * Clear the list of observers
+	 */
+	public void clearObservers() {
+		observers.clear();
+	}
+
+	public abstract AbstractGraph<V, E> clone();
+
+	public void copyProperties(PropertySource props) {
+		for (String key : props.getPropertyBean().keys()) {
+			if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
+				this.getPropertyBean().setValue(
+						key,
+						((CloneableProperty) props.getPropertyBean().getValue(
+								key)).clone());
+			} else {
+				this.getPropertyBean().setValue(key,
+						props.getPropertyBean().getValue(key));
 			}
 		}
-		return null;
 	}
 
 	/**
-	 * Gives the vertex with the given name
+	 * Delete the given observer from the observers list
 	 * 
-	 * @param name
-	 *            The vertex name
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
+	 * @param o
 	 */
-	public V getHierarchicalVertex(String name) {
-		for (V vertex : vertexSet()) {
-			if (vertex.getName().equals(name)) {
-				return vertex;
-			} else if (vertex.getGraphDescription() != null) {
-				AbstractVertex result = ((AbstractVertex) vertex)
-						.getGraphDescription().getHierarchicalVertex(name);
-				if (result != null) {
-					return (V) result;
-				}
-			}
-		}
-		return null;
+	public void deleteObserver(IModelObserver o) {
+		observers.remove(o);
+	}
+
+	public ArgumentFactory getArgumentFactory(V v) {
+		return new ArgumentFactory(v);
 	}
 
 	/**
@@ -275,25 +308,26 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	}
 
 	/**
-	 * Gives the vertex set of current graph merged with the vertex set of all
-	 * its subgraphs
+	 * Gives the vertex with the given name
 	 * 
 	 * @param name
 	 *            The vertex name
 	 * @return The vertex with the given name, null, if the vertex does not
 	 *         exist
 	 */
-	public Set<V> getHierarchicalVertexSet() {
-
-		Set<V> vset = new HashSet<V>(vertexSet());
-
+	public V getHierarchicalVertex(String name) {
 		for (V vertex : vertexSet()) {
-			if (vertex.getGraphDescription() != null) {
-				vset.addAll(vertex.getGraphDescription()
-						.getHierarchicalVertexSet());
+			if (vertex.getName().equals(name)) {
+				return vertex;
+			} else if (vertex.getGraphDescription() != null) {
+				AbstractVertex result = ((AbstractVertex) vertex)
+						.getGraphDescription().getHierarchicalVertex(name);
+				if (result != null) {
+					return (V) result;
+				}
 			}
 		}
-		return vset;
+		return null;
 	}
 
 	/**
@@ -356,48 +390,34 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	}
 
 	/**
-	 * Set this graph name
+	 * Gives the vertex set of current graph merged with the vertex set of all
+	 * its subgraphs
 	 * 
 	 * @param name
-	 *            The name to set for this graph
+	 *            The vertex name
+	 * @return The vertex with the given name, null, if the vertex does not
+	 *         exist
 	 */
-	public void setName(String name) {
-		properties.setValue(NAME, properties.getValue(NAME), name);
-	}
+	public Set<V> getHierarchicalVertexSet() {
 
-	public V getParentVertex() {
-		return ((V) properties.getValue(PARENT_VERTEX));
-	}
+		Set<V> vset = new HashSet<V>(vertexSet());
 
-	protected void setParentVertex(V parentVertex) {
-		properties.setValue(PARENT_VERTEX, parentVertex);
+		for (V vertex : vertexSet()) {
+			if (vertex.getGraphDescription() != null) {
+				vset.addAll(vertex.getGraphDescription()
+						.getHierarchicalVertexSet());
+			}
+		}
+		return vset;
 	}
 
 	/**
-	 * Add the given parameter to his graph parameter set
+	 * Gives this graph name
 	 * 
-	 * @param param
-	 *            The parameter to add
+	 * @return The name of this graph
 	 */
-	public void addParameter(Parameter param) {
-		if (properties.getValue(PARAMETERS) == null) {
-			setParameterSet(new ParameterSet());
-		}
-		((ParameterSet) properties.getValue(PARAMETERS)).addParameter(param);
-	}
-
-	/**
-	 * Add the given variable to his graph parameter set
-	 * 
-	 * @param var
-	 *            The variable to add
-	 */
-	public void addVariable(Variable var) {
-		if (properties.getValue(VARIABLES) == null) {
-			setVariableSet(new VariableSet());
-		}
-		((VariableSet) properties.getValue(VARIABLES)).addVariable(var);
-		var.setExpressionSolver(this);
+	public String getName() {
+		return (String) properties.getValue(NAME);
 	}
 
 	/**
@@ -415,6 +435,10 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		return null;
 	}
 
+	public ParameterFactory getParameterFactory() {
+		return new ParameterFactory(this);
+	}
+
 	/**
 	 * Gives the parameter set of this graph
 	 * 
@@ -425,6 +449,30 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 			return ((ParameterSet) properties.getValue(PARAMETERS));
 		}
 		return null;
+	}
+
+	public V getParentVertex() {
+		return ((V) properties.getValue(PARENT_VERTEX));
+	}
+
+	/**
+	 * Gives this graph PropertyBean
+	 * 
+	 * @return This Graph PropertyBean
+	 */
+	public PropertyBean getPropertyBean() {
+		return properties;
+	}
+
+	public String getPropertyStringValue(String propertyName) {
+		if (this.getPropertyBean().getValue(propertyName) != null) {
+			return this.getPropertyBean().getValue(propertyName).toString();
+		}
+		return null;
+	}
+
+	public List<String> getPublicProperties() {
+		return public_properties;
 	}
 
 	/**
@@ -455,6 +503,113 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	}
 
 	/**
+	 * Gives the vertex with the given name
+	 * 
+	 * @param name
+	 *            The vertex name
+	 * @return The vertex with the given name, null, if the vertex does not
+	 *         exist
+	 */
+	public V getVertex(String name) {
+		for (V vertex : vertexSet()) {
+			if (vertex.getName().equals(name)) {
+				return vertex;
+			}
+		}
+		return null;
+	}
+
+	public abstract ModelVertexFactory<V> getVertexFactory();
+
+	/**
+	 * Tests if this object has changed.
+	 * 
+	 * @return True if the object has changed, false otherwise
+	 */
+	public boolean hasChanged() {
+		return hasChanged;
+	}
+
+	/**
+	 * If this object has changed, as indicated by the hasChanged method, then
+	 * notify all of its observers and then call the clearChanged method to
+	 * indicate that this object has no longer changed.
+	 */
+	public void notifyObservers() {
+		if (hasChanged) {
+			for (IModelObserver o : observers) {
+				o.update(this, null);
+			}
+			clearChanged();
+		}
+	}
+
+	/**
+	 * If this object has changed, as indicated by the hasChanged method, then
+	 * notify all of its observers and then call the clearChanged method to
+	 * indicate that this object has no longer changed.
+	 * 
+	 * @param arg
+	 *            Arguments to be passe to the update method
+	 */
+	public void notifyObservers(Object arg) {
+		if (hasChanged) {
+			for (IModelObserver o : observers) {
+				o.update(this, arg);
+			}
+			clearChanged();
+		}
+	}
+
+	@Override
+	public boolean removeEdge(E edge) {
+		boolean res = super.removeEdge(edge);
+		this.setChanged();
+		this.notifyObservers(edge);
+		return res;
+	}
+
+	/**
+	 * @deprecated The method is deprecated.
+	 *             {@link AbstractGraph#removeEdge(AbstractEdge)} should be used
+	 *             instead. Indeed, if several edges link the source and the
+	 *             target vertex, a random edge will be removed.
+	 */
+	@Deprecated
+	public E removeEdge(V source, V target) {
+		checkMultipleEdges(source, target);
+		E edge = super.removeEdge(source, target);
+		this.setChanged();
+		this.notifyObservers(edge);
+		return edge;
+	}
+
+	public boolean removeVertex(V vertex) {
+		boolean result = super.removeVertex(vertex);
+		this.setChanged();
+		this.notifyObservers(vertex);
+		return result;
+	}
+
+	/**
+	 * Marks this Observable object as having been changed the hasChanged method
+	 * will now return true.
+	 */
+	public void setChanged() {
+		hasChanged = true;
+	}
+
+	/**
+	 * Set this graph name
+	 * 
+	 * @param name
+	 *            The name to set for this graph
+	 */
+	public void setName(String name) {
+		properties.setValue(NAME, properties.getValue(NAME), name);
+	}
+
+	/**
 	 * Set the parameter set for this graph
 	 * 
 	 * @param parameters
@@ -463,6 +618,14 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	public void setParameterSet(ParameterSet parameters) {
 		properties.setValue(PARAMETERS, properties.getValue(PARAMETERS),
 				parameters);
+	}
+
+	protected void setParentVertex(V parentVertex) {
+		properties.setValue(PARENT_VERTEX, parentVertex);
+	}
+
+	public void setPropertyValue(String propertyName, Object value) {
+		this.getPropertyBean().setValue(propertyName, value);
 	}
 
 	/**
@@ -529,128 +692,6 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		}
 	}
 
-	/**
-	 * Add an observer to this graph model
-	 * 
-	 * @param o
-	 *            Te observer to be added
-	 */
-	public void addObserver(IModelObserver o) {
-		observers.add(o);
-	}
-
-	/**
-	 * Marks this Observable object as having been changed the hasChanged method
-	 * will now return true.
-	 */
-	public void setChanged() {
-		hasChanged = true;
-	}
-
-	/**
-	 * Indicates that this object has no longer changed, or that it has already
-	 * notified all of its observers of its most recent change, so that the
-	 * hasChanged method will now return false.
-	 */
-	public void clearChanged() {
-		hasChanged = true;
-	}
-
-	/**
-	 * Clear the list of observers
-	 */
-	public void clearObservers() {
-		observers.clear();
-	}
-
-	/**
-	 * Delete the given observer from the observers list
-	 * 
-	 * @param o
-	 */
-	public void deleteObserver(IModelObserver o) {
-		observers.remove(o);
-	}
-
-	/**
-	 * Tests if this object has changed.
-	 * 
-	 * @return True if the object has changed, false otherwise
-	 */
-	public boolean hasChanged() {
-		return hasChanged;
-	}
-
-	/**
-	 * If this object has changed, as indicated by the hasChanged method, then
-	 * notify all of its observers and then call the clearChanged method to
-	 * indicate that this object has no longer changed.
-	 */
-	public void notifyObservers() {
-		if (hasChanged) {
-			for (IModelObserver o : observers) {
-				o.update(this, null);
-			}
-			clearChanged();
-		}
-	}
-
-	/**
-	 * If this object has changed, as indicated by the hasChanged method, then
-	 * notify all of its observers and then call the clearChanged method to
-	 * indicate that this object has no longer changed.
-	 * 
-	 * @param arg
-	 *            Arguments to be passe to the update method
-	 */
-	public void notifyObservers(Object arg) {
-		if (hasChanged) {
-			for (IModelObserver o : observers) {
-				o.update(this, arg);
-			}
-			clearChanged();
-		}
-	}
-
-	public abstract AbstractGraph<V, E> clone();
-
-	public abstract ModelVertexFactory<V> getVertexFactory();
-
 	public abstract boolean validateModel(Logger logger) throws SDF4JException;
 
-	public void copyProperties(PropertySource props) {
-		for (String key : props.getPropertyBean().keys()) {
-			if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-				this.getPropertyBean().setValue(
-						key,
-						((CloneableProperty) props.getPropertyBean().getValue(
-								key)).clone());
-			} else {
-				this.getPropertyBean().setValue(key,
-						props.getPropertyBean().getValue(key));
-			}
-		}
-	}
-
-	public String getPropertyStringValue(String propertyName) {
-		if(this.getPropertyBean().getValue(propertyName) != null){
-			return this.getPropertyBean().getValue(propertyName).toString();
-		}
-		return null ;
-	}
-
-	public void setPropertyValue(String propertyName, Object value) {
-		this.getPropertyBean().setValue(propertyName, value);
-	}
-	
-	public ParameterFactory getParameterFactory(){
-		return new ParameterFactory(this);
-	}
-	
-	public ArgumentFactory getArgumentFactory(V v) {
-		return new ArgumentFactory(v);
-	}
-
-	
-	
 }
