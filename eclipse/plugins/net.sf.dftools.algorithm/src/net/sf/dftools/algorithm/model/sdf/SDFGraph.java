@@ -556,10 +556,10 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * 
 	 */
 	public boolean removeEdge(SDFEdge edge) {
+		SDFAbstractVertex sourceVertex = edge.getSource();
+		SDFAbstractVertex targetVertex = edge.getTarget();
 		boolean res = super.removeEdge(edge);
-		if (res) {
-			SDFAbstractVertex sourceVertex = edge.getSource();
-			SDFAbstractVertex targetVertex = edge.getSource();
+		if (res) {			
 			if (sourceVertex instanceof SDFVertex) {
 				((SDFVertex) sourceVertex).removeSink(edge);
 			}
