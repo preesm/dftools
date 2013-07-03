@@ -53,8 +53,17 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 		getConnections().put(getConnections().size(), newEdge);
 	}
 
-	protected void removeConnection(SDFEdge newEdge) {
-		getConnections().remove(newEdge);
+
+	
+	private void removeConnection(SDFEdge newEdge) {
+		Integer index = getEdgeIndex(newEdge);
+		getConnections().remove(index);
+		
+		// update the indexes of remaining connections.
+		for(int i = index; i<getConnections().size();i++){
+			SDFEdge edge = getConnections().remove(i+1);
+			getConnections().put(i, edge);
+		}
 	}
 
 	@SuppressWarnings("rawtypes")

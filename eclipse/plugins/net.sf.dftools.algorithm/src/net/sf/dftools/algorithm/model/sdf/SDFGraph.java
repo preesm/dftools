@@ -543,8 +543,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * Side effects are: the deletion of the {@link SDFSourceInterfaceVertex}
 	 * and {@link SDFSinkInterfaceVertex} associated to this {@link SDFEdge}
 	 * (unless several vertices are linked to this interface). For
-	 * {@link SDFForkVertex} and {@link SDFJoinVertex}, the ordered list of
-	 * input/output edges is updated.
+	 * {@link SDFForkVertex} {@link SDFJoinVertex}, {@link SDFBroadcastVertex}
+	 * and {@link SDFRoundBufferVertex}, the ordered list of input/output edges
+	 * is updated.
 	 * 
 	 * @param edge
 	 *            the removed {@link SDFEdge}
@@ -559,7 +560,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		SDFAbstractVertex sourceVertex = edge.getSource();
 		SDFAbstractVertex targetVertex = edge.getTarget();
 		boolean res = super.removeEdge(edge);
-		if (res) {			
+		if (res) {
 			if (sourceVertex instanceof SDFVertex) {
 				((SDFVertex) sourceVertex).removeSink(edge);
 			}
@@ -572,6 +573,13 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			} else if (targetVertex instanceof SDFJoinVertex) {
 				((SDFJoinVertex) targetVertex).connectionRemoved(edge);
 			}
+
+			if (sourceVertex instanceof SDFBroadcastVertex) {
+				((SDFBroadcastVertex) sourceVertex).connectionRemoved(edge);
+			} else if (targetVertex instanceof SDFRoundBufferVertex) {
+				((SDFRoundBufferVertex) targetVertex).connectionRemoved(edge);
+			}
+
 		}
 		return res;
 	}
