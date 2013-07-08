@@ -257,8 +257,8 @@ public class ToHSDFVisitor implements
 					// If the source is a newly created fork/broadcast
 					SDFInterfaceVertex sourceInterface = edge
 							.getSourceInterface().clone();
-					sourceInterface.setName(sourceInterface.getName()
-							+ "_" +  sourceProd);
+					sourceInterface.setName(sourceInterface.getName() + "_"
+							+ sourceProd);
 					newEdge.setSourceInterface(sourceInterface);
 				}
 
@@ -285,26 +285,35 @@ public class ToHSDFVisitor implements
 					// If the target is a newly created join/roundbuffer
 					SDFInterfaceVertex targetInterface = edge
 							.getTargetInterface().clone();
-					targetInterface.setName(targetInterface.getName()
-							+ "_" +targetCons);
+					targetInterface.setName(targetInterface.getName() + "_"
+							+ targetCons);
 					newEdge.setTargetInterface(targetInterface);
 
 					// Reorder the input of the target
 					{
-						SDFAbstractVertex targetVertex = newEdge.getTarget();	
+						SDFAbstractVertex targetVertex = newEdge.getTarget();
 						@SuppressWarnings("unchecked")
-						Map<Integer, SDFEdge> edgeOrder = (Map<Integer, SDFEdge>) targetVertex.getPropertyBean().getValue(SDFJoinVertex.EDGES_ORDER);
-						TreeMap<Integer, SDFEdge>  orderedEdges = new TreeMap<Integer,SDFEdge>();
-						for(Entry<Integer, SDFEdge> entry : edgeOrder.entrySet()){
-							Integer order =  new Integer(entry.getValue().getTargetLabel().substring(edge
-									.getTargetInterface().getName().length()+1));
+						Map<Integer, SDFEdge> edgeOrder = (Map<Integer, SDFEdge>) targetVertex
+								.getPropertyBean().getValue(
+										SDFJoinVertex.EDGES_ORDER);
+						TreeMap<Integer, SDFEdge> orderedEdges = new TreeMap<Integer, SDFEdge>();
+						for (Entry<Integer, SDFEdge> entry : edgeOrder
+								.entrySet()) {
+							Integer order = new Integer(entry
+									.getValue()
+									.getTargetLabel()
+									.substring(
+											edge.getTargetInterface().getName()
+													.length() + 1));
 							orderedEdges.put(order, entry.getValue());
 						}
-						
-						// Clear the edgeOrder Map and refill it with the right order:
+
+						// Clear the edgeOrder Map and refill it with the right
+						// order:
 						edgeOrder.clear();
 						int index = 0;
-						for(Entry<Integer, SDFEdge> entry : orderedEdges.entrySet()){
+						for (Entry<Integer, SDFEdge> entry : orderedEdges
+								.entrySet()) {
 							edgeOrder.put(index, entry.getValue());
 							index++;
 						}
@@ -490,19 +499,39 @@ public class ToHSDFVisitor implements
 	public void visit(SDFGraph sdf) throws SDF4JException {
 		outputGraph = sdf.clone();
 		boolean isHSDF = true;
-		for (SDFAbstractVertex vertex : outputGraph.vertexSet()) {
-			try {
+		try {
+			for (SDFAbstractVertex vertex : outputGraph.vertexSet()) {
+
 				if (vertex instanceof SDFVertex
 						&& vertex.getNbRepeatAsInteger() > 1) {
 					isHSDF = false;
 					break;
 				}
-			} catch (InvalidExpressionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw (new SDF4JException(e.getMessage()));
+
 			}
+
+			if (isHSDF) {
+				for (SDFEdge edge : outputGraph.edgeSet()) {
+					int nbDelay;
+
+					nbDelay = edge.getDelay().intValue();
+					int prod = edge.getProd().intValue();
+
+					// No need to get the cons, if this code is reached cons ==
+					// prod
+					// If the number of delay on the edge is not a multiplier of
+					// prod, the hsdf transformation is needed
+					if (nbDelay % prod != 0) {
+						isHSDF = false;
+						break;
+					}
+				}
+			}
+		} catch (InvalidExpressionException e) {
+			e.printStackTrace();
+			throw (new SDF4JException(e.getMessage()));
 		}
+
 		if (isHSDF) {
 			return;
 		}
