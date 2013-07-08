@@ -1,5 +1,8 @@
 package net.sf.dftools.algorithm.model.dag;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,16 +26,15 @@ import org.jgrapht.alg.CycleDetector;
  * @author kdesnos
  * 
  */
-public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
+public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3860891539321306793L;
 
-	
-	private final static String SDF = "sdf" ;
-	
+	private final static String SDF = "sdf";
+
 	/**
 	 * Constructs a new DAG graph with the default Dag edge factory
 	 */
@@ -51,7 +53,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 		super(arg0);
 		this.getPropertyBean().setValue(AbstractGraph.MODEL, "dag");
 	}
-	
+
 	/**
 	 * Add an Edge to this Graph
 	 * 
@@ -74,23 +76,25 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 			CycleDetector<DAGVertex, DAGEdge> detector = new CycleDetector<DAGVertex, DAGEdge>(
 					this);
 			if (detector.detectCyclesContainingVertex(source)) {
-				Set<DAGVertex> cycle = detector.findCyclesContainingVertex(source);
+				Set<DAGVertex> cycle = detector
+						.findCyclesContainingVertex(source);
 				String cycleString = "Added edge forms a cycle: {";
-				for(DAGVertex vertex : cycle){
+				for (DAGVertex vertex : cycle) {
 					cycleString += vertex.getName() + " ";
-				}	
-				cycleString+="}";
-				
+				}
+				cycleString += "}";
+
 				this.removeEdge(newEdge);
 				throw ((new CreateCycleException(cycleString)));
 			} else if (detector.detectCyclesContainingVertex(target)) {
-				Set<DAGVertex> cycle = detector.findCyclesContainingVertex(target);
+				Set<DAGVertex> cycle = detector
+						.findCyclesContainingVertex(target);
 				String cycleString = "Added edge forms a cycle: {";
-				for(DAGVertex vertex : cycle){
+				for (DAGVertex vertex : cycle) {
 					cycleString += vertex.getName() + " ";
-				}	
-				cycleString+="}";
-				
+				}
+				cycleString += "}";
+
 				this.removeEdge(newEdge);
 				throw ((new CreateCycleException(cycleString)));
 			}
@@ -106,7 +110,6 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 	public boolean addVertex(DAGVertex vertex) {
 		return super.addVertex(vertex);
 	}
-
 
 	/**
 	 * Gives the DAGVertex with the given name in the graph
@@ -138,10 +141,10 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 	@Override
 	public void update(AbstractGraph<?, ?> observable, Object arg) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public AbstractGraph clone() {
 		return null;
@@ -152,18 +155,94 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge>{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	public SDFGraph getCorrespondingSDFGraph(){
-		return (SDFGraph) this.getPropertyBean().getValue(SDF) ;
+
+	public SDFGraph getCorrespondingSDFGraph() {
+		return (SDFGraph) this.getPropertyBean().getValue(SDF);
 	}
-	
-	public void setCorrespondingSDFGraph(SDFGraph graph){
-		this.getPropertyBean().setValue(SDF, graph) ;
+
+	public void setCorrespondingSDFGraph(SDFGraph graph) {
+		this.getPropertyBean().setValue(SDF, graph);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public ModelVertexFactory getVertexFactory(){
+	public ModelVertexFactory getVertexFactory() {
 		return DAGVertexFactory.getInstance();
+	}
+
+	/**
+	 * Returns a set containing all the edges that are successors to the given
+	 * {@link DAGVertex}.
+	 * 
+	 * @param vertex
+	 *            the {@link DAGVertex} whose successor edge list is retrieved
+	 * @return A {@link Set} containing all {@link DAGEdge} that are successors
+	 *         to the given {@link DAGVertex}
+	 */
+	public Set<DAGEdge> getSuccessorEdgesOf(DAGVertex vertex) {
+		Set<DAGEdge> result = new HashSet<DAGEdge>();
+
+		// Create a list of the vertex to process
+		List<DAGVertex> toProcess = new ArrayList<DAGVertex>();
+		Set<DAGVertex> processed = new HashSet<DAGVertex>();
+		toProcess.add(vertex);
+
+		// While there is a vertex in the toProcess list
+		while (!toProcess.isEmpty()) {
+			DAGVertex processedVertex = toProcess.remove(0);
+			processed.add(processedVertex);
+
+			// Add all its outgoing edges to the result
+			result.addAll(this.outgoingEdgesOf(processedVertex));
+
+			// Add all its successors vertices to the toProcess list (unless
+			// they were already added or processed)
+			for (DAGEdge outEdge : this.outgoingEdgesOf(processedVertex)) {
+				DAGVertex target = outEdge.getTarget();
+				if (!toProcess.contains(target) && !processed.contains(target)) {
+					toProcess.add(target);
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Returns a set containing all the edges that are predecessors to the given
+	 * {@link DAGVertex}.
+	 * 
+	 * @param vertex
+	 *            the {@link DAGVertex} whose predecessor edge list is retrieved
+	 * @return A {@link Set} containing all {@link DAGEdge} that are predecessor
+	 *         to the given {@link DAGVertex}
+	 */
+	public Set<DAGEdge> getPredecessorEdgesOf(DAGVertex vertex) {
+		Set<DAGEdge> result = new HashSet<DAGEdge>();
+
+		// Create a list of the vertex to process
+		List<DAGVertex> toProcess = new ArrayList<DAGVertex>();
+		Set<DAGVertex> processed = new HashSet<DAGVertex>();
+		toProcess.add(vertex);
+
+		// While there is a vertex in the toProcess list
+		while (!toProcess.isEmpty()) {
+			DAGVertex processedVertex = toProcess.remove(0);
+			processed.add(processedVertex);
+
+			// Add all its incoming edges to the result
+			result.addAll(this.incomingEdgesOf(processedVertex));
+
+			// Add all its successors vertices to the toProcess list (unless
+			// they were already added or processed)
+			for (DAGEdge inEdge : this.incomingEdgesOf(processedVertex)) {
+				DAGVertex source = inEdge.getSource();
+				if (!toProcess.contains(source) && !processed.contains(source)) {
+					toProcess.add(source);
+				}
+			}
+		}
+
+		return result;
 	}
 
 	@Override
