@@ -107,7 +107,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		if (source instanceof SDFForkVertex
 				|| source instanceof SDFBroadcastVertex) {
 			source.connectionAdded(newEdge);
-		} else if (target instanceof SDFJoinVertex
+		} 
+		
+		if (target instanceof SDFJoinVertex
 				|| target instanceof SDFRoundBufferVertex) {
 			target.connectionAdded(newEdge);
 		}

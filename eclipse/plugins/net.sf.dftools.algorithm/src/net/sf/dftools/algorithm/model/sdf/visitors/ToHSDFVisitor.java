@@ -3,6 +3,8 @@ package net.sf.dftools.algorithm.model.sdf.visitors;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.Vector;
 import java.util.logging.Level;
 
@@ -114,6 +116,12 @@ public class ToHSDFVisitor implements
 					.getEdgeSource(edge));
 			Vector<SDFAbstractVertex> targetCopies = matchCopies.get(sdf
 					.getEdgeTarget(edge));
+
+			Vector<SDFAbstractVertex> originalSourceCopies = new Vector<>(
+					sourceCopies);
+			Vector<SDFAbstractVertex> originalTargetCopies = new Vector<>(
+					targetCopies);
+
 			int nbDelays = edge.getDelay().intValue();
 
 			// Total number of token exchanged (produced and consumed) for this
@@ -228,37 +236,90 @@ public class ToHSDFVisitor implements
 						targetCopies.get(targetIndex));
 
 				// Set the source interface of the new edge
-				if (sourceCopies.get(sourceIndex).getSink(
-						edge.getSourceInterface().getName()) != null) {
-					// if the source already has the appropriate interface
-					newEdge.setSourceInterface(sourceCopies.get(sourceIndex)
-							.getSink(edge.getSourceInterface().getName()));
+				// If the source is a newly added fork/broadcast we rename the
+				// new output ports. Contrary to ports of join/roundbuffer, no
+				// special processing is needed to order the edges.
+				if (sourceCopies.get(sourceIndex) == originalSourceCopies
+						.get(sourceIndex)) {
+					// If the source is not a new fork/broadcast
+					if (sourceCopies.get(sourceIndex).getSink(
+							edge.getSourceInterface().getName()) != null) {
+						// if the source already has the appropriate interface
+						newEdge.setSourceInterface(sourceCopies
+								.get(sourceIndex).getSink(
+										edge.getSourceInterface().getName()));
+					} else {
+						// if the source does not have the interface.
+						newEdge.setSourceInterface(edge.getSourceInterface()
+								.clone());
+					}
 				} else {
-					// if the source does not have the interface.
-					newEdge.setSourceInterface(edge.getSourceInterface()
-							.clone());
+					// If the source is a newly created fork/broadcast
+					SDFInterfaceVertex sourceInterface = edge
+							.getSourceInterface().clone();
+					sourceInterface.setName(sourceInterface.getName()
+							+ "_" +  sourceProd);
+					newEdge.setSourceInterface(sourceInterface);
 				}
 
 				// Set the target interface of the new edge
-				if (targetCopies.get(targetIndex).getSource(
-						edge.getTargetInterface().getName()) != null) {
-					// if the target already has the appropriate interface
-					newEdge.setTargetInterface(targetCopies.get(targetIndex)
-							.getSource(edge.getTargetInterface().getName()));
+				// If the target is a newly added join/roundbuffer
+				// we need to take extra care to make sure the incoming edges
+				// are in the right order (which might be a little bit complex
+				// when playing with delays)
+				if (targetCopies.get(targetIndex) == originalTargetCopies
+						.get(targetIndex)) {
+					// If the target is not a new join/roundbuffer
+					if (targetCopies.get(targetIndex).getSource(
+							edge.getTargetInterface().getName()) != null) {
+						// if the target already has the appropriate interface
+						newEdge.setTargetInterface(targetCopies
+								.get(targetIndex).getSource(
+										edge.getTargetInterface().getName()));
+					} else {
+						// if the target does not have the interface.
+						newEdge.setTargetInterface(edge.getTargetInterface()
+								.clone());
+					}
 				} else {
-					// if the target does not have the interface.
-					newEdge.setTargetInterface(edge.getTargetInterface()
-							.clone());
+					// If the target is a newly created join/roundbuffer
+					SDFInterfaceVertex targetInterface = edge
+							.getTargetInterface().clone();
+					targetInterface.setName(targetInterface.getName()
+							+ "_" +targetCons);
+					newEdge.setTargetInterface(targetInterface);
+
+					// Reorder the input of the target
+					{
+						SDFAbstractVertex targetVertex = newEdge.getTarget();	
+						@SuppressWarnings("unchecked")
+						Map<Integer, SDFEdge> edgeOrder = (Map<Integer, SDFEdge>) targetVertex.getPropertyBean().getValue(SDFJoinVertex.EDGES_ORDER);
+						TreeMap<Integer, SDFEdge>  orderedEdges = new TreeMap<Integer,SDFEdge>();
+						for(Entry<Integer, SDFEdge> entry : edgeOrder.entrySet()){
+							Integer order =  new Integer(entry.getValue().getTargetLabel().substring(edge
+									.getTargetInterface().getName().length()+1));
+							orderedEdges.put(order, entry.getValue());
+						}
+						
+						// Clear the edgeOrder Map and refill it with the right order:
+						edgeOrder.clear();
+						int index = 0;
+						for(Entry<Integer, SDFEdge> entry : orderedEdges.entrySet()){
+							edgeOrder.put(index, entry.getValue());
+							index++;
+						}
+					}
 				}
 				// kdesnos: This lines cancel the previous if..else block ?
-				newEdge.setTargetInterface(edge.getTargetInterface().clone());
+				// newEdge.setTargetInterface(edge.getTargetInterface().clone());
 
 				// Associate the interfaces to the new edge
 				if (targetCopies.get(targetIndex) instanceof SDFVertex) {
 					if (((SDFVertex) targetCopies.get(targetIndex))
-							.getAssociatedInterface(edge) != null) {
+							.getSource(edge.getTargetInterface().getName()) != null) {
 						inputVertex = ((SDFVertex) targetCopies
-								.get(targetIndex)).getAssociatedInterface(edge);
+								.get(targetIndex)).getSource(edge
+								.getTargetInterface().getName());
 						((SDFVertex) targetCopies.get(targetIndex))
 								.setInterfaceVertexExternalLink(newEdge,
 										inputVertex);
@@ -266,9 +327,10 @@ public class ToHSDFVisitor implements
 				}
 				if (sourceCopies.get(sourceIndex) instanceof SDFVertex) {
 					if (((SDFVertex) sourceCopies.get(sourceIndex))
-							.getAssociatedInterface(edge) != null) {
+							.getSink(edge.getSourceInterface().getName()) != null) {
 						outputVertex = ((SDFVertex) sourceCopies
-								.get(sourceIndex)).getAssociatedInterface(edge);
+								.get(sourceIndex)).getSink(edge
+								.getSourceInterface().getName());
 						((SDFVertex) sourceCopies.get(sourceIndex))
 								.setInterfaceVertexExternalLink(newEdge,
 										outputVertex);
@@ -276,7 +338,7 @@ public class ToHSDFVisitor implements
 				}
 
 				// Set the properties of the new edge
-				newEdge.copyProperties(edge);
+				// newEdge.copyProperties(edge);
 				newEdge.setProd(new SDFIntEdgePropertyType(rest));
 				newEdge.setCons(new SDFIntEdgePropertyType(rest));
 
