@@ -170,6 +170,40 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 	}
 
 	/**
+	 * Returns a set containing all the {@link DAGVertex} that are successors to
+	 * the given {@link DAGVertex}.
+	 * 
+	 * @param vertex
+	 *            the {@link DAGVertex} whose successor vertex list is retrieved
+	 * @return A {@link Set} containing all {@link DAGVertex} that are
+	 *         successors to the given {@link DAGVertex}
+	 */
+	public Set<DAGVertex> getSuccessorVerticesOf(DAGVertex vertex) {
+		// Create a list of the vertex to process
+		List<DAGVertex> toProcess = new ArrayList<DAGVertex>();
+		Set<DAGVertex> processed = new HashSet<DAGVertex>();
+		toProcess.add(vertex);
+
+		// While there is a vertex in the toProcess list
+		while (!toProcess.isEmpty()) {
+			DAGVertex processedVertex = toProcess.remove(0);
+			processed.add(processedVertex);
+
+			// Add all its successors vertices to the toProcess list (unless
+			// they were already added or processed)
+			for (DAGEdge outEdge : this.outgoingEdgesOf(processedVertex)) {
+				DAGVertex target = outEdge.getTarget();
+				if (!toProcess.contains(target) && !processed.contains(target)) {
+					toProcess.add(target);
+				}
+			}
+		}
+
+		processed.remove(vertex);
+		return processed;
+	}
+
+	/**
 	 * Returns a set containing all the edges that are successors to the given
 	 * {@link DAGVertex}.
 	 * 
@@ -206,7 +240,42 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 
 		return result;
 	}
-	
+
+	/**
+	 * Returns a set containing all the {@link DAGVertex} that are predecessors
+	 * to the given {@link DAGVertex}.
+	 * 
+	 * @param vertex
+	 *            the {@link DAGVertex} whose predecessor vertex list is
+	 *            retrieved
+	 * @return A {@link Set} containing all {@link DAGVertex} that are
+	 *         predecessor to the given {@link DAGVertex}
+	 */
+	public Set<DAGVertex> getPredecessorVerticesOf(DAGVertex vertex) {
+		// Create a list of the vertex to process
+		List<DAGVertex> toProcess = new ArrayList<DAGVertex>();
+		Set<DAGVertex> processed = new HashSet<DAGVertex>();
+		toProcess.add(vertex);
+
+		// While there is a vertex in the toProcess list
+		while (!toProcess.isEmpty()) {
+			DAGVertex processedVertex = toProcess.remove(0);
+			processed.add(processedVertex);
+
+			// Add all its predecessors vertices to the toProcess list (unless
+			// they were already added or processed)
+			for (DAGEdge inEdge : this.incomingEdgesOf(processedVertex)) {
+				DAGVertex source = inEdge.getSource();
+				if (!toProcess.contains(source) && !processed.contains(source)) {
+					toProcess.add(source);
+				}
+			}
+		}
+
+		processed.remove(vertex);
+		return processed;
+	}
+
 	/**
 	 * Returns a set containing all the edges that are predecessors to the given
 	 * {@link DAGVertex}.
@@ -232,7 +301,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 			// Add all its incoming edges to the result
 			result.addAll(this.incomingEdgesOf(processedVertex));
 
-			// Add all its successors vertices to the toProcess list (unless
+			// Add all its predecessors vertices to the toProcess list (unless
 			// they were already added or processed)
 			for (DAGEdge inEdge : this.incomingEdgesOf(processedVertex)) {
 				DAGVertex source = inEdge.getSource();
