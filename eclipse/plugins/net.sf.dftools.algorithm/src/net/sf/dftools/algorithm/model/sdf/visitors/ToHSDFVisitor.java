@@ -350,6 +350,7 @@ public class ToHSDFVisitor implements
 				// newEdge.copyProperties(edge);
 				newEdge.setProd(new SDFIntEdgePropertyType(rest));
 				newEdge.setCons(new SDFIntEdgePropertyType(rest));
+				newEdge.setDataType(edge.getDataType());
 
 				// If the edge has a delay and that delay still exist in the
 				// SRSDF (i.e. if the source & target do not belong to the same
