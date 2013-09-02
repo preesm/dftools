@@ -480,11 +480,11 @@ public final class SlamValidator implements IValidator {
 				}
 
 				if (!hasRefName) {
-					v.setValue("definition", "default");
+					v.setValue("definition", "default" + v.getType().getName());
 
 					createMarker(
 							file,
-							"Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"",
+							"Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"Type",
 							(String) v.getValue("id"), IMarker.PROBLEM,
 							IMarker.SEVERITY_ERROR);
 					valid = false;

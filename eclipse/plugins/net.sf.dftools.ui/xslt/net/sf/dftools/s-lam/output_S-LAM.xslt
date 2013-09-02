@@ -15,6 +15,9 @@
         except with .layout extension. -->
     <xsl:param name="path"/>
     <xsl:variable name="file" select="replace($path, '(.+)[.].+', '$1.layout')"/>
+
+	<!-- used to generate a unique Id and incremented at each use -->    
+    <xsl:variable name="uniqueId" select="0"/>
     
     <!-- Top-level: graph -> ip-xact -->
     <xsl:template match="graph">
@@ -154,7 +157,7 @@
                 <!-- An id is generated for the link if not present -->
                 <xsl:choose>
                     <xsl:when test="string-length($linkId)=0">
-                        <xsl:value-of select="generate-id(.)"/>
+                        <xsl:value-of select="concat(@source,'|',parameters/parameter[@name = 'source port']/@value,'|',@target,'|',parameters/parameter[@name = 'target port']/@value)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$linkId"/>
@@ -191,7 +194,7 @@
             <!-- An ID is generated for the link if not present -->
             <xsl:choose>
                 <xsl:when test="string-length($linkId)=0">
-                    <xsl:attribute name="slam:referenceId" select="generate-id(.)"/>
+                    <xsl:attribute name="slam:referenceId" select="concat(@source,'|',parameters/parameter[@name = 'source port']/@value,'|',@target,'|',parameters/parameter[@name = 'target port']/@value)"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="slam:referenceId" select="$linkId"/>
