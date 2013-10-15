@@ -16,6 +16,7 @@ import net.sf.dftools.algorithm.model.sdf.types.SDFTextualEdgePropertyTypeFactor
  * rates and length of delay specified
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
@@ -46,12 +47,24 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 	 * Property name for property target_port
 	 */
 	public static final String TARGET_PORT = "target_port";
+	
+	/**
+	 * Property name for property target_port_modifier
+	 */
+	public static final String TARGET_PORT_MODIFIER = "target_port_modifier";
+	
+	/**
+	 * Property name for property source_port_modifier
+	 */
+	public static final String SOURCE_PORT_MODIFIER = "source_port_modifier";
 
 	static {
 		public_properties.add(EDGE_CONS);
 		public_properties.add(EDGE_DELAY);
 		public_properties.add(EDGE_PROD);
 		public_properties.add(DATA_TYPE);
+		public_properties.add(SOURCE_PORT_MODIFIER);
+		public_properties.add(TARGET_PORT_MODIFIER);
 	};
 
 	/**
