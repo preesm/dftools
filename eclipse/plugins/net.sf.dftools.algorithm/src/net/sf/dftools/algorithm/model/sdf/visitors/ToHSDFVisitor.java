@@ -201,6 +201,7 @@ public class ToHSDFVisitor implements
 					newEdge.setDataType(edge.getDataType());
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
+					newEdge.setSourcePortModifier(edge.getSourcePortModifier());
 				}
 				if (rest < edge.getCons().intValue()
 						&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)
@@ -228,6 +229,7 @@ public class ToHSDFVisitor implements
 					newEdge.setDataType(edge.getDataType());
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
+					newEdge.setTargetPortModifier(edge.getTargetPortModifier());
 				}
 				// end of testing zone
 
@@ -253,6 +255,8 @@ public class ToHSDFVisitor implements
 						newEdge.setSourceInterface(edge.getSourceInterface()
 								.clone());
 					}
+					// Copy the source port modifier of the original source
+					newEdge.setSourcePortModifier(edge.getSourcePortModifier());
 				} else {
 					// If the source is a newly created fork/broadcast
 					SDFInterfaceVertex sourceInterface = edge
@@ -281,6 +285,8 @@ public class ToHSDFVisitor implements
 						newEdge.setTargetInterface(edge.getTargetInterface()
 								.clone());
 					}
+					// Copy the target port modifier of the original source
+					newEdge.setTargetPortModifier(edge.getTargetPortModifier());
 				} else {
 					// If the target is a newly created join/roundbuffer
 					SDFInterfaceVertex targetInterface = edge

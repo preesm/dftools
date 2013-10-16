@@ -47,12 +47,12 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 	 * Property name for property target_port
 	 */
 	public static final String TARGET_PORT = "target_port";
-	
+
 	/**
 	 * Property name for property target_port_modifier
 	 */
 	public static final String TARGET_PORT_MODIFIER = "target_port_modifier";
-	
+
 	/**
 	 * Property name for property source_port_modifier
 	 */
@@ -177,6 +177,16 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 				SDFInterfaceVertex.class);
 	}
 
+	public SDFStringEdgePropertyType getSourcePortModifier() {
+		return (SDFStringEdgePropertyType) getPropertyBean().getValue(
+				SOURCE_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+	}
+
+	public SDFStringEdgePropertyType getTargetPortModifier() {
+		return (SDFStringEdgePropertyType) getPropertyBean().getValue(
+				TARGET_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+	}
+
 	/**
 	 * Setter of the property <tt>cons</tt>
 	 * 
@@ -205,6 +215,22 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 			((SDFExpressionEdgePropertyType) delay).setExpressionSolver(this
 					.getBase());
 		}
+	}
+
+	public void setTargetPortModifier(AbstractEdgePropertyType<?> modifier) {
+		if(modifier != null){
+			getPropertyBean().setValue(TARGET_PORT_MODIFIER, null, modifier);
+		} else {
+			getPropertyBean().removeProperty(TARGET_PORT_MODIFIER);
+		}		
+	}
+
+	public void setSourcePortModifier(AbstractEdgePropertyType<?> modifier) {
+		if(modifier != null){
+			getPropertyBean().setValue(SOURCE_PORT_MODIFIER, null, modifier);
+		} else {
+			getPropertyBean().removeProperty(SOURCE_PORT_MODIFIER);
+		}	
 	}
 
 	/**
@@ -295,7 +321,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 		if (propertyName.equals(EDGE_CONS) || propertyName.equals(EDGE_PROD)
 				|| propertyName.equals(EDGE_DELAY)) {
 			return SDFNumericalEdgePropertyTypeFactory.getInstance();
-		} else if (propertyName.equals(DATA_TYPE)) {
+		} else if (propertyName.equals(DATA_TYPE)
+				|| propertyName.equals(SOURCE_PORT_MODIFIER)
+				|| propertyName.equals(TARGET_PORT_MODIFIER)) {
 			return SDFTextualEdgePropertyTypeFactory.getInstance();
 		}
 		return null;

@@ -391,10 +391,12 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 							oldEdge.getTarget());
 					newEdge.setSourceInterface(outPort);
 					newEdge.setTargetInterface(oldEdge.getTargetInterface());
+					newEdge.setTargetPortModifier(oldEdge.getTargetPortModifier());
 					newEdge.setProd(oldEdge.getProd());
 					newEdge.setCons(oldEdge.getCons());
 					newEdge.setDelay(oldEdge.getDelay());
 					newEdge.setDataType(oldEdge.getDataType());
+					baseEdge.setSourcePortModifier(oldEdge.getSourcePortModifier());
 					baseEdge.setProd(oldEdge.getProd().clone());
 					baseEdge.setCons(oldEdge.getProd().clone());
 					baseEdge.setDelay(new SDFIntEdgePropertyType(0));
@@ -521,7 +523,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
 		checkMultipleEdges(sourceVertex, targetVertex);
-		@SuppressWarnings("deprecation")
+
 		SDFEdge edge = super.removeEdge(sourceVertex, targetVertex);
 		if (edge != null) {
 			if (sourceVertex instanceof SDFVertex) {
