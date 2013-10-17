@@ -19,6 +19,7 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import net.sf.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import net.sf.dftools.algorithm.model.visitors.AbstractHierarchyFlattening;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 
@@ -28,9 +29,8 @@ import net.sf.dftools.algorithm.model.visitors.SDF4JException;
  * @author jpiat
  * 
  */
-public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph>{
-
-
+public class SDFHierarchyFlattening extends
+		AbstractHierarchyFlattening<SDFGraph> {
 
 	/**
 	 * Flatten one vertex given it's parent
@@ -39,8 +39,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 	 *            The vertex to flatten
 	 * @param parentGraph
 	 *            The new parent graph
-	 * @throws InvalidExpressionException 
-	 * @throws DynamicExpressionException 
+	 * @throws InvalidExpressionException
+	 * @throws DynamicExpressionException
 	 */
 	@SuppressWarnings("unchecked")
 	private void treatVertex(SDFAbstractVertex vertex, SDFGraph parentGraph,
@@ -55,7 +55,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 				parentGraph.addVertex(cloneVertex);
 				matchCopies.put(trueVertex, cloneVertex);
 				cloneVertex.copyProperties(trueVertex);
-				cloneVertex.setNbRepeat(trueVertex.getNbRepeatAsInteger() * vertex.getNbRepeatAsInteger());
+				cloneVertex.setNbRepeat(trueVertex.getNbRepeatAsInteger()
+						* vertex.getNbRepeatAsInteger());
 				cloneVertex.setName(vertex.getName() + "_"
 						+ cloneVertex.getName());
 				if (trueVertex.getArguments() != null) {
@@ -80,8 +81,10 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			SDFAbstractVertex sourceVertex = null;
 			SDFAbstractVertex targetVertex = null;
 			int delayValue = 0;
-			int prodValue = 0 ;
-			int consValue = 0 ;
+			int prodValue = 0;
+			int consValue = 0;
+			SDFStringEdgePropertyType sourceModifier = null;
+			SDFStringEdgePropertyType targetModifier = null;
 			if (edges.get(i).getSource() instanceof SDFInterfaceVertex) {
 				SDFInterfaceVertex sourceInterface = (SDFInterfaceVertex) edges
 						.get(i).getSource();
@@ -90,10 +93,13 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 							.getSource();
 					delayValue = vertex.getAssociatedEdge(sourceInterface)
 							.getDelay().intValue();
-					prodValue = vertex.getAssociatedEdge(sourceInterface).getProd().intValue() ;
+					prodValue = vertex.getAssociatedEdge(sourceInterface)
+							.getProd().intValue();
 					edges.get(i).setSourceInterface(
 							vertex.getAssociatedEdge(sourceInterface)
 									.getSourceInterface());
+					targetModifier = vertex.getAssociatedEdge(sourceInterface)
+							.getTargetPortModifier();
 				}
 
 			} else {
@@ -108,15 +114,18 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 							.getTarget();
 					delayValue = vertex.getAssociatedEdge(targetInterface)
 							.getDelay().intValue();
-					consValue = vertex.getAssociatedEdge(targetInterface).getCons().intValue() ;
+					consValue = vertex.getAssociatedEdge(targetInterface)
+							.getCons().intValue();
 					edges.get(i).setTargetInterface(
 							vertex.getAssociatedEdge(targetInterface)
 									.getTargetInterface());
+					sourceModifier = vertex.getAssociatedEdge(targetInterface)
+							.getSourcePortModifier();
 				}
 
 			} else {
 				targetVertex = matchCopies.get(edges.get(i).getTarget());
-				consValue = edges.get(i).getCons().intValue() ;
+				consValue = edges.get(i).getCons().intValue();
 			}
 			if (sourceVertex != null && targetVertex != null) {
 				SDFEdge newEdge = parentGraph.addEdge(sourceVertex,
@@ -126,6 +135,20 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 				newEdge.setProd(new SDFIntEdgePropertyType(prodValue));
 				if (delayValue != 0) {
 					newEdge.setDelay(new SDFIntEdgePropertyType(delayValue));
+				}
+				if (newEdge.getTargetPortModifier() == null
+						&& targetModifier != null) {
+					// If the target port modifier was not already defined from
+					// the inside edge
+					// and the outside edge had a modifier
+					newEdge.setTargetPortModifier(targetModifier);
+				}
+				if (newEdge.getSourcePortModifier() == null
+						&& sourceModifier != null) {
+					// If the source port modifier was not already defined from
+					// the inside edge
+					// and the outside edge had a modifier
+					newEdge.setSourcePortModifier(sourceModifier);
 				}
 			}
 		}
@@ -147,13 +170,14 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 		if (depth > 0) {
 			int newDepth = depth - 1;
 			for (SDFAbstractVertex vertex : sdf.vertexSet()) {
-				if (vertex.getGraphDescription() != null && vertex.getGraphDescription() instanceof SDFGraph) {
+				if (vertex.getGraphDescription() != null
+						&& vertex.getGraphDescription() instanceof SDFGraph) {
 					try {
 						prepareHierarchy(vertex, newDepth);
 					} catch (InvalidExpressionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						throw(new SDF4JException(e.getMessage()));
+						throw (new SDF4JException(e.getMessage()));
 					}
 				}
 			}
@@ -166,13 +190,14 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			Vector<SDFAbstractVertex> vertices = new Vector<SDFAbstractVertex>(
 					output.vertexSet());
 			for (int i = 0; i < vertices.size(); i++) {
-				if (vertices.get(i).getGraphDescription() != null  && vertices.get(i).getGraphDescription() instanceof SDFGraph) {
+				if (vertices.get(i).getGraphDescription() != null
+						&& vertices.get(i).getGraphDescription() instanceof SDFGraph) {
 					try {
 						treatVertex(vertices.get(i), output, newDepth);
 					} catch (InvalidExpressionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-						throw(new SDF4JException(e.getMessage()));
+						throw (new SDF4JException(e.getMessage()));
 					}
 					output.removeVertex(vertices.get(i));
 				}
@@ -188,15 +213,16 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void treatSinkInterface(AbstractVertex port,
-			AbstractGraph parentGraph, int depth) throws InvalidExpressionException {
-		if(! (port instanceof SDFSinkInterfaceVertex)){
-			return ;
+			AbstractGraph parentGraph, int depth)
+			throws InvalidExpressionException {
+		if (!(port instanceof SDFSinkInterfaceVertex)) {
+			return;
 		}
 		SDFSinkInterfaceVertex vertex = (SDFSinkInterfaceVertex) port;
 		boolean needRoundBuffer = false;
 		boolean needImplode = false;
-		Vector<SDFEdge> inEdges = new Vector<SDFEdge>(parentGraph
-				.incomingEdgesOf(vertex));
+		Vector<SDFEdge> inEdges = new Vector<SDFEdge>(
+				parentGraph.incomingEdgesOf(vertex));
 		for (SDFEdge inEdge : inEdges) {
 			if (inEdge.getCons().intValue() < (inEdge.getProd().intValue() * inEdge
 					.getSource().getNbRepeatAsInteger())) {
@@ -217,6 +243,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			parentGraph.addVertex(roundBuffer);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(roundBuffer, vertex);
 			edge.copyProperties(inEdges.get(0));
+			// The modifier of the source port should not be copied.
+			edge.setSourcePortModifier(null);
 			edge.setProd(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
 					.intValue()));
 			edge.setCons(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
@@ -225,8 +253,11 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			while (inEdges.size() > 0) {
 				SDFEdge treatEdge = inEdges.get(0);
 				SDFAbstractVertex source = treatEdge.getSource();
-				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source, roundBuffer);
+				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source,
+						roundBuffer);
 				newEdge.copyProperties(treatEdge);
+				// The modifier of the target port should not be copied.
+				edge.setTargetPortModifier(null);
 				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getProd()
 						.intValue()));
 				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getProd()
@@ -247,6 +278,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			parentGraph.addVertex(implodeBuffer);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(implodeBuffer, vertex);
 			edge.copyProperties(inEdges.get(0));
+			// The modifier of the source port should not be copied.
+			edge.setSourcePortModifier(null);
 			edge.setProd(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
 					.intValue()));
 			edge.setCons(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
@@ -255,13 +288,15 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			while (inEdges.size() > 0) {
 				SDFEdge treatEdge = inEdges.get(0);
 				SDFAbstractVertex source = treatEdge.getSource();
-				SDFEdge newEdge = (SDFEdge)parentGraph.addEdge(source, implodeBuffer);
+				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source,
+						implodeBuffer);
 				newEdge.copyProperties(treatEdge);
+				// The modifier of the target port should not be copied.
+				edge.setTargetPortModifier(null);
 				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getProd()
 						.intValue()));
 				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getProd()
-						.intValue()
-						* source.getNbRepeatAsInteger()));
+						.intValue() * source.getNbRepeatAsInteger()));
 				newEdge.setTargetInterface(input);
 				newEdge.setSourceInterface(treatEdge.getSourceInterface());
 				parentGraph.removeEdge(treatEdge);
@@ -272,21 +307,23 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void treatSourceInterface(AbstractVertex port,
-			AbstractGraph parentGraph, int depth) throws InvalidExpressionException {
-		if(! (port instanceof SDFSourceInterfaceVertex)){
-			return ;
+			AbstractGraph parentGraph, int depth)
+			throws InvalidExpressionException {
+		if (!(port instanceof SDFSourceInterfaceVertex)) {
+			return;
 		}
 		SDFSourceInterfaceVertex vertex = (SDFSourceInterfaceVertex) port;
 		boolean needBroadcast = false;
 		boolean needExplode = false;
-		Vector<SDFEdge> outEdges = new Vector<SDFEdge>(parentGraph
-				.outgoingEdgesOf(vertex));
-		if(outEdges.size() > 1){
+		Vector<SDFEdge> outEdges = new Vector<SDFEdge>(
+				parentGraph.outgoingEdgesOf(vertex));
+		if (outEdges.size() > 1) {
 			needBroadcast = true;
-		}else{
+		} else {
 			for (SDFEdge outEdge : outEdges) {
-				if (outEdge.getProd().intValue() < (outEdge.getCons().intValue() * outEdge
-						.getTarget().getNbRepeatAsInteger())) {
+				if (outEdge.getProd().intValue() < (outEdge.getCons()
+						.intValue() * outEdge.getTarget()
+						.getNbRepeatAsInteger())) {
 					needBroadcast = true;
 					break;
 				} else if (outEdge.getProd().intValue() > (outEdge.getCons()
@@ -305,6 +342,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			parentGraph.addVertex(broadcast);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
 			edge.copyProperties(outEdges.get(0));
+			// The modifier of the target port should not be copied.
+			edge.setTargetPortModifier(null);
 			edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
 					.intValue()));
 			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
@@ -313,13 +352,15 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			while (outEdges.size() > 0) {
 				SDFEdge treatEdge = outEdges.get(0);
 				SDFAbstractVertex target = treatEdge.getTarget();
-				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast, target);
+				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast,
+						target);
 				newEdge.copyProperties(treatEdge);
+				// The modifier of the source port should not be copied.
+				edge.setSourcePortModifier(null);
 				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
 						.intValue()));
 				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
-						.intValue()
-						* target.getNbRepeatAsInteger()));
+						.intValue() * target.getNbRepeatAsInteger()));
 				newEdge.setSourceInterface(output);
 				newEdge.setTargetInterface(treatEdge.getTargetInterface());
 				newEdge.setDataType(treatEdge.getDataType());
@@ -337,6 +378,8 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			parentGraph.addVertex(explode);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, explode);
 			edge.copyProperties(outEdges.get(0));
+			// The modifier of the target port should not be copied.
+			edge.setTargetPortModifier(null);
 			edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
 					.intValue()));
 			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
@@ -345,8 +388,11 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			while (outEdges.size() > 0) {
 				SDFEdge treatEdge = outEdges.get(0);
 				SDFAbstractVertex target = treatEdge.getTarget();
-				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(explode, target);
+				SDFEdge newEdge = (SDFEdge) parentGraph
+						.addEdge(explode, target);
 				newEdge.copyProperties(treatEdge);
+				// The modifier of the source port should not be copied.
+				edge.setSourcePortModifier(null);
 				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
 						.intValue()));
 				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
@@ -361,7 +407,5 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 
 		}
 	}
-
-
 
 }
