@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools Architecture
 Bundle-SymbolicName: net.sf.dftools.architecture;singleton:=true
-Bundle-Version: 0.7.0.v20130512
+Bundle-Version: 1.0.0.rc1-v20131030
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

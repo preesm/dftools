@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/net.sf.dftools.feature_0.7.0.v20130512.jar" id="net.sf.dftools.feature" version="0.7.0.v20130512">
+   <feature url="features/net.sf.dftools.feature_1.0.0.rc1-v20131030.jar" id="net.sf.dftools.feature" version="1.0.0.rc1-v20131030" os="linux,win32">
       <category name="DFTools"/>
    </feature>
    <category-def name="DFTools" label="DFTools"/>

@@ -2,7 +2,7 @@
 <feature
       id="net.sf.dftools.feature"
       label="DFTools Feature"
-      version="0.7.0.v20130512"
+      version="1.0.0.rc1-v20131030"
       provider-name="IETR/INSA">
 
    <description>
