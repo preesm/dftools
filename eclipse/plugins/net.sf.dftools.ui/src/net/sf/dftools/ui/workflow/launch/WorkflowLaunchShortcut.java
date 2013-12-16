@@ -34,6 +34,7 @@ knowledge of the CeCILL-C license and that you accept its terms.
 package net.sf.dftools.ui.workflow.launch;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -100,10 +101,14 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 				workflowPath);
 
 		// We ask for the scenario to use with the selected workflow
+		HashSet<String> scenarioExtensions = new HashSet<String>();
+		scenarioExtensions.add("scenario");
+		scenarioExtensions.add("piscenario");
 		String scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getShell(),
 				WorkflowMessages.getString("Workflow.browseScenarioTitle"),
-				"scenario");
+				scenarioExtensions
+				);
 
 		workingCopy.setAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME,
 				scenarioPath);
