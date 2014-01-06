@@ -7,13 +7,16 @@ import java.util.Map;
 
 import net.sf.dftools.algorithm.model.AbstractEdge;
 import net.sf.dftools.algorithm.model.PropertySource;
+import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
+import net.sf.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
 /**
  * Class to represent fork vertices (explode)
  * 
  * @author jpiat
+ * @author kdesnos
  * 
  */
 public class SDFForkVertex extends SDFAbstractVertex {
@@ -95,10 +98,44 @@ public class SDFForkVertex extends SDFAbstractVertex {
 
 	@Override
 	public SDFAbstractVertex clone() {
-		SDFForkVertex fork = new SDFForkVertex();
-		fork.setName(this.getName());
-		fork.setNbRepeat(1);
-		return fork;
+		// Copy the vertex properties
+		SDFForkVertex newVertex = new SDFForkVertex();
+		for (String key : this.getPropertyBean().keys()) {
+			if (this.getPropertyBean().getValue(key) != null) {
+				Object val = this.getPropertyBean().getValue(key);
+				newVertex.getPropertyBean().setValue(key, val);
+			} 
+		}
+		
+		// Copy the ports
+		for (SDFInterfaceVertex sink : this.getSinks()) {
+			if (newVertex.getGraphDescription() != null
+					&& newVertex.getGraphDescription().getVertex(sink.getName()) != null) {
+				newVertex.addSink((SDFInterfaceVertex) this.getGraphDescription().getVertex(sink.getName()));
+			}else{
+				newVertex.addSink(sink.clone());
+			}
+		}
+		for (SDFInterfaceVertex source : this.getSources()) {
+			if (newVertex.getGraphDescription() != null
+					&& newVertex.getGraphDescription().getVertex(source.getName()) != null) {
+				newVertex.addSource((SDFInterfaceVertex) this.getGraphDescription().getVertex(source.getName()));
+			}else{
+				newVertex.addSource(source.clone());
+			}
+		}
+		
+		// Copy the nr of repetitions
+		try {
+			newVertex.setNbRepeat(this.getNbRepeat());
+		} catch (InvalidExpressionException e) {
+			e.printStackTrace();
+		}
+		
+		// Remove the edge order
+		newVertex.getPropertyBean().removeProperty(EDGES_ORDER);
+		
+		return newVertex;
 	}
 
 	@SuppressWarnings("rawtypes")

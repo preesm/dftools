@@ -178,6 +178,7 @@ public class ToHSDFVisitor implements
 				if (rest < edge.getProd().intValue()
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)) {
+					
 					// If an exlode must be added
 					SDFAbstractVertex explodeVertex = new SDFForkVertex();
 					output.addVertex(explodeVertex);
@@ -405,9 +406,12 @@ public class ToHSDFVisitor implements
 					totProd = 0;
 				}
 			}
+			
+			// If fork/Join vertices were added during the function call
+			// put back the true source/target in the match copies map.
 			for (int i = 0; i < sourceCopies.size(); i++) {
 				if (sourceCopies.get(i) instanceof SDFForkVertex
-						&& !sourceCopies.get(i).equals(edge.getSource())) {
+						&& !originalSourceCopies.get(i).equals(sourceCopies.get(i))) {
 					SDFAbstractVertex trueSource = null;
 					for (SDFEdge inEdge : output.incomingEdgesOf(sourceCopies
 							.get(i))) {
@@ -418,7 +422,7 @@ public class ToHSDFVisitor implements
 			}
 			for (int i = 0; i < targetCopies.size(); i++) {
 				if (targetCopies.get(i) instanceof SDFJoinVertex
-						&& !targetCopies.get(i).equals(edge.getTarget())) {
+						&& !originalTargetCopies.get(i).equals(targetCopies.get(i))) {
 					SDFAbstractVertex trueTarget = null;
 					for (SDFEdge inEdge : output.outgoingEdgesOf(targetCopies
 							.get(i))) {
