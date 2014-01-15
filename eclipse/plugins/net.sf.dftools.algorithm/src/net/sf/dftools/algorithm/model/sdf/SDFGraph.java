@@ -455,7 +455,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * @return True if the graph is schedulable
 	 * @throws InvalidExpressionException 
 	 */
-	public boolean isSchedulable() throws InvalidExpressionException {
+	public boolean isSchedulable() throws SDF4JException {
 		boolean schedulable = true;
 		for (SDFAbstractVertex vertex : this.vertexSet()) {
 			if (!(vertex instanceof SDFInterfaceVertex)) {
@@ -469,25 +469,29 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		}
 		List<List<SDFAbstractVertex>> subgraphs = this.getAllSubGraphs();
 			
-		for(List<SDFAbstractVertex> subgraph : subgraphs){
-			double[][] topologyMatrix = getTopologyMatrix(subgraph);
-			
-			List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<SDFAbstractVertex>();
-			for(SDFAbstractVertex vertex : subgraph){
-				if(!(vertex instanceof SDFInterfaceVertex))
-					subgraphWOInterfaces.add(vertex);
-			}
-
-			if(topologyMatrix.length > 0){
-				int rank = LinearAlgebra.rank(topologyMatrix);
-				if(rank == subgraphWOInterfaces.size()-1){
-					schedulable &= true;
-				}else{
-					schedulable &= false;
-					VisitorOutput.getLogger().log(Level.SEVERE,
-							"Graph " + this.getName() + " is not schedulable");
+		try{
+			for(List<SDFAbstractVertex> subgraph : subgraphs){
+				double[][] topologyMatrix = getTopologyMatrix(subgraph);
+				
+				List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<SDFAbstractVertex>();
+				for(SDFAbstractVertex vertex : subgraph){
+					if(!(vertex instanceof SDFInterfaceVertex))
+						subgraphWOInterfaces.add(vertex);
+				}
+		
+				if(topologyMatrix.length > 0){
+					int rank = LinearAlgebra.rank(topologyMatrix);
+					if(rank == subgraphWOInterfaces.size()-1){
+						schedulable &= true;
+					}else{
+						schedulable &= false;
+						VisitorOutput.getLogger().log(Level.SEVERE,
+								"Graph " + this.getName() + " is not schedulable");
+					}
 				}
 			}
+		} catch (InvalidExpressionException e) {
+			throw new SDF4JException(this.getName() + ": " + e.getMessage());
 		}
 		return schedulable;
 	}
