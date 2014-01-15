@@ -1,8 +1,9 @@
 package net.sf.dftools.algorithm;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -19,6 +20,7 @@ import org.math.array.DoubleArray;
  * Provides static math method useful for SDF analysis
  * 
  * @author jpiat
+ * @author jheulot
  * 
  */
 public class SDFMath {
@@ -31,34 +33,35 @@ public class SDFMath {
 	 * @return the hash map mapping vertices to their repetition factor
 	 * @throws InvalidExpressionException 
 	 */
-	public static HashMap<SDFAbstractVertex, Integer> computeRationnalVRB(
-			SDFGraph graph) throws InvalidExpressionException {
+	public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(
+			List<SDFAbstractVertex> subgraph, SDFGraph graph) throws InvalidExpressionException {
 		HashMap<SDFAbstractVertex, Integer> trueVrb = new HashMap<SDFAbstractVertex, Integer>();
 		int i = 0;
-		double[][] topology = graph.getTopologyMatrix();
-		if(Array.getLength(topology) == 0 || Array.getLength(topology[0]) == 1){
-			for (SDFAbstractVertex vertex : graph.vertexSet()) {
-				if(!(vertex instanceof SDFInterfaceVertex)){
-					trueVrb.put(vertex, 1);
-				}
-			}
-			return trueVrb ;
-		}
+		
+		double[][] topology = graph.getTopologyMatrix(subgraph);		
 		Vector<Rational> vrb = computeRationnalNullSpace(topology);
+		
 		List<Integer> result = Rational.toNatural(new Vector<Rational>(vrb));
-		for (SDFAbstractVertex vertex : graph.vertexSet()) {
-			if(!(vertex instanceof SDFInterfaceVertex)){
-				trueVrb.put(vertex, result.get(i));
-				i++;
-			}
+		for (SDFAbstractVertex vertex : subgraph) {
+			trueVrb.put(vertex, result.get(i));
+			i++;
 		}
 		return trueVrb;
 	}
 	
 	private static Vector<Rational> computeRationnalNullSpace(double[][] matrix){
-		int li = Array.getLength(matrix);
-		int col = Array.getLength(matrix[0]);
+		int li =  matrix.length;
+		int col = matrix[0].length;
 		Rational rationnalTopology[][] = new Rational[li][col];
+		Vector<Rational> vrb = new Vector<Rational>();
+		
+		if(li == 0 || col == 1){
+			for(int i=0; i<col; i++) {
+				vrb.add(new Rational(1,1));
+			}
+			return vrb ;
+		}
+		
 		for (int i = 0; i < li; i++) {
 			for (int j = 0; j < col; j++) {
 				rationnalTopology[i][j] = new Rational(
@@ -116,7 +119,6 @@ public class SDFMath {
 				}
 			}
 		}
-		Vector<Rational> vrb = new Vector<Rational>();
 		for (int i = 0; i < col; i++) {
 			vrb.add(new Rational(1, 1));
 		}
@@ -139,45 +141,73 @@ public class SDFMath {
 	}
 	
 	/**
-	 * Compute the graphs rationnal vrb with interfaces being taken into account
+	 * Compute the graphs rational vrb with interfaces being taken into account
 	 * @param graph The graph on which to perform the vrb
 	 * @return The basic repetition vector of the graph
 	 * @throws InvalidExpressionException 
 	 */ 
-	public static HashMap<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(
-			SDFGraph graph) throws InvalidExpressionException {
-		HashMap<SDFAbstractVertex, Integer> vrb = computeRationnalVRB(graph) ;
-		int nbEdges = 0 ;
-		for(SDFAbstractVertex vertex : graph.vertexSet()){
+	public static Map<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(
+			List<SDFAbstractVertex> subgraph, SDFGraph graph) throws InvalidExpressionException {
+		
+		List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<SDFAbstractVertex>();
+		for(SDFAbstractVertex vertex : subgraph){
+			if(!(vertex instanceof SDFInterfaceVertex))
+				subgraphWOInterfaces.add(vertex);
+		}
+
+		Map<SDFAbstractVertex, Integer> vrb = computeRationnalVRB(subgraphWOInterfaces, graph) ;
+		
+		List<double[]> interfaceTopology = new ArrayList<double[]>();
+		double interfaceArrayTopology[][];
+
+		int nbInterfaces = 0;
+		int decal = 0 ;
+		
+		for(SDFAbstractVertex vertex : subgraph){
 			if(vertex instanceof SDFInterfaceVertex){
-				nbEdges += graph.incomingEdgesOf(vertex).size();
-				nbEdges += graph.outgoingEdgesOf(vertex).size();
+				nbInterfaces++;
 			}
 		}
-		double interfaceTopology [] [] = DoubleArray.fill(nbEdges, nbEdges+1, 0);
-		int decal = 0 ;
-		for(SDFAbstractVertex vertex : graph.vertexSet()){
+		
+		for(SDFAbstractVertex vertex : subgraph){
 			if(vertex instanceof SDFInterfaceVertex){
 				if(vertex instanceof SDFSinkInterfaceVertex){
 					for(SDFEdge edge : graph.incomingEdgesOf(vertex)){
 						if(!(edge.getSource() instanceof SDFInterfaceVertex)){
-							interfaceTopology[decal][decal] = -edge.getCons().intValue();
-							interfaceTopology[decal][nbEdges] = edge.getProd().intValue()*(vrb.get(edge.getSource()));
+							double line[] = DoubleArray.fill(nbInterfaces+1, 0);
+							line[decal] = -edge.getCons().intValue();
+							line[nbInterfaces] = edge.getProd().intValue()*(vrb.get(edge.getSource()));
+							interfaceTopology.add(line);
 							decal ++ ;
 						}
 					}
 				}else if(vertex instanceof SDFSourceInterfaceVertex){
 					for(SDFEdge edge : graph.outgoingEdgesOf(vertex)){
 						if(!(edge.getTarget() instanceof SDFInterfaceVertex)){
-							interfaceTopology[decal][decal] = edge.getProd().intValue();
-							interfaceTopology[decal][nbEdges] = -edge.getCons().intValue()*(vrb.get(edge.getTarget()));
+							double line[] = DoubleArray.fill(nbInterfaces+1, 0);
+							line[decal] = edge.getProd().intValue();
+							line[nbInterfaces] = -edge.getCons().intValue()*(vrb.get(edge.getTarget()));
+							interfaceTopology.add(line);
 							decal ++ ;
 						}
 					}
 				}
 			}
 		}
-		Vector<Rational> nullSpace = computeRationnalNullSpace(interfaceTopology);
+		
+		if(interfaceTopology.size() == 0)
+			interfaceArrayTopology = new double[0][0];
+		else{
+			interfaceArrayTopology = new double[interfaceTopology.size()][interfaceTopology.get(0).length];
+			
+			int i=0;
+			for(double[] line : interfaceTopology){
+				interfaceArrayTopology[i] = line;
+				i++;
+			}
+		}
+		
+		Vector<Rational> nullSpace = computeRationnalNullSpace(interfaceArrayTopology);
 		List<Integer> result = Rational.toNatural(nullSpace);
 		for(SDFAbstractVertex vertex : vrb.keySet()){
 			vrb.put(vertex, vrb.get(vertex)*result.get(result.size()-1));

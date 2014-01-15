@@ -1,11 +1,9 @@
 package net.sf.dftools.algorithm.model.sdf.visitors;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
 import net.sf.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import net.sf.dftools.algorithm.model.sdf.SDFEdge;
 import net.sf.dftools.algorithm.model.sdf.SDFGraph;
@@ -14,12 +12,12 @@ import net.sf.dftools.algorithm.model.visitors.IGraphVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
-import org.math.array.LinearAlgebra;
 
 /**
  * Visitor used to determine whether a graph is schedulable or not
  * 
  * @author jpiat
+ * @author jheulot
  * 
  */
 public class TopologyVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
@@ -49,28 +47,7 @@ public class TopologyVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVerte
 			}
 			
 		}
-		int rank;
-		if(vertices.size() == 1 ){
-			schedulable &= true ;
-			
-			return ;
-		}
-		try {
-			if (Array.getLength(sdf.getTopologyMatrix()) > 0) {
-				rank = LinearAlgebra.rank(sdf.getTopologyMatrix());
-			} else {
-				rank = sdf.vertexSet().size() - 1;
-			}
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw(new SDF4JException(e.getMessage()));
-		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw(new SDF4JException(e.getMessage()));
-		}
-		if (rank == vertices.size()-1) {
+		if(sdf.isSchedulable()){
 			schedulable &= true ;
 		} else {
 			schedulable &= false ;

@@ -1,6 +1,5 @@
 package net.sf.dftools.algorithm.model.sdf;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +26,6 @@ import net.sf.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import net.sf.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
-import net.sf.dftools.algorithm.model.sdf.visitors.TopologyVisitor;
 import net.sf.dftools.algorithm.model.visitors.SDF4JException;
 import net.sf.dftools.algorithm.model.visitors.VisitorOutput;
 
@@ -40,6 +38,7 @@ import org.math.array.LinearAlgebra;
  * 
  * @author jpiat
  * @author kdesnos
+ * @author jheulot
  * 
  */
 public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
@@ -50,7 +49,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	private static final long serialVersionUID = 1L;
 
 	protected static final String TOPOLOGY = "topology";
-	protected static final String SCHEDULABLE = "schedulable";
 	protected static final String VALID_MODEL = "valid_model";
 
 	private HashMap<SDFEdge, SDFEdge> oldRef = new HashMap<SDFEdge, SDFEdge>();
@@ -102,8 +100,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target) {
 		SDFEdge newEdge = super.addEdge(source, target);
 		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
-		this.getPropertyBean().setValue(TOPOLOGY, null);
-		this.getPropertyBean().setValue(SCHEDULABLE, null);
 		if (source instanceof SDFForkVertex
 				|| source instanceof SDFBroadcastVertex) {
 			source.connectionAdded(newEdge);
@@ -150,23 +146,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		}
 		return false;
 
-	}
-
-	/**
-	 * Check the graph schedulability
-	 * 
-	 * @return true if the graph is statically schedulable
-	 */
-	public boolean checkSchedulability() {
-		TopologyVisitor visitor = new TopologyVisitor();
-		try {
-			this.accept(visitor);
-		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return visitor.result();
 	}
 
 	/**
@@ -230,17 +209,20 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * @throws InvalidExpressionException
 	 */
 	protected boolean computeVRB() throws InvalidExpressionException {
-		HashMap<SDFAbstractVertex, Integer> vrb;
-		double[][] topo = this.getTopologyMatrix();
-		if (this.getParentVertex() != null) {
-			vrb = SDFMath.computeRationnalVRBWithInterfaces(this);
-		} else if (Array.getLength(topo) == 0) {
-			vrb = new HashMap<SDFAbstractVertex, Integer>();
-			for (SDFAbstractVertex vertex : this.vertexSet()) {
-				vrb.put(vertex, 1);
+		HashMap<SDFAbstractVertex, Integer> vrb = new HashMap<SDFAbstractVertex, Integer>();
+		List<List<SDFAbstractVertex>> subgraphs = this.getAllSubGraphs();
+		
+		for(List<SDFAbstractVertex> subgraph : subgraphs){
+			boolean hasInterface = false;
+			for(SDFAbstractVertex vertex : subgraph){
+				hasInterface |= vertex instanceof SDFInterfaceVertex;
 			}
-		} else {
-			vrb = SDFMath.computeRationnalVRB(this);
+
+			if (hasInterface) {
+				vrb.putAll(SDFMath.computeRationnalVRBWithInterfaces(subgraph, this));
+			} else {
+				vrb.putAll(SDFMath.computeRationnalVRB(subgraph, this));
+			}
 		}
 		for (SDFAbstractVertex vertex : vrb.keySet()) {
 			vertex.setNbRepeat(vrb.get(vertex));
@@ -315,46 +297,96 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	}
 
 	/**
-	 * Gives this graph's topology matrix as an array of array of double
+	 * Iterative function of getAllSubGraphs
+	 * @param vertex	the current vertex
+	 * @param subgraph	the current subgraph
+	 */
+	private void getSubGraph(SDFAbstractVertex vertex, List<SDFAbstractVertex> subgraph){
+		for(SDFEdge edge : this.outgoingEdgesOf(vertex)){
+			if(!subgraph.contains(this.getEdgeTarget(edge))){
+				subgraph.add(this.getEdgeTarget(edge));
+				getSubGraph(this.getEdgeTarget(edge), subgraph);
+			}
+		}
+		for(SDFEdge edge : this.incomingEdgesOf(vertex)){
+			if(!subgraph.contains(this.getEdgeSource(edge))){
+				subgraph.add(this.getEdgeSource(edge));
+				getSubGraph(this.getEdgeSource(edge), subgraph);
+			}
+		}
+	}
+
+	/**
+	 * Divide the current graph into a list of subgraph
+	 * @return the list of subgraph
+	 */
+	public List<List<SDFAbstractVertex>> getAllSubGraphs(){		
+		List<List<SDFAbstractVertex>> subgraphs = new ArrayList<List<SDFAbstractVertex>>();
+
+		for(SDFAbstractVertex vertex : vertexSet()){
+			boolean notAssignedToASubgraph = true;
+			for(List<SDFAbstractVertex> subgraph : subgraphs){
+				if(subgraph.contains(vertex)){
+					notAssignedToASubgraph = false;
+					break;
+				}
+			}
+			if(notAssignedToASubgraph){
+				List<SDFAbstractVertex> subgraph = new ArrayList<SDFAbstractVertex>();
+				subgraph.add(vertex);
+				
+				getSubGraph(vertex, subgraph);
+
+				subgraphs.add(subgraph);
+			}
+		}
+
+		return subgraphs;
+	}
+
+	/**
+	 * Gives the topology matrix of a subgraph of this graph as an array of double
+	 * The subgraph must not contain InterfaceVertex
 	 * 
-	 * @return the two dimensionnal array of double representing the topology
-	 *         matrix
+	 * @param subgraph the subgraph
+	 * @return the topology matrix
+	 * 
 	 * @throws InvalidExpressionException
 	 */
-	public double[][] getTopologyMatrix() throws InvalidExpressionException {
-		if (this.getPropertyBean().getValue(TOPOLOGY) != null) {
-			return (double[][]) this.getPropertyBean().getValue(TOPOLOGY);
+	public double[][] getTopologyMatrix(List<SDFAbstractVertex> subgraph) throws InvalidExpressionException{
+		List<double[]> topologyListMatrix = new ArrayList<double[]>();
+		double[][] topologyArrayMatrix;
+		
+		for(SDFAbstractVertex vertex : subgraph){
+			if(vertex instanceof SDFInterfaceVertex)
+				throw new IllegalArgumentException("Cannot get topology matrix "
+						+ "from a subgraph with interface vertices");
 		}
-		int nbLi = 0;
-		HashMap<SDFAbstractVertex, Integer> associateIndex = new HashMap<SDFAbstractVertex, Integer>();
-		int i = 0;
-		for (SDFAbstractVertex vertex : this.vertexSet()) {
-			if (!(vertex instanceof SDFInterfaceVertex)) {
-				associateIndex.put(vertex, i);
-				i++;
-			}
-		}
-		for (SDFEdge edge : this.edgeSet()) {
-			if (!(edge.getSource() instanceof SDFInterfaceVertex || edge
-					.getTarget() instanceof SDFInterfaceVertex)) {
-				nbLi++;
-			}
-		}
-		double[][] topo = DoubleArray.fill(nbLi, i, 0);
-		i = 0;
-		for (SDFEdge edge : this.edgeSet()) {
-			if (!(edge.getSource() instanceof SDFInterfaceVertex || edge
-					.getTarget() instanceof SDFInterfaceVertex)) {
-				topo[i][associateIndex.get(this.getEdgeSource(edge))] += edge
-						.getProd().intValue();
-				topo[i][associateIndex.get(this.getEdgeTarget(edge))] += -edge
-						.getCons().intValue();
-				i++;
-			}
 
+		for (SDFEdge edge : this.edgeSet()) {
+			SDFAbstractVertex source = this.getEdgeSource(edge);
+			SDFAbstractVertex target = this.getEdgeTarget(edge);
+			if(subgraph.contains(source) 
+					&& subgraph.contains(target)
+					&& ! source.equals(target)){
+				double line[] = DoubleArray.fill(subgraph.size(), 0);
+				line[subgraph.indexOf(source)] += edge.getProd().intValue();
+				line[subgraph.indexOf(target)] -= edge.getCons().intValue();
+				topologyListMatrix.add(line);
+			}
 		}
-		this.getPropertyBean().setValue(TOPOLOGY, topo);
-		return topo;
+		
+		if(topologyListMatrix.size() == 0)
+			topologyArrayMatrix = new double[0][0];
+		else{
+			topologyArrayMatrix = new double[topologyListMatrix.size()][topologyListMatrix.get(0).length];
+			
+			for(int i=0; i<topologyListMatrix.size() ; i++)
+				topologyArrayMatrix[i] = topologyListMatrix.get(i);
+			
+		}
+
+		return topologyArrayMatrix;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -362,7 +394,14 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return SDFVertexFactory.getInstance();
 	}
 
-	private void insertBroadcast(SDFVertex vertex) {
+	/**
+	 * Insert Broadcast where is needed.
+	 * Multiple edges connected to one output for example
+	 * 
+	 * @param vertex the current vertex.
+	 * @param logger the logger where display a warning.
+	 */
+	private void insertBroadcast(SDFVertex vertex, Logger logger) {
 		HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>> connections = new HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>>();
 		for (SDFEdge edge : this.outgoingEdgesOf(vertex)) {
 			if (connections.get(edge.getSourceInterface()) == null) {
@@ -373,6 +412,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		}
 		for (SDFInterfaceVertex port : connections.keySet()) {
 			if (connections.get(port).size() > 1) {
+				logger.log(	Level.WARNING,
+						"Warning: Implicit Broadcast added in graph "+this.getName()
+						+" at port "+ vertex + "." + port.getName());
 				SDFBroadcastVertex broadcastPort = new SDFBroadcastVertex();
 				broadcastPort.setName("br_" + vertex.getName() + "_"
 						+ port.getName());
@@ -411,36 +453,10 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * Check the schedulability of the graph
 	 * 
 	 * @return True if the graph is schedulable
-	 * @throws SDF4JException
+	 * @throws InvalidExpressionException 
 	 */
-	public boolean isSchedulable() throws SDF4JException {
-		if (this.getPropertyBean().getValue(SCHEDULABLE) != null) {
-			return (Boolean) this.getPropertyBean().getValue(SCHEDULABLE);
-		}
-		TopologyVisitor checkTopo = new TopologyVisitor();
-		boolean result;
-		try {
-			this.accept(checkTopo);
-			result = checkTopo.result();
-		} catch (SDF4JException e) {
-			throw (e);
-		}
-		this.getPropertyBean().setValue(SCHEDULABLE, result);
-		return result;
-	}
-
-	/**
-	 * Check the schedulability of the graph
-	 * 
-	 * @return True if the graph is schedulable
-	 * @throws SDF4JException
-	 */
-	public boolean isSchedulable(Logger log) throws SDF4JException {
-		if (this.getPropertyBean().getValue(SCHEDULABLE) != null) {
-			return (Boolean) this.getPropertyBean().getValue(SCHEDULABLE);
-		}
+	public boolean isSchedulable() throws InvalidExpressionException {
 		boolean schedulable = true;
-		List<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>();
 		for (SDFAbstractVertex vertex : this.vertexSet()) {
 			if (!(vertex instanceof SDFInterfaceVertex)) {
 				if (vertex.getGraphDescription() != null
@@ -448,39 +464,31 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 					schedulable &= ((SDFGraph) vertex.getGraphDescription())
 							.isSchedulable();
 				}
-				vertices.add((SDFAbstractVertex) vertex);
 			}
 
 		}
-		int rank;
-		if (vertices.size() == 1) {
-			schedulable &= true;
-		}
-		try {
-			if (Array.getLength(this.getTopologyMatrix()) > 0) {
-				rank = LinearAlgebra.rank(this.getTopologyMatrix());
-			} else {
-				schedulable &= true;
-				this.getPropertyBean().setValue(SCHEDULABLE, schedulable);
-				return schedulable;
+		List<List<SDFAbstractVertex>> subgraphs = this.getAllSubGraphs();
+			
+		for(List<SDFAbstractVertex> subgraph : subgraphs){
+			double[][] topologyMatrix = getTopologyMatrix(subgraph);
+			
+			List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<SDFAbstractVertex>();
+			for(SDFAbstractVertex vertex : subgraph){
+				if(!(vertex instanceof SDFInterfaceVertex))
+					subgraphWOInterfaces.add(vertex);
 			}
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw (new SDF4JException(e.getMessage()));
-		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw (new SDF4JException(e.getMessage()));
+
+			if(topologyMatrix.length > 0){
+				int rank = LinearAlgebra.rank(topologyMatrix);
+				if(rank == subgraphWOInterfaces.size()-1){
+					schedulable &= true;
+				}else{
+					schedulable &= false;
+					VisitorOutput.getLogger().log(Level.SEVERE,
+							"Graph " + this.getName() + " is not schedulable");
+				}
+			}
 		}
-		if (rank == vertices.size() - 1) {
-			schedulable &= true;
-		} else {
-			schedulable &= false;
-			VisitorOutput.getLogger().log(Level.SEVERE,
-					"Graph " + this.getName() + " is not schedulable");
-		}
-		this.getPropertyBean().setValue(SCHEDULABLE, schedulable);
 		return schedulable;
 	}
 
@@ -761,10 +769,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 */
 	public boolean validateModel(Logger logger) throws SDF4JException {
 		try {
-			if (this.getPropertyBean().getValue(VALID_MODEL) != null) {
-				return (Boolean) this.getPropertyBean().getValue(VALID_MODEL);
-			}
-			if (this.isSchedulable(logger)) {
+			if (this.isSchedulable()) {
 				this.computeVRB();
 				/*
 				 * if (this.getVariables() != null) { for (Variable var :
@@ -789,6 +794,10 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				while (i < this.vertexSet().size()) {
 					SDFAbstractVertex vertex = (SDFAbstractVertex) (this
 							.vertexSet().toArray()[i]);
+					/*
+					 *  (15/01/14) Removed by jheulot: allowing unconnected actor 
+					 */
+					/*
 					if (this.outgoingEdgesOf(vertex).size() == 0
 							&& this.incomingEdgesOf(vertex).size() == 0) {
 						this.removeVertex(vertex);
@@ -799,14 +808,14 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 											+ " has been removed because it doesn't produce or consume data. \n This vertex has been used for repetition factor computation");
 						}
 					} else {
+ 					*/
 						if (vertex instanceof SDFVertex) {
-							insertBroadcast((SDFVertex) vertex);
+							insertBroadcast((SDFVertex) vertex, logger);
 						}
 						i++;
-					}
+					/*}*/
 				}
 
-				this.getPropertyBean().setValue(VALID_MODEL, true);
 				return true;
 			}
 			return false;
