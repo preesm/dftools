@@ -12,6 +12,17 @@ import net.sf.dftools.algorithm.model.parameters.InvalidExpressionException;
  * 
  */
 public class SDFVertex extends SDFAbstractVertex {
+	
+	/**
+	 * Property memory script
+	 */
+	public static final String MEMORY_SCRIPT = "memory_script";
+	
+	static {
+		{
+			public_properties.add(MEMORY_SCRIPT);
+		}
+	};
 
 	/**
 	 * 
