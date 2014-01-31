@@ -471,13 +471,14 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			
 		try{
 			for(List<SDFAbstractVertex> subgraph : subgraphs){
-				double[][] topologyMatrix = getTopologyMatrix(subgraph);
 				
 				List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<SDFAbstractVertex>();
 				for(SDFAbstractVertex vertex : subgraph){
 					if(!(vertex instanceof SDFInterfaceVertex))
 						subgraphWOInterfaces.add(vertex);
 				}
+
+				double[][] topologyMatrix = getTopologyMatrix(subgraphWOInterfaces);
 		
 				if(topologyMatrix.length > 0){
 					int rank = LinearAlgebra.rank(topologyMatrix);
@@ -536,6 +537,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			SDFAbstractVertex targetVertex) {
 		checkMultipleEdges(sourceVertex, targetVertex);
 
+		@SuppressWarnings("deprecation")
 		SDFEdge edge = super.removeEdge(sourceVertex, targetVertex);
 		if (edge != null) {
 			if (sourceVertex instanceof SDFVertex) {
