@@ -33,7 +33,7 @@
       </propertyTester>
    </extension>
    <extension
-         point="net.sf.dftools.workflow.loggers">
+         point="org.ietr.dftools.workflow.loggers">
       <logger
             id="net.sf.dftools.ui.workflow.logger"
             type="net.sf.dftools.ui.workflow.tools.DFToolsWorkflowLogger">
@@ -92,7 +92,7 @@
       </runtime>
    </extension>
    <extension
-         point="net.sf.graphiti.model.definition">
+         point="org.ietr.dftools.graphiti.model.definition">
       <configuration
             extension="slam"
             name="S-LAM Design"
