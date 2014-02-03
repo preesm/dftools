@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI
 Bundle-SymbolicName: org.ietr.dftools.ui;singleton:=true
 Bundle-Version: 1.0.0.rc1-v20131030
-Bundle-Activator: net.sf.dftools.ui.Activator
+Bundle-Activator: org.ietr.dftools.ui.Activator
 Require-Bundle: org.ietr.dftools.graphiti.model,
  org.ietr.dftools.graphiti.ui,
  org.eclipse.ui,
@@ -21,7 +21,7 @@ Require-Bundle: org.ietr.dftools.graphiti.model,
  org.ietr.dftools.architecture
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: net.sf.dftools.ui.workflow.launch
+Export-Package: org.ietr.dftools.ui.workflow.launch
 Import-Package: org.eclipse.jdt.core,
  org.eclipse.xtext.ui
 Eclipse-BuddyPolicy: global

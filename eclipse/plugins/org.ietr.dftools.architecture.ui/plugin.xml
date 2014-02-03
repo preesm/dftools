@@ -6,9 +6,9 @@
       <configuration
             extension="dsn"
             name="IP-XACT design"
-            refinement="net.sf.dftools.architecture.ui.editor.ArchitectureRefinementPolicy"
+            refinement="org.ietr.dftools.architecture.ui.editor.ArchitectureRefinementPolicy"
             type="text/xml"
-            validator="net.sf.dftools.architecture.ui.editor.IpXactValidator">
+            validator="org.ietr.dftools.architecture.ui.editor.IpXactValidator">
          <graphType
                name="IP-XACT design">
             <parameter
@@ -18,11 +18,11 @@
          </graphType>
          <import>
             <transformation
-                  class="net.sf.dftools.architecture.ui.editor.IpXactImporter">
+                  class="org.ietr.dftools.architecture.ui.editor.IpXactImporter">
             </transformation></import>
          <export>
             <transformation
-                  class="net.sf.dftools.architecture.ui.editor.IpXactExporter">
+                  class="org.ietr.dftools.architecture.ui.editor.IpXactExporter">
             </transformation>
          </export>
          <edgeType
@@ -117,7 +117,7 @@
       <wizard
             canFinishEarly="false"
             category="net.sf.dftools.architecture.ui.ArchitectureCategory"
-            class="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
+            class="org.ietr.dftools.architecture.ui.ArchitectureProjectWizard"
             hasPages="true"
             id="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
             name="Architecture Project"
@@ -126,7 +126,7 @@
       <wizard
             canFinishEarly="false"
             category="net.sf.dftools.architecture.ui.ArchitectureCategory"
-            class="net.sf.dftools.architecture.ui.NewArchitectureWizard"
+            class="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
             hasPages="true"
             id="net.sf.dftools.architecture.ui.NewArchitectureWizard"
             name="Architecture Description (IP-XACT)"
@@ -136,8 +136,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.sf.graphiti.ui.editors.GraphEditor"
-            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
+            contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
             id="net.sf.dftools.architecture.ui.editor"
             name="IP-XACT Editor">
@@ -159,8 +159,8 @@
       <propertySections
             contributorId="net.sf.graphiti.ui.properties.contributor">
          <propertySection
-               class="net.sf.dftools.architecture.ui.properties.VertexParametersMapSection"
-               filter="net.sf.dftools.architecture.ui.properties.ArchitectureVertexFilter"
+               class="org.ietr.dftools.architecture.ui.properties.VertexParametersMapSection"
+               filter="org.ietr.dftools.architecture.ui.properties.ArchitectureVertexFilter"
                id="net.sf.dftools.architecture.ui.properties.section.vertex.parameters"
                tab="net.sf.dftools.architecture.ui.properties.tab.vertex.parameters">
          </propertySection>
