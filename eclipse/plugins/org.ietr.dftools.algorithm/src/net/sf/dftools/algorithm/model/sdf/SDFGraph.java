@@ -692,7 +692,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	private void validateChild(SDFAbstractVertex child, Logger logger)
 			throws InvalidExpressionException, SDF4JException {
 
-		System.out.println(child.getName() + " x" + child.getNbRepeat());
+		//System.out.println(child.getName() + " x" + child.getNbRepeat());
 		if (!child.validateModel(logger)) {
 			throw new SDF4JException(child.getName()
 					+ " is not a valid vertex, verify arguments");
