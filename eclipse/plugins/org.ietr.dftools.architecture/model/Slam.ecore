@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam"
-    nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="slam">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam" nsURI="http://org.ietr.dftools/architecture/slam" nsPrefix="slam">
   <eClassifiers xsi:type="ecore:EClass" name="Design" eSuperTypes="#//VLNVedElement #//ParameterizedElement">
     <eOperations name="containsComponentInstance" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -48,7 +46,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="components" ordered="false"
         upperBound="-1" eType="#//component/Component" containment="true"/>
   </eClassifiers>
-  <eSubpackages name="component" nsURI="http://net.sf.dftools/architecture/slam/component"
+  <eSubpackages name="component" nsURI="http://org.ietr.dftools/architecture/slam/component"
       nsPrefix="component">
     <eClassifiers xsi:type="ecore:EClass" name="Component" eSuperTypes="#//VLNVedElement #//ParameterizedElement">
       <eOperations name="getInterface" lowerBound="1" eType="#//component/ComInterface">
@@ -96,7 +94,8 @@
           defaultValueLiteral="" iD="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="link" nsURI="http://net.sf.dftools/architecture/slam/link" nsPrefix="link">
+  <eSubpackages name="link" nsURI="http://org.ietr.dftools/architecture/slam/link"
+      nsPrefix="link">
     <eClassifiers xsi:type="ecore:EClass" name="Link" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EReference" name="sourceInterface" lowerBound="1"
           eType="#//component/ComInterface"/>
@@ -115,7 +114,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="DataLink" eSuperTypes="#//link/Link"/>
     <eClassifiers xsi:type="ecore:EClass" name="ControlLink" eSuperTypes="#//link/Link"/>
   </eSubpackages>
-  <eSubpackages name="attributes" nsURI="http://net.sf.dftools/architecture/slam/attributes"
+  <eSubpackages name="attributes" nsURI="http://org.ietr.dftools/architecture/slam/attributes"
       nsPrefix="attributes">
     <eClassifiers xsi:type="ecore:EClass" name="VLNV">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="vendor" lowerBound="1"
