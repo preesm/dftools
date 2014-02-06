@@ -13,16 +13,14 @@ import org.ietr.dftools.architecture.slam.attributes.Parameter;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Parameterized Element</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.ParameterizedElement#getParameters
- * <em>Parameters</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.ParameterizedElement#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.ietr.dftools.architecture.slam.SlamPackage#getParameterizedElement()
  * @model
  * @generated

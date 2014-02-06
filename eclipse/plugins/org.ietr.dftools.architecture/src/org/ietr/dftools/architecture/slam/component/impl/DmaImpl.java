@@ -18,28 +18,24 @@ import org.ietr.dftools.architecture.slam.component.Dma;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.DmaImpl#getSetupTime
- * <em>Setup Time</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.component.impl.DmaImpl#getSetupTime <em>Setup Time</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class DmaImpl extends EnablerImpl implements Dma {
 	/**
-	 * The default value of the '{@link #getSetupTime() <em>Setup Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getSetupTime()
 	 * @generated
 	 * @ordered
 	 */
 	protected static final int SETUP_TIME_EDEFAULT = 0;
 	/**
-	 * The cached value of the '{@link #getSetupTime() <em>Setup Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #getSetupTime()
 	 * @generated
 	 * @ordered
@@ -48,7 +44,6 @@ public class DmaImpl extends EnablerImpl implements Dma {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected DmaImpl() {
@@ -57,7 +52,6 @@ public class DmaImpl extends EnablerImpl implements Dma {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -67,7 +61,6 @@ public class DmaImpl extends EnablerImpl implements Dma {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public int getSetupTime() {
@@ -76,84 +69,76 @@ public class DmaImpl extends EnablerImpl implements Dma {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setSetupTime(int newSetupTime) {
 		int oldSetupTime = setupTime;
 		setupTime = newSetupTime;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					ComponentPackage.DMA__SETUP_TIME, oldSetupTime, setupTime));
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DMA__SETUP_TIME, oldSetupTime, setupTime));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case ComponentPackage.DMA__SETUP_TIME:
-			return getSetupTime();
+			case ComponentPackage.DMA__SETUP_TIME:
+				return getSetupTime();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case ComponentPackage.DMA__SETUP_TIME:
-			setSetupTime((Integer) newValue);
-			return;
+			case ComponentPackage.DMA__SETUP_TIME:
+				setSetupTime((Integer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case ComponentPackage.DMA__SETUP_TIME:
-			setSetupTime(SETUP_TIME_EDEFAULT);
-			return;
+			case ComponentPackage.DMA__SETUP_TIME:
+				setSetupTime(SETUP_TIME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case ComponentPackage.DMA__SETUP_TIME:
-			return setupTime != SETUP_TIME_EDEFAULT;
+			case ComponentPackage.DMA__SETUP_TIME:
+				return setupTime != SETUP_TIME_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (setupTime: ");

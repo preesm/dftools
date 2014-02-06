@@ -15,13 +15,12 @@ import org.ietr.dftools.architecture.slam.link.LinkPackage;
  * <em><b>Data Link</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class DataLinkImpl extends LinkImpl implements DataLink {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected DataLinkImpl() {
@@ -30,7 +29,6 @@ public class DataLinkImpl extends LinkImpl implements DataLink {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

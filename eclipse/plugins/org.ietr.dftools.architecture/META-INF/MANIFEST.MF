@@ -4,6 +4,7 @@ Bundle-Name: DFTools Architecture
 Bundle-SymbolicName: org.ietr.dftools.architecture;singleton:=true
 Bundle-Version: 1.0.0.rc1-v20131030
 Bundle-ClassPath: .
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.ietr.dftools.architecture.component,
@@ -12,11 +13,15 @@ Export-Package: org.ietr.dftools.architecture.component,
  org.ietr.dftools.architecture.slam,
  org.ietr.dftools.architecture.slam.attributes,
  org.ietr.dftools.architecture.slam.attributes.impl,
+ org.ietr.dftools.architecture.slam.attributes.util,
  org.ietr.dftools.architecture.slam.component,
  org.ietr.dftools.architecture.slam.component.impl,
+ org.ietr.dftools.architecture.slam.component.util,
  org.ietr.dftools.architecture.slam.impl,
  org.ietr.dftools.architecture.slam.link,
  org.ietr.dftools.architecture.slam.link.impl,
+ org.ietr.dftools.architecture.slam.link.util,
+ org.ietr.dftools.architecture.slam.util,
  org.ietr.dftools.architecture.slam.process,
  org.ietr.dftools.architecture.slam.serialize,
  org.ietr.dftools.architecture.utils

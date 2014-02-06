@@ -15,13 +15,12 @@ import org.ietr.dftools.architecture.slam.link.LinkPackage;
  * <em><b>Control Link</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class ControlLinkImpl extends LinkImpl implements ControlLink {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ControlLinkImpl() {
@@ -30,7 +29,6 @@ public class ControlLinkImpl extends LinkImpl implements ControlLink {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

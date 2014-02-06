@@ -18,31 +18,25 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.ComNodeImpl#isParallel
- * <em>Parallel</em>}</li>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.ComNodeImpl#getSpeed
- * <em>Speed</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.component.impl.ComNodeImpl#isParallel <em>Parallel</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.component.impl.ComNodeImpl#getSpeed <em>Speed</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ComNodeImpl extends ComponentImpl implements ComNode {
 	/**
-	 * The default value of the '{@link #isParallel() <em>Parallel</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The default value of the '{@link #isParallel() <em>Parallel</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #isParallel()
 	 * @generated
 	 * @ordered
 	 */
 	protected static final boolean PARALLEL_EDEFAULT = true;
 	/**
-	 * The cached value of the '{@link #isParallel() <em>Parallel</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * The cached value of the '{@link #isParallel() <em>Parallel</em>}' attribute.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see #isParallel()
 	 * @generated
 	 * @ordered
@@ -52,7 +46,6 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	/**
 	 * The default value of the '{@link #getSpeed() <em>Speed</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getSpeed()
 	 * @generated
 	 * @ordered
@@ -61,7 +54,6 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	/**
 	 * The cached value of the '{@link #getSpeed() <em>Speed</em>}' attribute.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see #getSpeed()
 	 * @generated
 	 * @ordered
@@ -70,7 +62,6 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected ComNodeImpl() {
@@ -79,7 +70,6 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
@@ -89,7 +79,6 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public boolean isParallel() {
@@ -98,20 +87,17 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setParallel(boolean newParallel) {
 		boolean oldParallel = parallel;
 		parallel = newParallel;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					ComponentPackage.COM_NODE__PARALLEL, oldParallel, parallel));
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_NODE__PARALLEL, oldParallel, parallel));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public float getSpeed() {
@@ -120,94 +106,86 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public void setSpeed(float newSpeed) {
 		float oldSpeed = speed;
 		speed = newSpeed;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					ComponentPackage.COM_NODE__SPEED, oldSpeed, speed));
+			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_NODE__SPEED, oldSpeed, speed));
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case ComponentPackage.COM_NODE__PARALLEL:
-			return isParallel();
-		case ComponentPackage.COM_NODE__SPEED:
-			return getSpeed();
+			case ComponentPackage.COM_NODE__PARALLEL:
+				return isParallel();
+			case ComponentPackage.COM_NODE__SPEED:
+				return getSpeed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case ComponentPackage.COM_NODE__PARALLEL:
-			setParallel((Boolean) newValue);
-			return;
-		case ComponentPackage.COM_NODE__SPEED:
-			setSpeed((Float) newValue);
-			return;
+			case ComponentPackage.COM_NODE__PARALLEL:
+				setParallel((Boolean)newValue);
+				return;
+			case ComponentPackage.COM_NODE__SPEED:
+				setSpeed((Float)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case ComponentPackage.COM_NODE__PARALLEL:
-			setParallel(PARALLEL_EDEFAULT);
-			return;
-		case ComponentPackage.COM_NODE__SPEED:
-			setSpeed(SPEED_EDEFAULT);
-			return;
+			case ComponentPackage.COM_NODE__PARALLEL:
+				setParallel(PARALLEL_EDEFAULT);
+				return;
+			case ComponentPackage.COM_NODE__SPEED:
+				setSpeed(SPEED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case ComponentPackage.COM_NODE__PARALLEL:
-			return parallel != PARALLEL_EDEFAULT;
-		case ComponentPackage.COM_NODE__SPEED:
-			return speed != SPEED_EDEFAULT;
+			case ComponentPackage.COM_NODE__PARALLEL:
+				return parallel != PARALLEL_EDEFAULT;
+			case ComponentPackage.COM_NODE__SPEED:
+				return speed != SPEED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy())
-			return super.toString();
+		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (parallel: ");

@@ -15,13 +15,12 @@ import org.ietr.dftools.architecture.slam.component.Operator;
  * <em><b>Operator</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class OperatorImpl extends ComponentImpl implements Operator {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected OperatorImpl() {
@@ -30,7 +29,6 @@ public class OperatorImpl extends ComponentImpl implements Operator {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

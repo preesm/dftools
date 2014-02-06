@@ -12,15 +12,14 @@ import org.ietr.dftools.architecture.slam.attributes.VLNV;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>VLN Ved Element</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.VLNVedElement#getVlnv <em>Vlnv
- * </em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.VLNVedElement#getVlnv <em>Vlnv</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.ietr.dftools.architecture.slam.SlamPackage#getVLNVedElement()
  * @model
  * @generated
@@ -34,7 +33,6 @@ public interface VLNVedElement extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Vlnv</em>' containment reference.
 	 * @see #setVlnv(VLNV)
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getVLNVedElement_Vlnv()
@@ -44,13 +42,10 @@ public interface VLNVedElement extends EObject {
 	VLNV getVlnv();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.ietr.dftools.architecture.slam.VLNVedElement#getVlnv
-	 * <em>Vlnv</em>}' containment reference. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link org.ietr.dftools.architecture.slam.VLNVedElement#getVlnv <em>Vlnv</em>}' containment reference.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Vlnv</em>' containment reference.
+	 * @param value the new value of the '<em>Vlnv</em>' containment reference.
 	 * @see #getVlnv()
 	 * @generated
 	 */

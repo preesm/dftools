@@ -11,34 +11,29 @@ import org.ietr.dftools.architecture.slam.component.Component;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Component Instance</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.ComponentInstance#getComponent
- * <em>Component</em>}</li>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.ComponentInstance#getInstanceName
- * <em>Instance Name</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.ComponentInstance#getInstanceName <em>Instance Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.ietr.dftools.architecture.slam.SlamPackage#getComponentInstance()
  * @model
  * @generated
  */
 public interface ComponentInstance extends ParameterizedElement {
 	/**
-	 * Returns the value of the '<em><b>Component</b></em>' reference. It is
-	 * bidirectional and its opposite is '
-	 * {@link org.ietr.dftools.architecture.slam.component.Component#getInstances
-	 * <em>Instances</em>}'. <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Component</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.ietr.dftools.architecture.slam.component.Component#getInstances <em>Instances</em>}'.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Component</em>' container reference isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Component</em>' reference.
 	 * @see #setComponent(Component)
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getComponentInstance_Component()
@@ -79,13 +74,10 @@ public interface ComponentInstance extends ParameterizedElement {
 	String getInstanceName();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.ietr.dftools.architecture.slam.ComponentInstance#getInstanceName
-	 * <em>Instance Name</em>}' attribute. <!-- begin-user-doc --> <!--
+	 * Sets the value of the '{@link org.ietr.dftools.architecture.slam.ComponentInstance#getInstanceName <em>Instance Name</em>}' attribute.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Instance Name</em>' attribute.
+	 * @param value the new value of the '<em>Instance Name</em>' attribute.
 	 * @see #getInstanceName()
 	 * @generated
 	 */
@@ -93,7 +85,6 @@ public interface ComponentInstance extends ParameterizedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @model kind="operation" required="true"
 	 * @generated
 	 */

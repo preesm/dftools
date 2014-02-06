@@ -13,15 +13,14 @@ import org.ietr.dftools.architecture.slam.component.Component;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Component Holder</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.ComponentHolder#getComponents
- * <em>Components</em>}</li>
+ *   <li>{@link org.ietr.dftools.architecture.slam.ComponentHolder#getComponents <em>Components</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.ietr.dftools.architecture.slam.SlamPackage#getComponentHolder()
  * @model
  * @generated
