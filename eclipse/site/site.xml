@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.ietr.dftools.feature_1.0.0.rc1-v20131030.jar" id="org.ietr.dftools.feature" version="1.0.0.rc1-v20131030" os="linux,win32">
+   <feature url="features/org.ietr.dftools.feature_1.0.0.201402061748.jar" id="org.ietr.dftools.feature" version="1.0.0.201402061748">
       <category name="DFTools"/>
    </feature>
-   <feature url="features/org.ietr.dftools.feature_1.0.0.rc1-v20131030.jar" id="org.ietr.dftools.feature" version="1.0.0.rc1-v20131030"/>
    <category-def name="DFTools" label="DFTools"/>
 </site>

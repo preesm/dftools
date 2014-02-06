@@ -2,7 +2,7 @@
 <feature
       id="org.ietr.dftools.feature"
       label="DFTools Feature"
-      version="1.0.0.rc1-v20131030"
+      version="1.0.0.qualifier"
       provider-name="IETR/INSA">
 
    <description>
@@ -54,14 +54,14 @@ knowledge of the CeCILL-C license and that you accept its terms.
          unpack="false"/>
 
    <plugin
-         id="org.ietr.dftools.architecture"
+         id="org.ietr.dftools.architecture.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.ietr.dftools.architecture.ui"
+         id="org.ietr.dftools.architecture"
          download-size="0"
          install-size="0"
          version="0.0.0"
