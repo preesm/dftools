@@ -12,7 +12,7 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://net.sf.dftools/architecture/slam"
+            uri="http://org.ietr.dftools/architecture/slam"
             class="org.ietr.dftools.architecture.slam.SlamPackage"
             genModel="model/Slam.genmodel"/>
    </extension>

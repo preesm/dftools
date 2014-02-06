@@ -39,11 +39,11 @@ public abstract class WorkflowLogger extends Logger {
 				IExtensionRegistry registry = Platform.getExtensionRegistry();
 
 				IConfigurationElement[] elements = registry
-						.getConfigurationElementsFor("net.sf.dftools.workflow.loggers");
+						.getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
 				for (int i = 0; i < elements.length; i++) {
 					IConfigurationElement element = elements[i];
 					if (element.getAttribute("id").equals(
-							"net.sf.dftools.ui.workflow.logger")) {
+							"org.ietr.dftools.ui.workflow.logger")) {
 						// Tries to create the transformation
 						Object obj = element.createExecutableExtension("type");
 

@@ -55,9 +55,9 @@ import org.ietr.dftools.workflow.WorkflowManager;
 public class WorkflowLaunchConfigurationDelegate implements
 		ILaunchConfigurationDelegate {
 
-	public static final String ATTR_WORKFLOW_FILE_NAME = "net.sf.dftools.ui.workflow.fileName";
+	public static final String ATTR_WORKFLOW_FILE_NAME = "org.ietr.dftools.ui.workflow.fileName";
 
-	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
+	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "org.ietr.dftools.ui.workflow.launchConfigurationType";
 
 	/**
 	 * Launches a workflow

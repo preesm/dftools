@@ -26,8 +26,8 @@
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
             class="org.ietr.dftools.ui.workflow.launch.WorkflowPropertyTester"
-            id="net.sf.dftools.ui.workflow.workflowTester"
-            namespace="net.sf.dftools"
+            id="org.ietr.dftools.ui.workflow.workflowTester"
+            namespace="org.ietr.dftools"
             properties="isWorkflow"
             type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
@@ -35,7 +35,7 @@
    <extension
          point="org.ietr.dftools.workflow.loggers">
       <logger
-            id="net.sf.dftools.ui.workflow.logger"
+            id="org.ietr.dftools.ui.workflow.logger"
             type="org.ietr.dftools.ui.workflow.tools.DFToolsWorkflowLogger">
       </logger>
    </extension>
@@ -43,25 +43,25 @@
          point="org.eclipse.ui.newWizards">
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.ui.DFToolsCategory"
+            category="org.ietr.dftools.ui.DFToolsCategory"
             class="org.ietr.dftools.ui.DFToolsProjectWizard"
             hasPages="true"
             icon="icons/workflow.png"
-            id="net.sf.dftools.ui.newDFToolsProject"
+            id="org.ietr.dftools.ui.newDFToolsProject"
             name="Project"
             project="true">
       </wizard>
       <category
-            id="net.sf.dftools.ui.dftools.category"
+            id="org.ietr.dftools.ui.dftools.category"
             name="DFTools">
       </category>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.ui.dftools.category"
+            category="org.ietr.dftools.ui.dftools.category"
             class="org.ietr.dftools.ui.slam.NewSlamFileWizard"
             hasPages="true"
             icon="icons/graphiti.gif"
-            id="net.sf.dftools.ui.slam.NewSlamFileWizard"
+            id="org.ietr.dftools.ui.slam.NewSlamFileWizard"
             name="S-LAM Architecture"
             project="false">
          <description>
@@ -70,7 +70,7 @@
       </wizard>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.ui.dftools.category"
+            category="org.ietr.dftools.ui.dftools.category"
             class="org.ietr.dftools.ui.workflow.NewWorkflowFileWizard"
             hasPages="true"
             icon="icons/graphiti.gif"
@@ -124,7 +124,7 @@
          </graphType>
          <import>
             <xslt
-                  name="xslt/net/sf/dftools/s-lam/input_S-LAM.xslt">
+                  name="xslt/org/ietr/dftools/s-lam/input_S-LAM.xslt">
             </xslt>
          </import>
          <vertexType
@@ -217,7 +217,7 @@
          </edgeType>
          <export>
             <xslt
-                  name="xslt/net/sf/dftools/s-lam/output_S-LAM.xslt">
+                  name="xslt/org/ietr/dftools/s-lam/output_S-LAM.xslt">
             </xslt>
          </export>
          <vertexType
@@ -421,12 +421,12 @@
          </graphType>
          <import>
             <xslt
-                  name="xslt/net/sf/dftools/workflow/input_workflow.xslt">
+                  name="xslt/org/ietr/dftools/workflow/input_workflow.xslt">
             </xslt>
          </import>
          <export>
             <xslt
-                  name="xslt/net/sf/dftools/workflow/output_workflow.xslt">
+                  name="xslt/org/ietr/dftools/workflow/output_workflow.xslt">
             </xslt>
          </export>
          <vertexType
@@ -500,20 +500,20 @@
          <propertySection
                class="org.ietr.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
                filter="org.ietr.dftools.ui.workflow.filters.WorkflowTaskFilter"
-               id="net.sf.dftools.ui.workflow.variables.section"
-               tab="net.sf.dftools.ui.workflow.variables">
+               id="org.ietr.dftools.ui.workflow.variables.section"
+               tab="org.ietr.dftools.ui.workflow.variables">
          </propertySection>
          <propertySection
                class="org.ietr.dftools.ui.slam.properties.SlamComponentVariablesMapSection"
                filter="org.ietr.dftools.ui.slam.filters.SlamComponentFilter"
-               id="net.sf.dftools.ui.slam.vertex.parameters.section"
-               tab="net.sf.dftools.ui.slam.vertex.parameters">
+               id="org.ietr.dftools.ui.slam.vertex.parameters.section"
+               tab="org.ietr.dftools.ui.slam.vertex.parameters">
          </propertySection>
          <propertySection
                class="org.ietr.dftools.ui.slam.properties.SlamDesignVariablesMapSection"
                filter="org.ietr.dftools.ui.slam.filters.SlamDesignFilter"
-               id="net.sf.dftools.ui.slam.design.parameters.section"
-               tab="net.sf.dftools.ui.slam.design.parameters">
+               id="org.ietr.dftools.ui.slam.design.parameters.section"
+               tab="org.ietr.dftools.ui.slam.design.parameters">
          </propertySection>
       </propertySections>
    </extension>
@@ -523,17 +523,17 @@
             contributorId="net.sf.graphiti.ui.properties.contributor">
          <propertyTab
                category="net.sf.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.ui.workflow.variables"
+               id="org.ietr.dftools.ui.workflow.variables"
                label="Task Variables">
          </propertyTab>
          <propertyTab
                category="net.sf.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.ui.slam.vertex.parameters"
+               id="org.ietr.dftools.ui.slam.vertex.parameters"
                label="Custom Parameters">
          </propertyTab>
          <propertyTab
                category="net.sf.graphiti.ui.properties.category.graph"
-               id="net.sf.dftools.ui.slam.design.parameters"
+               id="org.ietr.dftools.ui.slam.design.parameters"
                label="Design Parameters">
          </propertyTab>
       </propertyTabs>
@@ -542,23 +542,23 @@
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             class="org.ietr.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
-            type="net.sf.dftools.ui.workflow.launchConfigurationType">
+            id="org.ietr.dftools.ui.workflow.launchConfigurationTabGroup"
+            type="org.ietr.dftools.ui.workflow.launchConfigurationType">
       </launchConfigurationTabGroup>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
-            configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
+            configTypeID="org.ietr.dftools.ui.workflow.launchConfigurationType"
             icon="icons/workflow.png"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
+            id="org.ietr.dftools.ui.workflow.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             delegate="org.ietr.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
-            id="net.sf.dftools.ui.workflow.launchConfigurationType"
+            id="org.ietr.dftools.ui.workflow.launchConfigurationType"
             modes="run"
             name="DFTools Workflow"
             public="true">

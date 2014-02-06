@@ -105,7 +105,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 		}
 	}
 
-	private static final String DIALOG_SETTINGS = "net.sf.dftools.ui.slam.FilteredRefinementDialog"; //$NON-NLS-1$
+	private static final String DIALOG_SETTINGS = "org.ietr.dftools.ui.slam.FilteredRefinementDialog"; //$NON-NLS-1$
 
 	private ResourceComparator comparator;
 

@@ -79,7 +79,7 @@ public class WorkflowValidator implements IValidator {
 				
 				IExtensionRegistry registry = Platform.getExtensionRegistry();
 				IConfigurationElement[] elements = registry
-						.getConfigurationElementsFor("net.sf.dftools.workflow.tasks");
+						.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
 
 				boolean foundClass = false;
 

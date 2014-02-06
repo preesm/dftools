@@ -173,7 +173,7 @@ public class TaskNode extends AbstractWorkflowNode {
 
 			boolean found = false;
 			IConfigurationElement[] elements = registry
-					.getConfigurationElementsFor("net.sf.dftools.workflow.tasks");
+					.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
 			for (int i = 0; i < elements.length && !found; i++) {
 				IConfigurationElement element = elements[i];
 				if (element.getAttribute("id").equals(pluginId)) {

@@ -40,7 +40,7 @@ import org.eclipse.core.runtime.CoreException;
  */
 public class DFToolsProjectNature implements IProjectNature {
 
-	public static final String NATURE_ID = "net.sf.dftools.ui.DFToolsNature";
+	public static final String NATURE_ID = "org.ietr.dftools.ui.DFToolsNature";
 
 	private IProject project;
 

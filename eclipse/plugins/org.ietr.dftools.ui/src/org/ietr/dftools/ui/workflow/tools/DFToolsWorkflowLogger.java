@@ -59,7 +59,7 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 public class DFToolsWorkflowLogger extends WorkflowLogger {
 
 
-	private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
+	private static final String LOGGER_NAME = "org.ietr.dftools.log.WorkflowLogger";
 
 	MessageConsole console = null;
 

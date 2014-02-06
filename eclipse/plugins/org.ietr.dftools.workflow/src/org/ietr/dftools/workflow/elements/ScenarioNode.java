@@ -108,7 +108,7 @@ public class ScenarioNode extends AbstractWorkflowNode {
 			IExtensionRegistry registry = Platform.getExtensionRegistry();
 
 			IConfigurationElement[] elements = registry
-					.getConfigurationElementsFor("net.sf.dftools.workflow.scenarios");
+					.getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
 			for (int i = 0; i < elements.length; i++) {
 				IConfigurationElement element = elements[i];
 				if (element.getAttribute("id").equals(scenarioId)) {

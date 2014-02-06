@@ -111,24 +111,24 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            id="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            id="org.ietr.dftools.architecture.ui.ArchitectureCategory"
             name="Architecture">
       </category>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            category="org.ietr.dftools.architecture.ui.ArchitectureCategory"
             class="org.ietr.dftools.architecture.ui.ArchitectureProjectWizard"
             hasPages="true"
-            id="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
+            id="org.ietr.dftools.architecture.ui.ArchitectureProjectWizard"
             name="Architecture Project"
             project="true">
       </wizard>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            category="org.ietr.dftools.architecture.ui.ArchitectureCategory"
             class="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
             hasPages="true"
-            id="net.sf.dftools.architecture.ui.NewArchitectureWizard"
+            id="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
             name="Architecture Description (IP-XACT)"
             project="false">
       </wizard>
@@ -139,7 +139,7 @@
             class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
             contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
-            id="net.sf.dftools.architecture.ui.editor"
+            id="org.ietr.dftools.architecture.ui.editor"
             name="IP-XACT Editor">
       </editor>
    </extension>
@@ -149,7 +149,7 @@
             contributorId="net.sf.graphiti.ui.properties.contributor">
          <propertyTab
                category="net.sf.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.architecture.ui.properties.tab.vertex.parameters"
+               id="org.ietr.dftools.architecture.ui.properties.tab.vertex.parameters"
                label="Component instance parameters">
          </propertyTab>
       </propertyTabs>
@@ -161,8 +161,8 @@
          <propertySection
                class="org.ietr.dftools.architecture.ui.properties.VertexParametersMapSection"
                filter="org.ietr.dftools.architecture.ui.properties.ArchitectureVertexFilter"
-               id="net.sf.dftools.architecture.ui.properties.section.vertex.parameters"
-               tab="net.sf.dftools.architecture.ui.properties.tab.vertex.parameters">
+               id="org.ietr.dftools.architecture.ui.properties.section.vertex.parameters"
+               tab="org.ietr.dftools.architecture.ui.properties.tab.vertex.parameters">
          </propertySection>
       </propertySections>
    </extension>

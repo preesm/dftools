@@ -44,7 +44,7 @@ import java.util.ResourceBundle;
  * @author mpelcat
  */
 public class WorkflowMessages {
-	private static final String BUNDLE_NAME = "net.sf.dftools.ui.workflow.workflowMessages";
+	private static final String BUNDLE_NAME = "org.ietr.dftools.ui.workflow.workflowMessages";
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);
