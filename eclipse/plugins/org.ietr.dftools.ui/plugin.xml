@@ -496,7 +496,7 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
-            contributorId="net.sf.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
          <propertySection
                class="org.ietr.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
                filter="org.ietr.dftools.ui.workflow.filters.WorkflowTaskFilter"
@@ -520,19 +520,19 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs
-            contributorId="net.sf.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
+               category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
                id="org.ietr.dftools.ui.workflow.variables"
                label="Task Variables">
          </propertyTab>
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
+               category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
                id="org.ietr.dftools.ui.slam.vertex.parameters"
                label="Custom Parameters">
          </propertyTab>
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.graph"
+               category="org.ietr.dftools.graphiti.ui.properties.category.graph"
                id="org.ietr.dftools.ui.slam.design.parameters"
                label="Design Parameters">
          </propertyTab>
