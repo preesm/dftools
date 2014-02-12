@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: DFTools Architecture
+Bundle-Name: DFTools S-LAM
 Bundle-SymbolicName: net.sf.dftools.architecture;singleton:=true
-Bundle-Version: 1.0.0.rc1-v20131030
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
@@ -28,3 +28,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
  org.jgrapht;bundle-version="0.8.2"
 Bundle-ActivationPolicy: lazy
+Bundle-Vendor: IETR/INSA Rennes

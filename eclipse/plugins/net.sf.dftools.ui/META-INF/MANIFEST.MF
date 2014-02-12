@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI
 Bundle-SymbolicName: net.sf.dftools.ui;singleton:=true
-Bundle-Version: 1.0.0.rc1-v20131030
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.sf.dftools.ui.Activator
 Require-Bundle: net.sf.graphiti.model,
  net.sf.graphiti.ui,
@@ -25,3 +25,4 @@ Export-Package: net.sf.dftools.ui.workflow.launch
 Import-Package: org.eclipse.jdt.core,
  org.eclipse.xtext.ui
 Eclipse-BuddyPolicy: global
+Bundle-Vendor: IETR/INSA Rennes

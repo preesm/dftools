@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Algorithm
+Bundle-Name: DFTools algorithm
 Bundle-SymbolicName: net.sf.dftools.algorithm
-Bundle-Version: 1.0.0.rc1-v20131030
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.sf.dftools.algorithm.Activator
-Bundle-Vendor: IETR
+Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
  org.jgrapht;bundle-version="0.8.2",
  net.sf.dftools.workflow;bundle-version="0.1.0"
