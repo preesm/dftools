@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools S-LAM
-Bundle-SymbolicName: net.sf.dftools.architecture;singleton:=true
+Bundle-SymbolicName: org.ietr.dftools.architecture;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Localization: plugin

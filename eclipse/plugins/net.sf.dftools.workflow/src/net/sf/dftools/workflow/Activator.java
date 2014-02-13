@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -44,7 +44,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "net.sf.dftools.workflow"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.ietr.dftools.workflow"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;

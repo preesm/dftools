@@ -33,13 +33,6 @@
       </propertyTester>
    </extension>
    <extension
-         point="net.sf.dftools.workflow.loggers">
-      <logger
-            id="net.sf.dftools.ui.workflow.logger"
-            type="net.sf.dftools.ui.workflow.tools.DFToolsWorkflowLogger">
-      </logger>
-   </extension>
-   <extension
          point="org.eclipse.ui.newWizards">
       <wizard
             canFinishEarly="false"
@@ -92,7 +85,85 @@
       </runtime>
    </extension>
    <extension
-         point="net.sf.graphiti.model.definition">
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="net.sf.graphiti.ui.properties.contributor">
+         <propertySection
+               class="net.sf.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
+               filter="net.sf.dftools.ui.workflow.filters.WorkflowTaskFilter"
+               id="net.sf.dftools.ui.workflow.variables.section"
+               tab="net.sf.dftools.ui.workflow.variables">
+         </propertySection>
+         <propertySection
+               class="net.sf.dftools.ui.slam.properties.SlamComponentVariablesMapSection"
+               filter="net.sf.dftools.ui.slam.filters.SlamComponentFilter"
+               id="net.sf.dftools.ui.slam.vertex.parameters.section"
+               tab="net.sf.dftools.ui.slam.vertex.parameters">
+         </propertySection>
+         <propertySection
+               class="net.sf.dftools.ui.slam.properties.SlamDesignVariablesMapSection"
+               filter="net.sf.dftools.ui.slam.filters.SlamDesignFilter"
+               id="net.sf.dftools.ui.slam.design.parameters.section"
+               tab="net.sf.dftools.ui.slam.design.parameters">
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="net.sf.graphiti.ui.properties.contributor">
+         <propertyTab
+               category="net.sf.graphiti.ui.properties.category.vertex"
+               id="net.sf.dftools.ui.workflow.variables"
+               label="Task Variables">
+         </propertyTab>
+         <propertyTab
+               category="net.sf.graphiti.ui.properties.category.vertex"
+               id="net.sf.dftools.ui.slam.vertex.parameters"
+               label="Custom Parameters">
+         </propertyTab>
+         <propertyTab
+               category="net.sf.graphiti.ui.properties.category.graph"
+               id="net.sf.dftools.ui.slam.design.parameters"
+               label="Design Parameters">
+         </propertyTab>
+      </propertyTabs>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
+            id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
+            type="net.sf.dftools.ui.workflow.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
+            icon="icons/workflow.png"
+            id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
+            id="net.sf.dftools.ui.workflow.launchConfigurationType"
+            modes="run"
+            name="DFTools Workflow"
+            public="true">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.ietr.dftools.workflow.loggers">
+      <logger
+            id="net.sf.dftools.ui.workflow.logger"
+            type="net.sf.dftools.ui.workflow.tools.DFToolsWorkflowLogger">
+      </logger>
+   </extension>
+   <extension
+         point="org.ietr.graphiti.model.definition">
       <configuration
             extension="slam"
             name="S-LAM Design"
@@ -492,76 +563,5 @@
             </parameter>
          </edgeType>
       </configuration>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <propertySections
-            contributorId="net.sf.graphiti.ui.properties.contributor">
-         <propertySection
-               class="net.sf.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
-               filter="net.sf.dftools.ui.workflow.filters.WorkflowTaskFilter"
-               id="net.sf.dftools.ui.workflow.variables.section"
-               tab="net.sf.dftools.ui.workflow.variables">
-         </propertySection>
-         <propertySection
-               class="net.sf.dftools.ui.slam.properties.SlamComponentVariablesMapSection"
-               filter="net.sf.dftools.ui.slam.filters.SlamComponentFilter"
-               id="net.sf.dftools.ui.slam.vertex.parameters.section"
-               tab="net.sf.dftools.ui.slam.vertex.parameters">
-         </propertySection>
-         <propertySection
-               class="net.sf.dftools.ui.slam.properties.SlamDesignVariablesMapSection"
-               filter="net.sf.dftools.ui.slam.filters.SlamDesignFilter"
-               id="net.sf.dftools.ui.slam.design.parameters.section"
-               tab="net.sf.dftools.ui.slam.design.parameters">
-         </propertySection>
-      </propertySections>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <propertyTabs
-            contributorId="net.sf.graphiti.ui.properties.contributor">
-         <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.ui.workflow.variables"
-               label="Task Variables">
-         </propertyTab>
-         <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.ui.slam.vertex.parameters"
-               label="Custom Parameters">
-         </propertyTab>
-         <propertyTab
-               category="net.sf.graphiti.ui.properties.category.graph"
-               id="net.sf.dftools.ui.slam.design.parameters"
-               label="Design Parameters">
-         </propertyTab>
-      </propertyTabs>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
-            type="net.sf.dftools.ui.workflow.launchConfigurationType">
-      </launchConfigurationTabGroup>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
-      <launchConfigurationTypeImage
-            configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
-            icon="icons/workflow.png"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
-      </launchConfigurationTypeImage>
-   </extension>
-   <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="net.sf.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
-            id="net.sf.dftools.ui.workflow.launchConfigurationType"
-            modes="run"
-            name="DFTools Workflow"
-            public="true">
-      </launchConfigurationType>
    </extension>
 </plugin>

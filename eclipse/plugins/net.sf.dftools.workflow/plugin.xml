@@ -5,24 +5,7 @@
    <extension-point id="tasks" name="%tasksName" schema="schema/tasks.exsd"/>
    <extension-point id="loggers" name="%loggersName" schema="schema/loggers.exsd"/>
    <extension
-         point="net.sf.dftools.workflow.scenarios">
-      <scenario
-            id="TestScenario"
-            type="net.sf.dftools.workflow.test.TestWorkflowScenario">
-         <outputs>
-            <output
-                  id="algo"
-                  object="java.lang.Integer">
-            </output>
-            <output
-                  id="archi"
-                  object="java.lang.Integer">
-            </output>
-         </outputs>
-      </scenario>
-   </extension>
-   <extension
-         point="net.sf.dftools.workflow.tasks">
+         point="org.ietr.dftools.workflow.tasks">
       <task
             id="TestNewWorkflow1"
             type="net.sf.dftools.workflow.test.TestWorkflowTask1">
@@ -57,6 +40,23 @@
             </input>
          </inputs>
       </task>
+   </extension>
+   <extension
+         point="org.ietr.dftools.workflow.scenarios">
+      <scenario
+            id="TestScenario"
+            type="net.sf.dftools.workflow.test.TestWorkflowScenario">
+         <outputs>
+            <output
+                  id="algo"
+                  object="java.lang.Integer">
+            </output>
+            <output
+                  id="archi"
+                  object="java.lang.Integer">
+            </output>
+         </outputs>
+      </scenario>
    </extension>
 
 </plugin>
