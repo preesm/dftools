@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/net.sf.dftools.feature_1.0.0.201402121553.jar" id="net.sf.dftools.feature" version="1.0.0.201402121553">
-      <category name="DFTools"/>
-   </feature>
-   <category-def name="DFTools" label="DFTools"/>
-</site>
