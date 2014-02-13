@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -41,7 +41,6 @@ import java.util.logging.LogRecord;
 
 import net.sf.dftools.ui.Activator;
 import net.sf.dftools.ui.workflow.WorkflowMessages;
-import net.sf.dftools.workflow.tools.WorkflowLogger;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -49,6 +48,7 @@ import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
+import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
  * Displaying information or error messages through a console initialized by the

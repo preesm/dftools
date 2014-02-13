@@ -28,10 +28,7 @@
  */
 package net.sf.dftools.ui.slam;
 
-import net.sf.dftools.architecture.slam.serialize.RefinementList;
 import net.sf.dftools.ui.util.FileUtils;
-import net.sf.graphiti.model.DefaultRefinementPolicy;
-import net.sf.graphiti.model.Vertex;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -45,6 +42,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.ietr.dftools.architecture.slam.serialize.RefinementList;
+import org.ietr.graphiti.model.DefaultRefinementPolicy;
+import org.ietr.graphiti.model.Vertex;
 
 /**
  * This class extends the default refinement policy with S-LAM-specific policy.

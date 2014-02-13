@@ -4,24 +4,24 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            id="net.sf.dftools.architecture.ui.ArchitectureCategory"
+            id="org.ietr.dftools.architecture.ui.ArchitectureCategory"
             name="Architecture">
       </category>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.architecture.ui.ArchitectureCategory"
-            class="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
+            category="org.ietr.dftools.architecture.ui.ArchitectureCategory"
+            class="org.ietr.dftools.architecture.ui.ArchitectureProjectWizard"
             hasPages="true"
-            id="net.sf.dftools.architecture.ui.ArchitectureProjectWizard"
+            id="org.ietr.dftools.architecture.ui.ArchitectureProjectWizard"
             name="Architecture Project"
             project="true">
       </wizard>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.architecture.ui.ArchitectureCategory"
-            class="net.sf.dftools.architecture.ui.NewArchitectureWizard"
+            category="org.ietr.dftools.architecture.ui.ArchitectureCategory"
+            class="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
             hasPages="true"
-            id="net.sf.dftools.architecture.ui.NewArchitectureWizard"
+            id="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
             name="Architecture Description (IP-XACT)"
             project="false">
       </wizard>
@@ -29,20 +29,20 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.sf.graphiti.ui.editors.GraphEditor"
-            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            class="org.ietr.graphiti.ui.editors.GraphEditor"
+            contributorClass="org.ietr.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
-            id="net.sf.dftools.architecture.ui.editor"
+            id="org.ietr.dftools.architecture.ui.editor"
             name="IP-XACT Editor">
       </editor>
    </extension>
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs
-            contributorId="net.sf.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.graphiti.ui.properties.contributor">
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.architecture.ui.properties.tab.vertex.parameters"
+               category="org.ietr.graphiti.ui.properties.category.vertex"
+               id="org.ietr.dftools.architecture.ui.properties.tab.vertex.parameters"
                label="Component instance parameters">
          </propertyTab>
       </propertyTabs>
@@ -50,12 +50,12 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
-            contributorId="net.sf.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.graphiti.ui.properties.contributor">
          <propertySection
-               class="net.sf.dftools.architecture.ui.properties.VertexParametersMapSection"
-               filter="net.sf.dftools.architecture.ui.properties.ArchitectureVertexFilter"
-               id="net.sf.dftools.architecture.ui.properties.section.vertex.parameters"
-               tab="net.sf.dftools.architecture.ui.properties.tab.vertex.parameters">
+               class="org.ietr.dftools.architecture.ui.properties.VertexParametersMapSection"
+               filter="org.ietr.dftools.architecture.ui.properties.ArchitectureVertexFilter"
+               id="org.ietr.dftools.architecture.ui.properties.section.vertex.parameters"
+               tab="org.ietr.dftools.architecture.ui.properties.tab.vertex.parameters">
          </propertySection>
       </propertySections>
    </extension>

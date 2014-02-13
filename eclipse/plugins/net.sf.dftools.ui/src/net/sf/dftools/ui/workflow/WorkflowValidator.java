@@ -33,16 +33,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import net.sf.graphiti.model.Graph;
-import net.sf.graphiti.model.IValidator;
-import net.sf.graphiti.model.Vertex;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.ietr.graphiti.model.Graph;
+import org.ietr.graphiti.model.IValidator;
+import org.ietr.graphiti.model.Vertex;
 
 /**
  * This class implements a Workflow model validator.
@@ -80,7 +79,7 @@ public class WorkflowValidator implements IValidator {
 				
 				IExtensionRegistry registry = Platform.getExtensionRegistry();
 				IConfigurationElement[] elements = registry
-						.getConfigurationElementsFor("net.sf.dftools.workflow.tasks");
+						.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
 
 				boolean foundClass = false;
 

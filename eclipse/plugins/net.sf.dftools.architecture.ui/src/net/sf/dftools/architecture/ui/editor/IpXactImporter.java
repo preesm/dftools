@@ -28,8 +28,8 @@
  */
 package net.sf.dftools.architecture.ui.editor;
 
-import static net.sf.graphiti.model.ObjectType.PARAMETER_ID;
-import static net.sf.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
+import static org.ietr.graphiti.model.ObjectType.PARAMETER_ID;
+import static org.ietr.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,25 +37,24 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.dftools.architecture.component.BusInterface;
-import net.sf.dftools.architecture.component.Component;
-import net.sf.dftools.architecture.design.ComponentInstance;
-import net.sf.dftools.architecture.design.Connection;
-import net.sf.dftools.architecture.design.Design;
-import net.sf.dftools.architecture.design.serialize.DesignParser;
-import net.sf.graphiti.GraphitiModelPlugin;
-import net.sf.graphiti.io.DomHelper;
-import net.sf.graphiti.io.ITransformation;
-import net.sf.graphiti.model.Configuration;
-import net.sf.graphiti.model.Edge;
-import net.sf.graphiti.model.Graph;
-import net.sf.graphiti.model.ObjectType;
-import net.sf.graphiti.model.Vertex;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.ietr.dftools.architecture.component.BusInterface;
+import org.ietr.dftools.architecture.component.Component;
+import org.ietr.dftools.architecture.design.ComponentInstance;
+import org.ietr.dftools.architecture.design.Connection;
+import org.ietr.dftools.architecture.design.Design;
+import org.ietr.dftools.architecture.design.serialize.DesignParser;
+import org.ietr.graphiti.GraphitiModelPlugin;
+import org.ietr.graphiti.io.DomHelper;
+import org.ietr.graphiti.io.ITransformation;
+import org.ietr.graphiti.model.Configuration;
+import org.ietr.graphiti.model.Edge;
+import org.ietr.graphiti.model.Graph;
+import org.ietr.graphiti.model.ObjectType;
+import org.ietr.graphiti.model.Vertex;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -69,14 +68,14 @@ public class IpXactImporter implements ITransformation {
 
 	private Graph graph;
 
-	private Map<net.sf.dftools.architecture.design.Vertex, Vertex> vertexMap;
+	private Map<org.ietr.dftools.architecture.design.Vertex, Vertex> vertexMap;
 
 	private void addEdges(Design design) {
 		Configuration configuration = graph.getConfiguration();
 		for (Connection connection : design.getGraph().edgeSet()) {
-			net.sf.dftools.architecture.design.Vertex srcDesignVertex = design
+			org.ietr.dftools.architecture.design.Vertex srcDesignVertex = design
 					.getGraph().getEdgeSource(connection);
-			net.sf.dftools.architecture.design.Vertex tgtDesignVertex = design
+			org.ietr.dftools.architecture.design.Vertex tgtDesignVertex = design
 					.getGraph().getEdgeTarget(connection);
 
 			Vertex src = vertexMap.get(srcDesignVertex);
@@ -99,7 +98,7 @@ public class IpXactImporter implements ITransformation {
 	}
 
 	private void addVertex(Design design,
-			net.sf.dftools.architecture.design.Vertex designVertex) {
+			org.ietr.dftools.architecture.design.Vertex designVertex) {
 		Configuration configuration = graph.getConfiguration();
 		Vertex vertex;
 		ObjectType type;
@@ -127,7 +126,7 @@ public class IpXactImporter implements ITransformation {
 	}
 
 	private void addVertices(Design design) {
-		for (net.sf.dftools.architecture.design.Vertex vertex : design
+		for (org.ietr.dftools.architecture.design.Vertex vertex : design
 				.getGraph().vertexSet()) {
 			addVertex(design, vertex);
 		}
@@ -139,7 +138,7 @@ public class IpXactImporter implements ITransformation {
 
 	@Override
 	public Graph transform(IFile file) {
-		vertexMap = new HashMap<net.sf.dftools.architecture.design.Vertex, Vertex>();
+		vertexMap = new HashMap<org.ietr.dftools.architecture.design.Vertex, Vertex>();
 		Configuration configuration = GraphitiModelPlugin.getDefault()
 				.getConfiguration("IP-XACT design");
 		ObjectType type = configuration.getGraphType("IP-XACT design");

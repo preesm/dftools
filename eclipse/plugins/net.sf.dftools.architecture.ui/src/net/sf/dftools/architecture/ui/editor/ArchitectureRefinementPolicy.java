@@ -28,12 +28,11 @@
  */
 package net.sf.dftools.architecture.ui.editor;
 
-import net.sf.dftools.architecture.utils.ArchitectureUtil;
-import net.sf.graphiti.model.DefaultRefinementPolicy;
-import net.sf.graphiti.model.Vertex;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.ietr.dftools.architecture.utils.ArchitectureUtil;
+import org.ietr.graphiti.model.DefaultRefinementPolicy;
+import org.ietr.graphiti.model.Vertex;
 
 /**
  * This class extends the default refinement policy.

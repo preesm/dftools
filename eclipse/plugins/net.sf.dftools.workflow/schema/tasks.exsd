@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="net.sf.dftools.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.ietr.dftools.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="net.sf.dftools.workflow" id="net.sf.dftools.workflow.tasks" name="Workflow task"/>
+         <meta.schema plugin="org.ietr.dftools.workflow" id="org.ietr.dftools.workflow.tasks" name="Workflow task"/>
       </appinfo>
       <documentation>
          The tasks extension point allows plug-ins to declare classes as Workflow task plug-ins.
@@ -67,7 +67,7 @@
                   The fully qualified name of a Java class that extends Task.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="net.sf.dftools.workflow.elements.Task:"/>
+                  <meta.attribute kind="java" basedOn="org.ietr.dftools.workflow.elements.Task:"/>
                </appinfo>
             </annotation>
          </attribute>

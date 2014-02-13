@@ -1,9 +1,8 @@
 package net.sf.dftools.ui.slam.filters;
 
-import net.sf.graphiti.model.Graph;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.IFilter;
+import org.ietr.graphiti.model.Graph;
 
 /**
  * This class filters s-lam elements to enable the correct property

@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.sf.graphiti.ui.editors.GraphEditor"
-            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            class="org.ietr.graphiti.ui.editors.GraphEditor"
+            contributorClass="org.ietr.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
             extensions="workflow"
             icon="icons/workflow.png"
@@ -13,8 +13,8 @@
             name="Workflow Editor">
       </editor>
       <editor
-            class="net.sf.graphiti.ui.editors.GraphEditor"
-            contributorClass="net.sf.graphiti.ui.editors.GraphActionBarContributor"
+            class="org.ietr.graphiti.ui.editors.GraphEditor"
+            contributorClass="org.ietr.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
             extensions="slam"
             icon="icons/graphiti.gif"
@@ -87,7 +87,7 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
-            contributorId="net.sf.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.graphiti.ui.properties.contributor">
          <propertySection
                class="net.sf.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
                filter="net.sf.dftools.ui.workflow.filters.WorkflowTaskFilter"
@@ -111,19 +111,19 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs
-            contributorId="net.sf.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.graphiti.ui.properties.contributor">
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
+               category="org.ietr.graphiti.ui.properties.category.vertex"
                id="net.sf.dftools.ui.workflow.variables"
                label="Task Variables">
          </propertyTab>
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.vertex"
+               category="org.ietr.graphiti.ui.properties.category.vertex"
                id="net.sf.dftools.ui.slam.vertex.parameters"
                label="Custom Parameters">
          </propertyTab>
          <propertyTab
-               category="net.sf.graphiti.ui.properties.category.graph"
+               category="org.ietr.graphiti.ui.properties.category.graph"
                id="net.sf.dftools.ui.slam.design.parameters"
                label="Design Parameters">
          </propertyTab>

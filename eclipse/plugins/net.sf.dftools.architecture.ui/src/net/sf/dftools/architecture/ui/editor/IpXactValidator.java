@@ -30,13 +30,12 @@ package net.sf.dftools.architecture.ui.editor;
 
 import java.util.Set;
 
-import net.sf.graphiti.model.Graph;
-import net.sf.graphiti.model.IRefinementPolicy;
-import net.sf.graphiti.model.ObjectType;
-import net.sf.graphiti.model.Vertex;
-import net.sf.graphiti.validators.DataflowValidator;
-
 import org.eclipse.core.resources.IFile;
+import org.ietr.graphiti.model.Graph;
+import org.ietr.graphiti.model.IRefinementPolicy;
+import org.ietr.graphiti.model.ObjectType;
+import org.ietr.graphiti.model.Vertex;
+import org.ietr.graphiti.validators.DataflowValidator;
 
 /**
  * This class implements a model validator.

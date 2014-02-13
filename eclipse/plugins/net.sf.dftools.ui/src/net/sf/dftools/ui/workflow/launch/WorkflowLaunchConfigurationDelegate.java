@@ -1,5 +1,5 @@
 /*********************************************************
-Copyright or © or Copr. IETR/INSA
+Copyright or ï¿½ or Copr. IETR/INSA
 
 This software is a computer program whose purpose is to prototype
 parallel applications.
@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dftools.ui.workflow.ScenarioConfiguration;
-import net.sf.dftools.workflow.WorkflowManager;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -45,6 +44,7 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
+import org.ietr.dftools.workflow.WorkflowManager;
 
 /**
  * Launch a workflow in run mode, using the previously created launch

@@ -8,7 +8,7 @@
          point="org.ietr.dftools.workflow.tasks">
       <task
             id="TestNewWorkflow1"
-            type="net.sf.dftools.workflow.test.TestWorkflowTask1">
+            type="org.ietr.dftools.workflow.test.TestWorkflowTask1">
          <inputs>
             <input
                   id="algo"
@@ -28,7 +28,7 @@
       </task>
       <task
             id="TestNewWorkflow2"
-            type="net.sf.dftools.workflow.test.TestWorkflowTask2">
+            type="org.ietr.dftools.workflow.test.TestWorkflowTask2">
          <inputs>
             <input
                   id="algo"
@@ -45,7 +45,7 @@
          point="org.ietr.dftools.workflow.scenarios">
       <scenario
             id="TestScenario"
-            type="net.sf.dftools.workflow.test.TestWorkflowScenario">
+            type="org.ietr.dftools.workflow.test.TestWorkflowScenario">
          <outputs>
             <output
                   id="algo"

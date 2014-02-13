@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="net.sf.dftools.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.ietr.dftools.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="net.sf.dftools.workflow" id="net.sf.dftools.workflow.scenarios" name="Workflow scenario"/>
+         <meta.schema plugin="org.ietr.dftools.workflow" id="org.ietr.dftools.workflow.scenarios" name="Workflow scenario"/>
       </appinfo>
       <documentation>
          The scenario configures the workflow execution.
@@ -101,7 +101,7 @@
                   The fully qualified name of a Java class that extends Scenario.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="net.sf.dftools.workflow.elements.Scenario:"/>
+                  <meta.attribute kind="java" basedOn="org.ietr.dftools.workflow.elements.Scenario:"/>
                </appinfo>
             </annotation>
          </attribute>

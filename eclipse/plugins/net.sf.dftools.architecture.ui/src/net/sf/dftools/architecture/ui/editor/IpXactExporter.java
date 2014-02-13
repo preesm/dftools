@@ -28,8 +28,8 @@
  */
 package net.sf.dftools.architecture.ui.editor;
 
-import static net.sf.graphiti.model.ObjectType.PARAMETER_ID;
-import static net.sf.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
+import static org.ietr.graphiti.model.ObjectType.PARAMETER_ID;
+import static org.ietr.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,19 +38,6 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.dftools.architecture.component.BusInterface;
-import net.sf.dftools.architecture.design.ComponentInstance;
-import net.sf.dftools.architecture.design.Connection;
-import net.sf.dftools.architecture.design.Design;
-import net.sf.dftools.architecture.design.serialize.DesignWriter;
-import net.sf.dftools.architecture.utils.ArchitectureUtil;
-import net.sf.graphiti.io.ITransformation;
-import net.sf.graphiti.io.LayoutWriter;
-import net.sf.graphiti.model.Edge;
-import net.sf.graphiti.model.Graph;
-import net.sf.graphiti.model.ObjectType;
-import net.sf.graphiti.model.Vertex;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -58,6 +45,18 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.ietr.dftools.architecture.component.BusInterface;
+import org.ietr.dftools.architecture.design.ComponentInstance;
+import org.ietr.dftools.architecture.design.Connection;
+import org.ietr.dftools.architecture.design.Design;
+import org.ietr.dftools.architecture.design.serialize.DesignWriter;
+import org.ietr.dftools.architecture.utils.ArchitectureUtil;
+import org.ietr.graphiti.io.ITransformation;
+import org.ietr.graphiti.io.LayoutWriter;
+import org.ietr.graphiti.model.Edge;
+import org.ietr.graphiti.model.Graph;
+import org.ietr.graphiti.model.ObjectType;
+import org.ietr.graphiti.model.Vertex;
 
 /**
  * This class defines an Ip-Xact exporter.
@@ -67,12 +66,12 @@ import org.eclipse.core.runtime.CoreException;
  */
 public class IpXactExporter implements ITransformation {
 
-	private Map<Vertex, net.sf.dftools.architecture.design.Vertex> vertexMap;
+	private Map<Vertex, org.ietr.dftools.architecture.design.Vertex> vertexMap;
 
 	private void addEdge(Design design, Edge edge) {
-		net.sf.dftools.architecture.design.Vertex source = vertexMap.get(edge
+		org.ietr.dftools.architecture.design.Vertex source = vertexMap.get(edge
 				.getSource());
-		net.sf.dftools.architecture.design.Vertex target = vertexMap.get(edge
+		org.ietr.dftools.architecture.design.Vertex target = vertexMap.get(edge
 				.getTarget());
 
 		String sourceName = (String) edge
@@ -95,12 +94,12 @@ public class IpXactExporter implements ITransformation {
 
 	private void addVertex(Design design, Vertex vertex) {
 		String id = (String) vertex.getValue(PARAMETER_ID);
-		net.sf.dftools.architecture.design.Vertex designVertex;
+		org.ietr.dftools.architecture.design.Vertex designVertex;
 
 		if ("BusInterface".equals(vertex.getType().getName())) {
 			BusInterface intf = new BusInterface(id);
 			design.getBusInterfaces().add(intf);
-			designVertex = new net.sf.dftools.architecture.design.Vertex(intf);
+			designVertex = new org.ietr.dftools.architecture.design.Vertex(intf);
 		} else {
 			String clasz = (String) vertex.getValue(PARAMETER_REFINEMENT);
 			ComponentInstance inst = new ComponentInstance(id, clasz);
@@ -110,7 +109,7 @@ public class IpXactExporter implements ITransformation {
 				inst.getConfigValues().put((String) entry.getKey(),
 						(String) entry.getValue());
 			}
-			designVertex = new net.sf.dftools.architecture.design.Vertex(inst);
+			designVertex = new org.ietr.dftools.architecture.design.Vertex(inst);
 		}
 		design.getGraph().addVertex(designVertex);
 		vertexMap.put(vertex, designVertex);
@@ -118,7 +117,7 @@ public class IpXactExporter implements ITransformation {
 
 	@Override
 	public void transform(Graph graph, OutputStream out) {
-		vertexMap = new HashMap<Vertex, net.sf.dftools.architecture.design.Vertex>();
+		vertexMap = new HashMap<Vertex, org.ietr.dftools.architecture.design.Vertex>();
 
 		String name = (String) graph.getValue(PARAMETER_ID);
 		Design design = new Design(name);

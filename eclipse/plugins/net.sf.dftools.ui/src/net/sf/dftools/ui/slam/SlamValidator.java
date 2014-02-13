@@ -6,14 +6,13 @@ package net.sf.dftools.ui.slam;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.graphiti.model.Edge;
-import net.sf.graphiti.model.Graph;
-import net.sf.graphiti.model.IValidator;
-import net.sf.graphiti.model.Vertex;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
+import org.ietr.graphiti.model.Edge;
+import org.ietr.graphiti.model.Graph;
+import org.ietr.graphiti.model.IValidator;
+import org.ietr.graphiti.model.Vertex;
 
 /**
  * Validating the System-Level Architecture Model

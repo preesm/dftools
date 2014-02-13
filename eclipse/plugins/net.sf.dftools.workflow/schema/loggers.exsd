@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="net.sf.dftools.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.ietr.dftools.workflow" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="net.sf.dftools.workflow" id="net.sf.dftools.workflow.loggers" name="Workflow logger"/>
+         <meta.schema plugin="org.ietr.dftools.workflow" id="org.ietr.dftools.workflow.loggers" name="Workflow logger"/>
       </appinfo>
       <documentation>
          The logger displays information in the console. It is delegated to the ui.
@@ -58,7 +58,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="net.sf.dftools.workflow.tools.AbstractWorkflowLogger:"/>
+                  <meta.attribute kind="java" basedOn="org.ietr.dftools.workflow.tools.AbstractWorkflowLogger:"/>
                </appinfo>
             </annotation>
          </attribute>

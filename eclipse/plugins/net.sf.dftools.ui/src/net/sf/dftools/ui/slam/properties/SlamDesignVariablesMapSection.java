@@ -28,10 +28,9 @@
  */
 package net.sf.dftools.ui.slam.properties;
 
-import net.sf.graphiti.ui.properties.MapSection;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.ietr.graphiti.ui.properties.MapSection;
 
 /**
  * This class defines a map section for workflow task variables.

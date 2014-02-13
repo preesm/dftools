@@ -1,10 +1,9 @@
 package net.sf.dftools.ui.workflow.filters;
 
-import net.sf.graphiti.model.Graph;
-import net.sf.graphiti.model.Vertex;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.IFilter;
+import org.ietr.graphiti.model.Graph;
+import org.ietr.graphiti.model.Vertex;
 
 /**
  * This class filters workflow task vertices to enable the correct property tabs
