@@ -57,7 +57,9 @@ public class WorkflowLaunchConfigurationDelegate implements
 
 	public static final String ATTR_WORKFLOW_FILE_NAME = "org.ietr.dftools.ui.workflow.fileName";
 
-	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "org.ietr.dftools.ui.workflow.launchConfigurationType";
+	//Beware: Changing this ID without modifying the corresponding ID in org.ietr.dftools.ui/plugin.xml
+	//can break the launch shortcut for wokflows (Right Click > Run as)
+	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
 
 	/**
 	 * Launches a workflow
