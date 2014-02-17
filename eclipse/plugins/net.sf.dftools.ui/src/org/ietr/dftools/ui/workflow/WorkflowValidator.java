@@ -39,9 +39,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.ietr.graphiti.model.Graph;
-import org.ietr.graphiti.model.IValidator;
-import org.ietr.graphiti.model.Vertex;
+import org.ietr.dftools.graphiti.model.Graph;
+import org.ietr.dftools.graphiti.model.IValidator;
+import org.ietr.dftools.graphiti.model.Vertex;
 
 /**
  * This class implements a Workflow model validator.

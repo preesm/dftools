@@ -41,9 +41,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.ietr.dftools.architecture.slam.serialize.RefinementList;
+import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
+import org.ietr.dftools.graphiti.model.Vertex;
 import org.ietr.dftools.ui.util.FileUtils;
-import org.ietr.graphiti.model.DefaultRefinementPolicy;
-import org.ietr.graphiti.model.Vertex;
 
 /**
  * This class extends the default refinement policy with S-LAM-specific policy.

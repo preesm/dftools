@@ -31,11 +31,11 @@ package org.ietr.dftools.architecture.ui.editor;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
-import org.ietr.graphiti.model.Graph;
-import org.ietr.graphiti.model.IRefinementPolicy;
-import org.ietr.graphiti.model.ObjectType;
-import org.ietr.graphiti.model.Vertex;
-import org.ietr.graphiti.validators.DataflowValidator;
+import org.ietr.dftools.graphiti.model.Graph;
+import org.ietr.dftools.graphiti.model.IRefinementPolicy;
+import org.ietr.dftools.graphiti.model.ObjectType;
+import org.ietr.dftools.graphiti.model.Vertex;
+import org.ietr.dftools.graphiti.validators.DataflowValidator;
 
 /**
  * This class implements a model validator.

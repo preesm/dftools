@@ -28,8 +28,8 @@
  */
 package org.ietr.dftools.architecture.ui.editor;
 
-import static org.ietr.graphiti.model.ObjectType.PARAMETER_ID;
-import static org.ietr.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
+import static org.ietr.dftools.graphiti.model.ObjectType.PARAMETER_ID;
+import static org.ietr.dftools.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,14 +47,14 @@ import org.ietr.dftools.architecture.design.ComponentInstance;
 import org.ietr.dftools.architecture.design.Connection;
 import org.ietr.dftools.architecture.design.Design;
 import org.ietr.dftools.architecture.design.serialize.DesignParser;
-import org.ietr.graphiti.GraphitiModelPlugin;
-import org.ietr.graphiti.io.DomHelper;
-import org.ietr.graphiti.io.ITransformation;
-import org.ietr.graphiti.model.Configuration;
-import org.ietr.graphiti.model.Edge;
-import org.ietr.graphiti.model.Graph;
-import org.ietr.graphiti.model.ObjectType;
-import org.ietr.graphiti.model.Vertex;
+import org.ietr.dftools.graphiti.GraphitiModelPlugin;
+import org.ietr.dftools.graphiti.io.DomHelper;
+import org.ietr.dftools.graphiti.io.ITransformation;
+import org.ietr.dftools.graphiti.model.Configuration;
+import org.ietr.dftools.graphiti.model.Edge;
+import org.ietr.dftools.graphiti.model.Graph;
+import org.ietr.dftools.graphiti.model.ObjectType;
+import org.ietr.dftools.graphiti.model.Vertex;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

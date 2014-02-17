@@ -28,8 +28,8 @@
  */
 package org.ietr.dftools.architecture.ui.editor;
 
-import static org.ietr.graphiti.model.ObjectType.PARAMETER_ID;
-import static org.ietr.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
+import static org.ietr.dftools.graphiti.model.ObjectType.PARAMETER_ID;
+import static org.ietr.dftools.graphiti.model.ObjectType.PARAMETER_REFINEMENT;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,12 +51,12 @@ import org.ietr.dftools.architecture.design.Connection;
 import org.ietr.dftools.architecture.design.Design;
 import org.ietr.dftools.architecture.design.serialize.DesignWriter;
 import org.ietr.dftools.architecture.utils.ArchitectureUtil;
-import org.ietr.graphiti.io.ITransformation;
-import org.ietr.graphiti.io.LayoutWriter;
-import org.ietr.graphiti.model.Edge;
-import org.ietr.graphiti.model.Graph;
-import org.ietr.graphiti.model.ObjectType;
-import org.ietr.graphiti.model.Vertex;
+import org.ietr.dftools.graphiti.io.ITransformation;
+import org.ietr.dftools.graphiti.io.LayoutWriter;
+import org.ietr.dftools.graphiti.model.Edge;
+import org.ietr.dftools.graphiti.model.Graph;
+import org.ietr.dftools.graphiti.model.ObjectType;
+import org.ietr.dftools.graphiti.model.Vertex;
 
 /**
  * This class defines an Ip-Xact exporter.

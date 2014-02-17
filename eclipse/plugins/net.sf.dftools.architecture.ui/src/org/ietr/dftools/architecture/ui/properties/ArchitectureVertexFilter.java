@@ -2,8 +2,8 @@ package org.ietr.dftools.architecture.ui.properties;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.IFilter;
-import org.ietr.graphiti.model.Graph;
-import org.ietr.graphiti.model.Vertex;
+import org.ietr.dftools.graphiti.model.Graph;
+import org.ietr.dftools.graphiti.model.Vertex;
 
 public class ArchitectureVertexFilter implements IFilter {
 

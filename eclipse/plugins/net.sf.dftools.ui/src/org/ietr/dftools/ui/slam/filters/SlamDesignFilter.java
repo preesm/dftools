@@ -2,7 +2,7 @@ package org.ietr.dftools.ui.slam.filters;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.IFilter;
-import org.ietr.graphiti.model.Graph;
+import org.ietr.dftools.graphiti.model.Graph;
 
 /**
  * This class filters s-lam elements to enable the correct property

@@ -31,8 +31,8 @@ package org.ietr.dftools.architecture.ui.editor;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.ietr.dftools.architecture.utils.ArchitectureUtil;
-import org.ietr.graphiti.model.DefaultRefinementPolicy;
-import org.ietr.graphiti.model.Vertex;
+import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
+import org.ietr.dftools.graphiti.model.Vertex;
 
 /**
  * This class extends the default refinement policy.

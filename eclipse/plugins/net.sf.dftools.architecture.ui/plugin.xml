@@ -29,8 +29,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.ietr.graphiti.ui.editors.GraphEditor"
-            contributorClass="org.ietr.graphiti.ui.editors.GraphActionBarContributor"
+            class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
+            contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
             default="true"
             id="org.ietr.dftools.architecture.ui.editor"
             name="IP-XACT Editor">
@@ -39,9 +39,9 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs
-            contributorId="org.ietr.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
          <propertyTab
-               category="org.ietr.graphiti.ui.properties.category.vertex"
+               category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
                id="org.ietr.dftools.architecture.ui.properties.tab.vertex.parameters"
                label="Component instance parameters">
          </propertyTab>
@@ -50,7 +50,7 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
-            contributorId="org.ietr.graphiti.ui.properties.contributor">
+            contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
          <propertySection
                class="org.ietr.dftools.architecture.ui.properties.VertexParametersMapSection"
                filter="org.ietr.dftools.architecture.ui.properties.ArchitectureVertexFilter"
