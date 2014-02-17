@@ -38,8 +38,9 @@ Thumbs.db
 
 # Others #
 ##########
-*.java_trace
+*.java._trace
 bin/
 target/
 generated/
+xtend-gen/
 *~
