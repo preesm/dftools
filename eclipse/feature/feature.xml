@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.ietr.dftools.feature"
+      id="net.sf.dftools.feature"
       label="DFTools Feature"
-      version="1.0.0.qualifier"
+      version="1.0.0.rc1-v20131030"
       provider-name="IETR/INSA">
 
    <description>
@@ -47,35 +47,35 @@ knowledge of the CeCILL-C license and that you accept its terms.
    </url>
 
    <plugin
-         id="org.ietr.dftools.algorithm"
+         id="net.sf.dftools.algorithm"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.ietr.dftools.architecture.ui"
+         id="net.sf.dftools.architecture"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.ietr.dftools.architecture"
+         id="net.sf.dftools.architecture.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.ietr.dftools.ui"
+         id="net.sf.dftools.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.ietr.dftools.workflow"
+         id="net.sf.dftools.workflow"
          download-size="0"
          install-size="0"
          version="0.0.0"
