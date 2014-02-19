@@ -65,6 +65,12 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 	public static final String MODIFIER_PURE_IN = "pure_in";
 
 	/**
+	 * Modifier used to make a input port an unused input. <br>
+	 * i.e. the corresponding actor not use the corresponding input.
+	 */
+	 public static final String MODIFIER_UNUSED = "unused";
+	
+	/**
 	 * Modifier used to make a input port a pure output. <br>
 	 * i.e. the corresponding actor will only write the corresponding data but
 	 * will not use the written data. In other terms, it does not matter if the
