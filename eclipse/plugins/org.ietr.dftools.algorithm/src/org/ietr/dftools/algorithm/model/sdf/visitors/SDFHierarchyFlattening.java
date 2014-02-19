@@ -244,7 +244,8 @@ public class SDFHierarchyFlattening extends
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(roundBuffer, vertex);
 			edge.copyProperties(inEdges.get(0));
 			// The modifier of the source port should not be copied.
-			edge.setSourcePortModifier(null);
+			// Instead, always set it to pure_out
+			edge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
 			edge.setProd(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
 					.intValue()));
 			edge.setCons(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
@@ -343,7 +344,8 @@ public class SDFHierarchyFlattening extends
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
 			edge.copyProperties(outEdges.get(0));
 			// The modifier of the target port should not be copied.
-			edge.setTargetPortModifier(null);
+			// Instead, always set to pure_in
+			edge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
 			edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
 					.intValue()));
 			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
@@ -356,7 +358,8 @@ public class SDFHierarchyFlattening extends
 						target);
 				newEdge.copyProperties(treatEdge);
 				// The modifier of the source port should not be copied.
-				edge.setSourcePortModifier(null);
+				// Instead, always set to pure_out
+				newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
 				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
 						.intValue()));
 				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()

@@ -24,6 +24,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
@@ -203,6 +204,9 @@ public class ToHSDFVisitor implements
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
 					newEdge.setSourcePortModifier(edge.getSourcePortModifier());
+					
+					// Add a target port modifier to the edge
+					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
 				}
 				if (rest < edge.getCons().intValue()
 						&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)
@@ -231,6 +235,9 @@ public class ToHSDFVisitor implements
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
 					newEdge.setTargetPortModifier(edge.getTargetPortModifier());
+					
+					// Add a source port modifier to the edge
+					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
 				}
 				// end of testing zone
 
@@ -265,6 +272,8 @@ public class ToHSDFVisitor implements
 					sourceInterface.setName(sourceInterface.getName() + "_"
 							+ sourceProd);
 					newEdge.setSourceInterface(sourceInterface);
+					// Add a source port modifier
+					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
 				}
 
 				// Set the target interface of the new edge
@@ -295,6 +304,8 @@ public class ToHSDFVisitor implements
 					targetInterface.setName(targetInterface.getName() + "_"
 							+ targetCons);
 					newEdge.setTargetInterface(targetInterface);
+					// Add a target port modifier
+					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
 
 					// Reorder the input of the target
 					{
