@@ -2,8 +2,11 @@ package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -138,7 +141,8 @@ public class ToHSDFVisitor implements
 			// targets that are "satisfied" by the added edges.
 			int totProd = 0;
 
-			// Until all consumed token are "satisfied"
+			List<SDFEdge> newEdges = new ArrayList<SDFEdge>();
+			// Add edges until all consumed token are "satisfied"
 			while (totProd < (edge.getCons().intValue() * targetCopies.size())) {
 
 				// Index of the currently processed sourceVertex among the
@@ -244,6 +248,7 @@ public class ToHSDFVisitor implements
 				// Create the new Edge for the output graph
 				SDFEdge newEdge = output.addEdge(sourceCopies.get(sourceIndex),
 						targetCopies.get(targetIndex));
+				newEdges.add(newEdge);
 
 				// Set the source interface of the new edge
 				// If the source is a newly added fork/broadcast we rename the
@@ -296,7 +301,13 @@ public class ToHSDFVisitor implements
 								.clone());
 					}
 					// Copy the target port modifier of the original source
-					newEdge.setTargetPortModifier(edge.getTargetPortModifier());
+					// Except for roundbuffers
+					if(!(newEdge.getTarget() instanceof SDFRoundBufferVertex)){
+						newEdge.setTargetPortModifier(edge.getTargetPortModifier());
+					} else {
+						// The processing of roundBuffer portModifiers is done 
+						// after the while loop
+					}
 				} else {
 					// If the target is a newly created join/roundbuffer
 					SDFInterfaceVertex targetInterface = edge
@@ -418,6 +429,29 @@ public class ToHSDFVisitor implements
 				}
 			}
 			
+			// If the edge target was a round buffer
+			// We set the port modifiers here
+			if(edge.getTarget() instanceof SDFRoundBufferVertex){
+				// Set all target modifiers as unused
+				ListIterator<SDFEdge> iter = newEdges.listIterator();
+				while(iter.hasNext()) {
+					iter.next().setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_UNUSED));
+				}
+				
+				SDFStringEdgePropertyType portModifier = edge.getTargetPortModifier();
+				if(!portModifier.toString().equals(SDFEdge.MODIFIER_UNUSED)){
+					// If the target is not unused, set last edges
+					// targetModifier as PureIn
+					@SuppressWarnings("unchecked")
+					int tokensToProduce = ((Set<SDFEdge>)(edge.getTarget().getBase().outgoingEdgesOf(edge.getTarget()))).iterator().next().getProd().intValue();
+					while(tokensToProduce > 0 && iter.hasPrevious()){
+						SDFEdge newEdge = iter.previous();
+						newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
+						tokensToProduce -= newEdge.getCons().intValue(); 
+					}
+				} 
+			}
+						
 			// If fork/Join vertices were added during the function call
 			// put back the true source/target in the match copies map.
 			for (int i = 0; i < sourceCopies.size(); i++) {

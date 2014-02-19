@@ -1,6 +1,7 @@
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.ietr.dftools.algorithm.model.AbstractGraph;
@@ -251,19 +252,34 @@ public class SDFHierarchyFlattening extends
 			edge.setCons(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
 					.intValue()));
 			edge.setSourceInterface(output);
+			// Get the total sum size of the input
+			Iterator<SDFEdge> iter = inEdges.iterator();
+			int totalSize = 0;
+			while(iter.hasNext()){
+				SDFEdge inEdge =  iter.next();
+				totalSize += inEdge.getProd().intValue()*inEdge.getSource().getNbRepeatAsInteger();	
+			}
+			
 			while (inEdges.size() > 0) {
 				SDFEdge treatEdge = inEdges.get(0);
 				SDFAbstractVertex source = treatEdge.getSource();
 				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source,
 						roundBuffer);
 				newEdge.copyProperties(treatEdge);
-				// The modifier of the target port should not be copied.
-				edge.setTargetPortModifier(null);
 				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getProd()
 						.intValue()));
 				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getProd()
 						.intValue()
 						* treatEdge.getSource().getNbRepeatAsInteger()));
+				// The modifier of the target port should not be copied.
+				// Instead always set to unused except for last inputs
+				totalSize -= newEdge.getCons().intValue();
+				if( totalSize > edge.getProd().intValue()){
+					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_UNUSED));
+				} else {
+					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
+				}
+				
 				newEdge.setTargetInterface(input);
 				newEdge.setSourceInterface(treatEdge.getSourceInterface());
 				parentGraph.removeEdge(treatEdge);
