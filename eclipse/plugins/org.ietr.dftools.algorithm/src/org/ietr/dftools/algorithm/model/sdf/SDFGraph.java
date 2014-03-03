@@ -26,6 +26,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 import org.jgrapht.EdgeFactory;
@@ -427,6 +428,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				SDFEdge baseEdge = this.addEdge(vertex, broadcastPort);
 				baseEdge.setSourceInterface(port);
 				baseEdge.setTargetInterface(inPort);
+				baseEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
 				for (SDFEdge oldEdge : connections.get(port)) {
 					SDFEdge newEdge = this.addEdge(broadcastPort,
 							oldEdge.getTarget());
@@ -437,6 +439,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 					newEdge.setCons(oldEdge.getCons());
 					newEdge.setDelay(oldEdge.getDelay());
 					newEdge.setDataType(oldEdge.getDataType());
+					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
 					baseEdge.setSourcePortModifier(oldEdge.getSourcePortModifier());
 					baseEdge.setProd(oldEdge.getProd().clone());
 					baseEdge.setCons(oldEdge.getProd().clone());
