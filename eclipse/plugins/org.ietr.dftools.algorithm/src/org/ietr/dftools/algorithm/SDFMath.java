@@ -159,12 +159,16 @@ public class SDFMath {
 		List<double[]> interfaceTopology = new ArrayList<double[]>();
 		double interfaceArrayTopology[][];
 
-		int nbInterfaces = 0;
+		int nbInterfaceEdges = 0;
 		int decal = 0 ;
 		
 		for(SDFAbstractVertex vertex : subgraph){
 			if(vertex instanceof SDFInterfaceVertex){
-				nbInterfaces++;
+				if(vertex instanceof SDFSinkInterfaceVertex){
+					nbInterfaceEdges += graph.incomingEdgesOf(vertex).size();
+				}else if(vertex instanceof SDFSourceInterfaceVertex){
+					nbInterfaceEdges += graph.outgoingEdgesOf(vertex).size();					
+				}
 			}
 		}
 		
@@ -173,9 +177,9 @@ public class SDFMath {
 				if(vertex instanceof SDFSinkInterfaceVertex){
 					for(SDFEdge edge : graph.incomingEdgesOf(vertex)){
 						if(!(edge.getSource() instanceof SDFInterfaceVertex)){
-							double line[] = DoubleArray.fill(nbInterfaces+1, 0);
+							double line[] = DoubleArray.fill(nbInterfaceEdges+1, 0);
 							line[decal] = -edge.getCons().intValue();
-							line[nbInterfaces] = edge.getProd().intValue()*(vrb.get(edge.getSource()));
+							line[nbInterfaceEdges] = edge.getProd().intValue()*(vrb.get(edge.getSource()));
 							interfaceTopology.add(line);
 							decal ++ ;
 						}
@@ -183,9 +187,9 @@ public class SDFMath {
 				}else if(vertex instanceof SDFSourceInterfaceVertex){
 					for(SDFEdge edge : graph.outgoingEdgesOf(vertex)){
 						if(!(edge.getTarget() instanceof SDFInterfaceVertex)){
-							double line[] = DoubleArray.fill(nbInterfaces+1, 0);
+							double line[] = DoubleArray.fill(nbInterfaceEdges+1, 0);
 							line[decal] = edge.getProd().intValue();
-							line[nbInterfaces] = -edge.getCons().intValue()*(vrb.get(edge.getTarget()));
+							line[nbInterfaceEdges] = -edge.getCons().intValue()*(vrb.get(edge.getTarget()));
 							interfaceTopology.add(line);
 							decal ++ ;
 						}
