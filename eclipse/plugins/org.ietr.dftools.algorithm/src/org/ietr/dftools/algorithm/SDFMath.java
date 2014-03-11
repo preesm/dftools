@@ -49,10 +49,12 @@ public class SDFMath {
 	}
 	
 	private static Vector<Rational> computeRationnalNullSpace(double[][] matrix){
-		int li =  matrix.length;
-		int col = matrix[0].length;
-		Rational rationnalTopology[][] = new Rational[li][col];
 		Vector<Rational> vrb = new Vector<Rational>();
+		int li =  matrix.length;
+		int col = 1;
+		
+		if(li!=0)
+			col = matrix[0].length;		
 		
 		if(li == 0 || col == 1){
 			for(int i=0; i<col; i++) {
@@ -60,6 +62,8 @@ public class SDFMath {
 			}
 			return vrb ;
 		}
+
+		Rational rationnalTopology[][] = new Rational[li][col];
 		
 		for (int i = 0; i < li; i++) {
 			for (int j = 0; j < col; j++) {
