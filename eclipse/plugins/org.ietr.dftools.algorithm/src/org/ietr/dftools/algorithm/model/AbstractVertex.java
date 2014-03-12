@@ -399,8 +399,8 @@ public abstract class AbstractVertex<G> extends Observable implements
 		}
 		for (Object edgeObj : getBase().outgoingEdgesOf(this)) {
 			AbstractEdge edge = (AbstractEdge) edgeObj;
-			if (edge.getTargetLabel() != null
-					&& edge.getTargetLabel().equals(portVertex.getName())) {
+			if (edge.getSourceLabel() != null
+					&& edge.getSourceLabel().equals(portVertex.getName())) {
 				return edge;
 			}
 		}
