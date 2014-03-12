@@ -8,6 +8,7 @@ import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
+import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
 /**
  * Special vertex that supports broadcast
@@ -46,6 +47,29 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// Copy the ports
+		for (SDFInterfaceVertex sink : this.getSinks()) {
+			if (copy.getGraphDescription() != null
+					&& copy.getGraphDescription()
+							.getVertex(sink.getName()) != null) {
+				copy.addSink((SDFInterfaceVertex) this
+						.getGraphDescription().getVertex(sink.getName()));
+			} else {
+				copy.addSink(sink.clone());
+			}
+		}
+		for (SDFInterfaceVertex source : this.getSources()) {
+			if (copy.getGraphDescription() != null
+					&& copy.getGraphDescription().getVertex(
+							source.getName()) != null) {
+				copy.addSource((SDFInterfaceVertex) this
+						.getGraphDescription().getVertex(source.getName()));
+			} else {
+				copy.addSource(source.clone());
+			}
+		}
+		
 		return copy;
 	}
 
