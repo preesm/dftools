@@ -240,6 +240,8 @@ public class SDFHierarchyFlattening extends
 			input.setName("in");
 			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
 			output.setName("out");
+			roundBuffer.addSink(input);
+			roundBuffer.addSource(output);
 			roundBuffer.setName("roundBuffer_" + vertex.getName());
 			parentGraph.addVertex(roundBuffer);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(roundBuffer, vertex);
@@ -356,6 +358,8 @@ public class SDFHierarchyFlattening extends
 			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
 			output.setName("out");
 			broadcast.setName("broadcast_" + vertex.getName());
+			broadcast.addSink(input);
+			broadcast.addSource(output);
 			parentGraph.addVertex(broadcast);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
 			edge.copyProperties(outEdges.get(0));
