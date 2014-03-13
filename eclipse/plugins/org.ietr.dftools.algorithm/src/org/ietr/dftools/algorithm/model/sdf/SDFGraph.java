@@ -433,9 +433,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 						+ port.getName());
 				SDFSourceInterfaceVertex inPort = new SDFSourceInterfaceVertex();
 				inPort.setName("in");
-				SDFSinkInterfaceVertex outPort = new SDFSinkInterfaceVertex();
-				outPort.setName("out");
-				broadcastPort.addSink(outPort);
 				broadcastPort.addSource(inPort);
 				this.addVertex(broadcastPort);
 				SDFEdge baseEdge = this.addEdge(vertex, broadcastPort);
@@ -447,22 +444,40 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				// Add all outgoing edges
 				int nbTokens = 0;
 				for (SDFEdge oldEdge : connections.get(port)) {
-					SDFEdge newEdge = this.addEdge(broadcastPort,
-							oldEdge.getTarget());
-					newEdge.setSourceInterface(outPort);
-					newEdge.setTargetInterface(oldEdge.getTargetInterface());
-					newEdge.setTargetPortModifier(oldEdge.getTargetPortModifier());
-					newEdge.setProd(oldEdge.getProd());
-					newEdge.setCons(oldEdge.getCons());
-					newEdge.setDelay(oldEdge.getDelay());
-					newEdge.setDataType(oldEdge.getDataType());
-					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
-					baseEdge.setSourcePortModifier(oldEdge.getSourcePortModifier());
-					baseEdge.setProd(oldEdge.getProd().clone());
-					baseEdge.setCons(oldEdge.getProd().clone());
-					baseEdge.setDelay(new SDFIntEdgePropertyType(0));
-					baseEdge.setDataType(oldEdge.getDataType());
-					this.removeEdge(oldEdge);
+					try {
+						// Create a new outport
+						SDFSinkInterfaceVertex outPort = new SDFSinkInterfaceVertex();
+						outPort.setName("out_" + nbTokens
+								/ baseEdge.getCons().intValue() + "_"
+								+ nbTokens % baseEdge.getCons().intValue());
+						nbTokens += oldEdge.getProd().intValue();
+
+						broadcastPort.addSink(outPort);
+
+						SDFEdge newEdge = this.addEdge(broadcastPort,
+								oldEdge.getTarget());
+						newEdge.setSourceInterface(outPort);
+						newEdge.setTargetInterface(oldEdge.getTargetInterface());
+						newEdge.setTargetPortModifier(oldEdge
+								.getTargetPortModifier());
+						newEdge.setProd(oldEdge.getProd());
+						newEdge.setCons(oldEdge.getCons());
+						newEdge.setDelay(oldEdge.getDelay());
+						newEdge.setDataType(oldEdge.getDataType());
+						newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
+								SDFEdge.MODIFIER_PURE_OUT));
+						baseEdge.setSourcePortModifier(oldEdge
+								.getSourcePortModifier());
+						baseEdge.setProd(oldEdge.getProd().clone());
+						baseEdge.setCons(oldEdge.getProd().clone());
+						baseEdge.setDelay(new SDFIntEdgePropertyType(0));
+						baseEdge.setDataType(oldEdge.getDataType());
+						this.removeEdge(oldEdge);
+					} catch (InvalidExpressionException e) {
+						// Should never happen, baseEdge.getCons is the method
+						// imposing this try catch
+						e.printStackTrace();
+					}
 				}
 			}
 		}

@@ -236,11 +236,8 @@ public class SDFHierarchyFlattening extends
 		}
 		if (needRoundBuffer) {
 			SDFRoundBufferVertex roundBuffer = new SDFRoundBufferVertex();
-			SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
-			input.setName("in");
 			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
 			output.setName("out");
-			roundBuffer.addSink(input);
 			roundBuffer.addSource(output);
 			roundBuffer.setName("roundBuffer_" + vertex.getName());
 			parentGraph.addVertex(roundBuffer);
@@ -262,8 +259,22 @@ public class SDFHierarchyFlattening extends
 				totalSize += inEdge.getProd().intValue()*inEdge.getSource().getNbRepeatAsInteger();	
 			}
 			
+			// Add all input edges
+			int nbTokens = 0;
 			while (inEdges.size() > 0) {
 				SDFEdge treatEdge = inEdges.get(0);
+				
+				// Create the input port
+				SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
+				input.setName("in"+ nbTokens
+						/ edge.getProd().intValue() + "_"
+						+ nbTokens % edge.getProd().intValue());
+				nbTokens += treatEdge.getProd()
+						.intValue()
+						* treatEdge.getSource().getNbRepeatAsInteger();
+				
+				roundBuffer.addSink(input);
+				
 				SDFAbstractVertex source = treatEdge.getSource();
 				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source,
 						roundBuffer);
@@ -355,11 +366,9 @@ public class SDFHierarchyFlattening extends
 			SDFBroadcastVertex broadcast = new SDFBroadcastVertex();
 			SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
 			input.setName("in");
-			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
-			output.setName("out");
 			broadcast.setName("broadcast_" + vertex.getName());
 			broadcast.addSink(input);
-			broadcast.addSource(output);
+			
 			parentGraph.addVertex(broadcast);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
 			edge.copyProperties(outEdges.get(0));
@@ -371,8 +380,22 @@ public class SDFHierarchyFlattening extends
 			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
 					.intValue()));
 			edge.setTargetInterface(input);
+			
+			// Add all output edges
+			int nbTokens = 0;
 			while (outEdges.size() > 0) {
+				// The processed edge
 				SDFEdge treatEdge = outEdges.get(0);
+				
+				// Create a new output port
+				SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
+				output.setName("out_" + nbTokens
+						/ edge.getCons().intValue() + "_"
+						+ nbTokens % edge.getCons().intValue());
+				nbTokens += treatEdge.getProd().intValue();
+				broadcast.addSource(output);
+				
+				
 				SDFAbstractVertex target = treatEdge.getTarget();
 				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast,
 						target);
