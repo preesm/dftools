@@ -300,8 +300,6 @@ public class SDFHierarchyFlattening extends
 			}
 		} else if (needImplode && depth == 0) {
 			SDFJoinVertex implodeBuffer = new SDFJoinVertex();
-			SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
-			input.setName("in");
 			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
 			output.setName("out");
 			implodeBuffer.setName("implode_" + vertex.getName());
@@ -315,8 +313,18 @@ public class SDFHierarchyFlattening extends
 			edge.setCons(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
 					.intValue()));
 			edge.setSourceInterface(output);
+			
+			// Add all input edges
+			int nbTokens = 0;
 			while (inEdges.size() > 0) {
 				SDFEdge treatEdge = inEdges.get(0);
+				
+				SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();				
+				input.setName("in"+ nbTokens);
+				nbTokens += treatEdge.getProd()
+						.intValue()
+						* treatEdge.getSource().getNbRepeatAsInteger();				
+				
 				SDFAbstractVertex source = treatEdge.getSource();
 				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source,
 						implodeBuffer);
@@ -418,8 +426,6 @@ public class SDFHierarchyFlattening extends
 			SDFForkVertex explode = new SDFForkVertex();
 			SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
 			input.setName("in");
-			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
-			output.setName("out");
 			explode.setName("explode_" + vertex.getName());
 			parentGraph.addVertex(explode);
 			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, explode);
@@ -431,8 +437,17 @@ public class SDFHierarchyFlattening extends
 			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
 					.intValue()));
 			edge.setTargetInterface(input);
+			
+			// Add all output edges
+			int nbTokens = 0;
 			while (outEdges.size() > 0) {
 				SDFEdge treatEdge = outEdges.get(0);
+				
+				SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
+				output.setName("out"+nbTokens);
+				nbTokens+=treatEdge.getCons()
+						.intValue()	* treatEdge.getTarget().getNbRepeatAsInteger();
+				
 				SDFAbstractVertex target = treatEdge.getTarget();
 				SDFEdge newEdge = (SDFEdge) parentGraph
 						.addEdge(explode, target);

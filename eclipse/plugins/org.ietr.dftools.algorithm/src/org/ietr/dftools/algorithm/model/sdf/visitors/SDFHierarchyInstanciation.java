@@ -23,6 +23,8 @@ import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
@@ -53,7 +55,7 @@ public class SDFHierarchyInstanciation implements
 
 	private void createEdge(SDFGraph sdf, SDFGraph output, SDFEdge edge,
 			Vector<SDFAbstractVertex> sourceCopies,
-			Vector<SDFAbstractVertex> targetCopies, int targetIndex, int sourceIndex, int rest, int nbDelays) throws InvalidExpressionException{
+			Vector<SDFAbstractVertex> targetCopies, int targetIndex, int sourceIndex, int rest, int nbDelays, int sourceProd, int targetCons) throws InvalidExpressionException{
 		SDFEdge newEdge = null;
 		SDFInterfaceVertex inputVertex = null;
 		SDFInterfaceVertex outputVertex = null;
@@ -83,19 +85,23 @@ public class SDFHierarchyInstanciation implements
 		}
 		if (sourceCopies.get(sourceIndex).getSink(
 				edge.getSourceInterface().getName()) != null) {
+			
 			newEdge.setSourceInterface(sourceCopies.get(sourceIndex)
 					.getSink(edge.getSourceInterface().getName()));
 		} else {
+			// If this case is reached, the source is a new explode/broadcast
 			newEdge.setSourceInterface(edge.getSourceInterface().clone());
+			newEdge.getSourceInterface().setName("out"+sourceProd);
 		}
 		if (targetCopies.get(targetIndex).getSource(
 				edge.getTargetInterface().getName()) != null) {
 			newEdge.setTargetInterface(targetCopies.get(targetIndex)
 					.getSource(edge.getTargetInterface().getName()));
 		} else {
+			// If this case is reached, the source is a new implode/roundbuffer
 			newEdge.setTargetInterface(edge.getTargetInterface().clone());
+			newEdge.getTargetInterface().setName("in"+targetCons);
 		}
-		newEdge.setTargetInterface(edge.getTargetInterface().clone());
 		if (targetCopies.get(targetIndex) instanceof SDFVertex) {
 			if (((SDFVertex) targetCopies.get(targetIndex))
 					.getAssociatedInterface(edge) != null) {
@@ -155,7 +161,10 @@ public class SDFHierarchyInstanciation implements
 				newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
 				newEdge.setDataType(edge.getDataType());
 				newEdge.setSourceInterface(edge.getSourceInterface());
-				newEdge.setTargetInterface(edge.getTargetInterface());
+				SDFSinkInterfaceVertex in = new SDFSinkInterfaceVertex();
+				in.setName("in");
+				explodeVertex.addSink(in);
+				newEdge.setTargetInterface(in);
 			}
 			if ((rest < (edge.getCons().intValue() * (edge.getTarget().getNbRepeatAsInteger()/targetCopies.size())) )
 					&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)) {
@@ -173,13 +182,15 @@ public class SDFHierarchyInstanciation implements
 				newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons()
 						.intValue()));
 				newEdge.setDataType(edge.getDataType());
-				newEdge.setSourceInterface(edge.getSourceInterface());
+				SDFSourceInterfaceVertex out = new SDFSourceInterfaceVertex();
+				out.setName("out");
+				newEdge.setSourceInterface(out);
 				newEdge.setTargetInterface(edge.getTargetInterface());
 			}
 			// end of testing zone
 			createEdge(sdf, output, edge,
 					sourceCopies,
-					targetCopies, targetIndex,sourceIndex, rest,nbDelays);
+					targetCopies, targetIndex,sourceIndex, rest,nbDelays, sourceProd, targetCons);
 			sourceProd += rest;
 			targetCons += rest;
 			totProd += rest;
