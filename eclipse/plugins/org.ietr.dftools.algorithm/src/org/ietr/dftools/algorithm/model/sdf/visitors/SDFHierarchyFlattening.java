@@ -505,101 +505,116 @@ public class SDFHierarchyFlattening extends
 			}
 		}
 		if (needBroadcast) {
-			SDFBroadcastVertex broadcast = new SDFBroadcastVertex();
-			SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
-			input.setName("in");
-			broadcast.setName("broadcast_" + vertex.getName());
-			broadcast.addSink(input);
-			
-			parentGraph.addVertex(broadcast);
-			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
-			edge.copyProperties(outEdges.get(0));
-			// The modifier of the target port should not be copied.
-			// Instead, always set to pure_in
-			edge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_IN));
-			edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
-					.intValue()));
-			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
-					.intValue()));
-			edge.setTargetInterface(input);
-			
-			// Add all output edges
-			int nbTokens = 0;
-			while (outEdges.size() > 0) {
-				// The processed edge
-				SDFEdge treatEdge = outEdges.get(0);
-				
-				// Create a new output port
-				SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
-				output.setName("out_" + nbTokens
-						/ edge.getCons().intValue() + "_"
-						+ nbTokens % edge.getCons().intValue());
-				nbTokens += treatEdge.getProd().intValue();
-				broadcast.addSource(output);
-				
-				
-				SDFAbstractVertex target = treatEdge.getTarget();
-				SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast,
-						target);
-				newEdge.copyProperties(treatEdge);
-				// The modifier of the source port should not be copied.
-				// Instead, always set to pure_out
-				newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_PURE_OUT));
-				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
-						.intValue()));
-				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
-						.intValue() * target.getNbRepeatAsInteger()));
-				newEdge.setSourceInterface(output);
-				newEdge.setTargetInterface(treatEdge.getTargetInterface());
-				newEdge.setDataType(treatEdge.getDataType());
-				parentGraph.removeEdge(treatEdge);
-				outEdges.remove(0);
-			}
-
+			addBroadcast(parentGraph, vertex);
 		} else if (needExplode && depth == 0) {
-			SDFForkVertex explode = new SDFForkVertex();
-			SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
-			input.setName("in");
-			explode.setName("explode_" + vertex.getName());
-			parentGraph.addVertex(explode);
-			SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, explode);
-			edge.copyProperties(outEdges.get(0));
-			// The modifier of the target port should not be copied.
-			edge.setTargetPortModifier(null);
-			edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
-					.intValue()));
-			edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
-					.intValue()));
-			edge.setTargetInterface(input);
-			
-			// Add all output edges
-			int nbTokens = 0;
-			while (outEdges.size() > 0) {
-				SDFEdge treatEdge = outEdges.get(0);
-				
-				SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
-				output.setName("out"+nbTokens);
-				nbTokens+=treatEdge.getCons()
-						.intValue()	* treatEdge.getTarget().getNbRepeatAsInteger();
-				
-				SDFAbstractVertex target = treatEdge.getTarget();
-				SDFEdge newEdge = (SDFEdge) parentGraph
-						.addEdge(explode, target);
-				newEdge.copyProperties(treatEdge);
-				// The modifier of the source port should not be copied.
-				edge.setSourcePortModifier(null);
-				newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
-						.intValue()));
-				newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
-						.intValue()
-						* treatEdge.getTarget().getNbRepeatAsInteger()));
-				newEdge.setSourceInterface(output);
-				newEdge.setTargetInterface(treatEdge.getTargetInterface());
-				newEdge.setDataType(treatEdge.getDataType());
-				parentGraph.removeEdge(treatEdge);
-				outEdges.remove(0);
-			}
+			addExplode(parentGraph, vertex);
+		}
+	}
 
+	private void addExplode(AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph,
+			SDFSourceInterfaceVertex vertex) throws InvalidExpressionException {
+		
+		Vector<SDFEdge> outEdges = new Vector<SDFEdge>(
+				parentGraph.outgoingEdgesOf(vertex));
+		
+		SDFForkVertex explode = new SDFForkVertex();
+		SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
+		input.setName("in");
+		explode.setName("explode_" + vertex.getName());
+		parentGraph.addVertex(explode);
+		SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, explode);
+		edge.copyProperties(outEdges.get(0));
+		// The modifier of the target port should not be copied.
+		edge.setTargetPortModifier(null);
+		edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
+				.intValue()));
+		edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
+				.intValue()));
+		edge.setTargetInterface(input);
+
+		// Add all output edges
+		int nbTokens = 0;
+		while (outEdges.size() > 0) {
+			SDFEdge treatEdge = outEdges.get(0);
+
+			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
+			output.setName("out" + nbTokens);
+			nbTokens += treatEdge.getCons().intValue()
+					* treatEdge.getTarget().getNbRepeatAsInteger();
+
+			SDFAbstractVertex target = treatEdge.getTarget();
+			SDFEdge newEdge = (SDFEdge) parentGraph
+					.addEdge(explode, target);
+			newEdge.copyProperties(treatEdge);
+			// The modifier of the source port should not be copied.
+			edge.setSourcePortModifier(null);
+			newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
+					.intValue()));
+			newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
+					.intValue()
+					* treatEdge.getTarget().getNbRepeatAsInteger()));
+			newEdge.setSourceInterface(output);
+			newEdge.setTargetInterface(treatEdge.getTargetInterface());
+			newEdge.setDataType(treatEdge.getDataType());
+			parentGraph.removeEdge(treatEdge);
+			outEdges.remove(0);
+		}
+	}
+
+	private void addBroadcast(AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph, SDFSourceInterfaceVertex vertex) throws InvalidExpressionException {
+		
+		Vector<SDFEdge> outEdges = new Vector<SDFEdge>(
+				parentGraph.outgoingEdgesOf(vertex));
+		
+		SDFBroadcastVertex broadcast = new SDFBroadcastVertex();
+		SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
+		input.setName("in");
+		broadcast.setName("broadcast_" + vertex.getName());
+		broadcast.addSink(input);
+
+		parentGraph.addVertex(broadcast);
+		SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
+		edge.copyProperties(outEdges.get(0));
+		// The modifier of the target port should not be copied.
+		// Instead, always set to pure_in
+		edge.setTargetPortModifier(new SDFStringEdgePropertyType(
+				SDFEdge.MODIFIER_PURE_IN));
+		edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
+				.intValue()));
+		edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
+				.intValue()));
+		edge.setTargetInterface(input);
+
+		// Add all output edges
+		int nbTokens = 0;
+		while (outEdges.size() > 0) {
+			// The processed edge
+			SDFEdge treatEdge = outEdges.get(0);
+
+			// Create a new output port
+			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
+			output.setName("out_" + nbTokens / edge.getCons().intValue()
+					+ "_" + nbTokens % edge.getCons().intValue());
+			nbTokens += treatEdge.getProd().intValue();
+			broadcast.addSource(output);
+
+			SDFAbstractVertex target = treatEdge.getTarget();
+			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast,
+					target);
+			newEdge.copyProperties(treatEdge);
+			// The modifier of the source port should not be copied.
+			// Instead, always set to pure_out
+			newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
+					SDFEdge.MODIFIER_PURE_OUT));
+			newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
+					.intValue()));
+			newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
+					.intValue() * target.getNbRepeatAsInteger()));
+			newEdge.setSourceInterface(output);
+			newEdge.setTargetInterface(treatEdge.getTargetInterface());
+			newEdge.setDataType(treatEdge.getDataType());
+			parentGraph.removeEdge(treatEdge);
+			outEdges.remove(0);
 		}
 	}
 
