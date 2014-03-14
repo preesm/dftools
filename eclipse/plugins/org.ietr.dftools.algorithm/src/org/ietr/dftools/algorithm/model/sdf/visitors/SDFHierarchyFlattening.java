@@ -45,14 +45,19 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 	 * @throws SDF4JException
 	 */
 	public void flattenGraph(SDFGraph sdf, int depth) throws SDF4JException {
-		if (depth > 0) {
-			int newDepth = depth - 1;
+		boolean flatteningEnded = false;
+		int newDepth = depth;
+		SDFGraph graph = sdf;
+		while (!flatteningEnded) {
+			newDepth--;
 
-			prepareGraphHierarchy(sdf, newDepth);
+			prepareGraphHierarchy(graph, newDepth);
 
 			SDFHierarchyInstanciation instantiate = new SDFHierarchyInstanciation();
-			sdf.accept(instantiate);
+			graph.accept(instantiate);
+
 			output = instantiate.getOutput();
+
 			if (!output.isSchedulable()) {
 				throw (new SDF4JException("graph not schedulable"));
 			}
@@ -60,11 +65,36 @@ public class SDFHierarchyFlattening extends AbstractHierarchyFlattening<SDFGraph
 			flattenVertices(output);
 
 			output.getPropertyBean().setValue("schedulable", true);
-			flattenGraph(output, newDepth);
 
-		} else {
-			return;
+			flatteningEnded = newDepth == 0 /* || !output.isHierarchical() */;
+
+			graph = output;
 		}
+		//
+		// if (depth > 0) {
+		// int newDepth = depth - 1;
+		//
+		// prepareGraphHierarchy(sdf, newDepth);
+		//
+		// SDFHierarchyInstanciation instantiate = new
+		// SDFHierarchyInstanciation();
+		// sdf.accept(instantiate);
+		//
+		// output = instantiate.getOutput();
+		//
+		// if (!output.isSchedulable()) {
+		// throw (new SDF4JException("graph not schedulable"));
+		// }
+		//
+		// flattenVertices(output);
+		//
+		// output.getPropertyBean().setValue("schedulable", true);
+		//
+		// flattenGraph(output, newDepth);
+		//
+		// } else {
+		// return;
+		// }
 	}
 
 	/**
