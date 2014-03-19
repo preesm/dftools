@@ -184,8 +184,8 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 		if (vertex.getGraphDescription() != null
 				&& vertex.getGraphDescription().getName().length() > 0) {
 			String filePath = vertex.getGraphDescription().getName();
-			if (!filePath.contains(".xml")) {
-				filePath = filePath + ".xml";
+			if (!filePath.contains(".graphml")) {
+				filePath = filePath + ".graphml";
 				vertex.getGraphDescription().setName(filePath);
 			}
 			filePath.replace(File.separator, "/");
