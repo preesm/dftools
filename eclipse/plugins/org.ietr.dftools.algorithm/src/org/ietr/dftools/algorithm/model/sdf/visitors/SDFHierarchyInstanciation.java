@@ -43,7 +43,6 @@ public class SDFHierarchyInstanciation implements
 
 	private SDFGraph outputGraph;
 
-	
 	/**
 	 * GIves this visitor output
 	 * 
@@ -55,82 +54,124 @@ public class SDFHierarchyInstanciation implements
 
 	private void createEdge(SDFGraph sdf, SDFGraph output, SDFEdge edge,
 			Vector<SDFAbstractVertex> sourceCopies,
-			Vector<SDFAbstractVertex> targetCopies, int targetIndex, int sourceIndex, int rest, int nbDelays, int sourceProd, int targetCons) throws InvalidExpressionException{
+			Vector<SDFAbstractVertex> targetCopies, int targetIndex,
+			int sourceIndex, int rest, int nbDelays, int sourceProd,
+			int targetCons) throws InvalidExpressionException {
 		SDFEdge newEdge = null;
 		SDFInterfaceVertex inputVertex = null;
 		SDFInterfaceVertex outputVertex = null;
-		if(output.getAllEdges(sourceCopies.get(sourceIndex), targetCopies.get(targetIndex)) != null){
-			for(SDFEdge existingEdge : output.getAllEdges(sourceCopies.get(sourceIndex), targetCopies.get(targetIndex))){
-				if(existingEdge.getSourceInterface().equals(edge.getSourceInterface()) && existingEdge.getTargetInterface().equals(edge.getTargetInterface())){
-					newEdge = existingEdge ;
-					if(sourceCopies.size() == 1){
-						newEdge.setProd(new SDFIntEdgePropertyType(edge.getProd().intValue()));
-					}else{
-						newEdge.setProd(new SDFIntEdgePropertyType(newEdge.getProd().intValue()+rest)) ;
-					}
-					if(targetCopies.size() == 1){
-						newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons().intValue()));
-					}else{
-						newEdge.setCons(new SDFIntEdgePropertyType(newEdge.getCons().intValue()+rest)) ;
-					}
-				}
-			}
-		}
-		if(newEdge == null){
+
+		newEdge = getExistingEdge(output, edge, sourceCopies, targetCopies,
+				sourceIndex, targetIndex, rest);
+
+		SDFAbstractVertex source = sourceCopies.get(sourceIndex);
+		SDFAbstractVertex target = targetCopies.get(targetIndex);
+
+		if (newEdge == null) {
 			newEdge = output.addEdge(sourceCopies.get(sourceIndex),
 					targetCopies.get(targetIndex));
 			newEdge.copyProperties(edge);
 			newEdge.setProd(new SDFIntEdgePropertyType(rest));
 			newEdge.setCons(new SDFIntEdgePropertyType(rest));
 		}
-		if (sourceCopies.get(sourceIndex).getSink(
-				edge.getSourceInterface().getName()) != null) {
-			
-			newEdge.setSourceInterface(sourceCopies.get(sourceIndex)
-					.getSink(edge.getSourceInterface().getName()));
+		if (source.getSink(edge.getSourceInterface().getName()) != null) {
+
+			newEdge.setSourceInterface(source.getSink(edge.getSourceInterface()
+					.getName()));
 		} else {
 			// If this case is reached, the source is a new explode/broadcast
 			newEdge.setSourceInterface(edge.getSourceInterface().clone());
-			newEdge.getSourceInterface().setName("out"+sourceProd);
+			newEdge.getSourceInterface().setName("out" + sourceProd);
 		}
-		if (targetCopies.get(targetIndex).getSource(
-				edge.getTargetInterface().getName()) != null) {
-			newEdge.setTargetInterface(targetCopies.get(targetIndex)
-					.getSource(edge.getTargetInterface().getName()));
+		if (target.getSource(edge.getTargetInterface().getName()) != null) {
+			newEdge.setTargetInterface(target.getSource(edge
+					.getTargetInterface().getName()));
 		} else {
 			// If this case is reached, the source is a new implode/roundbuffer
 			newEdge.setTargetInterface(edge.getTargetInterface().clone());
-			newEdge.getTargetInterface().setName("in"+targetCons);
+			newEdge.getTargetInterface().setName("in" + targetCons);
 		}
-		if (targetCopies.get(targetIndex) instanceof SDFVertex) {
-			if (((SDFVertex) targetCopies.get(targetIndex))
-					.getAssociatedInterface(edge) != null) {
-				inputVertex = ((SDFVertex) targetCopies.get(targetIndex))
-						.getAssociatedInterface(edge);
-				((SDFVertex) targetCopies.get(targetIndex))
-						.setInterfaceVertexExternalLink(newEdge,
-								inputVertex);
+		
+		if (target instanceof SDFVertex && !(source instanceof SDFForkVertex)) {
+			if (((SDFVertex) target).getAssociatedInterface(edge) != null) {
+				inputVertex = ((SDFVertex) target).getAssociatedInterface(edge);
+				((SDFVertex) target).setInterfaceVertexExternalLink(newEdge,
+						inputVertex);
 			}
 		}
-		if (sourceCopies.get(sourceIndex) instanceof SDFVertex) {
-			if (((SDFVertex) sourceCopies.get(sourceIndex))
-					.getAssociatedInterface(edge) != null) {
-				outputVertex = ((SDFVertex) sourceCopies.get(sourceIndex))
+		if (source instanceof SDFVertex && !(target instanceof SDFJoinVertex)) {
+			if (((SDFVertex) source).getAssociatedInterface(edge) != null) {
+				outputVertex = ((SDFVertex) source)
 						.getAssociatedInterface(edge);
-				((SDFVertex) sourceCopies.get(sourceIndex))
-						.setInterfaceVertexExternalLink(newEdge,
-								outputVertex);
+				((SDFVertex) source).setInterfaceVertexExternalLink(newEdge,
+						outputVertex);
 			}
 		}
 		if (targetIndex == 0 && nbDelays > 0) {
-			newEdge.setDelay(new SDFIntEdgePropertyType(edge.getDelay().intValue()));
-		}else{
+			newEdge.setDelay(new SDFIntEdgePropertyType(edge.getDelay()
+					.intValue()));
+		} else {
 			newEdge.setDelay(new SDFIntEdgePropertyType(0));
 		}
 	}
+
+	/**
+	 * Return an existing edge in output between sourceCopis.get(sourceIndex)
+	 * and targetCopies.get(targetIndex) and corresponding to edge
+	 * 
+	 * @param output
+	 *            the SDFGraph in which we look for an edge
+	 * @param edge
+	 *            the edge to which we compare existing edges
+	 * @param sourceCopies
+	 *            the collection of copies of the source of edge
+	 * @param targetCopies
+	 *            the collections of copies of the target of edge
+	 * @param sourceIndex
+	 * @param targetIndex
+	 * @param rest
+	 * @return the existing edge if any, null otherwise
+	 * @throws InvalidExpressionException
+	 */
+	private SDFEdge getExistingEdge(SDFGraph output, SDFEdge edge,
+			Vector<SDFAbstractVertex> sourceCopies,
+			Vector<SDFAbstractVertex> targetCopies, int sourceIndex,
+			int targetIndex, int rest) throws InvalidExpressionException {
+		SDFEdge newEdge = null;
+		if (output.getAllEdges(sourceCopies.get(sourceIndex),
+				targetCopies.get(targetIndex)) != null) {
+			for (SDFEdge existingEdge : output.getAllEdges(
+					sourceCopies.get(sourceIndex),
+					targetCopies.get(targetIndex))) {
+				if (existingEdge.getSourceInterface().equals(
+						edge.getSourceInterface())
+						&& existingEdge.getTargetInterface().equals(
+								edge.getTargetInterface())) {
+					newEdge = existingEdge;
+					if (sourceCopies.size() == 1) {
+						newEdge.setProd(new SDFIntEdgePropertyType(edge
+								.getProd().intValue()));
+					} else {
+						newEdge.setProd(new SDFIntEdgePropertyType(newEdge
+								.getProd().intValue() + rest));
+					}
+					if (targetCopies.size() == 1) {
+						newEdge.setCons(new SDFIntEdgePropertyType(edge
+								.getCons().intValue()));
+					} else {
+						newEdge.setCons(new SDFIntEdgePropertyType(newEdge
+								.getCons().intValue() + rest));
+					}
+				}
+			}
+		}
+		return newEdge;
+	}
+
 	private void linkRepetitions(SDFGraph sdf, SDFGraph output, SDFEdge edge,
 			Vector<SDFAbstractVertex> sourceCopies,
-			Vector<SDFAbstractVertex> targetCopies) throws InvalidExpressionException {
+			Vector<SDFAbstractVertex> targetCopies)
+			throws InvalidExpressionException {
 		sdf.getEdgeSource(edge);
 		sdf.getEdgeTarget(edge);
 		int nbDelays = edge.getDelay().intValue();
@@ -141,17 +182,20 @@ public class SDFHierarchyInstanciation implements
 				% targetCopies.size(), sourceIndex = 0;
 		int rest = Math.min(edge.getProd().intValue(), edge.getCons()
 				.intValue());
-		while (totProd < (edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger())) {
+		while (totProd < (edge.getCons().intValue() * edge.getTarget()
+				.getNbRepeatAsInteger())) {
 			// testing this block for inserting explode and implode vertices
-			if ((rest < (edge.getProd().intValue() * (edge.getSource().getNbRepeatAsInteger()/sourceCopies.size())))
- 					&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
-					/*&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)*/) {
+			if ((rest < (edge.getProd().intValue() * (edge.getSource()
+					.getNbRepeatAsInteger() / sourceCopies.size())))
+					&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
+			/* && !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex) */) {
 				SDFAbstractVertex explodeVertex = new SDFForkVertex();
-				
+
 				output.addVertex(explodeVertex);
 				SDFAbstractVertex originVertex = (SDFAbstractVertex) sourceCopies
 						.get(sourceIndex);
-				explodeVertex.setName("explode_"+originVertex.getName()+"_"+edge.getSourceInterface().getName());
+				explodeVertex.setName("explode_" + originVertex.getName() + "_"
+						+ edge.getSourceInterface().getName());
 				sourceCopies.set(sourceIndex, explodeVertex);
 				SDFEdge newEdge = output.addEdge(originVertex, explodeVertex);
 				newEdge.copyProperties(edge);
@@ -175,19 +219,22 @@ public class SDFHierarchyInstanciation implements
 				explodeVertex.addSink(in);
 				newEdge.setTargetInterface(in);
 			}
-			if ((rest < (edge.getCons().intValue() * (edge.getTarget().getNbRepeatAsInteger()/targetCopies.size())) )
+			if ((rest < (edge.getCons().intValue() * (edge.getTarget()
+					.getNbRepeatAsInteger() / targetCopies.size())))
 					&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)) {
 				SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 				output.addVertex(implodeVertex);
 				SDFAbstractVertex originVertex = (SDFAbstractVertex) targetCopies
 						.get(targetIndex);
-				implodeVertex.setName("implode_"+originVertex.getName()+"_"+edge.getTargetInterface().getName());
+				implodeVertex.setName("implode_" + originVertex.getName() + "_"
+						+ edge.getTargetInterface().getName());
 				targetCopies.set(targetIndex, implodeVertex);
 				SDFEdge newEdge = output.addEdge(implodeVertex, originVertex);
 				newEdge.copyProperties(edge);
 				newEdge.setDelay(new SDFIntEdgePropertyType(0));
 				newEdge.setProd(new SDFIntEdgePropertyType((edge.getCons()
-						.intValue()/targetCopies.size()) * sourceCopies.size()));
+						.intValue() / targetCopies.size())
+						* sourceCopies.size()));
 				newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons()
 						.intValue()));
 				newEdge.setDataType(edge.getDataType());
@@ -197,9 +244,9 @@ public class SDFHierarchyInstanciation implements
 				newEdge.setTargetInterface(edge.getTargetInterface());
 			}
 			// end of testing zone
-			createEdge(sdf, output, edge,
-					sourceCopies,
-					targetCopies, targetIndex,sourceIndex, rest,nbDelays, sourceProd, targetCons);
+			createEdge(sdf, output, edge, sourceCopies, targetCopies,
+					targetIndex, sourceIndex, rest, nbDelays, sourceProd,
+					targetCons);
 			sourceProd += rest;
 			targetCons += rest;
 			totProd += rest;
@@ -239,22 +286,28 @@ public class SDFHierarchyInstanciation implements
 					.getEdgeSource(edge));
 			Vector<SDFAbstractVertex> targetCopies = matchCopies.get(sdf
 					.getEdgeTarget(edge));
-			if(sourceCopies.size() == 1 && targetCopies.size() == 1){ // no copies !
-				SDFEdge newEdge = output.addEdge(sourceCopies.get(0), targetCopies.get(0));
+			if (sourceCopies.size() == 1 && targetCopies.size() == 1) { // no
+																		// copies
+																		// !
+				SDFEdge newEdge = output.addEdge(sourceCopies.get(0),
+						targetCopies.get(0));
 				newEdge.copyProperties(edge);
-				newEdge.setDelay(new SDFIntEdgePropertyType(edge.getDelay().intValue()));
+				newEdge.setDelay(new SDFIntEdgePropertyType(edge.getDelay()
+						.intValue()));
 				newEdge.setProd(new SDFIntEdgePropertyType(edge.getProd()
 						.intValue()));
-				newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons().intValue()));
+				newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons()
+						.intValue()));
 				newEdge.setDataType(edge.getDataType());
 				newEdge.setSourceInterface(edge.getSourceInterface());
 				newEdge.setTargetInterface(edge.getTargetInterface());
-				
-			}else{
+
+			} else {
 				linkRepetitions(sdf, output, edge, sourceCopies, targetCopies);
 			}
 			for (int i = 0; i < sourceCopies.size(); i++) {
-				if (sourceCopies.get(i) instanceof SDFForkVertex && sdf.getVertex(sourceCopies.get(i).getName()) == null) {
+				if (sourceCopies.get(i) instanceof SDFForkVertex
+						&& sdf.getVertex(sourceCopies.get(i).getName()) == null) {
 					SDFAbstractVertex trueSource = null;
 					for (SDFEdge inEdge : output.incomingEdgesOf(sourceCopies
 							.get(i))) {
@@ -264,7 +317,8 @@ public class SDFHierarchyInstanciation implements
 				}
 			}
 			for (int i = 0; i < targetCopies.size(); i++) {
-				if (targetCopies.get(i) instanceof SDFJoinVertex && sdf.getVertex(targetCopies.get(i).getName()) == null) {
+				if (targetCopies.get(i) instanceof SDFJoinVertex
+						&& sdf.getVertex(targetCopies.get(i).getName()) == null) {
 					SDFAbstractVertex trueTarget = null;
 					for (SDFEdge inEdge : output.outgoingEdgesOf(targetCopies
 							.get(i))) {
@@ -276,15 +330,18 @@ public class SDFHierarchyInstanciation implements
 		}
 	}
 
-	private void transformsTop(SDFGraph graph, SDFGraph output) throws InvalidExpressionException, SDF4JException {
+	private void transformsTop(SDFGraph graph, SDFGraph output)
+			throws InvalidExpressionException, SDF4JException {
 		HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies = new HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>>();
 		CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
 				graph);
-		List<SDFAbstractVertex> needToBeRepeated = new ArrayList<SDFAbstractVertex>() ;
-		List<SDFAbstractVertex> conccurentList = new ArrayList<SDFAbstractVertex>(graph.vertexSet()) ;
+		List<SDFAbstractVertex> needToBeRepeated = new ArrayList<SDFAbstractVertex>();
+		List<SDFAbstractVertex> conccurentList = new ArrayList<SDFAbstractVertex>(
+				graph.vertexSet());
 		for (SDFAbstractVertex vertex : conccurentList) {
-			if(vertex.getGraphDescription() != null){
-				Set<SDFAbstractVertex> cycle = detector.findCyclesContainingVertex(vertex);
+			if (vertex.getGraphDescription() != null) {
+				Set<SDFAbstractVertex> cycle = detector
+						.findCyclesContainingVertex(vertex);
 				needToBeRepeated.addAll(cycle);
 			}
 		}
@@ -301,8 +358,8 @@ public class SDFHierarchyInstanciation implements
 					@SuppressWarnings("unchecked")
 					CycleDetector<SDFAbstractVertex, SDFEdge> cycleDetector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
 							vertex.getGraphDescription());
-					if(cycleDetector.detectCycles()){
-						for (int i = 0; i < vertex.getNbRepeatAsInteger() ; i++) {
+					if (cycleDetector.detectCycles()) {
+						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
 							SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 									.clone();
 							copy.setName(copy.getName() + "_" + i);
@@ -310,13 +367,13 @@ public class SDFHierarchyInstanciation implements
 							output.addVertex(copy);
 							copies.add(copy);
 						}
-					}else{
+					} else {
 						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 								.clone();
 						output.addVertex(copy);
 						copies.add(copy);
 					}
-				}else if (needToBeRepeated.contains(vertex)) {
+				} else if (needToBeRepeated.contains(vertex)) {
 					for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
 						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 								.clone();
@@ -325,7 +382,7 @@ public class SDFHierarchyInstanciation implements
 						output.addVertex(copy);
 						copies.add(copy);
 					}
-				}else {
+				} else {
 					SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
 							.clone();
 					output.addVertex(copy);
@@ -335,7 +392,8 @@ public class SDFHierarchyInstanciation implements
 			linkVerticesTop(graph, matchCopies, output);
 			output.getPropertyBean().setValue("schedulable", true);
 		} else {
-			VisitorOutput.getLogger().log(Level.SEVERE, "graph "+graph.getName()+" is not schedulable");
+			VisitorOutput.getLogger().log(Level.SEVERE,
+					"graph " + graph.getName() + " is not schedulable");
 		}
 	}
 
@@ -348,9 +406,8 @@ public class SDFHierarchyInstanciation implements
 		try {
 			transformsTop(sdf, outputGraph);
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw(new SDF4JException(e.getMessage()));
+			throw (new SDF4JException(e.getMessage()));
 		}
 	}
 
@@ -361,12 +418,11 @@ public class SDFHierarchyInstanciation implements
 		 */
 	}
 
-
 	/**
 	 * Main method for debug purposes
 	 * 
 	 * @param args
-	 * @throws InvalidExpressionException 
+	 * @throws InvalidExpressionException
 	 */
 	public static void main(String[] args) throws InvalidExpressionException {
 		SDFAdapterDemo applet = new SDFAdapterDemo();
@@ -379,20 +435,17 @@ public class SDFHierarchyInstanciation implements
 					"D:\\IDCT2D\\idct2dCadOptim.graphml"));
 			SDFHierarchyFlattening visitor = new SDFHierarchyFlattening();
 			DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<DirectedAcyclicGraph>(
-					new DirectedAcyclicGraph(),DAGVertexFactory.getInstance());
+					new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
 			visitor.flattenGraph(demoGraph, 1);
 			visitor.getOutput().accept(dageur);
 			applet2.init(visitor.getOutput());
 			applet.init(demoGraph);
 			applet3.init(dageur.getOutput());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
