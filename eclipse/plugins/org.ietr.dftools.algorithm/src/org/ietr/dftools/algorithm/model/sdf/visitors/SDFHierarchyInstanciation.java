@@ -158,7 +158,16 @@ public class SDFHierarchyInstanciation implements
 				newEdge.setDelay(new SDFIntEdgePropertyType(0));
 				newEdge.setProd(new SDFIntEdgePropertyType(edge.getProd()
 						.intValue()));
-				newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
+				/*
+				 * We multiply by the number of repetitions of the source to
+				 * prevent the case where edge stand between two vertices with
+				 * the same repetition number, but where only one is
+				 * instantiated during flattening (see Judicael's stereo_matcher
+				 * application with the edge between cost_construction and
+				 * aggregate)
+				 */
+				newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd()
+						.intValue() * edge.getSource().getNbRepeatAsInteger()));
 				newEdge.setDataType(edge.getDataType());
 				newEdge.setSourceInterface(edge.getSourceInterface());
 				SDFSinkInterfaceVertex in = new SDFSinkInterfaceVertex();
