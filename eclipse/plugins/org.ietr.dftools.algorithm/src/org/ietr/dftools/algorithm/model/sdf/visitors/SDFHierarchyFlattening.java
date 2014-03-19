@@ -61,13 +61,6 @@ public class SDFHierarchyFlattening extends
 			output = instantiate.getOutput();
 
 			if (!output.isSchedulable()) {
-
-				// TODO: Remove after debug
-				// GMLSDFExporter exporter = new GMLSDFExporter();
-				// SDFGraph clone = output.clone();
-				// exporter.export(clone,
-				// "/home/cguy/Bureau/NonSchedulable.graphml");
-
 				throw (new SDF4JException("graph not schedulable"));
 			}
 
@@ -75,7 +68,7 @@ public class SDFHierarchyFlattening extends
 
 			output.getPropertyBean().setValue("schedulable", true);
 
-			flatteningEnded = newDepth == 0 /* || !output.isHierarchical() */;
+			flatteningEnded = newDepth == 0;
 
 			graph = output;
 		}
@@ -329,11 +322,11 @@ public class SDFHierarchyFlattening extends
 	protected void treatSinkInterface(AbstractVertex port,
 			AbstractGraph parentGraph, int depth)
 			throws InvalidExpressionException {
-		
+
 		if (!(port instanceof SDFSinkInterfaceVertex)) {
 			return;
 		}
-		
+
 		SDFSinkInterfaceVertex vertex = (SDFSinkInterfaceVertex) port;
 		boolean needRoundBuffer = false;
 		boolean needImplode = false;
@@ -359,7 +352,7 @@ public class SDFHierarchyFlattening extends
 	private void addImplode(
 			AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph,
 			SDFSinkInterfaceVertex vertex) throws InvalidExpressionException {
-		
+
 		Vector<SDFEdge> inEdges = new Vector<SDFEdge>(
 				parentGraph.incomingEdgesOf(vertex));
 
@@ -511,12 +504,13 @@ public class SDFHierarchyFlattening extends
 		}
 	}
 
-	private void addExplode(AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph,
+	private void addExplode(
+			AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph,
 			SDFSourceInterfaceVertex vertex) throws InvalidExpressionException {
-		
+
 		Vector<SDFEdge> outEdges = new Vector<SDFEdge>(
 				parentGraph.outgoingEdgesOf(vertex));
-		
+
 		SDFForkVertex explode = new SDFForkVertex();
 		SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
 		input.setName("in");
@@ -543,16 +537,14 @@ public class SDFHierarchyFlattening extends
 					* treatEdge.getTarget().getNbRepeatAsInteger();
 
 			SDFAbstractVertex target = treatEdge.getTarget();
-			SDFEdge newEdge = (SDFEdge) parentGraph
-					.addEdge(explode, target);
+			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(explode, target);
 			newEdge.copyProperties(treatEdge);
 			// The modifier of the source port should not be copied.
 			edge.setSourcePortModifier(null);
 			newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
 					.intValue()));
 			newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()
-					.intValue()
-					* treatEdge.getTarget().getNbRepeatAsInteger()));
+					.intValue() * treatEdge.getTarget().getNbRepeatAsInteger()));
 			newEdge.setSourceInterface(output);
 			newEdge.setTargetInterface(treatEdge.getTargetInterface());
 			newEdge.setDataType(treatEdge.getDataType());
@@ -561,11 +553,13 @@ public class SDFHierarchyFlattening extends
 		}
 	}
 
-	private void addBroadcast(AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph, SDFSourceInterfaceVertex vertex) throws InvalidExpressionException {
-		
+	private void addBroadcast(
+			AbstractGraph<SDFAbstractVertex, SDFEdge> parentGraph,
+			SDFSourceInterfaceVertex vertex) throws InvalidExpressionException {
+
 		Vector<SDFEdge> outEdges = new Vector<SDFEdge>(
 				parentGraph.outgoingEdgesOf(vertex));
-		
+
 		SDFBroadcastVertex broadcast = new SDFBroadcastVertex();
 		SDFSourceInterfaceVertex input = new SDFSourceInterfaceVertex();
 		input.setName("in");
@@ -593,14 +587,13 @@ public class SDFHierarchyFlattening extends
 
 			// Create a new output port
 			SDFSinkInterfaceVertex output = new SDFSinkInterfaceVertex();
-			output.setName("out_" + nbTokens / edge.getCons().intValue()
-					+ "_" + nbTokens % edge.getCons().intValue());
+			output.setName("out_" + nbTokens / edge.getCons().intValue() + "_"
+					+ nbTokens % edge.getCons().intValue());
 			nbTokens += treatEdge.getProd().intValue();
 			broadcast.addSource(output);
 
 			SDFAbstractVertex target = treatEdge.getTarget();
-			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast,
-					target);
+			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast, target);
 			newEdge.copyProperties(treatEdge);
 			// The modifier of the source port should not be copied.
 			// Instead, always set to pure_out
