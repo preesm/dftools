@@ -11,6 +11,7 @@ import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
 import org.ietr.dftools.algorithm.factories.SDFVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
+import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
@@ -109,6 +110,18 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				|| target instanceof SDFRoundBufferVertex) {
 			target.connectionAdded(newEdge);
 		}
+		return newEdge;
+	}
+
+	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target,
+			AbstractEdgePropertyType<?> prod, AbstractEdgePropertyType<?> cons,
+			AbstractEdgePropertyType<?> delay) {
+		// Create the edge
+		SDFEdge newEdge = this.addEdge(source, target);
+		// Set its production rate, consumption rate and delay
+		newEdge.setCons(cons);
+		newEdge.setProd(prod);
+		newEdge.setDelay(delay);
 		return newEdge;
 	}
 
