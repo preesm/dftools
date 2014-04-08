@@ -178,11 +178,9 @@ public class ToHSDFVisitor implements
 				int iterationDiff = absoluteTarget / totalNbTokens
 						- absoluteSource / totalNbTokens;
 
-				
-
 				// Testing zone beginning
 				// for inserting explode and implode vertices
-				// boolean set to true if an explode should be added 
+				// boolean set to true if an explode should be added
 				boolean explode = rest < edge.getProd().intValue();
 				boolean implode = rest < edge.getCons().intValue();
 				if (explode
@@ -217,7 +215,7 @@ public class ToHSDFVisitor implements
 					// Add a target port modifier to the edge
 					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
 							SDFEdge.MODIFIER_PURE_IN));
-				} 
+				}
 				if (implode
 						&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)
 						&& !(targetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)) {
@@ -249,7 +247,7 @@ public class ToHSDFVisitor implements
 					// Add a source port modifier to the edge
 					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
 							SDFEdge.MODIFIER_PURE_OUT));
-				} 
+				}
 				// end of testing zone
 
 				// Create the new Edge for the output graph
@@ -262,9 +260,9 @@ public class ToHSDFVisitor implements
 				// new output ports. Contrary to ports of join/roundbuffer, no
 				// special processing is needed to order the edges.
 				if (sourceCopies.get(sourceIndex) == originalSourceCopies
-						.get(sourceIndex) && (!explode ||
-						!(originalSourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex) &&
-						!(originalSourceCopies.get(sourceIndex) instanceof SDFForkVertex))) {
+						.get(sourceIndex)
+						&& (!explode || !(originalSourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)
+								&& !(originalSourceCopies.get(sourceIndex) instanceof SDFForkVertex))) {
 					// If the source is not a new fork/broadcast
 					if (sourceCopies.get(sourceIndex).getSink(
 							edge.getSourceInterface().getName()) != null) {
@@ -297,13 +295,13 @@ public class ToHSDFVisitor implements
 				// we need to take extra care to make sure the incoming edges
 				// are in the right order (which might be a little bit complex
 				// when playing with delays)
-				
-				// If the target is not a new join/roundbuffer				
+
+				// If the target is not a new join/roundbuffer
 				if (targetCopies.get(targetIndex) == originalTargetCopies
-						.get(targetIndex) && (!implode ||
-								!(originalTargetCopies.get(targetIndex) instanceof SDFRoundBufferVertex) &&
-								!(originalTargetCopies.get(targetIndex) instanceof SDFJoinVertex))) {
-					
+						.get(targetIndex)
+						&& (!implode || !(originalTargetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)
+								&& !(originalTargetCopies.get(targetIndex) instanceof SDFJoinVertex))) {
+
 					// if the target already has the appropriate interface
 					if (targetCopies.get(targetIndex).getSource(
 							edge.getTargetInterface().getName()) != null) {
@@ -327,7 +325,7 @@ public class ToHSDFVisitor implements
 						// after the while loop
 					}
 				}
-				// If the target is join/roundbuffer 
+				// If the target is join/roundbuffer
 				else {
 					SDFInterfaceVertex targetInterface = edge
 							.getTargetInterface().clone();
@@ -339,8 +337,8 @@ public class ToHSDFVisitor implements
 							SDFEdge.MODIFIER_PURE_IN));
 
 					// Reorder the input of the target only for newly added join
-					if(targetCopies.get(targetIndex) != originalTargetCopies
-						.get(targetIndex)){
+					if (targetCopies.get(targetIndex) != originalTargetCopies
+							.get(targetIndex)) {
 						SDFAbstractVertex targetVertex = newEdge.getTarget();
 						@SuppressWarnings("unchecked")
 						Map<Integer, SDFEdge> edgeOrder = (Map<Integer, SDFEdge>) targetVertex
@@ -508,6 +506,14 @@ public class ToHSDFVisitor implements
 		}
 	}
 
+	// This map associates each vertex of the input graph to corresponding
+	// instances in the output graph
+	private HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies;	
+
+	public Map<SDFAbstractVertex, Vector<SDFAbstractVertex>> getMatchCopies() {
+		return matchCopies;
+	}
+
 	/**
 	 * This method transforms a schedulable {@link SDFGraph} into its equivalent
 	 * Single-Rate {@link SDFGraph}. The method duplicate the vertices according
@@ -526,7 +532,7 @@ public class ToHSDFVisitor implements
 			throws SDF4JException, InvalidExpressionException {
 		// This map associates each vertex of the input graph to corresponding
 		// instances in the output graph
-		HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies = new HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>>();
+		matchCopies = new HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>>();
 
 		if (graph.isSchedulable()) {
 			// Scan the vertices of the input graph
