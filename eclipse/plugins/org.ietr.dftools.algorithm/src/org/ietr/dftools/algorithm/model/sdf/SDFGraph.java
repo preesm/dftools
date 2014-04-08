@@ -113,6 +113,19 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return newEdge;
 	}
 
+	public SDFEdge addEdge(SDFAbstractVertex source, IInterface sourcePort,
+			SDFAbstractVertex target, IInterface targetPort,
+			AbstractEdgePropertyType<?> prod, AbstractEdgePropertyType<?> cons,
+			AbstractEdgePropertyType<?> delay) {
+		// Create the edge
+		SDFEdge newEdge = this.addEdge(source, sourcePort, target, targetPort);
+		// Set its production rate, consumption rate and delay
+		newEdge.setCons(cons);
+		newEdge.setProd(prod);
+		newEdge.setDelay(delay);
+		return newEdge;
+	}
+	
 	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target,
 			AbstractEdgePropertyType<?> prod, AbstractEdgePropertyType<?> cons,
 			AbstractEdgePropertyType<?> delay) {
@@ -874,5 +887,4 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			throw new SDF4JException(this.getName() + ": " + e.getMessage());
 		}
 	}
-
 }
