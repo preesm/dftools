@@ -71,7 +71,6 @@ public class ToHSDFVisitor implements
 			applet2.init(demoGraph);
 			applet.init(visitor.getOutput());
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -508,7 +507,7 @@ public class ToHSDFVisitor implements
 
 	// This map associates each vertex of the input graph to corresponding
 	// instances in the output graph
-	private HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies;	
+	private HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies;
 
 	public Map<SDFAbstractVertex, Vector<SDFAbstractVertex>> getMatchCopies() {
 		return matchCopies;
@@ -623,25 +622,25 @@ public class ToHSDFVisitor implements
 			throw (new SDF4JException(e.getMessage()));
 		}
 
-		if (isHSDF) {
-			return;
-		}
-		outputGraph.clean();
+		if (!isHSDF) {
+			hasChanged = true;
+			outputGraph.clean();
 
-		ArrayList<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(
-				sdf.vertexSet());
-		for (int i = 0; i < vertices.size(); i++) {
-			if (vertices.get(i) instanceof SDFVertex) {
-				vertices.get(i).accept(this);
+			ArrayList<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(
+					sdf.vertexSet());
+			for (int i = 0; i < vertices.size(); i++) {
+				if (vertices.get(i) instanceof SDFVertex) {
+					vertices.get(i).accept(this);
+				}
+			}
+			try {
+				transformsTop(sdf, outputGraph);
+			} catch (InvalidExpressionException e) {
+				e.printStackTrace();
+				throw (new SDF4JException(e.getMessage()));
 			}
 		}
-		try {
-			transformsTop(sdf, outputGraph);
-		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw (new SDF4JException(e.getMessage()));
-		}
+
 	}
 
 	public void visit(SDFAbstractVertex sdfVertex) {
@@ -697,6 +696,17 @@ public class ToHSDFVisitor implements
 		graph.addVariable(new Variable("b", "10"));
 
 		return graph;
+	}
+
+	// Indicates whether the visited SDFGraph has been changed or not
+	private boolean hasChanged = false;
+
+	/**
+	 * @return false if the visited SDFGraph was already in single rate, true
+	 *         otherwise
+	 */
+	public boolean hasChanged() {
+		return hasChanged;
 	}
 
 }
