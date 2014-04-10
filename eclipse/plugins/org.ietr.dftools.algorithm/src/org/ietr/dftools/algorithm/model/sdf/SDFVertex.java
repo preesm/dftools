@@ -88,6 +88,7 @@ public class SDFVertex extends SDFAbstractVertex {
 		} catch (InvalidExpressionException e) {
 			e.printStackTrace();
 		}
+		
 		return newVertex;
 	}
 

@@ -44,7 +44,6 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 		try {
 			copy.setNbRepeat(this.getNbRepeat());
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

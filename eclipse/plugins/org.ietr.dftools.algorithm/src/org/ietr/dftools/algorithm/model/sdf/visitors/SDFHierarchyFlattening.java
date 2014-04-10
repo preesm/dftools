@@ -50,6 +50,7 @@ public class SDFHierarchyFlattening extends
 		boolean flatteningEnded = false;
 		int newDepth = depth;
 		SDFGraph graph = sdf;
+		
 		while (!flatteningEnded) {
 			newDepth--;
 

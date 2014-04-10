@@ -181,6 +181,7 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 			vertexElt.setAttribute("port_direction",
 					((SDFInterfaceVertex) vertex).getDirection().toString());
 		}
+		
 		if (vertex.getGraphDescription() != null
 				&& vertex.getGraphDescription().getName().length() > 0) {
 			String filePath = vertex.getGraphDescription().getName();
