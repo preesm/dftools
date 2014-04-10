@@ -50,6 +50,19 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  */
 public abstract class AbstractTaskImplementation extends
 		AbstractWorkflowNodeImplementation {
+	
+	/**
+	 * Input/Output keys for SDF tasks
+	 */
+	protected final static String SDF_SCENARIO_KEY = "scenario"; // Should give a PreesmScenario object
+	protected final static String SDF_GRAPHS_SET_KEY = "SDFs"; // Should give a Set<SDFGraph> object
+	protected final static String SDF_GRAPH_KEY = "SDF"; // Should give an SDFGraph object
+	/**
+	 * Input/Output keys for PiMM tasks
+	 */
+	protected final static String PI_SCENARIO_KEY = "scenario"; // Should give a PiScenario object
+	protected final static String PI_GRAPH_KEY = "PiMM"; // Should give a PiGraph object
+
 
 	/**
 	 * Id and fully qualified names of task input and output retrieved from the
