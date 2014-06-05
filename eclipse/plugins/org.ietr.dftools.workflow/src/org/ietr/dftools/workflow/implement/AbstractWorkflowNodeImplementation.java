@@ -28,6 +28,8 @@ public abstract class AbstractWorkflowNodeImplementation {
 	protected final static String KEY_SDF_DAG_SET = "DAGs"; // Should give a Set<MapperDAG> object
 	protected final static String KEY_SDF_ABC = "ABC"; // Should give a IAbc object
 	protected final static String KEY_SDF_ABC_SET = "ABCs"; // Should give a Set<IAbc> object
+	protected final static String KEY_MEM_EX = "MemEx"; // Should give a MemoryExclusionGraph object
+	protected final static String KEY_MEM_EX_SET = "MemExs"; // Should give a Set<MemoryExclusionGraph> object
 	/**
 	 * Input/Output keys for PiMM tasks
 	 */
