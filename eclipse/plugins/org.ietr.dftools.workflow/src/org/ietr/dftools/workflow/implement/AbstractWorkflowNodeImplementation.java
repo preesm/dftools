@@ -19,9 +19,11 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  */
 public abstract class AbstractWorkflowNodeImplementation {
 	/**
-	 * Input/Output keys for SDF tasks
+	 * Input/Output keys for workflow tasks
 	 */
 	protected final static String KEY_SCENARIO = "scenario"; // Should give a PreesmScenario object
+	protected final static String KEY_PI_GRAPH = "PiMM"; // Should give a PiGraph object
+	protected final static String KEY_ARCHITECTURE = "architecture"; //Should give a Design object
 	protected final static String KEY_SDF_GRAPHS_SET = "SDFs"; // Should give a Set<SDFGraph> object
 	protected final static String KEY_SDF_GRAPH = "SDF"; // Should give an SDFGraph object
 	protected final static String KEY_SDF_DAG = "DAG"; // Should give a MapperDAG object
@@ -30,14 +32,8 @@ public abstract class AbstractWorkflowNodeImplementation {
 	protected final static String KEY_SDF_ABC_SET = "ABCs"; // Should give a Set<IAbc> object
 	protected final static String KEY_MEM_EX = "MemEx"; // Should give a MemoryExclusionGraph object
 	protected final static String KEY_MEM_EX_SET = "MemExs"; // Should give a Set<MemoryExclusionGraph> object
-	/**
-	 * Input/Output keys for PiMM tasks
-	 */
-	protected final static String KEY_PI_GRAPH = "PiMM"; // Should give a PiGraph object
-	/**
-	 * Common Input/Output to SDF and PiMM tasks
-	 */
-	protected final static String KEY_ARCHITECTURE = "architecture"; //Should give a Design object
+	protected final static String KEY_DAG_AND_MEM_EX_MAP = "DAGsAndMemExs"; // Should give a Map<DirectedAcyclicGraph, MemoryExclusionGraph> object
+
 
 	/**
 	 * Id and fully qualified names of node output retrieved from the extension.
