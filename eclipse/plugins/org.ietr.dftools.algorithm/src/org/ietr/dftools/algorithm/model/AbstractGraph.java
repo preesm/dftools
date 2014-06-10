@@ -339,7 +339,48 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 *         exist
 	 */
 	public V getHierarchicalVertexFromPath(String path) {
-		return getHierarchicalVertexFromPath(path, "");
+		
+		String[] splitPath = path.split("/");
+		int index = 0;
+		// Get the first segment of the path, this is the name of the first
+		// actor we will look for
+		String currentName = splitPath[index];
+		index++;
+		String currentPath = "";
+		// Handle the case where the first segment of path == name
+		if (this.getName().equals(currentName)) {
+			currentName = splitPath[index];
+			index++;
+		}
+		// Compute the path for the next search (path minus currentName)
+		for (int i = index; i < splitPath.length; i++) {
+			if (i > index) {
+				currentPath += "/";
+			}
+			currentPath += splitPath[i];
+		}
+		// Look for an actor named currentName
+		for (V a : this.vertexSet()) {
+			if (a.getName().equals(currentName)) {
+				// If currentPath is empty, then we are at the last hierarchy
+				// level
+				if (currentPath.equals("")) {
+					// We found the actor
+					return a;
+					// Otherwise, we need to go deeper in the hierarchy
+				} else {
+					IRefinement refinement = a.getRefinement();
+					if (refinement != null && refinement instanceof AbstractGraph) {
+						AbstractGraph subgraph = (AbstractGraph) refinement;
+						return (V) subgraph.getHierarchicalVertexFromPath(currentPath);
+					}
+				}
+			}
+		}
+		// If we reach this point, no actor was found, return null
+		return null;
+		
+		//return getHierarchicalVertexFromPath(path, "");
 	}
 
 	/**
@@ -374,6 +415,10 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 			isPathRead = false;
 		}
 
+		if (vertexToFind.equals(this.getName())) {
+			this.getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
+		}
+		
 		V vertex = getVertex(vertexToFind);
 		if (vertex != null) {
 			if (isPathRead) {
