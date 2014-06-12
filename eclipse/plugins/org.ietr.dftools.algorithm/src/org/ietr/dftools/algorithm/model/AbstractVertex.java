@@ -300,12 +300,13 @@ public abstract class AbstractVertex<G> extends Observable implements
 	 * @return The set of argument of this graph
 	 */
 	public ArgumentSet getArguments() {
-		if (properties.getValue(ARGUMENTS) != null) {
-			((ArgumentSet) properties.getValue(ARGUMENTS))
-					.setExpressionSolver(this.getBase());
-			return ((ArgumentSet) properties.getValue(ARGUMENTS));
+		if (properties.getValue(ARGUMENTS) == null) {
+			ArgumentSet arguments = new ArgumentSet();
+			this.setArgumentSet(arguments);
 		}
-		return null;
+		((ArgumentSet) properties.getValue(ARGUMENTS)).setExpressionSolver(this
+				.getBase());
+		return ((ArgumentSet) properties.getValue(ARGUMENTS));
 	}
 
 	/**
@@ -417,6 +418,5 @@ public abstract class AbstractVertex<G> extends Observable implements
 	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}
-
 
 }
