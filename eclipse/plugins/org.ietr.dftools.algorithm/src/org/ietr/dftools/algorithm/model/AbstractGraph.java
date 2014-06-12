@@ -540,10 +540,11 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 * @return The set of variables of this graph
 	 */
 	public VariableSet getVariables() {
-		if (properties.getValue(VARIABLES) != null) {
-			return ((VariableSet) properties.getValue(VARIABLES));
+		if (properties.getValue(VARIABLES) == null) {
+			VariableSet variables = new VariableSet();
+			this.setVariableSet(variables);
 		}
-		return null;
+		return ((VariableSet) properties.getValue(VARIABLES));
 	}
 
 	/**
