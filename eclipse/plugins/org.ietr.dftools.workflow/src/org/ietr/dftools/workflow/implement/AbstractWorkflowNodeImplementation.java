@@ -33,7 +33,10 @@ public abstract class AbstractWorkflowNodeImplementation {
 	protected final static String KEY_MEM_EX = "MemEx"; // Should give a MemoryExclusionGraph object
 	protected final static String KEY_MEM_EX_SET = "MemExs"; // Should give a Set<MemoryExclusionGraph> object
 	protected final static String KEY_DAG_AND_MEM_EX_MAP = "DAGsAndMemExs"; // Should give a Map<DirectedAcyclicGraph, MemoryExclusionGraph> object
-
+	protected final static String KEY_BOUND_MIN = "BoundMin"; // Should give an int
+	protected final static String KEY_BOUND_MAX = "BoundMax"; // Should give an int
+	protected final static String KEY_BOUND_MIN_SET = "BoundMin"; // Should give a Set<Integer> object
+	protected final static String KEY_BOUND_MAX_SET = "BoundMax"; // Should give a Set<Integer> object
 
 	/**
 	 * Id and fully qualified names of node output retrieved from the extension.
