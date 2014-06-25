@@ -135,30 +135,6 @@ public class ArchitectureUtil {
 	}
 
 	/**
-	 * Returns the network in the given project that has the given qualified
-	 * name.
-	 * 
-	 * @param project
-	 *            project
-	 * @param qualifiedName
-	 *            qualified name of a network
-	 * @return if there is such a network, a file, otherwise <code>null</code>
-	 */
-	public static IFile getFile(IProject project, String qualifiedName,
-			String extension) {
-		String name = qualifiedName.replace('.', '/');
-		IPath path = new Path(name).addFileExtension(extension);
-		for (IFolder folder : getAllSourceFolders(project)) {
-			IFile inputFile = folder.getFile(path);
-			if (inputFile != null && inputFile.exists()) {
-				return inputFile;
-			}
-		}
-
-		return null;
-	}
-
-	/**
 	 * Returns the list of ALL source folders of the required projects as well
 	 * as of the given project as a list of absolute workspace paths.
 	 * 
