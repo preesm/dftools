@@ -60,7 +60,7 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 	 * @param shell
 	 *            The active window's {@link Shell}.
 	 */
-	public String useExistingFile(final Vertex vertex, Shell shell, String extension) {
+	public IPath useExistingFile(final Vertex vertex, Shell shell, String extension) {
 		String filePath = null;
 				
 		if(extension.equals("slam")){
@@ -75,7 +75,7 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(new Path(filePath));
 
-		String fileRelativeName = getRefinementValue(vertex, file);
+		IPath fileRelativeName = getRefinementValue(vertex, file);
 		return fileRelativeName;
 	}
 
@@ -86,7 +86,7 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 	 *            the vertex being refined
 	 */
 	@Override
-	public String getNewRefinement(Vertex vertex) {
+	public IPath getNewRefinement(Vertex vertex) {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 		Shell shell = window.getShell();
@@ -97,17 +97,15 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 				"Language (CDL) file.";
 		MessageDialog dialog = new MessageDialog(shell,
 				"Set/Update Refinement", null, message, MessageDialog.QUESTION,
-				new String[] { "Select network", "Select list of networks", "Select CDL file" }, 0);
+				new String[] { "Select network", "Select CDL file" }, 0);
 
 		int index = dialog.open();
-		String newRefinement = null;
+		IPath newRefinement = null;
 
 		// The user can select either a single new network or a list of networks
 		if (index == 0) {
 			newRefinement = useExistingFile(vertex, shell, "slam");
 		} else if (index == 1) {
-			newRefinement = selectListOfNetworks(vertex, shell);
-		} else if (index == 2) {
 			newRefinement = useExistingFile(vertex, shell, "cdl");
 		}
 
@@ -122,72 +120,72 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 	 * @param shell
 	 *            the current shell
 	 */
-	protected String selectListOfNetworks(final Vertex vertex, Shell shell) {
-
-		// Retrieving original list
-		RefinementList originalList = new RefinementList(getRefinement(vertex));
-
-		// Updating the refinement
-		ChooseRefinementListDialog dialog = new ChooseRefinementListDialog(
-				vertex, shell, this, true);
-		dialog.setInput(originalList);
-
-		dialog.setMessage("Please choose refinement networks for "
-				+ vertex.toString());
-		dialog.setTitle(vertex.toString());
-
-		RefinementList modifiedList = dialog.openDialog();
-		return modifiedList.toString();
-	}
+//	protected IPath selectListOfNetworks(final Vertex vertex, Shell shell) {
+//
+//		// Retrieving original list
+//		RefinementList originalList = new RefinementList(getRefinement(vertex));
+//
+//		// Updating the refinement
+//		ChooseRefinementListDialog dialog = new ChooseRefinementListDialog(
+//				vertex, shell, this, true);
+//		dialog.setInput(originalList);
+//
+//		dialog.setMessage("Please choose refinement networks for "
+//				+ vertex.toString());
+//		dialog.setTitle(vertex.toString());
+//
+//		RefinementList modifiedList = dialog.openDialog();
+//		return modifiedList.toString();
+//	}
 
 	@Override
 	public IFile getRefinementFile(Vertex vertex) {
 		// Getting the refinement string that contains either a list of
 		// refinements or a single one
-		String refinement = getRefinement(vertex);
+		IPath refinement = getRefinement(vertex);
 
 		if (refinement == null) {
 			return null;
 		}
 		IFile file = null;
-		RefinementList list = new RefinementList(refinement);
+//		RefinementList list = new RefinementList(refinement);
 
 		// Case of a simple refinement
-		if (list.size() == 1) {
+//		if (list.size() == 1) {
 			file = super.getRefinementFile(vertex);
-		}
-		// Case of a list refinement: prompt for choice
-		else if (list.size() > 1) {
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-			Shell shell = window.getShell();
-
-			// Choosing the refinement in a dialog window
-			ChooseRefinementListDialog dialog = new ChooseRefinementListDialog(
-					vertex, shell, this, false);
-			dialog.setInput(list);
-
-			dialog.setMessage("Please choose one of the multiple refinements");
-			dialog.setTitle(vertex.toString());
-
-			String chosenRefinement = null;
-
-			int returnCode = dialog.open();
-			if (returnCode == Window.OK && dialog.getResult() != null
-					&& dialog.getResult().length != 0) {
-				chosenRefinement = (String) dialog.getResult()[0];
-			}
-
-			if (chosenRefinement != null) {
-				IPath path = getAbsolutePath(vertex.getParent().getFileName(),
-						chosenRefinement);
-				IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-				IResource resource = root.findMember(path);
-				if (resource instanceof IFile) {
-					file = (IFile) resource;
-				}
-			}
-		}
+//		}
+//		// Case of a list refinement: prompt for choice
+//		else if (list.size() > 1) {
+//			IWorkbench workbench = PlatformUI.getWorkbench();
+//			IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+//			Shell shell = window.getShell();
+//
+//			// Choosing the refinement in a dialog window
+//			ChooseRefinementListDialog dialog = new ChooseRefinementListDialog(
+//					vertex, shell, this, false);
+//			dialog.setInput(list);
+//
+//			dialog.setMessage("Please choose one of the multiple refinements");
+//			dialog.setTitle(vertex.toString());
+//
+//			String chosenRefinement = null;
+//
+//			int returnCode = dialog.open();
+//			if (returnCode == Window.OK && dialog.getResult() != null
+//					&& dialog.getResult().length != 0) {
+//				chosenRefinement = (String) dialog.getResult()[0];
+//			}
+//
+//			if (chosenRefinement != null) {
+//				IPath path = getAbsolutePath(vertex.getParent().getFileName(),
+//						chosenRefinement);
+//				IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+//				IResource resource = root.findMember(path);
+//				if (resource instanceof IFile) {
+//					file = (IFile) resource;
+//				}
+//			}
+//		}
 
 		return file;
 	}

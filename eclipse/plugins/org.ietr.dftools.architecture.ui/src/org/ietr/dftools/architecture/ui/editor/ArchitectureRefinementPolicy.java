@@ -30,7 +30,7 @@ package org.ietr.dftools.architecture.ui.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.ietr.dftools.architecture.utils.ArchitectureUtil;
+import org.eclipse.core.runtime.IPath;
 import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
 import org.ietr.dftools.graphiti.model.Vertex;
 
@@ -55,19 +55,13 @@ public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
 
 	@Override
 	public IFile getRefinementFile(Vertex vertex) {
-		String refinement = getRefinement(vertex);
-		if (refinement == null) {
-			return null;
-		}
+		IPath refinement = getRefinement(vertex);
+		if (refinement != null) {
+			IProject project = getProject(vertex);			
 
-		IProject project = getProject(vertex);
-		String qualifiedName = refinement.replace('.', '/');
-
-		IFile file = ArchitectureUtil.getFile(project, qualifiedName, "design");
-		if (file != null) {
+			IFile file = project.getFile(refinement);
 			return file;
 		}
-
 		return null;
 	}
 

@@ -3,6 +3,7 @@
  */
 package org.ietr.dftools.ui.slam;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -56,9 +57,9 @@ public class ChooseRefinementListDialog extends ListDialog {
 						.getSelection();
 				Object[] tableSelections = tableSelection.toArray();
 				if (type.equals("add")) {
-					String name = policy.useExistingFile(vertex, getShell(), "slam");
+					IPath name = policy.useExistingFile(vertex, getShell(), "slam");
 					tableViewer.add(name);
-					refinementList.addName(name);
+//					refinementList.addName(name);
 				} else if (type.equals("remove")) {
 					if ((tableSelections.length == 1)
 							&& tableSelections[0] instanceof String) {

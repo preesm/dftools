@@ -1,19 +1,22 @@
 package org.ietr.dftools.algorithm.model;
 
+import org.eclipse.core.runtime.IPath;
 
 /**
  * Code to refine a vertex
+ * 
  * @author jpiat
- *
+ * 
  */
-public class CodeRefinement implements IRefinement, CloneableProperty{
-	
+public class CodeRefinement implements IRefinement, CloneableProperty {
+
 	/**
 	 * Describe the language that can be used as a code refinement
+	 * 
 	 * @author jpiat
-	 *
+	 * 
 	 */
-	public enum Language{
+	public enum Language {
 		/**
 		 * CAL Actor Language
 		 */
@@ -23,11 +26,11 @@ public class CodeRefinement implements IRefinement, CloneableProperty{
 		 */
 		C,
 		/**
-		 * C++  Language
+		 * C++ Language
 		 */
 		CPP,
 		/**
-		 * Java  Language
+		 * Java Language
 		 */
 		JAVA,
 		/**
@@ -35,76 +38,69 @@ public class CodeRefinement implements IRefinement, CloneableProperty{
 		 */
 		IDL,
 		/**
-		 * Text refinement, not a path 
+		 * Text refinement, not a path
 		 */
 		TEXT;
-		
+
 		/**
 		 * Gives a Language corresponding to the given extension
-		 * @param s The extension of the code refinement
+		 * 
+		 * @param s
+		 *            The extension of the code refinement
 		 * @return The Language instance
 		 */
-		public static Language fromExtension(String s){
-			if(s.equals(".c")){
-				return C ;
-			}else if(s.equals(".cal")){
-				return CAL ;
-			}else if(s.equals(".cpp")){
-				return CPP ;
-			}else if(s.equals(".java")){
-				return JAVA ;
-			}else if(s.equals(".idl")){
-				return IDL ;
-			}else{
-				return TEXT ;
+		public static Language fromExtension(String s) {
+			if (s.equals(".c") || s.equals("c")) {
+				return C;
+			} else if (s.equals(".cal") || s.equals("cal")) {
+				return CAL;
+			} else if (s.equals(".cpp") || s.equals("cpp")) {
+				return CPP;
+			} else if (s.equals(".java") || s.equals("java")) {
+				return JAVA;
+			} else if (s.equals(".idl") || s.equals("idl")) {
+				return IDL;
+			} else {
+				return TEXT;
 			}
 		}
 	}
-	
-	private String fileName ;
-	private Language lang ;
-	
+
+	private IPath filePath;
+	private Language lang;
+
 	/**
 	 * Builds a new CodeRefinement instance
+	 * 
 	 * @param name
 	 */
-	public CodeRefinement(String name){
-		fileName = name ;
-		if(name.lastIndexOf(".") < 0){
-			lang = Language.TEXT ;
-		}else{
-			lang = Language.fromExtension(name.substring(name.lastIndexOf("."), name.length()));
-		}	
+	public CodeRefinement(IPath path) {
+		this.filePath = path;
+		String extension = this.filePath.getFileExtension();
+		if (extension != null) lang = Language.fromExtension(extension);
+		else lang = Language.TEXT;
 	}
-	
-	
-	
-	/**
-	 * Gives this Code refinement name
-	 * @return The name of this Code refinement
-	 */
-	public String getName(){
-		return fileName ;
+
+	public IPath getPath() {
+		return this.filePath;
 	}
 	
 	/**
 	 * Gives the code refinement language
+	 * 
 	 * @return The code refinement language
 	 */
-	public Language getLanguage(){
-		return lang ;
+	public Language getLanguage() {
+		return lang;
 	}
-	
-	
-	public String toString(){
-		return fileName;
+
+	public String toString() {
+		return this.filePath.toString();
 	}
-	
-	
-	public CodeRefinement clone(){
-		CodeRefinement clone = new CodeRefinement(this.getName());
-		return clone ;
+
+	public CodeRefinement clone() {
+		CodeRefinement clone = new CodeRefinement(this.filePath);
+		return clone;
 	}
-	
-	
+
 }

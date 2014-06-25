@@ -128,17 +128,6 @@ public abstract class AbstractVertex<G> extends Observable implements
 	}
 
 	/**
-	 * Give the SDGGrpah describing this vertex behavior
-	 * 
-	 * @return The graph implementing the vertex's behavior
-	 */
-	@SuppressWarnings("rawtypes")
-	public AbstractGraph getGraphDescription() {
-		return (AbstractGraph) properties.getValue(REFINEMENT,
-				AbstractGraph.class);
-	}
-
-	/**
 	 * Gives the vertex id
 	 * 
 	 * @return The id of the vertex
@@ -174,13 +163,35 @@ public abstract class AbstractVertex<G> extends Observable implements
 		return properties;
 	}
 
-	/**
-	 * Gives this vertex's refinement
-	 * 
-	 * @return The vertex's refinement
-	 */
+	// Refinement of the vertex (can be an AbstractGraph describing the behavior
+	// of the vertex, or a header file giving signatures of functions to call
+	// when executing the vertex).
+	IRefinement refinement;
+
 	public IRefinement getRefinement() {
-		return (IRefinement) properties.getValue(REFINEMENT, IRefinement.class);
+		return refinement;
+	}
+
+	public void setRefinement(IRefinement desc) {
+		properties.setValue(REFINEMENT, properties.getValue(REFINEMENT), desc);
+		this.refinement = desc;
+		this.setChanged();
+		this.notifyObservers();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void setGraphDescription(AbstractGraph desc) {
+		properties.setValue(REFINEMENT, properties.getValue(REFINEMENT), desc);
+		this.refinement = desc;
+		desc.setParentVertex(this);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public AbstractGraph getGraphDescription() {
+		if (refinement instanceof AbstractGraph)
+			return (AbstractGraph) refinement;
+		else
+			return null;
 	}
 
 	/**
@@ -190,17 +201,6 @@ public abstract class AbstractVertex<G> extends Observable implements
 	 */
 	protected void setBase(G base) {
 		properties.setValue(BASE, base);
-	}
-
-	/**
-	 * Set this vertex's graph description
-	 * 
-	 * @param desc
-	 */
-	@SuppressWarnings("rawtypes")
-	public void setGraphDescription(AbstractGraph desc) {
-		properties.setValue(REFINEMENT, properties.getValue(REFINEMENT), desc);
-		desc.setParentVertex(this);
 	}
 
 	/**
@@ -231,17 +231,6 @@ public abstract class AbstractVertex<G> extends Observable implements
 	 */
 	public void setInfo(String info) {
 		properties.setValue(INFO, properties.getValue(INFO), info);
-	}
-
-	/**
-	 * Set this vertex's refinement description
-	 * 
-	 * @param desc
-	 */
-	public void setRefinement(IRefinement desc) {
-		properties.setValue(REFINEMENT, properties.getValue(REFINEMENT), desc);
-		this.setChanged();
-		this.notifyObservers();
 	}
 
 	@SuppressWarnings("rawtypes")

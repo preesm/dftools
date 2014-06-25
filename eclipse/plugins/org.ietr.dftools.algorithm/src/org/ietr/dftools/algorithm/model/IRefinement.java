@@ -1,5 +1,6 @@
 package org.ietr.dftools.algorithm.model;
 
+
 /**
  * Interface defining a refinement
  * @author jpiat
@@ -8,5 +9,5 @@ package org.ietr.dftools.algorithm.model;
 public interface IRefinement {
 	
 	public String toString();
-
+	
 }

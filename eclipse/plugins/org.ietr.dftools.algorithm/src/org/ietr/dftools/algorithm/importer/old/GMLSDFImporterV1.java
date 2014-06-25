@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
+import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
 import org.ietr.dftools.algorithm.factories.SDFVertexFactory;
@@ -193,7 +194,7 @@ public class GMLSDFImporterV1 extends
 						}
 					}
 				} else if (path.length() > 0) {
-					vertex.setRefinement(new CodeRefinement(path));
+					vertex.setRefinement(new CodeRefinement(new Path(path)));
 				}
 			}
 		}

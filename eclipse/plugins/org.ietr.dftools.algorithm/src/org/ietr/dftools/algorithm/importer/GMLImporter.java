@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.exporter.Key;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -484,7 +485,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 						}
 					}
 				} else if (path.length() > 0) {
-					vertex.setRefinement(new CodeRefinement(path));
+					vertex.setRefinement(new CodeRefinement(new Path(path)));
 				}
 			}
 		}
