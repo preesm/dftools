@@ -76,15 +76,19 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
 	 */
 	public CodeRefinement(IPath path) {
 		this.filePath = path;
-		String extension = this.filePath.getFileExtension();
-		if (extension != null) lang = Language.fromExtension(extension);
-		else lang = Language.TEXT;
+		if (this.filePath != null) {
+			String extension = this.filePath.getFileExtension();
+			if (extension != null)
+				lang = Language.fromExtension(extension);
+			else
+				lang = Language.TEXT;
+		}
 	}
 
 	public IPath getPath() {
 		return this.filePath;
 	}
-	
+
 	/**
 	 * Gives the code refinement language
 	 * 
@@ -95,7 +99,8 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
 	}
 
 	public String toString() {
-		return this.filePath.toString();
+		if (this.filePath != null) return this.filePath.toString();
+		else return "Empty refinement";
 	}
 
 	public CodeRefinement clone() {
