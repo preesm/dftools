@@ -62,7 +62,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 	 * Modifier used to make a input port a pure input. <br>
 	 * i.e. the corresponding actor will only read the corresponding data.
 	 */
-	public static final String MODIFIER_PURE_IN = "pure_in";
+	public static final String MODIFIER_READ_ONLY = "read_only";
 
 	/**
 	 * Modifier used to make a input port an unused input. <br>
@@ -77,7 +77,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 	 * written data is overwritten by another process, even during the execution
 	 * of the producer actor.
 	 */
-	public static final String MODIFIER_PURE_OUT = "pure_out";
+	public static final String MODIFIER_WRITE_ONLY = "write_only";
 
 	static {
 		public_properties.add(EDGE_CONS);

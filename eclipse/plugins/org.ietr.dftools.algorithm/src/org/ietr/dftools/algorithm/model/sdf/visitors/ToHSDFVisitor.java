@@ -216,7 +216,7 @@ public class ToHSDFVisitor implements
 
 					// Add a target port modifier to the edge
 					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
-							SDFEdge.MODIFIER_PURE_IN));
+							SDFEdge.MODIFIER_READ_ONLY));
 				} 
 				if (implode
 						&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)
@@ -248,7 +248,7 @@ public class ToHSDFVisitor implements
 
 					// Add a source port modifier to the edge
 					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
-							SDFEdge.MODIFIER_PURE_OUT));
+							SDFEdge.MODIFIER_WRITE_ONLY));
 				} 
 				// end of testing zone
 
@@ -289,7 +289,7 @@ public class ToHSDFVisitor implements
 					newEdge.setSourceInterface(sourceInterface);
 					// Add a source port modifier
 					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
-							SDFEdge.MODIFIER_PURE_OUT));
+							SDFEdge.MODIFIER_WRITE_ONLY));
 				}
 
 				// Set the target interface of the new edge
@@ -336,7 +336,7 @@ public class ToHSDFVisitor implements
 					newEdge.setTargetInterface(targetInterface);
 					// Add a target port modifier
 					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
-							SDFEdge.MODIFIER_PURE_IN));
+							SDFEdge.MODIFIER_READ_ONLY));
 
 					// Reorder the input of the target only for newly added join
 					if(targetCopies.get(targetIndex) != originalTargetCopies
@@ -473,7 +473,7 @@ public class ToHSDFVisitor implements
 					while (tokensToProduce > 0 && iter.hasPrevious()) {
 						SDFEdge newEdge = iter.previous();
 						newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
-								SDFEdge.MODIFIER_PURE_IN));
+								SDFEdge.MODIFIER_READ_ONLY));
 						tokensToProduce -= newEdge.getCons().intValue();
 					}
 				}
