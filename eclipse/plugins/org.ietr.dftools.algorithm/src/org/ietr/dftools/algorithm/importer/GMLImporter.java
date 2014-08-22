@@ -466,15 +466,15 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 					&& ((Element) childList.item(i)).getAttribute("key")
 							.equals(AbstractVertex.REFINEMENT)) {
 				Element graphDesc = (Element) childList.item(i);
-				String path = graphDesc.getTextContent();
-				if (path.contains(".graphml")) {
-					if (this.path != null && path.length() > 0) {
+				String refinementPath = graphDesc.getTextContent();
+				if (refinementPath.contains(".graphml")) {
+					if (this.path != null && refinementPath.length() > 0) {
 						String directoryPath = this.path.substring(0,
 								this.path.lastIndexOf(File.separator) + 1);
 						GMLGenericImporter importer = new GMLGenericImporter();
 						try {
 							AbstractGraph<?, ?> refine = importer
-									.parse(new File(directoryPath + path));
+									.parse(new File(directoryPath + refinementPath));
 							vertex.setGraphDescription(refine);
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -484,8 +484,8 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 							e.printStackTrace();
 						}
 					}
-				} else if (path.length() > 0) {
-					vertex.setRefinement(new CodeRefinement(new Path(path)));
+				} else if (refinementPath.length() > 0) {
+					vertex.setRefinement(new CodeRefinement(new Path(refinementPath)));
 				}
 			}
 		}
