@@ -67,6 +67,8 @@ public class SDFVertex extends SDFAbstractVertex {
 				newVertex.getPropertyBean().setValue(key, val);
 			} 
 		}
+		// Copy refinement properties
+		newVertex.setRefinement(this.getRefinement());
 		for (SDFInterfaceVertex sink : this.getSinks()) {
 			if (newVertex.getGraphDescription() != null
 					&& newVertex.getGraphDescription().getVertex(sink.getName()) != null) {
