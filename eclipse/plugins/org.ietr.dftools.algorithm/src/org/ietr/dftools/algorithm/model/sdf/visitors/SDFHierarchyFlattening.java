@@ -414,9 +414,9 @@ public class SDFHierarchyFlattening extends
 		SDFEdge edge = (SDFEdge) parentGraph.addEdge(roundBuffer, vertex);
 		edge.copyProperties(inEdges.get(0));
 		// The modifier of the source port should not be copied.
-		// Instead, always set it to pure_out
+		// Instead, always set it to write_only
 		edge.setSourcePortModifier(new SDFStringEdgePropertyType(
-				SDFEdge.MODIFIER_PURE_OUT));
+				SDFEdge.MODIFIER_WRITE_ONLY));
 		edge.setProd(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
 				.intValue()));
 		edge.setCons(new SDFIntEdgePropertyType(inEdges.get(0).getCons()
@@ -461,7 +461,7 @@ public class SDFHierarchyFlattening extends
 						SDFEdge.MODIFIER_UNUSED));
 			} else {
 				newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
-						SDFEdge.MODIFIER_PURE_IN));
+						SDFEdge.MODIFIER_READ_ONLY));
 			}
 
 			newEdge.setTargetInterface(input);
@@ -571,9 +571,9 @@ public class SDFHierarchyFlattening extends
 		SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
 		edge.copyProperties(outEdges.get(0));
 		// The modifier of the target port should not be copied.
-		// Instead, always set to pure_in
+		// Instead, always set to read_only
 		edge.setTargetPortModifier(new SDFStringEdgePropertyType(
-				SDFEdge.MODIFIER_PURE_IN));
+				SDFEdge.MODIFIER_READ_ONLY));
 		edge.setProd(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
 				.intValue()));
 		edge.setCons(new SDFIntEdgePropertyType(outEdges.get(0).getProd()
@@ -597,9 +597,9 @@ public class SDFHierarchyFlattening extends
 			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast, target);
 			newEdge.copyProperties(treatEdge);
 			// The modifier of the source port should not be copied.
-			// Instead, always set to pure_out
+			// Instead, always set to write_only
 			newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
-					SDFEdge.MODIFIER_PURE_OUT));
+					SDFEdge.MODIFIER_WRITE_ONLY));
 			newEdge.setCons(new SDFIntEdgePropertyType(treatEdge.getCons()
 					.intValue()));
 			newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getCons()

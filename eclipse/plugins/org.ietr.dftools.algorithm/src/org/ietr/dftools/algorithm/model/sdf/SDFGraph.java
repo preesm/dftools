@@ -465,7 +465,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				baseEdge.setSourceInterface(port);
 				baseEdge.setTargetInterface(inPort);
 				baseEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
-						SDFEdge.MODIFIER_PURE_IN));
+						SDFEdge.MODIFIER_READ_ONLY));
 
 				// Add all outgoing edges
 				int nbTokens = 0;
@@ -491,7 +491,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 						newEdge.setDelay(oldEdge.getDelay());
 						newEdge.setDataType(oldEdge.getDataType());
 						newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
-								SDFEdge.MODIFIER_PURE_OUT));
+								SDFEdge.MODIFIER_WRITE_ONLY));
 						baseEdge.setSourcePortModifier(oldEdge
 								.getSourcePortModifier());
 						baseEdge.setProd(oldEdge.getProd().clone());
