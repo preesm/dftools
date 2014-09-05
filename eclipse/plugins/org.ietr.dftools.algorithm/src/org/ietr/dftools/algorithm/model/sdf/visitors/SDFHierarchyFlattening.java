@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-import org.ietr.dftools.algorithm.exporter.GMLSDFExporter;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
@@ -333,16 +332,21 @@ public class SDFHierarchyFlattening extends
 		boolean needImplode = false;
 		Vector<SDFEdge> inEdges = new Vector<SDFEdge>(
 				parentGraph.incomingEdgesOf(vertex));
-		for (SDFEdge inEdge : inEdges) {
-			if (inEdge.getCons().intValue() < (inEdge.getProd().intValue() * inEdge
-					.getSource().getNbRepeatAsInteger())) {
-				needRoundBuffer = true;
-				break;
-			} else if (inEdge.getCons().intValue() > (inEdge.getProd()
-					.intValue())) {
-				needImplode = true;
+		if (inEdges.size() > 0) {
+			needRoundBuffer = true;
+		} else {
+			for (SDFEdge inEdge : inEdges) {
+				if (inEdge.getCons().intValue() < (inEdge.getProd().intValue() * inEdge
+						.getSource().getNbRepeatAsInteger())) {
+					needRoundBuffer = true;
+					break;
+				} else if (inEdge.getCons().intValue() > (inEdge.getProd()
+						.intValue())) {
+					needImplode = true;
+				}
 			}
 		}
+		
 		if (needRoundBuffer) {
 			addRoundBuffer(parentGraph, vertex);
 		} else if (needImplode && depth == 0) {
