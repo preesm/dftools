@@ -186,7 +186,7 @@ public class ToHSDFVisitor implements
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)) {
 
-					// If an exlode must be added
+					// If an explode must be added
 					SDFAbstractVertex explodeVertex = new SDFForkVertex();
 					output.addVertex(explodeVertex);
 					SDFAbstractVertex originVertex = (SDFAbstractVertex) sourceCopies
@@ -460,9 +460,9 @@ public class ToHSDFVisitor implements
 
 				SDFStringEdgePropertyType portModifier = edge
 						.getTargetPortModifier();
-				if (!portModifier.toString().equals(SDFEdge.MODIFIER_UNUSED)) {
+				if (portModifier!=null && !portModifier.toString().equals(SDFEdge.MODIFIER_UNUSED)) {
 					// If the target is not unused, set last edges
-					// targetModifier as PureIn
+					// targetModifier as readOnly
 					@SuppressWarnings("unchecked")
 					int tokensToProduce = ((Set<SDFEdge>) (edge.getTarget()
 							.getBase().outgoingEdgesOf(edge.getTarget())))

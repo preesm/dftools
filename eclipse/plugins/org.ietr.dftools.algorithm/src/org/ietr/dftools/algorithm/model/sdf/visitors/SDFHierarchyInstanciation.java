@@ -80,16 +80,22 @@ public class SDFHierarchyInstanciation implements
 					.getName()));
 		} else {
 			// If this case is reached, the source is a new explode/broadcast
+
+			// sourceProd represents the token Nr of the first token on the edge (useful for explode)
+			// the targetIndex serves to discriminate different sources with the same production
 			newEdge.setSourceInterface(edge.getSourceInterface().clone());
-			newEdge.getSourceInterface().setName("out" + sourceProd);
+			newEdge.getSourceInterface().setName("out" + "_" + sourceProd + "_" + targetIndex);
 		}
 		if (target.getSource(edge.getTargetInterface().getName()) != null) {
 			newEdge.setTargetInterface(target.getSource(edge
 					.getTargetInterface().getName()));
 		} else {
 			// If this case is reached, the source is a new implode/roundbuffer
+			
+			// targetCons represents the token Nr of the first token on the edge (useful for implode)
+			// the sourceIndex serves to discriminate different sources with the same production
 			newEdge.setTargetInterface(edge.getTargetInterface().clone());
-			newEdge.getTargetInterface().setName("in" + targetCons);
+			newEdge.getTargetInterface().setName("in" + "_" + targetCons + "_" + sourceIndex);
 		}
 		
 		if (target instanceof SDFVertex && !(source instanceof SDFForkVertex)) {
