@@ -333,7 +333,6 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 */
 	@Deprecated
 	public DAGEdge removeEdge(DAGVertex sourceVertex, DAGVertex targetVertex) {
-		@SuppressWarnings("deprecation")
 		DAGEdge e = super.removeEdge(sourceVertex, targetVertex);
 
 		if (e != null) {

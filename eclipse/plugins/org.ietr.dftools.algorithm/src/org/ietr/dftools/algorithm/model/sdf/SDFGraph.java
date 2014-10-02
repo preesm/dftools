@@ -599,7 +599,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			SDFAbstractVertex targetVertex) {
 		checkMultipleEdges(sourceVertex, targetVertex);
 
-		@SuppressWarnings("deprecation")
 		SDFEdge edge = super.removeEdge(sourceVertex, targetVertex);
 		if (edge != null) {
 			if (sourceVertex instanceof SDFVertex) {

@@ -325,7 +325,6 @@ public class SDFListenableGraph extends SDFGraph implements
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
 		checkMultipleEdges(sourceVertex, targetVertex);
-		@SuppressWarnings("deprecation")
 		SDFEdge e = super.removeEdge(sourceVertex, targetVertex);
 
 		if (e != null) {
