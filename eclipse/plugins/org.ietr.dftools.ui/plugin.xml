@@ -515,10 +515,12 @@
                   width="30">
             </size>
             <parameter
+                  default="scenario"
                   name="id"
                   type="java.lang.String">
             </parameter>
             <parameter
+                  default="org.ietr.preesm.scenario.task"
                   name="plugin identifier"
                   type="java.lang.String">
             </parameter>
