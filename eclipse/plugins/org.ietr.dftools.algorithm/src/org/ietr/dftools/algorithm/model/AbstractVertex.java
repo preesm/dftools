@@ -166,7 +166,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 	// Refinement of the vertex (can be an AbstractGraph describing the behavior
 	// of the vertex, or a header file giving signatures of functions to call
 	// when executing the vertex).
-	IRefinement refinement;
+	private IRefinement refinement;
 
 	public IRefinement getRefinement() {
 		return refinement;
