@@ -729,10 +729,10 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 						"Not a numerical expression"));
 			}
 		} catch (ParseException e) {
-			throw (new InvalidExpressionException("Could not parse expresion :"
+			throw (new InvalidExpressionException("Could not parse expresion:"
 					+ expression));
 		} catch (Exception e) {
-			throw (new InvalidExpressionException("Could not parse expresion :"
+			throw (new InvalidExpressionException("Could not parse expresion:"
 					+ expression));
 		}
 	}
