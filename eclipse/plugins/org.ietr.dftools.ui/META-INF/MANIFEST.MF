@@ -21,7 +21,8 @@ Require-Bundle: org.ietr.dftools.graphiti.model,
  org.ietr.dftools.architecture
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.ietr.dftools.ui.workflow.launch
+Export-Package: org.ietr.dftools.ui.util,
+ org.ietr.dftools.ui.workflow.launch
 Import-Package: org.eclipse.jdt.core,
  org.eclipse.xtext.ui
 Eclipse-BuddyPolicy: global

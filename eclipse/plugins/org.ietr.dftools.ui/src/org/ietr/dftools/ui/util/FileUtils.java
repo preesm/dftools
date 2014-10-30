@@ -41,7 +41,10 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -187,5 +190,39 @@ public class FileUtils {
 		}
 
 		return returnVal;
+	}
+
+	/**
+	 * Create all non existing folders in the given IPath
+	 * 
+	 * @param path
+	 *            the IPath containing the folders to create
+	 * @throws CoreException
+	 */
+	public static void createMissingFolders(IPath path) throws CoreException {
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IResource resource = root.getFolder(path);
+		createMissingFolders(resource);
+	}
+
+	/**
+	 * Create all non existing folders in the path of the given IResource
+	 * 
+	 * @param resource
+	 *            the IResource on which path we want to create folders
+	 * @throws CoreException
+	 */
+	public static void createMissingFolders(final IResource resource)
+			throws CoreException {
+		// If ressource is null or already exists, there is nothing to create
+		if (resource == null || resource.exists())
+			return;
+		// If resource has no parent, create it recursively
+		if (!resource.getParent().exists())
+			createMissingFolders(resource.getParent());
+		// If resource is a folder, create it
+		if (resource instanceof IFolder) {
+			((IFolder) resource).create(IResource.NONE, true, null);
+		}
 	}
 }
