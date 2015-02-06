@@ -41,7 +41,8 @@ public abstract class AbstractWorkflowExecutor {
 	 */
 	public boolean check(Workflow workflow, IProgressMonitor monitor) {
 
-		monitor.subTask("Checking workflow...");
+		if (monitor != null)
+			monitor.subTask("Checking workflow...");
 
 		boolean workflowOk = true;
 		for (AbstractWorkflowNode node : workflow.vertexSet()) {
@@ -70,7 +71,8 @@ public abstract class AbstractWorkflowExecutor {
 		}
 
 		// Check the workflow
-		monitor.worked(1);
+		if (monitor != null)
+			monitor.worked(1);
 
 		return workflowOk;
 	}
@@ -159,11 +161,13 @@ public abstract class AbstractWorkflowExecutor {
 
 		// Initializing the workflow console
 		log(Level.INFO, "Workflow.StartInfo", workflowPath);
-		monitor.beginTask("Executing workflow", workflow.vertexSet().size());
+		if (monitor != null)
+			monitor.beginTask("Executing workflow", workflow.vertexSet().size());
 
 		// Checking the existence of plugins and retrieving prototypess
 		if (!check(workflow, monitor)) {
-			monitor.setCanceled(true);
+			if (monitor != null)
+				monitor.setCanceled(true);
 			return false;
 		}
 
@@ -204,10 +208,12 @@ public abstract class AbstractWorkflowExecutor {
 
 					try {
 						// updating monitor
-						monitor.subTask(scenario.monitorMessage());
+						if (monitor != null)
+							monitor.subTask(scenario.monitorMessage());
 						outputs = scenario.extractData(scenarioPath);
 						// Each node execution is equivalent for the monitor
-						monitor.worked(1);
+						if (monitor != null)
+							monitor.worked(1);
 					} catch (WorkflowException e) {
 						log(Level.SEVERE,
 								"Workflow.ScenarioExecutionException",
@@ -238,11 +244,12 @@ public abstract class AbstractWorkflowExecutor {
 					// Executing the workflow task
 					try {
 						// updating monitor and console
-						monitor.subTask(task.monitorMessage());
+						if (monitor != null)
+							monitor.subTask(task.monitorMessage());
 						log(Level.INFO, "Workflow.Step", task.monitorMessage());
 
 						// Workflow cancellation was requested
-						if (monitor.isCanceled()) {
+						if (monitor != null && monitor.isCanceled()) {
 
 							log(Level.SEVERE, "Workflow.CancellationRequested");
 							return false;
@@ -260,7 +267,8 @@ public abstract class AbstractWorkflowExecutor {
 								workflow);
 
 						// Each node execution is equivalent for the monitor
-						monitor.worked(1);
+						if (monitor != null)
+							monitor.worked(1);
 					} catch (WorkflowException e) {
 						log(Level.SEVERE, "Workflow.ExecutionException",
 								nodeId, e.getMessage());
