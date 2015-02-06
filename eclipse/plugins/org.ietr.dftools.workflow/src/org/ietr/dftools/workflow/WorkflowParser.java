@@ -33,7 +33,6 @@ knowledge of the CeCILL-C license and that you accept its terms.
 
 package org.ietr.dftools.workflow;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,14 +54,14 @@ import org.xml.sax.ext.DefaultHandler2;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
- * This class provides a workflow parser.
+ * This class provides a workflow parser, allowing to parse a .workflow file and
+ * to obtain a Workflow java object.
  * 
  * @author Matthieu Wipliez
  * 
  */
 public class WorkflowParser extends DefaultHandler2 {
-	/*
-	*//**
+	/**
 	 * The last parsed transformation node is saved to receive its variables.
 	 */
 	TaskNode lastTransformationNode = null;
@@ -77,7 +76,8 @@ public class WorkflowParser extends DefaultHandler2 {
 	}
 
 	/**
-	 * Creates a new workflow parser.
+	 * Parse a workflow source file with the given fileName and returns the
+	 * corresponding Workflow.
 	 * 
 	 * @param fileName
 	 *            The source file name.
@@ -90,22 +90,25 @@ public class WorkflowParser extends DefaultHandler2 {
 		workflow.setPath(relativePath);
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(relativePath);
-		
+		return parse(file);
+	}
+
+	/**
+	 * Parse a workflow source file and returns the corresponding Workflow.
+	 * 
+	 * @param file
+	 *            The source file.
+	 * @param workflow
+	 *            The Workflow represented as a graph.
+	 */
+	public Workflow parse(IFile file) {
 		try {
 			XMLReader reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(this);
 			reader.parse(new InputSource(file.getContents()));
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
+		} catch (SAXException | IOException | CoreException e) {
 			e.printStackTrace();
 		}
-
 		return workflow;
 	}
 
