@@ -60,8 +60,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.ietr.dftools.ui.Activator;
 import org.ietr.dftools.ui.util.FileUtils;
 import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
-import org.ietr.dftools.ui.workflow.WorkflowMessages;
 import org.ietr.dftools.ui.workflow.tools.DFToolsWorkflowLogger;
+import org.ietr.dftools.workflow.messages.WorkflowMessages;
 
 /**
  * Shortcut for launching an executable directly from the navigator, without

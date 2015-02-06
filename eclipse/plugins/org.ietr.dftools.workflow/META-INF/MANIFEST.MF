@@ -14,6 +14,7 @@ Bundle-ClassPath: .
 Export-Package: org.ietr.dftools.workflow,
  org.ietr.dftools.workflow.elements,
  org.ietr.dftools.workflow.implement,
+ org.ietr.dftools.workflow.messages,
  org.ietr.dftools.workflow.tools
 Bundle-Activator: org.ietr.dftools.workflow.Activator
 Bundle-ActivationPolicy: lazy
