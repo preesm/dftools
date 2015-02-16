@@ -36,7 +36,7 @@ package org.ietr.dftools.workflow.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.IPath;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
@@ -56,7 +56,7 @@ public class Workflow extends
 	/**
 	 * Path of the file that contains the workflow
 	 */
-	private Path path = null;
+	private IPath path = null;
 
 	public Workflow() {
 		super(WorkflowEdge.class);
@@ -75,7 +75,7 @@ public class Workflow extends
 		return nodeList;
 	}
 	
-	public void setPath(Path path) {
+	public void setPath(IPath path) {
 		this.path = path;
 	}
 	
