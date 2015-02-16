@@ -48,6 +48,7 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import org.ietr.dftools.ui.Activator;
 import org.ietr.dftools.workflow.messages.WorkflowMessages;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
+import org.ietr.preesm.utils.log.PreesmLogger;
 
 /**
  * Displaying information or error messages through a console initialized by the
@@ -58,8 +59,13 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  */
 public class DFToolsWorkflowLogger extends WorkflowLogger {
 
-
 	private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
+
+	// Boolean used to know whether Preesm is running through command line
+	// interface, in which case we should not use the logGUI method (it calls
+	// getWorkbench, provoking an IllegalStateException, because Workbench is an
+	// UI class), but logCLI which use the cli-friendly logger PreesmLogger
+	private static boolean isRunningFromCLI = false;
 
 	MessageConsole console = null;
 
@@ -91,7 +97,14 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 
 	@Override
 	public void log(LogRecord record) {
+		if (isRunningFromCLI)
+			logCLI(record);
+		else
+			logGUI(record);
 
+	}
+
+	private void logGUI(LogRecord record) {
 		Level level = record.getLevel();
 		final int levelVal = level.intValue();
 		if (getLevel() == null || levelVal >= getLevel().intValue()) {
@@ -110,11 +123,10 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 					String msg = df.format(date) + " " + level.toString()
 							+ ": " + record.getMessage();
 
-					if (levelVal < Level.WARNING.intValue()) {
+					if (levelVal < Level.WARNING.intValue())
 						System.out.println(msg);
-					} else {
+					else
 						System.err.println(msg);
-					}
 				}
 			} else {
 				// Writes a log in console
@@ -139,13 +151,14 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 					// throw (new PreesmException(record.getMessage()));
 				}
 			}
-
 		}
+	}
 
+	private void logCLI(LogRecord record) {
+		PreesmLogger.log(record.getLevel(), record.getMessage());
 	}
 
 	public void initConsole() {
-
 		setLevel(Level.INFO);
 		IConsoleManager mgr = ConsolePlugin.getDefault().getConsoleManager();
 
@@ -156,9 +169,17 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 
 		console.activate();
 		console.setBackground(new Color(null, 230, 228, 252));
-		// console.newMessageStream().println("test");
 
 		mgr.refresh(console);
+	}
+
+	/**
+	 * Method to call before the first log when running preesm through command
+	 * line interface
+	 * Basically called by CLIWorkflowExecutor
+	 */
+	public static void runFromCLI() {
+		isRunningFromCLI = true;
 	}
 
 }
