@@ -16,15 +16,6 @@
             name="Architecture Project"
             project="true">
       </wizard>
-      <wizard
-            canFinishEarly="false"
-            category="org.ietr.dftools.architecture.ui.ArchitectureCategory"
-            class="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
-            hasPages="true"
-            id="org.ietr.dftools.architecture.ui.NewArchitectureWizard"
-            name="Architecture Description (IP-XACT)"
-            project="false">
-      </wizard>
    </extension>
    <extension
          point="org.eclipse.ui.editors">

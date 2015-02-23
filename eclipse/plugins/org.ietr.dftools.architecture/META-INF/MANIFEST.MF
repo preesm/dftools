@@ -6,10 +6,7 @@ Bundle-Version: 1.1.4.qualifier
 Bundle-ClassPath: .
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.ietr.dftools.architecture.component,
- org.ietr.dftools.architecture.design,
- org.ietr.dftools.architecture.design.serialize,
- org.ietr.dftools.architecture.slam,
+Export-Package: org.ietr.dftools.architecture.slam,
  org.ietr.dftools.architecture.slam.attributes,
  org.ietr.dftools.architecture.slam.attributes.impl,
  org.ietr.dftools.architecture.slam.component,

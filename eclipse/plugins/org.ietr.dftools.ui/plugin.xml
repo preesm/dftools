@@ -34,16 +34,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
-      <wizard
-            canFinishEarly="false"
-            category="net.sf.dftools.ui.DFToolsCategory"
-            class="org.ietr.dftools.ui.DFToolsProjectWizard"
-            hasPages="true"
-            icon="icons/workflow.png"
-            id="net.sf.dftools.ui.newDFToolsProject"
-            name="Project"
-            project="true">
-      </wizard>
       <category
             id="net.sf.dftools.ui.dftools.category"
             name="DFTools">
@@ -74,15 +64,6 @@
             Create a new FU network.
          </description>
       </wizard>
-   </extension>
-   <extension
-         id="DFToolsNature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.ietr.dftools.ui.DFToolsProjectNature">
-         </run>
-      </runtime>
    </extension>
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
