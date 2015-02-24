@@ -36,7 +36,6 @@ public class SDFRandomGraphDemo{
 		try {
 			demoGraph.accept(topo);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		applet.init(demoGraph);

@@ -79,7 +79,6 @@ public class SlamTester2 {
 		try {
 			resource2.save(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

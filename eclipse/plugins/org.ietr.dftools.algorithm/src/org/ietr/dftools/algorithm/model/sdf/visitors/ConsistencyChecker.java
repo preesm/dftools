@@ -110,7 +110,6 @@ public class ConsistencyChecker implements
 		try {
 			toVerify.accept(this);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

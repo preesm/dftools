@@ -26,8 +26,8 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 
 /**
- * Visitor used to transform an SDF into a single-rate SDF (for all edges :
- * prod = cons)
+ * Visitor used to transform an SDF into a single-rate SDF (for all edges : prod
+ * = cons)
  * 
  * @author jpiat
  * 
@@ -86,14 +86,7 @@ public class OptimizedToHSDFVisitor implements
 			// applet2.init(hsdf1.getOutput());
 			// applet3.init(hsdf2.getOutput());
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidModelException | FileNotFoundException | SDF4JException e) {
 			e.printStackTrace();
 		}
 	}
@@ -339,7 +332,8 @@ public class OptimizedToHSDFVisitor implements
 		boolean isHSDF = true;
 		try {
 			for (SDFAbstractVertex vertex : outputGraph.vertexSet()) {
-				if (vertex instanceof SDFVertex && vertex.getNbRepeatAsInteger() > 1) {
+				if (vertex instanceof SDFVertex
+						&& vertex.getNbRepeatAsInteger() > 1) {
 					isHSDF = false;
 					break;
 				}
@@ -357,7 +351,6 @@ public class OptimizedToHSDFVisitor implements
 			transformsTop(sdf, outputGraph);
 			manageExplodeImplodePattern(outputGraph);
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw (new SDF4JException(e.getMessage()));
 		}
@@ -396,8 +389,8 @@ public class OptimizedToHSDFVisitor implements
 				if (sourceVertices.size() == targetVertices.size()) {
 					int inc = 0;
 					for (SDFAbstractVertex vertex : sourceVertices) {
-						SDFEdge newEdge = graph.addEdge(vertex, targetVertices
-								.get(inc));
+						SDFEdge newEdge = graph.addEdge(vertex,
+								targetVertices.get(inc));
 						newEdge.copyProperties(joinVertex
 								.getIncomingConnections().get(inc));
 						if (edge.getDelay().intValue() > 0) {

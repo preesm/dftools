@@ -39,7 +39,6 @@ public class SDFGeneratorDemo{
 		try {
 			demoGraph.accept(topo);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		applet.init(demoGraph);
@@ -49,7 +48,6 @@ public class SDFGeneratorDemo{
 		try {
 			demoGraph.accept(visitor2);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		applet3.init(visitor2.getOutput());

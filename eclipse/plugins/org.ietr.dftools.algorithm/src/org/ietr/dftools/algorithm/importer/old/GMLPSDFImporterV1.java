@@ -113,7 +113,6 @@ public class GMLPSDFImporterV1 extends GMLSDFImporterV1 {
 											.create(param.getAttribute("value")));
 								}
 							} catch (DomainParsingException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -144,7 +143,6 @@ public class GMLPSDFImporterV1 extends GMLSDFImporterV1 {
 											.create(param.getAttribute("value")));
 								}
 							} catch (DomainParsingException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}

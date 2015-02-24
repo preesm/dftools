@@ -89,11 +89,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			demoGraph = importer
 					.parse(new File(
 							"D:\\Preesm\\trunk\\tests\\RACH_Hierarchy\\RACH_Hierarchy\\flatten.graphml"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidModelException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<DirectedAcyclicGraph>(
@@ -101,7 +97,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		try {
 			demoGraph.accept(dageur);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		DirectedAcyclicGraph dag = dageur.getOutput();
@@ -325,10 +320,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 
 							}
 						} catch (CreateMultigraphException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (CreateCycleException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 							Logger logger = WorkflowLogger.getLogger();
 							logger.log(
@@ -537,7 +530,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 					graph.removeEdge(edge);
 				}
 			} catch (InvalidExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			edges.remove(0);
@@ -564,7 +556,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			sdf.getPropertyBean().setValue("schedulable", true);
 			transformsTop(sdf);
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw (new SDF4JException(e.getMessage()));
 		}

@@ -147,7 +147,6 @@ public class LoopCreatorVisitor implements
 			try {
 				createLoop((SDFGraph) sdfVertex.getGraphDescription());
 			} catch (InvalidExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				throw(new SDF4JException(e.getMessage()));
 			}

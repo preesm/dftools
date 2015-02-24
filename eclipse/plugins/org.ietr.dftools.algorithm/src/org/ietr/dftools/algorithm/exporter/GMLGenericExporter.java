@@ -21,7 +21,6 @@ public class GMLGenericExporter extends
 			exportGraph(graph);
 			transform(new FileOutputStream(path));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

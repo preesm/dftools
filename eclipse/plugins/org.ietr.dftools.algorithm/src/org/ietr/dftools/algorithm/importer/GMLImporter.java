@@ -121,18 +121,9 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 			registry = DOMImplementationRegistry.newInstance();
 			impl = (DOMImplementationLS) registry
 					.getDOMImplementation("Core 3.0 XML 3.0 LS");
-		} catch (ClassCastException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (ClassCastException | ClassNotFoundException
+				| InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
 
 		LSInput lsInput = impl.createLSInput();
@@ -156,7 +147,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 		for (int i = 0; i < childList.getLength(); i++) {
 			if (childList.item(i).getNodeName().equals("graph")) {
 				Element graphElt = (Element) childList.item(i);
-				G graph =  parseGraph(graphElt);
+				G graph = parseGraph(graphElt);
 				// Record the path of the graph
 				graph.setPropertyValue(AbstractGraph.PATH, path);
 				return graph;
@@ -253,7 +244,6 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 
 					return result;
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -377,8 +367,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 				}
 				keys.add(newKey);
 				/*
-				 * } catch (ClassNotFoundException e) { // TODO Auto-generated
-				 * catch block e.printStackTrace(); }
+				 * } catch (ClassNotFoundException e) {e.printStackTrace(); }
 				 */
 			}
 		}
@@ -474,18 +463,16 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 						GMLGenericImporter importer = new GMLGenericImporter();
 						try {
 							AbstractGraph<?, ?> refine = importer
-									.parse(new File(directoryPath + refinementPath));
+									.parse(new File(directoryPath
+											+ refinementPath));
 							vertex.setGraphDescription(refine);
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InvalidModelException e) {
-							// TODO Auto-generated catch block
+						} catch (FileNotFoundException | InvalidModelException e) {
 							e.printStackTrace();
 						}
 					}
 				} else if (refinementPath.length() > 0) {
-					vertex.setRefinement(new CodeRefinement(new Path(refinementPath)));
+					vertex.setRefinement(new CodeRefinement(new Path(
+							refinementPath)));
 				}
 			}
 		}

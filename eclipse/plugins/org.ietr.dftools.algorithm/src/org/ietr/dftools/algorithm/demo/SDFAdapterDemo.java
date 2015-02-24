@@ -218,7 +218,6 @@ public class SDFAdapterDemo extends JApplet {
 		try {
 			demoGraph.accept(topo);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		applet.init(demoGraph);
@@ -228,7 +227,6 @@ public class SDFAdapterDemo extends JApplet {
 		try {
 			demoGraph.accept(visitor2);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		applet3.init(visitor2.getOutput());
@@ -311,7 +309,6 @@ public class SDFAdapterDemo extends JApplet {
 			try {
 				order = new SDFIterator(model);
 			} catch (InvalidExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				order = new TopologicalOrderIterator<SDFAbstractVertex, SDFEdge>(
 						model);

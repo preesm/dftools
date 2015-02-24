@@ -150,7 +150,6 @@ public class WorkflowValidator implements IValidator {
 				parameterDefaults = (Map<String, String>) obj;
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

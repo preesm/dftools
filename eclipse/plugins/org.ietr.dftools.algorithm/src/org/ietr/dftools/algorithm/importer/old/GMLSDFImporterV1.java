@@ -48,11 +48,7 @@ public class GMLSDFImporterV1 extends
 					.parse(new File(
 							"D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
 			applet.init(graph);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (FileNotFoundException | InvalidModelException e) {
 			e.printStackTrace();
 		}
 
@@ -164,7 +160,7 @@ public class GMLSDFImporterV1 extends
 							try {
 								refine = (SDFGraph) importer
 										.parse(refinementFile);
-							} catch (Exception e) {
+							} catch (FileNotFoundException | InvalidModelException e) {
 								GMLGenericImporter genericImporter = new GMLGenericImporter();
 								refine = (SDFGraph) genericImporter
 										.parse(refinementFile);
@@ -186,10 +182,6 @@ public class GMLSDFImporterV1 extends
 								}
 							}
 						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InvalidModelException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}

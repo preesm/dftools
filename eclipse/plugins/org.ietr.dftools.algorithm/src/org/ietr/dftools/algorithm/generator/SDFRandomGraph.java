@@ -173,7 +173,6 @@ public class SDFRandomGraph {
 					maxInDegree,  minOutDegree,  maxOutDegree,  minRate,
 					maxRate,1,1);
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(new SDF4JException(e.getMessage()));
 		}
@@ -208,7 +207,6 @@ public class SDFRandomGraph {
 					maxInDegree,  minOutDegree,  maxOutDegree,  minRate,
 					maxRate,rateMultiplier,1);
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw(new SDF4JException(e.getMessage()));
 		}

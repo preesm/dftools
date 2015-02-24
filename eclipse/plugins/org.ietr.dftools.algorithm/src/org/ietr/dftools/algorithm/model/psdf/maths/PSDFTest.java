@@ -26,21 +26,12 @@ public class PSDFTest {
 			try {
 				testGraph.accept(dageur);
 			} catch (SDF4JException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			@SuppressWarnings("unused")
 			DirectedAcyclicGraph dag = dageur.getOutput();
-		}catch (SDF4JException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (SDF4JException | FileNotFoundException | InvalidModelException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

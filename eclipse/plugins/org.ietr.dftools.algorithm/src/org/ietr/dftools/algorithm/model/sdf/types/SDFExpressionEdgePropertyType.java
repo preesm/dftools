@@ -68,7 +68,6 @@ public class SDFExpressionEdgePropertyType extends
 				computedValue = value.intValue();
 				return computedValue;
 			} catch (NoIntegerValueException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return 0 ;
 			}

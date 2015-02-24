@@ -247,7 +247,6 @@ public class GenericMath {
 			}
 			return ratValues;
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

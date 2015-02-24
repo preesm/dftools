@@ -59,7 +59,6 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
 			try {
 				demoGraph.accept(topo);
 			} catch (SDF4JException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			applet1.init(demoGraph);
@@ -69,7 +68,6 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
 			try {
 				demoGraph.accept(visitor);
 			} catch (SDF4JException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			applet2.init(visitor.getOutput());

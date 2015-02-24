@@ -54,14 +54,11 @@ public class MFAPartitioning {
 			graph = importer
 					.parse(new File(
 							"D:\\Preesm\\trunk\\tests\\ProdMatVect\\Algo\\TestMatMat.graphml"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidModelException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		if ((graph != null && !graph.validateModel(Logger.getAnonymousLogger())) || graph == null) {
+		if ((graph != null && !graph.validateModel(Logger.getAnonymousLogger()))
+				|| graph == null) {
 			return;
 		}
 		SDFHierarchyFlattening flatHier = new SDFHierarchyFlattening();
@@ -204,7 +201,6 @@ public class MFAPartitioning {
 		try {
 			System.out.println(summary());
 		} catch (NoMigrationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -256,24 +252,24 @@ public class MFAPartitioning {
 			System.out.println("T = " + T);
 			System.out.println(nodesSummary());
 		}
-		
+
 		try {
 			System.out.println(summary());
 		} catch (NoMigrationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Map<SDFAbstractVertex, Map<Integer, Integer>> nodeSplit= new HashMap<SDFAbstractVertex, Map<Integer, Integer>>();
-		for(Node n : nodes){
-			Map<Integer, Integer> partitions ;
-			if((partitions = nodeSplit.get(n.getVertex())) == null){
+		Map<SDFAbstractVertex, Map<Integer, Integer>> nodeSplit = new HashMap<SDFAbstractVertex, Map<Integer, Integer>>();
+		for (Node n : nodes) {
+			Map<Integer, Integer> partitions;
+			if ((partitions = nodeSplit.get(n.getVertex())) == null) {
 				partitions = new HashMap<Integer, Integer>();
 				nodeSplit.put(n.getVertex(), partitions);
 			}
-			if(partitions.get(n.getBelongsToPartition()) == null){
+			if (partitions.get(n.getBelongsToPartition()) == null) {
 				partitions.put(n.getBelongsToPartition(), 1);
-			}else{
-				partitions.put(n.getBelongsToPartition(), partitions.get(n.getBelongsToPartition())+1);
+			} else {
+				partitions.put(n.getBelongsToPartition(),
+						partitions.get(n.getBelongsToPartition()) + 1);
 			}
 		}
 		System.out.println(nodeSplit);
@@ -287,24 +283,24 @@ public class MFAPartitioning {
 	 */
 	public double computeEnergie() throws InvalidExpressionException {
 		double result = 0;
-		double max = 1 ;
+		double max = 1;
 		for (Node nI : nodes) {
 			for (Node nJ : nodes) {
 				if (nI != nJ) {
 					for (int i = 0; i < nbPartitions; i++) {
-						double locEnergy = computeLocalEnergie(nI.getSpin(i), nJ
-								.getSpin(i), base.getAllEdges(nI.getVertex(),
+						double locEnergy = computeLocalEnergie(nI.getSpin(i),
+								nJ.getSpin(i), base.getAllEdges(nI.getVertex(),
 										nJ.getVertex()));
 						result += locEnergy;
-						if(Math.abs(locEnergy) > max){
+						if (Math.abs(locEnergy) > max) {
 							max = Math.abs(locEnergy);
 						}
-						
+
 					}
 				}
 			}
 		}
-		return result/nodes.size();
+		return result / nodes.size();
 	}
 
 	/**
@@ -322,17 +318,17 @@ public class MFAPartitioning {
 	public double computeLocalEnergie(Spin spinI, Spin spinJ, Set<SDFEdge> links)
 			throws InvalidExpressionException {
 		int linksWeight = 1;
-		int size = 1 ;
+		int size = 1;
 		for (SDFEdge edge : links) {
 			size = links.size();
-			if(edge.getTarget().equals(spinI)){
+			if (edge.getTarget().equals(spinI)) {
 				linksWeight += edge.getCons().intValue();
-			}else{
+			} else {
 				linksWeight += edge.getProd().intValue();
-			}	
+			}
 		}
 		double result = (spinI.getValue() * (1 - spinJ.getValue()))
-				* ((depCoef * (linksWeight/size)) - equCoef);
+				* ((depCoef * (linksWeight / size)) - equCoef);
 		return result;
 	}
 
@@ -344,19 +340,19 @@ public class MFAPartitioning {
 		}
 		int oldValue = randomNode.get(nodes.get(index));
 		if (oldValue > 0) {
-			int newValue = oldValue - 1 ;
+			int newValue = oldValue - 1;
 			randomNode.put(nodes.get(index), newValue);
 		}
 		return nodes.get(index);
 	}
-	
-	private boolean allTreated(){
-		for(Node n : randomNode.keySet()){
-			if(randomNode.get(n) > 0){
-				return false ;
+
+	private boolean allTreated() {
+		for (Node n : randomNode.keySet()) {
+			if (randomNode.get(n) > 0) {
+				return false;
 			}
 		}
-		return true ;
+		return true;
 	}
 
 	private String nodesSummary() {
@@ -403,7 +399,7 @@ public class MFAPartitioning {
 
 	private void refreshRandomNodes() {
 		for (Node n : randomNode.keySet()) {
-			randomNode.put(n, nodes.size()/nbPartitions);
+			randomNode.put(n, nodes.size() / nbPartitions);
 		}
 	}
 

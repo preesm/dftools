@@ -43,11 +43,7 @@ public class GMLGenericImporter extends
 				}
 			}
 			System.out.println("graph :" + graph.toString());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (FileNotFoundException | InvalidModelException e) {
 			e.printStackTrace();
 		}
 

@@ -63,18 +63,8 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
 			impl = registry.getDOMImplementation("Core 3.0 XML 3.0 LS");
 			domDocument = impl.createDocument(
 					"http://graphml.graphdrawing.org/xmlns", "graphml", null);
-		} catch (ClassCastException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (ClassCastException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
 
 		rootElt = domDocument.getDocumentElement();

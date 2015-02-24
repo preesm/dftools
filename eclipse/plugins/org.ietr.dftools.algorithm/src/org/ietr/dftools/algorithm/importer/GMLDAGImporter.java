@@ -35,11 +35,7 @@ public class GMLDAGImporter extends
 			exporter.setKeySet(importer.getKeySet());
 			exporter.exportGraph(graph);
 			exporter.transform(new FileOutputStream("C:\\test_dag_gml_2.xml"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (FileNotFoundException | InvalidModelException e) {
 			e.printStackTrace();
 		}
 	}

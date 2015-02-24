@@ -326,7 +326,6 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 					&& (this.getDelay().intValue() == edge.getDelay()
 							.intValue());
 		} catch (InvalidExpressionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

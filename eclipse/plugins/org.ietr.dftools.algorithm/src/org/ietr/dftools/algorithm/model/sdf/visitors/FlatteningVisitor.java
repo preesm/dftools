@@ -28,10 +28,12 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  * @author jpiat
  * 
  */
-public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+public class FlatteningVisitor implements
+		IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Creates a known graph
+	 * 
 	 * @return The created test_com graph
 	 * 
 	 */
@@ -66,11 +68,11 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 		SDFVertex gen_sub1 = new SDFVertex();
 		gen_sub1.setName("gen_sub1");
 		subGraph.addVertex(gen_sub1);
-		
+
 		SDFVertex gen_sub2 = new SDFVertex();
 		gen_sub2.setName("gen_sub2");
 		subGraph.addVertex(gen_sub2);
-		
+
 		SDFInterfaceVertex times = new SDFSinkInterfaceVertex();
 		times.setName("Times");
 
@@ -82,17 +84,16 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 		SDFEdge intern1 = subGraph.addEdge(add, gen_sub1);
 		intern1.setProd(new SDFIntEdgePropertyType(1));
 		intern1.setCons(new SDFIntEdgePropertyType(1));
-		
+
 		SDFEdge intern2 = subGraph.addEdge(gen_sub2, times);
 		intern2.setProd(new SDFIntEdgePropertyType(1));
 		intern2.setCons(new SDFIntEdgePropertyType(1));
-		
+
 		SDFEdge intern3 = subGraph.addEdge(gen_sub1, gen_sub2);
 		intern3.setProd(new SDFIntEdgePropertyType(1));
 		intern3.setCons(new SDFIntEdgePropertyType(1));
-		
-		
-		//end of hierachy
+
+		// end of hierachy
 		SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
 		sensGen.setTargetInterface(add);
 		sensGen.setProd(new SDFIntEdgePropertyType(1));
@@ -123,32 +124,27 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 
 	/**
 	 * Main method for debug purposes
+	 * 
 	 * @param args
-	 * @throws InvalidExpressionException 
+	 * @throws InvalidExpressionException
 	 */
 	public static void main(String[] args) throws InvalidExpressionException {
 		SDFAdapterDemo applet = new SDFAdapterDemo();
 		SDFAdapterDemo applet2 = new SDFAdapterDemo();
-		GMLSDFImporter importer = new GMLSDFImporter() ; 
-		//SDFGraph demoGraph = createTestComGraph();
+		GMLSDFImporter importer = new GMLSDFImporter();
+		// SDFGraph demoGraph = createTestComGraph();
 		SDFGraph demoGraph;
 		try {
-			demoGraph = importer.parse(new File("D:\\IDCT2D\\idct2dCadOptim.xml"));
+			demoGraph = importer.parse(new File(
+					"D:\\IDCT2D\\idct2dCadOptim.xml"));
 			FlatteningVisitor visitor = new FlatteningVisitor();
 			demoGraph.accept(visitor);
 			applet2.init(demoGraph);
 			applet.init(visitor.getOutput());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidModelException | FileNotFoundException | SDF4JException e) {
 			e.printStackTrace();
 		}
-			}
+	}
 
 	private SDFGraph output;
 
@@ -175,7 +171,8 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 				vertex.getGraphDescription().vertexSet());
 		for (int i = 0; i < vertices.size(); i++) {
 			if (vertices.get(i).getGraphDescription() != null) {
-				treatVertex(vertices.get(i), (SDFGraph) vertex.getGraphDescription());
+				treatVertex(vertices.get(i),
+						(SDFGraph) vertex.getGraphDescription());
 				vertex.getGraphDescription().removeVertex(vertices.get(i));
 			}
 		}
@@ -223,13 +220,11 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 
 	@Override
 	public void visit(SDFEdge sdfEdge) {
-		// TODO Auto-generated method stub
 
 	}
-	
-	
+
 	@Override
-	public void visit(SDFGraph sdf) throws SDF4JException{
+	public void visit(SDFGraph sdf) throws SDF4JException {
 		output = sdf.clone();
 		TopologyVisitor schedulability = new TopologyVisitor();
 		output.accept(schedulability);
@@ -240,7 +235,6 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 				output.vertexSet());
 		for (int i = 0; i < vertices.size(); i++) {
 			if (vertices.get(i).getGraphDescription() != null) {
-				// TODO
 				treatVertex(vertices.get(i), output);
 				output.removeVertex(vertices.get(i));
 			}
@@ -254,14 +248,13 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 					output.removeEdge(edge);
 				}
 			} catch (InvalidExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-				throw(new SDF4JException(e.getMessage()));
+				throw (new SDF4JException(e.getMessage()));
 			}
 		}
 	}
-	
-	public void visit(SDFAbstractVertex sdfVertex) throws SDF4JException{
+
+	public void visit(SDFAbstractVertex sdfVertex) throws SDF4JException {
 
 	}
 

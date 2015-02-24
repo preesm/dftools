@@ -35,7 +35,6 @@ public class PSDFDynamicArgument extends Argument implements DynamicValue{
 			try {
 				return Expression.valueOf(getName());
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 				return null ;
 			}

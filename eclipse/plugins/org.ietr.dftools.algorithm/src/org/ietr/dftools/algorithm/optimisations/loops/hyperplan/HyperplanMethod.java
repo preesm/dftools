@@ -44,11 +44,7 @@ public class HyperplanMethod {
 			applet.init(demoGraph);
 			analyzeGraph(demoGraph, null, new LoopDependencies());
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidModelException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidModelException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -58,40 +54,39 @@ public class HyperplanMethod {
 			InvalidExpressionException {
 		UUID indexUUID = null;
 		clusterizeStronglyConnected(graph);
-		for (SDFAbstractVertex oneVertex :graph.vertexSet()) {
-			if (oneVertex.getNbRepeat() instanceof Integer && ((Integer) oneVertex.getNbRepeat()) > 1) {
+		for (SDFAbstractVertex oneVertex : graph.vertexSet()) {
+			if (oneVertex.getNbRepeat() instanceof Integer
+					&& ((Integer) oneVertex.getNbRepeat()) > 1) {
 				indexUUID = UUID.randomUUID();
-					if ((oneVertex.getNbRepeat() instanceof Integer)
-							&& (((Integer) oneVertex.getNbRepeat()) > 1)) {
+				if ((oneVertex.getNbRepeat() instanceof Integer)
+						&& (((Integer) oneVertex.getNbRepeat()) > 1)) {
 
-						for (SDFEdge edge : graph.incomingEdgesOf(oneVertex)) {
-							if (edge.getSource() instanceof SDFInterfaceVertex) {
+					for (SDFEdge edge : graph.incomingEdgesOf(oneVertex)) {
+						if (edge.getSource() instanceof SDFInterfaceVertex) {
 
-							} else {
+						} else {
 
-								dependencies.addReadDataDependency(oneVertex,
-										edge, edge.getDelay().intValue(), edge
-												.getCons().intValue(),
-										indexUUID);
-							}
-						}
-						for (SDFEdge edge : graph.outgoingEdgesOf(oneVertex)) {
-							if (edge.getTarget() instanceof SDFInterfaceVertex) {
-
-							} else {
-								dependencies.addWriteDataDependency(oneVertex,
-										edge, 0, edge.getProd().intValue(),
-										indexUUID);
-							}
+							dependencies.addReadDataDependency(oneVertex, edge,
+									edge.getDelay().intValue(), edge.getCons()
+											.intValue(), indexUUID);
 						}
 					}
-				
+					for (SDFEdge edge : graph.outgoingEdgesOf(oneVertex)) {
+						if (edge.getTarget() instanceof SDFInterfaceVertex) {
+
+						} else {
+							dependencies.addWriteDataDependency(oneVertex,
+									edge, 0, edge.getProd().intValue(),
+									indexUUID);
+						}
+					}
+				}
+
 			}
 			if (oneVertex.getGraphDescription() != null
 					&& oneVertex.getGraphDescription() instanceof SDFGraph) {
-				analyzeGraph((SDFGraph) oneVertex
-						.getGraphDescription(), indexUUID,
-						dependencies);
+				analyzeGraph((SDFGraph) oneVertex.getGraphDescription(),
+						indexUUID, dependencies);
 			}
 		}
 	}
@@ -131,9 +126,7 @@ public class HyperplanMethod {
 		try {
 			graph.validateModel(Logger.getAnonymousLogger());
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 		}
 
 		if (block.size() > 1) {
@@ -169,8 +162,8 @@ public class HyperplanMethod {
 				} else {
 					pgcd = SDFMath.gcd(pgcd, seed.getNbRepeatAsInteger());
 				}
-				List<SDFEdge> outgoingEdges = new ArrayList<SDFEdge>(graph
-						.outgoingEdgesOf(block.get(r)));
+				List<SDFEdge> outgoingEdges = new ArrayList<SDFEdge>(
+						graph.outgoingEdgesOf(block.get(r)));
 				for (SDFEdge edge : outgoingEdges) {
 					SDFAbstractVertex target = graph.getEdgeTarget(edge);
 					if (!block.contains(target)) {
@@ -196,8 +189,8 @@ public class HyperplanMethod {
 						graph.removeEdge(edge);
 					}
 				}
-				List<SDFEdge> incomingEdges = new ArrayList<SDFEdge>(graph
-						.incomingEdgesOf(block.get(r)));
+				List<SDFEdge> incomingEdges = new ArrayList<SDFEdge>(
+						graph.incomingEdgesOf(block.get(r)));
 				for (SDFEdge edge : incomingEdges) {
 					SDFAbstractVertex source = graph.getEdgeSource(edge);
 					SDFAbstractVertex target = graph.getEdgeTarget(edge);
@@ -227,8 +220,8 @@ public class HyperplanMethod {
 						loopEdge.setSourceInterface(targetPort);
 						loopEdge.setTargetInterface(sourcePort);
 
-						SDFEdge lastLoop = clusterGraph.addEdge(copies
-								.get(source), targetPort);
+						SDFEdge lastLoop = clusterGraph.addEdge(
+								copies.get(source), targetPort);
 						lastLoop.copyProperties(edge);
 						lastLoop.setDelay(new SDFIntEdgePropertyType(0));
 
@@ -236,8 +229,8 @@ public class HyperplanMethod {
 								copies.get(target));
 						firstLoop.copyProperties(edge);
 						firstLoop.setDelay(new SDFIntEdgePropertyType(0));
-						SDFEdge inLoopEdge = clusterGraph.getEdge(copies
-								.get(source), copies.get(target));
+						SDFEdge inLoopEdge = clusterGraph.getEdge(
+								copies.get(source), copies.get(target));
 						if (inLoopEdge.getDelay().intValue() > 0) {
 							clusterGraph.removeEdge(inLoopEdge);
 						}

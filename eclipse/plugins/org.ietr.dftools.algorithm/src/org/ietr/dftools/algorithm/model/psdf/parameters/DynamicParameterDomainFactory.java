@@ -44,7 +44,6 @@ public class DynamicParameterDomainFactory {
 			System.out.println(DynamicParameterDomainFactory.create("{5..9}"));
 			new PSDFDynamicParameter("d{5..9}");
 		} catch (DomainParsingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

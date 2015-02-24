@@ -32,7 +32,6 @@ public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, 
 		try {
 			graph.accept(this);
 		} catch (SDF4JException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false; 
 		}

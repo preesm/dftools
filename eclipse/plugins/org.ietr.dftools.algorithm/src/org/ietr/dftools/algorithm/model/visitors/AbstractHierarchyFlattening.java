@@ -88,7 +88,6 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
 							cloneVertex.getArgument(arg.getName()).setValue(
 									String.valueOf(arg.intValue()));
 						} catch (NoIntegerValueException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}

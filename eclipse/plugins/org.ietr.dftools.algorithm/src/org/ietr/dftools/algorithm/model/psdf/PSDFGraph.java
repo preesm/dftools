@@ -270,7 +270,6 @@ public class PSDFGraph extends SDFGraph {
 							val = var.intValue();
 							var.setValue(String.valueOf(val));
 						} catch (NoIntegerValueException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
