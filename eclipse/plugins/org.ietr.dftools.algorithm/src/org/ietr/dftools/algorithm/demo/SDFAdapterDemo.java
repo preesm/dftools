@@ -371,7 +371,7 @@ public class SDFAdapterDemo extends JApplet {
 
 		GraphConstants.setBounds(attr, newBounds);
 
-		// TODO: Clean up generics once JGraph goes generic
+		// FIXME: Clean up generics once JGraph goes generic
 		AttributeMap cellAttr = new AttributeMap();
 		cellAttr.put(cell, attr);
 		jgAdapter.edit(cellAttr, null, null, null);
