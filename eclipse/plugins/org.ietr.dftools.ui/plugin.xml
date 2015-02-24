@@ -34,13 +34,9 @@
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
-      <category
-            id="net.sf.dftools.ui.dftools.category"
-            name="DFTools">
-      </category>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.ui.dftools.category"
+            category="org.ietr.preesm.category"
             class="org.ietr.dftools.ui.slam.NewSlamFileWizard"
             hasPages="true"
             icon="icons/graphiti.gif"
@@ -53,15 +49,15 @@
       </wizard>
       <wizard
             canFinishEarly="false"
-            category="net.sf.dftools.ui.dftools.category"
+            category="org.ietr.preesm.category"
             class="org.ietr.dftools.ui.workflow.NewWorkflowFileWizard"
             hasPages="true"
             icon="icons/graphiti.gif"
             id="org.ietr.preesm.ui.wizards.workflow"
-            name="Workflow"
+            name="Preesm Workflow"
             project="false">
          <description>
-            Create a new FU network.
+            Create a new PREESM workflow.
          </description>
       </wizard>
    </extension>
