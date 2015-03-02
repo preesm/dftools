@@ -40,6 +40,7 @@ public class SDFExpressionEdgePropertyType extends
 		return clone;
 	}
 
+	@Override
 	public void setValue(ExpressionValue val) {
 		super.setValue(val);
 		computedValue = null;

@@ -198,7 +198,7 @@ public class SDFHierarchyInstanciation implements
 				SDFAbstractVertex explodeVertex = new SDFForkVertex();
 
 				output.addVertex(explodeVertex);
-				SDFAbstractVertex originVertex = (SDFAbstractVertex) sourceCopies
+				SDFAbstractVertex originVertex = sourceCopies
 						.get(sourceIndex);
 				explodeVertex.setName("explode_" + originVertex.getName() + "_"
 						+ edge.getSourceInterface().getName());
@@ -230,7 +230,7 @@ public class SDFHierarchyInstanciation implements
 					&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)) {
 				SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 				output.addVertex(implodeVertex);
-				SDFAbstractVertex originVertex = (SDFAbstractVertex) targetCopies
+				SDFAbstractVertex originVertex = targetCopies
 						.get(targetIndex);
 				implodeVertex.setName("implode_" + originVertex.getName() + "_"
 						+ edge.getTargetInterface().getName());
@@ -356,7 +356,7 @@ public class SDFHierarchyInstanciation implements
 				Vector<SDFAbstractVertex> copies = new Vector<SDFAbstractVertex>();
 				matchCopies.put(vertex, copies);
 				if (vertex instanceof SDFInterfaceVertex) {
-					SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+					SDFAbstractVertex copy = vertex
 							.clone();
 					copies.add(copy);
 					output.addVertex(copy);
@@ -366,7 +366,7 @@ public class SDFHierarchyInstanciation implements
 							vertex.getGraphDescription());
 					if (cycleDetector.detectCycles()) {
 						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-							SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+							SDFAbstractVertex copy = vertex
 									.clone();
 							copy.setName(copy.getName() + "_" + i);
 							copy.setNbRepeat(1);
@@ -374,14 +374,14 @@ public class SDFHierarchyInstanciation implements
 							copies.add(copy);
 						}
 					} else {
-						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+						SDFAbstractVertex copy = vertex
 								.clone();
 						output.addVertex(copy);
 						copies.add(copy);
 					}
 				} else if (needToBeRepeated.contains(vertex)) {
 					for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+						SDFAbstractVertex copy = vertex
 								.clone();
 						copy.setName(copy.getName() + "_" + i);
 						copy.setNbRepeat(1);
@@ -389,7 +389,7 @@ public class SDFHierarchyInstanciation implements
 						copies.add(copy);
 					}
 				} else {
-					SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+					SDFAbstractVertex copy = vertex
 							.clone();
 					output.addVertex(copy);
 					copies.add(copy);
@@ -403,9 +403,11 @@ public class SDFHierarchyInstanciation implements
 		}
 	}
 
+	@Override
 	public void visit(SDFEdge sdfEdge) {
 	}
 
+	@Override
 	public void visit(SDFGraph sdf) throws SDF4JException {
 		outputGraph = sdf.clone();
 		outputGraph.clean();
@@ -417,6 +419,7 @@ public class SDFHierarchyInstanciation implements
 		}
 	}
 
+	@Override
 	public void visit(SDFAbstractVertex sdfVertex) {
 		/*
 		 * if(sdfVertex.getGraphDescription() != null){

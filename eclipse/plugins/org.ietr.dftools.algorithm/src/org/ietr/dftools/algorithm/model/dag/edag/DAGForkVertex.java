@@ -104,6 +104,7 @@ public class DAGForkVertex extends DAGVertex{
 		removeConnection((DAGEdge) e);
 	}
 
+	@Override
 	public String toString() {
 		return getName() ;
 	}

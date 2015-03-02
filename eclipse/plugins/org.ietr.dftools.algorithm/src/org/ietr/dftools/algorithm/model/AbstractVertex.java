@@ -75,6 +75,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 		interfaces = new ArrayList<IInterface>();
 	}
 
+	@Override
 	public List<String> getPublicProperties() {
 		return public_properties;
 	}
@@ -159,6 +160,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 	 * 
 	 * @return This Graph PropertyBean
 	 */
+	@Override
 	public PropertyBean getPropertyBean() {
 		return properties;
 	}
@@ -233,6 +235,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 		properties.setValue(INFO, properties.getValue(INFO), info);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public void update(Observable o, Object arg) {
 		if (arg != null) {
@@ -246,6 +249,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 		}
 	}
 
+	@Override
 	public void copyProperties(PropertySource props) {
 		List<String> keys = new ArrayList<String>(props.getPropertyBean()
 				.keys());
@@ -310,6 +314,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 		arguments.setExpressionSolver(this.getBase());
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public abstract AbstractVertex clone();
 
@@ -361,6 +366,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 	 */
 	public abstract void connectionRemoved(AbstractEdge<?, ?> e);
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public boolean equals(Object e) {
 		if (e instanceof AbstractVertex) {
@@ -397,6 +403,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 		return null;
 	}
 
+	@Override
 	public String getPropertyStringValue(String propertyName) {
 		if (this.getPropertyBean().getValue(propertyName) != null) {
 			return this.getPropertyBean().getValue(propertyName).toString();
@@ -404,6 +411,7 @@ public abstract class AbstractVertex<G> extends Observable implements
 		return null;
 	}
 
+	@Override
 	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}

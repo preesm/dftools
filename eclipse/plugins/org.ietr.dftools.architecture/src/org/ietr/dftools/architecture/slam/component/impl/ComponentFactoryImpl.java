@@ -91,6 +91,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Component createComponent() {
 		ComponentImpl component = new ComponentImpl();
 		return component;
@@ -101,6 +102,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Operator createOperator() {
 		OperatorImpl operator = new OperatorImpl();
 		return operator;
@@ -111,6 +113,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComNode createComNode() {
 		ComNodeImpl comNode = new ComNodeImpl();
 		return comNode;
@@ -121,6 +124,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Dma createDma() {
 		DmaImpl dma = new DmaImpl();
 		return dma;
@@ -131,6 +135,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Mem createMem() {
 		MemImpl mem = new MemImpl();
 		return mem;
@@ -141,6 +146,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public HierarchyPort createHierarchyPort() {
 		HierarchyPortImpl hierarchyPort = new HierarchyPortImpl();
 		return hierarchyPort;
@@ -151,6 +157,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComInterface createComInterface() {
 		ComInterfaceImpl comInterface = new ComInterfaceImpl();
 		return comInterface;
@@ -161,6 +168,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentPackage getComponentPackage() {
 		return (ComponentPackage) getEPackage();
 	}

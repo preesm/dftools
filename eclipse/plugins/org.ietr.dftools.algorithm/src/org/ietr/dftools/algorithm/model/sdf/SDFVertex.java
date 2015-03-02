@@ -59,6 +59,7 @@ public class SDFVertex extends SDFAbstractVertex {
 	/**
 	 * Clone the vertex
 	 */
+	@Override
 	public SDFVertex clone() {
 		SDFVertex newVertex = new SDFVertex(null);
 		for (String key : this.getPropertyBean().keys()) {

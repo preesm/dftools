@@ -76,6 +76,7 @@ public class AttributesFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VLNV createVLNV() {
 		VLNVImpl vlnv = new VLNVImpl();
 		return vlnv;
@@ -86,6 +87,7 @@ public class AttributesFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Parameter createParameter() {
 		ParameterImpl parameter = new ParameterImpl();
 		return parameter;
@@ -96,6 +98,7 @@ public class AttributesFactoryImpl extends EFactoryImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributesPackage getAttributesPackage() {
 		return (AttributesPackage) getEPackage();
 	}

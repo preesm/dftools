@@ -36,6 +36,7 @@ public class ExpressionValue implements Value{
 	 * @return The integer value of the expression
 	 * @throws InvalidExpressionException When expression can't be solved
 	 */
+	@Override
 	public int intValue() throws InvalidExpressionException,  NoIntegerValueException{
 		if (value != null) {
 			return value;
@@ -67,6 +68,7 @@ public class ExpressionValue implements Value{
 	 * @param solver
 	 *            The solver to use to compute int value
 	 */
+	@Override
 	public void setExpressionSolver(IExpressionSolver solver) {
 		this.solver = solver;
 		value = null ;
@@ -77,6 +79,7 @@ public class ExpressionValue implements Value{
 	 * 
 	 * @return The value of the variable
 	 */
+	@Override
 	public String getValue() {
 		return expression;
 	}
@@ -87,12 +90,14 @@ public class ExpressionValue implements Value{
 	 * @param value
 	 *            The value to set for the variable
 	 */
+	@Override
 	public void setValue(String value) {
 		this.value = null ;
 		expression = value;
 	}
 	
 
+	@Override
 	public String toString() {
 		return expression;
 	}

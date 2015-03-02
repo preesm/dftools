@@ -158,6 +158,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getParameters() {
 		if (parameters == null) {
 			parameters = new EObjectContainmentEList<Parameter>(
@@ -171,6 +172,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ComponentInstance> getComponentInstances() {
 		if (componentInstances == null) {
 			componentInstances = new EObjectContainmentEList<ComponentInstance>(
@@ -185,6 +187,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Link> getLinks() {
 		if (links == null) {
 			links = new EObjectContainmentEList<Link>(Link.class, this,
@@ -198,6 +201,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<HierarchyPort> getHierarchyPorts() {
 		if (hierarchyPorts == null) {
 			hierarchyPorts = new EObjectContainmentEList<HierarchyPort>(
@@ -212,6 +216,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Component getRefined() {
 		if (eContainerFeatureID() != SlamPackage.DESIGN__REFINED)
 			return null;
@@ -235,6 +240,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setRefined(Component newRefined) {
 		if (newRefined != eInternalContainer()
 				|| (eContainerFeatureID() != SlamPackage.DESIGN__REFINED && newRefined != null)) {
@@ -261,6 +267,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getPath() {
 		return path;
 	}
@@ -270,6 +277,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setPath(String newPath) {
 		String oldPath = path;
 		path = newPath;
@@ -283,6 +291,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentHolder getComponentHolder() {
 		if (componentHolder != null && componentHolder.eIsProxy()) {
 			InternalEObject oldComponentHolder = (InternalEObject) componentHolder;
@@ -311,6 +320,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setComponentHolder(ComponentHolder newComponentHolder) {
 		ComponentHolder oldComponentHolder = componentHolder;
 		componentHolder = newComponentHolder;
@@ -325,6 +335,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated NOT
 	 */
+	@Override
 	public boolean containsComponentInstance(String name) {
 		for (ComponentInstance instance : componentInstances) {
 			if (instance.getInstanceName().equals(name)) {
@@ -340,6 +351,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated NOT
 	 */
+	@Override
 	public boolean containsComponent(VLNV name) {
 		for (Component component : this.getComponentHolder().getComponents()) {
 			if (name.equals(component.getVlnv())) {
@@ -355,6 +367,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated NOT
 	 */
+	@Override
 	public ComponentInstance getComponentInstance(String name) {
 		for (ComponentInstance instance : componentInstances) {
 			if (instance.getInstanceName().equals(name)) {
@@ -370,6 +383,7 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
 	 * 
 	 * @generated NOT
 	 */
+	@Override
 	public Component getComponent(VLNV name, EClass class_) {
 
 		for (Component component : this.getComponentHolder().getComponents()) {

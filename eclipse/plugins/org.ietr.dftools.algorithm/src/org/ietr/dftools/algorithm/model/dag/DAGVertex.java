@@ -179,6 +179,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 		properties.setValue(TIME, t);
 	}
 
+	@Override
 	public String toString() {
 		return getName() + " x" + getNbRepeat();
 	}

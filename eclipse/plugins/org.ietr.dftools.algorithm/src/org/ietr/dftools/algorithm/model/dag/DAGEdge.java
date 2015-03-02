@@ -93,6 +93,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
 		getPropertyBean().setValue(AGGREGATE, a);
 	}
 
+	@Override
 	public String toString() {
 		String result = new String();
 		result += " w=" + getWeight();

@@ -128,6 +128,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 		return connections;
 	}
 
+	@Override
 	public void copyProperties(PropertySource props) {
 		super.copyProperties(props);
 		Map<SDFEdge, Integer> connections = new HashMap<SDFEdge, Integer>();

@@ -69,6 +69,7 @@ public class GMLSDFImporterV1 extends
 	 * @param parentGraph
 	 *            The parent Graph of this Edge
 	 */
+	@Override
 	public void parseEdge(Element edgeElt, SDFGraph parentGraph)
 			throws InvalidModelException {
 		SDFAbstractVertex vertexSource = vertexFromId.get(edgeElt
@@ -116,6 +117,7 @@ public class GMLSDFImporterV1 extends
 	 *            The graph Element in the DOM document
 	 * @return The parsed graph
 	 */
+	@Override
 	public SDFGraph parseGraph(Element graphElt) throws InvalidModelException {
 		SDFGraph graph = new SDFGraph((SDFEdgeFactory) edgeFactory);
 		NodeList childList = graphElt.getChildNodes();
@@ -158,7 +160,7 @@ public class GMLSDFImporterV1 extends
 									fileName.indexOf('.'));
 							SDFGraph refine;
 							try {
-								refine = (SDFGraph) importer
+								refine = importer
 										.parse(refinementFile);
 							} catch (FileNotFoundException | InvalidModelException e) {
 								GMLGenericImporter genericImporter = new GMLGenericImporter();
@@ -199,6 +201,7 @@ public class GMLSDFImporterV1 extends
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
+	@Override
 	@SuppressWarnings("deprecation")
 	public SDFAbstractVertex parseNode(Element vertexElt, SDFGraph parentGraph)
 			throws InvalidModelException {

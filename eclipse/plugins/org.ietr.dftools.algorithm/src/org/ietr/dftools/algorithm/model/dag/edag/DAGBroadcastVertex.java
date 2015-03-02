@@ -42,6 +42,7 @@ public class DAGBroadcastVertex extends DAGVertex{
 		setKind(DAG_BROADCAST_VERTEX);
 	}
 	
+	@Override
 	public String toString() {
 		return getName() ;
 	}

@@ -68,6 +68,7 @@ public class ComponentHolderImpl extends EObjectImpl implements ComponentHolder 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Component> getComponents() {
 		if (components == null) {
 			components = new EObjectContainmentEList<Component>(

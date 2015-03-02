@@ -89,6 +89,7 @@ public class Key {
 		this.id = id;
 	}
 
+	@Override
 	public boolean equals(Object key) {
 		if (key instanceof Key) {
 			Key kKey = (Key) key;

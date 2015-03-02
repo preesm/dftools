@@ -27,6 +27,7 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
 		value = val;
 	}
 
+	@Override
 	public abstract AbstractVertexPropertyType<T> clone();
 	
 	/**
@@ -55,5 +56,6 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
 		value = val;
 	}
 
+	@Override
 	public abstract String toString();
 }

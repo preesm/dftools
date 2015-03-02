@@ -121,6 +121,7 @@ public class Node {
 		}
 	}
 	
+	@Override
 	public String toString(){
 		String res = vertex.getName();
 		res += " : [";

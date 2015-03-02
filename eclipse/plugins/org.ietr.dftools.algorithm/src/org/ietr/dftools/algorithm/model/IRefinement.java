@@ -8,6 +8,7 @@ package org.ietr.dftools.algorithm.model;
  */
 public interface IRefinement {
 	
+	@Override
 	public String toString();
 	
 }

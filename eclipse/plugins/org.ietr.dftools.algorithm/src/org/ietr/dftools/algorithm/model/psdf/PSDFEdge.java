@@ -17,6 +17,7 @@ public class PSDFEdge extends SDFEdge {
 				sdfIntEdgePropertyType3, sdfStringEdgePropertyType);
 	}
 
+	@Override
 	public PropertyFactory getFactoryForProperty(String propertyName) {
 		if (propertyName.equals(EDGE_CONS) || propertyName.equals(EDGE_PROD)
 				|| propertyName.equals(EDGE_DELAY)) {

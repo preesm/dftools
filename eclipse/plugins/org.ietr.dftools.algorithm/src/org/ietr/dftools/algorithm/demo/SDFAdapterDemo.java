@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import org.ietr.dftools.algorithm.iterators.SDFIterator;
 import org.ietr.dftools.algorithm.model.listenable.SDFListenableGraph;
@@ -273,7 +274,7 @@ public class SDFAdapterDemo extends JApplet {
 	 */
 	public void init(SDFGraph graphIn){
 
-		SDFGraph graph = (SDFGraph) graphIn.clone();
+		SDFGraph graph = graphIn.clone();
 		// create a JGraphT graph
 		model = new SDFListenableGraph();
 
@@ -350,7 +351,7 @@ public class SDFAdapterDemo extends JApplet {
 		if (adapters.size() == 1) {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} else {
-			frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		}
 		frame.pack();
 		frame.setVisible(true);

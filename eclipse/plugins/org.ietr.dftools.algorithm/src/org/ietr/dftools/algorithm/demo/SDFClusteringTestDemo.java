@@ -60,7 +60,7 @@ public class SDFClusteringTestDemo{
 			if(clusters_fast.get(vertex.getPropertyBean().getValue(CLUSTER))==null){
 				clusters_fast.put((Integer) vertex.getPropertyBean().getValue(CLUSTER),new Vector<SDFAbstractVertex>());
 			}
-			clusters_fast.get((Integer)vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
+			clusters_fast.get(vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
 		}
 	
 		HashMap<Integer, Integer> fast_vrb_cluster=new HashMap<Integer, Integer>();
@@ -102,7 +102,7 @@ public class SDFClusteringTestDemo{
 			if(clusters_internalisation.get(vertex.getPropertyBean().getValue(CLUSTER))==null){
 				clusters_internalisation.put((Integer) vertex.getPropertyBean().getValue(CLUSTER),new Vector<SDFAbstractVertex>());
 			}
-			clusters_internalisation.get((Integer)vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
+			clusters_internalisation.get(vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
 		}
 	
 		HashMap<Integer, Integer> intenalisation_vrb_cluster=new HashMap<Integer, Integer>();
@@ -147,7 +147,7 @@ public class SDFClusteringTestDemo{
 			if(clusters_mfa.get(vertex.getPropertyBean().getValue(CLUSTER))==null){
 				clusters_mfa.put((Integer) vertex.getPropertyBean().getValue(CLUSTER),new Vector<SDFAbstractVertex>());
 			}
-			clusters_mfa.get((Integer)vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
+			clusters_mfa.get(vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
 		}
 	
 		

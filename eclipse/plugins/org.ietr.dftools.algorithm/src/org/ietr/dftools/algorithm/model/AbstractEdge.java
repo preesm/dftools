@@ -52,6 +52,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 		property = new PropertyBean();
 	}
 
+	@Override
 	public List<String> getPublicProperties() {
 		return public_properties;
 	}
@@ -78,6 +79,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	 * 
 	 * @return The edge property bean
 	 */
+	@Override
 	public PropertyBean getPropertyBean() {
 		return property;
 	}
@@ -90,7 +92,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	 */
 	public String getSourceLabel() {
 		if (getPropertyBean().getValue(SOURCE_PORT) != null) {
-			return (String) getPropertyBean().getValue(SOURCE_PORT).toString();
+			return getPropertyBean().getValue(SOURCE_PORT).toString();
 		}
 		return null;
 	}
@@ -103,7 +105,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 	 */
 	public String getTargetLabel() {
 		if (getPropertyBean().getValue(TARGET_PORT) != null) {
-			return (String) getPropertyBean().getValue(TARGET_PORT).toString();
+			return getPropertyBean().getValue(TARGET_PORT).toString();
 		}
 		return null;
 	}
@@ -165,6 +167,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 		property.setValue(BASE, base);
 	}
 
+	@Override
 	public void update(Observable o, Object arg) {
 		if (arg != null) {
 			if (arg instanceof String && o instanceof AbstractEdge) {
@@ -190,6 +193,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 						.equals(this.getTarget().getName());
 	}
 
+	@Override
 	public void copyProperties(PropertySource props) {
 		for (String key : props.getPropertyBean().keys()) {
 			if (!key.equals(AbstractEdge.BASE)) {
@@ -206,6 +210,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 		}
 	}
 
+	@Override
 	public String getPropertyStringValue(String propertyName) {
 		Object o = this.getPropertyBean().getValue(propertyName);
 		if(o != null){
@@ -216,6 +221,7 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends
 		}
 	}
 
+	@Override
 	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}

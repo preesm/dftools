@@ -114,6 +114,7 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getParameters() {
 		if (parameters == null) {
 			parameters = new EObjectContainmentEList<Parameter>(
@@ -128,6 +129,7 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ComInterface> getInterfaces() {
 		if (interfaces == null) {
 			interfaces = new EObjectContainmentWithInverseEList<ComInterface>(
@@ -143,6 +145,7 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<ComponentInstance> getInstances() {
 		if (instances == null) {
 			instances = new EObjectWithInverseResolvingEList<ComponentInstance>(
@@ -158,6 +161,7 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Design> getRefinements() {
 		if (refinements == null) {
 			refinements = new EObjectContainmentWithInverseEList<Design>(
@@ -174,6 +178,7 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
 	 * 
 	 * @generated NOT
 	 */
+	@Override
 	public ComInterface getInterface(String name) {
 		if (interfaces != null) {
 			for (ComInterface intf : interfaces) {

@@ -159,6 +159,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDesign() {
 		return designEClass;
 	}
@@ -168,6 +169,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDesign_ComponentInstances() {
 		return (EReference) designEClass.getEStructuralFeatures().get(0);
 	}
@@ -177,6 +179,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDesign_Links() {
 		return (EReference) designEClass.getEStructuralFeatures().get(1);
 	}
@@ -186,6 +189,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDesign_HierarchyPorts() {
 		return (EReference) designEClass.getEStructuralFeatures().get(2);
 	}
@@ -195,6 +199,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDesign_Refined() {
 		return (EReference) designEClass.getEStructuralFeatures().get(3);
 	}
@@ -204,6 +209,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDesign_Path() {
 		return (EAttribute) designEClass.getEStructuralFeatures().get(4);
 	}
@@ -213,6 +219,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getDesign_ComponentHolder() {
 		return (EReference) designEClass.getEStructuralFeatures().get(5);
 	}
@@ -222,6 +229,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getComponentInstance() {
 		return componentInstanceEClass;
 	}
@@ -231,6 +239,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComponentInstance_Component() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures()
 				.get(0);
@@ -241,6 +250,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComponentInstance_InstanceName() {
 		return (EAttribute) componentInstanceEClass.getEStructuralFeatures()
 				.get(1);
@@ -251,6 +261,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getVLNVedElement() {
 		return vlnVedElementEClass;
 	}
@@ -260,6 +271,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getVLNVedElement_Vlnv() {
 		return (EReference) vlnVedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -269,6 +281,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getParameterizedElement() {
 		return parameterizedElementEClass;
 	}
@@ -278,6 +291,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getParameterizedElement_Parameters() {
 		return (EReference) parameterizedElementEClass.getEStructuralFeatures()
 				.get(0);
@@ -288,6 +302,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getComponentHolder() {
 		return componentHolderEClass;
 	}
@@ -297,6 +312,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComponentHolder_Components() {
 		return (EReference) componentHolderEClass.getEStructuralFeatures().get(
 				0);
@@ -307,6 +323,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SlamFactory getSlamFactory() {
 		return (SlamFactory) getEFactoryInstance();
 	}

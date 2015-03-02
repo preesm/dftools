@@ -13,6 +13,7 @@ public class DynamicArgumentFactory extends ArgumentFactory {
 		super(vertex);
 	}
 
+	@Override
 	public Argument create(String name, String value) {
 		if (value.charAt(0) == '$' && pVertex.getBase() != null) {
 			PSDFGraph pGraph = ((PSDFGraph) pVertex.getBase());

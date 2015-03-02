@@ -331,6 +331,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 		}
 	}
 
+	@Override
 	public String toString() {
 		return "{ d=" + getDelay() + ", p=" + getProd() + ", c=" + getCons()
 				+ " }";

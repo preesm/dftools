@@ -92,6 +92,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isParallel() {
 		return parallel;
 	}
@@ -101,6 +102,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setParallel(boolean newParallel) {
 		boolean oldParallel = parallel;
 		parallel = newParallel;
@@ -114,6 +116,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public float getSpeed() {
 		return speed;
 	}
@@ -123,6 +126,7 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSpeed(float newSpeed) {
 		float oldSpeed = speed;
 		speed = newSpeed;

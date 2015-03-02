@@ -16,6 +16,7 @@ public enum InterfaceDirection {
 	 */
 	Output;
 
+	@Override
 	public String toString() {
 		switch (this) {
 		case Input:

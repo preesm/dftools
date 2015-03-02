@@ -45,6 +45,7 @@ public class SDFHierarchyFlattening extends
 	 *            The logger in which output information
 	 * @throws SDF4JException
 	 */
+	@Override
 	public void flattenGraph(SDFGraph sdf, int depth) throws SDF4JException {
 		boolean flatteningEnded = false;
 		int newDepth = depth;
@@ -318,6 +319,7 @@ public class SDFHierarchyFlattening extends
 		return cloneVertex;
 	}
 
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void treatSinkInterface(AbstractVertex port,
 			AbstractGraph parentGraph, int depth)
@@ -366,7 +368,7 @@ public class SDFHierarchyFlattening extends
 		output.setName("out");
 		implodeBuffer.setName("implode_" + vertex.getName());
 		parentGraph.addVertex(implodeBuffer);
-		SDFEdge edge = (SDFEdge) parentGraph.addEdge(implodeBuffer, vertex);
+		SDFEdge edge = parentGraph.addEdge(implodeBuffer, vertex);
 		edge.copyProperties(inEdges.get(0));
 		// The modifier of the source port should not be copied.
 		edge.setSourcePortModifier(null);
@@ -387,7 +389,7 @@ public class SDFHierarchyFlattening extends
 					* treatEdge.getSource().getNbRepeatAsInteger();
 
 			SDFAbstractVertex source = treatEdge.getSource();
-			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(source,
+			SDFEdge newEdge = parentGraph.addEdge(source,
 					implodeBuffer);
 			newEdge.copyProperties(treatEdge);
 			// The modifier of the target port should not be copied.
@@ -415,7 +417,7 @@ public class SDFHierarchyFlattening extends
 		roundBuffer.addSource(output);
 		roundBuffer.setName("roundBuffer_" + vertex.getName());
 		parentGraph.addVertex(roundBuffer);
-		SDFEdge edge = (SDFEdge) parentGraph.addEdge(roundBuffer, vertex);
+		SDFEdge edge = parentGraph.addEdge(roundBuffer, vertex);
 		edge.copyProperties(inEdges.get(0));
 		// The modifier of the source port should not be copied.
 		// Instead, always set it to write_only
@@ -450,7 +452,7 @@ public class SDFHierarchyFlattening extends
 			roundBuffer.addSink(input);
 
 			SDFAbstractVertex source = treatEdge.getSource();
-			SDFEdge newEdge = (SDFEdge) parentGraph
+			SDFEdge newEdge = parentGraph
 					.addEdge(source, roundBuffer);
 			newEdge.copyProperties(treatEdge);
 			newEdge.setProd(new SDFIntEdgePropertyType(treatEdge.getProd()
@@ -475,6 +477,7 @@ public class SDFHierarchyFlattening extends
 		}
 	}
 
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void treatSourceInterface(AbstractVertex port,
 			AbstractGraph parentGraph, int depth)
@@ -521,7 +524,7 @@ public class SDFHierarchyFlattening extends
 		input.setName("in");
 		explode.setName("explode_" + vertex.getName());
 		parentGraph.addVertex(explode);
-		SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, explode);
+		SDFEdge edge = parentGraph.addEdge(vertex, explode);
 		edge.copyProperties(outEdges.get(0));
 		// The modifier of the target port should not be copied.
 		edge.setTargetPortModifier(null);
@@ -542,7 +545,7 @@ public class SDFHierarchyFlattening extends
 					* treatEdge.getTarget().getNbRepeatAsInteger();
 
 			SDFAbstractVertex target = treatEdge.getTarget();
-			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(explode, target);
+			SDFEdge newEdge = parentGraph.addEdge(explode, target);
 			newEdge.copyProperties(treatEdge);
 			// The modifier of the source port should not be copied.
 			edge.setSourcePortModifier(null);
@@ -572,7 +575,7 @@ public class SDFHierarchyFlattening extends
 		broadcast.addSink(input);
 
 		parentGraph.addVertex(broadcast);
-		SDFEdge edge = (SDFEdge) parentGraph.addEdge(vertex, broadcast);
+		SDFEdge edge = parentGraph.addEdge(vertex, broadcast);
 		edge.copyProperties(outEdges.get(0));
 		// The modifier of the target port should not be copied.
 		// Instead, always set to read_only
@@ -598,7 +601,7 @@ public class SDFHierarchyFlattening extends
 			broadcast.addSource(output);
 
 			SDFAbstractVertex target = treatEdge.getTarget();
-			SDFEdge newEdge = (SDFEdge) parentGraph.addEdge(broadcast, target);
+			SDFEdge newEdge = parentGraph.addEdge(broadcast, target);
 			newEdge.copyProperties(treatEdge);
 			// The modifier of the source port should not be copied.
 			// Instead, always set to write_only

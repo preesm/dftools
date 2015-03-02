@@ -86,6 +86,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		this.getPropertyBean().setValue(AbstractGraph.MODEL, "sdf");
 	}
 
+	@Override
 	public SDFEdge addEdge(SDFAbstractVertex source, IInterface sourcePort,
 			SDFAbstractVertex target, IInterface targetPort) {
 		SDFEdge edge = this.addEdge(source, target);
@@ -98,6 +99,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return edge;
 	}
 
+	@Override
 	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target) {
 		SDFEdge newEdge = super.addEdge(source, target);
 		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
@@ -165,6 +167,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return edge;
 	}
 
+	@Override
 	public boolean addVertex(SDFAbstractVertex vertex) {
 		if (super.addVertex(vertex)) {
 			this.getPropertyBean().setValue("topology", null);
@@ -293,6 +296,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	}
 
+	@Override
 	public SDFAbstractVertex getEdgeSource(SDFEdge edge) {
 		try {
 			return super.getEdgeSource(edge);
@@ -305,6 +309,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return null;
 	}
 
+	@Override
 	public SDFAbstractVertex getEdgeTarget(SDFEdge edge) {
 		try {
 			return super.getEdgeTarget(edge);
@@ -424,6 +429,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return topologyArrayMatrix;
 	}
 
+	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ModelVertexFactory getVertexFactory() {
 		return SDFVertexFactory.getInstance();
@@ -594,6 +600,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 *             target vertex, a random edge will be removed.
 	 * 
 	 */
+	@Override
 	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
@@ -635,6 +642,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * 
 	 * 
 	 */
+	@Override
 	public boolean removeEdge(SDFEdge edge) {
 		SDFAbstractVertex sourceVertex = edge.getSource();
 		SDFAbstractVertex targetVertex = edge.getTarget();
@@ -663,6 +671,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		return res;
 	}
 
+	@Override
 	public String toString() {
 		return this.getName();
 	}
@@ -834,6 +843,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * @throws SDF4JException
 	 * @throws InvalidExpressionException
 	 */
+	@Override
 	public boolean validateModel(Logger logger) throws SDF4JException {
 		try {
 			if (this.isSchedulable()) {

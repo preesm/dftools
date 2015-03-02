@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import org.ietr.dftools.algorithm.generator.DirectedAcyclicGraphGenerator;
 import org.ietr.dftools.algorithm.iterators.SDFIterator;
@@ -112,7 +113,7 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 	 */
 	public void init(SDFGraph graphIn) throws InvalidExpressionException {
 
-		SDFGraph graph = (SDFGraph) graphIn.clone();
+		SDFGraph graph = graphIn.clone();
 		// create a JGraphT graph
 		model = new SDFListenableGraph();
 
@@ -180,7 +181,7 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 		if (adapters.size() == 1) {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} else {
-			frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		}
 		frame.pack();
 		frame.setVisible(true);

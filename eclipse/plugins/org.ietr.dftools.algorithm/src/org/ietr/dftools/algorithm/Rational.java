@@ -160,6 +160,7 @@ public class Rational {
 		return new Rational(Math.abs(num), Math.abs(denum));
 	}
 
+	@Override
 	public Rational clone() {
 		return new Rational(num, denum);
 	}
@@ -211,6 +212,7 @@ public class Rational {
 		denum = denum / pgcd;
 	}
 
+	@Override
 	public String toString() {
 		return num + "/" + denum;
 	}

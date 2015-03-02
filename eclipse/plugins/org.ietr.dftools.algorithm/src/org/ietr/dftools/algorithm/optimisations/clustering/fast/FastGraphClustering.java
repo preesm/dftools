@@ -45,7 +45,7 @@ public class FastGraphClustering {
 	 * @throws InvalidExpressionException 
 	 */
 	public static SDFGraph SDFclustering(ArrayList<SDFAbstractVertex> vertices,SDFGraph graphin,HashMap<SDFAbstractVertex, Integer> vrb,int nbCluster) throws InvalidExpressionException{
-		SDFGraph graphout = (SDFGraph) graphin.clone();
+		SDFGraph graphout = graphin.clone();
 		SDFVertex composite= new SDFVertex();
 		composite.getPropertyBean().setValue(CLUSTER,nbCluster);
 		int pgcdvertices = 0;
@@ -207,8 +207,8 @@ public class FastGraphClustering {
 						Clusters.get(nbClustertemp).add(maxEdge.getSource().getName());
 					}
 					else{
-						Clusters.get(nbClustertemp).addAll(Clusters.get((Integer)maxEdge.getTarget().getPropertyBean().getValue(CLUSTER)));
-						Clusters.get((Integer)maxEdge.getTarget().getPropertyBean().getValue(CLUSTER)).removeAllElements();
+						Clusters.get(nbClustertemp).addAll(Clusters.get(maxEdge.getTarget().getPropertyBean().getValue(CLUSTER)));
+						Clusters.get(maxEdge.getTarget().getPropertyBean().getValue(CLUSTER)).removeAllElements();
 					}
 				}
 				else if(nbClustertemp!=0){

@@ -64,6 +64,7 @@ public class GMLGenericImporter extends
 	 * @param parentGraph
 	 *            The parent Graph of this Edge
 	 */
+	@Override
 	public void parseEdge(Element edgeElt, AbstractGraph parentGraph)
 			throws InvalidModelException {
 		AbstractVertex vertexSource = vertexFromId.get(edgeElt
@@ -108,6 +109,7 @@ public class GMLGenericImporter extends
 	 *            The graph Element in the DOM document
 	 * @return The parsed graph
 	 */
+	@Override
 	public AbstractGraph parseGraph(Element graphElt)
 			throws InvalidModelException {
 		String parseModel = parseModel(graphElt);
@@ -149,6 +151,7 @@ public class GMLGenericImporter extends
 	 *            The node Element in the DOM document
 	 * @return The parsed node
 	 */
+	@Override
 	public AbstractVertex parseNode(Element vertexElt, AbstractGraph parentGraph)
 			throws InvalidModelException {
 		AbstractVertex vertex;

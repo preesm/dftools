@@ -133,6 +133,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getVLNV() {
 		return vlnvEClass;
 	}
@@ -142,6 +143,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVLNV_Vendor() {
 		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(0);
 	}
@@ -151,6 +153,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVLNV_Library() {
 		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(1);
 	}
@@ -160,6 +163,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVLNV_Name() {
 		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(2);
 	}
@@ -169,6 +173,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVLNV_Version() {
 		return (EAttribute) vlnvEClass.getEStructuralFeatures().get(3);
 	}
@@ -178,6 +183,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getParameter() {
 		return parameterEClass;
 	}
@@ -187,6 +193,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParameter_Key() {
 		return (EAttribute) parameterEClass.getEStructuralFeatures().get(0);
 	}
@@ -196,6 +203,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParameter_Value() {
 		return (EAttribute) parameterEClass.getEStructuralFeatures().get(1);
 	}
@@ -205,6 +213,7 @@ public class AttributesPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public AttributesFactory getAttributesFactory() {
 		return (AttributesFactory) getEFactoryInstance();
 	}

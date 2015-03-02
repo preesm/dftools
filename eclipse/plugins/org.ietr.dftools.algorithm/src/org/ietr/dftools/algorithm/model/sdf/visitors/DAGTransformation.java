@@ -536,9 +536,11 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		}
 	}
 
+	@Override
 	public void visit(SDFEdge sdfEdge) {
 	}
 
+	@Override
 	public void visit(SDFGraph sdf) throws SDF4JException {
 		try {
 
@@ -561,6 +563,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		}
 	}
 
+	@Override
 	public void visit(SDFAbstractVertex sdfVertex) throws SDF4JException {
 		DAGVertex vertex;
 		if (sdfVertex instanceof SDFBroadcastVertex) {

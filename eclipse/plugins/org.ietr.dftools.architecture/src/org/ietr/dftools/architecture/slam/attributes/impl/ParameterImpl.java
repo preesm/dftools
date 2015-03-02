@@ -95,6 +95,7 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getKey() {
 		return key;
 	}
@@ -104,6 +105,7 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setKey(String newKey) {
 		String oldKey = key;
 		key = newKey;
@@ -117,6 +119,7 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -126,6 +129,7 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;

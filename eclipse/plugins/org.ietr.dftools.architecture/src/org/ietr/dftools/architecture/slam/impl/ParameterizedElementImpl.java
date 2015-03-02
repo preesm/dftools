@@ -69,6 +69,7 @@ public class ParameterizedElementImpl extends EObjectImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<Parameter> getParameters() {
 		if (parameters == null) {
 			parameters = new EObjectContainmentEList<Parameter>(

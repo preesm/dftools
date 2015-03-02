@@ -11,6 +11,7 @@ public class DynamicParameterFactory extends ParameterFactory {
 		super(graph);
 	}
 
+	@Override
 	public Parameter create(String name) {
 		if (name.startsWith("$")) {
 			return new PSDFDynamicParameter(name.substring(1));

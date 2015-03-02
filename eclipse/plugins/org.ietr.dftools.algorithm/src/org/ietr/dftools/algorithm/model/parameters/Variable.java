@@ -89,6 +89,7 @@ public class Variable{
 		}
 	}
 	
+	@Override
 	public Variable clone(){
 		Variable var = new Variable(this.name);
 		var.setValue(this.value.getValue());

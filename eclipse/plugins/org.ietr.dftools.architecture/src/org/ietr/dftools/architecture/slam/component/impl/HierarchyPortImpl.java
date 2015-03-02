@@ -94,6 +94,7 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComInterface getExternalInterface() {
 		if (externalInterface != null && externalInterface.eIsProxy()) {
 			InternalEObject oldExternalInterface = (InternalEObject) externalInterface;
@@ -124,6 +125,7 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setExternalInterface(ComInterface newExternalInterface) {
 		ComInterface oldExternalInterface = externalInterface;
 		externalInterface = newExternalInterface;
@@ -138,6 +140,7 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComInterface getInternalInterface() {
 		if (internalInterface != null && internalInterface.eIsProxy()) {
 			InternalEObject oldInternalInterface = (InternalEObject) internalInterface;
@@ -168,6 +171,7 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setInternalInterface(ComInterface newInternalInterface) {
 		ComInterface oldInternalInterface = internalInterface;
 		internalInterface = newInternalInterface;
@@ -182,6 +186,7 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentInstance getInternalComponentInstance() {
 		if (internalComponentInstance != null
 				&& internalComponentInstance.eIsProxy()) {
@@ -214,6 +219,7 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setInternalComponentInstance(
 			ComponentInstance newInternalComponentInstance) {
 		ComponentInstance oldInternalComponentInstance = internalComponentInstance;

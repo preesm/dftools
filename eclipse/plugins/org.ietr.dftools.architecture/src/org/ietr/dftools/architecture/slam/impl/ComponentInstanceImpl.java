@@ -91,6 +91,7 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Component getComponent() {
 		if (component != null && component.eIsProxy()) {
 			InternalEObject oldComponent = (InternalEObject) component;
@@ -141,6 +142,7 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setComponent(Component newComponent) {
 		if (newComponent != component) {
 			NotificationChain msgs = null;
@@ -166,6 +168,7 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getInstanceName() {
 		return instanceName;
 	}
@@ -175,6 +178,7 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setInstanceName(String newInstanceName) {
 		String oldInstanceName = instanceName;
 		instanceName = newInstanceName;
@@ -189,6 +193,7 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isHierarchical() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

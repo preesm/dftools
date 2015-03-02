@@ -62,7 +62,7 @@ public class GMLDAGImporter extends
 	@Override
 	public DirectedAcyclicGraph parseGraph(Element graphElt) {
 		DirectedAcyclicGraph graph = new DirectedAcyclicGraph(
-				(DAGEdgeFactory) edgeFactory);
+				edgeFactory);
 		parseKeys(graphElt, graph);
 		NodeList childList = graphElt.getChildNodes();
 		parseParameters(graph, graphElt);

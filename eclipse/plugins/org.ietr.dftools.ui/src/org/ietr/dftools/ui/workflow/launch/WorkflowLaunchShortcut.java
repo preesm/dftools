@@ -62,6 +62,7 @@ import org.ietr.dftools.ui.util.FileUtils;
 import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 import org.ietr.dftools.ui.workflow.tools.DFToolsWorkflowLogger;
 import org.ietr.dftools.workflow.messages.WorkflowMessages;
+import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
  * Shortcut for launching an executable directly from the navigator, without
@@ -91,7 +92,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 			
 			workingCopy = type.newInstance(null, launchConfigurationName);
 		} catch (CoreException e) {
-			DFToolsWorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
+			WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
 			return null;
 		}
 
@@ -199,7 +200,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 
 				return createLaunchConfiguration(file);
 			} else if (candidateCount == 1) {
-				return (ILaunchConfiguration) candidateConfigs.get(0);
+				return candidateConfigs.get(0);
 			} else {
 				// Prompt the user to choose a config. A null result means the
 				// user
@@ -231,7 +232,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 			FileEditorInput fileEditorInput = (FileEditorInput) editor
 					.getEditorInput();
 
-			IFile file = (IFile) fileEditorInput.getFile();
+			IFile file = fileEditorInput.getFile();
 
 			ILaunchConfiguration configuration = findExistingLaunchConfiguration(file);
 			if (configuration != null) {

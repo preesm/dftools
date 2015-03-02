@@ -47,7 +47,7 @@ public class GMLGenericExporter extends
 			AbstractGraph<AbstractVertex<?>, AbstractEdge<?, ?>> graph) {
 		addKeySet(rootElt);
 		Element graphElt = createGraph(rootElt, true);
-		AbstractGraph<?, ?> myGraph = ((AbstractGraph<?, ?>) graph);
+		AbstractGraph<?, ?> myGraph = (graph);
 		graphElt.setAttribute("edgedefault", "directed");
 		exportKeys(graph, "graph", graphElt);
 		if (myGraph.getParameters() != null) {

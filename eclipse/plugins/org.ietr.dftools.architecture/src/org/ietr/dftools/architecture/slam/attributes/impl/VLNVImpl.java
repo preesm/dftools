@@ -140,6 +140,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getVendor() {
 		return vendor;
 	}
@@ -149,6 +150,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setVendor(String newVendor) {
 		String oldVendor = vendor;
 		vendor = newVendor;
@@ -162,6 +164,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getLibrary() {
 		return library;
 	}
@@ -171,6 +174,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setLibrary(String newLibrary) {
 		String oldLibrary = library;
 		library = newLibrary;
@@ -184,6 +188,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -193,6 +198,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -206,6 +212,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -215,6 +222,7 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;

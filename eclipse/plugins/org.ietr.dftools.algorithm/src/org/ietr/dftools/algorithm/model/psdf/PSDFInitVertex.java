@@ -23,6 +23,7 @@ public class PSDFInitVertex extends SDFAbstractVertex implements
 		this.setNbRepeat(1);
 	}
 
+	@Override
 	public void addArgument(Argument arg) {
 		super.addArgument(arg);
 		if (arg instanceof PSDFDynamicArgument) {
@@ -63,6 +64,7 @@ public class PSDFInitVertex extends SDFAbstractVertex implements
 				.getValue(AFFECTED_PARAMETERS)).values();
 	}
 
+	@Override
 	public PSDFInitVertex clone() {
 		PSDFInitVertex newVertex = new PSDFInitVertex();
 		for (String key : this.getPropertyBean().keys()) {

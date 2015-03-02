@@ -132,7 +132,7 @@ public class OptimizedToHSDFVisitor implements
 						&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)) {
 					SDFAbstractVertex explodeVertex = new SDFForkVertex();
 					output.addVertex(explodeVertex);
-					SDFAbstractVertex originVertex = (SDFAbstractVertex) sourceCopies
+					SDFAbstractVertex originVertex = sourceCopies
 							.get(sourceIndex);
 					explodeVertex.setName("explode_" + originVertex.getName()
 							+ "_" + edge.getSourceInterface().getName());
@@ -153,7 +153,7 @@ public class OptimizedToHSDFVisitor implements
 						&& !(targetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)) {
 					SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 					output.addVertex(implodeVertex);
-					SDFAbstractVertex originVertex = (SDFAbstractVertex) targetCopies
+					SDFAbstractVertex originVertex = targetCopies
 							.get(targetIndex);
 					implodeVertex.setName("implode_" + originVertex.getName()
 							+ "_" + edge.getTargetInterface().getName());
@@ -305,7 +305,7 @@ public class OptimizedToHSDFVisitor implements
 					}
 					output.removeVertex(existingVertex);
 					for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+						SDFAbstractVertex copy = vertex
 								.clone();
 						copy.setName(copy.getName() + "_" + i);
 						copy.setNbRepeat(1);
@@ -324,9 +324,11 @@ public class OptimizedToHSDFVisitor implements
 		}
 	}
 
+	@Override
 	public void visit(SDFEdge sdfEdge) {
 	}
 
+	@Override
 	public void visit(SDFGraph sdf) throws SDF4JException {
 		outputGraph = sdf.clone();
 		boolean isHSDF = true;
@@ -357,6 +359,7 @@ public class OptimizedToHSDFVisitor implements
 
 	}
 
+	@Override
 	public void visit(SDFAbstractVertex sdfVertex) throws SDF4JException {
 		/*
 		 * if(sdfVertex.getGraphDescription() != null){

@@ -133,6 +133,7 @@ public class SDFListenableGraph extends SDFGraph implements
 		super();
 	}
 
+	@Override
 	public SDFEdge addEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
 		SDFEdge e = super.addEdge(sourceVertex, targetVertex);
@@ -147,6 +148,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#addEdge(Object, Object, Object)
 	 */
+	@Override
 	public boolean addEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex, SDFEdge e) {
 		boolean added = super.addEdge(sourceVertex, targetVertex, e);
@@ -161,6 +163,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#addEdge(Object, Object)
 	 */
+	@Override
 	public SDFEdge addEdgeWithInterfaces(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
 		SDFEdge e = super.addEdgeWithInterfaces(sourceVertex, targetVertex);
@@ -175,6 +178,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see ListenableGraph#addGraphListener(GraphListener)
 	 */
+	@Override
 	public void addGraphListener(GraphListener<SDFAbstractVertex, SDFEdge> l) {
 		addToListenerList(graphListeners, l);
 	}
@@ -182,6 +186,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#addVertex(Object)
 	 */
+	@Override
 	public boolean addVertex(SDFAbstractVertex v) {
 		boolean modified = super.addVertex(v);
 
@@ -195,6 +200,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see ListenableGraph#addVertexSetListener(VertexSetListener)
 	 */
+	@Override
 	public void addVertexSetListener(VertexSetListener<SDFAbstractVertex> l) {
 		addToListenerList(vertexSetListeners, l);
 	}
@@ -321,6 +327,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#removeEdge(Object, Object)
 	 */
+	@Override
 	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
 			SDFAbstractVertex targetVertex) {
@@ -337,6 +344,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#removeEdge(Object)
 	 */
+	@Override
 	public boolean removeEdge(SDFEdge e) {
 		boolean modified = super.removeEdge(e);
 
@@ -350,6 +358,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see ListenableGraph#removeGraphListener(GraphListener)
 	 */
+	@Override
 	public void removeGraphListener(GraphListener<SDFAbstractVertex, SDFEdge> l) {
 		graphListeners.remove(l);
 	}
@@ -357,6 +366,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#removeVertex(Object)
 	 */
+	@Override
 	public boolean removeVertex(SDFAbstractVertex v) {
 		if (containsVertex(v)) {
 			Set<SDFEdge> touchingEdgesList = edgesOf(v);
@@ -380,6 +390,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see ListenableGraph#removeVertexSetListener(VertexSetListener)
 	 */
+	@Override
 	public void removeVertexSetListener(VertexSetListener<SDFAbstractVertex> l) {
 		vertexSetListeners.remove(l);
 	}

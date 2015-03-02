@@ -73,6 +73,7 @@ public class WorkflowLaunchConfigurationDelegate implements
 	 * @param monitor
 	 *            Monitoring the workflow progress
 	 */
+	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {

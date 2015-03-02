@@ -98,11 +98,13 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
 		return lang;
 	}
 
+	@Override
 	public String toString() {
 		if (this.filePath != null) return this.filePath.toString();
 		else return "Empty refinement";
 	}
 
+	@Override
 	public CodeRefinement clone() {
 		CodeRefinement clone = new CodeRefinement(this.filePath);
 		return clone;

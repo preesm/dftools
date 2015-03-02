@@ -7,6 +7,7 @@ package org.ietr.dftools.algorithm.model;
  */
 public class FileRefinement implements IRefinement, CloneableProperty{
 
+	@Override
 	public FileRefinement clone(){
 		//TODO: fill the method body
 		return null;

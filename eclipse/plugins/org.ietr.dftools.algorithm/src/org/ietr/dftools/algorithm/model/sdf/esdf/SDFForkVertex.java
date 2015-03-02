@@ -150,6 +150,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
 		removeConnection((SDFEdge) e);
 	}
 
+	@Override
 	public void copyProperties(PropertySource props) {
 		super.copyProperties(props);
 		Map<Integer, SDFEdge> connections = new HashMap<Integer, SDFEdge>();

@@ -189,7 +189,7 @@ public class ToHSDFVisitor implements
 					// If an explode must be added
 					SDFAbstractVertex explodeVertex = new SDFForkVertex();
 					output.addVertex(explodeVertex);
-					SDFAbstractVertex originVertex = (SDFAbstractVertex) sourceCopies
+					SDFAbstractVertex originVertex = sourceCopies
 							.get(sourceIndex);
 					explodeVertex.setName("explode_" + originVertex.getName()
 							+ "_" + edge.getSourceInterface().getName());
@@ -221,7 +221,7 @@ public class ToHSDFVisitor implements
 					// If an implode must be added
 					SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 					output.addVertex(implodeVertex);
-					SDFAbstractVertex originVertex = (SDFAbstractVertex) targetCopies
+					SDFAbstractVertex originVertex = targetCopies
 							.get(targetIndex);
 					implodeVertex.setName("implode_" + originVertex.getName()
 							+ "_" + edge.getTargetInterface().getName());
@@ -542,7 +542,7 @@ public class ToHSDFVisitor implements
 				// If the vertex is an interface, it will not be duplicated,
 				// simply copy it in the output graph
 				if (vertex instanceof SDFInterfaceVertex) {
-					SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+					SDFAbstractVertex copy = vertex
 							.clone();
 					copies.add(copy);
 					output.addVertex(copy);
@@ -553,7 +553,7 @@ public class ToHSDFVisitor implements
 							vertex.getName() + " x" + vertex.getNbRepeat());
 					// If the vertex does not need to be duplicated
 					if (vertex.getNbRepeatAsInteger() == 1) {
-						SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+						SDFAbstractVertex copy = vertex
 								.clone();
 						copy.setName(copy.getName());
 						output.addVertex(copy);
@@ -561,7 +561,7 @@ public class ToHSDFVisitor implements
 					} else {
 						// If the vertex needs to be duplicated
 						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-							SDFAbstractVertex copy = ((SDFAbstractVertex) vertex)
+							SDFAbstractVertex copy = vertex
 									.clone();
 							copy.setName(copy.getName() + "_" + i);
 							copy.setNbRepeat(1);
@@ -583,9 +583,11 @@ public class ToHSDFVisitor implements
 		}
 	}
 
+	@Override
 	public void visit(SDFEdge sdfEdge) {
 	}
 
+	@Override
 	public void visit(SDFGraph sdf) throws SDF4JException {
 		outputGraph = sdf.clone();
 		boolean isHSDF = true;
@@ -643,6 +645,7 @@ public class ToHSDFVisitor implements
 
 	}
 
+	@Override
 	public void visit(SDFAbstractVertex sdfVertex) {
 		/*
 		 * if(sdfVertex.getGraphDescription() != null){

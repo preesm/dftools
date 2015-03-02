@@ -51,6 +51,7 @@ public class DAGInitVertex extends DAGVertex{
 		return (DAGEndVertex) this.getPropertyBean().getValue(END_REFERENCE);
 	}
 	
+	@Override
 	public String toString() {
 		return getName() ;
 	}

@@ -110,7 +110,7 @@ public class SDFRandomGraph {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void PlaceDelay(SDFGraph graph,int nbVertexgraph ,Vector<SDFAbstractVertex> sensors) throws InvalidExpressionException {
-		SDFGraph newgraph = (SDFGraph) graph.clone();// new graph is created to reduce execution time of cycle detection
+		SDFGraph newgraph = graph.clone();// new graph is created to reduce execution time of cycle detection
 		HashMap<SDFAbstractVertex, Integer> vrb=CalcRepetitionVector(graph,nbVertexgraph);
 		for (SDFAbstractVertex Dst:graph.vertexSet()) {
 			//if there is a cycle containing the source and the target of an edge a delay is on placed on it

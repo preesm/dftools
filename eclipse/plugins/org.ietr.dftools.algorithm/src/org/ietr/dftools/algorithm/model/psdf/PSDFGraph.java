@@ -77,6 +77,7 @@ public class PSDFGraph extends SDFGraph {
 	/**
 	 * Adds a vertex to the graph
 	 */
+	@Override
 	public boolean addVertex(SDFAbstractVertex vertex) {
 		if (vertex instanceof PSDFInitVertex) {
 			this.setInitVertex((PSDFInitVertex) vertex);
@@ -192,6 +193,7 @@ public class PSDFGraph extends SDFGraph {
 		return topo;
 	}
 
+	@Override
 	public boolean isSchedulable() {
 		try {
 			return this.computeVRB();
@@ -215,6 +217,7 @@ public class PSDFGraph extends SDFGraph {
 	 * 
 	 * @throws InvalidExpressionException
 	 */
+	@Override
 	protected boolean computeVRB() throws InvalidExpressionException {
 		HashMap<SDFAbstractVertex, Generic> vrb;
 		try {
@@ -230,7 +233,7 @@ public class PSDFGraph extends SDFGraph {
 		}
 		for (SDFAbstractVertex vertex : vrb.keySet()) {
 			if (vrb.get(vertex) instanceof Generic) {
-				Generic gNbR = (Generic) vrb.get(vertex);
+				Generic gNbR = vrb.get(vertex);
 				try {
 					int iNbr = Integer.parseInt(gNbR.toString());
 					vertex.setNbRepeat(iNbr);
@@ -256,6 +259,7 @@ public class PSDFGraph extends SDFGraph {
 		return null;
 	}
 
+	@Override
 	public boolean validateModel(Logger logger) throws SDF4JException {
 		try {
 			if (this.getPropertyBean().getValue(VALID_MODEL) != null) {
@@ -506,14 +510,17 @@ public class PSDFGraph extends SDFGraph {
 		}
 	}
 
+	@Override
 	public ModelVertexFactory<?> getVertexFactory() {
 		return PSDFVertexFactory.getInstance();
 	}
 
+	@Override
 	public ParameterFactory getParameterFactory() {
 		return new DynamicParameterFactory(this);
 	}
 
+	@Override
 	public ArgumentFactory getArgumentFactory(SDFAbstractVertex v) {
 		return new DynamicArgumentFactory(v);
 	}

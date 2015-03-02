@@ -84,6 +84,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Design createDesign() {
 		DesignImpl design = new DesignImpl();
 		return design;
@@ -94,6 +95,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentInstance createComponentInstance() {
 		ComponentInstanceImpl componentInstance = new ComponentInstanceImpl();
 		return componentInstance;
@@ -104,6 +106,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VLNVedElement createVLNVedElement() {
 		VLNVedElementImpl vlnVedElement = new VLNVedElementImpl();
 		return vlnVedElement;
@@ -114,6 +117,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ParameterizedElement createParameterizedElement() {
 		ParameterizedElementImpl parameterizedElement = new ParameterizedElementImpl();
 		return parameterizedElement;
@@ -124,6 +128,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentHolder createComponentHolder() {
 		ComponentHolderImpl componentHolder = new ComponentHolderImpl();
 		return componentHolder;
@@ -134,6 +139,7 @@ public class SlamFactoryImpl extends EFactoryImpl implements SlamFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public SlamPackage getSlamPackage() {
 		return (SlamPackage) getEPackage();
 	}

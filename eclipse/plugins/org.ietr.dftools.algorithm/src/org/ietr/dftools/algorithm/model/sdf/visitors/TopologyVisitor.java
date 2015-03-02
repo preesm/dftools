@@ -43,7 +43,7 @@ public class TopologyVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVerte
 		for (SDFAbstractVertex vertex : sdf.vertexSet()) {
 			if(!(vertex instanceof SDFInterfaceVertex)){
 				vertex.accept(this);
-				vertices.add((SDFAbstractVertex) vertex);
+				vertices.add(vertex);
 			}
 			
 		}

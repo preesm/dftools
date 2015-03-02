@@ -75,6 +75,7 @@ public class LinkFactoryImpl extends EFactoryImpl implements LinkFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public DataLink createDataLink() {
 		DataLinkImpl dataLink = new DataLinkImpl();
 		return dataLink;
@@ -85,6 +86,7 @@ public class LinkFactoryImpl extends EFactoryImpl implements LinkFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ControlLink createControlLink() {
 		ControlLinkImpl controlLink = new ControlLinkImpl();
 		return controlLink;
@@ -95,6 +97,7 @@ public class LinkFactoryImpl extends EFactoryImpl implements LinkFactory {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public LinkPackage getLinkPackage() {
 		return (LinkPackage) getEPackage();
 	}

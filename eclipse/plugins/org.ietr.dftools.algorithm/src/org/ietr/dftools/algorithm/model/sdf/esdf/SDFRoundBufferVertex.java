@@ -42,6 +42,7 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 	 *            The edge to get the connection index
 	 * @return The connection index of the edge
 	 */
+	@Override
 	public Integer getEdgeIndex(SDFEdge edge) {
 		for (Integer index : getConnections().keySet()) {
 			if (getConnections().get(index).equals(edge)) {

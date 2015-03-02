@@ -93,6 +93,7 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Component getComponent() {
 		if (eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT)
 			return null;
@@ -116,6 +117,7 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setComponent(Component newComponent) {
 		if (newComponent != eInternalContainer()
 				|| (eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT && newComponent != null)) {
@@ -143,6 +145,7 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VLNV getBusType() {
 		return busType;
 	}
@@ -173,6 +176,7 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setBusType(VLNV newBusType) {
 		if (newBusType != busType) {
 			NotificationChain msgs = null;
@@ -200,6 +204,7 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -209,6 +214,7 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;

@@ -32,6 +32,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 
 	}
 
+	@Override
 	public SDFAbstractVertex createVertex(Element vertexElt) {
 		String kind = this.getProperty(vertexElt, AbstractVertex.KIND);
 		if (kind.equals(SDFVertex.VERTEX)) {
@@ -73,6 +74,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 	 *            The attributes of the vertex
 	 * @return The created vertex
 	 */
+	@Deprecated
 	public SDFAbstractVertex createVertex(HashMap<String, String> attributes) {
 		String kind = attributes.get("kind");
 		if (kind.equals(SDFVertex.VERTEX)) {

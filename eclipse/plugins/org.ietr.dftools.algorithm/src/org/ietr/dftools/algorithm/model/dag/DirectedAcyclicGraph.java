@@ -101,11 +101,13 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 		}
 	}
 
+	@Override
 	public DAGEdge addEdge(DAGVertex source, DAGVertex target) {
 		DAGEdge edge = super.addEdge(source, target);
 		return edge;
 	}
 
+	@Override
 	public boolean addVertex(DAGVertex vertex) {
 		return super.addVertex(vertex);
 	}
@@ -117,6 +119,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 	 *            The name of the vertex we want to obtain
 	 * @return The DAG vertex with the given name
 	 */
+	@Override
 	public DAGVertex getVertex(String name) {
 		for (DAGVertex vertex : vertexSet()) {
 			if (vertex.getName().equals(name)) {
@@ -163,6 +166,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
 		this.getPropertyBean().setValue(SDF, graph);
 	}
 
+	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ModelVertexFactory getVertexFactory() {
 		return DAGVertexFactory.getInstance();

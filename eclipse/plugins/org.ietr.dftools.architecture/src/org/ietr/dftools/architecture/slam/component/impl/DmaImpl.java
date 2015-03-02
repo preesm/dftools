@@ -70,6 +70,7 @@ public class DmaImpl extends EnablerImpl implements Dma {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getSetupTime() {
 		return setupTime;
 	}
@@ -79,6 +80,7 @@ public class DmaImpl extends EnablerImpl implements Dma {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSetupTime(int newSetupTime) {
 		int oldSetupTime = setupTime;
 		setupTime = newSetupTime;

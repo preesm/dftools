@@ -66,6 +66,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 	 * @param interfaces
 	 *            The list of interface to add
 	 */
+	@Override
 	public void addInterfaces(List<IInterface> interfaces) {
 		super.addInterfaces(interfaces);
 		for (IInterface vertex : interfaces) {
@@ -79,6 +80,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		}
 	}
 
+	@Override
 	public boolean addInterface(IInterface port) {
 		if (port.getDirection().equals(InterfaceDirection.Input)) {
 			return addSource((SDFInterfaceVertex) port);
@@ -137,6 +139,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		properties = new PropertyBean();
 	}
 
+	@Override
 	public abstract SDFAbstractVertex clone();
 
 	/**
@@ -453,6 +456,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		return true;
 	}
 
+	@Override
 	public String toString() {
 		return getName();
 	}

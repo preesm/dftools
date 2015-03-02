@@ -25,6 +25,7 @@ public class GMLPSDFImporterV1 extends GMLSDFImporterV1 {
 		super();
 	}
 
+	@Override
 	public PSDFGraph parseGraph(Element graphElt) throws InvalidModelException {
 
 		graph = new PSDFGraph();
@@ -152,6 +153,7 @@ public class GMLPSDFImporterV1 extends GMLSDFImporterV1 {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	protected void parseArguments(AbstractVertex vertex, Element parentElt) {
 		NodeList childList = parentElt.getChildNodes();
@@ -165,7 +167,7 @@ public class GMLPSDFImporterV1 extends GMLSDFImporterV1 {
 						Element arg = (Element) argsList.item(j);
 						if (arg.getAttribute("value").charAt(0) == '$'
 								&& graph instanceof PSDFGraph) {
-							PSDFGraph pGraph = ((PSDFGraph) graph);
+							PSDFGraph pGraph = (graph);
 							vertex.addArgument(new PSDFDynamicArgument(arg
 									.getAttribute("name"), pGraph
 									.getDynamicParameter(arg.getAttribute(

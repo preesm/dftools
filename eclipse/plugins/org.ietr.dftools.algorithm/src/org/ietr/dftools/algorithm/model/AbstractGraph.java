@@ -133,6 +133,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		return edge;
 	}
 
+	@Override
 	public E addEdge(V source, V target) {
 		E edge = super.addEdge(source, target);
 		edge.setBase(this);
@@ -178,6 +179,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		var.setExpressionSolver(this);
 	}
 
+	@Override
 	public boolean addVertex(V vertex) {
 		int number = 0;
 		String name = vertex.getName();
@@ -235,8 +237,10 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		observers.clear();
 	}
 
+	@Override
 	public abstract AbstractGraph<V, E> clone();
 
+	@Override
 	public void copyProperties(PropertySource props) {
 		for (String key : props.getPropertyBean().keys()) {
 			if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
@@ -504,10 +508,12 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 * 
 	 * @return This Graph PropertyBean
 	 */
+	@Override
 	public PropertyBean getPropertyBean() {
 		return properties;
 	}
 
+	@Override
 	public String getPropertyStringValue(String propertyName) {
 		if (this.getPropertyBean().getValue(propertyName) != null) {
 			return this.getPropertyBean().getValue(propertyName).toString();
@@ -515,6 +521,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		return null;
 	}
 
+	@Override
 	public List<String> getPublicProperties() {
 		return public_properties;
 	}
@@ -620,6 +627,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 	 *             instead. Indeed, if several edges link the source and the
 	 *             target vertex, a random edge will be removed.
 	 */
+	@Override
 	@Deprecated
 	public E removeEdge(V source, V target) {
 		checkMultipleEdges(source, target);
@@ -629,6 +637,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		return edge;
 	}
 
+	@Override
 	public boolean removeVertex(V vertex) {
 		boolean result = super.removeVertex(vertex);
 		this.setChanged();
@@ -669,6 +678,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		properties.setValue(PARENT_VERTEX, parentVertex);
 	}
 
+	@Override
 	public void setPropertyValue(String propertyName, Object value) {
 		this.getPropertyBean().setValue(propertyName, value);
 	}

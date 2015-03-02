@@ -152,6 +152,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComInterface getSourceInterface() {
 		if (sourceInterface != null && sourceInterface.eIsProxy()) {
 			InternalEObject oldSourceInterface = (InternalEObject) sourceInterface;
@@ -180,6 +181,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSourceInterface(ComInterface newSourceInterface) {
 		ComInterface oldSourceInterface = sourceInterface;
 		sourceInterface = newSourceInterface;
@@ -194,6 +196,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComInterface getDestinationInterface() {
 		if (destinationInterface != null && destinationInterface.eIsProxy()) {
 			InternalEObject oldDestinationInterface = (InternalEObject) destinationInterface;
@@ -222,6 +225,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDestinationInterface(ComInterface newDestinationInterface) {
 		ComInterface oldDestinationInterface = destinationInterface;
 		destinationInterface = newDestinationInterface;
@@ -236,6 +240,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentInstance getSourceComponentInstance() {
 		if (sourceComponentInstance != null
 				&& sourceComponentInstance.eIsProxy()) {
@@ -265,6 +270,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSourceComponentInstance(
 			ComponentInstance newSourceComponentInstance) {
 		ComponentInstance oldSourceComponentInstance = sourceComponentInstance;
@@ -280,6 +286,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentInstance getDestinationComponentInstance() {
 		if (destinationComponentInstance != null
 				&& destinationComponentInstance.eIsProxy()) {
@@ -310,6 +317,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDestinationComponentInstance(
 			ComponentInstance newDestinationComponentInstance) {
 		ComponentInstance oldDestinationComponentInstance = destinationComponentInstance;
@@ -326,6 +334,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getUuid() {
 		return uuid;
 	}
@@ -335,6 +344,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setUuid(String newUuid) {
 		String oldUuid = uuid;
 		uuid = newUuid;
@@ -348,6 +358,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isDirected() {
 		return directed;
 	}
@@ -357,6 +368,7 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setDirected(boolean newDirected) {
 		boolean oldDirected = directed;
 		directed = newDirected;

@@ -184,6 +184,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getComponent() {
 		return componentEClass;
 	}
@@ -193,6 +194,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComponent_Interfaces() {
 		return (EReference) componentEClass.getEStructuralFeatures().get(0);
 	}
@@ -202,6 +204,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComponent_Instances() {
 		return (EReference) componentEClass.getEStructuralFeatures().get(1);
 	}
@@ -211,6 +214,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComponent_Refinements() {
 		return (EReference) componentEClass.getEStructuralFeatures().get(2);
 	}
@@ -220,6 +224,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getOperator() {
 		return operatorEClass;
 	}
@@ -229,6 +234,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getComNode() {
 		return comNodeEClass;
 	}
@@ -238,6 +244,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComNode_Parallel() {
 		return (EAttribute) comNodeEClass.getEStructuralFeatures().get(0);
 	}
@@ -247,6 +254,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComNode_Speed() {
 		return (EAttribute) comNodeEClass.getEStructuralFeatures().get(1);
 	}
@@ -256,6 +264,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getEnabler() {
 		return enablerEClass;
 	}
@@ -265,6 +274,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDma() {
 		return dmaEClass;
 	}
@@ -274,6 +284,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDma_SetupTime() {
 		return (EAttribute) dmaEClass.getEStructuralFeatures().get(0);
 	}
@@ -283,6 +294,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getMem() {
 		return memEClass;
 	}
@@ -292,6 +304,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMem_Size() {
 		return (EAttribute) memEClass.getEStructuralFeatures().get(0);
 	}
@@ -301,6 +314,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getHierarchyPort() {
 		return hierarchyPortEClass;
 	}
@@ -310,6 +324,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getHierarchyPort_ExternalInterface() {
 		return (EReference) hierarchyPortEClass.getEStructuralFeatures().get(0);
 	}
@@ -319,6 +334,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getHierarchyPort_InternalInterface() {
 		return (EReference) hierarchyPortEClass.getEStructuralFeatures().get(1);
 	}
@@ -328,6 +344,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getHierarchyPort_InternalComponentInstance() {
 		return (EReference) hierarchyPortEClass.getEStructuralFeatures().get(2);
 	}
@@ -337,6 +354,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getComInterface() {
 		return comInterfaceEClass;
 	}
@@ -346,6 +364,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComInterface_Component() {
 		return (EReference) comInterfaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -355,6 +374,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getComInterface_BusType() {
 		return (EReference) comInterfaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -364,6 +384,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getComInterface_Name() {
 		return (EAttribute) comInterfaceEClass.getEStructuralFeatures().get(2);
 	}
@@ -373,6 +394,7 @@ public class ComponentPackageImpl extends EPackageImpl implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ComponentFactory getComponentFactory() {
 		return (ComponentFactory) getEFactoryInstance();
 	}

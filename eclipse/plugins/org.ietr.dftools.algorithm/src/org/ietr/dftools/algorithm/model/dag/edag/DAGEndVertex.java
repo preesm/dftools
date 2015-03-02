@@ -44,6 +44,7 @@ public class DAGEndVertex extends DAGVertex{
 
 	
 	
+	@Override
 	public String toString() {
 		return getName() ;
 	}

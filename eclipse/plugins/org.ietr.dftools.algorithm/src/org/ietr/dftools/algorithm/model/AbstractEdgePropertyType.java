@@ -29,6 +29,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty{
 		value = val;
 	}
 
+	@Override
 	public abstract AbstractEdgePropertyType<T> clone();
 
 	/**
@@ -57,6 +58,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty{
 		value = val;
 	}
 
+	@Override
 	public abstract String toString();
 
 }

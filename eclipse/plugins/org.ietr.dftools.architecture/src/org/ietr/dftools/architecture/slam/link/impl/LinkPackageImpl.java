@@ -142,6 +142,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getLink() {
 		return linkEClass;
 	}
@@ -151,6 +152,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_SourceInterface() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(0);
 	}
@@ -160,6 +162,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_DestinationInterface() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(1);
 	}
@@ -169,6 +172,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_SourceComponentInstance() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(2);
 	}
@@ -178,6 +182,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EReference getLink_DestinationComponentInstance() {
 		return (EReference) linkEClass.getEStructuralFeatures().get(3);
 	}
@@ -187,6 +192,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLink_Uuid() {
 		return (EAttribute) linkEClass.getEStructuralFeatures().get(4);
 	}
@@ -196,6 +202,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLink_Directed() {
 		return (EAttribute) linkEClass.getEStructuralFeatures().get(5);
 	}
@@ -205,6 +212,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getDataLink() {
 		return dataLinkEClass;
 	}
@@ -214,6 +222,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EClass getControlLink() {
 		return controlLinkEClass;
 	}
@@ -223,6 +232,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public LinkFactory getLinkFactory() {
 		return (LinkFactory) getEFactoryInstance();
 	}

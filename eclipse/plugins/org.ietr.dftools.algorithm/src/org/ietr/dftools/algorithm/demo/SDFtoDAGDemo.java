@@ -5,6 +5,7 @@ import java.awt.ScrollPane;
 import java.util.Vector;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import org.ietr.dftools.algorithm.factories.DAGVertexFactory;
 import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
@@ -156,7 +157,7 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
 		if (adapters.size() == 1) {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} else {
-			frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		}
 		frame.pack();
 		frame.setVisible(true);

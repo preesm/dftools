@@ -83,6 +83,7 @@ public class Spin {
 		probability = newVal;
 	}
 	
+	@Override
 	public String toString(){
 		return ((Double) probability).toString() ;
 	}

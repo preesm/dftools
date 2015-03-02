@@ -107,6 +107,7 @@ public abstract class AbstractTaskImplementation extends
 	 * Returns the preferred prototype for the node in a workflow. Useful to
 	 * give user information in the workflow
 	 */
+	@Override
 	public final String displayPrototype() {
 		return " inputs=" + inputPrototype.toString()
 				+ super.displayPrototype();

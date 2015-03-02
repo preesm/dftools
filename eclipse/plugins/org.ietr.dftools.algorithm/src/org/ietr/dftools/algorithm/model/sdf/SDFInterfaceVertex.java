@@ -54,8 +54,10 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 		setDirection(dir);
 	}
 
+	@Override
 	public abstract SDFInterfaceVertex clone();
 
+	@Override
 	public boolean equals(Object e) {
 		if (e instanceof SDFInterfaceVertex) {
 			return (((SDFInterfaceVertex) e).getName().equals(this.getName()) && ((SDFInterfaceVertex) e)
@@ -70,6 +72,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 	 * 
 	 * @return The direction of this interface
 	 */
+	@Override
 	public InterfaceDirection getDirection() {
 		return (InterfaceDirection) getPropertyBean().getValue(PORT_DIRECTION,
 				InterfaceDirection.class);
@@ -80,6 +83,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 	 * 
 	 * @param direction
 	 */
+	@Override
 	public void setDirection(String direction) {
 		getPropertyBean().setValue(PORT_DIRECTION,
 				InterfaceDirection.fromString(direction));
@@ -90,6 +94,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 	 * 
 	 * @param direction
 	 */
+	@Override
 	public void setDirection(InterfaceDirection direction) {
 		getPropertyBean().setValue(PORT_DIRECTION, direction);
 	}
@@ -103,6 +108,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 		getPropertyBean().setValue(DATA_TYPE, type);
 	}
 
+	@Override
 	public Object getNbRepeat() {
 		return 1;
 	}
@@ -116,6 +122,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 		return (String) getPropertyBean().getValue(DATA_TYPE, String.class);
 	}
 
+	@Override
 	public void setPropertyValue(String propertyName, Object value) {
 		if(propertyName.equals(PORT_DIRECTION) && value instanceof String){
 			super.setPropertyValue(propertyName, InterfaceDirection.fromString((String) value));

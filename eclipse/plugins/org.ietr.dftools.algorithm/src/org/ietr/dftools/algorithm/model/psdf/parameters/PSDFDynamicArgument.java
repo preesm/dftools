@@ -20,14 +20,17 @@ public class PSDFDynamicArgument extends Argument implements DynamicValue{
 		return value ;
 	}
 	
+	@Override
 	public String getValue(){
 		return value.getName();
 	}
 	
+	@Override
 	public int intValue() throws InvalidExpressionException, NoIntegerValueException{
 		throw(new NoIntegerValueException(this.getName()+" is a dynamic value"));
 	}
 	
+	@Override
 	public Expression getExpression() {
 		try {
 			return Expression.valueOf(value.toString());

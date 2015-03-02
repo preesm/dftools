@@ -147,6 +147,7 @@ public abstract class AbstractWorkFlowLaunchTab extends
 		layoutData.widthHint = 200;
 		filePath.setLayoutData(layoutData);
 		filePath.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				setDirty(true);
 				updateLaunchConfigurationDialog();
@@ -185,6 +186,7 @@ public abstract class AbstractWorkFlowLaunchTab extends
 		setDirty(false);
 	}
 
+	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 
 		configuration.setAttribute(fileAttributeName, "");

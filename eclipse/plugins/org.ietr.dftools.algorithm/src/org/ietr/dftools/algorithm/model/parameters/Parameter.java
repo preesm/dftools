@@ -50,6 +50,7 @@ public class Parameter{
 		this.value = value ;
 	}
 	
+	@Override
 	public Parameter clone(){
 		Parameter par = new Parameter(this.name);
 		par.setValue(this.value);

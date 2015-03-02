@@ -69,6 +69,7 @@ public class MemImpl extends EnablerImpl implements Mem {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -78,6 +79,7 @@ public class MemImpl extends EnablerImpl implements Mem {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;

@@ -32,11 +32,13 @@ public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
 		return instance;
 	}
 
+	@Override
 	public DAGVertex createVertex(Element vertexElt) {
 		String kind = this.getProperty(vertexElt, AbstractVertex.KIND);
 		return this.createVertex(kind);
 	}
 	
+	@Override
 	public DAGVertex createVertex(String kind) {
 		if (kind.equals(DAGVertex.DAG_VERTEX)) {
 			return new DAGVertex();

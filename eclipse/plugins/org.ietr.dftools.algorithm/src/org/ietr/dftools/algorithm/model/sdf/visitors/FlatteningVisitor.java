@@ -254,6 +254,7 @@ public class FlatteningVisitor implements
 		}
 	}
 
+	@Override
 	public void visit(SDFAbstractVertex sdfVertex) throws SDF4JException {
 
 	}

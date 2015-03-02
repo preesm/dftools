@@ -17,6 +17,7 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  * @deprecated
  * 
  */
+@Deprecated
 public class LoopCreatorVisitor implements
 		IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 

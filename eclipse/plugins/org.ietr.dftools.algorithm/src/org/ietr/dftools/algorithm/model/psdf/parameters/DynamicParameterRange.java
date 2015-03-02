@@ -24,6 +24,7 @@ public class DynamicParameterRange extends ADynamicParameterDomain{
 		return min ;
 	}
 	
+	@Override
 	public String toString(){
 		return "{"+min+".."+max+"}";
 	}

@@ -64,6 +64,7 @@ public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public VLNV getVlnv() {
 		return vlnv;
 	}
@@ -93,6 +94,7 @@ public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void setVlnv(VLNV newVlnv) {
 		if (newVlnv != vlnv) {
 			NotificationChain msgs = null;

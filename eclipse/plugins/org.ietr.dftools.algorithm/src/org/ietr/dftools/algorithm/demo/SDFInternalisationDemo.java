@@ -46,7 +46,7 @@ public class SDFInternalisationDemo{
 			if(clusters_internalisation.get(vertex.getPropertyBean().getValue(CLUSTER))==null){
 				clusters_internalisation.put((Integer) vertex.getPropertyBean().getValue(CLUSTER),new Vector<SDFAbstractVertex>());
 			}
-			clusters_internalisation.get((Integer)vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
+			clusters_internalisation.get(vertex.getPropertyBean().getValue(CLUSTER)).add(vertex);	
 		}
 		HashMap<Integer, Integer> intenalisation_vrb_cluster=new HashMap<Integer, Integer>();
 		for(Integer key:clusters_internalisation.keySet()){
