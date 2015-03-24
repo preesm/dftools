@@ -2,7 +2,9 @@ package org.ietr.dftools.algorithm.model.sdf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -127,7 +129,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		newEdge.setDelay(delay);
 		return newEdge;
 	}
-	
+
 	public SDFEdge addEdge(SDFAbstractVertex source, SDFAbstractVertex target,
 			AbstractEdgePropertyType<?> prod, AbstractEdgePropertyType<?> cons,
 			AbstractEdgePropertyType<?> delay) {
@@ -379,6 +381,23 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		}
 
 		return subgraphs;
+	}
+
+	/**
+	 * 
+	 * @return the set of all the vertices contained by the graph and its
+	 *         subgraphs
+	 */
+	public Set<SDFAbstractVertex> getAllVertices() {
+		Set<SDFAbstractVertex> vertices = new HashSet<SDFAbstractVertex>();
+		for (SDFAbstractVertex v : vertexSet()) {
+			vertices.add(v);
+			if (v.getGraphDescription() != null) {
+				SDFGraph g = ((SDFGraph) v.getGraphDescription());
+				vertices.addAll(g.getAllVertices());
+			}
+		}
+		return vertices;
 	}
 
 	/**
