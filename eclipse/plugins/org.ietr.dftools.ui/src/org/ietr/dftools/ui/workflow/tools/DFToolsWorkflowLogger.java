@@ -47,8 +47,8 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.ietr.dftools.ui.Activator;
 import org.ietr.dftools.workflow.messages.WorkflowMessages;
+import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
-import org.ietr.preesm.utils.log.PreesmLogger;
 
 /**
  * Displaying information or error messages through a console initialized by the
@@ -155,7 +155,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 	}
 
 	private void logCLI(LogRecord record) {
-		PreesmLogger.log(record.getLevel(), record.getMessage());
+		CLIWorkflowLogger.log(record.getLevel(), record.getMessage());
 	}
 
 	public void initConsole() {
