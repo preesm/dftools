@@ -41,7 +41,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.ietr.dftools.workflow.WorkflowParser;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 

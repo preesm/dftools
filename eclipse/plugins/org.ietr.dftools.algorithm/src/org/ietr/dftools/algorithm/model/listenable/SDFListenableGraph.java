@@ -8,8 +8,6 @@ import java.util.Set;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
-import org.jgraph.graph.Edge;
-import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.event.GraphEdgeChangeEvent;
 import org.jgrapht.event.GraphListener;
