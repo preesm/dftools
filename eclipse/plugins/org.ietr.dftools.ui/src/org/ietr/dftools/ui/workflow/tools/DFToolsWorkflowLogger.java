@@ -82,7 +82,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 		super(LOGGER_NAME, null);
 		LogManager.getLogManager().addLogger(this);
 
-		initConsole();
+		if (!isRunningFromCLI) initConsole();
 	}
 
 	/**
