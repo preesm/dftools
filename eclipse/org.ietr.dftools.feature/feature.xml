@@ -2,7 +2,7 @@
 <feature
       id="org.ietr.dftools.feature"
       label="DFTools"
-      version="1.1.4.qualifier"
+      version="1.1.5.qualifier"
       provider-name="IETR/INSA Rennes">
 
    <description url="http://preesm.sourceforge.net/website/">
@@ -29,35 +29,35 @@ The fact that you are presently reading this means that you have had knowledge o
          id="org.ietr.dftools.algorithm"
          download-size="0"
          install-size="0"
-         version="1.1.4.qualifier"
+         version="1.1.5.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.architecture"
          download-size="0"
          install-size="0"
-         version="1.1.4.qualifier"
+         version="1.1.5.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.architecture.ui"
          download-size="0"
          install-size="0"
-         version="1.1.4.qualifier"
+         version="1.1.5.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.ui"
          download-size="0"
          install-size="0"
-         version="1.1.4.qualifier"
+         version="1.1.5.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.workflow"
          download-size="0"
          install-size="0"
-         version="1.1.4.qualifier"
+         version="1.1.5.qualifier"
          unpack="false"/>
 
 </feature>
