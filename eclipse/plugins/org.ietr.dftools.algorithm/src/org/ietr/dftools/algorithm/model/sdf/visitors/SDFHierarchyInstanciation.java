@@ -81,23 +81,29 @@ public class SDFHierarchyInstanciation implements
 		} else {
 			// If this case is reached, the source is a new explode/broadcast
 
-			// sourceProd represents the token Nr of the first token on the edge (useful for explode)
-			// the targetIndex serves to discriminate different sources with the same production
+			// sourceProd represents the token Nr of the first token on the edge
+			// (useful for explode)
+			// the targetIndex serves to discriminate different sources with the
+			// same production
 			newEdge.setSourceInterface(edge.getSourceInterface().clone());
-			newEdge.getSourceInterface().setName("out" + "_" + sourceProd + "_" + targetIndex);
+			newEdge.getSourceInterface().setName(
+					"out" + "_" + sourceProd + "_" + targetIndex);
 		}
 		if (target.getSource(edge.getTargetInterface().getName()) != null) {
 			newEdge.setTargetInterface(target.getSource(edge
 					.getTargetInterface().getName()));
 		} else {
 			// If this case is reached, the source is a new implode/roundbuffer
-			
-			// targetCons represents the token Nr of the first token on the edge (useful for implode)
-			// the sourceIndex serves to discriminate different sources with the same production
+
+			// targetCons represents the token Nr of the first token on the edge
+			// (useful for implode)
+			// the sourceIndex serves to discriminate different sources with the
+			// same production
 			newEdge.setTargetInterface(edge.getTargetInterface().clone());
-			newEdge.getTargetInterface().setName("in" + "_" + targetCons + "_" + sourceIndex);
+			newEdge.getTargetInterface().setName(
+					"in" + "_" + targetCons + "_" + sourceIndex);
 		}
-		
+
 		if (target instanceof SDFVertex && !(source instanceof SDFForkVertex)) {
 			if (((SDFVertex) target).getAssociatedInterface(edge) != null) {
 				inputVertex = ((SDFVertex) target).getAssociatedInterface(edge);
@@ -198,8 +204,7 @@ public class SDFHierarchyInstanciation implements
 				SDFAbstractVertex explodeVertex = new SDFForkVertex();
 
 				output.addVertex(explodeVertex);
-				SDFAbstractVertex originVertex = sourceCopies
-						.get(sourceIndex);
+				SDFAbstractVertex originVertex = sourceCopies.get(sourceIndex);
 				explodeVertex.setName("explode_" + originVertex.getName() + "_"
 						+ edge.getSourceInterface().getName());
 				sourceCopies.set(sourceIndex, explodeVertex);
@@ -230,8 +235,7 @@ public class SDFHierarchyInstanciation implements
 					&& !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)) {
 				SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 				output.addVertex(implodeVertex);
-				SDFAbstractVertex originVertex = targetCopies
-						.get(targetIndex);
+				SDFAbstractVertex originVertex = targetCopies.get(targetIndex);
 				implodeVertex.setName("implode_" + originVertex.getName() + "_"
 						+ edge.getTargetInterface().getName());
 				targetCopies.set(targetIndex, implodeVertex);
@@ -348,49 +352,33 @@ public class SDFHierarchyInstanciation implements
 			if (vertex.getGraphDescription() != null) {
 				Set<SDFAbstractVertex> cycle = detector
 						.findCyclesContainingVertex(vertex);
-				needToBeRepeated.addAll(cycle);
+				needToBeRepeated.add(vertex);
 			}
 		}
 		if (graph.isSchedulable()) {
 			for (SDFAbstractVertex vertex : graph.vertexSet()) {
 				Vector<SDFAbstractVertex> copies = new Vector<SDFAbstractVertex>();
 				matchCopies.put(vertex, copies);
-				if (vertex instanceof SDFInterfaceVertex) {
-					SDFAbstractVertex copy = vertex
-							.clone();
-					copies.add(copy);
-					output.addVertex(copy);
-				} else if (vertex.getGraphDescription() != null) {
+				if (vertex.getGraphDescription() != null) {
 					@SuppressWarnings("unchecked")
 					CycleDetector<SDFAbstractVertex, SDFEdge> cycleDetector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
 							vertex.getGraphDescription());
-					if (cycleDetector.detectCycles()) {
+					if (cycleDetector.detectCycles()
+							&& needToBeRepeated.contains(vertex)) {
 						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-							SDFAbstractVertex copy = vertex
-									.clone();
+							SDFAbstractVertex copy = vertex.clone();
 							copy.setName(copy.getName() + "_" + i);
 							copy.setNbRepeat(1);
 							output.addVertex(copy);
 							copies.add(copy);
 						}
 					} else {
-						SDFAbstractVertex copy = vertex
-								.clone();
-						output.addVertex(copy);
-						copies.add(copy);
-					}
-				} else if (needToBeRepeated.contains(vertex)) {
-					for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-						SDFAbstractVertex copy = vertex
-								.clone();
-						copy.setName(copy.getName() + "_" + i);
-						copy.setNbRepeat(1);
+						SDFAbstractVertex copy = vertex.clone();
 						output.addVertex(copy);
 						copies.add(copy);
 					}
 				} else {
-					SDFAbstractVertex copy = vertex
-							.clone();
+					SDFAbstractVertex copy = vertex.clone();
 					output.addVertex(copy);
 					copies.add(copy);
 				}
