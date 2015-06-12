@@ -2,9 +2,7 @@ package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -29,7 +27,6 @@ import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
-import org.jgrapht.alg.CycleDetector;
 
 /**
  * Visitor used to transform an SDF into an Homogeneous SDF (for all edges :
@@ -343,28 +340,22 @@ public class SDFHierarchyInstanciation implements
 	private void transformsTop(SDFGraph graph, SDFGraph output)
 			throws InvalidExpressionException, SDF4JException {
 		HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies = new HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>>();
-		CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
-				graph);
-		List<SDFAbstractVertex> needToBeRepeated = new ArrayList<SDFAbstractVertex>();
-		List<SDFAbstractVertex> conccurentList = new ArrayList<SDFAbstractVertex>(
-				graph.vertexSet());
-		for (SDFAbstractVertex vertex : conccurentList) {
-			if (vertex.getGraphDescription() != null) {
-				Set<SDFAbstractVertex> cycle = detector
-						.findCyclesContainingVertex(vertex);
-				needToBeRepeated.add(vertex);
-			}
-		}
+
 		if (graph.isSchedulable()) {
 			for (SDFAbstractVertex vertex : graph.vertexSet()) {
 				Vector<SDFAbstractVertex> copies = new Vector<SDFAbstractVertex>();
 				matchCopies.put(vertex, copies);
 				if (vertex.getGraphDescription() != null) {
+					boolean hasDelays = false;
 					@SuppressWarnings("unchecked")
-					CycleDetector<SDFAbstractVertex, SDFEdge> cycleDetector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
-							vertex.getGraphDescription());
-					if (cycleDetector.detectCycles()
-							&& needToBeRepeated.contains(vertex)) {
+					Set<SDFEdge> edges = vertex.getGraphDescription().edgeSet();
+					for (SDFEdge edge : edges) {
+						if (edge.getDelay().intValue() != 0) {
+							hasDelays = true;
+							break;
+						}
+					}
+					if (hasDelays && vertex.getNbRepeatAsInteger() > 1) {
 						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
 							SDFAbstractVertex copy = vertex.clone();
 							copy.setName(copy.getName() + "_" + i);
