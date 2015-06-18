@@ -7,7 +7,11 @@ Bundle-Activator: org.ietr.dftools.algorithm.Activator
 Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
  org.jgrapht;bundle-version="0.8.2",
- org.ietr.dftools.workflow;bundle-version="0.1.0"
+ org.ietr.dftools.workflow;bundle-version="0.1.0",
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
@@ -32,6 +36,7 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.model.psdf.visitors,
  org.ietr.dftools.algorithm.model.sdf,
  org.ietr.dftools.algorithm.model.sdf.esdf,
+ org.ietr.dftools.algorithm.model.sdf.transformations,
  org.ietr.dftools.algorithm.model.sdf.types,
  org.ietr.dftools.algorithm.model.sdf.visitors,
  org.ietr.dftools.algorithm.model.visitors,
@@ -43,9 +48,5 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.optimisations.loops.detection,
  org.ietr.dftools.algorithm.optimisations.loops.hyperplan,
  org.ietr.dftools.algorithm.optimisations.loops.pipelining
-Bundle-ClassPath: lib/djep-full-latest.jar,
- lib/ext-1.1.1.jar,
- lib/jgraph.jar,
- lib/jmatharray.jar,
- lib/jscl.jar,
- .
+Bundle-ClassPath: lib/djep-full-latest.jar,lib/ext-1.1.1.jar,lib/jgraph.jar,lib/jmatharray.jar,lib/jscl.jar,.
+
