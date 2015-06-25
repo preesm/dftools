@@ -45,6 +45,8 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex
 
 /**
  * @author kdesnos
@@ -116,10 +118,98 @@ class IbsdfFlattener {
 			val containsNoDelay = subgraph.edgeSet.forall[it.delay == null]
 
 			// Prepare the subgraph for instantiation:
-			// - replace interfaces if needed
+			// - Add roundbuffers and broadcast actors next to interfaces 
 			// - fork/join delays if needed
 			addInterfaceSubstitutes(subgraph)
+			if (!containsNoDelay && nbRepeat > 1) {
+				addDelaySubstitutes(subgraph, nbRepeat)
+			}
+			
+		}
+	}
 
+	/**
+	 * Each fifo with a delay will be replaced with:
+	 * <ul><li>A fork with two outputs</li>
+	 * <li>A join with two inputs</li>
+	 * <li>The two outputs of the fork (o_0 and o_1) are respectively connected to 
+	 * the two inputs (i_1 and i_0) of the join.</li>
+	 * <li>Delays of the fifos between fork and join are computed to ensure 
+	 * the correct single-rate transformation of the application.</li></ul>
+	 */
+	def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
+		// Scan the fifos with delays in the subgraph
+		for (fifo : subgraph.edgeSet.filter[it.delay != null].toList) {
+			// Get the number of tokens produced and consumed during each
+			// subgraph iteration for this fifo
+			val tgtRepeat = fifo.target.nbRepeatAsInteger
+			val tgtCons = fifo.cons.intValue
+			val nbDelay = fifo.delay.intValue
+
+			// Compute the prod and cons rate of the FIFOs between fork/join
+			val rate1 = nbDelay % (tgtCons * tgtRepeat)
+			val rate0 = (tgtCons * tgtRepeat) - rate1
+
+			if (rate1 == 0) {
+				// The number of delay is a perfect modulo of the number of 
+				// tokens produced/consumed during an iteration, there is no 
+				// need to add fork and join, only to set the correct number 
+				// of delays
+				fifo.delay = new SDFIntEdgePropertyType(nbDelay * nbRepeat)
+			} else {
+				// Minimum difference of iteration between the production and 
+				// consumption of tokens
+				val minIterDiff = nbDelay / (tgtCons * tgtRepeat)
+
+				// Add fork and join
+				val fork = new SDFForkVertex
+				fork.name = '''exp_«fifo.source.name»_«fifo.sourceLabel»'''
+				subgraph.addVertex(fork)
+
+				val join = new SDFJoinVertex
+				join.name = '''imp_«fifo.target.name»_«fifo.targetLabel»'''
+				subgraph.addVertex(join)
+
+				// Add connection between them
+				val fifo0 = subgraph.addEdge(fork, join)
+				val fifo1 = subgraph.addEdge(fork, join)
+				join.swapEdges(0, 1)
+
+				// Set fifo properties
+				fifo0.sourceLabel = '''«fifo.sourceLabel»_0'''
+				fifo0.targetLabel = '''«fifo.targetLabel»_«rate1»'''
+				fifo0.prod = new SDFIntEdgePropertyType(rate0)
+				fifo0.cons = new SDFIntEdgePropertyType(rate0)
+				fifo0.delay = new SDFIntEdgePropertyType(rate0 * nbRepeat * minIterDiff)
+				fifo0.dataType = fifo.dataType.clone
+				fifo0.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY) 
+				fifo0.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY) 
+
+				fifo1.sourceLabel = '''«fifo.sourceLabel»_«rate0»'''
+				fifo1.targetLabel = '''«fifo.targetLabel»_0'''
+				fifo1.prod = new SDFIntEdgePropertyType(rate1)
+				fifo1.cons = new SDFIntEdgePropertyType(rate1)
+				fifo1.delay = new SDFIntEdgePropertyType(rate1 * nbRepeat * (minIterDiff + 1))
+				fifo1.dataType = fifo.dataType.clone
+				fifo1.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
+				fifo1.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY) 
+				
+				// Connect producers and consumers of original fifo to fork/join
+				val fifoIn = subgraph.addEdge(fifo.source,fork)
+				fifoIn.copyProperties(fifo)
+				fifoIn.targetLabel = fifo.sourceLabel
+				fifoIn.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
+				fifoIn.cons = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
+				
+				val fifoOut = subgraph.addEdge(join,fifo.target)
+				fifoOut.copyProperties(fifo)
+				fifoOut.targetLabel = fifo.targetLabel
+				fifoOut.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
+				fifoOut.prod = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
+				
+				// Remove original FIFO from the graph
+				subgraph.removeEdge(fifo)
+			}
 		}
 	}
 

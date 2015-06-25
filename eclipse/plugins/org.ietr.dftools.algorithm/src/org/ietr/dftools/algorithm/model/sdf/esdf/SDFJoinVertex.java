@@ -78,10 +78,10 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 		} catch (InvalidExpressionException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Remove the edge order
 		newVertex.getPropertyBean().removeProperty(EDGES_ORDER);
-		
+
 		return newVertex;
 	}
 
@@ -114,6 +114,27 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Swap two {@link SDFEdge} with given indexes in the ordered connection
+	 * map.
+	 * 
+	 * @param index0
+	 * @param index1
+	 * @return <code>true</code> if both indices were valid and could be
+	 *         swapped, <code>false</code> otherwise.
+	 */
+	public boolean swapEdges(int index0, int index1) {
+		Map<Integer, SDFEdge> connections = getConnections();
+		if (connections.containsKey(index0) && connections.containsKey(index1)) {
+			SDFEdge buffer = connections.get(index0);
+			connections.replace(index0, connections.get(index1));
+			connections.replace(index1, buffer);
+			return true;
+		}
+
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")
