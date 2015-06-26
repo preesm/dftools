@@ -136,6 +136,43 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 
 		return false;
 	}
+	
+	/**
+	 * Remove the given {@link SDFEdge} from its current index and insert it
+	 * just before the {@link SDFEdge} currently at the given index (or at the
+	 * end of the list if index == connections.size).
+	 * 
+	 * @param edge
+	 *            the {@link SDFEdge} to move
+	 * @param index
+	 *            the new index for the {@link SDFEdge}
+	 * @return <code>true</code> if the edge was found and moved at an existing
+	 *         index, <code>false</code> otherwise.
+	 */
+	public boolean setEdgeIndex(SDFEdge edge, int index) {
+		Map<Integer, SDFEdge> connections = getConnections();
+		if (index < connections.size() && connections.containsValue(edge)) {
+			int oldIndex = getEdgeIndex(edge);
+			removeConnection(edge);
+			index = (oldIndex < index) ? index - 1 : index;
+			// update the indexes of subsequent edges.
+			for (int i = connections.size() -1 ; i >= index ; i--) {
+				connections.put(i + 1, connections.remove(i));
+			}
+			// put the edge in it new place
+			connections.put(index, edge);
+			return true;
+		}
+
+		// Special case, put the edge at the end
+		if (index == connections.size() && connections.containsValue(edge)) {
+			removeConnection(edge);
+			addConnection(edge);
+			return true;
+		}
+		return false;
+	}
+
 
 	@SuppressWarnings("unchecked")
 	protected Map<Integer, SDFEdge> getConnections() {

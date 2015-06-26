@@ -46,29 +46,27 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 		} catch (InvalidExpressionException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Copy the ports
 		for (SDFInterfaceVertex sink : this.getSinks()) {
 			if (copy.getGraphDescription() != null
-					&& copy.getGraphDescription()
-							.getVertex(sink.getName()) != null) {
-				copy.addSink((SDFInterfaceVertex) this
-						.getGraphDescription().getVertex(sink.getName()));
+					&& copy.getGraphDescription().getVertex(sink.getName()) != null) {
+				copy.addSink((SDFInterfaceVertex) this.getGraphDescription()
+						.getVertex(sink.getName()));
 			} else {
 				copy.addSink(sink.clone());
 			}
 		}
 		for (SDFInterfaceVertex source : this.getSources()) {
 			if (copy.getGraphDescription() != null
-					&& copy.getGraphDescription().getVertex(
-							source.getName()) != null) {
-				copy.addSource((SDFInterfaceVertex) this
-						.getGraphDescription().getVertex(source.getName()));
+					&& copy.getGraphDescription().getVertex(source.getName()) != null) {
+				copy.addSource((SDFInterfaceVertex) this.getGraphDescription()
+						.getVertex(source.getName()));
 			} else {
 				copy.addSource(source.clone());
 			}
 		}
-		
+
 		return copy;
 	}
 
@@ -76,17 +74,72 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 		getConnections().put(getConnections().size(), newEdge);
 	}
 
-
-	
 	private void removeConnection(SDFEdge newEdge) {
 		Integer index = getEdgeIndex(newEdge);
 		getConnections().remove(index);
-		
+
 		// update the indexes of remaining connections.
-		for(int i = index; i<getConnections().size();i++){
-			SDFEdge edge = getConnections().remove(i+1);
+		for (int i = index; i < getConnections().size(); i++) {
+			SDFEdge edge = getConnections().remove(i + 1);
 			getConnections().put(i, edge);
 		}
+	}
+
+	/**
+	 * Swap two {@link SDFEdge} with given indexes in the ordered connection
+	 * map.
+	 * 
+	 * @param index0
+	 * @param index1
+	 * @return <code>true</code> if both indices were valid and could be
+	 *         swapped, <code>false</code> otherwise.
+	 */
+	public boolean swapEdges(int index0, int index1) {
+		Map<Integer, SDFEdge> connections = getConnections();
+		if (connections.containsKey(index0) && connections.containsKey(index1)) {
+			SDFEdge buffer = connections.get(index0);
+			connections.replace(index0, connections.get(index1));
+			connections.replace(index1, buffer);
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Remove the given {@link SDFEdge} from its current index and insert it
+	 * just before the {@link SDFEdge} currently at the given index (or at the
+	 * end of the list if index == connections.size).
+	 * 
+	 * @param edge
+	 *            the {@link SDFEdge} to move
+	 * @param index
+	 *            the new index for the {@link SDFEdge}
+	 * @return <code>true</code> if the edge was found and moved at an existing
+	 *         index, <code>false</code> otherwise.
+	 */
+	public boolean setEdgeIndex(SDFEdge edge, int index) {
+		Map<Integer, SDFEdge> connections = getConnections();
+		if (index < connections.size() && connections.containsValue(edge)) {
+			int oldIndex = getEdgeIndex(edge);
+			removeConnection(edge);
+			index = (oldIndex < index) ? index - 1 : index;
+			// update the indexes of subsequent edges.
+			for (int i = connections.size() -1 ; i >= index ; i--) {
+				connections.put(i + 1, connections.remove(i));
+			}
+			// put the edge in it new place
+			connections.put(index, edge);
+			return true;
+		}
+
+		// Special case, put the edge at the end
+		if (index == connections.size() && connections.containsValue(edge)) {
+			removeConnection(edge);
+			addConnection(edge);
+			return true;
+		}
+		return false;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -109,8 +162,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 	 * @return The connection index of the edge
 	 */
 	public Integer getEdgeIndex(SDFEdge edge) {
-		for(Integer idx : getConnections().keySet()){
-			if(getConnections().get(idx).equals(edge)){
+		for (Integer idx : getConnections().keySet()) {
+			if (getConnections().get(idx).equals(edge)) {
 				return idx;
 			}
 		}

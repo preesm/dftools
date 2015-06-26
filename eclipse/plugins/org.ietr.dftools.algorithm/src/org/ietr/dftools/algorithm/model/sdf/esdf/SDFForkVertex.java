@@ -47,10 +47,10 @@ public class SDFForkVertex extends SDFAbstractVertex {
 	private void removeConnection(SDFEdge newEdge) {
 		Integer index = getEdgeIndex(newEdge);
 		getConnections().remove(index);
-		
+
 		// update the indexes of remaining connections.
-		for(int i = index; i<getConnections().size();i++){
-			SDFEdge edge = getConnections().remove(i+1);
+		for (int i = index; i < getConnections().size(); i++) {
+			SDFEdge edge = getConnections().remove(i + 1);
 			getConnections().put(i, edge);
 		}
 	}
@@ -95,7 +95,6 @@ public class SDFForkVertex extends SDFAbstractVertex {
 		return edges;
 	}
 
-
 	@Override
 	public SDFAbstractVertex clone() {
 		// Copy the vertex properties
@@ -104,37 +103,41 @@ public class SDFForkVertex extends SDFAbstractVertex {
 			if (this.getPropertyBean().getValue(key) != null) {
 				Object val = this.getPropertyBean().getValue(key);
 				newVertex.getPropertyBean().setValue(key, val);
-			} 
+			}
 		}
-		
+
 		// Copy the ports
 		for (SDFInterfaceVertex sink : this.getSinks()) {
 			if (newVertex.getGraphDescription() != null
-					&& newVertex.getGraphDescription().getVertex(sink.getName()) != null) {
-				newVertex.addSink((SDFInterfaceVertex) this.getGraphDescription().getVertex(sink.getName()));
-			}else{
+					&& newVertex.getGraphDescription()
+							.getVertex(sink.getName()) != null) {
+				newVertex.addSink((SDFInterfaceVertex) this
+						.getGraphDescription().getVertex(sink.getName()));
+			} else {
 				newVertex.addSink(sink.clone());
 			}
 		}
 		for (SDFInterfaceVertex source : this.getSources()) {
 			if (newVertex.getGraphDescription() != null
-					&& newVertex.getGraphDescription().getVertex(source.getName()) != null) {
-				newVertex.addSource((SDFInterfaceVertex) this.getGraphDescription().getVertex(source.getName()));
-			}else{
+					&& newVertex.getGraphDescription().getVertex(
+							source.getName()) != null) {
+				newVertex.addSource((SDFInterfaceVertex) this
+						.getGraphDescription().getVertex(source.getName()));
+			} else {
 				newVertex.addSource(source.clone());
 			}
 		}
-		
+
 		// Copy the nr of repetitions
 		try {
 			newVertex.setNbRepeat(this.getNbRepeat());
 		} catch (InvalidExpressionException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Remove the edge order
 		newVertex.getPropertyBean().removeProperty(EDGES_ORDER);
-		
+
 		return newVertex;
 	}
 
@@ -156,7 +159,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
 		Map<Integer, SDFEdge> connections = new HashMap<Integer, SDFEdge>();
 		this.getPropertyBean().setValue(EDGES_ORDER, connections);
 	}
-	
+
 	/**
 	 * Swap two {@link SDFEdge} with given indexes in the ordered connection
 	 * map.
@@ -178,5 +181,40 @@ public class SDFForkVertex extends SDFAbstractVertex {
 		return false;
 	}
 
+	/**
+	 * Remove the given {@link SDFEdge} from its current index and insert it
+	 * just before the {@link SDFEdge} currently at the given index (or at the
+	 * end of the list if index == connections.size).
+	 * 
+	 * @param edge
+	 *            the {@link SDFEdge} to move
+	 * @param index
+	 *            the new index for the {@link SDFEdge}
+	 * @return <code>true</code> if the edge was found and moved at an existing
+	 *         index, <code>false</code> otherwise.
+	 */
+	public boolean setEdgeIndex(SDFEdge edge, int index) {
+		Map<Integer, SDFEdge> connections = getConnections();
+		if (index < connections.size() && connections.containsValue(edge)) {
+			int oldIndex = getEdgeIndex(edge);
+			removeConnection(edge);
+			index = (oldIndex < index) ? index - 1 : index;
+			// update the indexes of subsequent edges.
+			for (int i = connections.size() -1 ; i >= index ; i--) {
+				connections.put(i + 1, connections.remove(i));
+			}
+			// put the edge in it new place
+			connections.put(index, edge);
+			return true;
+		}
+
+		// Special case, put the edge at the end
+		if (index == connections.size() && connections.containsValue(edge)) {
+			removeConnection(edge);
+			addConnection(edge);
+			return true;
+		}
+		return false;
+	}
 
 }

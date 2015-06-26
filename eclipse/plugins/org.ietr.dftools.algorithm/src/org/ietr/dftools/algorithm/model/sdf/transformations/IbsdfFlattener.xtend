@@ -47,6 +47,9 @@ import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex
+import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex
+import java.util.LinkedHashMap
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex
 
 /**
  * @author kdesnos
@@ -70,7 +73,242 @@ class IbsdfFlattener {
 		this.depth = depth
 	}
 
-	def flattenGraph() {
+	/**
+	 * Each fifo with a delay will be replaced with:
+	 * <ul><li>A fork with two outputs</li>
+	 * <li>A join with two inputs</li>
+	 * <li>The two outputs of the fork (o_0 and o_1) are respectively connected to 
+	 * the two inputs (i_1 and i_0) of the join.</li>
+	 * <li>Delays of the fifos between fork and join are computed to ensure 
+	 * the correct single-rate transformation of the application.</li></ul>
+	 */
+	def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
+		// Scan the fifos with delays in the subgraph
+		for (fifo : subgraph.edgeSet.filter[it.delay != null].toList) {
+			// Get the number of tokens produced and consumed during each
+			// subgraph iteration for this fifo
+			val tgtRepeat = fifo.target.nbRepeatAsInteger
+			val tgtCons = fifo.cons.intValue
+			val nbDelay = fifo.delay.intValue
+
+			// Compute the prod and cons rate of the FIFOs between fork/join
+			val rate1 = nbDelay % (tgtCons * tgtRepeat)
+			val rate0 = (tgtCons * tgtRepeat) - rate1
+
+			if (rate1 == 0) {
+				// The number of delay is a perfect modulo of the number of 
+				// tokens produced/consumed during an iteration, there is no 
+				// need to add fork and join, only to set the correct number 
+				// of delays
+				fifo.delay = new SDFIntEdgePropertyType(nbDelay * nbRepeat)
+			} else {
+				// Minimum difference of iteration between the production and 
+				// consumption of tokens
+				val minIterDiff = nbDelay / (tgtCons * tgtRepeat)
+
+				// Add fork and join
+				val fork = new SDFForkVertex
+				fork.name = '''exp_«fifo.source.name»_«fifo.sourceLabel»'''
+				subgraph.addVertex(fork)
+
+				val join = new SDFJoinVertex
+				join.name = '''imp_«fifo.target.name»_«fifo.targetLabel»'''
+				subgraph.addVertex(join)
+
+				// Add connection between them
+				val fifo0 = subgraph.addEdge(fork, join)
+				val fifo1 = subgraph.addEdge(fork, join)
+				join.swapEdges(0, 1)
+
+				// Set fifo properties
+				fifo0.copyProperties(fifo)
+				fifo0.sourceInterface = new SDFSinkInterfaceVertex
+				fifo0.sourceInterface.name = '''«fifo.sourceLabel»_0'''
+				fifo0.targetInterface = new SDFSourceInterfaceVertex
+				fifo0.targetInterface.name = '''«fifo.targetLabel»_«rate1»'''
+				fifo0.prod = new SDFIntEdgePropertyType(rate0)
+				fifo0.cons = new SDFIntEdgePropertyType(rate0)
+				fifo0.delay = new SDFIntEdgePropertyType(rate0 * nbRepeat * minIterDiff)
+				fifo0.dataType = fifo.dataType.clone
+				fifo0.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
+				fifo0.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY)
+
+				fifo1.copyProperties(fifo)
+				fifo1.sourceInterface = new SDFSinkInterfaceVertex
+				fifo1.sourceInterface.name = '''«fifo.sourceLabel»_«rate0»'''
+				fifo1.targetInterface = new SDFSourceInterfaceVertex
+				fifo1.targetInterface.name = '''«fifo.targetLabel»_0'''
+				fifo1.prod = new SDFIntEdgePropertyType(rate1)
+				fifo1.cons = new SDFIntEdgePropertyType(rate1)
+				fifo1.delay = new SDFIntEdgePropertyType(rate1 * nbRepeat * (minIterDiff + 1))
+				fifo1.dataType = fifo.dataType.clone
+				fifo1.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
+				fifo1.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY)
+
+				// Connect producers and consumers of original fifo to fork/join
+				val fifoIn = subgraph.addEdge(fifo.source, fork)
+				fifoIn.copyProperties(fifo)
+				fifoIn.targetInterface = fifo.sourceInterface.clone
+				fifoIn.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
+				fifoIn.cons = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
+
+				// Copy edge order if needed
+				copyEdgeOrder(fifoIn, fifo, Side.SRC)
+
+				val fifoOut = subgraph.addEdge(join, fifo.target)
+				fifoOut.copyProperties(fifo)
+				fifoOut.targetInterface = fifo.targetInterface.clone
+				fifoOut.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
+				fifoOut.prod = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
+
+				// Copy edge order if needed
+				copyEdgeOrder(fifoOut, fifo, Side.TGT)
+
+				// Remove original FIFO from the graph
+				subgraph.removeEdge(fifo)
+			}
+		}
+	}
+
+	/**
+	 * This method scans the {@link SDFInterfaceVertex} of an {@link 
+	 * SDFGraph IBSDF} subgraph  and adds {@link SDFBroadcastVertex} and
+	 * {@link SDFRoundBufferVertex}, if needed.
+	 * 
+	 * @param subgraph
+	 * 		the {@link SDFGraph} whose {@link SDFInterfaceVertex} are to checked.
+	 *      This graph will be modified within the method. The 
+	 *      schedulability of this subgraph must have been tested before being 
+	 *      given to this method.
+	 * 
+	 *  
+	 * @throws SDF4JException if an interface is connected to several FIFOs.
+	 */
+	def addInterfaceSubstitutes(SDFGraph subgraph) {
+		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex).toList) {
+			if (interface instanceof SDFSourceInterfaceVertex) {
+				// Get successors
+				val outEdges = subgraph.outgoingEdgesOf(interface)
+				if (outEdges.size > 1) {
+					throw new SDF4JException(
+						'''Input interface «interface.name» in subgraph «subgraph.name» is connected to multiple FIFOs although this is strictly forbidden.''');
+				}
+
+				// Check if a broadcast is needed
+				val outEdge = outEdges.get(0)
+				val prodRate = outEdge.prod.intValue
+				val consRate = outEdge.cons.intValue
+				val nbRepeatCons = outEdge.target.nbRepeatAsInteger
+
+				// If more token are consumed during an iteration of 
+				// the subgraph than the number of available tokens 
+				// => broadcast needed
+				if (prodRate < consRate * nbRepeatCons) {
+					// Add the broadcast and connect edges
+					val broadcast = new SDFBroadcastVertex
+					broadcast.name = '''br_«interface.name»'''
+					subgraph.addVertex(broadcast)
+					val edgeIn = subgraph.addEdge(outEdge.source, broadcast)
+					val edgeOut = subgraph.addEdge(broadcast, outEdge.target)
+
+					// Set edges properties
+					edgeIn.copyProperties(outEdge)
+					edgeIn.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
+					edgeIn.delay = new SDFIntEdgePropertyType(0)
+					edgeIn.cons = new SDFIntEdgePropertyType(prodRate)
+
+					edgeOut.copyProperties(outEdge)
+					edgeOut.prod = new SDFIntEdgePropertyType(consRate * nbRepeatCons)
+					edgeOut.propertyBean.removeProperty(SDFEdge.SOURCE_PORT_MODIFIER);
+
+					// Copy edge order if needed
+					copyEdgeOrder(edgeOut, outEdge, Side.TGT)
+
+					// Remove the original edge
+					subgraph.removeEdge(outEdge)
+				}
+			} else { // interface instanceof SDFSinkInterfaceVertex
+			// Get predecessor
+				val inEdges = subgraph.incomingEdgesOf(interface)
+				if (inEdges.size > 1) {
+					throw new SDF4JException(
+						'''Output interface «interface.name» in subgraph «subgraph.name» is connected to multiple FIFOs although this is strictly forbidden.''')
+				}
+
+				// Check if a roundbuffer is needed
+				val inEdge = inEdges.get(0)
+				val prodRate = inEdge.prod.intValue
+				val consRate = inEdge.cons.intValue
+				val nbRepeatProd = inEdge.source.nbRepeatAsInteger
+
+				// If more token are produced during an iteration of 
+				// the subgraph than the number of consumed tokens 
+				// => roundbuffer needed
+				if (prodRate * nbRepeatProd > consRate) {
+					// Add the roundbuffer and connect edges
+					val roundbuffer = new SDFRoundBufferVertex
+					roundbuffer.name = '''rb_«interface.name»'''
+					subgraph.addVertex(roundbuffer)
+					val edgeIn = subgraph.addEdge(inEdge.source, roundbuffer)
+					val edgeOut = subgraph.addEdge(roundbuffer, inEdge.target)
+
+					// Set edges properties
+					edgeOut.copyProperties(inEdge)
+					edgeOut.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY)
+					edgeOut.prod = new SDFIntEdgePropertyType(consRate)
+					edgeOut.delay = new SDFIntEdgePropertyType(0)
+
+					edgeIn.copyProperties(inEdge)
+					edgeIn.cons = new SDFIntEdgePropertyType(prodRate * nbRepeatProd)
+					edgeIn.propertyBean.removeProperty(SDFEdge.TARGET_PORT_MODIFIER);
+
+					// Copy edge order if needed
+					copyEdgeOrder(edgeIn, inEdge, Side.SRC)
+
+					// Remove the original edge
+					subgraph.removeEdge(inEdge)
+				}
+			}
+		}
+	}
+
+	enum Side {
+		SRC,
+		TGT,
+		BOTH
+	}
+
+	def copyEdgeOrder(SDFEdge newEdge, SDFEdge originalEdge, Side side) {
+		// Do the edges have the same source type
+		if ((side == Side.SRC || side == Side.BOTH) && newEdge.source.class == originalEdge.source.class) {
+			switch originalEdge.source {
+				SDFBroadcastVertex: {
+					val originalIndex = (originalEdge.source as SDFBroadcastVertex).getEdgeIndex(originalEdge)
+					(newEdge.source as SDFBroadcastVertex).setEdgeIndex(newEdge, originalIndex)
+				}
+				SDFForkVertex: {
+					val originalIndex = (originalEdge.source as SDFForkVertex).getEdgeIndex(originalEdge)
+					(newEdge.source as SDFForkVertex).setEdgeIndex(newEdge, originalIndex)
+				}
+			}
+		}
+
+		// Do the edges have the same target type
+		if ((side == Side.TGT || side == Side.BOTH) && newEdge.target.class == originalEdge.target.class) {
+			switch originalEdge.target {
+				SDFRoundBufferVertex: {
+					val originalIndex = (originalEdge.source as SDFRoundBufferVertex).getEdgeIndex(originalEdge)
+					(newEdge.source as SDFRoundBufferVertex).setEdgeIndex(newEdge, originalIndex)
+				}
+				SDFJoinVertex: {
+					val originalIndex = (originalEdge.source as SDFJoinVertex).getEdgeIndex(originalEdge)
+					(newEdge.source as SDFJoinVertex).setEdgeIndex(newEdge, originalIndex)
+				}
+			}
+		}
+	}
+
+	def flattenGraph() throws SDF4JException{
 		// Copy the original graph
 		flattenedGraph = originalGraph.clone
 
@@ -124,192 +362,97 @@ class IbsdfFlattener {
 			if (!containsNoDelay && nbRepeat > 1) {
 				addDelaySubstitutes(subgraph, nbRepeat)
 			}
-			
+
+			// The subgraph is ready, put it in the top graph
+			instantiateSubgraph(hierActor, subgraph)
+			flattenedGraph.removeVertex(hierActor)
 		}
 	}
 
-	/**
-	 * Each fifo with a delay will be replaced with:
-	 * <ul><li>A fork with two outputs</li>
-	 * <li>A join with two inputs</li>
-	 * <li>The two outputs of the fork (o_0 and o_1) are respectively connected to 
-	 * the two inputs (i_1 and i_0) of the join.</li>
-	 * <li>Delays of the fifos between fork and join are computed to ensure 
-	 * the correct single-rate transformation of the application.</li></ul>
-	 */
-	def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
-		// Scan the fifos with delays in the subgraph
-		for (fifo : subgraph.edgeSet.filter[it.delay != null].toList) {
-			// Get the number of tokens produced and consumed during each
-			// subgraph iteration for this fifo
-			val tgtRepeat = fifo.target.nbRepeatAsInteger
-			val tgtCons = fifo.cons.intValue
-			val nbDelay = fifo.delay.intValue
+	def instantiateSubgraph(
+		SDFAbstractVertex hierActor,
+		SDFGraph subgraph
+	) {
+		// Rename actors of the subgraph
+		renameSubgraphActors(hierActor, subgraph)
 
-			// Compute the prod and cons rate of the FIFOs between fork/join
-			val rate1 = nbDelay % (tgtCons * tgtRepeat)
-			val rate0 = (tgtCons * tgtRepeat) - rate1
+		// Clone all subgraph actors in the flattened graph (except interfaces)
+		val clones = new LinkedHashMap
+		subgraph.vertexSet.filter[!(it instanceof SDFInterfaceVertex)].forEach [
+			{
+				val clone = it.clone
+				flattenedGraph.addVertex(clone)
+				clones.put(it, clone)
+			}
+		]
 
-			if (rate1 == 0) {
-				// The number of delay is a perfect modulo of the number of 
-				// tokens produced/consumed during an iteration, there is no 
-				// need to add fork and join, only to set the correct number 
-				// of delays
-				fifo.delay = new SDFIntEdgePropertyType(nbDelay * nbRepeat)
-			} else {
-				// Minimum difference of iteration between the production and 
-				// consumption of tokens
-				val minIterDiff = nbDelay / (tgtCons * tgtRepeat)
+		// Now, copy all fifos, except those connected to interfaces
+		for (fifo : subgraph.edgeSet.filter [
+			!(it.source instanceof SDFInterfaceVertex || it.target instanceof SDFInterfaceVertex)
+		]) {
+			val src = clones.get(fifo.source)
+			val tgt = clones.get(fifo.target)
+			val cloneFifo = flattenedGraph.addEdge(src, tgt)
+			cloneFifo.copyProperties(fifo)
 
-				// Add fork and join
-				val fork = new SDFForkVertex
-				fork.name = '''exp_«fifo.source.name»_«fifo.sourceLabel»'''
-				subgraph.addVertex(fork)
-
-				val join = new SDFJoinVertex
-				join.name = '''imp_«fifo.target.name»_«fifo.targetLabel»'''
-				subgraph.addVertex(join)
-
-				// Add connection between them
-				val fifo0 = subgraph.addEdge(fork, join)
-				val fifo1 = subgraph.addEdge(fork, join)
-				join.swapEdges(0, 1)
-
-				// Set fifo properties
-				fifo0.sourceLabel = '''«fifo.sourceLabel»_0'''
-				fifo0.targetLabel = '''«fifo.targetLabel»_«rate1»'''
-				fifo0.prod = new SDFIntEdgePropertyType(rate0)
-				fifo0.cons = new SDFIntEdgePropertyType(rate0)
-				fifo0.delay = new SDFIntEdgePropertyType(rate0 * nbRepeat * minIterDiff)
-				fifo0.dataType = fifo.dataType.clone
-				fifo0.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY) 
-				fifo0.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY) 
-
-				fifo1.sourceLabel = '''«fifo.sourceLabel»_«rate0»'''
-				fifo1.targetLabel = '''«fifo.targetLabel»_0'''
-				fifo1.prod = new SDFIntEdgePropertyType(rate1)
-				fifo1.cons = new SDFIntEdgePropertyType(rate1)
-				fifo1.delay = new SDFIntEdgePropertyType(rate1 * nbRepeat * (minIterDiff + 1))
-				fifo1.dataType = fifo.dataType.clone
-				fifo1.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
-				fifo1.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY) 
-				
-				// Connect producers and consumers of original fifo to fork/join
-				val fifoIn = subgraph.addEdge(fifo.source,fork)
-				fifoIn.copyProperties(fifo)
-				fifoIn.targetLabel = fifo.sourceLabel
-				fifoIn.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
-				fifoIn.cons = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
-				
-				val fifoOut = subgraph.addEdge(join,fifo.target)
-				fifoOut.copyProperties(fifo)
-				fifoOut.targetLabel = fifo.targetLabel
-				fifoOut.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
-				fifoOut.prod = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
-				
-				// Remove original FIFO from the graph
-				subgraph.removeEdge(fifo)
+			// Check order of ports for fork join actors
+			if (src instanceof SDFForkVertex) {
+				val idx = (fifo.source as SDFForkVertex).getEdgeIndex(fifo)
+				src.swapEdges(src.getEdgeIndex(cloneFifo), idx)
+			}
+			if (tgt instanceof SDFJoinVertex) {
+				val idx = (fifo.target as SDFJoinVertex).getEdgeIndex(fifo)
+				tgt.swapEdges(tgt.getEdgeIndex(cloneFifo), idx)
 			}
 		}
+
+		// Connect FIFO that were connected to ports of the flattened actor
+		// and those connected to interfaces in the subgraph
+		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex)) {
+			// Get the actor port
+			val port = hierActor.getInterface(interface.name)
+			val externalFifo = hierActor.getAssociatedEdge(port)
+
+			// Connect the new FIFO
+			val newFifo = if (interface instanceof SDFSourceInterfaceVertex) {
+					val internalFifo = subgraph.outgoingEdgesOf(interface).get(0)
+					val newFifo = flattenedGraph.addEdge(externalFifo.source, clones.get(internalFifo.target))
+					newFifo.copyProperties(externalFifo)
+					newFifo.cons = internalFifo.cons
+					if (internalFifo.delay != null) {
+						newFifo.delay = internalFifo.delay
+					}
+					newFifo.targetPortModifier = internalFifo.targetPortModifier
+					newFifo
+				} else { // if(interface instanceof SDFSinkInterfaceVertex)
+					val internalFifo = subgraph.incomingEdgesOf(interface).get(0)
+					val newFifo = flattenedGraph.addEdge(clones.get(internalFifo.source), externalFifo.target)
+					newFifo.copyProperties(externalFifo)
+					newFifo.prod = internalFifo.prod
+					if (internalFifo.delay != null) {
+						newFifo.delay = internalFifo.delay
+					}
+					newFifo.sourcePortModifier = internalFifo.sourcePortModifier
+					newFifo
+				}
+			// Set delay of the new FIFO
+			val externDelay = if(externalFifo.delay != null) externalFifo.delay.intValue else 0
+			val internDelay = if(newFifo.delay != null) newFifo.delay.intValue else 0
+			if (externDelay != 0) {
+				newFifo.delay = new SDFIntEdgePropertyType(externDelay + internDelay)
+			}
+			// Copy edge order if needed
+			copyEdgeOrder(newFifo, externalFifo, Side.BOTH)
+		}
 	}
 
 	/**
-	 * This method scans the {@link SDFInterfaceVertex} of an {@link 
-	 * SDFGraph IBSDF} subgraph  and adds {@link SDFBroadcastVertex} and
-	 * {@link SDFRoundBufferVertex}, if needed.
-	 * 
-	 * @param subgraph
-	 * 		the {@link SDFGraph} whose {@link SDFInterfaceVertex} are to checked.
-	 *      This graph will be modified within the method. The 
-	 *      schedulability of this subgraph must have been tested before being 
-	 *      given to this method.
-	 * 
-	 *  
-	 * @throws SDF4JException if an interface is connected to several FIFOs.
+	 * Rename all actors (except interfaces) of the subgraph such that their 
+	 * name is prefixed with the name of the hierarchical actor.
 	 */
-	def addInterfaceSubstitutes(SDFGraph subgraph) {
-		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex).toList) {
-			if (interface instanceof SDFSourceInterfaceVertex) {
-				// Get successors
-				val outEdges = subgraph.outgoingEdgesOf(interface)
-				if (outEdges.size > 1) {
-					throw new SDF4JException(
-						'''Input interface «interface.name» in ''' +
-							'''subgraph «subgraph.name» is connected to multiple''' +
-							'''FIFOs although this is strictly forbidden.''')
-						}
-
-						// Check if a broadcast is needed
-						val outEdge = outEdges.get(0)
-						val prodRate = outEdge.prod.intValue
-						val consRate = outEdge.cons.intValue
-						val nbRepeatCons = outEdge.target.nbRepeatAsInteger
-
-						// If more token are consumed during an iteration of 
-						// the subgraph than the number of available tokens 
-						// => broadcast needed
-						if (prodRate < consRate * nbRepeatCons) {
-							// Add the broadcast and connect edges
-							val broadcast = new SDFBroadcastVertex
-							broadcast.name = '''br_«interface.name»'''
-							subgraph.addVertex(broadcast)
-							val edgeIn = subgraph.addEdge(outEdge.source, broadcast)
-							val edgeOut = subgraph.addEdge(broadcast, outEdge.target)
-
-							// Set edges properties
-							edgeIn.copyProperties(outEdge)
-							edgeIn.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
-							edgeIn.delay = new SDFIntEdgePropertyType(0)
-
-							edgeOut.copyProperties(outEdge)
-							edgeOut.prod = new SDFIntEdgePropertyType(consRate * nbRepeatCons)
-							edgeOut.propertyBean.removeProperty(SDFEdge.SOURCE_PORT_MODIFIER);
-
-							// Remove the original edge
-							subgraph.removeEdge(outEdge)
-						}
-					} else { // interface instanceof SDFSinkInterfaceVertex
-					// Get predecessor
-						val inEdges = subgraph.incomingEdgesOf(interface)
-						if (inEdges.size > 1) {
-							throw new SDF4JException(
-								'''Output interface «interface.name» in ''' +
-									'''subgraph «subgraph.name» is connected to multiple''' +
-									'''FIFOs although this is strictly forbidden.''')
-								}
-
-								// Check if a roundbuffer is needed
-								val inEdge = inEdges.get(0)
-								val prodRate = inEdge.prod.intValue
-								val consRate = inEdge.cons.intValue
-								val nbRepeatProd = inEdge.source.nbRepeatAsInteger
-
-								// If more token are produced during an iteration of 
-								// the subgraph than the number of consumed tokens 
-								// => roundbuffer needed
-								if (prodRate * nbRepeatProd > consRate) {
-									// Add the roundbuffer and connect edges
-									val roundbuffer = new SDFRoundBufferVertex
-									roundbuffer.name = '''rb_«interface.name»'''
-									subgraph.addVertex(roundbuffer)
-									val edgeIn = subgraph.addEdge(inEdge.source, roundbuffer)
-									val edgeOut = subgraph.addEdge(roundbuffer, inEdge.target)
-
-									// Set edges properties
-									edgeOut.copyProperties(inEdge)
-									edgeOut.sourcePortModifier = new SDFStringEdgePropertyType(
-										SDFEdge.MODIFIER_WRITE_ONLY)
-									edgeOut.prod = new SDFIntEdgePropertyType(consRate)
-									edgeOut.delay = new SDFIntEdgePropertyType(0)
-
-									edgeIn.copyProperties(inEdge)
-									edgeIn.cons = new SDFIntEdgePropertyType(prodRate * nbRepeatProd)
-									edgeIn.propertyBean.removeProperty(SDFEdge.TARGET_PORT_MODIFIER);
-
-									// Remove the original edge
-									subgraph.removeEdge(inEdge)
-								}
-							}
-						}
-					}
-				}
+	def renameSubgraphActors(SDFAbstractVertex hierActor, SDFGraph subgraph) {
+		for (actor : subgraph.vertexSet.filter[!(it instanceof SDFInterfaceVertex)]) {
+			actor.name = '''«hierActor.name»_«actor.name»'''
+		}
+	}
+}
