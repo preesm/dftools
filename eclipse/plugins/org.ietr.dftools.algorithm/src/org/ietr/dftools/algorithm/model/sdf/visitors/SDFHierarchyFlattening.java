@@ -31,6 +31,7 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  * @author jpiat
  * 
  */
+@Deprecated
 public class SDFHierarchyFlattening extends
 		AbstractHierarchyFlattening<SDFGraph> {
 
