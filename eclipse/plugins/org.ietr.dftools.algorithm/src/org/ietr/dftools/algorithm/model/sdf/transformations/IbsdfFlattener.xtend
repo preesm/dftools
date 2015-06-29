@@ -297,12 +297,12 @@ class IbsdfFlattener {
 		if ((side == Side.TGT || side == Side.BOTH) && newEdge.target.class == originalEdge.target.class) {
 			switch originalEdge.target {
 				SDFRoundBufferVertex: {
-					val originalIndex = (originalEdge.source as SDFRoundBufferVertex).getEdgeIndex(originalEdge)
-					(newEdge.source as SDFRoundBufferVertex).setEdgeIndex(newEdge, originalIndex)
+					val originalIndex = (originalEdge.target as SDFRoundBufferVertex).getEdgeIndex(originalEdge)
+					(newEdge.target as SDFRoundBufferVertex).setEdgeIndex(newEdge, originalIndex)
 				}
 				SDFJoinVertex: {
-					val originalIndex = (originalEdge.source as SDFJoinVertex).getEdgeIndex(originalEdge)
-					(newEdge.source as SDFJoinVertex).setEdgeIndex(newEdge, originalIndex)
+					val originalIndex = (originalEdge.target as SDFJoinVertex).getEdgeIndex(originalEdge)
+					(newEdge.target as SDFJoinVertex).setEdgeIndex(newEdge, originalIndex)
 				}
 			}
 		}
@@ -387,6 +387,7 @@ class IbsdfFlattener {
 		]
 
 		// Now, copy all fifos, except those connected to interfaces
+		val fifoClones = new LinkedHashMap
 		for (fifo : subgraph.edgeSet.filter [
 			!(it.source instanceof SDFInterfaceVertex || it.target instanceof SDFInterfaceVertex)
 		]) {
@@ -395,15 +396,7 @@ class IbsdfFlattener {
 			val cloneFifo = flattenedGraph.addEdge(src, tgt)
 			cloneFifo.copyProperties(fifo)
 
-			// Check order of ports for fork join actors
-			if (src instanceof SDFForkVertex) {
-				val idx = (fifo.source as SDFForkVertex).getEdgeIndex(fifo)
-				src.swapEdges(src.getEdgeIndex(cloneFifo), idx)
-			}
-			if (tgt instanceof SDFJoinVertex) {
-				val idx = (fifo.target as SDFJoinVertex).getEdgeIndex(fifo)
-				tgt.swapEdges(tgt.getEdgeIndex(cloneFifo), idx)
-			}
+			fifoClones.put(fifo, cloneFifo)
 		}
 
 		// Connect FIFO that were connected to ports of the flattened actor
@@ -444,6 +437,9 @@ class IbsdfFlattener {
 			// Copy edge order if needed
 			copyEdgeOrder(newFifo, externalFifo, Side.BOTH)
 		}
+
+		// Now that all fifos are connected, check order
+		fifoClones.forEach[fifo, fifoClone|copyEdgeOrder(fifoClone, fifo, Side.BOTH)]
 	}
 
 	/**
