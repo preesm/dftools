@@ -1,6 +1,8 @@
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -168,6 +170,19 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * @return The outgoing connections of this for in an ordered list
+	 */
+	public List<SDFEdge> getOutgoingConnections() {
+		List<SDFEdge> edges = new ArrayList<SDFEdge>(getConnections().size());
+		for (int i = 0; i < getConnections().size(); i++) {
+			if (getConnections().get(i) != null) {
+				edges.add(getConnections().get(i));
+			}
+		}
+		return edges;
 	}
 
 	@SuppressWarnings("unchecked")
