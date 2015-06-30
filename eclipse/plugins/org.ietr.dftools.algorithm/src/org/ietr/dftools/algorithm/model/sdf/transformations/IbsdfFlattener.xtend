@@ -152,17 +152,11 @@ class IbsdfFlattener {
 				fifoIn.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
 				fifoIn.cons = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
 
-				// Copy edge order if needed
-				copyEdgeOrder(fifoIn, fifo, Side.SRC)
-
 				val fifoOut = subgraph.addEdge(join, fifo.target)
 				fifoOut.copyProperties(fifo)
 				fifoOut.targetInterface = fifo.targetInterface.clone
 				fifoOut.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
 				fifoOut.prod = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
-
-				// Copy edge order if needed
-				copyEdgeOrder(fifoOut, fifo, Side.TGT)
 
 				// Remove original FIFO from the graph
 				subgraph.removeEdge(fifo)
@@ -223,9 +217,6 @@ class IbsdfFlattener {
 					edgeOut.sourceInterface = new SDFSinkInterfaceVertex
 					edgeOut.sourceInterface.name = interface.name + "_0_0"
 
-					// Copy edge order if needed
-					copyEdgeOrder(edgeOut, outEdge, Side.TGT)
-
 					// Remove the original edge
 					subgraph.removeEdge(outEdge)
 				}
@@ -266,9 +257,6 @@ class IbsdfFlattener {
 					edgeIn.targetInterface = new SDFSourceInterfaceVertex
 					edgeIn.targetInterface.name = interface.name + "_0_0"
 
-					// Copy edge order if needed
-					copyEdgeOrder(edgeIn, inEdge, Side.SRC)
-
 					// Remove the original edge
 					subgraph.removeEdge(inEdge)
 				}
@@ -280,36 +268,6 @@ class IbsdfFlattener {
 		SRC,
 		TGT,
 		BOTH
-	}
-
-	def copyEdgeOrder(SDFEdge newEdge, SDFEdge originalEdge, Side side) {
-		// Do the edges have the same source type
-		if ((side == Side.SRC || side == Side.BOTH) && newEdge.source.class == originalEdge.source.class) {
-			switch originalEdge.source {
-				SDFBroadcastVertex: {
-					val originalIndex = (originalEdge.source as SDFBroadcastVertex).getEdgeIndex(originalEdge)
-					(newEdge.source as SDFBroadcastVertex).setEdgeIndex(newEdge, originalIndex)
-				}
-				SDFForkVertex: {
-					val originalIndex = (originalEdge.source as SDFForkVertex).getEdgeIndex(originalEdge)
-					(newEdge.source as SDFForkVertex).setEdgeIndex(newEdge, originalIndex)
-				}
-			}
-		}
-
-		// Do the edges have the same target type
-		if ((side == Side.TGT || side == Side.BOTH) && newEdge.target.class == originalEdge.target.class) {
-			switch originalEdge.target {
-				SDFRoundBufferVertex: {
-					val originalIndex = (originalEdge.target as SDFRoundBufferVertex).getEdgeIndex(originalEdge)
-					(newEdge.target as SDFRoundBufferVertex).setEdgeIndex(newEdge, originalIndex)
-				}
-				SDFJoinVertex: {
-					val originalIndex = (originalEdge.target as SDFJoinVertex).getEdgeIndex(originalEdge)
-					(newEdge.target as SDFJoinVertex).setEdgeIndex(newEdge, originalIndex)
-				}
-			}
-		}
 	}
 
 	def flattenGraph() throws SDF4JException{
@@ -337,6 +295,10 @@ class IbsdfFlattener {
 			// Flatten one level of the graph
 			flattenOneLevel
 		}
+		
+		// Make sure the fifos of special actors are in order (according to 
+		// their indices)
+		SpecialActorPortsIndexer.sortIndexedPorts(flattenedGraph)
 	}
 
 	protected def flattenOneLevel() {
@@ -438,12 +400,7 @@ class IbsdfFlattener {
 			if (externDelay != 0) {
 				newFifo.delay = new SDFIntEdgePropertyType(externDelay + internDelay)
 			}
-			// Copy edge order if needed
-			copyEdgeOrder(newFifo, externalFifo, Side.BOTH)
 		}
-
-		// Now that all fifos are connected, check order
-		fifoClones.forEach[fifo, fifoClone|copyEdgeOrder(fifoClone, fifo, Side.BOTH)]
 	}
 
 	/**
