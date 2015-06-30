@@ -107,7 +107,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 		SDFEdge newEdge = super.addEdge(source, target);
 		// properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
 		if (source instanceof SDFForkVertex
-				|| source instanceof SDFBroadcastVertex) {
+				|| (source instanceof SDFBroadcastVertex && !(source instanceof SDFRoundBufferVertex))) {
 			source.connectionAdded(newEdge);
 		}
 
@@ -229,7 +229,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			newEdge.copyProperties(edge);
 		}
 
-		// Make sure the ports of special actors are ordered according to 
+		// Make sure the ports of special actors are ordered according to
 		// their indices.
 		SpecialActorPortsIndexer.sortIndexedPorts(newGraph);
 
@@ -686,7 +686,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 				((SDFJoinVertex) targetVertex).connectionRemoved(edge);
 			}
 
-			if (sourceVertex instanceof SDFBroadcastVertex) {
+			// Beware of the Broadcast - RoundBuffer inheritance
+			if (sourceVertex instanceof SDFBroadcastVertex
+					&& !(sourceVertex instanceof SDFRoundBufferVertex)) {
 				((SDFBroadcastVertex) sourceVertex).connectionRemoved(edge);
 			} else if (targetVertex instanceof SDFRoundBufferVertex) {
 				((SDFRoundBufferVertex) targetVertex).connectionRemoved(edge);
