@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.Vector;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
@@ -25,6 +25,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
+import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsIndexer;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
@@ -255,7 +256,8 @@ public class ToHSDFVisitor implements
 				newEdges.add(newEdge);
 
 				// Set the source interface of the new edge
-				// If the source is a newly added fork/broadcast we rename the
+				// If the source is a newly added fork/broadcast (or extra
+				// output added to existing fork/broadcast) we rename the
 				// new output ports. Contrary to ports of join/roundbuffer, no
 				// special processing is needed to order the edges.
 				if (sourceCopies.get(sourceIndex) == originalSourceCopies
@@ -263,7 +265,7 @@ public class ToHSDFVisitor implements
 						&& (!explode || !((originalSourceCopies
 								.get(sourceIndex) instanceof SDFBroadcastVertex) || (originalSourceCopies
 								.get(sourceIndex) instanceof SDFForkVertex)))) {
-					// If the source is not a new fork/broadcast
+					// If the source does not need new ports
 					if (sourceCopies.get(sourceIndex).getSink(
 							edge.getSourceInterface().getName()) != null) {
 						// if the source already has the appropriate interface
@@ -278,12 +280,35 @@ public class ToHSDFVisitor implements
 					// Copy the source port modifier of the original source
 					newEdge.setSourcePortModifier(edge.getSourcePortModifier());
 				} else {
-					// If the source is a newly created fork
-					// or a broadcast whose output is exploded
+					// If the source is a fork (new or not)
+					// or a broadcast with a new port
 					SDFInterfaceVertex sourceInterface = edge
 							.getSourceInterface().clone();
-					sourceInterface.setName(sourceInterface.getName() + "_"
-							+ sourceProd);
+
+					String newInterfaceName = sourceInterface.getName() + "_"
+							+ sourceProd;
+
+					// Get the current index of the port (if any)
+					// and update it
+					if (sourceInterface.getName().matches(
+							SpecialActorPortsIndexer.indexRegex)) {
+						Pattern pattern = Pattern
+								.compile(SpecialActorPortsIndexer.indexRegex);
+						Matcher matcher = pattern.matcher(sourceInterface
+								.getName());
+						matcher.find();
+						int existingIdx = Integer.decode(matcher
+								.group(SpecialActorPortsIndexer.groupXX));
+						int newIdx = existingIdx + sourceProd;
+						newInterfaceName = sourceInterface
+								.getName()
+								.substring(
+										0,
+										matcher.start(SpecialActorPortsIndexer.groupXX))
+								+ newIdx;
+					}
+
+					sourceInterface.setName(newInterfaceName);
 					newEdge.setSourceInterface(sourceInterface);
 					// Add a source port modifier
 					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(
@@ -296,7 +321,8 @@ public class ToHSDFVisitor implements
 				// are in the right order (which might be a little bit complex
 				// when playing with delays)
 
-				// If the target is not a new join/roundbuffer
+				// If the target is not an actor with new ports (because of an
+				// explosion)
 				if (targetCopies.get(targetIndex) == originalTargetCopies
 						.get(targetIndex)
 						&& (!implode || !((originalTargetCopies
@@ -326,47 +352,40 @@ public class ToHSDFVisitor implements
 						// after the while loop
 					}
 				}
-				// If the target is join/roundbuffer
+				// If the target is join (new or not) /roundbuffer with new
+				// ports
 				else {
 					SDFInterfaceVertex targetInterface = edge
 							.getTargetInterface().clone();
-					targetInterface.setName(targetInterface.getName() + "_"
-							+ targetCons);
+
+					String newInterfaceName = targetInterface.getName() + "_"
+							+ targetCons;
+					// Get the current index of the port (if any)
+					// and update it
+					if (targetInterface.getName().matches(
+							SpecialActorPortsIndexer.indexRegex)) {
+						Pattern pattern = Pattern
+								.compile(SpecialActorPortsIndexer.indexRegex);
+						Matcher matcher = pattern.matcher(targetInterface
+								.getName());
+						matcher.find();
+						int existingIdx = Integer.decode(matcher
+								.group(SpecialActorPortsIndexer.groupXX));
+						int newIdx = existingIdx + targetCons;
+						newInterfaceName = targetInterface
+								.getName()
+								.substring(
+										0,
+										matcher.start(SpecialActorPortsIndexer.groupXX))
+								+ newIdx;
+					}
+
+					targetInterface.setName(newInterfaceName);
 					newEdge.setTargetInterface(targetInterface);
 					// Add a target port modifier
 					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
 							SDFEdge.MODIFIER_READ_ONLY));
 
-					// Reorder the input of the target only for newly added join
-					if (targetCopies.get(targetIndex) != originalTargetCopies
-							.get(targetIndex)) {
-						SDFAbstractVertex targetVertex = newEdge.getTarget();
-						@SuppressWarnings("unchecked")
-						Map<Integer, SDFEdge> edgeOrder = (Map<Integer, SDFEdge>) targetVertex
-								.getPropertyBean().getValue(
-										SDFJoinVertex.EDGES_ORDER);
-						TreeMap<Integer, SDFEdge> orderedEdges = new TreeMap<Integer, SDFEdge>();
-						for (Entry<Integer, SDFEdge> entry : edgeOrder
-								.entrySet()) {
-							Integer order = new Integer(entry
-									.getValue()
-									.getTargetLabel()
-									.substring(
-											edge.getTargetInterface().getName()
-													.length() + 1));
-							orderedEdges.put(order, entry.getValue());
-						}
-
-						// Clear the edgeOrder Map and refill it with the right
-						// order:
-						edgeOrder.clear();
-						int index = 0;
-						for (Entry<Integer, SDFEdge> entry : orderedEdges
-								.entrySet()) {
-							edgeOrder.put(index, entry.getValue());
-							index++;
-						}
-					}
 				}
 				// kdesnos: This lines cancel the previous if..else block ?
 				// newEdge.setTargetInterface(edge.getTargetInterface().clone());
@@ -446,6 +465,11 @@ public class ToHSDFVisitor implements
 						&& (absoluteSource / edge.getProd().intValue()) < sourceCopies
 								.size()) {
 					totProd = 0;
+					// Added on 2015.06.30 if this exception never comes up
+					// then the if should be deleted (as I think it should be
+					// since roundbuffer behavior is handled in hierarchy
+					// flattening, but should not be in single-rate transfo)
+					throw new RuntimeException("Is this if really necessary ?");
 				}
 			}
 
@@ -453,6 +477,8 @@ public class ToHSDFVisitor implements
 			// We set the port modifiers here
 			if (edge.getTarget() instanceof SDFRoundBufferVertex) {
 				// Set all target modifiers as unused
+				// Sorted list of input
+				SpecialActorPortsIndexer.sortFifoList(newEdges, false);
 				ListIterator<SDFEdge> iter = newEdges.listIterator();
 				while (iter.hasNext()) {
 					iter.next().setTargetPortModifier(
@@ -468,9 +494,12 @@ public class ToHSDFVisitor implements
 					// If the target is not unused, set last edges
 					// targetModifier as readOnly
 					@SuppressWarnings("unchecked")
+					// get the rate of the unique output of the roundbuffer
 					int tokensToProduce = ((Set<SDFEdge>) (edge.getTarget()
 							.getBase().outgoingEdgesOf(edge.getTarget())))
 							.iterator().next().getProd().intValue();
+
+					// Scan the input edges in reverse order
 					while (tokensToProduce > 0 && iter.hasPrevious()) {
 						SDFEdge newEdge = iter.previous();
 						newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(
@@ -507,6 +536,14 @@ public class ToHSDFVisitor implements
 				}
 			}
 		}
+
+		// Make sure all ports are in order
+		if (!SpecialActorPortsIndexer.checkIndexes(output)) {
+			throw new RuntimeException(
+					"There are still special actors with non-indexed ports. Contact Preesm developers.");
+		} 
+		
+		SpecialActorPortsIndexer.sortIndexedPorts(output);
 	}
 
 	// This map associates each vertex of the input graph to corresponding
