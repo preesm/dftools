@@ -62,6 +62,12 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 		}
 		return edges;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SDFEdge> getOutgoingConnections() {
+		return new ArrayList<SDFEdge>(getBase().outgoingEdgesOf(this));
+	}
 
 	/**
 	 * Sets this edge connection index
