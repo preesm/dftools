@@ -28,6 +28,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsIndexer;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
@@ -228,66 +229,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			newEdge.copyProperties(edge);
 		}
 
-		// Copy the order of "Special" vertices.
-		for (SDFAbstractVertex vertex : vertexSet()) {
-			// Order is important, since SDFRondBufferVertex inherits from SDFBroadcastVertex
-			if (vertex instanceof SDFJoinVertex
-					|| vertex instanceof SDFRoundBufferVertex) {
-				List<SDFEdge> originalEdges = (vertex instanceof SDFJoinVertex) ? ((SDFJoinVertex) vertex)
-						.getIncomingConnections()
-						: ((SDFRoundBufferVertex) vertex)
-								.getIncomingConnections();
-
-				// Get the corresponding new vertex
-				SDFAbstractVertex newVertex = matchCopies.get(vertex);
-				int order = 0;
-
-				for (SDFEdge edge : originalEdges) {
-					// retrieve the corresponding new edge
-					SDFEdge newEdge = newGraph.getEdge(
-							matchCopies.get(edge.getSource()),
-							matchCopies.get(edge.getTarget()));
-
-					if (vertex instanceof SDFJoinVertex) {
-						((SDFJoinVertex) newVertex)
-								.setEdgeIndex(newEdge, order);
-					} else {
-						((SDFRoundBufferVertex) newVertex).setEdgeIndex(
-								newEdge, order);
-					}
-
-					order++;
-				}
-			} else 
-			if (vertex instanceof SDFForkVertex
-					|| vertex instanceof SDFBroadcastVertex) {
-				List<SDFEdge> originalEdges = (vertex instanceof SDFForkVertex) ? ((SDFForkVertex) vertex)
-						.getOutgoingConnections()
-						: ((SDFBroadcastVertex) vertex)
-								.getOutgoingConnections();
-
-				// Get the corresponding new vertex
-				SDFAbstractVertex newVertex = matchCopies.get(vertex);
-				int order = 0;
-
-				for (SDFEdge edge : originalEdges) {
-					// retrieve the corresponding new edge
-					SDFEdge newEdge = newGraph.getEdge(
-							matchCopies.get(edge.getSource()),
-							matchCopies.get(edge.getTarget()));
-
-					if (vertex instanceof SDFForkVertex) {
-						((SDFForkVertex) newVertex)
-								.setEdgeIndex(newEdge, order);
-					} else {
-						((SDFBroadcastVertex) newVertex).setEdgeIndex(
-								newEdge, order);
-					}
-
-					order++;
-				}
-			}
-		}
+		// Make sure the ports of special actors are ordered according to 
+		// their indices.
+		SpecialActorPortsIndexer.sortIndexedPorts(newGraph);
 
 		newGraph.copyProperties(this);
 		newGraph.getPropertyBean().setValue("topology", null);

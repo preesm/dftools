@@ -86,13 +86,12 @@ class SpecialActorPortsIndexer {
 		val processedGraphs = newArrayList
 		processedGraphs.add(sdfGraph)
 
-		
-		for(var i = 0; i < processedGraphs.size(); i++) {
+		for (var i = 0; i < processedGraphs.size(); i++) {
 			val graph = processedGraphs.get(i)
-			
-			// If the actor is hierarchical, add its subgraph to the list of graphs to process
+
 			for (actor : graph.vertexSet()) {
-				if(actor.graphDescription != null ){
+				// If the actor is hierarchical, add its subgraph to the list of graphs to process
+				if (actor.graphDescription != null) {
 					processedGraphs.add(actor.graphDescription as SDFGraph)
 				}
 
@@ -183,76 +182,90 @@ class SpecialActorPortsIndexer {
 	/**
 	 * Sort all indexed ports of the special actors of the graph.
 	 */
-	def static sortIndexedPorts(SDFGraph graph) {
-		for (actor : graph.vertexSet()) {
-			val alreadyIndexed = checkIndexes(actor)
+	def static sortIndexedPorts(SDFGraph sdfGraph) {
 
-			// If the actor is special, and its ports are indexed
-			if (alreadyIndexed) {
-				var isSource = true;
+		// Initialize the list of processed graph with the given one.
+		val processedGraphs = newArrayList
+		processedGraphs.add(sdfGraph)
 
-				val fifos = switch (actor) {
-					SDFJoinVertex: {
-						isSource = false
-						actor.incomingConnections
-					}
-					SDFRoundBufferVertex: {
-						isSource = false
-						actor.incomingConnections
-					}
-					SDFForkVertex:
-						actor.outgoingConnections
-					SDFBroadcastVertex: {
-						actor.outgoingConnections
-					}
-					default:
-						newArrayList
+		for (var i = 0; i < processedGraphs.size(); i++) {
+			val graph = processedGraphs.get(i)
+
+			for (actor : graph.vertexSet()) {
+				// If the actor is hierarchical, add its subgraph to the list of graphs to process
+				if (actor.graphDescription != null) {
+					processedGraphs.add(actor.graphDescription as SDFGraph)
 				}
 
-				val valIsSource = isSource
-				// Sort the FIFOs according to their indexes
-				fifos.sort [ fifo0, fifo1 |
-					{
-						// Get the port names
-						val p0Name = if(valIsSource) fifo0.sourceInterface.name else fifo0.targetInterface.name
-						val p1Name = if(valIsSource) fifo1.sourceInterface.name else fifo1.targetInterface.name
+				val alreadyIndexed = checkIndexes(actor)
 
-						// Compile and apply the pattern
-						val pattern = Pattern.compile(indexRegex)
-						val m0 = pattern.matcher(p0Name)
-						val m1 = pattern.matcher(p1Name)
-						m0.find
-						m1.find
+				// If the actor is special, and its ports are indexed
+				if (alreadyIndexed) {
+					var isSource = true;
 
-						// Retrieve the indexes
-						val yy0 = if(m0.group(2) != null) Integer.decode(m0.group(2)) else 0
-						val yy1 = if(m1.group(2) != null) Integer.decode(m1.group(2)) else 0
-						val xx0 = Integer.decode(m0.group(3))
-						val xx1 = Integer.decode(m1.group(3))
-
-						// Sort according to yy indexes if they are different, 
-						// and according to xx indexes otherwise
-						if(yy0 != yy1) yy0 - yy1 else xx0 - xx1
-					}
-				]
-
-				// Apply this new order to the edges
-				var order = 0
-				for (fifo : fifos) {
-					// Switch and implicit cast for each type
-					switch (actor) {
-						SDFJoinVertex:
-							actor.setEdgeIndex(fifo, order)
-						SDFRoundBufferVertex:
-							actor.setEdgeIndex(fifo, order)
-						SDFForkVertex:
-							actor.setEdgeIndex(fifo, order)
-						SDFBroadcastVertex: {
-							actor.setEdgeIndex(fifo, order)
+					val fifos = switch (actor) {
+						SDFJoinVertex: {
+							isSource = false
+							actor.incomingConnections
 						}
+						SDFRoundBufferVertex: {
+							isSource = false
+							actor.incomingConnections
+						}
+						SDFForkVertex:
+							actor.outgoingConnections
+						SDFBroadcastVertex: {
+							actor.outgoingConnections
+						}
+						default:
+							newArrayList
 					}
 
-					order++
+					val valIsSource = isSource
+					// Sort the FIFOs according to their indexes
+					fifos.sort [ fifo0, fifo1 |
+						{
+							// Get the port names
+							val p0Name = if(valIsSource) fifo0.sourceInterface.name else fifo0.targetInterface.name
+							val p1Name = if(valIsSource) fifo1.sourceInterface.name else fifo1.targetInterface.name
+
+							// Compile and apply the pattern
+							val pattern = Pattern.compile(indexRegex)
+							val m0 = pattern.matcher(p0Name)
+							val m1 = pattern.matcher(p1Name)
+							m0.find
+							m1.find
+
+							// Retrieve the indexes
+							val yy0 = if(m0.group(2) != null) Integer.decode(m0.group(2)) else 0
+							val yy1 = if(m1.group(2) != null) Integer.decode(m1.group(2)) else 0
+							val xx0 = Integer.decode(m0.group(3))
+							val xx1 = Integer.decode(m1.group(3))
+
+							// Sort according to yy indexes if they are different, 
+							// and according to xx indexes otherwise
+							if(yy0 != yy1) yy0 - yy1 else xx0 - xx1
+						}
+					]
+
+					// Apply this new order to the edges
+					var order = 0
+					for (fifo : fifos) {
+						// Switch and implicit cast for each type
+						switch (actor) {
+							SDFJoinVertex:
+								actor.setEdgeIndex(fifo, order)
+							SDFRoundBufferVertex:
+								actor.setEdgeIndex(fifo, order)
+							SDFForkVertex:
+								actor.setEdgeIndex(fifo, order)
+							SDFBroadcastVertex: {
+								actor.setEdgeIndex(fifo, order)
+							}
+						}
+
+						order++
+					}
 				}
 			}
 		}
