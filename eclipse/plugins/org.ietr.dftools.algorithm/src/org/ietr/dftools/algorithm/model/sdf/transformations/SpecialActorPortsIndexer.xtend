@@ -50,7 +50,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex
  * 
  * @author kdesnos
  */
-class specialActorPortsIndexer {
+class SpecialActorPortsIndexer {
 
 	/**
 	 * Regular expression used on the name of a port in order to extract its
