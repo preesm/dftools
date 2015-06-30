@@ -220,6 +220,8 @@ class IbsdfFlattener {
 					edgeOut.copyProperties(outEdge)
 					edgeOut.prod = new SDFIntEdgePropertyType(consRate * nbRepeatCons)
 					edgeOut.propertyBean.removeProperty(SDFEdge.SOURCE_PORT_MODIFIER);
+					edgeOut.sourceInterface = new SDFSinkInterfaceVertex
+					edgeOut.sourceInterface.name = interface.name + "_0_0"
 
 					// Copy edge order if needed
 					copyEdgeOrder(edgeOut, outEdge, Side.TGT)
@@ -261,6 +263,8 @@ class IbsdfFlattener {
 					edgeIn.copyProperties(inEdge)
 					edgeIn.cons = new SDFIntEdgePropertyType(prodRate * nbRepeatProd)
 					edgeIn.propertyBean.removeProperty(SDFEdge.TARGET_PORT_MODIFIER);
+					edgeIn.targetInterface = new SDFSourceInterfaceVertex
+					edgeIn.targetInterface.name = interface.name + "_0_0"
 
 					// Copy edge order if needed
 					copyEdgeOrder(edgeIn, inEdge, Side.SRC)
