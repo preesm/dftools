@@ -682,7 +682,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 			if (sourceVertex instanceof SDFForkVertex) {
 				((SDFForkVertex) sourceVertex).connectionRemoved(edge);
-			} else if (targetVertex instanceof SDFJoinVertex) {
+			} 
+			if (targetVertex instanceof SDFJoinVertex) {
 				((SDFJoinVertex) targetVertex).connectionRemoved(edge);
 			}
 
@@ -690,7 +691,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			if (sourceVertex instanceof SDFBroadcastVertex
 					&& !(sourceVertex instanceof SDFRoundBufferVertex)) {
 				((SDFBroadcastVertex) sourceVertex).connectionRemoved(edge);
-			} else if (targetVertex instanceof SDFRoundBufferVertex) {
+			} 
+			if (targetVertex instanceof SDFRoundBufferVertex) {
 				((SDFRoundBufferVertex) targetVertex).connectionRemoved(edge);
 			}
 
