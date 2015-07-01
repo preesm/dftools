@@ -43,6 +43,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsIndexer;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
@@ -372,11 +373,14 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		}
 
 		for (Set<SDFAbstractVertex> cycle : cycles) {
+			// This code is dumb for single-rate SDF.
+			// Since in a single-rate graph, all actors are fired
+			// exactly once
 			int gcd = gcdOfVerticesVrb(cycle);
 			if (gcd > 1 && !(graph instanceof PSDFGraph)) {
 				copyCycle(graph, cycle, gcd);
 			} else if (!(graph instanceof PSDFGraph)) {
-				treatPSDFCycles(graph, cycle);
+				treatSDFCycles(graph, cycle);
 			}
 		}
 		// SDFIterator sdfIterator = new SDFIterator(graph);
@@ -442,7 +446,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		return;
 	}
 
-	protected void treatPSDFCycles(SDFGraph graph, Set<SDFAbstractVertex> cycle)
+	protected void treatSDFCycles(SDFGraph graph, Set<SDFAbstractVertex> cycle)
 			throws InvalidExpressionException {
 		List<SDFEdge> loops = new ArrayList<SDFEdge>();
 		for (SDFAbstractVertex vertex : cycle) {
@@ -561,6 +565,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			e.printStackTrace();
 			throw (new SDF4JException(e.getMessage()));
 		}
+
+		// Make sure all ports are in order
+		if (!SpecialActorPortsIndexer.checkIndexes(sdf)) {
+			throw new SDF4JException(
+					"There are still special actors with non-indexed ports. Contact Preesm developers.");
+		}
+		SpecialActorPortsIndexer.sortIndexedPorts(sdf);
 	}
 
 	@Override
