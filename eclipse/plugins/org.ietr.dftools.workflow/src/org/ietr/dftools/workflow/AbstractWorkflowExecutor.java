@@ -1,5 +1,7 @@
 package org.ietr.dftools.workflow;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -273,8 +275,16 @@ public abstract class AbstractWorkflowExecutor {
 						log(Level.SEVERE, "Workflow.ExecutionException",
 								nodeId, e.getMessage());
 						return false;
+					} catch (Exception e) {
+						StringWriter error = new StringWriter();
+						e.printStackTrace(new PrintWriter(error));
+						log(Level.SEVERE,
+								"Unexpected Exception: "
+										+ error.toString()
+										+ "\n Contact Preesm developers if you cannot solve the problem.",
+								nodeId, error.toString());
+						return false;
 					}
-
 				}
 
 				// If the execution incorrectly initialized the outputs
