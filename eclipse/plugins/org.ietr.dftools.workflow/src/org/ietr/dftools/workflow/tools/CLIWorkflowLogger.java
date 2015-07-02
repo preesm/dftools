@@ -339,7 +339,7 @@ public class CLIWorkflowLogger {
 	}
 
 	public static void log(Level level, String msg) {
-        getLogger().log(level, msg);
+        getLogger().log(level, msg + System.getProperty("line.separator"));
     }
 
 	public static void logln(Level level, String msg) {
