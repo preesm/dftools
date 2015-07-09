@@ -207,6 +207,8 @@ class IbsdfFlattener {
 
 					// Set edges properties
 					edgeIn.copyProperties(outEdge)
+					edgeIn.targetInterface = new SDFSourceInterfaceVertex
+					edgeIn.targetInterface.name = interface.name
 					edgeIn.targetPortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY)
 					edgeIn.delay = new SDFIntEdgePropertyType(0)
 					edgeIn.cons = new SDFIntEdgePropertyType(prodRate)
@@ -250,6 +252,8 @@ class IbsdfFlattener {
 					edgeOut.sourcePortModifier = new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY)
 					edgeOut.prod = new SDFIntEdgePropertyType(consRate)
 					edgeOut.delay = new SDFIntEdgePropertyType(0)
+					edgeIn.sourceInterface = new SDFSinkInterfaceVertex
+					edgeIn.sourceInterface.name = interface.name
 
 					edgeIn.copyProperties(inEdge)
 					edgeIn.cons = new SDFIntEdgePropertyType(prodRate * nbRepeatProd)
@@ -283,7 +287,7 @@ class IbsdfFlattener {
 			}
 
 			// Check if there is anything to flatten
-			val hasNoHierarchy = flattenedGraph.allVertices.forall [
+			val hasNoHierarchy = flattenedGraph.vertexSet.forall [
 				!(it.graphDescription != null && it.graphDescription instanceof SDFGraph)
 			]
 
@@ -303,9 +307,9 @@ class IbsdfFlattener {
 
 	protected def flattenOneLevel() {
 		// Get the list of hierarchical actors
-		val hierActors = flattenedGraph.allVertices.filter [
+		val hierActors = flattenedGraph.vertexSet.filter [
 			it.graphDescription != null && it.graphDescription instanceof SDFGraph
-		]
+		].clone // Clone because filter produces a view
 
 		// Process actors to flatten one by one
 		for (hierActor : hierActors) {
@@ -381,6 +385,7 @@ class IbsdfFlattener {
 					if (internalFifo.delay != null) {
 						newFifo.delay = internalFifo.delay
 					}
+					newFifo.targetInterface = internalFifo.targetInterface
 					newFifo.targetPortModifier = internalFifo.targetPortModifier
 					newFifo
 				} else { // if(interface instanceof SDFSinkInterfaceVertex)
@@ -391,6 +396,7 @@ class IbsdfFlattener {
 					if (internalFifo.delay != null) {
 						newFifo.delay = internalFifo.delay
 					}
+					newFifo.sourceInterface = internalFifo.sourceInterface
 					newFifo.sourcePortModifier = internalFifo.sourcePortModifier
 					newFifo
 				}
