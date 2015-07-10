@@ -35,21 +35,23 @@
  *********************************************************/
 package org.ietr.dftools.algorithm.model.sdf.transformations
 
+import java.util.LinkedHashMap
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.ietr.dftools.algorithm.model.parameters.Variable
+import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex
+import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException
-import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex
-import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex
-import java.util.LinkedHashMap
-import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex
 
 /**
  * @author kdesnos
@@ -82,7 +84,7 @@ class IbsdfFlattener {
 	 * <li>Delays of the fifos between fork and join are computed to ensure 
 	 * the correct single-rate transformation of the application.</li></ul>
 	 */
-	def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
+	protected def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
 		// Scan the fifos with delays in the subgraph
 		for (fifo : subgraph.edgeSet.filter[it.delay != null].toList) {
 			// Get the number of tokens produced and consumed during each
@@ -178,7 +180,7 @@ class IbsdfFlattener {
 	 *  
 	 * @throws SDF4JException if an interface is connected to several FIFOs.
 	 */
-	def addInterfaceSubstitutes(SDFGraph subgraph) {
+	protected def addInterfaceSubstitutes(SDFGraph subgraph) {
 		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex).toList) {
 			if (interface instanceof SDFSourceInterfaceVertex) {
 				// Get successors
@@ -274,6 +276,11 @@ class IbsdfFlattener {
 		BOTH
 	}
 
+	/**
+	 * Flatten the graph up to the {@link #depth} specified in the {@link 
+	 * IbsdfFlattener} attributes. Result of the flattening can be obtained
+	 * through the {@link #getFlattenedGraph()} method.
+	 */
 	def flattenGraph() throws SDF4JException{
 		// Copy the original graph
 		flattenedGraph = originalGraph.clone
@@ -299,7 +306,7 @@ class IbsdfFlattener {
 			// Flatten one level of the graph
 			flattenOneLevel
 		}
-		
+
 		// Make sure the fifos of special actors are in order (according to 
 		// their indices)
 		SpecialActorPortsIndexer.sortIndexedPorts(flattenedGraph)
@@ -310,7 +317,6 @@ class IbsdfFlattener {
 		val hierActors = flattenedGraph.vertexSet.filter [
 			it.graphDescription != null && it.graphDescription instanceof SDFGraph
 		].clone // Clone because filter produces a view
-
 		// Process actors to flatten one by one
 		for (hierActor : hierActors) {
 			// Copy the orginal subgraph
@@ -333,18 +339,163 @@ class IbsdfFlattener {
 				addDelaySubstitutes(subgraph, nbRepeat)
 			}
 
+			// Substitute subgraph parameters with expression set in their parent graph
+			// /!\ Getting prod and cons rate from the subgraph will no longer 
+			// be possible afterwards, unless it is copied in the parent.
+			substituteSubgraphParameters(hierActor, subgraph)
+
+			// Change variable names in subgraph if they are in conflict (i.e. 
+			// identical) with variables from the flattened graph
+			val duplicateVar = subgraph.variables.filter[flattenedGraph.getVariable($0) != null].values.clone
+			duplicateVar.forEach [
+				renameSubgraphVariable(subgraph, it)
+			]
+
 			// The subgraph is ready, put it in the top graph
 			instantiateSubgraph(hierActor, subgraph)
 			flattenedGraph.removeVertex(hierActor)
 		}
 	}
 
-	def instantiateSubgraph(
+	/**
+	 * This method replaces {@link SDFGraph#getParameters() parameters}
+	 * of a subgraph with the corresponding expression associated to it in the 
+	 * hierarchical actor instance arguments.
+	 * 
+	 * @param hierActor
+	 * 		The hierarchical actor whose subgraph is processed. Instance 
+	 * 		arguments of the actor give the expression used to substitute
+	 * 		parameters in the subgraph.
+	 * @param subgraph
+	 * 		The subgraph whose expressions are substituted.
+	 */
+	protected def substituteSubgraphParameters(SDFAbstractVertex hierActor, SDFGraph subgraph) {
+		// Get list of subgraph parameters, except those masked with subgraph variables
+		// Also get associated expression from parent graph
+		val subgraphParameters = subgraph.parameters.filter[subgraph.getVariable($0) == null].mapValues [
+			hierActor.getArgument(it.name).value
+		]
+
+		// Do the substitution only for parameters whose expression differs 
+		// from the parameter name (to avoid unnecessary computations)
+		subgraphParameters.filter[name, expression|name != expression].forEach [ name, expression |
+			replaceInExpressions(subgraph, name, expression)
+		]
+
+	}
+
+	/**
+	 * If a {@link Variable} of the subgraph is in conflict with a variable 
+	 * of the parent graph (i.e. if it has the same name), the variable of the
+	 * subgraph must be given a new name in this method before flattening the 
+	 * subgraph.
+	 * 
+	 * @param subgraph
+	 * 		The subgraph that contains a conflicting variable.
+	 * @param variable
+	 * 		The variable that is in conflict with a variable from the parent
+	 * 		graph.
+	 */
+	protected def renameSubgraphVariable(SDFGraph subgraph, Variable variable) {
+		// Create the new variable name
+		val oldName = variable.name
+		var newName = subgraph.name + "_" + variable.name
+
+		// Ensure the uniqueness of this name in the flattened graph
+		newName = if (flattenedGraph.getVariable(newName) != null) {
+			var uniqueName = newName + "_0"
+			var i = 0
+			while (flattenedGraph.getVariable(uniqueName) != null) {
+				i++
+				uniqueName = newName + "_" + i
+			}
+			uniqueName
+		} else {
+			newName
+		}
+
+		// replace the name everywhere	
+		// The Variable itself	
+		subgraph.variables.remove(oldName)
+		variable.name = newName
+		subgraph.addVariable(variable)
+
+		replaceInExpressions(subgraph, oldName, newName)
+	}
+
+	/**
+	 * In all expressions of the given subgraph, replace the string oldName 
+	 * with the given replacementString.
+	 * 
+	 * @param subgraph
+	 * 		The subgraph whose expressions will be altered (in {@link SDFEdge fifos},
+	 * 		{@SDFAbstractVertex actors}, and {@link Variable variables}). 
+	 * @param oldName
+	 * 		The String that should be replaced in all expressions.
+	 * @param replacementString
+	 * 		The replacement.
+	 */
+	protected def replaceInExpressions(SDFGraph subgraph, String oldName, String replacementString) {
+		// Regular expression used when replacing oldName in expressions
+		// Ensure that only the exact variable name will be replaced
+		// but not variables "containing" the variable names
+		// eg. Replacing "Test" will affect "Test*3" but not
+		// "Testeur*2" or "Test_eur/3"
+		val oldNameRegex = '''\b«oldName»\b''' // backslash is automatically doubled by XTend
+		// In other variables expressions
+		for (v : subgraph.variables.values) {
+			v.value = v.value.replaceAll(oldNameRegex, replacementString)
+		}
+
+		// In fifo prod/cons rates (expressions)
+		for (fifo : subgraph.edgeSet) {
+			if (fifo.cons instanceof SDFExpressionEdgePropertyType) {
+				(fifo.cons as SDFExpressionEdgePropertyType).value.value = (fifo.cons as SDFExpressionEdgePropertyType).
+					value.value.replaceAll(oldNameRegex, replacementString)
+			}
+
+			if (fifo.prod instanceof SDFExpressionEdgePropertyType) {
+				(fifo.prod as SDFExpressionEdgePropertyType).value.value = (fifo.prod as SDFExpressionEdgePropertyType).
+					value.value.replaceAll(oldNameRegex, replacementString)
+			}
+		}
+
+		// In instance arguments
+		for (actor : subgraph.vertexSet) {
+			for (argument : actor.arguments.values) {
+				if (argument.value.contains(oldName)) {
+					argument.value = argument.value.replaceAll(oldNameRegex, replacementString)
+				}
+			}
+		}
+	}
+
+	/**
+	 * This method copy the subgraph of the hierarchical actor passed as a 
+	 * parameter into the {@link #flattenedGraph}. Before calling this method, 
+	 * the subgraph must have been "prepared" by calling other methods from 
+	 * this class : {@link #addDelaySubstitutes(SDFGraph,int)}, 
+	 * {@link #addInterfaceSubstitutes(SDFGraph)}, 
+	 * {@link #addDelaySubstitutes(SDFGraph,int)}, 
+	 * {@link #renameSubgraphVariable(SDFGraph,Variable)}, 
+	 * {@link #substituteSubgraphParameters(SDFAbstractVertex,SDFGraph)}.
+	 * 
+	 * @param hierActor 
+	 * 		the hierarchical {@link SDFAbstractVertex actor} that 
+	 * 		is flattened.
+	 * @param subgraph
+	 * 		the {@link SDFGraph subgraph} associated to the hierarchical
+	 * 		actor.
+	 */
+	protected def instantiateSubgraph(
 		SDFAbstractVertex hierActor,
 		SDFGraph subgraph
 	) {
 		// Rename actors of the subgraph
 		renameSubgraphActors(hierActor, subgraph)
+
+		// Clone subgraph variables in top graph
+		subgraph.variables.forEach[flattenedGraph.addVariable($1)]
 
 		// Clone all subgraph actors in the flattened graph (except interfaces)
 		val clones = new LinkedHashMap
@@ -413,7 +564,7 @@ class IbsdfFlattener {
 	 * Rename all actors (except interfaces) of the subgraph such that their 
 	 * name is prefixed with the name of the hierarchical actor.
 	 */
-	def renameSubgraphActors(SDFAbstractVertex hierActor, SDFGraph subgraph) {
+	protected def renameSubgraphActors(SDFAbstractVertex hierActor, SDFGraph subgraph) {
 		for (actor : subgraph.vertexSet.filter[!(it instanceof SDFInterfaceVertex)]) {
 			actor.name = '''«hierActor.name»_«actor.name»'''
 		}

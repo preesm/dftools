@@ -4,6 +4,7 @@ package org.ietr.dftools.algorithm.model.parameters;
 /**
  * Class used to represent Argument
  * @author jpiat
+ * @author kdesnos
  *
  */
 public class Argument{
@@ -74,7 +75,12 @@ public class Argument{
 	
 	public int intValue() throws InvalidExpressionException, NoIntegerValueException{
 		int val = value.intValue();
-		this.value = new ConstantValue(val);
+		// kdesnos: Removed this line because it was
+		// removing information from the graph before
+		// flattening. Putting this line back implies
+		// that all expressions be replaced with their constant
+		// value very early in graph transformations
+		// this.value = new ConstantValue(val);
 		return val;
 	}
 	
