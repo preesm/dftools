@@ -465,11 +465,13 @@ public class ToHSDFVisitor implements
 						&& (absoluteSource / edge.getProd().intValue()) < sourceCopies
 								.size()) {
 					totProd = 0;
-					// Added on 2015.06.30 if this exception never comes up
-					// then the if should be deleted (as I think it should be
 					// since roundbuffer behavior is handled in hierarchy
-					// flattening, but should not be in single-rate transfo)
-					throw new RuntimeException("Is this if really necessary ?");
+					// flattening, but should not have to be in single-rate 
+					// transfo.
+					// However, because the HSDF transfo is sometimes applied
+					// BEFORE any flattening, this code cannot be removed...
+					// (cf. DynamicPiMM2SDFVisitor Code)
+					
 				}
 			}
 

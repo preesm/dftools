@@ -180,7 +180,7 @@ class IbsdfFlattener {
 	 *  
 	 * @throws SDF4JException if an interface is connected to several FIFOs.
 	 */
-	protected def addInterfaceSubstitutes(SDFGraph subgraph) {
+	static public def addInterfaceSubstitutes(SDFGraph subgraph) {
 		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex).toList) {
 			if (interface instanceof SDFSourceInterfaceVertex) {
 				// Get successors
