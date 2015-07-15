@@ -370,18 +370,20 @@ class IbsdfFlattener {
 	 * 		The subgraph whose expressions are substituted.
 	 */
 	protected def substituteSubgraphParameters(SDFAbstractVertex hierActor, SDFGraph subgraph) {
-		// Get list of subgraph parameters, except those masked with subgraph variables
-		// Also get associated expression from parent graph
-		val subgraphParameters = subgraph.parameters.filter[subgraph.getVariable($0) == null].mapValues [
-			hierActor.getArgument(it.name).value
-		]
 
-		// Do the substitution only for parameters whose expression differs 
-		// from the parameter name (to avoid unnecessary computations)
-		subgraphParameters.filter[name, expression|name != expression].forEach [ name, expression |
-			replaceInExpressions(subgraph, name, expression)
-		]
+		if (subgraph.parameters != null) {
+			// Get list of subgraph parameters, except those masked with subgraph variables
+			// Also get associated expression from parent graph
+			val subgraphParameters = subgraph.parameters.filter[subgraph.getVariable($0) == null].mapValues [
+				hierActor.getArgument(it.name).value
+			]
 
+			// Do the substitution only for parameters whose expression differs 
+			// from the parameter name (to avoid unnecessary computations)
+			subgraphParameters.filter[name, expression|name != expression].forEach [ name, expression |
+				replaceInExpressions(subgraph, name, expression)
+			]
+		}
 	}
 
 	/**
