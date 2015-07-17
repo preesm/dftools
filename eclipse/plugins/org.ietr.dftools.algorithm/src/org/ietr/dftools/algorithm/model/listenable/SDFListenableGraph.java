@@ -325,6 +325,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	/**
 	 * @see Graph#removeEdge(Object, Object)
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,

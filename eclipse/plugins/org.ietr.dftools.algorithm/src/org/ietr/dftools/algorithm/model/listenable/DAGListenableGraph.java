@@ -335,6 +335,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	/**
 	 * @see Graph#removeEdge(Object, Object)
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
 	public DAGEdge removeEdge(DAGVertex sourceVertex, DAGVertex targetVertex) {

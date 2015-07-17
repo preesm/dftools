@@ -625,6 +625,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 *             target vertex, a random edge will be removed.
 	 * 
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
