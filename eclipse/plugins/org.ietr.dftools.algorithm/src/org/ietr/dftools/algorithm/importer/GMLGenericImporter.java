@@ -1,7 +1,5 @@
 package org.ietr.dftools.algorithm.importer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.ietr.dftools.algorithm.factories.ModelGraphFactory;
@@ -9,45 +7,12 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
-import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.psdf.PSDFGraph;
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class GMLGenericImporter extends
 		GMLImporter<AbstractGraph, AbstractVertex, AbstractEdge> {
-
-	/**
-	 * Main function allowing to debug the class
-	 * 
-	 * @param args
-	 * @throws InvalidExpressionException
-	 */
-	public static void main(String[] args) throws InvalidExpressionException {
-		GMLGenericImporter importer = new GMLGenericImporter();
-		try {
-			AbstractGraph graph = importer
-					.parse(new File(
-							"/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/PSDF/Algo/psdf-testbench.graphml"));
-			if (graph instanceof PSDFGraph) {
-				PSDFGraph psdfGraph = (PSDFGraph) graph;
-				psdfGraph.getDynamicParameter("dp");
-				psdfGraph.getParameter("n");
-				if(psdfGraph.isSchedulable()){
-					System.out.println("graph :" + graph.toString()+" i schedulable");
-					for(SDFAbstractVertex v : psdfGraph.vertexSet()){
-						System.out.println("vertex :" + v.getName()+" x "+v.getNbRepeat().toString());
-					}
-				}
-			}
-			System.out.println("graph :" + graph.toString());
-		} catch (FileNotFoundException | InvalidModelException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	/**
 	 * COnstructs a new importer for SDF graphs

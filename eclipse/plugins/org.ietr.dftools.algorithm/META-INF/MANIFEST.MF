@@ -27,26 +27,12 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.model.dag.types,
  org.ietr.dftools.algorithm.model.listenable,
  org.ietr.dftools.algorithm.model.parameters,
- org.ietr.dftools.algorithm.model.psdf,
- org.ietr.dftools.algorithm.model.psdf.maths,
- org.ietr.dftools.algorithm.model.psdf.maths.symbolic,
- org.ietr.dftools.algorithm.model.psdf.parameters,
- org.ietr.dftools.algorithm.model.psdf.types,
- org.ietr.dftools.algorithm.model.psdf.visitors,
  org.ietr.dftools.algorithm.model.sdf,
  org.ietr.dftools.algorithm.model.sdf.esdf,
  org.ietr.dftools.algorithm.model.sdf.transformations,
  org.ietr.dftools.algorithm.model.sdf.types,
  org.ietr.dftools.algorithm.model.sdf.visitors,
- org.ietr.dftools.algorithm.model.visitors,
- org.ietr.dftools.algorithm.optimisations.clustering,
- org.ietr.dftools.algorithm.optimisations.clustering.fast,
- org.ietr.dftools.algorithm.optimisations.clustering.internalisation,
- org.ietr.dftools.algorithm.optimisations.clustering.mfa,
- org.ietr.dftools.algorithm.optimisations.clustering.stronglyconnected,
- org.ietr.dftools.algorithm.optimisations.loops.detection,
- org.ietr.dftools.algorithm.optimisations.loops.hyperplan,
- org.ietr.dftools.algorithm.optimisations.loops.pipelining
+ org.ietr.dftools.algorithm.model.visitors
 Bundle-ClassPath: lib/djep-full-latest.jar,lib/ext-1.1.1.jar,lib/jgraph.jar,lib/jmatharray.jar,lib/jscl.jar,.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 

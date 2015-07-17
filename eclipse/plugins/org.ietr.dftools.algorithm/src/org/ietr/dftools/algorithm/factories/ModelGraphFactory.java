@@ -6,7 +6,6 @@ import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.generic.GenericGraph;
-import org.ietr.dftools.algorithm.model.psdf.PSDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
 public class ModelGraphFactory {
@@ -15,7 +14,6 @@ public class ModelGraphFactory {
 
 	static {
 		models.put("sdf", SDFGraph.class);
-		models.put("psdf", PSDFGraph.class);
 		models.put("dag", DirectedAcyclicGraph.class);
 	};
 

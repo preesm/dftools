@@ -31,8 +31,6 @@ import org.ietr.dftools.algorithm.model.dag.edag.DAGJoinVertex;
 import org.ietr.dftools.algorithm.model.dag.types.DAGDefaultEdgePropertyType;
 import org.ietr.dftools.algorithm.model.dag.types.DAGDefaultVertexPropertyType;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.psdf.PSDFGraph;
-import org.ietr.dftools.algorithm.model.psdf.types.PSDFEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -59,8 +57,8 @@ import org.jgrapht.alg.CycleDetector;
  *            The DAG type of the output dag
  * 
  */
-public class DAGTransformation<T extends DirectedAcyclicGraph> implements
-		IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+public class DAGTransformation<T extends DirectedAcyclicGraph>
+		implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Main method for debug purposes ...
@@ -69,8 +67,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	 * @throws InvalidExpressionException
 	 * @throws SDF4JException
 	 */
-	public static void main(String[] args) throws InvalidExpressionException,
-			SDF4JException {
+	public static void main(String[] args) throws InvalidExpressionException, SDF4JException {
 		int nbVertex = 30, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 5;
 		SDFtoDAGDemo applet = new SDFtoDAGDemo();
 		SDFAdapterDemo applet2 = new SDFAdapterDemo();
@@ -79,8 +76,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		int minrate = 1, maxrate = 100;
 		SDFRandomGraph test = new SDFRandomGraph();
 
-		SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree,
-				maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+		SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree,
+				minrate, maxrate);
 		GMLSDFImporter importer = new GMLSDFImporter();
 		try {
 			/*
@@ -88,8 +85,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			 * "D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
 			 */
 			demoGraph = importer
-					.parse(new File(
-							"D:\\Preesm\\trunk\\tests\\RACH_Hierarchy\\RACH_Hierarchy\\flatten.graphml"));
+					.parse(new File("D:\\Preesm\\trunk\\tests\\RACH_Hierarchy\\RACH_Hierarchy\\flatten.graphml"));
 		} catch (InvalidModelException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -101,10 +97,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			e.printStackTrace();
 		}
 		DirectedAcyclicGraph dag = dageur.getOutput();
-		CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<DAGVertex, DAGEdge>(
-				dag);
-		System.out.println("DAG contains cycles  = "
-				+ detectCycles.detectCycles());
+		CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<DAGVertex, DAGEdge>(dag);
+		System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
 		applet.init(dag);
 
 		applet2.init(demoGraph);
@@ -121,8 +115,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	 * @param vertexFactory
 	 *            The factory used to create vertices
 	 */
-	public DAGTransformation(T outputGraph,
-			ModelVertexFactory<DAGVertex> vertexFactory) {
+	public DAGTransformation(T outputGraph, ModelVertexFactory<DAGVertex> vertexFactory) {
 		this.outputGraph = outputGraph;
 		factory = vertexFactory;
 	}
@@ -138,8 +131,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	 *            The number of copy to produce
 	 * @throws InvalidExpressionException
 	 */
-	private void copyCycle(SDFGraph graph, Set<SDFAbstractVertex> vertices,
-			int nb) throws InvalidExpressionException {
+	private void copyCycle(SDFGraph graph, Set<SDFAbstractVertex> vertices, int nb) throws InvalidExpressionException {
 		SDFAbstractVertex root = null;
 		SDFAbstractVertex last = null;
 		SDFEdge loop = null;
@@ -173,8 +165,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 				for (SDFAbstractVertex current : sortedCycle) {
 					SDFAbstractVertex copy = current.clone();
 					if (mapCopies.get(current) == null) {
-						mapCopies.put(current,
-								new ArrayList<SDFAbstractVertex>());
+						mapCopies.put(current, new ArrayList<SDFAbstractVertex>());
 					}
 					mapCopies.get(current).add(copy);
 					createdVertices.add(copy);
@@ -188,36 +179,26 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 						}
 					}
 					for (SDFEdge edge : graph.incomingEdgesOf(current)) {
-						if (edge.getSource() != previous
-								&& !sortedCycle.contains(edge.getSource())
+						if (edge.getSource() != previous && !sortedCycle.contains(edge.getSource())
 								&& !createdVertices.contains(edge.getSource())) {
-							SDFEdge newEdge = graph.addEdge(edge.getSource(),
-									copy);
+							SDFEdge newEdge = graph.addEdge(edge.getSource(), copy);
 							newEdge.copyProperties(edge);
-							edge.setProd(new SDFIntEdgePropertyType(edge
-									.getCons().intValue()));
-						} else if (edge.getSource() != previous
-								&& sortedCycle.contains(edge.getSource())
+							edge.setProd(new SDFIntEdgePropertyType(edge.getCons().intValue()));
+						} else if (edge.getSource() != previous && sortedCycle.contains(edge.getSource())
 								&& !createdVertices.contains(edge.getSource())) {
-							SDFEdge newEdge = graph.addEdge(
-									mapCopies.get(edge.getSource()).get(i - 1),
-									copy);
+							SDFEdge newEdge = graph.addEdge(mapCopies.get(edge.getSource()).get(i - 1), copy);
 							newEdge.copyProperties(edge);
 						}
 					}
-					List<SDFEdge> edges = new ArrayList<SDFEdge>(
-							graph.outgoingEdgesOf(current));
+					List<SDFEdge> edges = new ArrayList<SDFEdge>(graph.outgoingEdgesOf(current));
 					for (int k = 0; k < edges.size(); k++) {
 						SDFEdge edge = edges.get(k);
-						if (!sortedCycle.contains(edge.getTarget())
-								&& !createdVertices.contains(edge.getTarget())) {
+						if (!sortedCycle.contains(edge.getTarget()) && !createdVertices.contains(edge.getTarget())) {
 							// if(! (edge.getTarget() instanceof
 							// SDFRoundBufferVertex)){ // need improvements
-							SDFEdge newEdge = graph.addEdge(copy,
-									edge.getTarget());
+							SDFEdge newEdge = graph.addEdge(copy, edge.getTarget());
 							newEdge.copyProperties(edge);
-							edge.setCons(new SDFIntEdgePropertyType(edge
-									.getProd().intValue()));
+							edge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
 						}
 					}
 					previousCopy = copy;
@@ -226,8 +207,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			}
 		}
 		SDFInitVertex initVertex = new SDFInitVertex();
-		initVertex.setName(loop.getTarget().getName() + "_init_"
-				+ loop.getTargetInterface().getName());
+		initVertex.setName(loop.getTarget().getName() + "_init_" + loop.getTargetInterface().getName());
 		SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
 		sink_init.setName(loop.getSourceInterface().getName());
 		initVertex.addSink(sink_init);
@@ -235,8 +215,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		graph.addVertex(initVertex);
 
 		SDFEndVertex endVertex = new SDFEndVertex();
-		endVertex.setName(loop.getSource().getName() + "_end_"
-				+ loop.getSourceInterface().getName());
+		endVertex.setName(loop.getSource().getName() + "_end_" + loop.getSourceInterface().getName());
 		SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
 		source_end.setName(loop.getTargetInterface().getName());
 		endVertex.addSource(source_end);
@@ -251,16 +230,14 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		initEdge.setSourceInterface(sink_init);
 		initEdge.setDelay(new SDFIntEdgePropertyType(0));
 
-		SDFEdge endEdge = graph.addEdge(
-				createdVertices.get(createdVertices.size() - 1), endVertex);
+		SDFEdge endEdge = graph.addEdge(createdVertices.get(createdVertices.size() - 1), endVertex);
 		endEdge.copyProperties(loop);
 		endEdge.setTargetInterface(source_end);
 		endEdge.setDelay(new SDFIntEdgePropertyType(0));
 		graph.removeEdge(loop);
 	}
 
-	private int gcdOfVerticesVrb(Set<SDFAbstractVertex> vertices)
-			throws InvalidExpressionException {
+	private int gcdOfVerticesVrb(Set<SDFAbstractVertex> vertices) throws InvalidExpressionException {
 		int gcd = 0;
 		for (SDFAbstractVertex vertex : vertices) {
 			if (gcd == 0) {
@@ -288,36 +265,26 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 				outputGraph.copyProperties(graph);
 				outputGraph.setCorrespondingSDFGraph(graph);
 				for (DAGVertex vertex : outputGraph.vertexSet()) {
-					vertex.setNbRepeat(new DAGDefaultVertexPropertyType(graph
-							.getVertex(vertex.getName()).getNbRepeatAsInteger()));
+					vertex.setNbRepeat(
+							new DAGDefaultVertexPropertyType(graph.getVertex(vertex.getName()).getNbRepeatAsInteger()));
 				}
 				DAGEdge newedge;
 				for (SDFEdge edge : graph.edgeSet()) {
-					if (edge.getDelay().intValue() == 0
-							&& !(edge.getDelay() instanceof PSDFEdgePropertyType)) {
+					if (edge.getDelay().intValue() == 0) {
 						try {
-							if (outputGraph.containsEdge(outputGraph
-									.getVertex(edge.getSource().getName()),
-									outputGraph.getVertex(edge.getTarget()
-											.getName()))) {
-								newedge = outputGraph.getEdge(outputGraph
-										.getVertex(edge.getSource().getName()),
-										outputGraph.getVertex(edge.getTarget()
-												.getName()));
+							if (outputGraph.containsEdge(outputGraph.getVertex(edge.getSource().getName()),
+									outputGraph.getVertex(edge.getTarget().getName()))) {
+								newedge = outputGraph.getEdge(outputGraph.getVertex(edge.getSource().getName()),
+										outputGraph.getVertex(edge.getTarget().getName()));
 								newedge.getAggregate().add(edge);
-								DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge
-										.getWeight();
-								newedge.setWeight(new DAGDefaultEdgePropertyType(
-										weigth.intValue()
-												+ computeEdgeWeight(edge)));
+								DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge.getWeight();
+								newedge.setWeight(
+										new DAGDefaultEdgePropertyType(weigth.intValue() + computeEdgeWeight(edge)));
 							} else {
-								newedge = outputGraph.addDAGEdge(outputGraph
-										.getVertex(edge.getSource().getName()),
-										outputGraph.getVertex(edge.getTarget()
-												.getName()));
+								newedge = outputGraph.addDAGEdge(outputGraph.getVertex(edge.getSource().getName()),
+										outputGraph.getVertex(edge.getTarget().getName()));
 								newedge.getAggregate().add(edge);
-								newedge.setWeight(new DAGDefaultEdgePropertyType(
-										computeEdgeWeight(edge)));
+								newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
 
 							}
 						} catch (CreateMultigraphException e) {
@@ -325,11 +292,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 						} catch (CreateCycleException e) {
 							e.printStackTrace();
 							Logger logger = WorkflowLogger.getLogger();
-							logger.log(
-									Level.SEVERE,
-									"Error in the DAG creation:\n"
-											+ e.getMessage()
-											+ "\nCheck the single-rate SDF to identify where delays are missing.");
+							logger.log(Level.SEVERE, "Error in the DAG creation:\n" + e.getMessage()
+									+ "\nCheck the single-rate SDF to identify where delays are missing.");
 						} catch (RuntimeException e) {
 							e.printStackTrace();
 						}
@@ -342,8 +306,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	}
 
 	int computeEdgeWeight(SDFEdge edge) throws InvalidExpressionException {
-		return edge.getCons().intValue()
-				* edge.getTarget().getNbRepeatAsInteger();
+		return edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
 
 	}
 
@@ -357,14 +320,11 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	 */
 	private void treatCycles(SDFGraph graph) throws InvalidExpressionException {
 		List<Set<SDFAbstractVertex>> cycles = new ArrayList<Set<SDFAbstractVertex>>();
-		CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
-				graph);
-		List<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(
-				graph.vertexSet());
+		CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<SDFAbstractVertex, SDFEdge>(graph);
+		List<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(graph.vertexSet());
 		while (vertices.size() > 0) {
 			SDFAbstractVertex vertex = vertices.get(0);
-			Set<SDFAbstractVertex> cycle = detector
-					.findCyclesContainingVertex(vertex);
+			Set<SDFAbstractVertex> cycle = detector.findCyclesContainingVertex(vertex);
 			if (cycle.size() > 0) {
 				vertices.removeAll(cycle);
 				cycles.add(cycle);
@@ -377,9 +337,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			// Since in a single-rate graph, all actors are fired
 			// exactly once
 			int gcd = gcdOfVerticesVrb(cycle);
-			if (gcd > 1 && !(graph instanceof PSDFGraph)) {
+			if (gcd > 1) {
 				copyCycle(graph, cycle, gcd);
-			} else if (!(graph instanceof PSDFGraph)) {
+			} else {
 				treatSDFCycles(graph, cycle);
 			}
 		}
@@ -446,8 +406,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		return;
 	}
 
-	protected void treatSDFCycles(SDFGraph graph, Set<SDFAbstractVertex> cycle)
-			throws InvalidExpressionException {
+	protected void treatSDFCycles(SDFGraph graph, Set<SDFAbstractVertex> cycle) throws InvalidExpressionException {
 		List<SDFEdge> loops = new ArrayList<SDFEdge>();
 		for (SDFAbstractVertex vertex : cycle) {
 			for (SDFEdge edge : graph.incomingEdgesOf(vertex)) {
@@ -458,8 +417,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		}
 		for (SDFEdge loop : loops) {
 			SDFInitVertex initVertex = new SDFInitVertex();
-			initVertex.setName(loop.getTarget().getName() + "_init_"
-					+ loop.getTargetInterface().getName());
+			initVertex.setName(loop.getTarget().getName() + "_init_" + loop.getTargetInterface().getName());
 			SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
 			sink_init.setName("init_out");
 			initVertex.addSink(sink_init);
@@ -467,8 +425,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			graph.addVertex(initVertex);
 
 			SDFEndVertex endVertex = new SDFEndVertex();
-			endVertex.setName(loop.getSource().getName() + "_end_"
-					+ loop.getSourceInterface().getName());
+			endVertex.setName(loop.getSource().getName() + "_end_" + loop.getSourceInterface().getName());
 			SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
 			source_end.setName("end_in");
 			endVertex.addSource(source_end);
@@ -496,11 +453,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 		while (edges.size() > 0) {
 			SDFEdge edge = edges.get(0);
 			try {
-				if (edge.getDelay().intValue() > 0
-						&& !(edge.getDelay() instanceof PSDFEdgePropertyType)) {
+				if (edge.getDelay().intValue() > 0) {
 					SDFInitVertex initVertex = new SDFInitVertex();
-					initVertex.setName(edge.getTarget().getName() + "_init_"
-							+ edge.getTargetInterface().getName());
+					initVertex.setName(edge.getTarget().getName() + "_init_" + edge.getTargetInterface().getName());
 					SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
 					sink_init.setName("init_out");
 					initVertex.addSink(sink_init);
@@ -508,8 +463,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 					graph.addVertex(initVertex);
 
 					SDFEndVertex endVertex = new SDFEndVertex();
-					endVertex.setName(edge.getSource().getName() + "_end_"
-							+ edge.getSourceInterface().getName());
+					endVertex.setName(edge.getSource().getName() + "_end_" + edge.getSourceInterface().getName());
 					SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
 					source_end.setName("end_in");
 					endVertex.addSource(source_end);
@@ -519,15 +473,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 					endVertex.setEndReference(initVertex);
 					graph.addVertex(endVertex);
 
-					SDFEdge initEdge = graph.addEdge(initVertex,
-							edge.getTarget());
+					SDFEdge initEdge = graph.addEdge(initVertex, edge.getTarget());
 					initEdge.copyProperties(edge);
 					initEdge.setSourceInterface(sink_init);
 					initEdge.setDelay(new SDFIntEdgePropertyType(0));
 					// initEdge.setProd(edge.getDelay());
 
-					SDFEdge endEdge = graph
-							.addEdge(edge.getSource(), endVertex);
+					SDFEdge endEdge = graph.addEdge(edge.getSource(), endVertex);
 					endEdge.copyProperties(edge);
 					endEdge.setTargetInterface(source_end);
 					endEdge.setDelay(new SDFIntEdgePropertyType(0));
@@ -554,8 +506,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 				treatDelays(sdf);
 			}
 
-			ArrayList<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(
-					sdf.vertexSet());
+			ArrayList<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(sdf.vertexSet());
 			for (int i = 0; i < vertices.size(); i++) {
 				vertices.get(i).accept(this);
 			}
@@ -578,8 +529,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 	public void visit(SDFAbstractVertex sdfVertex) throws SDF4JException {
 		DAGVertex vertex;
 		if (sdfVertex instanceof SDFBroadcastVertex) {
-			vertex = factory
-					.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
+			vertex = factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
 		} else if (sdfVertex instanceof SDFForkVertex) {
 			vertex = factory.createVertex(DAGForkVertex.DAG_FORK_VERTEX);
 		} else if (sdfVertex instanceof SDFJoinVertex) {
@@ -588,12 +538,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements
 			vertex = factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
 		} else if (sdfVertex instanceof SDFInitVertex) {
 			vertex = factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
-			if (outputGraph.getVertex(((SDFInitVertex) sdfVertex)
-					.getEndReference().getName()) != null) {
-				((DAGInitVertex) vertex)
-						.setEndReference((DAGEndVertex) outputGraph
-								.getVertex(((SDFInitVertex) sdfVertex)
-										.getEndReference().getName()));
+			if (outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()) != null) {
+				((DAGInitVertex) vertex).setEndReference(
+						(DAGEndVertex) outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
 			}
 		} else {
 			vertex = factory.createVertex(DAGVertex.DAG_VERTEX);

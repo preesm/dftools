@@ -15,7 +15,6 @@ import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
-import org.ietr.dftools.algorithm.model.psdf.parameters.PSDFDynamicArgument;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
@@ -440,16 +439,14 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph>
 		}
 		if (this.getArguments() != null) {
 			for (Argument arg : this.getArguments().values()) {
-				if (!(arg instanceof PSDFDynamicArgument)) {
-					@SuppressWarnings("unused")
-					int val;
-					try {
-						val = arg.intValue();
-						// arg.setValue(String.valueOf(val));//TODO: was meant
-						// to solve arguments once for all ...
-					} catch (NoIntegerValueException e) {
-						e.printStackTrace();
-					}
+				@SuppressWarnings("unused")
+				int val;
+				try {
+					val = arg.intValue();
+					// arg.setValue(String.valueOf(val));//TODO: was meant
+					// to solve arguments once for all ...
+				} catch (NoIntegerValueException e) {
+					e.printStackTrace();
 				}
 			}
 		}
