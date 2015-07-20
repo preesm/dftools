@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -16,6 +17,7 @@ import org.ietr.dftools.workflow.elements.Workflow;
 import org.ietr.dftools.workflow.elements.WorkflowEdge;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
+import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
 
 /**
  * This abstract class provides methods to check and execute a workflow. A
@@ -53,8 +55,7 @@ public abstract class AbstractWorkflowExecutor {
 
 				// The plugin declaring the scenario class was not found
 				if (!workflowOk) {
-					log(Level.SEVERE, "Workflow.FailedFindScenarioPlugin",
-							((ScenarioNode) node).getScenarioId());
+					log(Level.SEVERE, "Workflow.FailedFindScenarioPlugin", ((ScenarioNode) node).getScenarioId());
 					return false;
 				}
 			} else if (node.isTaskNode()) {
@@ -64,8 +65,7 @@ public abstract class AbstractWorkflowExecutor {
 
 					// The plugin declaring the task class was not found
 					if (!workflowOk) {
-						log(Level.SEVERE, "Workflow.FailedFindTaskPlugin",
-								((TaskNode) node).getTaskId());
+						log(Level.SEVERE, "Workflow.FailedFindTaskPlugin", ((TaskNode) node).getTaskId());
 						return false;
 					}
 				}
@@ -82,24 +82,22 @@ public abstract class AbstractWorkflowExecutor {
 	/**
 	 * Checks that the workflow scenario node edges fit the task prototype
 	 */
-	public boolean checkScenarioPrototype(ScenarioNode scenarioNode,
-			Workflow workflow) {
+	public boolean checkScenarioPrototype(ScenarioNode scenarioNode, Workflow workflow) {
 		AbstractScenarioImplementation scenario = scenarioNode.getScenario();
 		Set<String> outputPorts = new HashSet<String>();
 
 		// There may be several output edges with same data type (sharing same
 		// port). All output names are retrieved here.
 		for (WorkflowEdge edge : workflow.outgoingEdgesOf(scenarioNode)) {
-			if (!outputPorts.contains(edge.getSourcePort())
-					&& !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
+			if (!outputPorts.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				outputPorts.add(edge.getSourcePort());
 			}
 		}
 
 		// The scenario node prototype is compared to the output port names
 		if (!scenario.acceptOutputs(outputPorts)) {
-			log(Level.SEVERE, "Workflow.WrongScenarioPrototype",
-					scenarioNode.getScenarioId(), scenario.displayPrototype());
+			log(Level.SEVERE, "Workflow.WrongScenarioPrototype", scenarioNode.getScenarioId(),
+					scenario.displayPrototype());
 
 			return false;
 		}
@@ -119,8 +117,7 @@ public abstract class AbstractWorkflowExecutor {
 		// of the corresponding output port in the connected node
 		for (WorkflowEdge edge : workflow.incomingEdgesOf(taskNode)) {
 			AbstractWorkflowNode predecessor = workflow.getEdgeSource(edge);
-			String type = predecessor.getImplementation().getOutputType(
-					edge.getSourcePort());
+			String type = predecessor.getImplementation().getOutputType(edge.getSourcePort());
 			if (!edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				inputs.put(edge.getTargetPort(), type);
 			}
@@ -129,23 +126,20 @@ public abstract class AbstractWorkflowExecutor {
 		// There may be several output edges with same data type (sharing same
 		// port)
 		for (WorkflowEdge edge : workflow.outgoingEdgesOf(taskNode)) {
-			if (!outputs.contains(edge.getSourcePort())
-					&& !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
+			if (!outputs.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(IGNORE_PORT_NAME)) {
 				outputs.add(edge.getSourcePort());
 			}
 		}
 
 		if (!task.acceptInputs(inputs)) {
-			log(Level.SEVERE, "Workflow.WrongTaskPrototype",
-					taskNode.getTaskId(), task.displayPrototype());
+			log(Level.SEVERE, "Workflow.WrongTaskPrototype", taskNode.getTaskId(), task.displayPrototype());
 
 			return false;
 		}
 
 		// The task prototype is compared to the output port names
 		if (!task.acceptOutputs(outputs)) {
-			log(Level.SEVERE, "Workflow.WrongTaskPrototype",
-					taskNode.getTaskId(), task.displayPrototype());
+			log(Level.SEVERE, "Workflow.WrongTaskPrototype", taskNode.getTaskId(), task.displayPrototype());
 
 			return false;
 		}
@@ -156,8 +150,7 @@ public abstract class AbstractWorkflowExecutor {
 	/**
 	 * Executes the workflow
 	 */
-	public boolean execute(String workflowPath, String scenarioPath,
-			IProgressMonitor monitor) {
+	public boolean execute(String workflowPath, String scenarioPath, IProgressMonitor monitor) {
 
 		Workflow workflow = new WorkflowParser().parse(workflowPath);
 
@@ -199,8 +192,7 @@ public abstract class AbstractWorkflowExecutor {
 					// process
 					ScenarioNode scenarioNode = (ScenarioNode) node;
 					nodeId = scenarioNode.getScenarioId();
-					AbstractScenarioImplementation scenario = scenarioNode
-							.getScenario();
+					AbstractScenarioImplementation scenario = scenarioNode.getScenario();
 
 					// Checks that the scenario node output edges fit the task
 					// prototype
@@ -213,13 +205,26 @@ public abstract class AbstractWorkflowExecutor {
 						if (monitor != null)
 							monitor.subTask(scenario.monitorMessage());
 						outputs = scenario.extractData(scenarioPath);
+
+						// Filter only outputs required in the workflow
+						final Map<String, Object> outs = outputs; // final
+																	// reference
+																	// for
+																	// predicate
+						Set<WorkflowEdge> edges = new HashSet<WorkflowEdge>(workflow.outgoingEdgesOf(scenarioNode));
+						edges.removeIf(edge -> !outs.containsKey(edge.getSourcePort()));
+
+						final Map<String, Object> checkedOutputs = new HashMap<String, Object>();
+						edges.forEach(edge -> checkedOutputs.put(edge.getSourcePort(), outs.get(edge.getSourcePort())));
+
+						// Check the outputs have the right type.
+						checkOutputType(checkedOutputs, scenario);
+
 						// Each node execution is equivalent for the monitor
 						if (monitor != null)
 							monitor.worked(1);
 					} catch (WorkflowException e) {
-						log(Level.SEVERE,
-								"Workflow.ScenarioExecutionException",
-								e.getMessage());
+						log(Level.SEVERE, "Workflow.ScenarioExecutionException", e.getMessage());
 
 						return false;
 					}
@@ -264,23 +269,33 @@ public abstract class AbstractWorkflowExecutor {
 						}
 
 						// execution
-						outputs = task.execute(inputs,
-								taskNode.getParameters(), monitor, nodeId,
-								workflow);
+						outputs = task.execute(inputs, taskNode.getParameters(), monitor, nodeId, workflow);
+
+						// Filter only outputs required in the workflow
+						final Map<String, Object> outs = outputs; // final
+																	// reference
+																	// for
+																	// predicate
+						Set<WorkflowEdge> edges = new HashSet<WorkflowEdge>(workflow.outgoingEdgesOf(taskNode));
+						edges.removeIf(edge -> !outs.containsKey(edge.getSourcePort()));
+
+						final Map<String, Object> checkedOutputs = new HashMap<String, Object>();
+						edges.forEach(edge -> checkedOutputs.put(edge.getSourcePort(), outs.get(edge.getSourcePort())));
+
+						// Check the outputs have the right type.
+						checkOutputType(outputs, task);
 
 						// Each node execution is equivalent for the monitor
 						if (monitor != null)
 							monitor.worked(1);
 					} catch (WorkflowException e) {
-						log(Level.SEVERE, "Workflow.ExecutionException",
-								nodeId, e.getMessage());
+						log(Level.SEVERE, "Workflow.ExecutionException", nodeId, e.getMessage());
 						return false;
 					} catch (Exception e) {
 						StringWriter error = new StringWriter();
 						e.printStackTrace(new PrintWriter(error));
 						log(Level.SEVERE,
-								"Unexpected Exception: "
-										+ error.toString()
+								"Unexpected Exception: " + error.toString()
 										+ "\n Contact Preesm developers if you cannot solve the problem.",
 								nodeId, error.toString());
 						return false;
@@ -304,8 +319,7 @@ public abstract class AbstractWorkflowExecutor {
 							edge.setData(outputs.get(type));
 						} else {
 							edge.setData(null);
-							log(Level.SEVERE, "Workflow.IncorrectOutput",
-									nodeId, type);
+							log(Level.SEVERE, "Workflow.IncorrectOutput", nodeId, type);
 							return false;
 						}
 					}
@@ -318,6 +332,34 @@ public abstract class AbstractWorkflowExecutor {
 		return true;
 	}
 
+	private void checkOutputType(Map<String, Object> outputs, AbstractWorkflowNodeImplementation task)
+			throws WorkflowException {
+		// Check outputs one by one
+		for (Entry<String, Object> e : outputs.entrySet()) {
+			String name = e.getKey();
+			Object output = e.getValue();
+
+			String type = task.getOutputType(name);
+			String givenType = "Null";
+			try {
+				if (output != null) {
+					Class<?> c = Class.forName(type, true, output.getClass().getClassLoader());
+					if (c.isInstance(output)) {
+						continue;
+					}
+					givenType = output.getClass().getName();
+				}
+
+				// Something went wrong !
+				throw new WorkflowException("\nOutput \"" + name + "\" of workflow task \"" + task.getClass()
+						+ "\" is null or has an invalid type.\n(expected: \"" + type + "\" given: \"" + givenType
+						+ "\")");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * Checks that all necessary parameters are provided to the workflow task
 	 * 
@@ -326,26 +368,22 @@ public abstract class AbstractWorkflowExecutor {
 	 * @param taskImplementation
 	 *            the task implementation requiring specific parameters
 	 */
-	private boolean checkParameters(TaskNode taskNode,
-			AbstractTaskImplementation taskImplementation) {
-		Map<String, String> defaultParameters = taskImplementation
-				.getDefaultParameters();
+	private boolean checkParameters(TaskNode taskNode, AbstractTaskImplementation taskImplementation) {
+		Map<String, String> defaultParameters = taskImplementation.getDefaultParameters();
 		Map<String, String> parameters = taskNode.getParameters();
 
 		if (defaultParameters != null) {
 			if (parameters == null) {
 				if (defaultParameters.size() > 0) {
-					log(Level.SEVERE, "Workflow.MissingAllParameters",
-							taskNode.getTaskId(), defaultParameters.keySet()
-									.toString());
+					log(Level.SEVERE, "Workflow.MissingAllParameters", taskNode.getTaskId(),
+							defaultParameters.keySet().toString());
 					return false;
 				}
 			} else {
 				for (String param : defaultParameters.keySet()) {
 					if (!parameters.containsKey(param)) {
-						log(Level.SEVERE, "Workflow.MissingParameter",
-								taskNode.getTaskId(), defaultParameters
-										.keySet().toString());
+						log(Level.SEVERE, "Workflow.MissingParameter", taskNode.getTaskId(),
+								defaultParameters.keySet().toString());
 						return false;
 					}
 				}
