@@ -159,6 +159,13 @@ class IbsdfFlattener {
 				fifoOut.targetInterface = fifo.targetInterface.clone
 				fifoOut.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
 				fifoOut.prod = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
+				
+				fork.addSource(fifoIn.targetInterface)
+				fork.addSink(fifo0.sourceInterface)
+				fork.addSink(fifo1.sourceInterface)
+				join.addSource(fifo0.targetInterface)
+				join.addSource(fifo1.targetInterface)
+				join.addSink(fifoOut.sourceInterface)
 
 				// Remove original FIFO from the graph
 				subgraph.removeEdge(fifo)
@@ -220,6 +227,9 @@ class IbsdfFlattener {
 					edgeOut.propertyBean.removeProperty(SDFEdge.SOURCE_PORT_MODIFIER);
 					edgeOut.sourceInterface = new SDFSinkInterfaceVertex
 					edgeOut.sourceInterface.name = interface.name + "_0_0"
+					
+					broadcast.addSink(edgeOut.sourceInterface)
+					broadcast.addSource(edgeIn.targetInterface)
 
 					// Remove the original edge
 					subgraph.removeEdge(outEdge)
@@ -262,6 +272,9 @@ class IbsdfFlattener {
 					edgeIn.propertyBean.removeProperty(SDFEdge.TARGET_PORT_MODIFIER);
 					edgeIn.targetInterface = new SDFSourceInterfaceVertex
 					edgeIn.targetInterface.name = interface.name + "_0_0"
+					
+					roundbuffer.addSource(edgeIn.targetInterface)
+					roundbuffer.addSink(edgeOut.sourceInterface)
 
 					// Remove the original edge
 					subgraph.removeEdge(inEdge)
@@ -543,7 +556,11 @@ class IbsdfFlattener {
 					newFifo
 				} else { // if(interface instanceof SDFSinkInterfaceVertex)
 					val internalFifo = subgraph.incomingEdgesOf(interface).get(0)
-					val newFifo = flattenedGraph.addEdge(clones.get(internalFifo.source), externalFifo.target)
+					var newFifo = flattenedGraph.addEdge(clones.get(internalFifo.source), externalFifo.target)
+					// if the edge loops on hierActor
+					if (externalFifo.target == hierActor) {
+						newFifo = flattenedGraph.addEdge(clones.get(internalFifo.source), clones.get(subgraph.outgoingEdgesOf(subgraph.getVertex(externalFifo.targetInterface.name)).get(0).target))
+					}
 					newFifo.copyProperties(externalFifo)
 					newFifo.prod = internalFifo.prod
 					if (internalFifo.delay != null) {
