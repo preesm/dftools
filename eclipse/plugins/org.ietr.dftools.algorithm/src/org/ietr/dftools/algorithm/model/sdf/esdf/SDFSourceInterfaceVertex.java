@@ -25,7 +25,12 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex{
 	public SDFInterfaceVertex clone() {
 		SDFSourceInterfaceVertex copy  = new SDFSourceInterfaceVertex();
 		copy.setName(this.getName());
-		return copy ;
+		if (this.getSinks().size() != 0) {
+			SDFSinkInterfaceVertex si = new SDFSinkInterfaceVertex();
+			si.setName(this.getName());
+			copy.addSink(si);
+		}
+		return copy;
 	}
 	
 	@SuppressWarnings("rawtypes")
