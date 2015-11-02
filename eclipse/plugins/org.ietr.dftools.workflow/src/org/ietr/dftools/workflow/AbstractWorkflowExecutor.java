@@ -294,6 +294,7 @@ public abstract class AbstractWorkflowExecutor {
 					} catch (Exception e) {
 						StringWriter error = new StringWriter();
 						e.printStackTrace(new PrintWriter(error));
+						e.printStackTrace();
 						log(Level.SEVERE,
 								"Unexpected Exception: " + error.toString()
 										+ "\n Contact Preesm developers if you cannot solve the problem.",
