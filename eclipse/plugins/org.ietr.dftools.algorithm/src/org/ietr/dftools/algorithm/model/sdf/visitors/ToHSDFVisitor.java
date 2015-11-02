@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
+import org.ietr.dftools.algorithm.model.parameters.ConstantValue;
 import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.Variable;
@@ -721,10 +722,8 @@ public class ToHSDFVisitor implements
 
 		SDFEdge genRec = graph.addEdge(gen5, recopie5);
 		// genRec.setSourceInterface(times);
-		genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue(
-				"SIZE")));
-		genRec.setCons(new SDFExpressionEdgePropertyType(new ExpressionValue(
-				"1+2")));
+		genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue("SIZE")));
+		genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3)));
 
 		SDFEdge genAcq = graph.addEdge(gen5, acqData);
 		// genAcq.setSourceInterface(times);

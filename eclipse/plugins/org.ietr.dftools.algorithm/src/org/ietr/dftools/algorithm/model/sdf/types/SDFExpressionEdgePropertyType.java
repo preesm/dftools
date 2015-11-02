@@ -1,10 +1,10 @@
 package org.ietr.dftools.algorithm.model.sdf.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
-import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
+import org.ietr.dftools.algorithm.model.parameters.Value;
 
 /**
  * Class used to represent the integer edge property type in a SDF
@@ -13,7 +13,7 @@ import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
  * 
  */
 public class SDFExpressionEdgePropertyType extends
-		AbstractEdgePropertyType<ExpressionValue> {
+		AbstractEdgePropertyType<Value> {
 
 	private Integer computedValue;
 
@@ -23,13 +23,13 @@ public class SDFExpressionEdgePropertyType extends
 	 * @param val
 	 *            The Integer value of this SDFDefaultEdgePropertyType
 	 */
-	public SDFExpressionEdgePropertyType(ExpressionValue val) {
+	public SDFExpressionEdgePropertyType(Value val) {
 		super(val);
 		computedValue = null;
 	}
 
 	@Override
-	public AbstractEdgePropertyType<ExpressionValue> clone() {
+	public AbstractEdgePropertyType<Value> clone() {
 		SDFExpressionEdgePropertyType clone = new SDFExpressionEdgePropertyType(
 				value);
 		try {
@@ -41,7 +41,7 @@ public class SDFExpressionEdgePropertyType extends
 	}
 
 	@Override
-	public void setValue(ExpressionValue val) {
+	public void setValue(Value val) {
 		super.setValue(val);
 		computedValue = null;
 	}
