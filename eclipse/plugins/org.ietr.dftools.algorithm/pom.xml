@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ietr.dftools.algorithm</groupId>
   <artifactId>org.ietr.dftools.algorithm</artifactId>
-  <version>1.1.6-SNAPSHOT</version>
+  <version>1.1.7-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
   <parent>
   	<groupId>org.ietr.preesm.releng</groupId>
