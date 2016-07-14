@@ -34,4 +34,8 @@ public class ConstantValue implements Value{
 		}
 	}
 
+	@Override
+	public String toString() {
+		return getValue();
+	}
 }
