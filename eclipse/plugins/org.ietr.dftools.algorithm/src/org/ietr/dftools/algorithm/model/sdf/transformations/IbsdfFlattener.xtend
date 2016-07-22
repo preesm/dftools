@@ -86,7 +86,7 @@ class IbsdfFlattener {
 	 */
 	protected def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
 		// Scan the fifos with delays in the subgraph
-		for (fifo : subgraph.edgeSet.filter[it.delay != null].toList) {
+		for (fifo : subgraph.edgeSet.filter[it.delay != null && it.delay.intValue != 0].toList) {
 			// Get the number of tokens produced and consumed during each
 			// subgraph iteration for this fifo
 			val tgtRepeat = fifo.target.nbRepeatAsInteger
@@ -342,7 +342,7 @@ class IbsdfFlattener {
 			}
 
 			val nbRepeat = hierActor.nbRepeatAsInteger;
-			val containsNoDelay = subgraph.edgeSet.forall[it.delay == null]
+			val containsNoDelay = subgraph.edgeSet.forall[it.delay == null || it.delay.intValue==0]
 
 			// Prepare the subgraph for instantiation:
 			// - Add roundbuffers and broadcast actors next to interfaces 
