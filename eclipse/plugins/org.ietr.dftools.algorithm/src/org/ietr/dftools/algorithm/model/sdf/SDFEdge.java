@@ -333,7 +333,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 
 	@Override
 	public String toString() {
-		return getSource().toString() + " > "+ getTarget().toString() + " {d=" + getDelay() + ", p=" + getProd() + ", c=" + getCons()
+		return getSource().toString()+"." + getSourceInterface().getName() + " > "+ getTarget().toString() + "." + getTargetInterface().getName() + " {d=" + getDelay() + ", p=" + getProd() + ", c=" + getCons()
 				+ "}";
 	}
 
