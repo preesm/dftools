@@ -179,7 +179,8 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				boolean explode = rest < edge.getProd().intValue();
 				boolean implode = rest < edge.getCons().intValue();
 				if (explode && !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
-						&& !(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)) {
+						&& (!(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex) 
+								|| (sourceCopies.get(sourceIndex) instanceof SDFRoundBufferVertex))) {
 
 					// If an explode must be added
 					SDFAbstractVertex explodeVertex = new SDFForkVertex();
