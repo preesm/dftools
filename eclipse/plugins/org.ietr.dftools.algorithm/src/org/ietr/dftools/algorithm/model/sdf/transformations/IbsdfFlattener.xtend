@@ -97,7 +97,7 @@ class IbsdfFlattener {
 			val rate1 = nbDelay % (tgtCons * tgtRepeat)
 			val rate0 = (tgtCons * tgtRepeat) - rate1
 
-			if (rate1 == 0) {
+			if(rate1 == 0) {
 				// The number of delay is a perfect modulo of the number of 
 				// tokens produced/consumed during an iteration, there is no 
 				// need to add fork and join, only to set the correct number 
@@ -159,7 +159,7 @@ class IbsdfFlattener {
 				fifoOut.targetInterface = fifo.targetInterface.clone
 				fifoOut.propertyBean.removeProperty(SDFEdge.EDGE_DELAY)
 				fifoOut.prod = new SDFIntEdgePropertyType((tgtCons * tgtRepeat))
-				
+
 				fork.addSource(fifoIn.targetInterface)
 				fork.addSink(fifo0.sourceInterface)
 				fork.addSink(fifo1.sourceInterface)
@@ -187,12 +187,12 @@ class IbsdfFlattener {
 	 *  
 	 * @throws SDF4JException if an interface is connected to several FIFOs.
 	 */
-	static public def addInterfaceSubstitutes(SDFGraph subgraph) {
+	static public def addInterfaceSubstitutes(SDFGraph subgraph) throws ArithmeticException {
 		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex).toList) {
-			if (interface instanceof SDFSourceInterfaceVertex) {
+			if(interface instanceof SDFSourceInterfaceVertex) {
 				// Get successors
 				val outEdges = subgraph.outgoingEdgesOf(interface)
-				if (outEdges.size > 1) {
+				if(outEdges.size > 1) {
 					throw new SDF4JException(
 						'''Input interface «interface.name» in subgraph «subgraph.name» is connected to multiple FIFOs although this is strictly forbidden.''');
 				}
@@ -206,7 +206,12 @@ class IbsdfFlattener {
 				// If more token are consumed during an iteration of 
 				// the subgraph than the number of available tokens 
 				// => broadcast needed
-				if (prodRate < consRate * nbRepeatCons) {
+				val nbConsumedTokens = try {
+					Math.multiplyExact(consRate, nbRepeatCons)
+				} catch(ArithmeticException e) {
+					throw new SDF4JException('''Number of repetitions of actor «outEdge.target» (x «nbRepeatCons») or number of consumed tokens on edge «outEdge» is too big and causes an overflow in the tool.''')
+				}
+				if(prodRate < nbConsumedTokens) {
 					// Add the broadcast and connect edges
 					val broadcast = new SDFBroadcastVertex
 					broadcast.name = '''br_«interface.name»'''
@@ -227,7 +232,7 @@ class IbsdfFlattener {
 					edgeOut.propertyBean.removeProperty(SDFEdge.SOURCE_PORT_MODIFIER);
 					edgeOut.sourceInterface = new SDFSinkInterfaceVertex
 					edgeOut.sourceInterface.name = interface.name + "_0_0"
-					
+
 					broadcast.addSink(edgeOut.sourceInterface)
 					broadcast.addSource(edgeIn.targetInterface)
 
@@ -237,7 +242,7 @@ class IbsdfFlattener {
 			} else { // interface instanceof SDFSinkInterfaceVertex
 			// Get predecessor
 				val inEdges = subgraph.incomingEdgesOf(interface)
-				if (inEdges.size > 1) {
+				if(inEdges.size > 1) {
 					throw new SDF4JException(
 						'''Output interface «interface.name» in subgraph «subgraph.name» is connected to multiple FIFOs although this is strictly forbidden.''')
 				}
@@ -251,7 +256,12 @@ class IbsdfFlattener {
 				// If more token are produced during an iteration of 
 				// the subgraph than the number of consumed tokens 
 				// => roundbuffer needed
-				if (prodRate * nbRepeatProd > consRate) {
+				val nbProducedTokens = try {
+					Math.multiplyExact(prodRate, nbRepeatProd)
+				} catch(ArithmeticException e) {
+					throw new SDF4JException('''Number of repetitions of actor «inEdge.source» (x «nbRepeatProd») or number of consumed tokens on edge «inEdge» is too big and causes an overflow in the tool.''')
+				}
+				if(nbProducedTokens > consRate) {
 					// Add the roundbuffer and connect edges
 					val roundbuffer = new SDFRoundBufferVertex
 					roundbuffer.name = '''rb_«interface.name»'''
@@ -272,7 +282,7 @@ class IbsdfFlattener {
 					edgeIn.propertyBean.removeProperty(SDFEdge.TARGET_PORT_MODIFIER);
 					edgeIn.targetInterface = new SDFSourceInterfaceVertex
 					edgeIn.targetInterface.name = interface.name + "_0_0"
-					
+
 					roundbuffer.addSource(edgeIn.targetInterface)
 					roundbuffer.addSink(edgeOut.sourceInterface)
 
@@ -302,7 +312,7 @@ class IbsdfFlattener {
 		for (i : 1 .. depth) {
 			// Check the schedulability of the top level graph (this will also 
 			// set the repetition vector for each actor).
-			if (!flattenedGraph.schedulable) {
+			if(!flattenedGraph.schedulable) {
 				throw new SDF4JException('''Graph «flattenedGraph.name» is not schedulable''')
 			}
 
@@ -312,7 +322,7 @@ class IbsdfFlattener {
 			]
 
 			// If there is nothing to flatten, leave the method
-			if (hasNoHierarchy) {
+			if(hasNoHierarchy) {
 				return
 			}
 
@@ -337,18 +347,18 @@ class IbsdfFlattener {
 
 			// Check its schedulability (this will also 
 			// set the repetition vector for each actor).
-			if (!subgraph.schedulable) {
+			if(!subgraph.schedulable) {
 				throw new SDF4JException('''Subgraph «subgraph.name» is not schedulable''')
 			}
 
 			val nbRepeat = hierActor.nbRepeatAsInteger;
-			val containsNoDelay = subgraph.edgeSet.forall[it.delay == null || it.delay.intValue==0]
+			val containsNoDelay = subgraph.edgeSet.forall[it.delay == null || it.delay.intValue == 0]
 
 			// Prepare the subgraph for instantiation:
 			// - Add roundbuffers and broadcast actors next to interfaces 
 			// - fork/join delays if needed
 			addInterfaceSubstitutes(subgraph)
-			if (!containsNoDelay && nbRepeat > 1) {
+			if(!containsNoDelay && nbRepeat > 1) {
 				addDelaySubstitutes(subgraph, nbRepeat)
 			}
 
@@ -384,7 +394,7 @@ class IbsdfFlattener {
 	 */
 	protected def substituteSubgraphParameters(SDFAbstractVertex hierActor, SDFGraph subgraph) {
 
-		if (subgraph.parameters != null) {
+		if(subgraph.parameters != null) {
 			// Get list of subgraph parameters, except those masked with subgraph variables
 			// Also get associated expression from parent graph
 			val subgraphParameters = subgraph.parameters.filter[subgraph.getVariable($0) == null].mapValues [
@@ -417,10 +427,10 @@ class IbsdfFlattener {
 		var newName = subgraph.name + "_" + variable.name
 
 		// Ensure the uniqueness of this name in the flattened graph
-		newName = if (flattenedGraph.getVariable(newName) != null) {
+		newName = if(flattenedGraph.getVariable(newName) != null) {
 			var uniqueName = newName + "_0"
 			var i = 0
-			while (flattenedGraph.getVariable(uniqueName) != null) {
+			while(flattenedGraph.getVariable(uniqueName) != null) {
 				i++
 				uniqueName = newName + "_" + i
 			}
@@ -464,21 +474,19 @@ class IbsdfFlattener {
 
 		// In fifo prod/cons rates (expressions)
 		for (fifo : subgraph.edgeSet) {
-			if (fifo.cons instanceof SDFExpressionEdgePropertyType) {
-				(fifo.cons as SDFExpressionEdgePropertyType).value.value = (fifo.cons as SDFExpressionEdgePropertyType).
-					value.value.replaceAll(oldNameRegex, replacementString)
+			if(fifo.cons instanceof SDFExpressionEdgePropertyType) {
+				(fifo.cons as SDFExpressionEdgePropertyType).value.value = (fifo.cons as SDFExpressionEdgePropertyType).value.value.replaceAll(oldNameRegex, replacementString)
 			}
 
-			if (fifo.prod instanceof SDFExpressionEdgePropertyType) {
-				(fifo.prod as SDFExpressionEdgePropertyType).value.value = (fifo.prod as SDFExpressionEdgePropertyType).
-					value.value.replaceAll(oldNameRegex, replacementString)
+			if(fifo.prod instanceof SDFExpressionEdgePropertyType) {
+				(fifo.prod as SDFExpressionEdgePropertyType).value.value = (fifo.prod as SDFExpressionEdgePropertyType).value.value.replaceAll(oldNameRegex, replacementString)
 			}
 		}
 
 		// In instance arguments
 		for (actor : subgraph.vertexSet) {
 			for (argument : actor.arguments.values) {
-				if (argument.value.contains(oldName)) {
+				if(argument.value.contains(oldName)) {
 					argument.value = argument.value.replaceAll(oldNameRegex, replacementString)
 				}
 			}
@@ -543,12 +551,12 @@ class IbsdfFlattener {
 			val externalFifo = hierActor.getAssociatedEdge(port)
 
 			// Connect the new FIFO
-			val newFifo = if (interface instanceof SDFSourceInterfaceVertex) {
+			val newFifo = if(interface instanceof SDFSourceInterfaceVertex) {
 					val internalFifo = subgraph.outgoingEdgesOf(interface).get(0)
 					val newFifo = flattenedGraph.addEdge(externalFifo.source, clones.get(internalFifo.target))
 					newFifo.copyProperties(externalFifo)
 					newFifo.cons = internalFifo.cons
-					if (internalFifo.delay != null) {
+					if(internalFifo.delay != null) {
 						newFifo.delay = internalFifo.delay
 					}
 					newFifo.targetInterface = internalFifo.targetInterface
@@ -558,12 +566,12 @@ class IbsdfFlattener {
 					val internalFifo = subgraph.incomingEdgesOf(interface).get(0)
 					var newFifo = flattenedGraph.addEdge(clones.get(internalFifo.source), externalFifo.target)
 					// if the edge loops on hierActor
-					if (externalFifo.target == hierActor) {
+					if(externalFifo.target == hierActor) {
 						newFifo = flattenedGraph.addEdge(clones.get(internalFifo.source), clones.get(subgraph.outgoingEdgesOf(subgraph.getVertex(externalFifo.targetInterface.name)).get(0).target))
 					}
 					newFifo.copyProperties(externalFifo)
 					newFifo.prod = internalFifo.prod
-					if (internalFifo.delay != null) {
+					if(internalFifo.delay != null) {
 						newFifo.delay = internalFifo.delay
 					}
 					newFifo.sourceInterface = internalFifo.sourceInterface
@@ -573,7 +581,7 @@ class IbsdfFlattener {
 			// Set delay of the new FIFO
 			val externDelay = if(externalFifo.delay != null) externalFifo.delay.intValue else 0
 			val internDelay = if(newFifo.delay != null) newFifo.delay.intValue else 0
-			if (externDelay != 0) {
+			if(externDelay != 0) {
 				newFifo.delay = new SDFIntEdgePropertyType(externDelay + internDelay)
 			}
 		}
