@@ -200,6 +200,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 					newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
 					newEdge.setDataType(edge.getDataType());
 					newEdge.setSourceInterface(edge.getSourceInterface());
+					explodeVertex.addInterface(edge.getTargetInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
 					newEdge.setSourcePortModifier(edge.getSourcePortModifier());
 
@@ -225,6 +226,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 					newEdge.setProd(new SDFIntEdgePropertyType(edge.getCons().intValue()));
 					newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons().intValue()));
 					newEdge.setDataType(edge.getDataType());
+					implodeVertex.addInterface(edge.getSourceInterface());
 					newEdge.setSourceInterface(edge.getSourceInterface());
 					newEdge.setTargetInterface(edge.getTargetInterface());
 					newEdge.setTargetPortModifier(edge.getTargetPortModifier());
@@ -254,6 +256,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 					} else {
 						// if the source does not have the interface.
 						newEdge.setSourceInterface(edge.getSourceInterface().clone());
+						sourceCopies.get(sourceIndex).addInterface(newEdge.getSourceInterface());
 					}
 					// Copy the source port modifier of the original source
 					newEdge.setSourcePortModifier(edge.getSourcePortModifier());
@@ -278,6 +281,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 					sourceInterface.setName(newInterfaceName);
 					newEdge.setSourceInterface(sourceInterface);
+					newEdge.getSource().addInterface(sourceInterface);
 					// Add a source port modifier
 					newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
 				}
@@ -303,6 +307,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 					// if the target does not have the interface.
 					else {
 						newEdge.setTargetInterface(edge.getTargetInterface().clone());
+						targetCopies.get(targetIndex).addInterface(newEdge.getTargetInterface());
 					}
 					// Copy the target port modifier of the original source
 					// Except for roundbuffers
@@ -333,6 +338,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 					targetInterface.setName(newInterfaceName);
 					newEdge.setTargetInterface(targetInterface);
+					newEdge.getTarget().addInterface(targetInterface);
 					// Add a target port modifier
 					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
 
