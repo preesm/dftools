@@ -2,6 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ietr.dftools.feature</groupId>
   <artifactId>org.ietr.dftools.feature</artifactId>
+<<<<<<< Updated upstream
+  <version>1.1.8</version>
+=======
+>>>>>>> Stashed changes
   <packaging>eclipse-feature</packaging>
   <parent>
 	<groupId>org.ietr.dftools</groupId>
