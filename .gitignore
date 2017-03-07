@@ -43,3 +43,6 @@ target/
 generated/
 xtend-gen/
 *~
+
+**/.settings
+**/.project
