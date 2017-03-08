@@ -109,12 +109,12 @@
 		</plugins>
 	</build>
 	<modules>
- 		<module>eclipse/plugins/org.ietr.dftools.architecture</module>
- 		<module>eclipse/plugins/org.ietr.dftools.workflow</module>
- 		<module>eclipse/plugins/org.ietr.dftools.algorithm</module>
- 		<module>eclipse/plugins/org.ietr.dftools.architecture.ui</module>
- 		<module>eclipse/plugins/org.ietr.dftools.ui</module>
- 		<module>eclipse/org.ietr.dftools.feature</module>
+		<module>eclipse/plugins/org.ietr.dftools.architecture</module>
+		<module>eclipse/plugins/org.ietr.dftools.workflow</module>
+		<module>eclipse/plugins/org.ietr.dftools.algorithm</module>
+		<module>eclipse/plugins/org.ietr.dftools.architecture.ui</module>
+		<module>eclipse/plugins/org.ietr.dftools.ui</module>
+		<module>eclipse/org.ietr.dftools.feature</module>
 	</modules>
 
 </project>
