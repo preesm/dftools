@@ -44,5 +44,7 @@ generated/
 xtend-gen/
 *~
 
+# Eclipse files #
+#################
 **/.settings
 **/.project
