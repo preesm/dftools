@@ -43,6 +43,7 @@ target/
 generated/
 xtend-gen/
 *~
+*.orig
 
 # Eclipse files #
 #################
