@@ -16,7 +16,7 @@ import org.jgrapht.event.VertexSetListener;
 
 /**
  * Class used to represent a listenable DAG
- * 
+ *
  * @author pthebault
  * @author kdesnos
  */
@@ -25,7 +25,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	/**
 	 * A reuseable edge event.
-	 * 
+	 *
 	 * @author Barak Naveh
 	 * @since Aug 10, 2003
 	 */
@@ -42,7 +42,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 		/**
 		 * Sets the edge of this event.
-		 * 
+		 *
 		 * @param e
 		 *            the edge to be set.
 		 */
@@ -52,7 +52,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 		/**
 		 * Set the event type of this event.
-		 * 
+		 *
 		 * @param type
 		 *            the type to be set.
 		 */
@@ -63,7 +63,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	/**
 	 * A reuseable vertex event.
-	 * 
+	 *
 	 * @author Barak Naveh
 	 * @since Aug 10, 2003
 	 */
@@ -81,7 +81,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 		/**
 		 * Set the event type of this event.
-		 * 
+		 *
 		 * @param type
 		 *            type to be set.
 		 */
@@ -91,7 +91,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 		/**
 		 * Sets the vertex of this event.
-		 * 
+		 *
 		 * @param vertex
 		 *            the vertex to be set.
 		 */
@@ -101,7 +101,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	}
 
 	/**
-		 * 
+		 *
 		 */
 	private static final long serialVersionUID = -7651455929185604666L;
 
@@ -164,9 +164,9 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * public DAGEdge addEdgeWithLink(DAGVertex sourceVertex, DAGVertex
 	 * targetVertex) { DAGEdge e = super.addEdgeWithLink(sourceVertex,
 	 * targetVertex);
-	 * 
+	 *
 	 * if (e != null) { fireEdgeAdded(e); }
-	 * 
+	 *
 	 * return e; } //
 	 */
 	/**
@@ -227,7 +227,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	/**
 	 * Notify listeners that the specified edge was added.
-	 * 
+	 *
 	 * @param edge
 	 *            the edge that was added.
 	 */
@@ -244,7 +244,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	/**
 	 * Notify listeners that the specified edge was removed.
-	 * 
+	 *
 	 * @param edge
 	 *            the edge that was removed.
 	 */
@@ -261,7 +261,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	/**
 	 * Notify listeners that the specified vertex was added.
-	 * 
+	 *
 	 * @param vertex
 	 *            the vertex that was added.
 	 */
@@ -284,7 +284,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	/**
 	 * Notify listeners that the specified vertex was removed.
-	 * 
+	 *
 	 * @param vertex
 	 *            the vertex that was removed.
 	 */
@@ -311,7 +311,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * and will not create a new object for each event. This option increases
 	 * performance but should be used with care, especially in multithreaded
 	 * environment.
-	 * 
+	 *
 	 * @return the value of the <code>reuseEvents</code> flag.
 	 */
 	public boolean isReuseEvents() {
@@ -335,7 +335,6 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	/**
 	 * @see Graph#removeEdge(Object, Object)
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
 	public DAGEdge removeEdge(DAGVertex sourceVertex, DAGVertex targetVertex) {
@@ -393,7 +392,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * class will reuse previously fired events and will not create a new object
 	 * for each event. This option increases performance but should be used with
 	 * care, especially in multithreaded environment.
-	 * 
+	 *
 	 * @param reuseEvents
 	 *            whether to reuse previously fired event objects instead of
 	 *            creating a new event object for each event.

@@ -39,16 +39,16 @@ import org.math.array.LinearAlgebra;
 
 /**
  * Abstract Class representing an SDF graph
- * 
+ *
  * @author jpiat
  * @author kdesnos
  * @author jheulot
- * 
+ *
  */
 public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Construct a new SDFGraph with the default edge factory
-	 * 
+	 *
 	 */
 	public SDFGraph() {
 		super(new SDFEdgeFactory());
@@ -68,7 +68,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * COnstruct a new SDFAbstractGraph using the given EdgeFactory ef
-	 * 
+	 *
 	 * @param ef
 	 */
 	public SDFGraph(EdgeFactory<SDFAbstractVertex, SDFEdge> ef) {
@@ -79,7 +79,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Creates a new SDFAbstractGraph with the given factory
-	 * 
+	 *
 	 * @param factory
 	 *            The factory used to create edges
 	 */
@@ -146,7 +146,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	/**
 	 * Add an edge an creates default interfaces on the source and target
 	 * vertices
-	 * 
+	 *
 	 * @param sourceVertex
 	 * @param targetVertex
 	 * @return The created edge
@@ -242,7 +242,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	/**
 	 * Compute the vrb of this graph and affect the nbRepeat property to
 	 * vertices
-	 * 
+	 *
 	 * @throws InvalidExpressionException
 	 */
 	protected boolean computeVRB() throws InvalidExpressionException {
@@ -270,7 +270,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Fill this graph object with the given graph content
-	 * 
+	 *
 	 * @param content
 	 *            The content to fill in this graph
 	 */
@@ -338,7 +338,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Iterative function of getAllSubGraphs
-	 * 
+	 *
 	 * @param vertex
 	 *            the current vertex
 	 * @param subgraph
@@ -362,7 +362,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Divide the current graph into a list of subgraph
-	 * 
+	 *
 	 * @return the list of subgraph
 	 */
 	public List<List<SDFAbstractVertex>> getAllSubGraphs() {
@@ -390,7 +390,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the set of all the vertices contained by the graph and its
 	 *         subgraphs
 	 */
@@ -409,11 +409,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	/**
 	 * Gives the topology matrix of a subgraph of this graph as an array of
 	 * double The subgraph must not contain InterfaceVertex
-	 * 
+	 *
 	 * @param subgraph
 	 *            the subgraph
 	 * @return the topology matrix
-	 * 
+	 *
 	 * @throws InvalidExpressionException
 	 */
 	public double[][] getTopologyMatrix(List<SDFAbstractVertex> subgraph)
@@ -463,7 +463,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	/**
 	 * Insert Broadcast where is needed. Multiple edges connected to one output
 	 * for example
-	 * 
+	 *
 	 * @param vertex
 	 *            the current vertex.
 	 * @param logger
@@ -542,7 +542,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Check the schedulability of the graph
-	 * 
+	 *
 	 * @return True if the graph is schedulable
 	 * @throws InvalidExpressionException
 	 */
@@ -592,7 +592,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Gives a Set of all this graph child property beans
-	 * 
+	 *
 	 * @return The properties Set
 	 */
 	public List<PropertyBean> propertiesSet() {
@@ -610,22 +610,21 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * (unless several vertices are linked to this interface). For
 	 * {@link SDFForkVertex} and {@link SDFJoinVertex}, the ordered list of
 	 * input/output edges is updated.
-	 * 
+	 *
 	 * @param sourceVertex
 	 *            the source {@link SDFVertex} of the removed {@link SDFEdge}
 	 * @param targetVertex
 	 *            the target {@link SDFVertex} of the removed {@link SDFEdge}
 	 * @return the removed {@link SDFEdge}
-	 * 
+	 *
 	 * @see AbstractGraph#removeEdge(AbstractVertex, AbstractVertex)
-	 * 
+	 *
 	 * @deprecated The method is deprecated.
 	 *             {@link AbstractGraph#removeEdge(AbstractEdge)} should be used
 	 *             instead. Indeed, if several edges link the source and the
 	 *             target vertex, a random edge will be removed.
-	 * 
+	 *
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	@Deprecated
 	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
@@ -658,15 +657,15 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 	 * {@link SDFForkVertex} {@link SDFJoinVertex}, {@link SDFBroadcastVertex}
 	 * and {@link SDFRoundBufferVertex}, the ordered list of input/output edges
 	 * is updated.
-	 * 
+	 *
 	 * @param edge
 	 *            the removed {@link SDFEdge}
 	 * @return <code>true</code> if the edge was correctly removed,
 	 *         <code>false</code> else.
-	 * 
+	 *
 	 * @see AbstractGraph#removeEdge(SDFEdge)
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	@Override
 	public boolean removeEdge(SDFEdge edge) {
@@ -683,7 +682,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 			if (sourceVertex instanceof SDFForkVertex) {
 				((SDFForkVertex) sourceVertex).connectionRemoved(edge);
-			} 
+			}
 			if (targetVertex instanceof SDFJoinVertex) {
 				((SDFJoinVertex) targetVertex).connectionRemoved(edge);
 			}
@@ -692,7 +691,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 			if (sourceVertex instanceof SDFBroadcastVertex
 					&& !(sourceVertex instanceof SDFRoundBufferVertex)) {
 				((SDFBroadcastVertex) sourceVertex).connectionRemoved(edge);
-			} 
+			}
 			if (targetVertex instanceof SDFRoundBufferVertex) {
 				((SDFRoundBufferVertex) targetVertex).connectionRemoved(edge);
 			}
@@ -868,7 +867,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Validate the model's schedulability
-	 * 
+	 *
 	 * @return True if the model is valid, false otherwise ...
 	 * @throws SDF4JException
 	 * @throws InvalidExpressionException
