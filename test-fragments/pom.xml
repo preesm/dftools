@@ -37,7 +37,11 @@
 	</build>
 
 	<modules>
-		
+		<module>org.ietr.dftools.algorithm.test</module>
+		<module>org.ietr.dftools.architecture.test</module>
+		<module>org.ietr.dftools.architecture.ui.test</module>
+		<module>org.ietr.dftools.ui.test</module>
+		<module>org.ietr.dftools.workflow.test</module>
 	</modules>
 
 </project>
