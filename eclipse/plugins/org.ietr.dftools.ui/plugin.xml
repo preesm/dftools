@@ -140,7 +140,7 @@
       </logger>
    </extension>
    <extension
-         point="org.ietr.dftools.graphiti.model.definition">
+         point="org.ietr.graphiti.model.definition">
       <configuration
             extension="slam"
             name="S-LAM Design"

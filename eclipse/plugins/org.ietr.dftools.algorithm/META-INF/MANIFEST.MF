@@ -6,12 +6,12 @@ Bundle-Version: 1.1.8
 Bundle-Activator: org.ietr.dftools.algorithm.Activator
 Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
- org.jgrapht;bundle-version="0.8.2",
  org.ietr.dftools.workflow;bundle-version="0.1.0",
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro
+ org.eclipse.xtend.lib.macro,
+ org.clojars.gilesc.jgrapht;bundle-version="0.8.2"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.demo,
