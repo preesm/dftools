@@ -33,6 +33,10 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.model.sdf.types,
  org.ietr.dftools.algorithm.model.sdf.visitors,
  org.ietr.dftools.algorithm.model.visitors
-Bundle-ClassPath: lib/djep-full-latest.jar,lib/ext-1.1.1.jar,lib/jgraph.jar,lib/jmatharray.jar,lib/jscl.jar,.
+Bundle-ClassPath: lib/djep-full-latest.jar,
+ lib/jgraph.jar,
+ lib/jmatharray.jar,
+ lib/jscl.jar,
+ .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 
