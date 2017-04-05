@@ -156,12 +156,13 @@
 	</build>
 
 	<modules>
-		<module>eclipse/plugins/org.ietr.dftools.architecture</module>
-		<module>eclipse/plugins/org.ietr.dftools.workflow</module>
-		<module>eclipse/plugins/org.ietr.dftools.algorithm</module>
-		<module>eclipse/plugins/org.ietr.dftools.architecture.ui</module>
-		<module>eclipse/plugins/org.ietr.dftools.ui</module>
-		<module>eclipse/org.ietr.dftools.feature</module>
+		<module>plugins/org.ietr.dftools.architecture</module>
+		<module>plugins/org.ietr.dftools.workflow</module>
+		<module>plugins/org.ietr.dftools.algorithm</module>
+		<module>plugins/org.ietr.dftools.architecture.ui</module>
+		<module>plugins/org.ietr.dftools.ui</module>
+		
+		<module>test-fragments</module>
 	</modules>
 
 	<profiles>
