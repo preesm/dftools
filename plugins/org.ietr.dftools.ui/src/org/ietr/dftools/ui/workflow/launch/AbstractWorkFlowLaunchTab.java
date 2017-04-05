@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,16 +28,16 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.ietr.dftools.ui.workflow.launch;
 
@@ -50,8 +50,6 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -67,11 +65,10 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 /**
  * Containing common funtionalities of launch tabs.
- * 
+ *
  * @author mpelcat
  */
-public abstract class AbstractWorkFlowLaunchTab extends
-		AbstractLaunchConfigurationTab {
+public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurationTab {
 
 	/**
 	 * current Composite
@@ -87,15 +84,14 @@ public abstract class AbstractWorkFlowLaunchTab extends
 	 * file path of the current Tab. There can be only one file chooser for the
 	 * moment
 	 */
-	private IPath fileIPath = null;
-	private Text filePath = null;
+	private IPath	fileIPath	= null;
+	private Text	filePath	= null;
 
 	/**
 	 * Displays a file browser in a shell
 	 */
-	protected void browseFiles(Shell shell) {
-		ElementTreeSelectionDialog tree = new ElementTreeSelectionDialog(shell,
-				WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
+	protected void browseFiles(final Shell shell) {
+		final ElementTreeSelectionDialog tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
 				new WorkbenchContentProvider());
 		tree.setAllowMultiple(false);
 		tree.setInput(ResourcesPlugin.getWorkspace().getRoot());
@@ -103,98 +99,95 @@ public abstract class AbstractWorkFlowLaunchTab extends
 		tree.setTitle("Choose an existing file");
 		// opens the dialog
 		if (tree.open() == Window.OK) {
-			fileIPath = ((IFile) tree.getFirstResult()).getFullPath();
-			filePath.setText(fileIPath.toString());
+			this.fileIPath = ((IFile) tree.getFirstResult()).getFullPath();
+			this.filePath.setText(this.fileIPath.toString());
 		}
 	}
 
 	@Override
-	public void createControl(Composite parent) {
+	public void createControl(final Composite parent) {
 
-		currentComposite = new Composite(parent, SWT.NONE);
-		setControl(currentComposite);
+		this.currentComposite = new Composite(parent, SWT.NONE);
+		setControl(this.currentComposite);
 
-		GridLayout gridLayout = new GridLayout();
+		final GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
-		currentComposite.setLayout(gridLayout);
+		this.currentComposite.setLayout(gridLayout);
 
 	}
 
 	/**
 	 * Displays a file text window with a browser button.
-	 * 
+	 *
 	 * @param title
 	 *            A line of text displayed before the file chooser
 	 * @param attributeName
 	 *            The name of the attribute in which the property should be
 	 *            saved
 	 */
-	public void drawFileChooser(String title, String attributeName) {
+	public void drawFileChooser(final String title, final String attributeName) {
 
-		Label label2 = new Label(currentComposite, SWT.NONE);
+		final Label label2 = new Label(this.currentComposite, SWT.NONE);
 		label2.setText(title);
-		fileAttributeName = attributeName;
+		this.fileAttributeName = attributeName;
 
-		new Label(currentComposite, SWT.NONE);
+		new Label(this.currentComposite, SWT.NONE);
 
-		Button buttonBrowse = new Button(currentComposite, SWT.PUSH);
+		final Button buttonBrowse = new Button(this.currentComposite, SWT.PUSH);
 		buttonBrowse.setText("Browse...");
 		buttonBrowse.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
+			public void widgetSelected(final SelectionEvent e) {
 				browseFiles(getCurrentComposite().getShell());
 			}
 		});
 
-		filePath = new Text(currentComposite, SWT.BORDER);
+		this.filePath = new Text(this.currentComposite, SWT.BORDER);
 
-		GridData layoutData = new GridData(SWT.FILL, SWT.TOP, true, false);
+		final GridData layoutData = new GridData(SWT.FILL, SWT.TOP, true, false);
 		layoutData.widthHint = 200;
-		filePath.setLayoutData(layoutData);
-		filePath.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				setDirty(true);
-				updateLaunchConfigurationDialog();
-			}
+		this.filePath.setLayoutData(layoutData);
+		this.filePath.addModifyListener(e -> {
+			setDirty(true);
+			updateLaunchConfigurationDialog();
 		});
 
 	}
 
 	protected Composite getCurrentComposite() {
-		return currentComposite;
+		return this.currentComposite;
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFrom(final ILaunchConfiguration configuration) {
 		try {
-			filePath.setText(configuration.getAttribute(fileAttributeName, ""));
-		} catch (CoreException e) {
+			this.filePath.setText(configuration.getAttribute(this.fileAttributeName, ""));
+		} catch (final CoreException e) {
 			// OcamlPlugin.logError("ocaml plugin error", e);
-			filePath.setText("");
+			this.filePath.setText("");
 		}
 
 		setDirty(false);
 	}
 
 	@Override
-	public boolean isValid(ILaunchConfiguration launchConfig) {
+	public boolean isValid(final ILaunchConfiguration launchConfig) {
 		return true;
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
 		// Saving the file path chosen in a tab attribute
-		if (filePath != null && fileAttributeName != null) {
-			configuration.setAttribute(fileAttributeName, filePath.getText());
+		if ((this.filePath != null) && (this.fileAttributeName != null)) {
+			configuration.setAttribute(this.fileAttributeName, this.filePath.getText());
 		}
 		setDirty(false);
 	}
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
 
-		configuration.setAttribute(fileAttributeName, "");
+		configuration.setAttribute(this.fileAttributeName, "");
 		setDirty(false);
 	}
 

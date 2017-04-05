@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,9 +27,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -50,34 +50,35 @@ import java.util.logging.Logger;
  * your debug, info, warning and errors messages will be displayed in the right
  * eclipse console. If no Eclipse GUI plugin is loaded (i.e. executing a job in
  * command line), all the messages will be sent to the system console.
- * 
+ *
  * @author cguy
- * 
- * Code adapted from ORCC (net.sf.orcc.core, https://github.com/orcc/orcc)
+ *
+ *         Code adapted from ORCC (net.sf.orcc.core,
+ *         https://github.com/orcc/orcc)
  * @author Antoine Lorence
- * 
+ *
  */
 public class CLIWorkflowLogger {
-	
+
 	private static final String RAW_FLAG = "raw_record";
-	
+
 	/**
 	 * Define how text must be printed to logger (Eclipse or System console)
-	 * 
+	 *
 	 * @author Antoine Lorence
-	 * 
+	 *
 	 */
 	private static class DefaultPreesmFormatter extends Formatter {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
 		 */
 		@Override
-		public String format(LogRecord record) {
+		public String format(final LogRecord record) {
 
-			StringBuilder output = new StringBuilder();
+			final StringBuilder output = new StringBuilder();
 
 			if (!hasRawFlag(record)) {
 				final Date date = new Date(record.getMillis());
@@ -85,11 +86,11 @@ public class CLIWorkflowLogger {
 
 				output.append(df.format(date));
 				// Default printing for warn & severe
-				if (record.getLevel().intValue() > NOTICE.intValue()) {
+				if (record.getLevel().intValue() > CLIWorkflowLogger.NOTICE.intValue()) {
 					output.append(" ").append(record.getLevel());
-				} else if (record.getLevel().intValue() == NOTICE.intValue()) {
+				} else if (record.getLevel().intValue() == CLIWorkflowLogger.NOTICE.intValue()) {
 					output.append(" NOTICE");
-				} else if (record.getLevel().intValue() == DEBUG.intValue()) {
+				} else if (record.getLevel().intValue() == CLIWorkflowLogger.DEBUG.intValue()) {
 					output.append(" DEBUG");
 				}
 				output.append(": ");
@@ -98,252 +99,251 @@ public class CLIWorkflowLogger {
 			return output.toString();
 		}
 
-		private boolean hasRawFlag(LogRecord record) {
+		private boolean hasRawFlag(final LogRecord record) {
 			final Object[] params = record.getParameters();
-			if(params == null) {
+			if (params == null) {
 				return false;
 			}
 
-			for(Object param : params) {
-				if(RAW_FLAG.equals(param)) {
+			for (final Object param : params) {
+				if (CLIWorkflowLogger.RAW_FLAG.equals(param)) {
 					return true;
 				}
 			}
 			return false;
 		}
 	}
-	
-	public final static Level SEVERE = Level.SEVERE;
-	public final static Level WARNING = Level.WARNING;
-	public final static Level NOTICE = Level.INFO;
-	public final static Level TRACE = Level.FINE;
-	public final static Level DEBUG = Level.FINER;
+
+	public final static Level	SEVERE	= Level.SEVERE;
+	public final static Level	WARNING	= Level.WARNING;
+	public final static Level	NOTICE	= Level.INFO;
+	public final static Level	TRACE	= Level.FINE;
+	public final static Level	DEBUG	= Level.FINER;
 
 	public final static Level ALL = Level.ALL;
-	
+
 	private static Logger logger;
 
 	/**
 	 * Return the current logger, or a newly created one if it doesn't exists.
 	 * If it is created here, a default ConsoleHandler is used as Logger's
 	 * Handler.
-	 * 
+	 *
 	 * @return
 	 */
 	private static Logger getLogger() {
-		if (logger == null) {
-			configureLoggerWithHandler(new ConsoleHandler());
+		if (CLIWorkflowLogger.logger == null) {
+			CLIWorkflowLogger.configureLoggerWithHandler(new ConsoleHandler());
 		}
-		return logger;
+		return CLIWorkflowLogger.logger;
 	}
 
 	/**
 	 * This method is the same as
 	 * {@link #configureLoggerWithHandler(Handler, Formatter)}, but the
 	 * {@link DefaultPreesmFormatter} is used as default {@link Formatter}.
-	 * 
+	 *
 	 * @param handler
 	 */
-	public static void configureLoggerWithHandler(Handler handler) {
-		configureLoggerWithHandler(handler, new DefaultPreesmFormatter());
+	public static void configureLoggerWithHandler(final Handler handler) {
+		CLIWorkflowLogger.configureLoggerWithHandler(handler, new DefaultPreesmFormatter());
 	}
 
 	/**
 	 * Register specific log Handler to display messages sent threw PreesmLogger
 	 * with a given {@link Formatter}. If this method is never called, the
 	 * default Handler will be {@link java.util.logging.ConsoleHandler}.
-	 * 
+	 *
 	 * @param handler
 	 * @param formatter
 	 */
-	public static void configureLoggerWithHandler(Handler handler,
-			Formatter formatter) {
-		logger = null;
+	public static void configureLoggerWithHandler(final Handler handler, final Formatter formatter) {
+		CLIWorkflowLogger.logger = null;
 
-		Logger newLog = Logger.getAnonymousLogger();
+		final Logger newLog = Logger.getAnonymousLogger();
 		newLog.addHandler(handler);
 		newLog.setUseParentHandlers(false);
 		handler.setFormatter(formatter);
 
-		logger = newLog;
+		CLIWorkflowLogger.logger = newLog;
 
-		setLevel(TRACE);
+		CLIWorkflowLogger.setLevel(CLIWorkflowLogger.TRACE);
 	}
-	
+
 	/**
-	 * Set the minimum level displayed. By default, PreesmLogger display messages
-	 * from INFO level and highest. Call this method with DEBUG or ALL as
-	 * argument to display debug messages.
-	 * 
+	 * Set the minimum level displayed. By default, PreesmLogger display
+	 * messages from INFO level and highest. Call this method with DEBUG or ALL
+	 * as argument to display debug messages.
+	 *
 	 * @param level
 	 */
-	public static void setLevel(Level level) {
-		getLogger().setLevel(level);
-		for (Handler handler : getLogger().getHandlers()) {
+	public static void setLevel(final Level level) {
+		CLIWorkflowLogger.getLogger().setLevel(level);
+		for (final Handler handler : CLIWorkflowLogger.getLogger().getHandlers()) {
 			handler.setLevel(level);
 		}
 	}
-	
+
 	/**
 	 * Display a debug message to current console.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void debug(Object content) {
-		getLogger().log(DEBUG, content.toString());
+	public static void debug(final Object content) {
+		CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.DEBUG, content.toString());
 	}
 
 	/**
 	 * Display a debug message to current console, appended with a line
 	 * separator character.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void debugln(Object content) {
-		debug(content.toString() + System.getProperty("line.separator"));
+	public static void debugln(final Object content) {
+		CLIWorkflowLogger.debug(content.toString() + System.getProperty("line.separator"));
 	}
 
 	/**
 	 * Display a debug message on the current console, without any prepended
 	 * string (time or level info).
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void debugRaw(Object content) {
-		LogRecord record = new LogRecord(DEBUG, content.toString());
-		record.setParameters(new Object[] { RAW_FLAG });
-		getLogger().log(record);
+	public static void debugRaw(final Object content) {
+		final LogRecord record = new LogRecord(CLIWorkflowLogger.DEBUG, content.toString());
+		record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
+		CLIWorkflowLogger.getLogger().log(record);
 	}
 
 	/**
 	 * Display a notice message to current console.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void notice(Object content) {
-		getLogger().log(NOTICE, content.toString());
+	public static void notice(final Object content) {
+		CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.NOTICE, content.toString());
 	}
 
 	/**
 	 * Display a notice message to current console, appended with a line
 	 * separator character.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void noticeln(Object content) {
-		notice(content.toString() + System.getProperty("line.separator"));
+	public static void noticeln(final Object content) {
+		CLIWorkflowLogger.notice(content.toString() + System.getProperty("line.separator"));
 	}
 
 	/**
 	 * Display a notice message on the current console, without any prepended
 	 * string (time or level info).
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void noticeRaw(Object content) {
-		LogRecord record = new LogRecord(NOTICE, content.toString());
-		record.setParameters(new Object[] { RAW_FLAG });
-		getLogger().log(record);
+	public static void noticeRaw(final Object content) {
+		final LogRecord record = new LogRecord(CLIWorkflowLogger.NOTICE, content.toString());
+		record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
+		CLIWorkflowLogger.getLogger().log(record);
 	}
 
 	/**
 	 * Display an error line on the current console.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void severe(Object content) {
-		getLogger().log(SEVERE, content.toString());
+	public static void severe(final Object content) {
+		CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.SEVERE, content.toString());
 	}
 
 	/**
 	 * Display an error line on the current console, appended with a line
 	 * separator character.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void severeln(Object content) {
-		severe(content.toString() + System.getProperty("line.separator"));
+	public static void severeln(final Object content) {
+		CLIWorkflowLogger.severe(content.toString() + System.getProperty("line.separator"));
 	}
 
 	/**
 	 * Display an error line on the current console, without any prepended
 	 * string (time or level info).
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void severeRaw(Object content) {
-		LogRecord record = new LogRecord(SEVERE, content.toString());
-		record.setParameters(new Object[] { RAW_FLAG });
-		getLogger().log(record);
+	public static void severeRaw(final Object content) {
+		final LogRecord record = new LogRecord(CLIWorkflowLogger.SEVERE, content.toString());
+		record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
+		CLIWorkflowLogger.getLogger().log(record);
 	}
 
 	/**
 	 * Display an information message on current console.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void trace(Object content) {
-		getLogger().log(TRACE, content.toString());
+	public static void trace(final Object content) {
+		CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.TRACE, content.toString());
 	}
 
 	/**
 	 * Display an information message on current console. The message will be
 	 * appended with a line separator character.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void traceln(Object content) {
-		trace(content.toString() + System.getProperty("line.separator"));
+	public static void traceln(final Object content) {
+		CLIWorkflowLogger.trace(content.toString() + System.getProperty("line.separator"));
 	}
 
 	/**
 	 * Display an information message on the current console, without any
 	 * prepended string (time or level info).
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void traceRaw(Object content) {
-		LogRecord record = new LogRecord(TRACE, content.toString());
-		record.setParameters(new Object[] { RAW_FLAG });
-		getLogger().log(record);
+	public static void traceRaw(final Object content) {
+		final LogRecord record = new LogRecord(CLIWorkflowLogger.TRACE, content.toString());
+		record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
+		CLIWorkflowLogger.getLogger().log(record);
 	}
 
 	/**
 	 * Display a warning line on the current console.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void warn(Object content) {
-		getLogger().log(WARNING, content.toString());
+	public static void warn(final Object content) {
+		CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.WARNING, content.toString());
 	}
 
 	/**
 	 * Display a warning line on the current console, appended with a line
 	 * separator character.
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void warnln(Object content) {
-		warn(content.toString() + System.getProperty("line.separator"));
+	public static void warnln(final Object content) {
+		CLIWorkflowLogger.warn(content.toString() + System.getProperty("line.separator"));
 	}
 
 	/**
 	 * Display a warning line on the current console, without any prepended
 	 * string (time or level info).
-	 * 
+	 *
 	 * @param message
 	 */
-	public static void warnRaw(Object content) {
-		LogRecord record = new LogRecord(WARNING, content.toString());
-		record.setParameters(new Object[] { RAW_FLAG });
-		getLogger().log(record);
+	public static void warnRaw(final Object content) {
+		final LogRecord record = new LogRecord(CLIWorkflowLogger.WARNING, content.toString());
+		record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
+		CLIWorkflowLogger.getLogger().log(record);
 	}
 
-	public static void log(Level level, String msg) {
-        getLogger().log(level, msg + System.getProperty("line.separator"));
-    }
+	public static void log(final Level level, final String msg) {
+		CLIWorkflowLogger.getLogger().log(level, msg + System.getProperty("line.separator"));
+	}
 
-	public static void logln(Level level, String msg) {
-        getLogger().log(level, msg + System.getProperty("line.separator"));
-    }
+	public static void logln(final Level level, final String msg) {
+		CLIWorkflowLogger.getLogger().log(level, msg + System.getProperty("line.separator"));
+	}
 }

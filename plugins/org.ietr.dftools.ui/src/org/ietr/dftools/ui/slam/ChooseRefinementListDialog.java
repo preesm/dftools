@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,15 +27,15 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.ietr.dftools.ui.slam;
 
@@ -58,9 +58,9 @@ import org.ietr.dftools.graphiti.model.Vertex;
 /**
  * A dialog box used to select multiple refinements for a single vertex in a
  * Graphiti graph. It also gives a mean to chose one of the refinements.
- * 
+ *
  * @author mpelcat
- * 
+ *
  */
 public class ChooseRefinementListDialog extends ListDialog {
 
@@ -72,43 +72,41 @@ public class ChooseRefinementListDialog extends ListDialog {
 		/**
 		 * type of action of the listener
 		 */
-		private String type;
+		private final String type;
 
 		/**
 		 * the called dialog window
 		 */
-		private ChooseRefinementListDialog dialog;
+		private final ChooseRefinementListDialog dialog;
 
-		public RefinementListener(String type, ChooseRefinementListDialog dialog) {
+		public RefinementListener(final String type, final ChooseRefinementListDialog dialog) {
 			this.type = type;
 			this.dialog = dialog;
 		}
 
 		@Override
-		public void widgetSelected(SelectionEvent e) {
-			TableViewer tableViewer = dialog.getTableViewer();
+		public void widgetSelected(final SelectionEvent e) {
+			final TableViewer tableViewer = this.dialog.getTableViewer();
 
 			if (tableViewer.getSelection() instanceof IStructuredSelection) {
-				IStructuredSelection tableSelection = (IStructuredSelection) tableViewer
-						.getSelection();
-				Object[] tableSelections = tableSelection.toArray();
-				if (type.equals("add")) {
-					IPath name = policy.useExistingFile(vertex, getShell(), "slam");
+				final IStructuredSelection tableSelection = (IStructuredSelection) tableViewer.getSelection();
+				final Object[] tableSelections = tableSelection.toArray();
+				if (this.type.equals("add")) {
+					final IPath name = ChooseRefinementListDialog.this.policy.useExistingFile(ChooseRefinementListDialog.this.vertex, getShell(), "slam");
 					tableViewer.add(name);
-//					refinementList.addName(name);
-				} else if (type.equals("remove")) {
-					if ((tableSelections.length == 1)
-							&& tableSelections[0] instanceof String) {
-						String name = (String) tableSelections[0];
+					// refinementList.addName(name);
+				} else if (this.type.equals("remove")) {
+					if ((tableSelections.length == 1) && (tableSelections[0] instanceof String)) {
+						final String name = (String) tableSelections[0];
 						tableViewer.remove(name);
-						refinementList.removeName(name);
+						ChooseRefinementListDialog.this.refinementList.removeName(name);
 					}
 				}
 			}
 		}
 
 		@Override
-		public void widgetDefaultSelected(SelectionEvent e) {
+		public void widgetDefaultSelected(final SelectionEvent e) {
 		}
 	}
 
@@ -145,7 +143,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 	/**
 	 * Creating A dialog box used to select multiple refinements for a single
 	 * vertex in a Graphiti graph
-	 * 
+	 *
 	 * @param vertex
 	 *            the vertex being refined
 	 * @param shell
@@ -155,8 +153,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 	 * @param edit
 	 *            is this window used to edit the list or to choose one element
 	 */
-	public ChooseRefinementListDialog(final Vertex vertex, Shell shell,
-			SlamRefinementPolicy policy, boolean edit) {
+	public ChooseRefinementListDialog(final Vertex vertex, final Shell shell, final SlamRefinementPolicy policy, final boolean edit) {
 		super(shell);
 		// the cancel button is enabled only in case of choice
 		setAddCancelButton(!edit);
@@ -166,13 +163,13 @@ public class ChooseRefinementListDialog extends ListDialog {
 		this.vertex = vertex;
 		this.edit = edit;
 
-		ILabelProvider labelProvider = new LabelProvider();
+		final ILabelProvider labelProvider = new LabelProvider();
 		setLabelProvider(labelProvider);
 		setContentProvider(new WorkbenchContentProvider() {
 			@Override
-			public Object[] getChildren(Object element) {
-				if(element instanceof RefinementList){
-					return ((RefinementList)element).toStringArray();
+			public Object[] getChildren(final Object element) {
+				if (element instanceof RefinementList) {
+					return ((RefinementList) element).toStringArray();
 				}
 				return super.getChildren(element);
 			}
@@ -180,25 +177,25 @@ public class ChooseRefinementListDialog extends ListDialog {
 	}
 
 	@Override
-	public void setInput(Object input) {
+	public void setInput(final Object input) {
 		super.setInput(input);
 
 		if (input instanceof RefinementList) {
-			refinementList = (RefinementList) input;
+			this.refinementList = (RefinementList) input;
 		}
 	}
 
 	public RefinementList openDialog() {
 		open();
-		return refinementList;
+		return this.refinementList;
 	}
 
 	@Override
-	protected Control createDialogArea(Composite container) {
-		Control control = super.createDialogArea(container);
+	protected Control createDialogArea(final Composite container) {
+		final Control control = super.createDialogArea(container);
 
-		addListener = new RefinementListener("add", this);
-		removeListener = new RefinementListener("remove", this);
+		this.addListener = new RefinementListener("add", this);
+		this.removeListener = new RefinementListener("remove", this);
 
 		return control;
 	}
@@ -206,24 +203,23 @@ public class ChooseRefinementListDialog extends ListDialog {
 	/**
 	 * Creating specific buttons additionnally to the original ones from
 	 * {@link ListDialog}
-	 * 
+	 *
 	 * @param parent
 	 *            the parent Composite
 	 */
 	@Override
-	protected void createButtonsForButtonBar(Composite parent) {
-		
-		if (edit) {
-			Button addButton = createButton(parent, 5000, "Add", true);
-			Button removeButton = createButton(parent, 5001, "Remove", true);
+	protected void createButtonsForButtonBar(final Composite parent) {
 
-			addButton.addSelectionListener(addListener);
-			removeButton.addSelectionListener(removeListener);
+		if (this.edit) {
+			final Button addButton = createButton(parent, 5000, "Add", true);
+			final Button removeButton = createButton(parent, 5001, "Remove", true);
+
+			addButton.addSelectionListener(this.addListener);
+			removeButton.addSelectionListener(this.removeListener);
+		} else {
+
 		}
-		else{
-			
-		}
-		
+
 		super.createButtonsForButtonBar(parent);
 	}
 

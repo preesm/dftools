@@ -11,16 +11,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -29,9 +29,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -48,7 +48,7 @@ import java.util.Set;
 
 /**
  * Defines properties for <code>Graph</code>s and <code>Port</code>s.
- * 
+ *
  * @author Matthieu Wipliez
  * @author kdesnos
  */
@@ -56,45 +56,45 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
 
 	static final long serialVersionUID = 1;
 
-	private Map<String, Object> properties;
+	private final Map<String, Object> properties;
 
-	private PropertyChangeSupport propertyChange;
+	private final PropertyChangeSupport propertyChange;
 
 	/**
 	 * Constructs a new property bean, with no initial properties set.
 	 */
 	public PropertyBean() {
-		propertyChange = new PropertyChangeSupport(this);
-		properties = new HashMap<String, Object>();
+		this.propertyChange = new PropertyChangeSupport(this);
+		this.properties = new HashMap<>();
 	}
 
 	/**
 	 * Add the listener <code>listener</code> to the registered listeners.
-	 * 
+	 *
 	 * @param listener
 	 *            The PropertyChangeListener to add.
 	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		propertyChange.addPropertyChangeListener(listener);
+	public void addPropertyChangeListener(final PropertyChangeListener listener) {
+		this.propertyChange.addPropertyChangeListener(listener);
 	}
 
 	/**
 	 * Returns the value of the property whose name is <code>propertyName</code>
 	 * .
-	 * 
+	 *
 	 * @param propertyName
 	 *            The name of the property to retrieve.
 	 * @return The value of the property.
 	 */
-	public Object getValue(String propertyName) {
-		return properties.get(propertyName);
+	public Object getValue(final String propertyName) {
+		return this.properties.get(propertyName);
 	}
 
 	/**
 	 * Gives the value of the property whose name is <code>propertyName</code>
 	 * if the value is an instance of the specified class
 	 * <code>propertyClass</code>
-	 * 
+	 *
 	 * @param propertyName
 	 *            The property name
 	 * @param propertyClass
@@ -102,59 +102,59 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
 	 * @return The value of the given propertyName if the value belongs to the
 	 *         given propertyClass,
 	 */
-	public Object getValue(String propertyName, Class<?> propertyClass) {
-		if (propertyClass.isInstance(properties.get(propertyName))) {
-			return properties.get(propertyName);
+	public Object getValue(final String propertyName, final Class<?> propertyClass) {
+		if (propertyClass.isInstance(this.properties.get(propertyName))) {
+			return this.properties.get(propertyName);
 		}
 		return null;
 	}
 
 	/**
 	 * Gives all the keys used to store properties
-	 * 
+	 *
 	 * @return A set of String representing the keys
 	 */
 	public Set<String> keys() {
-		return properties.keySet();
+		return this.properties.keySet();
 	}
 
 	/**
 	 * Remove the listener listener from the registered listeners.
-	 * 
+	 *
 	 * @param listener
 	 *            The listener to remove.
 	 */
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		propertyChange.removePropertyChangeListener(listener);
+	public void removePropertyChangeListener(final PropertyChangeListener listener) {
+		this.propertyChange.removePropertyChangeListener(listener);
 	}
 
 	/**
 	 * Remove the property whose name is <code>propertyName</code> from the
 	 * {@link PropertyBean}. Any value associated to this property will be lost.
-	 * 
+	 *
 	 * @param propertyName
 	 *            the name of the property to remove
 	 */
-	public void removeProperty(String propertyName) {
-		Object o = properties.get(propertyName);
-		properties.remove(propertyName);
-		propertyChange.firePropertyChange(propertyName, o, null);
+	public void removeProperty(final String propertyName) {
+		final Object o = this.properties.get(propertyName);
+		this.properties.remove(propertyName);
+		this.propertyChange.firePropertyChange(propertyName, o, null);
 	}
 
 	/**
 	 * Sets the value of the property whose name is <code>propertyName</code> to
 	 * value <code>newValue</code>, and report the property update to any
 	 * registered listeners.
-	 * 
+	 *
 	 * @param propertyName
 	 *            The name of the property to set.
 	 * @param newValue
 	 *            The new value of the property.
 	 */
-	public void setValue(String propertyName, Object newValue) {
-		Object oldValue = properties.get(propertyName);
-		properties.put(propertyName, newValue);
-		propertyChange.firePropertyChange(propertyName, oldValue, newValue);
+	public void setValue(final String propertyName, final Object newValue) {
+		final Object oldValue = this.properties.get(propertyName);
+		this.properties.put(propertyName, newValue);
+		this.propertyChange.firePropertyChange(propertyName, oldValue, newValue);
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
 	 * properties map. This may be of use when a property should be fired
 	 * regardless of the previous value (in case of undo/redo for example, when
 	 * a same object is added, removed, and added again).
-	 * 
+	 *
 	 * @param propertyName
 	 *            The name of the property to set.
 	 * @param oldValue
@@ -173,8 +173,8 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
 	 * @param newValue
 	 *            The new value of the property.
 	 */
-	public void setValue(String propertyName, Object oldValue, Object newValue) {
-		properties.put(propertyName, newValue);
-		propertyChange.firePropertyChange(propertyName, oldValue, newValue);
+	public void setValue(final String propertyName, final Object oldValue, final Object newValue) {
+		this.properties.put(propertyName, newValue);
+		this.propertyChange.firePropertyChange(propertyName, oldValue, newValue);
 	}
 }

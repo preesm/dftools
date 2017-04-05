@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,15 +27,15 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.ietr.dftools.architecture.slam.process;
 
@@ -64,7 +64,7 @@ import org.ietr.dftools.architecture.slam.link.LinkFactory;
 /**
  * Methods to flatten the hierarchy of a System-Level Architecture Model. If
  * multiple refinements are available for a component, the first is selected.
- * 
+ *
  * @author mpelcat
  */
 public class SlamFlattener {
@@ -72,7 +72,7 @@ public class SlamFlattener {
 	/**
 	 * Flattens all levels of a hierarchical architecture
 	 */
-	public void flattenAllLevels(Design design) {
+	public void flattenAllLevels(final Design design) {
 
 		while (hasHierarchy(design)) {
 			flattenUpperLevel(design);
@@ -82,7 +82,7 @@ public class SlamFlattener {
 	/**
 	 * Flattens n levels of a hierarchical architecture
 	 */
-	public void flatten(Design design, int n) {
+	public void flatten(final Design design, final int n) {
 		int i = 0;
 		while (i < n) {
 			flattenUpperLevel(design);
@@ -93,19 +93,17 @@ public class SlamFlattener {
 	/**
 	 * Flattens the upper level of a hierarchical architecture
 	 */
-	public void flattenUpperLevel(Design design) {
+	public void flattenUpperLevel(final Design design) {
 
 		// Set of removed subdesigns
-		Set<Design> removedSubdesigns = new HashSet<Design>();
+		final Set<Design> removedSubdesigns = new HashSet<>();
 
 		// Replace each instance by its content
-		List<ComponentInstance> componentInstances = new ArrayList<ComponentInstance>(
-				design.getComponentInstances());
+		final List<ComponentInstance> componentInstances = new ArrayList<>(design.getComponentInstances());
 
-		for (ComponentInstance instance : componentInstances) {
+		for (final ComponentInstance instance : componentInstances) {
 			if (!instance.getComponent().getRefinements().isEmpty()) {
-				removedSubdesigns.add(instance.getComponent().getRefinements()
-						.get(0));
+				removedSubdesigns.add(instance.getComponent().getRefinements().get(0));
 				replaceInstanceByContent(design, instance);
 			}
 		}
@@ -114,12 +112,11 @@ public class SlamFlattener {
 		cleanComponentHolder(design, removedSubdesigns);
 	}
 
-	private void getAllInstances(Design design,
-			Set<ComponentInstance> globalInstances) {
+	private void getAllInstances(final Design design, final Set<ComponentInstance> globalInstances) {
 
-		for (ComponentInstance instance : design.getComponentInstances()) {
+		for (final ComponentInstance instance : design.getComponentInstances()) {
 			globalInstances.add(instance);
-			for (Design subDesign : instance.getComponent().getRefinements()) {
+			for (final Design subDesign : instance.getComponent().getRefinements()) {
 				getAllInstances(subDesign, globalInstances);
 			}
 		}
@@ -127,28 +124,26 @@ public class SlamFlattener {
 
 	/**
 	 * Removing all references to components no more instanciated
-	 * 
+	 *
 	 * @param design
 	 *            reference design
 	 * @param removedSubdesigns
 	 *            subdesigns containing instances to eliminate
 	 */
-	private void cleanComponentHolder(Design design,
-			Set<Design> removedSubdesigns) {
+	private void cleanComponentHolder(final Design design, final Set<Design> removedSubdesigns) {
 
 		// Getting all instances and their components from the design and its
 		// subdesigns
-		Set<ComponentInstance> globalInstances = new HashSet<ComponentInstance>();
-		Set<Component> globalComponents = new HashSet<Component>();
+		final Set<ComponentInstance> globalInstances = new HashSet<>();
+		final Set<Component> globalComponents = new HashSet<>();
 
 		getAllInstances(design, globalInstances);
-		for (ComponentInstance instance : globalInstances) {
+		for (final ComponentInstance instance : globalInstances) {
 			globalComponents.add(instance.getComponent());
 		}
 
-		Set<Component> holderComponents = new HashSet<Component>(design
-				.getComponentHolder().getComponents());
-		for (Component component : holderComponents) {
+		final Set<Component> holderComponents = new HashSet<>(design.getComponentHolder().getComponents());
+		for (final Component component : holderComponents) {
 			// Remove all references to instances of the removed hierarchy level
 			if (!globalComponents.contains(component)) {
 				design.getComponentHolder().getComponents().remove(component);
@@ -160,16 +155,14 @@ public class SlamFlattener {
 	 * Replaces a component instance in a design by its content (components and
 	 * links)
 	 */
-	private void replaceInstanceByContent(Design design,
-			ComponentInstance instance) {
+	private void replaceInstanceByContent(final Design design, final ComponentInstance instance) {
 		// Associates a reference instance in the refinement to each cloned
 		// instance in the design.
-		Map<ComponentInstance, ComponentInstance> refMap = new HashMap<ComponentInstance, ComponentInstance>();
-		Component component = instance.getComponent();
-		Design subDesign = component.getRefinements().get(0);
+		final Map<ComponentInstance, ComponentInstance> refMap = new HashMap<>();
+		final Component component = instance.getComponent();
+		final Design subDesign = component.getRefinements().get(0);
 
-		insertComponentInstancesClones(subDesign.getComponentInstances(),
-				design, instance, refMap);
+		insertComponentInstancesClones(subDesign.getComponentInstances(), design, instance, refMap);
 		insertInternalLinksClones(subDesign.getLinks(), design, refMap);
 
 		// Before removing the instance, hierarchical connections are managed if
@@ -182,7 +175,7 @@ public class SlamFlattener {
 		design.getComponentInstances().remove(instance);
 
 		// We remove the replaced instance link from its component
-		Component refComponent = instance.getComponent();
+		final Component refComponent = instance.getComponent();
 		refComponent.getInstances().remove(instance);
 
 		// If the component has no more instance, it is also removed
@@ -194,18 +187,16 @@ public class SlamFlattener {
 	/**
 	 * Links the newly created instances appropriately to respect hierarchy
 	 */
-	private void manageHierarchicalLinks(ComponentInstance instance,
-			Design design, Design subDesign,
-			Map<ComponentInstance, ComponentInstance> refMap) {
+	private void manageHierarchicalLinks(final ComponentInstance instance, final Design design, final Design subDesign,
+			final Map<ComponentInstance, ComponentInstance> refMap) {
 
 		// Iterating the upper graph links
-		Set<Link> links = new HashSet<Link>(design.getLinks());
-		for (Link link : links) {
+		final Set<Link> links = new HashSet<>(design.getLinks());
+		for (final Link link : links) {
 			if (link.getSourceComponentInstance().equals(instance)) {
 				manageSourceHierarchicalLink(link, design, subDesign, refMap);
 			} else if (link.getDestinationComponentInstance().equals(instance)) {
-				manageDestinationHierarchicalLink(link, design, subDesign,
-						refMap);
+				manageDestinationHierarchicalLink(link, design, subDesign, refMap);
 			}
 		}
 	}
@@ -213,13 +204,13 @@ public class SlamFlattener {
 	/**
 	 * Links the newly created instances appropriately to respect hierarchy
 	 */
-	private void manageSourceHierarchicalLink(Link link, Design design,
-			Design subDesign, Map<ComponentInstance, ComponentInstance> refMap) {
+	private void manageSourceHierarchicalLink(final Link link, final Design design, final Design subDesign,
+			final Map<ComponentInstance, ComponentInstance> refMap) {
 		HierarchyPort foundPort = null;
 
 		// Looking for the hierarchy port corresponding to the current upper
 		// level link
-		for (HierarchyPort port : subDesign.getHierarchyPorts()) {
+		for (final HierarchyPort port : subDesign.getHierarchyPorts()) {
 			if (port.getExternalInterface().equals(link.getSourceInterface())) {
 				foundPort = port;
 			}
@@ -228,9 +219,8 @@ public class SlamFlattener {
 		// In case we found the internal hierarchy port corresponding to the
 		// port in the upper graph
 		if (foundPort != null) {
-			ComponentInstance instanceToConnect = refMap.get(foundPort
-					.getInternalComponentInstance());
-			ComInterface itf = foundPort.getInternalInterface();
+			final ComponentInstance instanceToConnect = refMap.get(foundPort.getInternalComponentInstance());
+			final ComInterface itf = foundPort.getInternalInterface();
 			link.setSourceComponentInstance(instanceToConnect);
 			link.setSourceInterface(itf);
 		} else {
@@ -242,15 +232,14 @@ public class SlamFlattener {
 	/**
 	 * Links the newly created instances appropriately to respect hierarchy
 	 */
-	private void manageDestinationHierarchicalLink(Link link, Design design,
-			Design subDesign, Map<ComponentInstance, ComponentInstance> refMap) {
+	private void manageDestinationHierarchicalLink(final Link link, final Design design, final Design subDesign,
+			final Map<ComponentInstance, ComponentInstance> refMap) {
 		HierarchyPort foundPort = null;
 
 		// Looking for the hierarchy port corresponding to the current upper
 		// level link
-		for (HierarchyPort port : subDesign.getHierarchyPorts()) {
-			if (port.getExternalInterface().equals(
-					link.getDestinationInterface())) {
+		for (final HierarchyPort port : subDesign.getHierarchyPorts()) {
+			if (port.getExternalInterface().equals(link.getDestinationInterface())) {
 				foundPort = port;
 			}
 		}
@@ -258,9 +247,8 @@ public class SlamFlattener {
 		// In case we found the internal hierarchy port corresponding to the
 		// port in the upper graph
 		if (foundPort != null) {
-			ComponentInstance instanceToConnect = refMap.get(foundPort
-					.getInternalComponentInstance());
-			ComInterface itf = foundPort.getInternalInterface();
+			final ComponentInstance instanceToConnect = refMap.get(foundPort.getInternalComponentInstance());
+			final ComInterface itf = foundPort.getInternalInterface();
 			link.setDestinationComponentInstance(instanceToConnect);
 			link.setDestinationInterface(itf);
 		} else {
@@ -272,16 +260,12 @@ public class SlamFlattener {
 	/**
 	 * Inserts clones of the given instances in a given design
 	 */
-	private void insertComponentInstancesClones(
-			EList<ComponentInstance> instances, Design design,
-			ComponentInstance processedInstance,
-			Map<ComponentInstance, ComponentInstance> refMap) {
-		for (ComponentInstance originalInstance : instances) {
-			String originalName = originalInstance.getInstanceName();
-			ComponentInstance newInstance = SlamFactory.eINSTANCE
-					.createComponentInstance();
-			String newName = getUniqueInstanceName(originalName, design,
-					processedInstance.getInstanceName());
+	private void insertComponentInstancesClones(final EList<ComponentInstance> instances, final Design design, final ComponentInstance processedInstance,
+			final Map<ComponentInstance, ComponentInstance> refMap) {
+		for (final ComponentInstance originalInstance : instances) {
+			final String originalName = originalInstance.getInstanceName();
+			final ComponentInstance newInstance = SlamFactory.eINSTANCE.createComponentInstance();
+			final String newName = getUniqueInstanceName(originalName, design, processedInstance.getInstanceName());
 			design.getComponentInstance(newName);
 			newInstance.setInstanceName(newName);
 			newInstance.setComponent(originalInstance.getComponent());
@@ -289,9 +273,8 @@ public class SlamFlattener {
 			refMap.put(originalInstance, newInstance);
 
 			// Duplicates instance parameters
-			for (Parameter param : originalInstance.getParameters()) {
-				Parameter newParam = AttributesFactory.eINSTANCE
-						.createParameter();
+			for (final Parameter param : originalInstance.getParameters()) {
+				final Parameter newParam = AttributesFactory.eINSTANCE.createParameter();
 				newParam.setKey(param.getKey());
 				newParam.setValue(param.getValue());
 				newInstance.getParameters().add(newParam);
@@ -302,10 +285,9 @@ public class SlamFlattener {
 	/**
 	 * Inserts clones of the given links in a given design
 	 */
-	private void insertInternalLinksClones(EList<Link> links, Design design,
-			Map<ComponentInstance, ComponentInstance> refMap) {
+	private void insertInternalLinksClones(final EList<Link> links, final Design design, final Map<ComponentInstance, ComponentInstance> refMap) {
 
-		for (Link originalLink : links) {
+		for (final Link originalLink : links) {
 			Link newLink = null;
 
 			if (originalLink instanceof DataLink) {
@@ -317,22 +299,19 @@ public class SlamFlattener {
 			newLink.setDirected(originalLink.isDirected());
 			// Choosing a new unique Uuid
 			newLink.setUuid(UUID.randomUUID().toString());
-			ComponentInstance source = originalLink
-					.getSourceComponentInstance();
-			ComponentInstance destination = originalLink
-					.getDestinationComponentInstance();
+			final ComponentInstance source = originalLink.getSourceComponentInstance();
+			final ComponentInstance destination = originalLink.getDestinationComponentInstance();
 			newLink.setSourceComponentInstance(refMap.get(source));
 			newLink.setSourceInterface(originalLink.getSourceInterface());
 			newLink.setDestinationComponentInstance(refMap.get(destination));
-			newLink.setDestinationInterface(originalLink
-					.getDestinationInterface());
+			newLink.setDestinationInterface(originalLink.getDestinationInterface());
 			design.getLinks().add(newLink);
 		}
 	}
 
 	/**
 	 * Creates a unique name by prefixing the name by the upper design name
-	 * 
+	 *
 	 * @param originalName
 	 *            the name in the original design
 	 * @param design
@@ -340,8 +319,7 @@ public class SlamFlattener {
 	 * @param path
 	 *            the path to append to the name
 	 */
-	private String getUniqueInstanceName(String originalName, Design design,
-			String path) {
+	private String getUniqueInstanceName(final String originalName, final Design design, final String path) {
 		String name = path + "/" + originalName;
 		int i = 2;
 
@@ -353,9 +331,9 @@ public class SlamFlattener {
 		return name;
 	}
 
-	private boolean hasHierarchy(Design design) {
+	private boolean hasHierarchy(final Design design) {
 
-		for (Component component : design.getComponentHolder().getComponents()) {
+		for (final Component component : design.getComponentHolder().getComponents()) {
 			if (!component.getRefinements().isEmpty()) {
 				return true;
 			}

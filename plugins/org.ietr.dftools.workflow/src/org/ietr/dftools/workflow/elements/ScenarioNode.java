@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,9 +28,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -49,7 +49,7 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
  * This class provides a scenario workflow node.
- * 
+ *
  * @author mpelcat
  */
 public class ScenarioNode extends AbstractWorkflowNode {
@@ -60,17 +60,17 @@ public class ScenarioNode extends AbstractWorkflowNode {
 	 */
 	private String scenarioId = null;
 
-	public ScenarioNode(String scenarioId) {
+	public ScenarioNode(final String scenarioId) {
 		super();
 		this.scenarioId = scenarioId;
 	}
 
 	public String getScenarioId() {
-		return scenarioId;
+		return this.scenarioId;
 	}
 
 	public AbstractScenarioImplementation getScenario() {
-		return (AbstractScenarioImplementation) implementation;
+		return (AbstractScenarioImplementation) this.implementation;
 	}
 
 	@Override
@@ -86,17 +86,15 @@ public class ScenarioNode extends AbstractWorkflowNode {
 	/**
 	 * Initializes the outputs types of the scenario using information from the
 	 * plugin extension.
-	 * 
+	 *
 	 * @return True if the prototype was correctly set.
 	 */
-	private boolean initPrototype(AbstractScenarioImplementation scenario,
-			IConfigurationElement element) {
+	private boolean initPrototype(final AbstractScenarioImplementation scenario, final IConfigurationElement element) {
 
-		for (IConfigurationElement child : element.getChildren()) {
+		for (final IConfigurationElement child : element.getChildren()) {
 			if (child.getName().equals("outputs")) {
-				for (IConfigurationElement output : child.getChildren()) {
-					scenario.addOutput(output.getAttribute("id"),
-							output.getAttribute("object"));
+				for (final IConfigurationElement output : child.getChildren()) {
+					scenario.addOutput(output.getAttribute("id"), output.getAttribute("object"));
 				}
 			}
 		}
@@ -105,38 +103,33 @@ public class ScenarioNode extends AbstractWorkflowNode {
 
 	/**
 	 * Checks if this scenario exists based on its ID.
-	 * 
+	 *
 	 * @return True if this scenario exists, false otherwise.
 	 */
 	public boolean getExtensionInformation() {
 		try {
-			IExtensionRegistry registry = Platform.getExtensionRegistry();
+			final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-			IConfigurationElement[] elements = registry
-					.getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
-			for (int i = 0; i < elements.length; i++) {
-				IConfigurationElement element = elements[i];
-				if (element.getAttribute("id").equals(scenarioId)) {
+			final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
+			for (final IConfigurationElement element : elements) {
+				if (element.getAttribute("id").equals(this.scenarioId)) {
 					// Tries to create the transformation
-					Object obj = element.createExecutableExtension("type");
+					final Object obj = element.createExecutableExtension("type");
 
 					// and checks it actually is an ITransformation.
 					if (obj instanceof AbstractScenarioImplementation) {
-						implementation = (AbstractScenarioImplementation) obj;
+						this.implementation = (AbstractScenarioImplementation) obj;
 
 						// Initializes the prototype of the scenario
-						initPrototype(
-								(AbstractScenarioImplementation) implementation,
-								element);
+						initPrototype((AbstractScenarioImplementation) this.implementation, element);
 						return true;
 					}
 				}
 			}
 
 			return false;
-		} catch (CoreException e) {
-			WorkflowLogger.getLogger().log(Level.SEVERE,
-					"Failed to find the scenario from workflow");
+		} catch (final CoreException e) {
+			WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find the scenario from workflow");
 			return false;
 		}
 	}

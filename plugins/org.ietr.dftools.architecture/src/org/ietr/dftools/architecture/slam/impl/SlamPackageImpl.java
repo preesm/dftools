@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,9 +27,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -59,41 +59,41 @@ import org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
  * end-user-doc -->
- * 
+ *
  * @generated
  */
 public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass designEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass componentInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass vlnVedElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass parameterizedElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass componentHolderEClass = null;
@@ -107,19 +107,19 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * method {@link #init init()}, which also performs initialization of the
 	 * package, or returns the registered package, if one already exists. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
 	private SlamPackageImpl() {
-		super(eNS_URI, SlamFactory.eINSTANCE);
+		super(SlamPackage.eNS_URI, SlamFactory.eINSTANCE);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static boolean isInited = false;
@@ -127,42 +127,38 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model,
 	 * and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>
 	 * This method is used to initialize {@link SlamPackage#eINSTANCE} when that
 	 * field is accessed. Clients should not invoke it directly. Instead, they
 	 * should simply access that field to obtain the package. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #eNS_URI
 	 * @see #createPackageContents()
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
 	public static SlamPackage init() {
-		if (isInited)
-			return (SlamPackage) EPackage.Registry.INSTANCE
-					.getEPackage(SlamPackage.eNS_URI);
+		if (SlamPackageImpl.isInited) {
+			return (SlamPackage) EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI);
+		}
 
 		// Obtain or create and register package
-		SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof SlamPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new SlamPackageImpl());
+		final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.get(SlamPackage.eNS_URI) instanceof SlamPackageImpl
+				? EPackage.Registry.INSTANCE.get(SlamPackage.eNS_URI) : new SlamPackageImpl());
 
-		isInited = true;
+		SlamPackageImpl.isInited = true;
 
 		// Obtain or create and register interdependencies
-		ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI)
-				: ComponentPackage.eINSTANCE);
-		LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
-		AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(AttributesPackage.eNS_URI)
-				: AttributesPackage.eINSTANCE);
+		final ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
+						: ComponentPackage.eINSTANCE);
+		final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl
+				? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
+		final AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AttributesPackage.eNS_URI)
+						: AttributesPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSlamPackage.createPackageContents();
@@ -186,171 +182,167 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getDesign() {
-		return designEClass;
+		return this.designEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getDesign_ComponentInstances() {
-		return (EReference) designEClass.getEStructuralFeatures().get(0);
+		return (EReference) this.designEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getDesign_Links() {
-		return (EReference) designEClass.getEStructuralFeatures().get(1);
+		return (EReference) this.designEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getDesign_HierarchyPorts() {
-		return (EReference) designEClass.getEStructuralFeatures().get(2);
+		return (EReference) this.designEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getDesign_Refined() {
-		return (EReference) designEClass.getEStructuralFeatures().get(3);
+		return (EReference) this.designEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EAttribute getDesign_Path() {
-		return (EAttribute) designEClass.getEStructuralFeatures().get(4);
+		return (EAttribute) this.designEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getDesign_ComponentHolder() {
-		return (EReference) designEClass.getEStructuralFeatures().get(5);
+		return (EReference) this.designEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getComponentInstance() {
-		return componentInstanceEClass;
+		return this.componentInstanceEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getComponentInstance_Component() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures()
-				.get(0);
+		return (EReference) this.componentInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EAttribute getComponentInstance_InstanceName() {
-		return (EAttribute) componentInstanceEClass.getEStructuralFeatures()
-				.get(1);
+		return (EAttribute) this.componentInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getVLNVedElement() {
-		return vlnVedElementEClass;
+		return this.vlnVedElementEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getVLNVedElement_Vlnv() {
-		return (EReference) vlnVedElementEClass.getEStructuralFeatures().get(0);
+		return (EReference) this.vlnVedElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getParameterizedElement() {
-		return parameterizedElementEClass;
+		return this.parameterizedElementEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getParameterizedElement_Parameters() {
-		return (EReference) parameterizedElementEClass.getEStructuralFeatures()
-				.get(0);
+		return (EReference) this.parameterizedElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getComponentHolder() {
-		return componentHolderEClass;
+		return this.componentHolderEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getComponentHolder_Components() {
-		return (EReference) componentHolderEClass.getEStructuralFeatures().get(
-				0);
+		return (EReference) this.componentHolderEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -360,7 +352,7 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private boolean isCreated = false;
@@ -369,42 +361,41 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * Creates the meta-model objects for the package. This method is guarded to
 	 * have no affect on any invocation but its first. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated)
+		if (this.isCreated) {
 			return;
-		isCreated = true;
+		}
+		this.isCreated = true;
 
 		// Create classes and their features
-		designEClass = createEClass(DESIGN);
-		createEReference(designEClass, DESIGN__COMPONENT_INSTANCES);
-		createEReference(designEClass, DESIGN__LINKS);
-		createEReference(designEClass, DESIGN__HIERARCHY_PORTS);
-		createEReference(designEClass, DESIGN__REFINED);
-		createEAttribute(designEClass, DESIGN__PATH);
-		createEReference(designEClass, DESIGN__COMPONENT_HOLDER);
+		this.designEClass = createEClass(SlamPackage.DESIGN);
+		createEReference(this.designEClass, SlamPackage.DESIGN__COMPONENT_INSTANCES);
+		createEReference(this.designEClass, SlamPackage.DESIGN__LINKS);
+		createEReference(this.designEClass, SlamPackage.DESIGN__HIERARCHY_PORTS);
+		createEReference(this.designEClass, SlamPackage.DESIGN__REFINED);
+		createEAttribute(this.designEClass, SlamPackage.DESIGN__PATH);
+		createEReference(this.designEClass, SlamPackage.DESIGN__COMPONENT_HOLDER);
 
-		componentInstanceEClass = createEClass(COMPONENT_INSTANCE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__COMPONENT);
-		createEAttribute(componentInstanceEClass,
-				COMPONENT_INSTANCE__INSTANCE_NAME);
+		this.componentInstanceEClass = createEClass(SlamPackage.COMPONENT_INSTANCE);
+		createEReference(this.componentInstanceEClass, SlamPackage.COMPONENT_INSTANCE__COMPONENT);
+		createEAttribute(this.componentInstanceEClass, SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME);
 
-		vlnVedElementEClass = createEClass(VLN_VED_ELEMENT);
-		createEReference(vlnVedElementEClass, VLN_VED_ELEMENT__VLNV);
+		this.vlnVedElementEClass = createEClass(SlamPackage.VLN_VED_ELEMENT);
+		createEReference(this.vlnVedElementEClass, SlamPackage.VLN_VED_ELEMENT__VLNV);
 
-		parameterizedElementEClass = createEClass(PARAMETERIZED_ELEMENT);
-		createEReference(parameterizedElementEClass,
-				PARAMETERIZED_ELEMENT__PARAMETERS);
+		this.parameterizedElementEClass = createEClass(SlamPackage.PARAMETERIZED_ELEMENT);
+		createEReference(this.parameterizedElementEClass, SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS);
 
-		componentHolderEClass = createEClass(COMPONENT_HOLDER);
-		createEReference(componentHolderEClass, COMPONENT_HOLDER__COMPONENTS);
+		this.componentHolderEClass = createEClass(SlamPackage.COMPONENT_HOLDER);
+		createEReference(this.componentHolderEClass, SlamPackage.COMPONENT_HOLDER__COMPONENTS);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private boolean isInitialized = false;
@@ -413,26 +404,24 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 	 * Complete the initialization of the package and its meta-model. This
 	 * method is guarded to have no affect on any invocation but its first. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized)
+		if (this.isInitialized) {
 			return;
-		isInitialized = true;
+		}
+		this.isInitialized = true;
 
 		// Initialize package
-		setName(eNAME);
-		setNsPrefix(eNS_PREFIX);
-		setNsURI(eNS_URI);
+		setName(SlamPackage.eNAME);
+		setNsPrefix(SlamPackage.eNS_PREFIX);
+		setNsURI(SlamPackage.eNS_URI);
 
 		// Obtain other dependent packages
-		ComponentPackage theComponentPackage = (ComponentPackage) EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI);
-		LinkPackage theLinkPackage = (LinkPackage) EPackage.Registry.INSTANCE
-				.getEPackage(LinkPackage.eNS_URI);
-		AttributesPackage theAttributesPackage = (AttributesPackage) EPackage.Registry.INSTANCE
-				.getEPackage(AttributesPackage.eNS_URI);
+		final ComponentPackage theComponentPackage = (ComponentPackage) EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI);
+		final LinkPackage theLinkPackage = (LinkPackage) EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI);
+		final AttributesPackage theAttributesPackage = (AttributesPackage) EPackage.Registry.INSTANCE.getEPackage(AttributesPackage.eNS_URI);
 
 		// Add subpackages
 		getESubpackages().add(theComponentPackage);
@@ -444,114 +433,78 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		designEClass.getESuperTypes().add(this.getVLNVedElement());
-		designEClass.getESuperTypes().add(this.getParameterizedElement());
-		componentInstanceEClass.getESuperTypes().add(
-				this.getParameterizedElement());
+		this.designEClass.getESuperTypes().add(getVLNVedElement());
+		this.designEClass.getESuperTypes().add(getParameterizedElement());
+		this.componentInstanceEClass.getESuperTypes().add(getParameterizedElement());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(designEClass, Design.class, "Design", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDesign_ComponentInstances(),
-				this.getComponentInstance(), null, "componentInstances", null,
-				0, -1, Design.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		getDesign_ComponentInstances().getEKeys().add(
-				this.getComponentInstance_InstanceName());
-		initEReference(getDesign_Links(), theLinkPackage.getLink(), null,
-				"links", null, 0, -1, Design.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDesign_HierarchyPorts(),
-				theComponentPackage.getHierarchyPort(), null, "hierarchyPorts",
-				null, 0, -1, Design.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDesign_Refined(), theComponentPackage.getComponent(),
-				theComponentPackage.getComponent_Refinements(), "refined",
-				null, 0, 1, Design.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDesign_Path(), ecorePackage.getEString(), "path",
-				null, 0, 1, Design.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
-		initEReference(getDesign_ComponentHolder(), this.getComponentHolder(),
-				null, "componentHolder", null, 1, 1, Design.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
+		initEClass(this.designEClass, Design.class, "Design", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE, EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDesign_ComponentInstances(), getComponentInstance(), null, "componentInstances", null, 0, -1, Design.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, EPackageImpl.IS_COMPOSITE, !EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, !EPackageImpl.IS_ORDERED);
+		getDesign_ComponentInstances().getEKeys().add(getComponentInstance_InstanceName());
+		initEReference(getDesign_Links(), theLinkPackage.getLink(), null, "links", null, 0, -1, Design.class, !EPackageImpl.IS_TRANSIENT,
+				!EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, EPackageImpl.IS_COMPOSITE, !EPackageImpl.IS_RESOLVE_PROXIES, !EPackageImpl.IS_UNSETTABLE,
+				EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEReference(getDesign_HierarchyPorts(), theComponentPackage.getHierarchyPort(), null, "hierarchyPorts", null, 0, -1, Design.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, EPackageImpl.IS_COMPOSITE, !EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEReference(getDesign_Refined(), theComponentPackage.getComponent(), theComponentPackage.getComponent_Refinements(), "refined", null, 0, 1,
+				Design.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE,
+				!EPackageImpl.IS_RESOLVE_PROXIES, !EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEAttribute(getDesign_Path(), this.ecorePackage.getEString(), "path", null, 0, 1, Design.class, !EPackageImpl.IS_TRANSIENT,
+				!EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
+				!EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEReference(getDesign_ComponentHolder(), getComponentHolder(), null, "componentHolder", null, 1, 1, Design.class, !EPackageImpl.IS_TRANSIENT,
+				!EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE, EPackageImpl.IS_RESOLVE_PROXIES, !EPackageImpl.IS_UNSETTABLE,
+				EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
 
-		EOperation op = addEOperation(designEClass, ecorePackage.getEBoolean(),
-				"containsComponentInstance", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE,
-				IS_ORDERED);
+		EOperation op = addEOperation(this.designEClass, this.ecorePackage.getEBoolean(), "containsComponentInstance", 1, 1, EPackageImpl.IS_UNIQUE,
+				EPackageImpl.IS_ORDERED);
+		addEParameter(op, this.ecorePackage.getEString(), "name", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
 
-		op = addEOperation(designEClass, ecorePackage.getEBoolean(),
-				"containsComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1,
-				IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(this.designEClass, this.ecorePackage.getEBoolean(), "containsComponent", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
+		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
 
-		op = addEOperation(designEClass, this.getComponentInstance(),
-				"getComponentInstance", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "name", 1, 1, IS_UNIQUE,
-				IS_ORDERED);
+		op = addEOperation(this.designEClass, getComponentInstance(), "getComponentInstance", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
+		addEParameter(op, this.ecorePackage.getEString(), "name", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
 
-		op = addEOperation(designEClass, theComponentPackage.getComponent(),
-				"getComponent", 1, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1,
-				IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEClass(), "class_", 1, 1, IS_UNIQUE,
-				IS_ORDERED);
+		op = addEOperation(this.designEClass, theComponentPackage.getComponent(), "getComponent", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
+		addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
+		addEParameter(op, this.ecorePackage.getEClass(), "class_", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
 
-		initEClass(componentInstanceEClass, ComponentInstance.class,
-				"ComponentInstance", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getComponentInstance_Component(),
-				theComponentPackage.getComponent(),
-				theComponentPackage.getComponent_Instances(), "component",
-				null, 1, 1, ComponentInstance.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getComponentInstance_InstanceName(),
-				ecorePackage.getEString(), "instanceName", null, 1, 1,
-				ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
+		initEClass(this.componentInstanceEClass, ComponentInstance.class, "ComponentInstance", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
+				EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getComponentInstance_Component(), theComponentPackage.getComponent(), theComponentPackage.getComponent_Instances(), "component", null, 1,
+				1, ComponentInstance.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE,
+				EPackageImpl.IS_RESOLVE_PROXIES, !EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEAttribute(getComponentInstance_InstanceName(), this.ecorePackage.getEString(), "instanceName", null, 1, 1, ComponentInstance.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID,
+				EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
 
-		addEOperation(componentInstanceEClass, ecorePackage.getEBoolean(),
-				"isHierarchical", 1, 1, IS_UNIQUE, IS_ORDERED);
+		addEOperation(this.componentInstanceEClass, this.ecorePackage.getEBoolean(), "isHierarchical", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
 
-		initEClass(vlnVedElementEClass, VLNVedElement.class, "VLNVedElement",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getVLNVedElement_Vlnv(), theAttributesPackage.getVLNV(),
-				null, "vlnv", null, 1, 1, VLNVedElement.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(this.vlnVedElementEClass, VLNVedElement.class, "VLNVedElement", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
+				EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getVLNVedElement_Vlnv(), theAttributesPackage.getVLNV(), null, "vlnv", null, 1, 1, VLNVedElement.class, !EPackageImpl.IS_TRANSIENT,
+				!EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, EPackageImpl.IS_COMPOSITE, !EPackageImpl.IS_RESOLVE_PROXIES, !EPackageImpl.IS_UNSETTABLE,
+				EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
 
-		initEClass(parameterizedElementEClass, ParameterizedElement.class,
-				"ParameterizedElement", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getParameterizedElement_Parameters(),
-				theAttributesPackage.getParameter(), null, "parameters", null,
-				0, -1, ParameterizedElement.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		getParameterizedElement_Parameters().getEKeys().add(
-				theAttributesPackage.getParameter_Key());
+		initEClass(this.parameterizedElementEClass, ParameterizedElement.class, "ParameterizedElement", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
+				EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getParameterizedElement_Parameters(), theAttributesPackage.getParameter(), null, "parameters", null, 0, -1, ParameterizedElement.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, EPackageImpl.IS_COMPOSITE, !EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		getParameterizedElement_Parameters().getEKeys().add(theAttributesPackage.getParameter_Key());
 
-		initEClass(componentHolderEClass, ComponentHolder.class,
-				"ComponentHolder", !IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getComponentHolder_Components(),
-				theComponentPackage.getComponent(), null, "components", null,
-				0, -1, ComponentHolder.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEClass(this.componentHolderEClass, ComponentHolder.class, "ComponentHolder", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
+				EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getComponentHolder_Components(), theComponentPackage.getComponent(), null, "components", null, 0, -1, ComponentHolder.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, EPackageImpl.IS_COMPOSITE, !EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, !EPackageImpl.IS_ORDERED);
 
 		// Create resource
-		createResource(eNS_URI);
+		createResource(SlamPackage.eNS_URI);
 	}
 
 } // SlamPackageImpl

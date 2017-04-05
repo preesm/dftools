@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,9 +27,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -54,25 +54,24 @@ import org.ietr.dftools.architecture.slam.component.Operator;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
+ *
  * @generated
  */
-public class ComponentFactoryImpl extends EFactoryImpl implements
-		ComponentFactory {
+public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFactory {
 	/**
 	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public static ComponentFactory init() {
 		try {
-			ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE
+			final ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE
 					.getEFactory("http://net.sf.dftools/architecture/slam/component");
 			if (theComponentFactory != null) {
 				return theComponentFactory;
 			}
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new ComponentFactoryImpl();
@@ -81,7 +80,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 	/**
 	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public ComponentFactoryImpl() {
@@ -90,112 +89,111 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
-	public EObject create(EClass eClass) {
+	public EObject create(final EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case ComponentPackage.COMPONENT:
-			return createComponent();
-		case ComponentPackage.OPERATOR:
-			return createOperator();
-		case ComponentPackage.COM_NODE:
-			return createComNode();
-		case ComponentPackage.DMA:
-			return createDma();
-		case ComponentPackage.MEM:
-			return createMem();
-		case ComponentPackage.HIERARCHY_PORT:
-			return createHierarchyPort();
-		case ComponentPackage.COM_INTERFACE:
-			return createComInterface();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName()
-					+ "' is not a valid classifier");
+			case ComponentPackage.COMPONENT:
+				return createComponent();
+			case ComponentPackage.OPERATOR:
+				return createOperator();
+			case ComponentPackage.COM_NODE:
+				return createComNode();
+			case ComponentPackage.DMA:
+				return createDma();
+			case ComponentPackage.MEM:
+				return createMem();
+			case ComponentPackage.HIERARCHY_PORT:
+				return createHierarchyPort();
+			case ComponentPackage.COM_INTERFACE:
+				return createComInterface();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public Component createComponent() {
-		ComponentImpl component = new ComponentImpl();
+		final ComponentImpl component = new ComponentImpl();
 		return component;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public Operator createOperator() {
-		OperatorImpl operator = new OperatorImpl();
+		final OperatorImpl operator = new OperatorImpl();
 		return operator;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public ComNode createComNode() {
-		ComNodeImpl comNode = new ComNodeImpl();
+		final ComNodeImpl comNode = new ComNodeImpl();
 		return comNode;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public Dma createDma() {
-		DmaImpl dma = new DmaImpl();
+		final DmaImpl dma = new DmaImpl();
 		return dma;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public Mem createMem() {
-		MemImpl mem = new MemImpl();
+		final MemImpl mem = new MemImpl();
 		return mem;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public HierarchyPort createHierarchyPort() {
-		HierarchyPortImpl hierarchyPort = new HierarchyPortImpl();
+		final HierarchyPortImpl hierarchyPort = new HierarchyPortImpl();
 		return hierarchyPort;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public ComInterface createComInterface() {
-		ComInterfaceImpl comInterface = new ComInterfaceImpl();
+		final ComInterfaceImpl comInterface = new ComInterfaceImpl();
 		return comInterface;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -205,7 +203,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @deprecated
 	 * @generated
 	 */

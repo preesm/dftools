@@ -11,16 +11,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -29,9 +29,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -46,6 +46,7 @@ import java.util.Set;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
+import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.event.GraphEdgeChangeEvent;
 import org.jgrapht.event.GraphListener;
@@ -58,8 +59,7 @@ import org.jgrapht.event.VertexSetListener;
  * @author pthebault
  * @author kdesnos
  */
-public class DAGListenableGraph extends DirectedAcyclicGraph implements
-		ListenableGraph<DAGVertex, DAGEdge> {
+public class DAGListenableGraph extends DirectedAcyclicGraph implements ListenableGraph<DAGVertex, DAGEdge> {
 
 	/**
 	 * A reuseable edge event.
@@ -67,14 +67,13 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @author Barak Naveh
 	 * @since Aug 10, 2003
 	 */
-	private static class FlyweightEdgeEvent<VV, EE> extends
-			GraphEdgeChangeEvent<VV, EE> {
+	private static class FlyweightEdgeEvent<VV, EE> extends GraphEdgeChangeEvent<VV, EE> {
 		private static final long serialVersionUID = 3907207152526636089L;
 
 		/**
 		 * @see GraphEdgeChangeEvent#GraphEdgeChangeEvent(Object, int, Edge)
 		 */
-		private FlyweightEdgeEvent(Object eventSource, int type, EE e) {
+		private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e) {
 			super(eventSource, type, e);
 		}
 
@@ -84,7 +83,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 		 * @param e
 		 *            the edge to be set.
 		 */
-		protected void setEdge(EE e) {
+		protected void setEdge(final EE e) {
 			this.edge = e;
 		}
 
@@ -94,7 +93,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 		 * @param type
 		 *            the type to be set.
 		 */
-		protected void setType(int type) {
+		protected void setType(final int type) {
 			this.type = type;
 		}
 	}
@@ -105,15 +104,14 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @author Barak Naveh
 	 * @since Aug 10, 2003
 	 */
-	private static class FlyweightVertexEvent<VV> extends
-			GraphVertexChangeEvent<VV> {
+	private static class FlyweightVertexEvent<VV> extends GraphVertexChangeEvent<VV> {
 		private static final long serialVersionUID = 3257848787857585716L;
 
 		/**
 		 * @see GraphVertexChangeEvent#GraphVertexChangeEvent(Object, int,
 		 *      Object)
 		 */
-		private FlyweightVertexEvent(Object eventSource, int type, VV vertex) {
+		private FlyweightVertexEvent(final Object eventSource, final int type, final VV vertex) {
 			super(eventSource, type, vertex);
 		}
 
@@ -123,7 +121,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 		 * @param type
 		 *            type to be set.
 		 */
-		protected void setType(int type) {
+		protected void setType(final int type) {
 			this.type = type;
 		}
 
@@ -133,7 +131,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 		 * @param vertex
 		 *            the vertex to be set.
 		 */
-		protected void setVertex(VV vertex) {
+		protected void setVertex(final VV vertex) {
 			this.vertex = vertex;
 		}
 	}
@@ -143,15 +141,14 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 		 */
 	private static final long serialVersionUID = -7651455929185604666L;
 
-	private static <L extends EventListener> void addToListenerList(
-			List<L> list, L l) {
+	private static <L extends EventListener> void addToListenerList(final List<L> list, final L l) {
 		if (!list.contains(l)) {
 			list.add(l);
 		}
 	}
 
-	private ArrayList<GraphListener<DAGVertex, DAGEdge>> graphListeners = new ArrayList<GraphListener<DAGVertex, DAGEdge>>();
-	private FlyweightEdgeEvent<DAGVertex, DAGEdge> reuseableEdgeEvent;
+	private final ArrayList<GraphListener<DAGVertex, DAGEdge>>	graphListeners	= new ArrayList<>();
+	private FlyweightEdgeEvent<DAGVertex, DAGEdge>				reuseableEdgeEvent;
 
 	private FlyweightVertexEvent<DAGVertex> reuseableVertexEvent;
 
@@ -160,7 +157,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 
 	private boolean reuseEvents;
 
-	private ArrayList<VertexSetListener<DAGVertex>> vertexSetListeners = new ArrayList<VertexSetListener<DAGVertex>>();
+	private final ArrayList<VertexSetListener<DAGVertex>> vertexSetListeners = new ArrayList<>();
 
 	/**
 	 * Creates a new DAGListenableGraph
@@ -170,8 +167,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	}
 
 	@Override
-	public DAGEdge addEdge(DAGVertex sourceVertex, DAGVertex targetVertex) {
-		DAGEdge e = super.addEdge(sourceVertex, targetVertex);
+	public DAGEdge addEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex) {
+		final DAGEdge e = super.addEdge(sourceVertex, targetVertex);
 
 		if (e != null) {
 			fireEdgeAdded(e);
@@ -184,9 +181,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @see Graph#addEdge(Object, Object, Object)
 	 */
 	@Override
-	public boolean addEdge(DAGVertex sourceVertex, DAGVertex targetVertex,
-			DAGEdge e) {
-		boolean added = super.addEdge(sourceVertex, targetVertex, e);
+	public boolean addEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex, final DAGEdge e) {
+		final boolean added = super.addEdge(sourceVertex, targetVertex, e);
 
 		if (added) {
 			fireEdgeAdded(e);
@@ -211,16 +207,16 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @see ListenableGraph#addGraphListener(GraphListener)
 	 */
 	@Override
-	public void addGraphListener(GraphListener<DAGVertex, DAGEdge> l) {
-		addToListenerList(graphListeners, l);
+	public void addGraphListener(final GraphListener<DAGVertex, DAGEdge> l) {
+		DAGListenableGraph.addToListenerList(this.graphListeners, l);
 	}
 
 	/**
 	 * @see Graph#addVertex(Object)
 	 */
 	@Override
-	public boolean addVertex(DAGVertex v) {
-		boolean modified = super.addVertex(v);
+	public boolean addVertex(final DAGVertex v) {
+		final boolean modified = super.addVertex(v);
 
 		if (modified) {
 			fireVertexAdded(v);
@@ -233,33 +229,29 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @see ListenableGraph#addVertexSetListener(VertexSetListener)
 	 */
 	@Override
-	public void addVertexSetListener(VertexSetListener<DAGVertex> l) {
-		addToListenerList(vertexSetListeners, l);
+	public void addVertexSetListener(final VertexSetListener<DAGVertex> l) {
+		DAGListenableGraph.addToListenerList(this.vertexSetListeners, l);
 	}
 
-	private GraphEdgeChangeEvent<DAGVertex, DAGEdge> createGraphEdgeChangeEvent(
-			int eventType, DAGEdge edge) {
-		if (reuseEvents) {
-			reuseableEdgeEvent.setType(eventType);
-			reuseableEdgeEvent.setEdge(edge);
+	private GraphEdgeChangeEvent<DAGVertex, DAGEdge> createGraphEdgeChangeEvent(final int eventType, final DAGEdge edge) {
+		if (this.reuseEvents) {
+			this.reuseableEdgeEvent.setType(eventType);
+			this.reuseableEdgeEvent.setEdge(edge);
 
-			return reuseableEdgeEvent;
+			return this.reuseableEdgeEvent;
 		} else {
-			return new GraphEdgeChangeEvent<DAGVertex, DAGEdge>(this,
-					eventType, edge);
+			return new GraphEdgeChangeEvent<>(this, eventType, edge);
 		}
 	}
 
-	private GraphVertexChangeEvent<DAGVertex> createGraphVertexChangeEvent(
-			int eventType, DAGVertex vertex) {
-		if (reuseEvents) {
-			reuseableVertexEvent.setType(eventType);
-			reuseableVertexEvent.setVertex(vertex);
+	private GraphVertexChangeEvent<DAGVertex> createGraphVertexChangeEvent(final int eventType, final DAGVertex vertex) {
+		if (this.reuseEvents) {
+			this.reuseableVertexEvent.setType(eventType);
+			this.reuseableVertexEvent.setVertex(vertex);
 
-			return reuseableVertexEvent;
+			return this.reuseableVertexEvent;
 		} else {
-			return new GraphVertexChangeEvent<DAGVertex>(this, eventType,
-					vertex);
+			return new GraphVertexChangeEvent<>(this, eventType, vertex);
 		}
 	}
 
@@ -269,12 +261,11 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @param edge
 	 *            the edge that was added.
 	 */
-	protected void fireEdgeAdded(DAGEdge edge) {
-		GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(
-				GraphEdgeChangeEvent.EDGE_ADDED, edge);
+	protected void fireEdgeAdded(final DAGEdge edge) {
+		final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<DAGVertex, DAGEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
 			l.edgeAdded(e);
 		}
@@ -286,12 +277,11 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @param edge
 	 *            the edge that was removed.
 	 */
-	protected void fireEdgeRemoved(DAGEdge edge) {
-		GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(
-				GraphEdgeChangeEvent.EDGE_REMOVED, edge);
+	protected void fireEdgeRemoved(final DAGEdge edge) {
+		final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<DAGVertex, DAGEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
 			l.edgeRemoved(e);
 		}
@@ -303,18 +293,17 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @param vertex
 	 *            the vertex that was added.
 	 */
-	protected void fireVertexAdded(DAGVertex vertex) {
-		GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(
-				GraphVertexChangeEvent.VERTEX_ADDED, vertex);
+	protected void fireVertexAdded(final DAGVertex vertex) {
+		final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
 
-		for (int i = 0; i < vertexSetListeners.size(); i++) {
-			VertexSetListener<DAGVertex> l = vertexSetListeners.get(i);
+		for (int i = 0; i < this.vertexSetListeners.size(); i++) {
+			final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
 
 			l.vertexAdded(e);
 		}
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<DAGVertex, DAGEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
 			l.vertexAdded(e);
 		}
@@ -326,18 +315,17 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @param vertex
 	 *            the vertex that was removed.
 	 */
-	protected void fireVertexRemoved(DAGVertex vertex) {
-		GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(
-				GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
+	protected void fireVertexRemoved(final DAGVertex vertex) {
+		final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
 
-		for (int i = 0; i < vertexSetListeners.size(); i++) {
-			VertexSetListener<DAGVertex> l = vertexSetListeners.get(i);
+		for (int i = 0; i < this.vertexSetListeners.size(); i++) {
+			final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
 
 			l.vertexRemoved(e);
 		}
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<DAGVertex, DAGEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
 			l.vertexRemoved(e);
 		}
@@ -353,15 +341,15 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @return the value of the <code>reuseEvents</code> flag.
 	 */
 	public boolean isReuseEvents() {
-		return reuseEvents;
+		return this.reuseEvents;
 	}
 
 	/**
 	 * @see Graph#removeEdge(Object)
 	 */
 	@Override
-	public boolean removeEdge(DAGEdge e) {
-		boolean modified = super.removeEdge(e);
+	public boolean removeEdge(final DAGEdge e) {
+		final boolean modified = super.removeEdge(e);
 
 		if (modified) {
 			fireEdgeRemoved(e);
@@ -375,8 +363,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 */
 	@Override
 	@Deprecated
-	public DAGEdge removeEdge(DAGVertex sourceVertex, DAGVertex targetVertex) {
-		DAGEdge e = super.removeEdge(sourceVertex, targetVertex);
+	public DAGEdge removeEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex) {
+		final DAGEdge e = super.removeEdge(sourceVertex, targetVertex);
 
 		if (e != null) {
 			fireEdgeRemoved(e);
@@ -389,20 +377,20 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @see ListenableGraph#removeGraphListener(GraphListener)
 	 */
 	@Override
-	public void removeGraphListener(GraphListener<DAGVertex, DAGEdge> l) {
-		graphListeners.remove(l);
+	public void removeGraphListener(final GraphListener<DAGVertex, DAGEdge> l) {
+		this.graphListeners.remove(l);
 	}
 
 	/**
 	 * @see Graph#removeVertex(Object)
 	 */
 	@Override
-	public boolean removeVertex(DAGVertex v) {
+	public boolean removeVertex(final DAGVertex v) {
 		if (containsVertex(v)) {
-			Set<DAGEdge> touchingEdgesList = edgesOf(v);
+			final Set<DAGEdge> touchingEdgesList = edgesOf(v);
 
 			// copy set to avoid ConcurrentModificationException
-			removeAllEdges(new ArrayList<DAGEdge>(touchingEdgesList));
+			removeAllEdges(new ArrayList<>(touchingEdgesList));
 
 			super.removeVertex(v); // remove the vertex itself
 
@@ -421,8 +409,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 * @see ListenableGraph#removeVertexSetListener(VertexSetListener)
 	 */
 	@Override
-	public void removeVertexSetListener(VertexSetListener<DAGVertex> l) {
-		vertexSetListeners.remove(l);
+	public void removeVertexSetListener(final VertexSetListener<DAGVertex> l) {
+		this.vertexSetListeners.remove(l);
 	}
 
 	/**
@@ -435,7 +423,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements
 	 *            whether to reuse previously fired event objects instead of
 	 *            creating a new event object for each event.
 	 */
-	public void setReuseEvents(boolean reuseEvents) {
+	public void setReuseEvents(final boolean reuseEvents) {
 		this.reuseEvents = reuseEvents;
 	}
 }

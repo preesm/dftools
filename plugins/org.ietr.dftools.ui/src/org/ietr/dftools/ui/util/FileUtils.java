@@ -11,16 +11,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -29,9 +29,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -61,7 +61,7 @@ import org.ietr.dftools.workflow.Activator;
 
 /**
  * Useful UI methods
- * 
+ *
  * @author mpelcat
  */
 public class FileUtils {
@@ -73,26 +73,25 @@ public class FileUtils {
 
 		Set<String> fileExtensions = null;
 
-		public FileContentProvider(String fileExtension) {
+		public FileContentProvider(final String fileExtension) {
 			super();
-			this.fileExtensions = new HashSet<String>();
+			this.fileExtensions = new HashSet<>();
 			this.fileExtensions.add(fileExtension);
 		}
 
-		public FileContentProvider(Set<String> fileExtensions) {
+		public FileContentProvider(final Set<String> fileExtensions) {
 			super();
-			this.fileExtensions = new HashSet<String>(fileExtensions);
+			this.fileExtensions = new HashSet<>(fileExtensions);
 		}
 
 		@Override
-		public Object[] getChildren(Object element) {
-			Object[] children = super.getChildren(element);
-			List<Object> list = new ArrayList<Object>();
-			for (Object o : children) {
+		public Object[] getChildren(final Object element) {
+			final Object[] children = super.getChildren(element);
+			final List<Object> list = new ArrayList<>();
+			for (final Object o : children) {
 				if (o instanceof IFile) {
-					IFile file = (IFile) o;
-					if (file.getFileExtension() != null
-							&& fileExtensions.contains(file.getFileExtension())) {
+					final IFile file = (IFile) o;
+					if ((file.getFileExtension() != null) && this.fileExtensions.contains(file.getFileExtension())) {
 						list.add(o);
 					}
 				} else {
@@ -107,13 +106,11 @@ public class FileUtils {
 	/**
 	 * Validates the selection based on the multi select and folder setting.
 	 */
-	private static class SingleFileSelectionValidator implements
-			ISelectionStatusValidator {
+	private static class SingleFileSelectionValidator implements ISelectionStatusValidator {
 
 		@Override
-		public IStatus validate(Object[] selection) {
-			if (selection.length == 1
-					&& (selection[0] instanceof IFile || selection[0] instanceof IFolder)) {
+		public IStatus validate(final Object[] selection) {
+			if ((selection.length == 1) && ((selection[0] instanceof IFile) || (selection[0] instanceof IFolder))) {
 				return new Status(IStatus.OK, Activator.PLUGIN_ID, "");
 			}
 			return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "");
@@ -123,18 +120,17 @@ public class FileUtils {
 	/**
 	 * Directory tree Content provider that filters files
 	 */
-	public static class DirectoryContentProvider extends
-			WorkbenchContentProvider {
+	public static class DirectoryContentProvider extends WorkbenchContentProvider {
 
 		public DirectoryContentProvider() {
 			super();
 		}
 
 		@Override
-		public Object[] getChildren(Object element) {
-			Object[] children = super.getChildren(element);
-			List<Object> list = new ArrayList<Object>();
-			for (Object o : children) {
+		public Object[] getChildren(final Object element) {
+			final Object[] children = super.getChildren(element);
+			final List<Object> list = new ArrayList<>();
+			for (final Object o : children) {
 				if (o instanceof IProject) {
 					list.add(o);
 				} else if (o instanceof IFolder) {
@@ -149,33 +145,25 @@ public class FileUtils {
 	/**
 	 * Displays a file browser in a shell. The path is relative to the project
 	 */
-	static public String browseFiles(Shell shell, String title,
-			String fileExtension) {
-		Set<String> fileExtensions = new HashSet<String>();
+	static public String browseFiles(final Shell shell, final String title, final String fileExtension) {
+		final Set<String> fileExtensions = new HashSet<>();
 		fileExtensions.add(fileExtension);
 
-		return browseFiles(shell, title, fileExtensions);
+		return FileUtils.browseFiles(shell, title, fileExtensions);
 	}
 
 	/**
 	 * Displays a file browser in a shell. The path is relative to the project.
 	 */
-	static public String browseFiles(Shell shell, String title,
-			Set<String> fileExtensions) {
+	static public String browseFiles(final Shell shell, final String title, final Set<String> fileExtensions) {
 		String returnVal = "";
 
 		ElementTreeSelectionDialog tree = null;
 
 		if (fileExtensions == null) {
-			tree = new ElementTreeSelectionDialog(shell,
-					WorkbenchLabelProvider
-							.getDecoratingWorkbenchLabelProvider(),
-					new DirectoryContentProvider());
+			tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), new DirectoryContentProvider());
 		} else {
-			tree = new ElementTreeSelectionDialog(shell,
-					WorkbenchLabelProvider
-							.getDecoratingWorkbenchLabelProvider(),
-					new FileContentProvider(fileExtensions));
+			tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), new FileContentProvider(fileExtensions));
 		}
 		tree.setAllowMultiple(false);
 		tree.setInput(ResourcesPlugin.getWorkspace().getRoot());

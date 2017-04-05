@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,9 +28,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -58,7 +58,7 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 /**
  * Displaying information or error messages through a console initialized by the
  * initConsole method.
- * 
+ *
  * @author mwipliez
  * @author mpelcat
  */
@@ -75,19 +75,21 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 	MessageConsole console = null;
 
 	@Override
-	public void setLevel(Level newLevel) throws SecurityException {
+	public void setLevel(final Level newLevel) throws SecurityException {
 		// Enabling only info level
 		super.setLevel(Level.INFO);
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public DFToolsWorkflowLogger() {
-		super(LOGGER_NAME, null);
+		super(DFToolsWorkflowLogger.LOGGER_NAME, null);
 		LogManager.getLogManager().addLogger(this);
 
-		if (!isRunningFromCLI) initConsole();
+		if (!DFToolsWorkflowLogger.isRunningFromCLI) {
+			initConsole();
+		}
 	}
 
 	/**
@@ -96,61 +98,57 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 	 * variable
 	 */
 	@Override
-	public void logFromProperty(Level level, String msgKey, String... variables) {
+	public void logFromProperty(final Level level, final String msgKey, final String... variables) {
 		log(level, WorkflowMessages.getString(msgKey, variables));
 	}
 
 	@Override
-	public void log(LogRecord record) {
-		if (isRunningFromCLI)
+	public void log(final LogRecord record) {
+		if (DFToolsWorkflowLogger.isRunningFromCLI) {
 			logCLI(record);
-		else
+		} else {
 			logGUI(record);
+		}
 
 	}
 
-	private void logGUI(LogRecord record) {
-		Level level = record.getLevel();
+	private void logGUI(final LogRecord record) {
+		final Level level = record.getLevel();
 		final int levelVal = level.intValue();
-		if (getLevel() == null || levelVal >= getLevel().intValue()) {
+		if ((getLevel() == null) || (levelVal >= getLevel().intValue())) {
 
 			// Writes a log in standard output
-			if (console == null) {
+			if (this.console == null) {
 				if (levelVal < Level.INFO.intValue()) {
-					String msg = record.getMillis() + " " + level.toString()
-							+ ": " + record.getMessage() + " (in "
-							+ record.getSourceClassName() + "#"
+					final String msg = record.getMillis() + " " + level.toString() + ": " + record.getMessage() + " (in " + record.getSourceClassName() + "#"
 							+ record.getSourceMethodName() + ")";
 					System.out.println(msg);
 				} else {
-					Date date = new Date(record.getMillis());
-					DateFormat df = DateFormat.getTimeInstance();
-					String msg = df.format(date) + " " + level.toString()
-							+ ": " + record.getMessage();
+					final Date date = new Date(record.getMillis());
+					final DateFormat df = DateFormat.getTimeInstance();
+					final String msg = df.format(date) + " " + level.toString() + ": " + record.getMessage();
 
-					if (levelVal < Level.WARNING.intValue())
+					if (levelVal < Level.WARNING.intValue()) {
 						System.out.println(msg);
-					else
+					} else {
 						System.err.println(msg);
+					}
 				}
 			} else {
 				// Writes a log in console
-				final MessageConsoleStream stream = console.newMessageStream();
+				final MessageConsoleStream stream = this.console.newMessageStream();
 
-				Activator.getDefault().getWorkbench().getDisplay()
-						.asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								if (levelVal < Level.WARNING.intValue())
-									stream.setColor(new Color(null, 0, 0, 0));
-								else if (levelVal == Level.WARNING.intValue())
-									stream.setColor(new Color(null, 255, 150, 0));
-								else if (levelVal > Level.WARNING.intValue())
-									stream.setColor(new Color(null, 255, 0, 0));
-							}
-						});
+				Activator.getDefault().getWorkbench().getDisplay().asyncExec(() -> {
+					if (levelVal < Level.WARNING.intValue()) {
+						stream.setColor(new Color(null, 0, 0, 0));
+					} else if (levelVal == Level.WARNING.intValue()) {
+						stream.setColor(new Color(null, 255, 150, 0));
+					} else if (levelVal > Level.WARNING.intValue()) {
+						stream.setColor(new Color(null, 255, 0, 0));
+					}
+				});
 
-				stream.println(getFormattedTime() + record.getMessage());
+				stream.println(WorkflowLogger.getFormattedTime() + record.getMessage());
 
 				if (getLevel().intValue() >= Level.SEVERE.intValue()) {
 					// throw (new PreesmException(record.getMessage()));
@@ -159,32 +157,31 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 		}
 	}
 
-	private void logCLI(LogRecord record) {
+	private void logCLI(final LogRecord record) {
 		CLIWorkflowLogger.log(record.getLevel(), record.getMessage());
 	}
 
 	public void initConsole() {
 		setLevel(Level.INFO);
-		IConsoleManager mgr = ConsolePlugin.getDefault().getConsoleManager();
+		final IConsoleManager mgr = ConsolePlugin.getDefault().getConsoleManager();
 
-		if (console == null) {
-			console = new MessageConsole("DFTools Workflow console", null);
-			mgr.addConsoles(new IConsole[] { console });
+		if (this.console == null) {
+			this.console = new MessageConsole("DFTools Workflow console", null);
+			mgr.addConsoles(new IConsole[] { this.console });
 		}
 
-		console.activate();
-		console.setBackground(new Color(null, 230, 228, 252));
+		this.console.activate();
+		this.console.setBackground(new Color(null, 230, 228, 252));
 
-		mgr.refresh(console);
+		mgr.refresh(this.console);
 	}
 
 	/**
 	 * Method to call before the first log when running preesm through command
-	 * line interface
-	 * Basically called by CLIWorkflowExecutor
+	 * line interface Basically called by CLIWorkflowExecutor
 	 */
 	public static void runFromCLI() {
-		isRunningFromCLI = true;
+		DFToolsWorkflowLogger.isRunningFromCLI = true;
 	}
 
 }

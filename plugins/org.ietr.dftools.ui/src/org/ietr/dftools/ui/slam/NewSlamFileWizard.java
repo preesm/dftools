@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,15 +27,15 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  *******************************************************************************/
 /**
- * 
+ *
  */
 package org.ietr.dftools.ui.slam;
 
@@ -58,7 +58,7 @@ import org.ietr.dftools.graphiti.ui.wizards.WizardSaveGraphPage;
 
 /**
  * This class provides a wizard to create a new slam network.
- * 
+ *
  * @author Matthieu Wipliez
  * @author mpelcat
  */
@@ -79,11 +79,10 @@ public class NewSlamFileWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void addPages() {
-		WizardSaveGraphPage page = new WizardSaveGraphPage(selection);
+		final WizardSaveGraphPage page = new WizardSaveGraphPage(this.selection);
 
-		Configuration configuration = GraphitiModelPlugin.getDefault()
-				.getConfiguration("S-LAM Design");
-		ObjectType type = configuration.getGraphType("S-LAM Design");
+		final Configuration configuration = GraphitiModelPlugin.getDefault().getConfiguration("S-LAM Design");
+		final ObjectType type = configuration.getGraphType("S-LAM Design");
 
 		page.setGraph(new Graph(configuration, type, true));
 		page.setDescription("Create a new System-Level Architecture Model.");
@@ -91,7 +90,7 @@ public class NewSlamFileWizard extends Wizard implements INewWizard {
 	}
 
 	@Override
-	public void init(IWorkbench workbench, IStructuredSelection selection) {
+	public void init(final IWorkbench workbench, final IStructuredSelection selection) {
 		this.selection = selection;
 		this.workbench = workbench;
 	}
@@ -99,24 +98,23 @@ public class NewSlamFileWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 		final WizardSaveGraphPage page = (WizardSaveGraphPage) getPage("saveGraph");
-		IFile file = page.createNewFile();
+		final IFile file = page.createNewFile();
 		if (file == null) {
 			return false;
 		}
 
 		// Open editor on new file.
-		IWorkbenchWindow dw = workbench.getActiveWorkbenchWindow();
+		final IWorkbenchWindow dw = this.workbench.getActiveWorkbenchWindow();
 		try {
 			if (dw != null) {
 				BasicNewResourceWizard.selectAndReveal(file, dw);
-				IWorkbenchPage activePage = dw.getActivePage();
+				final IWorkbenchPage activePage = dw.getActivePage();
 				if (activePage != null) {
 					IDE.openEditor(activePage, file, true);
 				}
 			}
-		} catch (PartInitException e) {
-			MessageDialog.openError(dw.getShell(), "Problem opening editor",
-					e.getMessage());
+		} catch (final PartInitException e) {
+			MessageDialog.openError(dw.getShell(), "Problem opening editor", e.getMessage());
 		}
 
 		return true;

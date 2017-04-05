@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,9 +28,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -67,9 +67,9 @@ import org.jgrapht.traverse.TopologicalOrderIterator;
 
 /**
  * Demo class to demonstrate the display features of a random DAG
- * 
+ *
  * @author pthebault
- * 
+ *
  */
 public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 	// ~ Static fields/initializers
@@ -78,11 +78,11 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 	/**
 	 * Static field containing all the instances of this class
 	 */
-	public static Vector<DirectedAcyclicGraphGenerator> adapters = new Vector<DirectedAcyclicGraphGenerator>();
+	public static Vector<DirectedAcyclicGraphGenerator> adapters = new Vector<>();
 
-	private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
-	private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
-	private static final long serialVersionUID = 853642557926207725L;
+	private static final Color		DEFAULT_BG_COLOR	= Color.decode("#FAFBFF");
+	private static final Dimension	DEFAULT_SIZE		= new Dimension(530, 320);
+	private static final long		serialVersionUID	= 853642557926207725L;
 
 	// ~ Instance fields
 	// --------------------------------------------------------
@@ -93,25 +93,24 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 	/**
 	 * An alternative starting point for this test, to also allow running this
 	 * applet as an application.
-	 * 
+	 *
 	 * @param args
 	 *            ignored.
-	 * @throws InvalidExpressionException 
+	 * @throws InvalidExpressionException
 	 */
 
-	public static void main(String[] args) throws InvalidExpressionException {
-		int nbVertex = 30, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 5;
-		DirectedAcyclicGraphGeneratorDemo applet = new DirectedAcyclicGraphGeneratorDemo();
+	public static void main(final String[] args) throws InvalidExpressionException {
+		final int nbVertex = 30, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 5;
+		final DirectedAcyclicGraphGeneratorDemo applet = new DirectedAcyclicGraphGeneratorDemo();
 
 		// Creates a random DAG
-		DirectedAcyclicGraphGenerator DAGG = new DirectedAcyclicGraphGenerator();
-		SDFGraph demoGraph = DAGG.createAcyclicRandomGraph(nbVertex,
-				minInDegree, maxInDegree, minOutDegree, maxOutDegree);
+		final DirectedAcyclicGraphGenerator DAGG = new DirectedAcyclicGraphGenerator();
+		final SDFGraph demoGraph = DAGG.createAcyclicRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree);
 
-		TopologyVisitor topo = new TopologyVisitor();
+		final TopologyVisitor topo = new TopologyVisitor();
 		try {
 			demoGraph.accept(topo);
-		} catch (SDF4JException e) {
+		} catch (final SDF4JException e) {
 			e.printStackTrace();
 		}
 		applet.init(demoGraph);
@@ -123,15 +122,15 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 
 	private SDFListenableGraph model;
 
-	private void adjustDisplaySettings(JGraph jg) {
-		jg.setPreferredSize(DEFAULT_SIZE);
+	private void adjustDisplaySettings(final JGraph jg) {
+		jg.setPreferredSize(DirectedAcyclicGraphGeneratorDemo.DEFAULT_SIZE);
 
-		Color c = DEFAULT_BG_COLOR;
+		Color c = DirectedAcyclicGraphGeneratorDemo.DEFAULT_BG_COLOR;
 		String colorStr = null;
 
 		try {
 			colorStr = getParameter("bgcolor");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 
 		if (colorStr != null) {
@@ -143,79 +142,74 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 
 	/**
 	 * Initialize a created SDFAdpaterDemo with the given Graph to display
-	 * 
+	 *
 	 * @param graphIn
 	 *            The graph to display
-	 * @throws InvalidExpressionException 
+	 * @throws InvalidExpressionException
 	 */
-	public void init(SDFGraph graphIn) throws InvalidExpressionException {
+	public void init(final SDFGraph graphIn) throws InvalidExpressionException {
 
-		SDFGraph graph = graphIn.clone();
+		final SDFGraph graph = graphIn.clone();
 		// create a JGraphT graph
-		model = new SDFListenableGraph();
+		this.model = new SDFListenableGraph();
 
 		// create a visualization using JGraph, via an adapter
-		jgAdapter = new JGraphModelAdapter<SDFAbstractVertex, SDFEdge>(model);
+		this.jgAdapter = new JGraphModelAdapter<>(this.model);
 
-		JGraph jgraph = new JGraph(jgAdapter);
+		final JGraph jgraph = new JGraph(this.jgAdapter);
 
 		adjustDisplaySettings(jgraph);
 		getContentPane().add(jgraph);
-		resize(DEFAULT_SIZE);
-		System.out.println(" graph has " + graph.vertexSet().size()
-				+ " vertice, including broadcast");
-		for (SDFAbstractVertex vertex : graph.vertexSet()) {
-			model.addVertex(vertex);
+		resize(DirectedAcyclicGraphGeneratorDemo.DEFAULT_SIZE);
+		System.out.println(" graph has " + graph.vertexSet().size() + " vertice, including broadcast");
+		for (final SDFAbstractVertex vertex : graph.vertexSet()) {
+			this.model.addVertex(vertex);
 		}
 
-		for (SDFEdge edge : graph.edgeSet()) {
-			SDFEdge newEdge = model.addEdge(graph.getEdgeSource(edge), graph
-					.getEdgeTarget(edge));
+		for (final SDFEdge edge : graph.edgeSet()) {
+			final SDFEdge newEdge = this.model.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
 			newEdge.setProd(edge.getProd());
 			newEdge.setCons(edge.getCons());
 			newEdge.setDelay(edge.getDelay());
 		}
 
-		CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<SDFAbstractVertex, SDFEdge>(
-				model);
+		final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(this.model);
 		GraphIterator<SDFAbstractVertex, SDFEdge> order;
 		if (detector.detectCycles()) {
-			order = new SDFIterator(model);
+			order = new SDFIterator(this.model);
 		} else {
-			order = new TopologicalOrderIterator<SDFAbstractVertex, SDFEdge>(
-					model);
+			order = new TopologicalOrderIterator<>(this.model);
 		}
 
-		Vector<SDFAbstractVertex> vertices = new Vector<SDFAbstractVertex>();
+		final Vector<SDFAbstractVertex> vertices = new Vector<>();
 		int x = 0;
 		int y = 100;
 		int ymax = y;
 		SDFAbstractVertex previousVertex = null;
 		while (order.hasNext()) {
-			SDFAbstractVertex nextVertex = order.next();
+			final SDFAbstractVertex nextVertex = order.next();
 			vertices.add(nextVertex);
-			if (previousVertex != null
-					&& model.getEdge(nextVertex, previousVertex) == null
-					&& model.getEdge(previousVertex, nextVertex) == null) {
+			if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null)
+					&& (this.model.getEdge(previousVertex, nextVertex) == null)) {
 				y += 50;
-				this.positionVertexAt(nextVertex, x, y);
+				positionVertexAt(nextVertex, x, y);
 				if (y > ymax) {
 					ymax = y;
 				}
 			} else {
 				y = 100;
 				x += 200;
-				this.positionVertexAt(nextVertex, x, 100);
+				positionVertexAt(nextVertex, x, 100);
 				previousVertex = nextVertex;
 			}
 		}
 
-		JFrame frame = new JFrame();
+		final JFrame frame = new JFrame();
 		jgraph.setPreferredSize(new Dimension(x + 200, ymax + 300));
 		frame.setContentPane(new ScrollPane());
 		frame.getContentPane().add(this);
 		frame.setTitle("JGraphT Adapter to JGraph Demo");
-		if (adapters.size() == 1) {
+		if (DirectedAcyclicGraphGeneratorDemo.adapters.size() == 1) {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		} else {
 			frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -226,20 +220,19 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 
 	@SuppressWarnings("unchecked")
 	// FIXME hb 28-nov-05: See FIXME below
-	private void positionVertexAt(Object vertex, int x, int y) {
-		DefaultGraphCell cell = jgAdapter.getVertexCell(vertex);
-		AttributeMap attr = cell.getAttributes();
-		Rectangle2D bounds = GraphConstants.getBounds(attr);
+	private void positionVertexAt(final Object vertex, final int x, final int y) {
+		final DefaultGraphCell cell = this.jgAdapter.getVertexCell(vertex);
+		final AttributeMap attr = cell.getAttributes();
+		final Rectangle2D bounds = GraphConstants.getBounds(attr);
 
-		Rectangle2D newBounds = new Rectangle2D.Double(x, y, bounds.getWidth(),
-				bounds.getHeight());
+		final Rectangle2D newBounds = new Rectangle2D.Double(x, y, bounds.getWidth(), bounds.getHeight());
 
 		GraphConstants.setBounds(attr, newBounds);
 
 		// TODO: Clean up generics once JGraph goes generic
-		AttributeMap cellAttr = new AttributeMap();
+		final AttributeMap cellAttr = new AttributeMap();
 		cellAttr.put(cell, attr);
-		jgAdapter.edit(cellAttr, null, null, null);
+		this.jgAdapter.edit(cellAttr, null, null, null);
 	}
 
 }

@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,9 +27,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -56,27 +56,27 @@ import org.ietr.dftools.architecture.slam.link.LinkPackage;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!--
  * end-user-doc -->
- * 
+ *
  * @generated
  */
 public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass linkEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass dataLinkEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private EClass controlLinkEClass = null;
@@ -90,19 +90,19 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * method {@link #init init()}, which also performs initialization of the
 	 * package, or returns the registered package, if one already exists. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
 	 * @see org.ietr.dftools.architecture.slam.link.LinkPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
 	private LinkPackageImpl() {
-		super(eNS_URI, LinkFactory.eINSTANCE);
+		super(LinkPackage.eNS_URI, LinkFactory.eINSTANCE);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private static boolean isInited = false;
@@ -110,42 +110,38 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model,
 	 * and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>
 	 * This method is used to initialize {@link LinkPackage#eINSTANCE} when that
 	 * field is accessed. Clients should not invoke it directly. Instead, they
 	 * should simply access that field to obtain the package. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @see #eNS_URI
 	 * @see #createPackageContents()
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
 	public static LinkPackage init() {
-		if (isInited)
-			return (LinkPackage) EPackage.Registry.INSTANCE
-					.getEPackage(LinkPackage.eNS_URI);
+		if (LinkPackageImpl.isInited) {
+			return (LinkPackage) EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI);
+		}
 
 		// Obtain or create and register package
-		LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof LinkPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new LinkPackageImpl());
+		final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.get(LinkPackage.eNS_URI) instanceof LinkPackageImpl
+				? EPackage.Registry.INSTANCE.get(LinkPackage.eNS_URI) : new LinkPackageImpl());
 
-		isInited = true;
+		LinkPackageImpl.isInited = true;
 
 		// Obtain or create and register interdependencies
-		SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
-		ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI)
-				: ComponentPackage.eINSTANCE);
-		AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(AttributesPackage.eNS_URI)
-				: AttributesPackage.eINSTANCE);
+		final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl
+				? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
+		final ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
+						: ComponentPackage.eINSTANCE);
+		final AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AttributesPackage.eNS_URI)
+						: AttributesPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theLinkPackage.createPackageContents();
@@ -169,97 +165,97 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getLink() {
-		return linkEClass;
+		return this.linkEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getLink_SourceInterface() {
-		return (EReference) linkEClass.getEStructuralFeatures().get(0);
+		return (EReference) this.linkEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getLink_DestinationInterface() {
-		return (EReference) linkEClass.getEStructuralFeatures().get(1);
+		return (EReference) this.linkEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getLink_SourceComponentInstance() {
-		return (EReference) linkEClass.getEStructuralFeatures().get(2);
+		return (EReference) this.linkEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EReference getLink_DestinationComponentInstance() {
-		return (EReference) linkEClass.getEStructuralFeatures().get(3);
+		return (EReference) this.linkEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EAttribute getLink_Uuid() {
-		return (EAttribute) linkEClass.getEStructuralFeatures().get(4);
+		return (EAttribute) this.linkEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EAttribute getLink_Directed() {
-		return (EAttribute) linkEClass.getEStructuralFeatures().get(5);
+		return (EAttribute) this.linkEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getDataLink() {
-		return dataLinkEClass;
+		return this.dataLinkEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
 	public EClass getControlLink() {
-		return controlLinkEClass;
+		return this.controlLinkEClass;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	@Override
@@ -269,7 +265,7 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private boolean isCreated = false;
@@ -278,31 +274,32 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * Creates the meta-model objects for the package. This method is guarded to
 	 * have no affect on any invocation but its first. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated)
+		if (this.isCreated) {
 			return;
-		isCreated = true;
+		}
+		this.isCreated = true;
 
 		// Create classes and their features
-		linkEClass = createEClass(LINK);
-		createEReference(linkEClass, LINK__SOURCE_INTERFACE);
-		createEReference(linkEClass, LINK__DESTINATION_INTERFACE);
-		createEReference(linkEClass, LINK__SOURCE_COMPONENT_INSTANCE);
-		createEReference(linkEClass, LINK__DESTINATION_COMPONENT_INSTANCE);
-		createEAttribute(linkEClass, LINK__UUID);
-		createEAttribute(linkEClass, LINK__DIRECTED);
+		this.linkEClass = createEClass(LinkPackage.LINK);
+		createEReference(this.linkEClass, LinkPackage.LINK__SOURCE_INTERFACE);
+		createEReference(this.linkEClass, LinkPackage.LINK__DESTINATION_INTERFACE);
+		createEReference(this.linkEClass, LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE);
+		createEReference(this.linkEClass, LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE);
+		createEAttribute(this.linkEClass, LinkPackage.LINK__UUID);
+		createEAttribute(this.linkEClass, LinkPackage.LINK__DIRECTED);
 
-		dataLinkEClass = createEClass(DATA_LINK);
+		this.dataLinkEClass = createEClass(LinkPackage.DATA_LINK);
 
-		controlLinkEClass = createEClass(CONTROL_LINK);
+		this.controlLinkEClass = createEClass(LinkPackage.CONTROL_LINK);
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	private boolean isInitialized = false;
@@ -311,71 +308,58 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 	 * Complete the initialization of the package and its meta-model. This
 	 * method is guarded to have no affect on any invocation but its first. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized)
+		if (this.isInitialized) {
 			return;
-		isInitialized = true;
+		}
+		this.isInitialized = true;
 
 		// Initialize package
-		setName(eNAME);
-		setNsPrefix(eNS_PREFIX);
-		setNsURI(eNS_URI);
+		setName(LinkPackage.eNAME);
+		setNsPrefix(LinkPackage.eNS_PREFIX);
+		setNsURI(LinkPackage.eNS_URI);
 
 		// Obtain other dependent packages
-		ComponentPackage theComponentPackage = (ComponentPackage) EPackage.Registry.INSTANCE
-				.getEPackage(ComponentPackage.eNS_URI);
-		SlamPackage theSlamPackage = (SlamPackage) EPackage.Registry.INSTANCE
-				.getEPackage(SlamPackage.eNS_URI);
+		final ComponentPackage theComponentPackage = (ComponentPackage) EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI);
+		final SlamPackage theSlamPackage = (SlamPackage) EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		dataLinkEClass.getESuperTypes().add(this.getLink());
-		controlLinkEClass.getESuperTypes().add(this.getLink());
+		this.dataLinkEClass.getESuperTypes().add(getLink());
+		this.controlLinkEClass.getESuperTypes().add(getLink());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(linkEClass, Link.class, "Link", IS_ABSTRACT, !IS_INTERFACE,
-				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLink_SourceInterface(),
-				theComponentPackage.getComInterface(), null, "sourceInterface",
-				null, 1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE,
-				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getLink_DestinationInterface(),
-				theComponentPackage.getComInterface(), null,
-				"destinationInterface", null, 1, 1, Link.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getLink_SourceComponentInstance(),
-				theSlamPackage.getComponentInstance(), null,
-				"sourceComponentInstance", null, 1, 1, Link.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
-		initEReference(getLink_DestinationComponentInstance(),
-				theSlamPackage.getComponentInstance(), null,
-				"destinationComponentInstance", null, 1, 1, Link.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-				IS_ORDERED);
-		initEAttribute(getLink_Uuid(), ecorePackage.getEString(), "uuid", null,
-				1, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLink_Directed(), ecorePackage.getEBoolean(),
-				"directed", "false", 1, 1, Link.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEClass(this.linkEClass, Link.class, "Link", EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE, EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLink_SourceInterface(), theComponentPackage.getComInterface(), null, "sourceInterface", null, 1, 1, Link.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE, EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEReference(getLink_DestinationInterface(), theComponentPackage.getComInterface(), null, "destinationInterface", null, 1, 1, Link.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE, EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEReference(getLink_SourceComponentInstance(), theSlamPackage.getComponentInstance(), null, "sourceComponentInstance", null, 1, 1, Link.class,
+				!EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE, EPackageImpl.IS_RESOLVE_PROXIES,
+				!EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEReference(getLink_DestinationComponentInstance(), theSlamPackage.getComponentInstance(), null, "destinationComponentInstance", null, 1, 1,
+				Link.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_COMPOSITE,
+				EPackageImpl.IS_RESOLVE_PROXIES, !EPackageImpl.IS_UNSETTABLE, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+		initEAttribute(getLink_Uuid(), this.ecorePackage.getEString(), "uuid", null, 1, 1, Link.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE,
+				EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED,
+				EPackageImpl.IS_ORDERED);
+		initEAttribute(getLink_Directed(), this.ecorePackage.getEBoolean(), "directed", "false", 1, 1, Link.class, !EPackageImpl.IS_TRANSIENT,
+				!EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
+				!EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
 
-		initEClass(dataLinkEClass, DataLink.class, "DataLink", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(this.dataLinkEClass, DataLink.class, "DataLink", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
+				EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(controlLinkEClass, ControlLink.class, "ControlLink",
-				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(this.controlLinkEClass, ControlLink.class, "ControlLink", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
+				EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
 	}
 
 } // LinkPackageImpl

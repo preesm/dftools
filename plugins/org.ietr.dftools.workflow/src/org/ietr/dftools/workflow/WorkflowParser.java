@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,9 +28,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -61,9 +61,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 /**
  * This class provides a workflow parser, allowing to parse a .workflow file and
  * to obtain a Workflow java object.
- * 
+ *
  * @author Matthieu Wipliez
- * 
+ *
  */
 public class WorkflowParser extends DefaultHandler2 {
 	/**
@@ -71,87 +71,82 @@ public class WorkflowParser extends DefaultHandler2 {
 	 */
 	TaskNode lastTransformationNode = null;
 
-	private Map<String, AbstractWorkflowNode> nodes;
+	private final Map<String, AbstractWorkflowNode> nodes;
 
 	private Workflow workflow = null;
 
 	public WorkflowParser() {
-		this.nodes = new HashMap<String, AbstractWorkflowNode>();
+		this.nodes = new HashMap<>();
 		this.workflow = new Workflow();
 	}
 
 	/**
 	 * Parse a workflow source file with the given fileName and returns the
 	 * corresponding Workflow.
-	 * 
+	 *
 	 * @param fileName
 	 *            The source file name.
 	 * @param workflow
 	 *            The workflow represented as a graph.
 	 */
-	public Workflow parse(String fileName) {
+	public Workflow parse(final String fileName) {
 
-		Path relativePath = new Path(fileName);
-		workflow.setPath(relativePath);
-		IFile file = ResourcesPlugin.getWorkspace().getRoot()
-				.getFile(relativePath);
+		final Path relativePath = new Path(fileName);
+		this.workflow.setPath(relativePath);
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(relativePath);
 		return parse(file);
 	}
 
 	/**
 	 * Parse a workflow source file and returns the corresponding Workflow.
-	 * 
+	 *
 	 * @param file
 	 *            The source file.
 	 * @param workflow
 	 *            The Workflow represented as a graph.
 	 */
-	public Workflow parse(IFile file) {
+	public Workflow parse(final IFile file) {
 		try {
-			XMLReader reader = XMLReaderFactory.createXMLReader();
+			final XMLReader reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(this);
 			reader.parse(new InputSource(file.getContents()));
 		} catch (SAXException | IOException | CoreException e) {
 			e.printStackTrace();
 		}
-		return workflow;
+		return this.workflow;
 	}
 
 	@Override
-	public void startElement(String uri, String localName, String qName,
-			Attributes attributes) {
+	public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) {
 
 		if (qName.equals("dftools:scenario")) {
-			String pluginId = attributes.getValue("pluginId");
-			AbstractWorkflowNode node = new ScenarioNode(pluginId);
-			workflow.addVertex(node);
-			nodes.put("scenario", node);
+			final String pluginId = attributes.getValue("pluginId");
+			final AbstractWorkflowNode node = new ScenarioNode(pluginId);
+			this.workflow.addVertex(node);
+			this.nodes.put("scenario", node);
 		} else if (qName.equals("dftools:task")) {
-			String taskId = attributes.getValue("taskId");
-			String pluginId = attributes.getValue("pluginId");
-			lastTransformationNode = new TaskNode(pluginId, taskId);
-			AbstractWorkflowNode node = lastTransformationNode;
-			workflow.addVertex(node);
-			nodes.put(taskId, node);
+			final String taskId = attributes.getValue("taskId");
+			final String pluginId = attributes.getValue("pluginId");
+			this.lastTransformationNode = new TaskNode(pluginId, taskId);
+			final AbstractWorkflowNode node = this.lastTransformationNode;
+			this.workflow.addVertex(node);
+			this.nodes.put(taskId, node);
 		} else if (qName.equals("dftools:dataTransfer")) {
-			AbstractWorkflowNode source = nodes
-					.get(attributes.getValue("from"));
-			AbstractWorkflowNode target = nodes.get(attributes.getValue("to"));
-			String sourcePort = attributes.getValue("sourceport");
-			String targetPort = attributes.getValue("targetport");
-			WorkflowEdge edge = workflow.addEdge(source, target);
+			final AbstractWorkflowNode source = this.nodes.get(attributes.getValue("from"));
+			final AbstractWorkflowNode target = this.nodes.get(attributes.getValue("to"));
+			final String sourcePort = attributes.getValue("sourceport");
+			final String targetPort = attributes.getValue("targetport");
+			final WorkflowEdge edge = this.workflow.addEdge(source, target);
 			edge.setSourcePort(sourcePort);
 			edge.setTargetPort(targetPort);
 		} else if (qName.equals("dftools:variable")) {
-			if (lastTransformationNode != null) {
-				lastTransformationNode.addParameter(
-						attributes.getValue("name"),
-						attributes.getValue("value"));
+			if (this.lastTransformationNode != null) {
+				this.lastTransformationNode.addParameter(attributes.getValue("name"), attributes.getValue("value"));
 			}
 		}
 	}
 
 	public Workflow getWorkflow() {
-		return workflow;
+		return this.workflow;
 	}
 }

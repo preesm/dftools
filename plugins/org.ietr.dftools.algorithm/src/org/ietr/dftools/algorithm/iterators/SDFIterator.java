@@ -11,16 +11,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -29,9 +29,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -53,96 +53,91 @@ import org.jgrapht.traverse.GraphIterator;
 
 /**
  * Class used to iterate over a SDF following the dependencies order
- * 
+ *
  * @author jpiat
  * @author kdesnos
- * 
+ *
  */
 public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
-	private SDFGraph graph;
-	private ArrayList<SDFAbstractVertex> stack;
-	private Vector<SDFAbstractVertex> treated;
+	private final SDFGraph					graph;
+	private ArrayList<SDFAbstractVertex>	stack;
+	private Vector<SDFAbstractVertex>		treated;
 
 	/**
 	 * Creates a new SDFIterator on the given SDFGraph
-	 * 
+	 *
 	 * @param graph
 	 *            The graph to iterate over
 	 * @throws InvalidExpressionException
 	 */
-	public SDFIterator(SDFGraph graph) throws InvalidExpressionException, RuntimeException {
+	public SDFIterator(final SDFGraph graph) throws InvalidExpressionException, RuntimeException {
 		this.graph = graph;
-		stack = new ArrayList<SDFAbstractVertex>();
-		treated = new Vector<SDFAbstractVertex>();
-		ArrayList<SDFAbstractVertex> treatedOrig = new ArrayList<SDFAbstractVertex>();
+		this.stack = new ArrayList<>();
+		this.treated = new Vector<>();
+		final ArrayList<SDFAbstractVertex> treatedOrig = new ArrayList<>();
 		treatedOrig.addAll(graph.vertexSet());
 		for (int i = 0; i < treatedOrig.size(); i++) {
-			SDFAbstractVertex vertex = treatedOrig.get(i);
-			List<SDFAbstractVertex> origs = originOf(vertex, treatedOrig);
-			for (SDFAbstractVertex orig : origs) {
-				if (!stack.contains(orig)) {
-					stack.add(orig);
+			final SDFAbstractVertex vertex = treatedOrig.get(i);
+			final List<SDFAbstractVertex> origs = originOf(vertex, treatedOrig);
+			for (final SDFAbstractVertex orig : origs) {
+				if (!this.stack.contains(orig)) {
+					this.stack.add(orig);
 				}
 			}
 		}
-		System.out.println(stack);
+		System.out.println(this.stack);
 
 		// Check if all vertices are reachable through this iterator
 		// First, backup the stack
-		ArrayList<SDFAbstractVertex> stackBackup = new ArrayList<SDFAbstractVertex>(
-				stack);
+		final ArrayList<SDFAbstractVertex> stackBackup = new ArrayList<>(this.stack);
 		// Then iterate
-		Set<SDFAbstractVertex> reached = new HashSet<SDFAbstractVertex>();
-		while (this.hasNext()) {
-			reached.add(this.next());
+		final Set<SDFAbstractVertex> reached = new HashSet<>();
+		while (hasNext()) {
+			reached.add(next());
 		}
 
 		// Check if all vertices were reached
 		if (reached.size() != graph.vertexSet().size()) {
 			// Find the non-reacheable vertices
-			List<SDFAbstractVertex> unreachable = new ArrayList<SDFAbstractVertex>(
-					graph.vertexSet());
+			final List<SDFAbstractVertex> unreachable = new ArrayList<>(graph.vertexSet());
 			unreachable.removeAll(reached);
-			throw new RuntimeException(
-					"Not all graph vertices are reachable with the SDFIterator.\n"
-							+ "Possible cause: There is a cycle without delay.\n"
-							+ "Unreachable Vertices: " + unreachable);
+			throw new RuntimeException("Not all graph vertices are reachable with the SDFIterator.\n" + "Possible cause: There is a cycle without delay.\n"
+					+ "Unreachable Vertices: " + unreachable);
 		}
 
 		// If the check was successful, restore the backed-up stack and clean
 		// treated
-		stack = stackBackup;
-		treated = new Vector<SDFAbstractVertex>();
+		this.stack = stackBackup;
+		this.treated = new Vector<>();
 	}
 
 	/**
 	 * Creates a new graph iterator that iterates over the given graph, starting
 	 * from the given seed
-	 * 
+	 *
 	 * @param graph
 	 *            The graph to iterate
 	 * @param seed
 	 *            The starting point of the iterator
 	 */
-	public SDFIterator(SDFGraph graph, SDFAbstractVertex seed) {
+	public SDFIterator(final SDFGraph graph, final SDFAbstractVertex seed) {
 		this.graph = graph;
-		stack = new ArrayList<SDFAbstractVertex>();
-		treated = new Vector<SDFAbstractVertex>();
-		stack.add(seed);
-		System.out.println(stack);
+		this.stack = new ArrayList<>();
+		this.treated = new Vector<>();
+		this.stack.add(seed);
+		System.out.println(this.stack);
 	}
 
 	@Override
-	public void addTraversalListener(
-			TraversalListener<SDFAbstractVertex, SDFEdge> arg0) {
+	public void addTraversalListener(final TraversalListener<SDFAbstractVertex, SDFEdge> arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public boolean hasNext() {
-		if (stack.size() == 0) {
+		if (this.stack.size() == 0) {
 			return false;
 		}
 		return true;
@@ -166,54 +161,49 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 			// If the iterator has a next
 			if (hasNext()) {
 				// Get the returned value from the stack
-				SDFAbstractVertex next = stack.get(0);
+				final SDFAbstractVertex next = this.stack.get(0);
 				// Add it to the list of already treated vertices (so as not to
 				// "treat" it twice)
-				treated.add(next);
+				this.treated.add(next);
 
 				// Check if the current vertex has a successor that was not yet
 				// treated.
-				Set<SDFEdge> outgoingEdges = graph.outgoingEdgesOf(next);
-				for (SDFEdge edge : outgoingEdges) {
+				final Set<SDFEdge> outgoingEdges = this.graph.outgoingEdgesOf(next);
+				for (final SDFEdge edge : outgoingEdges) {
 					// If the current outgoingEdge is not a self loop on the
 					// current vertex
-					if (graph.getEdgeTarget(edge) != next) {
+					if (this.graph.getEdgeTarget(edge) != next) {
 						// Boolean indicating if all predecessors of the target
 						// of the current edge were previously treated (in which
 						// case the target of the current edge must be added to
 						// the stack).
 						boolean prevTreated = true;
-						SDFAbstractVertex fol = graph.getEdgeTarget(edge);
+						final SDFAbstractVertex fol = this.graph.getEdgeTarget(edge);
 						// Check if all predecessors of the target of the
 						// current edge were already treated
-						for (SDFEdge incomingEdge : graph.incomingEdgesOf(fol)) {
+						for (final SDFEdge incomingEdge : this.graph.incomingEdgesOf(fol)) {
 							// Ignore the incomingEdge if this is a self loop or
 							// the edge coming from the current vertex (i.e. the
 							// returned vertex)
-							if (graph.getEdgeSource(incomingEdge) != fol
-									&& graph.getEdgeSource(incomingEdge) != next) {
+							if ((this.graph.getEdgeSource(incomingEdge) != fol) && (this.graph.getEdgeSource(incomingEdge) != next)) {
 								// prevTreated stays true if:
 								// The source of the incomingEdge has already
 								// been treated OR
 								// The delay of the incomingEdge is greater or
 								// equal to the consumption rate of this edge
-								prevTreated = prevTreated
-										&& ((treated.contains(graph
-												.getEdgeSource(incomingEdge))) || incomingEdge
-												.getDelay().intValue() >= incomingEdge
-												.getCons().intValue());
+								prevTreated = prevTreated && ((this.treated.contains(this.graph.getEdgeSource(incomingEdge)))
+										|| (incomingEdge.getDelay().intValue() >= incomingEdge.getCons().intValue()));
 							}
 						}
-						if (prevTreated && !treated.contains(fol)
-								&& !stack.contains(fol)) {
-							stack.add(fol);
+						if (prevTreated && !this.treated.contains(fol) && !this.stack.contains(fol)) {
+							this.stack.add(fol);
 						}
 					}
 				}
-				stack.remove(0);
+				this.stack.remove(0);
 				return next;
 			}
-		} catch (InvalidExpressionException e) {
+		} catch (final InvalidExpressionException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -226,7 +216,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 	 * given {@link SDFAbstractVertex vertex} until a {@link SDFAbstractVertex
 	 * vertex} with no predecessor is found. One {@link SDFAbstractVertex} may
 	 * have one or several "origins"
-	 * 
+	 *
 	 * @param vertex
 	 *            the {@link SDFAbstractVertex} whose origins are searched
 	 * @param notTreated
@@ -237,31 +227,27 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 	 *         of the given {@link SDFAbstractVertex vertex}.
 	 * @throws InvalidExpressionException
 	 */
-	private List<SDFAbstractVertex> originOf(SDFAbstractVertex vertex,
-			List<SDFAbstractVertex> notTreated)
-			throws InvalidExpressionException {
-		List<SDFAbstractVertex> origins = new ArrayList<SDFAbstractVertex>();
+	private List<SDFAbstractVertex> originOf(final SDFAbstractVertex vertex, final List<SDFAbstractVertex> notTreated) throws InvalidExpressionException {
+		final List<SDFAbstractVertex> origins = new ArrayList<>();
 		int added = 0;
 		// Scan the predecessor of the current vertex (if any)
-		for (SDFEdge edge : graph.incomingEdgesOf(vertex)) {
+		for (final SDFEdge edge : this.graph.incomingEdgesOf(vertex)) {
 			// If the current edge is not a self-loop and has an insufficient
 			// delay to be a source
-			if (graph.getEdgeSource(edge) != vertex
-					&& edge.getDelay().intValue() < edge.getCons().intValue()) {
+			if ((this.graph.getEdgeSource(edge) != vertex) && (edge.getDelay().intValue() < edge.getCons().intValue())) {
 				// Then the current vertex is NOT an "origin", call originOf on
 				// its the current predecessor.
 				// If the predecessor was not yet encountered in recursive calls
 				// to originOf.
-				if (notTreated.contains(graph.getEdgeSource(edge))) {
-					notTreated.remove(graph.getEdgeSource(edge));
+				if (notTreated.contains(this.graph.getEdgeSource(edge))) {
+					notTreated.remove(this.graph.getEdgeSource(edge));
 
 					added++;
-					List<SDFAbstractVertex> predecessorOrigins = originOf(
-							graph.getEdgeSource(edge), notTreated);
+					final List<SDFAbstractVertex> predecessorOrigins = originOf(this.graph.getEdgeSource(edge), notTreated);
 
 					// Add the origins of the predecessor to the origins of the
 					// current vertex.
-					for (SDFAbstractVertex origin : predecessorOrigins) {
+					for (final SDFAbstractVertex origin : predecessorOrigins) {
 						if (!origins.contains(origin)) {
 							origins.add(origin);
 						}
@@ -295,14 +281,13 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 	}
 
 	@Override
-	public void removeTraversalListener(
-			TraversalListener<SDFAbstractVertex, SDFEdge> arg0) {
+	public void removeTraversalListener(final TraversalListener<SDFAbstractVertex, SDFEdge> arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setReuseEvents(boolean arg0) {
+	public void setReuseEvents(final boolean arg0) {
 		// TODO Auto-generated method stub
 
 	}

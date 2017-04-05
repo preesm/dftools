@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,16 +28,15 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  *******************************************************************************/
 
 package org.ietr.dftools.ui.workflow.launch;
-
 
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -49,17 +48,16 @@ import org.ietr.dftools.ui.Activator;
  * Launch Tab for algorithm options. From this tab, an
  * {@link AlgorithmConfiguration} is generated that feeds an
  * {@link AlgorithmRetriever} to create the input algorithm.
- * 
+ *
  * @author mpelcat
  */
 public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
 	@Override
-	public void createControl(Composite parent) {
+	public void createControl(final Composite parent) {
 
 		super.createControl(parent);
-		drawFileChooser("Workflow file:",
-				WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME);
+		drawFileChooser("Workflow file:", WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME);
 	}
 
 	@Override
@@ -68,27 +66,28 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 	}
 
 	@Override
-	public void initializeFrom(ILaunchConfiguration configuration) {
+	public void initializeFrom(final ILaunchConfiguration configuration) {
 		super.initializeFrom(configuration);
 		setDirty(false);
 	}
 
 	@Override
-	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
 		super.performApply(configuration);
 	}
 
 	@Override
-	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
 
 	}
 
 	@Override
 	public Image getImage() {
-		Image image = Activator.getImage("icons/workflow.png");
+		final Image image = Activator.getImage("icons/workflow.png");
 
-		if (image != null)
+		if (image != null) {
 			return image;
+		}
 
 		return super.getImage();
 	}

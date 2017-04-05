@@ -9,16 +9,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -27,9 +27,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -46,23 +46,25 @@ import org.ietr.dftools.architecture.slam.link.Link;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Design</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.Design#getComponentInstances <em>
- * Component Instances</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.Design#getLinks <em>Links</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.Design#getComponentInstances
+ * <em> Component Instances</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.Design#getLinks
+ * <em>Links</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.Design#getHierarchyPorts <em>
  * Hierarchy Ports</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.Design#getRefined <em>Refined
  * </em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.Design#getPath <em>Path</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.Design#getPath
+ * <em>Path</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.Design#getComponentHolder <em>
  * Component Holder</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign()
  * @model
  * @generated
@@ -78,7 +80,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Component Instances</em>' containment
 	 *         reference list.
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign_ComponentInstances()
@@ -97,7 +99,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Links</em>' containment reference list.
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign_Links()
 	 * @model containment="true"
@@ -115,7 +117,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Hierarchy Ports</em>' containment reference
 	 *         list.
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign_HierarchyPorts()
@@ -133,7 +135,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * If the refined component does not exist, it is created.
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Refined</em>' container reference.
 	 * @see #setRefined(Component)
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign_Refined()
@@ -148,7 +150,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * {@link org.ietr.dftools.architecture.slam.Design#getRefined
 	 * <em>Refined</em>}' container reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value
 	 *            the new value of the '<em>Refined</em>' container reference.
 	 * @see #getRefined()
@@ -164,7 +166,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Path</em>' attribute.
 	 * @see #setPath(String)
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign_Path()
@@ -177,7 +179,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * Sets the value of the '
 	 * {@link org.ietr.dftools.architecture.slam.Design#getPath <em>Path</em>}'
 	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @param value
 	 *            the new value of the '<em>Path</em>' attribute.
 	 * @see #getPath()
@@ -193,7 +195,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
+	 *
 	 * @return the value of the '<em>Component Holder</em>' reference.
 	 * @see #setComponentHolder(ComponentHolder)
 	 * @see org.ietr.dftools.architecture.slam.SlamPackage#getDesign_ComponentHolder()
@@ -207,7 +209,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	 * {@link org.ietr.dftools.architecture.slam.Design#getComponentHolder
 	 * <em>Component Holder</em>}' reference. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
+	 *
 	 * @param value
 	 *            the new value of the '<em>Component Holder</em>' reference.
 	 * @see #getComponentHolder()
@@ -217,7 +219,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
@@ -225,7 +227,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
@@ -234,7 +236,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 	/**
 	 * <!-- begin-user-doc --> Gets the instances set in the design without
 	 * managing the hierarchy <!-- end-user-doc -->
-	 * 
+	 *
 	 * @model required="true" nameRequired="true"
 	 * @generated
 	 */
@@ -242,7 +244,7 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 *
 	 * @model required="true" nameRequired="true" classRequired="true"
 	 * @generated
 	 */

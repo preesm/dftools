@@ -11,16 +11,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -29,9 +29,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -49,9 +49,9 @@ import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
 /**
  * ROund buffer vertex
- * 
+ *
  * @author jpiat
- * 
+ *
  */
 public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 
@@ -75,14 +75,14 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 
 	/**
 	 * Gives the edge connection index
-	 * 
+	 *
 	 * @param edge
 	 *            The edge to get the connection index
 	 * @return The connection index of the edge
 	 */
 	@Override
-	public Integer getEdgeIndex(SDFEdge edge) {
-		for (Integer index : getConnections().keySet()) {
+	public Integer getEdgeIndex(final SDFEdge edge) {
+		for (final Integer index : getConnections().keySet()) {
 			if (getConnections().get(index).equals(edge)) {
 				return index;
 			}
@@ -94,13 +94,13 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 	 * @return The incoming connection of this for in an ordered list
 	 */
 	public List<SDFEdge> getIncomingConnections() {
-		List<SDFEdge> edges = new ArrayList<SDFEdge>(getConnections().size());
-		for (Integer index : getConnections().keySet()) {
+		final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
+		for (final Integer index : getConnections().keySet()) {
 			edges.add(index, getConnections().get(index));
 		}
 		return edges;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<SDFEdge> getOutgoingConnections() {
@@ -109,14 +109,14 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 
 	/**
 	 * Sets this edge connection index
-	 * 
+	 *
 	 * @param edge
 	 *            The edge connected to the vertex
 	 * @param index
 	 *            The index in the connections
 	 */
-	public void setConnectionIndex(SDFEdge edge, int index) {
-		Map<Integer, SDFEdge> connections = getConnections();
+	public void setConnectionIndex(final SDFEdge edge, final int index) {
+		final Map<Integer, SDFEdge> connections = getConnections();
 		SDFEdge connectionToRemove = null;
 		connectionToRemove = connections.get(index);
 		connections.remove(connectionToRemove);
@@ -125,29 +125,25 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 
 	@Override
 	public SDFAbstractVertex clone() {
-		SDFRoundBufferVertex copy = new SDFRoundBufferVertex();
-		copy.setName(this.getName());
+		final SDFRoundBufferVertex copy = new SDFRoundBufferVertex();
+		copy.setName(getName());
 		try {
-			copy.setNbRepeat(this.getNbRepeat());
-		} catch (InvalidExpressionException e) {
+			copy.setNbRepeat(getNbRepeat());
+		} catch (final InvalidExpressionException e) {
 			e.printStackTrace();
 		}
 
 		// Copy the ports
-		for (SDFInterfaceVertex sink : this.getSinks()) {
-			if (copy.getGraphDescription() != null
-					&& copy.getGraphDescription().getVertex(sink.getName()) != null) {
-				copy.addSink((SDFInterfaceVertex) this.getGraphDescription()
-						.getVertex(sink.getName()));
+		for (final SDFInterfaceVertex sink : getSinks()) {
+			if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
+				copy.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
 			} else {
 				copy.addSink(sink.clone());
 			}
 		}
-		for (SDFInterfaceVertex source : this.getSources()) {
-			if (copy.getGraphDescription() != null
-					&& copy.getGraphDescription().getVertex(source.getName()) != null) {
-				copy.addSource((SDFInterfaceVertex) this.getGraphDescription()
-						.getVertex(source.getName()));
+		for (final SDFInterfaceVertex source : getSources()) {
+			if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
+				copy.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
 			} else {
 				copy.addSource(source.clone());
 			}

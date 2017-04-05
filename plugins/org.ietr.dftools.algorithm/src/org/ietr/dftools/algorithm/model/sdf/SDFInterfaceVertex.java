@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,35 +28,35 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.sdf;
 
+import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 
 /**
  * Class used to represent the interfaces of a Hierarchical vertex
- * 
+ *
  * @author jpiat
- * 
+ *
  */
-public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
-		IInterface {
+public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements IInterface {
 
 	/**
 	 * Name of the property containing the direction
 	 */
-	public static final String PORT_DIRECTION = "port_direction";
+	public static final String	PORT_DIRECTION	= "port_direction";
 	/**
 	 * String representation of the type of data carried by this port
 	 */
-	public final static String DATA_TYPE = "data_type";
+	public final static String	DATA_TYPE		= "data_type";
 
 	/**
 	 * Kind of node
@@ -65,8 +65,8 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 
 	static {
 		{
-			public_properties.add(PORT_DIRECTION);
-			public_properties.add(DATA_TYPE);
+			AbstractVertex.public_properties.add(SDFInterfaceVertex.PORT_DIRECTION);
+			AbstractVertex.public_properties.add(SDFInterfaceVertex.DATA_TYPE);
 		}
 	};
 
@@ -75,19 +75,19 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 	 */
 	public SDFInterfaceVertex() {
 		super();
-		setKind(PORT);
+		setKind(SDFInterfaceVertex.PORT);
 		setDirection(InterfaceDirection.Output);
 	}
 
 	/**
 	 * Construct a new SDFInterfaceVertex using the String dir to specifiy the
 	 * direction Input=Source, Output=Sink
-	 * 
+	 *
 	 * @param dir
 	 */
-	public SDFInterfaceVertex(String dir) {
+	public SDFInterfaceVertex(final String dir) {
 		super();
-		setKind(PORT);
+		setKind(SDFInterfaceVertex.PORT);
 		setDirection(dir);
 	}
 
@@ -95,10 +95,9 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 	public abstract SDFInterfaceVertex clone();
 
 	@Override
-	public boolean equals(Object e) {
+	public boolean equals(final Object e) {
 		if (e instanceof SDFInterfaceVertex) {
-			return (((SDFInterfaceVertex) e).getName().equals(this.getName()) && ((SDFInterfaceVertex) e)
-					.getDirection().equals(this.getDirection()));
+			return (((SDFInterfaceVertex) e).getName().equals(getName()) && ((SDFInterfaceVertex) e).getDirection().equals(getDirection()));
 		} else {
 			return false;
 		}
@@ -106,43 +105,41 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 
 	/**
 	 * Gives this interface direction
-	 * 
+	 *
 	 * @return The direction of this interface
 	 */
 	@Override
 	public InterfaceDirection getDirection() {
-		return (InterfaceDirection) getPropertyBean().getValue(PORT_DIRECTION,
-				InterfaceDirection.class);
+		return (InterfaceDirection) getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.class);
 	}
 
 	/**
 	 * Set this interface direction
-	 * 
+	 *
 	 * @param direction
 	 */
 	@Override
-	public void setDirection(String direction) {
-		getPropertyBean().setValue(PORT_DIRECTION,
-				InterfaceDirection.fromString(direction));
+	public void setDirection(final String direction) {
+		getPropertyBean().setValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.fromString(direction));
 	}
 
 	/**
 	 * Set this interface direction
-	 * 
+	 *
 	 * @param direction
 	 */
 	@Override
-	public void setDirection(InterfaceDirection direction) {
-		getPropertyBean().setValue(PORT_DIRECTION, direction);
+	public void setDirection(final InterfaceDirection direction) {
+		getPropertyBean().setValue(SDFInterfaceVertex.PORT_DIRECTION, direction);
 	}
 
 	/**
 	 * Sets the type of data on this interface
-	 * 
+	 *
 	 * @param type
 	 */
-	public void setDataType(String type) {
-		getPropertyBean().setValue(DATA_TYPE, type);
+	public void setDataType(final String type) {
+		getPropertyBean().setValue(SDFInterfaceVertex.DATA_TYPE, type);
 	}
 
 	@Override
@@ -152,20 +149,20 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements
 
 	/**
 	 * Gives the type of data on this interface
-	 * 
+	 *
 	 * @return The string representation of the type of data on this interface
 	 */
 	public String getDataType() {
-		return (String) getPropertyBean().getValue(DATA_TYPE, String.class);
+		return (String) getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE, String.class);
 	}
 
 	@Override
-	public void setPropertyValue(String propertyName, Object value) {
-		if(propertyName.equals(PORT_DIRECTION) && value instanceof String){
+	public void setPropertyValue(final String propertyName, final Object value) {
+		if (propertyName.equals(SDFInterfaceVertex.PORT_DIRECTION) && (value instanceof String)) {
 			super.setPropertyValue(propertyName, InterfaceDirection.fromString((String) value));
-		}else{
+		} else {
 			super.setPropertyValue(propertyName, value);
 		}
-		
+
 	}
 }

@@ -12,16 +12,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -30,9 +30,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -76,41 +76,34 @@ import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 /**
  * Visitor used to transform an SDF into a single-rate SDF (for all edges : prod
  * = cons)
- * 
+ *
  * @author jpiat
  * @author kdesnos
- * 
+ *
  */
 public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * Test the visitor
-	 * 
+	 *
 	 * @param args
 	 * @throws InvalidExpressionException
 	 */
-	public static void main(String[] args) throws InvalidExpressionException {
-		@SuppressWarnings("unused")
-		int nbVertex = 3, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 2;
-
-		// Creates a random SDF graph
-		@SuppressWarnings("unused")
-		int minrate = 1, maxrate = 4;
-		@SuppressWarnings("unused")
-		SDFRandomGraph test = new SDFRandomGraph();
+	public static void main(final String[] args) throws InvalidExpressionException {
+		new SDFRandomGraph();
 		/*
 		 * SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree,
 		 * maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
 		 */
-		SDFAdapterDemo applet = new SDFAdapterDemo();
-		SDFGraph demoGraph = createTestComGraph();
-		SDFAdapterDemo applet2 = new SDFAdapterDemo();
-		ToHSDFVisitor visitor = new ToHSDFVisitor();
+		final SDFAdapterDemo applet = new SDFAdapterDemo();
+		final SDFGraph demoGraph = ToHSDFVisitor.createTestComGraph();
+		final SDFAdapterDemo applet2 = new SDFAdapterDemo();
+		final ToHSDFVisitor visitor = new ToHSDFVisitor();
 		try {
 			demoGraph.accept(visitor);
 			applet2.init(demoGraph);
 			applet.init(visitor.getOutput());
-		} catch (SDF4JException e) {
+		} catch (final SDF4JException e) {
 			e.printStackTrace();
 		}
 	}
@@ -119,21 +112,21 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 	/**
 	 * GIves this visitor output
-	 * 
+	 *
 	 * @return The output of the visitor
 	 */
 	public SDFGraph getOutput() {
-		return outputGraph;
+		return this.outputGraph;
 	}
 
 	/**
 	 * This method adds the {@link SDFEdge}s to the output Single-Rate
 	 * {@link SDFGraph}.
-	 * 
+	 *
 	 * <b>The code of this method strongly inspired JoinForkCleaner.replaceEdge
 	 * method, if bugs are found here, it is likely they exist also there</b>
 	 * (sorry for the poor code design).
-	 * 
+	 *
 	 * @param sdf
 	 *            the input {@link SDFGraph}
 	 * @param matchCopies
@@ -146,11 +139,11 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	 *            {@link #transformsTop(SDFGraph, SDFGraph)}.
 	 * @throws InvalidExpressionException
 	 */
-	private void linkVerticesTop(SDFGraph sdf, HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies,
-			SDFGraph output) throws InvalidExpressionException {
+	private void linkVerticesTop(final SDFGraph sdf, final HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies, final SDFGraph output)
+			throws InvalidExpressionException {
 
 		// Scan the edges of the input graph
-		for (SDFEdge edge : sdf.edgeSet()) {
+		for (final SDFEdge edge : sdf.edgeSet()) {
 			// sdf.getEdgeSource(edge); -- Removed by kdesnos on the 2012.01.11
 			// sdf.getEdgeTarget(edge); -- Removed by kdesnos on the 2012.01.11
 			SDFInterfaceVertex inputVertex = null;
@@ -158,17 +151,17 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 			// Retrieve the duplicates of the source and target of the current
 			// edge
-			Vector<SDFAbstractVertex> sourceCopies = matchCopies.get(sdf.getEdgeSource(edge));
-			Vector<SDFAbstractVertex> targetCopies = matchCopies.get(sdf.getEdgeTarget(edge));
+			final Vector<SDFAbstractVertex> sourceCopies = matchCopies.get(sdf.getEdgeSource(edge));
+			final Vector<SDFAbstractVertex> targetCopies = matchCopies.get(sdf.getEdgeTarget(edge));
 
-			Vector<SDFAbstractVertex> originalSourceCopies = new Vector<>(sourceCopies);
-			Vector<SDFAbstractVertex> originalTargetCopies = new Vector<>(targetCopies);
+			final Vector<SDFAbstractVertex> originalSourceCopies = new Vector<>(sourceCopies);
+			final Vector<SDFAbstractVertex> originalTargetCopies = new Vector<>(targetCopies);
 
 			int nbDelays = edge.getDelay().intValue();
 
 			// Total number of token exchanged (produced and consumed) for this
 			// edge
-			int totalNbTokens = edge.getCons().intValue() * targetCopies.size();
+			final int totalNbTokens = edge.getCons().intValue() * targetCopies.size();
 
 			// Absolute target is the targeted consumed token among the total
 			// number of consumed/produced tokens
@@ -179,26 +172,26 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 			// targets that are "satisfied" by the added edges.
 			int totProd = 0;
 
-			List<SDFEdge> newEdges = new ArrayList<SDFEdge>();
+			final List<SDFEdge> newEdges = new ArrayList<>();
 			// Add edges until all consumed token are "satisfied"
 			while (totProd < (edge.getCons().intValue() * targetCopies.size())) {
 
 				// Index of the currently processed sourceVertex among the
 				// duplicates of the current edge source.
-				int sourceIndex = (absoluteSource / edge.getProd().intValue()) % sourceCopies.size();
+				final int sourceIndex = (absoluteSource / edge.getProd().intValue()) % sourceCopies.size();
 				// targetIndex is used to know which duplicates of the target
 				// will
 				// be targeted by the currently indexed copy of the source.
-				int targetIndex = (absoluteTarget / edge.getCons().intValue()) % targetCopies.size();
+				final int targetIndex = (absoluteTarget / edge.getCons().intValue()) % targetCopies.size();
 
 				// sourceProd and targetCons are the number of token already
 				// produced/consumed by the currently indexed source/target
-				int sourceProd = absoluteSource % edge.getProd().intValue();
-				int targetCons = absoluteTarget % edge.getCons().intValue();
+				final int sourceProd = absoluteSource % edge.getProd().intValue();
+				final int targetCons = absoluteTarget % edge.getCons().intValue();
 
 				// rest is both the production and consumption rate on the
 				// created edge.
-				int rest = Math.min(edge.getProd().intValue() - sourceProd, edge.getCons().intValue() - targetCons);
+				final int rest = Math.min(edge.getProd().intValue() - sourceProd, edge.getCons().intValue() - targetCons);
 
 				// This int represent the number of iteration separating the
 				// currently indexed source and target (between which an edge is
@@ -210,30 +203,28 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// A_1 will target B_(1+targetIndex%3) = B_0 (with a delay of 1)
 				// A_2 will target B_(2+targetIndex%3) = B_1 (with a delay of 1)
 				// Warning, this integer division is not factorable
-				int iterationDiff = absoluteTarget / totalNbTokens - absoluteSource / totalNbTokens;
+				final int iterationDiff = (absoluteTarget / totalNbTokens) - (absoluteSource / totalNbTokens);
 
 				// Testing zone beginning
 				// for inserting explode and implode vertices
 				// boolean set to true if an explode should be added
-				boolean explode = rest < edge.getProd().intValue();
-				boolean implode = rest < edge.getCons().intValue();
-				if (explode && !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex)
-						&& (!(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex) 
-								|| (sourceCopies.get(sourceIndex) instanceof SDFRoundBufferVertex))) {
+				final boolean explode = rest < edge.getProd().intValue();
+				final boolean implode = rest < edge.getCons().intValue();
+				if (explode && !(sourceCopies.get(sourceIndex) instanceof SDFForkVertex) && (!(sourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)
+						|| (sourceCopies.get(sourceIndex) instanceof SDFRoundBufferVertex))) {
 
 					// If an explode must be added
-					SDFAbstractVertex explodeVertex = new SDFForkVertex();
+					final SDFAbstractVertex explodeVertex = new SDFForkVertex();
 					output.addVertex(explodeVertex);
-					SDFAbstractVertex originVertex = sourceCopies.get(sourceIndex);
-					explodeVertex
-							.setName("explode_" + originVertex.getName() + "_" + edge.getSourceInterface().getName());
+					final SDFAbstractVertex originVertex = sourceCopies.get(sourceIndex);
+					explodeVertex.setName("explode_" + originVertex.getName() + "_" + edge.getSourceInterface().getName());
 
 					// Replace the source vertex by the explode in the
 					// sourceCopies list
 					sourceCopies.set(sourceIndex, explodeVertex);
 
 					// Add an edge between the source and the explode
-					SDFEdge newEdge = output.addEdge(originVertex, explodeVertex);
+					final SDFEdge newEdge = output.addEdge(originVertex, explodeVertex);
 					newEdge.setDelay(new SDFIntEdgePropertyType(0));
 					newEdge.setProd(new SDFIntEdgePropertyType(edge.getProd().intValue()));
 					newEdge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
@@ -246,21 +237,19 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 					// Add a target port modifier to the edge
 					newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
 				}
-				if (implode && !(targetCopies.get(targetIndex) instanceof SDFJoinVertex)
-						&& !(targetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)) {
+				if (implode && !(targetCopies.get(targetIndex) instanceof SDFJoinVertex) && !(targetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)) {
 					// If an implode must be added
-					SDFAbstractVertex implodeVertex = new SDFJoinVertex();
+					final SDFAbstractVertex implodeVertex = new SDFJoinVertex();
 					output.addVertex(implodeVertex);
-					SDFAbstractVertex originVertex = targetCopies.get(targetIndex);
-					implodeVertex
-							.setName("implode_" + originVertex.getName() + "_" + edge.getTargetInterface().getName());
+					final SDFAbstractVertex originVertex = targetCopies.get(targetIndex);
+					implodeVertex.setName("implode_" + originVertex.getName() + "_" + edge.getTargetInterface().getName());
 
 					// Replace the target vertex by the implode one in the
 					// targetCopies List
 					targetCopies.set(targetIndex, implodeVertex);
 
 					// Add an edge between the implode and the target
-					SDFEdge newEdge = output.addEdge(implodeVertex, originVertex);
+					final SDFEdge newEdge = output.addEdge(implodeVertex, originVertex);
 					newEdge.setDelay(new SDFIntEdgePropertyType(0));
 					newEdge.setProd(new SDFIntEdgePropertyType(edge.getCons().intValue()));
 					newEdge.setCons(new SDFIntEdgePropertyType(edge.getCons().intValue()));
@@ -276,7 +265,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// end of testing zone
 
 				// Create the new Edge for the output graph
-				SDFEdge newEdge = output.addEdge(sourceCopies.get(sourceIndex), targetCopies.get(targetIndex));
+				final SDFEdge newEdge = output.addEdge(sourceCopies.get(sourceIndex), targetCopies.get(targetIndex));
 				newEdges.add(newEdge);
 
 				// Set the source interface of the new edge
@@ -284,14 +273,13 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// output added to existing fork/broadcast) we rename the
 				// new output ports. Contrary to ports of join/roundbuffer, no
 				// special processing is needed to order the edges.
-				if (sourceCopies.get(sourceIndex) == originalSourceCopies.get(sourceIndex)
+				if ((sourceCopies.get(sourceIndex) == originalSourceCopies.get(sourceIndex))
 						&& (!explode || !((originalSourceCopies.get(sourceIndex) instanceof SDFBroadcastVertex)
 								|| (originalSourceCopies.get(sourceIndex) instanceof SDFForkVertex)))) {
 					// If the source does not need new ports
 					if (sourceCopies.get(sourceIndex).getSink(edge.getSourceInterface().getName()) != null) {
 						// if the source already has the appropriate interface
-						newEdge.setSourceInterface(
-								sourceCopies.get(sourceIndex).getSink(edge.getSourceInterface().getName()));
+						newEdge.setSourceInterface(sourceCopies.get(sourceIndex).getSink(edge.getSourceInterface().getName()));
 					} else {
 						// if the source does not have the interface.
 						newEdge.setSourceInterface(edge.getSourceInterface().clone());
@@ -302,20 +290,19 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				} else {
 					// If the source is a fork (new or not)
 					// or a broadcast with a new port
-					SDFInterfaceVertex sourceInterface = edge.getSourceInterface().clone();
+					final SDFInterfaceVertex sourceInterface = edge.getSourceInterface().clone();
 
 					String newInterfaceName = sourceInterface.getName() + "_" + sourceProd;
 
 					// Get the current index of the port (if any)
 					// and update it
 					if (sourceInterface.getName().matches(SpecialActorPortsIndexer.indexRegex)) {
-						Pattern pattern = Pattern.compile(SpecialActorPortsIndexer.indexRegex);
-						Matcher matcher = pattern.matcher(sourceInterface.getName());
+						final Pattern pattern = Pattern.compile(SpecialActorPortsIndexer.indexRegex);
+						final Matcher matcher = pattern.matcher(sourceInterface.getName());
 						matcher.find();
-						int existingIdx = Integer.decode(matcher.group(SpecialActorPortsIndexer.groupXX));
-						int newIdx = existingIdx + sourceProd;
-						newInterfaceName = sourceInterface.getName().substring(0,
-								matcher.start(SpecialActorPortsIndexer.groupXX)) + newIdx;
+						final int existingIdx = Integer.decode(matcher.group(SpecialActorPortsIndexer.groupXX));
+						final int newIdx = existingIdx + sourceProd;
+						newInterfaceName = sourceInterface.getName().substring(0, matcher.start(SpecialActorPortsIndexer.groupXX)) + newIdx;
 					}
 
 					sourceInterface.setName(newInterfaceName);
@@ -333,15 +320,14 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 				// If the target is not an actor with new ports (because of an
 				// explosion)
-				if (targetCopies.get(targetIndex) == originalTargetCopies.get(targetIndex)
+				if ((targetCopies.get(targetIndex) == originalTargetCopies.get(targetIndex))
 						&& (!implode || !((originalTargetCopies.get(targetIndex) instanceof SDFRoundBufferVertex)
 								|| (originalTargetCopies.get(targetIndex) instanceof SDFJoinVertex)))) {
 
 					// if the target already has the appropriate interface
 					if (targetCopies.get(targetIndex).getSource(edge.getTargetInterface().getName()) != null) {
 
-						newEdge.setTargetInterface(
-								targetCopies.get(targetIndex).getSource(edge.getTargetInterface().getName()));
+						newEdge.setTargetInterface(targetCopies.get(targetIndex).getSource(edge.getTargetInterface().getName()));
 					}
 					// if the target does not have the interface.
 					else {
@@ -360,19 +346,18 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// If the target is join (new or not) /roundbuffer with new
 				// ports
 				else {
-					SDFInterfaceVertex targetInterface = edge.getTargetInterface().clone();
+					final SDFInterfaceVertex targetInterface = edge.getTargetInterface().clone();
 
 					String newInterfaceName = targetInterface.getName() + "_" + targetCons;
 					// Get the current index of the port (if any)
 					// and update it
 					if (targetInterface.getName().matches(SpecialActorPortsIndexer.indexRegex)) {
-						Pattern pattern = Pattern.compile(SpecialActorPortsIndexer.indexRegex);
-						Matcher matcher = pattern.matcher(targetInterface.getName());
+						final Pattern pattern = Pattern.compile(SpecialActorPortsIndexer.indexRegex);
+						final Matcher matcher = pattern.matcher(targetInterface.getName());
 						matcher.find();
-						int existingIdx = Integer.decode(matcher.group(SpecialActorPortsIndexer.groupXX));
-						int newIdx = existingIdx + targetCons;
-						newInterfaceName = targetInterface.getName().substring(0,
-								matcher.start(SpecialActorPortsIndexer.groupXX)) + newIdx;
+						final int existingIdx = Integer.decode(matcher.group(SpecialActorPortsIndexer.groupXX));
+						final int newIdx = existingIdx + targetCons;
+						newInterfaceName = targetInterface.getName().substring(0, matcher.start(SpecialActorPortsIndexer.groupXX)) + newIdx;
 					}
 
 					targetInterface.setName(newInterfaceName);
@@ -387,21 +372,15 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 				// Associate the interfaces to the new edge
 				if (targetCopies.get(targetIndex) instanceof SDFVertex) {
-					if (((SDFVertex) targetCopies.get(targetIndex))
-							.getSource(edge.getTargetInterface().getName()) != null) {
-						inputVertex = ((SDFVertex) targetCopies.get(targetIndex))
-								.getSource(edge.getTargetInterface().getName());
-						((SDFVertex) targetCopies.get(targetIndex)).setInterfaceVertexExternalLink(newEdge,
-								inputVertex);
+					if (((SDFVertex) targetCopies.get(targetIndex)).getSource(edge.getTargetInterface().getName()) != null) {
+						inputVertex = ((SDFVertex) targetCopies.get(targetIndex)).getSource(edge.getTargetInterface().getName());
+						((SDFVertex) targetCopies.get(targetIndex)).setInterfaceVertexExternalLink(newEdge, inputVertex);
 					}
 				}
 				if (sourceCopies.get(sourceIndex) instanceof SDFVertex) {
-					if (((SDFVertex) sourceCopies.get(sourceIndex))
-							.getSink(edge.getSourceInterface().getName()) != null) {
-						outputVertex = ((SDFVertex) sourceCopies.get(sourceIndex))
-								.getSink(edge.getSourceInterface().getName());
-						((SDFVertex) sourceCopies.get(sourceIndex)).setInterfaceVertexExternalLink(newEdge,
-								outputVertex);
+					if (((SDFVertex) sourceCopies.get(sourceIndex)).getSink(edge.getSourceInterface().getName()) != null) {
+						outputVertex = ((SDFVertex) sourceCopies.get(sourceIndex)).getSink(edge.getSourceInterface().getName());
+						((SDFVertex) sourceCopies.get(sourceIndex)).setInterfaceVertexExternalLink(newEdge, outputVertex);
 					}
 				}
 
@@ -415,14 +394,13 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// SRSDF (i.e. if the source & target do not belong to the same
 				// "iteration")
 				if (iterationDiff > 0) {
-					int addedDelays = (iterationDiff * newEdge.getCons().intValue());
+					final int addedDelays = (iterationDiff * newEdge.getCons().intValue());
 					// Check that there are enough delays available
 					if (nbDelays < addedDelays) {
 						// kdesnos: I added this check, but it will most
 						// probably never happen
-						throw new RuntimeException("Insufficient delays on edge " + edge.getSource().getName() + "."
-								+ edge.getSourceInterface().getName() + "=>" + edge.getTarget().getName() + "."
-								+ edge.getTargetInterface().getName() + ". At least " + addedDelays
+						throw new RuntimeException("Insufficient delays on edge " + edge.getSource().getName() + "." + edge.getSourceInterface().getName()
+								+ "=>" + edge.getTarget().getName() + "." + edge.getTargetInterface().getName() + ". At least " + addedDelays
 								+ " delays missing.");
 					}
 					newEdge.setDelay(new SDFIntEdgePropertyType(addedDelays));
@@ -444,9 +422,8 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// If all needed tokens were already produced
 				// but not all tokens were produced (i.e. not all source copies
 				// were considered yet)
-				if ((totProd == (edge.getCons().intValue() * targetCopies.size()))
-						&& targetCopies.get(0) instanceof SDFInterfaceVertex
-						&& (absoluteSource / edge.getProd().intValue()) < sourceCopies.size()) {
+				if ((totProd == (edge.getCons().intValue() * targetCopies.size())) && (targetCopies.get(0) instanceof SDFInterfaceVertex)
+						&& ((absoluteSource / edge.getProd().intValue()) < sourceCopies.size())) {
 					totProd = 0;
 					// since roundbuffer behavior is handled in hierarchy
 					// flattening, but should not have to be in single-rate
@@ -464,23 +441,23 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				// Set all target modifiers as unused
 				// Sorted list of input
 				SpecialActorPortsIndexer.sortFifoList(newEdges, false);
-				ListIterator<SDFEdge> iter = newEdges.listIterator();
+				final ListIterator<SDFEdge> iter = newEdges.listIterator();
 				while (iter.hasNext()) {
 					iter.next().setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_UNUSED));
 				}
 
-				SDFStringEdgePropertyType portModifier = edge.getTargetPortModifier();
-				if (portModifier != null && !portModifier.toString().equals(SDFEdge.MODIFIER_UNUSED)) {
+				final SDFStringEdgePropertyType portModifier = edge.getTargetPortModifier();
+				if ((portModifier != null) && !portModifier.toString().equals(SDFEdge.MODIFIER_UNUSED)) {
 					// If the target is not unused, set last edges
 					// targetModifier as readOnly
 					@SuppressWarnings("unchecked")
 					// get the rate of the unique output of the roundbuffer
-					int tokensToProduce = ((Set<SDFEdge>) (edge.getTarget().getBase()
-							.outgoingEdgesOf(edge.getTarget()))).iterator().next().getProd().intValue();
+					int tokensToProduce = ((Set<SDFEdge>) (edge.getTarget().getBase().outgoingEdgesOf(edge.getTarget()))).iterator().next().getProd()
+							.intValue();
 
 					// Scan the input edges in reverse order
-					while (tokensToProduce > 0 && iter.hasPrevious()) {
-						SDFEdge newEdge = iter.previous();
+					while ((tokensToProduce > 0) && iter.hasPrevious()) {
+						final SDFEdge newEdge = iter.previous();
 						newEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
 						tokensToProduce -= newEdge.getCons().intValue();
 					}
@@ -490,20 +467,18 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 			// If fork/Join vertices were added during the function call
 			// put back the true source/target in the match copies map.
 			for (int i = 0; i < sourceCopies.size(); i++) {
-				if (sourceCopies.get(i) instanceof SDFForkVertex
-						&& !originalSourceCopies.get(i).equals(sourceCopies.get(i))) {
+				if ((sourceCopies.get(i) instanceof SDFForkVertex) && !originalSourceCopies.get(i).equals(sourceCopies.get(i))) {
 					SDFAbstractVertex trueSource = null;
-					for (SDFEdge inEdge : output.incomingEdgesOf(sourceCopies.get(i))) {
+					for (final SDFEdge inEdge : output.incomingEdgesOf(sourceCopies.get(i))) {
 						trueSource = inEdge.getSource();
 					}
 					sourceCopies.set(i, trueSource);
 				}
 			}
 			for (int i = 0; i < targetCopies.size(); i++) {
-				if (targetCopies.get(i) instanceof SDFJoinVertex
-						&& !originalTargetCopies.get(i).equals(targetCopies.get(i))) {
+				if ((targetCopies.get(i) instanceof SDFJoinVertex) && !originalTargetCopies.get(i).equals(targetCopies.get(i))) {
 					SDFAbstractVertex trueTarget = null;
-					for (SDFEdge inEdge : output.outgoingEdgesOf(targetCopies.get(i))) {
+					for (final SDFEdge inEdge : output.outgoingEdgesOf(targetCopies.get(i))) {
 						trueTarget = inEdge.getTarget();
 					}
 					targetCopies.set(i, trueTarget);
@@ -513,8 +488,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 		// Make sure all ports are in order
 		if (!SpecialActorPortsIndexer.checkIndexes(output)) {
-			throw new RuntimeException(
-					"There are still special actors with non-indexed ports. Contact Preesm developers.");
+			throw new RuntimeException("There are still special actors with non-indexed ports. Contact Preesm developers.");
 		}
 
 		SpecialActorPortsIndexer.sortIndexedPorts(output);
@@ -525,7 +499,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	private HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies;
 
 	public Map<SDFAbstractVertex, Vector<SDFAbstractVertex>> getMatchCopies() {
-		return matchCopies;
+		return this.matchCopies;
 	}
 
 	/**
@@ -534,7 +508,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	 * to the Repetition Vector of the {@link SDFGraph} then create the
 	 * appropriate {@link SDFEdge}s through a call to
 	 * {@link #linkVerticesTop(SDFGraph, HashMap, SDFGraph)}.
-	 * 
+	 *
 	 * @param graph
 	 *            the input {@link SDFGraph}
 	 * @param output
@@ -542,21 +516,21 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	 * @throws SDF4JException
 	 * @throws InvalidExpressionException
 	 */
-	private void transformsTop(SDFGraph graph, SDFGraph output) throws SDF4JException, InvalidExpressionException {
+	private void transformsTop(final SDFGraph graph, final SDFGraph output) throws SDF4JException, InvalidExpressionException {
 		// This map associates each vertex of the input graph to corresponding
 		// instances in the output graph
-		matchCopies = new HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>>();
+		this.matchCopies = new HashMap<>();
 
 		if (graph.isSchedulable()) {
 			// Scan the vertices of the input graph
-			for (SDFAbstractVertex vertex : graph.vertexSet()) {
-				Vector<SDFAbstractVertex> copies = new Vector<SDFAbstractVertex>();
-				matchCopies.put(vertex, copies);
+			for (final SDFAbstractVertex vertex : graph.vertexSet()) {
+				final Vector<SDFAbstractVertex> copies = new Vector<>();
+				this.matchCopies.put(vertex, copies);
 
 				// If the vertex is an interface, it will not be duplicated,
 				// simply copy it in the output graph
 				if (vertex instanceof SDFInterfaceVertex) {
-					SDFAbstractVertex copy = vertex.clone();
+					final SDFAbstractVertex copy = vertex.clone();
 					copies.add(copy);
 					output.addVertex(copy);
 				} else {
@@ -565,14 +539,14 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 					VisitorOutput.getLogger().log(Level.INFO, vertex.getName() + " x" + vertex.getNbRepeat());
 					// If the vertex does not need to be duplicated
 					if (vertex.getNbRepeatAsInteger() == 1) {
-						SDFAbstractVertex copy = vertex.clone();
+						final SDFAbstractVertex copy = vertex.clone();
 						copy.setName(copy.getName());
 						output.addVertex(copy);
 						copies.add(copy);
 					} else {
 						// If the vertex needs to be duplicated
 						for (int i = 0; i < vertex.getNbRepeatAsInteger(); i++) {
-							SDFAbstractVertex copy = vertex.clone();
+							final SDFAbstractVertex copy = vertex.clone();
 							copy.setName(copy.getName() + "_" + i);
 							copy.setNbRepeat(1);
 							output.addVertex(copy);
@@ -583,7 +557,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 				}
 			}
 			// The output graph has all its vertices, now deal with the edges
-			linkVerticesTop(graph, matchCopies, output);
+			linkVerticesTop(graph, this.matchCopies, output);
 			output.getPropertyBean().setValue("schedulable", true);
 		} else {
 			VisitorOutput.getLogger().log(Level.SEVERE, "graph " + graph.getName() + " is not schedulable");
@@ -592,17 +566,17 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	}
 
 	@Override
-	public void visit(SDFEdge sdfEdge) {
+	public void visit(final SDFEdge sdfEdge) {
 	}
 
 	@Override
-	public void visit(SDFGraph sdf) throws SDF4JException {
-		outputGraph = sdf.clone();
+	public void visit(final SDFGraph sdf) throws SDF4JException {
+		this.outputGraph = sdf.clone();
 		boolean isHSDF = true;
 		try {
-			for (SDFAbstractVertex vertex : outputGraph.vertexSet()) {
+			for (final SDFAbstractVertex vertex : this.outputGraph.vertexSet()) {
 
-				if (vertex instanceof SDFVertex && vertex.getNbRepeatAsInteger() > 1) {
+				if ((vertex instanceof SDFVertex) && (vertex.getNbRepeatAsInteger() > 1)) {
 					isHSDF = false;
 					break;
 				}
@@ -610,40 +584,40 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 			}
 
 			if (isHSDF) {
-				for (SDFEdge edge : outputGraph.edgeSet()) {
+				for (final SDFEdge edge : this.outputGraph.edgeSet()) {
 					int nbDelay;
 
 					nbDelay = edge.getDelay().intValue();
-					int prod = edge.getProd().intValue();
+					final int prod = edge.getProd().intValue();
 
 					// No need to get the cons, if this code is reached cons ==
 					// prod
 					// If the number of delay on the edge is not a multiplier of
 					// prod, the hsdf transformation is needed
-					if (nbDelay % prod != 0) {
+					if ((nbDelay % prod) != 0) {
 						isHSDF = false;
 						break;
 					}
 				}
 			}
-		} catch (InvalidExpressionException e) {
+		} catch (final InvalidExpressionException e) {
 			e.printStackTrace();
 			throw (new SDF4JException(e.getMessage()));
 		}
 
 		if (!isHSDF) {
-			hasChanged = true;
-			outputGraph.clean();
+			this.hasChanged = true;
+			this.outputGraph.clean();
 
-			ArrayList<SDFAbstractVertex> vertices = new ArrayList<SDFAbstractVertex>(sdf.vertexSet());
+			final ArrayList<SDFAbstractVertex> vertices = new ArrayList<>(sdf.vertexSet());
 			for (int i = 0; i < vertices.size(); i++) {
 				if (vertices.get(i) instanceof SDFVertex) {
 					vertices.get(i).accept(this);
 				}
 			}
 			try {
-				transformsTop(sdf, outputGraph);
-			} catch (InvalidExpressionException e) {
+				transformsTop(sdf, this.outputGraph);
+			} catch (final InvalidExpressionException e) {
 				e.printStackTrace();
 				throw (new SDF4JException(e.getMessage()));
 			}
@@ -652,7 +626,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	}
 
 	@Override
-	public void visit(SDFAbstractVertex sdfVertex) {
+	public void visit(final SDFAbstractVertex sdfVertex) {
 		/*
 		 * if(sdfVertex.getGraphDescription() != null){
 		 * sdfVertex.getGraphDescription().accept(this); }
@@ -661,41 +635,41 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
 	private static SDFGraph createTestComGraph() {
 
-		SDFGraph graph = new SDFGraph();
+		final SDFGraph graph = new SDFGraph();
 
 		// test_com_basique
-		SDFVertex sensorInt = new SDFVertex();
+		final SDFVertex sensorInt = new SDFVertex();
 		sensorInt.setName("sensor_Int");
 		graph.addVertex(sensorInt);
 
-		SDFVertex gen5 = new SDFVertex();
+		final SDFVertex gen5 = new SDFVertex();
 		gen5.setName("Gen5");
 		graph.addVertex(gen5);
 
-		SDFVertex recopie5 = new SDFVertex();
+		final SDFVertex recopie5 = new SDFVertex();
 		recopie5.setName("recopie_5");
 		graph.addVertex(recopie5);
 
-		SDFVertex acqData = new SDFVertex();
+		final SDFVertex acqData = new SDFVertex();
 		acqData.setName("acq_data");
 		graph.addVertex(acqData);
 
-		SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
+		final SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
 		// sensGen.setTargetInterface(add);
 		sensGen.setProd(new SDFIntEdgePropertyType(1));
 		sensGen.setCons(new SDFIntEdgePropertyType(1));
 
-		SDFEdge genRec = graph.addEdge(gen5, recopie5);
+		final SDFEdge genRec = graph.addEdge(gen5, recopie5);
 		// genRec.setSourceInterface(times);
 		genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue("SIZE")));
 		genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3)));
 
-		SDFEdge genAcq = graph.addEdge(gen5, acqData);
+		final SDFEdge genAcq = graph.addEdge(gen5, acqData);
 		// genAcq.setSourceInterface(times);
 		genAcq.setProd(new SDFIntEdgePropertyType(1));
 		genAcq.setCons(new SDFIntEdgePropertyType(1));
 
-		SDFEdge recAcq = graph.addEdgeWithInterfaces(recopie5, acqData);
+		final SDFEdge recAcq = graph.addEdgeWithInterfaces(recopie5, acqData);
 		recAcq.setProd(new SDFIntEdgePropertyType(3));
 		recAcq.setCons(new SDFIntEdgePropertyType(2));
 
@@ -713,7 +687,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 	 *         otherwise
 	 */
 	public boolean hasChanged() {
-		return hasChanged;
+		return this.hasChanged;
 	}
 
 }

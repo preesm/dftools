@@ -11,16 +11,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -29,9 +29,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -46,6 +46,7 @@ import java.util.Set;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
+import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.event.GraphEdgeChangeEvent;
 import org.jgrapht.event.GraphListener;
@@ -58,8 +59,7 @@ import org.jgrapht.event.VertexSetListener;
  * @author jpiat
  * @author kdesnos
  */
-public class SDFListenableGraph extends SDFGraph implements
-		ListenableGraph<SDFAbstractVertex, SDFEdge> {
+public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFAbstractVertex, SDFEdge> {
 
 	/**
 	 * A reuseable edge event.
@@ -67,14 +67,13 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @author Barak Naveh
 	 * @since Aug 10, 2003
 	 */
-	private static class FlyweightEdgeEvent<VV, EE> extends
-			GraphEdgeChangeEvent<VV, EE> {
+	private static class FlyweightEdgeEvent<VV, EE> extends GraphEdgeChangeEvent<VV, EE> {
 		private static final long serialVersionUID = 3907207152526636089L;
 
 		/**
 		 * @see GraphEdgeChangeEvent#GraphEdgeChangeEvent(Object, int, Edge)
 		 */
-		private FlyweightEdgeEvent(Object eventSource, int type, EE e) {
+		private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e) {
 			super(eventSource, type, e);
 		}
 
@@ -84,7 +83,7 @@ public class SDFListenableGraph extends SDFGraph implements
 		 * @param e
 		 *            the edge to be set.
 		 */
-		protected void setEdge(EE e) {
+		protected void setEdge(final EE e) {
 			this.edge = e;
 		}
 
@@ -94,7 +93,7 @@ public class SDFListenableGraph extends SDFGraph implements
 		 * @param type
 		 *            the type to be set.
 		 */
-		protected void setType(int type) {
+		protected void setType(final int type) {
 			this.type = type;
 		}
 	}
@@ -105,15 +104,14 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @author Barak Naveh
 	 * @since Aug 10, 2003
 	 */
-	private static class FlyweightVertexEvent<VV> extends
-			GraphVertexChangeEvent<VV> {
+	private static class FlyweightVertexEvent<VV> extends GraphVertexChangeEvent<VV> {
 		private static final long serialVersionUID = 3257848787857585716L;
 
 		/**
 		 * @see GraphVertexChangeEvent#GraphVertexChangeEvent(Object, int,
 		 *      Object)
 		 */
-		private FlyweightVertexEvent(Object eventSource, int type, VV vertex) {
+		private FlyweightVertexEvent(final Object eventSource, final int type, final VV vertex) {
 			super(eventSource, type, vertex);
 		}
 
@@ -123,7 +121,7 @@ public class SDFListenableGraph extends SDFGraph implements
 		 * @param type
 		 *            type to be set.
 		 */
-		protected void setType(int type) {
+		protected void setType(final int type) {
 			this.type = type;
 		}
 
@@ -133,7 +131,7 @@ public class SDFListenableGraph extends SDFGraph implements
 		 * @param vertex
 		 *            the vertex to be set.
 		 */
-		protected void setVertex(VV vertex) {
+		protected void setVertex(final VV vertex) {
 			this.vertex = vertex;
 		}
 	}
@@ -143,15 +141,14 @@ public class SDFListenableGraph extends SDFGraph implements
 	 */
 	private static final long serialVersionUID = -7651455929185604666L;
 
-	private static <L extends EventListener> void addToListenerList(
-			List<L> list, L l) {
+	private static <L extends EventListener> void addToListenerList(final List<L> list, final L l) {
 		if (!list.contains(l)) {
 			list.add(l);
 		}
 	}
 
-	private ArrayList<GraphListener<SDFAbstractVertex, SDFEdge>> graphListeners = new ArrayList<GraphListener<SDFAbstractVertex, SDFEdge>>();
-	private FlyweightEdgeEvent<SDFAbstractVertex, SDFEdge> reuseableEdgeEvent;
+	private final ArrayList<GraphListener<SDFAbstractVertex, SDFEdge>>	graphListeners	= new ArrayList<>();
+	private FlyweightEdgeEvent<SDFAbstractVertex, SDFEdge>				reuseableEdgeEvent;
 
 	private FlyweightVertexEvent<SDFAbstractVertex> reuseableVertexEvent;
 
@@ -160,7 +157,7 @@ public class SDFListenableGraph extends SDFGraph implements
 
 	private boolean reuseEvents;
 
-	private ArrayList<VertexSetListener<SDFAbstractVertex>> vertexSetListeners = new ArrayList<VertexSetListener<SDFAbstractVertex>>();
+	private final ArrayList<VertexSetListener<SDFAbstractVertex>> vertexSetListeners = new ArrayList<>();
 
 	/**
 	 * Creates a new SDFListenableGraph
@@ -170,9 +167,8 @@ public class SDFListenableGraph extends SDFGraph implements
 	}
 
 	@Override
-	public SDFEdge addEdge(SDFAbstractVertex sourceVertex,
-			SDFAbstractVertex targetVertex) {
-		SDFEdge e = super.addEdge(sourceVertex, targetVertex);
+	public SDFEdge addEdge(final SDFAbstractVertex sourceVertex, final SDFAbstractVertex targetVertex) {
+		final SDFEdge e = super.addEdge(sourceVertex, targetVertex);
 
 		if (e != null) {
 			fireEdgeAdded(e);
@@ -185,9 +181,8 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see Graph#addEdge(Object, Object, Object)
 	 */
 	@Override
-	public boolean addEdge(SDFAbstractVertex sourceVertex,
-			SDFAbstractVertex targetVertex, SDFEdge e) {
-		boolean added = super.addEdge(sourceVertex, targetVertex, e);
+	public boolean addEdge(final SDFAbstractVertex sourceVertex, final SDFAbstractVertex targetVertex, final SDFEdge e) {
+		final boolean added = super.addEdge(sourceVertex, targetVertex, e);
 
 		if (added) {
 			fireEdgeAdded(e);
@@ -200,9 +195,8 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see Graph#addEdge(Object, Object)
 	 */
 	@Override
-	public SDFEdge addEdgeWithInterfaces(SDFAbstractVertex sourceVertex,
-			SDFAbstractVertex targetVertex) {
-		SDFEdge e = super.addEdgeWithInterfaces(sourceVertex, targetVertex);
+	public SDFEdge addEdgeWithInterfaces(final SDFAbstractVertex sourceVertex, final SDFAbstractVertex targetVertex) {
+		final SDFEdge e = super.addEdgeWithInterfaces(sourceVertex, targetVertex);
 
 		if (e != null) {
 			fireEdgeAdded(e);
@@ -215,16 +209,16 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see ListenableGraph#addGraphListener(GraphListener)
 	 */
 	@Override
-	public void addGraphListener(GraphListener<SDFAbstractVertex, SDFEdge> l) {
-		addToListenerList(graphListeners, l);
+	public void addGraphListener(final GraphListener<SDFAbstractVertex, SDFEdge> l) {
+		SDFListenableGraph.addToListenerList(this.graphListeners, l);
 	}
 
 	/**
 	 * @see Graph#addVertex(Object)
 	 */
 	@Override
-	public boolean addVertex(SDFAbstractVertex v) {
-		boolean modified = super.addVertex(v);
+	public boolean addVertex(final SDFAbstractVertex v) {
+		final boolean modified = super.addVertex(v);
 
 		if (modified) {
 			fireVertexAdded(v);
@@ -237,33 +231,29 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see ListenableGraph#addVertexSetListener(VertexSetListener)
 	 */
 	@Override
-	public void addVertexSetListener(VertexSetListener<SDFAbstractVertex> l) {
-		addToListenerList(vertexSetListeners, l);
+	public void addVertexSetListener(final VertexSetListener<SDFAbstractVertex> l) {
+		SDFListenableGraph.addToListenerList(this.vertexSetListeners, l);
 	}
 
-	private GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> createGraphEdgeChangeEvent(
-			int eventType, SDFEdge edge) {
-		if (reuseEvents) {
-			reuseableEdgeEvent.setType(eventType);
-			reuseableEdgeEvent.setEdge(edge);
+	private GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> createGraphEdgeChangeEvent(final int eventType, final SDFEdge edge) {
+		if (this.reuseEvents) {
+			this.reuseableEdgeEvent.setType(eventType);
+			this.reuseableEdgeEvent.setEdge(edge);
 
-			return reuseableEdgeEvent;
+			return this.reuseableEdgeEvent;
 		} else {
-			return new GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge>(this,
-					eventType, edge);
+			return new GraphEdgeChangeEvent<>(this, eventType, edge);
 		}
 	}
 
-	private GraphVertexChangeEvent<SDFAbstractVertex> createGraphVertexChangeEvent(
-			int eventType, SDFAbstractVertex vertex) {
-		if (reuseEvents) {
-			reuseableVertexEvent.setType(eventType);
-			reuseableVertexEvent.setVertex(vertex);
+	private GraphVertexChangeEvent<SDFAbstractVertex> createGraphVertexChangeEvent(final int eventType, final SDFAbstractVertex vertex) {
+		if (this.reuseEvents) {
+			this.reuseableVertexEvent.setType(eventType);
+			this.reuseableVertexEvent.setVertex(vertex);
 
-			return reuseableVertexEvent;
+			return this.reuseableVertexEvent;
 		} else {
-			return new GraphVertexChangeEvent<SDFAbstractVertex>(this,
-					eventType, vertex);
+			return new GraphVertexChangeEvent<>(this, eventType, vertex);
 		}
 	}
 
@@ -273,12 +263,11 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @param edge
 	 *            the edge that was added.
 	 */
-	protected void fireEdgeAdded(SDFEdge edge) {
-		GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(
-				GraphEdgeChangeEvent.EDGE_ADDED, edge);
+	protected void fireEdgeAdded(final SDFEdge edge) {
+		final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<SDFAbstractVertex, SDFEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
 
 			l.edgeAdded(e);
 		}
@@ -290,12 +279,11 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @param edge
 	 *            the edge that was removed.
 	 */
-	protected void fireEdgeRemoved(SDFEdge edge) {
-		GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(
-				GraphEdgeChangeEvent.EDGE_REMOVED, edge);
+	protected void fireEdgeRemoved(final SDFEdge edge) {
+		final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<SDFAbstractVertex, SDFEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
 
 			l.edgeRemoved(e);
 		}
@@ -307,18 +295,17 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @param vertex
 	 *            the vertex that was added.
 	 */
-	protected void fireVertexAdded(SDFAbstractVertex vertex) {
-		GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(
-				GraphVertexChangeEvent.VERTEX_ADDED, vertex);
+	protected void fireVertexAdded(final SDFAbstractVertex vertex) {
+		final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
 
-		for (int i = 0; i < vertexSetListeners.size(); i++) {
-			VertexSetListener<SDFAbstractVertex> l = vertexSetListeners.get(i);
+		for (int i = 0; i < this.vertexSetListeners.size(); i++) {
+			final VertexSetListener<SDFAbstractVertex> l = this.vertexSetListeners.get(i);
 
 			l.vertexAdded(e);
 		}
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<SDFAbstractVertex, SDFEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
 
 			l.vertexAdded(e);
 		}
@@ -330,18 +317,17 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @param vertex
 	 *            the vertex that was removed.
 	 */
-	protected void fireVertexRemoved(SDFAbstractVertex vertex) {
-		GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(
-				GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
+	protected void fireVertexRemoved(final SDFAbstractVertex vertex) {
+		final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
 
-		for (int i = 0; i < vertexSetListeners.size(); i++) {
-			VertexSetListener<SDFAbstractVertex> l = vertexSetListeners.get(i);
+		for (int i = 0; i < this.vertexSetListeners.size(); i++) {
+			final VertexSetListener<SDFAbstractVertex> l = this.vertexSetListeners.get(i);
 
 			l.vertexRemoved(e);
 		}
 
-		for (int i = 0; i < graphListeners.size(); i++) {
-			GraphListener<SDFAbstractVertex, SDFEdge> l = graphListeners.get(i);
+		for (int i = 0; i < this.graphListeners.size(); i++) {
+			final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
 
 			l.vertexRemoved(e);
 		}
@@ -357,7 +343,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @return the value of the <code>reuseEvents</code> flag.
 	 */
 	public boolean isReuseEvents() {
-		return reuseEvents;
+		return this.reuseEvents;
 	}
 
 	/**
@@ -365,10 +351,9 @@ public class SDFListenableGraph extends SDFGraph implements
 	 */
 	@Override
 	@Deprecated
-	public SDFEdge removeEdge(SDFAbstractVertex sourceVertex,
-			SDFAbstractVertex targetVertex) {
+	public SDFEdge removeEdge(final SDFAbstractVertex sourceVertex, final SDFAbstractVertex targetVertex) {
 		checkMultipleEdges(sourceVertex, targetVertex);
-		SDFEdge e = super.removeEdge(sourceVertex, targetVertex);
+		final SDFEdge e = super.removeEdge(sourceVertex, targetVertex);
 
 		if (e != null) {
 			fireEdgeRemoved(e);
@@ -381,8 +366,8 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see Graph#removeEdge(Object)
 	 */
 	@Override
-	public boolean removeEdge(SDFEdge e) {
-		boolean modified = super.removeEdge(e);
+	public boolean removeEdge(final SDFEdge e) {
+		final boolean modified = super.removeEdge(e);
 
 		if (modified) {
 			fireEdgeRemoved(e);
@@ -395,20 +380,20 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see ListenableGraph#removeGraphListener(GraphListener)
 	 */
 	@Override
-	public void removeGraphListener(GraphListener<SDFAbstractVertex, SDFEdge> l) {
-		graphListeners.remove(l);
+	public void removeGraphListener(final GraphListener<SDFAbstractVertex, SDFEdge> l) {
+		this.graphListeners.remove(l);
 	}
 
 	/**
 	 * @see Graph#removeVertex(Object)
 	 */
 	@Override
-	public boolean removeVertex(SDFAbstractVertex v) {
+	public boolean removeVertex(final SDFAbstractVertex v) {
 		if (containsVertex(v)) {
-			Set<SDFEdge> touchingEdgesList = edgesOf(v);
+			final Set<SDFEdge> touchingEdgesList = edgesOf(v);
 
 			// copy set to avoid ConcurrentModificationException
-			removeAllEdges(new ArrayList<SDFEdge>(touchingEdgesList));
+			removeAllEdges(new ArrayList<>(touchingEdgesList));
 
 			super.removeVertex(v); // remove the vertex itself
 
@@ -427,8 +412,8 @@ public class SDFListenableGraph extends SDFGraph implements
 	 * @see ListenableGraph#removeVertexSetListener(VertexSetListener)
 	 */
 	@Override
-	public void removeVertexSetListener(VertexSetListener<SDFAbstractVertex> l) {
-		vertexSetListeners.remove(l);
+	public void removeVertexSetListener(final VertexSetListener<SDFAbstractVertex> l) {
+		this.vertexSetListeners.remove(l);
 	}
 
 	/**
@@ -441,7 +426,7 @@ public class SDFListenableGraph extends SDFGraph implements
 	 *            whether to reuse previously fired event objects instead of
 	 *            creating a new event object for each event.
 	 */
-	public void setReuseEvents(boolean reuseEvents) {
+	public void setReuseEvents(final boolean reuseEvents) {
 		this.reuseEvents = reuseEvents;
 	}
 }

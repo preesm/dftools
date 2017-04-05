@@ -10,16 +10,16 @@
  * functionalities and technical features of your software].
  *
  * This software is governed by the CeCILL  license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
+ * "http://www.cecill.info".
  *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
+ * liability.
  *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
@@ -28,9 +28,9 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
  *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
@@ -58,25 +58,24 @@ public class ArchitectureUtil {
 	/**
 	 * If it does not exist, creates the given folder. If the parent folders do
 	 * not exist either, create them.
-	 * 
+	 *
 	 * @param folder
 	 *            a folder
 	 * @throws CoreException
 	 */
 	public static void createFolder(IFolder folder) throws CoreException {
-		IPath path = folder.getFullPath();
+		final IPath path = folder.getFullPath();
 		if (folder.exists()) {
 			return;
 		}
 
-		int n = path.segmentCount();
+		final int n = path.segmentCount();
 		if (n < 2) {
-			throw new IllegalArgumentException("the path of the given folder "
-					+ "must have at least two segments");
+			throw new IllegalArgumentException("the path of the given folder " + "must have at least two segments");
 		}
 
 		// check the first folder
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		folder = root.getFolder(path.uptoSegment(2));
 		if (!folder.exists()) {
 			folder.create(true, false, null);
@@ -94,19 +93,19 @@ public class ArchitectureUtil {
 	/**
 	 * Returns the network in the given project that has the given qualified
 	 * name.
-	 * 
+	 *
 	 * @param project
 	 *            project
 	 * @param networkName
 	 *            qualified name of a network
 	 * @return if there is such a network, a file, otherwise <code>null</code>
 	 */
-	public static IFile getDesign(IProject project, String designQualifiedName) {
-		String name = designQualifiedName.replace('.', '/');
-		IPath path = new Path(name).addFileExtension("design");
-		for (IFolder folder : getSourceFolders(project)) {
-			IFile inputFile = folder.getFile(path);
-			if (inputFile != null && inputFile.exists()) {
+	public static IFile getDesign(final IProject project, final String designQualifiedName) {
+		final String name = designQualifiedName.replace('.', '/');
+		final IPath path = new Path(name).addFileExtension("design");
+		for (final IFolder folder : ArchitectureUtil.getSourceFolders(project)) {
+			final IFile inputFile = folder.getFile(path);
+			if ((inputFile != null) && inputFile.exists()) {
 				return inputFile;
 			}
 		}
@@ -117,21 +116,20 @@ public class ArchitectureUtil {
 	/**
 	 * Returns the qualified name of the given file, i.e. qualified.name.of.File
 	 * for <code>/project/sourceFolder/qualified/name/of/File.fileExt</code>
-	 * 
+	 *
 	 * @param file
 	 *            a file
 	 * @return a qualified name, or <code>null</code> if the file is not in a
 	 *         source folder
 	 */
-	public static String getQualifiedName(IFile file) {
-		IProject project = file.getProject();
-		IPath filePath = file.getFullPath();
-		for (IFolder folder : getSourceFolders(project)) {
-			IPath folderPath = folder.getFullPath();
+	public static String getQualifiedName(final IFile file) {
+		final IProject project = file.getProject();
+		final IPath filePath = file.getFullPath();
+		for (final IFolder folder : ArchitectureUtil.getSourceFolders(project)) {
+			final IPath folderPath = folder.getFullPath();
 			if (folderPath.isPrefixOf(filePath)) {
 				// yay we found the folder!
-				IPath qualifiedPath = filePath.removeFirstSegments(
-						folderPath.segmentCount()).removeFileExtension();
+				final IPath qualifiedPath = filePath.removeFirstSegments(folderPath.segmentCount()).removeFileExtension();
 				return qualifiedPath.toString();
 			}
 		}
@@ -142,29 +140,28 @@ public class ArchitectureUtil {
 	/**
 	 * Returns the list of source folders of the given project as a list of
 	 * absolute workspace paths.
-	 * 
+	 *
 	 * @param project
 	 *            a project
 	 * @return a list of absolute workspace paths
 	 */
-	public static List<IFolder> getSourceFolders(IProject project) {
-		List<IFolder> srcFolders = new ArrayList<IFolder>();
+	public static List<IFolder> getSourceFolders(final IProject project) {
+		final List<IFolder> srcFolders = new ArrayList<>();
 
-		IJavaProject javaProject = JavaCore.create(project);
+		final IJavaProject javaProject = JavaCore.create(project);
 		if (!javaProject.exists()) {
 			return srcFolders;
 		}
 
 		// iterate over package roots
 		try {
-			for (IPackageFragmentRoot root : javaProject
-					.getPackageFragmentRoots()) {
-				IResource resource = root.getCorrespondingResource();
-				if (resource != null && resource.getType() == IResource.FOLDER) {
+			for (final IPackageFragmentRoot root : javaProject.getPackageFragmentRoots()) {
+				final IResource resource = root.getCorrespondingResource();
+				if ((resource != null) && (resource.getType() == IResource.FOLDER)) {
 					srcFolders.add((IFolder) resource);
 				}
 			}
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 
@@ -174,31 +171,31 @@ public class ArchitectureUtil {
 	/**
 	 * Returns the list of ALL source folders of the required projects as well
 	 * as of the given project as a list of absolute workspace paths.
-	 * 
+	 *
 	 * @param project
 	 *            a project
 	 * @return a list of absolute workspace paths
 	 * @throws CoreException
 	 */
-	public static List<IFolder> getAllSourceFolders(IProject project) {
-		List<IFolder> srcFolders = new ArrayList<IFolder>();
+	public static List<IFolder> getAllSourceFolders(final IProject project) {
+		final List<IFolder> srcFolders = new ArrayList<>();
 
-		IJavaProject javaProject = JavaCore.create(project);
+		final IJavaProject javaProject = JavaCore.create(project);
 		if (!javaProject.exists()) {
 			return srcFolders;
 		}
 
 		// add source folders of this project
-		srcFolders.addAll(getSourceFolders(project));
+		srcFolders.addAll(ArchitectureUtil.getSourceFolders(project));
 
 		// add source folders of required projects
-		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		try {
-			for (String name : javaProject.getRequiredProjectNames()) {
-				IProject refProject = root.getProject(name);
-				srcFolders.addAll(getAllSourceFolders(refProject));
+			for (final String name : javaProject.getRequiredProjectNames()) {
+				final IProject refProject = root.getProject(name);
+				srcFolders.addAll(ArchitectureUtil.getAllSourceFolders(refProject));
 			}
-		} catch (CoreException e) {
+		} catch (final CoreException e) {
 			e.printStackTrace();
 		}
 
