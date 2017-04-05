@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ietr.dftools.architecture/src"
+    modelPluginID="org.ietr.dftools.architecture" modelName="Slam" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>Slam.ecore</foreignModel>
+  <genPackages prefix="Slam" basePackage="org.ietr.dftools.architecture" disposableProviderFactory="true"
+      ecorePackage="Slam.ecore#/">
+    <nestedGenPackages prefix="Design" disposableProviderFactory="true" ecorePackage="Slam.ecore#//design">
+      <genClasses ecoreClass="Slam.ecore#//design/Operator"/>
+      <genClasses ecoreClass="Slam.ecore#//design/Connection"/>
+      <genClasses ecoreClass="Slam.ecore#//design/Component">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//design/Component/size"/>
+      </genClasses>
+      <genClasses ecoreClass="Slam.ecore#//design/ComponentInstance"/>
+      <genClasses ecoreClass="Slam.ecore#//design/UndirectedConnection"/>
+      <genClasses ecoreClass="Slam.ecore#//design/DirectedConnection"/>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>
