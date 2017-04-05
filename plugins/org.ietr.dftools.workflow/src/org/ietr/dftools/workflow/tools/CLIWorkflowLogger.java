@@ -1,7 +1,9 @@
 /*******************************************************************************
- * Copyright or © or Copr. IETR/INSA - Rennes (%%DATE%%) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2015 - 2017) :
  *
- * %%AUTHORS%%
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Clément Guy <clement.guy@insa-rennes.fr> (2015)
+ * Karol Desnos <karol.desnos@insa-rennes.fr> (2015)
  *
  * This software is a computer program whose purpose is to [describe
  * functionalities and technical features of your software].
