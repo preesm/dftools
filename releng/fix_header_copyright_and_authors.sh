@@ -8,9 +8,9 @@
 ##  below). Information is fetched from the git 
 ##  repository.
 #*******************************************************************************
-# Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+# Copyright or © or Copr. IETR/INSA - Rennes (%%DATE%%) :
 #
-# Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+# %%AUTHORS%%
 #
 # This software is a computer program whose purpose is to [describe
 # functionalities and technical features of your software].
