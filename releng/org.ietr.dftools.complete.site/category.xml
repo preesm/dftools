@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.ietr.dftools.feature_1.1.8.jar" id="org.ietr.dftools.feature" version="1.1.8">
+   <feature url="features/org.ietr.dftools.feature_1.1.9.qualifier.jar" id="org.ietr.dftools.feature" version="1.1.9.qualifier">
       <category name="Graphiti"/>
    </feature>
    
