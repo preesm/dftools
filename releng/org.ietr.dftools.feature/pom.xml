@@ -4,8 +4,8 @@
   <packaging>eclipse-feature</packaging>
   <parent>
 	<groupId>org.ietr.dftools</groupId>
-	<artifactId>org.ietr.dftools.parent</artifactId>
+	<artifactId>org.ietr.dftools.releng</artifactId>
 	<version>1.1.8</version>
-  	<relativePath>../..</relativePath>
+  	<relativePath>..</relativePath>
   </parent>
 </project>

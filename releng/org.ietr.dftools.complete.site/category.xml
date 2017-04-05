@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.ietr.dftools.feature_1.1.8.jar" id="org.ietr.dftools.feature" version="1.1.8">
+      <category name="Graphiti"/>
+   </feature>
+   
+   <feature id="org.ietr.dftools.feature.source">
+      <category name="source_components"/>
+   </feature>
+   <category-def name="source_components" label="Developer Resources">
+      <description>
+         Developper resources (includes source code).
+      </description>
+   </category-def>
+   
+   <category-def name="DFTools" label="DFTools">
+      <description>
+         The DFTools project offers features for dataflow modeling tools such as the Open RVC-CAL Compiler (Orcc) and PREESM.
+      </description>
+   </category-def>
+   <repository-reference location="http://download.eclipse.org/releases/neon/" enabled="true" />
+   <repository-reference location="http://preesm.sourceforge.net/eclipse/update-site/" enabled="true" />
+</site>
