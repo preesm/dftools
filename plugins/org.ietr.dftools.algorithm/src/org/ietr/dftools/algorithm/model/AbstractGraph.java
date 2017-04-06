@@ -720,6 +720,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
 	@Override
 	public int solveExpression(final String expression, final Value caller) throws InvalidExpressionException, NoIntegerValueException {
+		int resultValue;
 		try {
 			final JEP jep = new JEP();
 			if (this.getVariables() != null /*
@@ -749,12 +750,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 			}
 			final Node expressionMainNode = jep.parse(expression);
 			final Object result = jep.evaluate(expressionMainNode);
-			if (result instanceof Double) {
-				// System.out.println(expression+"="+result);
-				return ((Double) result).intValue();
-			} else if (result instanceof Integer) {
-				// System.out.println(expression+"="+result);
-				return ((Integer) result).intValue();
+			if (result instanceof Number) {
+				resultValue = ((Number) result).intValue();
 			} else {
 				throw (new InvalidExpressionException("Not a numerical expression"));
 			}
@@ -763,6 +760,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 		} catch (final Exception e) {
 			throw (new InvalidExpressionException("Could not parse expresion:" + expression));
 		}
+		return resultValue;
 	}
 
 	public abstract boolean validateModel(Logger logger) throws SDF4JException;

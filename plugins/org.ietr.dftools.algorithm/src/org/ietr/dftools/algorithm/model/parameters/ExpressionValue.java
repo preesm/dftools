@@ -75,28 +75,26 @@ public class ExpressionValue implements Value {
 	 */
 	@Override
 	public int intValue() throws InvalidExpressionException, NoIntegerValueException {
-		if (this.value != null) {
-			return this.value;
-		}
-		if (this.solver != null) {
-			this.value = this.solver.solveExpression(this.expression, this);
-			return this.value;
-		} else {
-			Object result;
-			try {
-				final JEP jep = new JEP();
-				final Node mainExpressionNode = jep.parse(this.expression);
-				result = jep.evaluate(mainExpressionNode);
-				if (result instanceof Double) {
-					this.value = ((Double) result).intValue();
-					return this.value;
-				} else {
-					throw (new InvalidExpressionException("Not a num�ric expression"));
+		if (this.value == null) {
+			if (this.solver != null) {
+				this.value = this.solver.solveExpression(this.expression, this);
+			} else {
+				Object result;
+				try {
+					final JEP jep = new JEP();
+					final Node mainExpressionNode = jep.parse(this.expression);
+					result = jep.evaluate(mainExpressionNode);
+					if (result instanceof Number) {
+						this.value = ((Number) result).intValue();
+					} else {
+						throw (new InvalidExpressionException("Not a numeric expression"));
+					}
+				} catch (final ParseException e) {
+					throw (new InvalidExpressionException("Can't parse expresion :" + this.expression));
 				}
-			} catch (final ParseException e) {
-				throw (new InvalidExpressionException("Can't parse expresion :" + this.expression));
 			}
 		}
+		return this.value;
 	}
 
 	/**
