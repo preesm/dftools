@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
- org.clojars.gilesc.jgrapht;bundle-version="0.8.2"
+ org.clojars.gilesc.jgrapht;bundle-version="0.8.2",
+ org.solovyev.jscl;bundle-version="1.0.11"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.demo,
@@ -36,7 +37,6 @@ Export-Package: org.ietr.dftools.algorithm,
 Bundle-ClassPath: lib/djep-full-latest.jar,
  lib/jgraph.jar,
  lib/jmatharray.jar,
- lib/jscl.jar,
  .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 

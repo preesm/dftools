@@ -57,7 +57,8 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
-import jscl.math.JSCLInteger;
+import jscl.math.JsclInteger;
+
 
 /**
  * Abstract class representing SDF Vertices
@@ -388,8 +389,8 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
 		}
 		if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Integer) {
 			return (Integer) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
-		} else if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof JSCLInteger) {
-			return ((JSCLInteger) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).intValue();
+		} else if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof JsclInteger) {
+			return ((JsclInteger) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).intValue();
 		} else {
 			return 1;
 		}
