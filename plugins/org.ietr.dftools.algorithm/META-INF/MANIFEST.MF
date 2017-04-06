@@ -13,7 +13,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtend.lib.macro,
  org.clojars.gilesc.jgrapht;bundle-version="0.8.2",
  org.solovyev.jscl;bundle-version="1.0.11",
- jgraph;bundle-version="5.13.0"
+ jgraph;bundle-version="5.13.0",
+ com.github.yannrichet.JMathArray;bundle-version="1.0.0",
+ gov.nist.math.jama;bundle-version="1.0.3",
+ gov.nist.math.jama.source;bundle-version="1.0.3"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.demo,
@@ -36,7 +39,6 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.model.sdf.visitors,
  org.ietr.dftools.algorithm.model.visitors
 Bundle-ClassPath: lib/djep-full-latest.jar,
- lib/jmatharray.jar,
  .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 
