@@ -3,7 +3,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ietr.dftools.architecture/ecore-gen" editDirectory="/org.ietr.dftools.architecture.edit/ecore-gen"
     editorDirectory="/org.ietr.dftools.architecture.editor/ecore-gen" modelPluginID="org.ietr.dftools.architecture"
     modelName="Slam" testsDirectory="/org.ietr.dftools.architecture.tests/ecore-gen"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false">
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false">
   <foreignModel>Slam.ecore</foreignModel>
   <genPackages prefix="Slam" basePackage="org.ietr.dftools.architecture" disposableProviderFactory="true"
       ecorePackage="Slam.ecore#/">
