@@ -49,3 +49,4 @@ xtend-gen/
 #################
 **/.settings
 **/.project
+**/.checkstyle
