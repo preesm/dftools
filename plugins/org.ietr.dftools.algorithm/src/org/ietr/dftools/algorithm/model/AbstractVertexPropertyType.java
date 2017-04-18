@@ -36,62 +36,75 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * Abstract generic Class to represent any Vertex Property
+ * Abstract generic Class to represent any Vertex Property.
  *
  * @author jpiat
- *
  * @param <T>
+ *          the generic type
  */
 public abstract class AbstractVertexPropertyType<T> implements CloneableProperty {
 
-	protected T value;
+  /** The value. */
+  protected T value;
 
-	/**
-	 * Creates a new AbstractVertexPropertyType without specifying any value
-	 */
-	public AbstractVertexPropertyType() {
-		this.value = null;
-	}
+  /**
+   * Creates a new AbstractVertexPropertyType without specifying any value.
+   */
+  public AbstractVertexPropertyType() {
+    this.value = null;
+  }
 
-	/**
-	 * Creates a new AbstractVertexPropertyType with the given value
-	 *
-	 * @param val
-	 */
-	public AbstractVertexPropertyType(final T val) {
-		this.value = val;
-	}
+  /**
+   * Creates a new AbstractVertexPropertyType with the given value.
+   *
+   * @param val
+   *          the val
+   */
+  public AbstractVertexPropertyType(final T val) {
+    this.value = val;
+  }
 
-	@Override
-	public abstract AbstractVertexPropertyType<T> clone();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public abstract AbstractVertexPropertyType<T> clone();
 
-	/**
-	 * Gives this AbstractVertexPropertyType value
-	 *
-	 * @return This AbstractVertexPropertyType values
-	 */
-	public T getValue() {
-		return this.value;
-	}
+  /**
+   * Gives this AbstractVertexPropertyType value.
+   *
+   * @return This AbstractVertexPropertyType values
+   */
+  public T getValue() {
+    return this.value;
+  }
 
-	/**
-	 * Gives the Integer representation of this AbstractVertexPropertyType value
-	 *
-	 * @return The Integer value of this AbstractVertexPropertyType
-	 */
-	public abstract int intValue();
+  /**
+   * Gives the Integer representation of this AbstractVertexPropertyType value.
+   *
+   * @return The Integer value of this AbstractVertexPropertyType
+   */
+  public abstract int intValue();
 
-	/**
-	 * Set this AbstractVertexPropertyType value
-	 *
-	 * @param val
-	 *            The value to set for this AbstractVertexPropertyType
-	 */
-	public void setValue(final T val) {
-		this.value = val;
-	}
+  /**
+   * Set this AbstractVertexPropertyType value.
+   *
+   * @param val
+   *          The value to set for this AbstractVertexPropertyType
+   */
+  public void setValue(final T val) {
+    this.value = val;
+  }
 
-	@Override
-	public abstract String toString();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public abstract String toString();
 }

@@ -43,7 +43,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
-
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
@@ -55,133 +54,165 @@ import org.ietr.dftools.workflow.messages.WorkflowMessages;
 import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
 /**
- * Displaying information or error messages through a console initialized by the
- * initConsole method.
+ * Displaying information or error messages through a console initialized by the initConsole method.
  *
  * @author mwipliez
  * @author mpelcat
  */
 public class DFToolsWorkflowLogger extends WorkflowLogger {
 
-	private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
+  /** The Constant LOGGER_NAME. */
+  private static final String LOGGER_NAME = "net.sf.dftools.log.WorkflowLogger";
 
-	// Boolean used to know whether Preesm is running through command line
-	// interface, in which case we should not use the logGUI method (it calls
-	// getWorkbench, provoking an IllegalStateException, because Workbench is an
-	// UI class), but logCLI which use the cli-friendly logger PreesmLogger
-	private static boolean isRunningFromCLI = false;
+  // Boolean used to know whether Preesm is running through command line
+  // interface, in which case we should not use the logGUI method (it calls
+  // getWorkbench, provoking an IllegalStateException, because Workbench is an
+  /** The is running from CLI. */
+  // UI class), but logCLI which use the cli-friendly logger PreesmLogger
+  private static boolean isRunningFromCLI = false;
 
-	MessageConsole console = null;
+  /** The console. */
+  MessageConsole console = null;
 
-	@Override
-	public void setLevel(final Level newLevel) throws SecurityException {
-		// Enabling only info level
-		super.setLevel(Level.INFO);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.util.logging.Logger#setLevel(java.util.logging.Level)
+   */
+  @Override
+  public void setLevel(final Level newLevel) throws SecurityException {
+    // Enabling only info level
+    super.setLevel(Level.INFO);
+  }
 
-	/**
-	 *
-	 */
-	public DFToolsWorkflowLogger() {
-		super(DFToolsWorkflowLogger.LOGGER_NAME, null);
-		LogManager.getLogManager().addLogger(this);
+  /**
+   * Instantiates a new DF tools workflow logger.
+   */
+  public DFToolsWorkflowLogger() {
+    super(DFToolsWorkflowLogger.LOGGER_NAME, null);
+    LogManager.getLogManager().addLogger(this);
 
-		if (!DFToolsWorkflowLogger.isRunningFromCLI) {
-			initConsole();
-		}
-	}
+    if (!DFToolsWorkflowLogger.isRunningFromCLI) {
+      initConsole();
+    }
+  }
 
-	/**
-	 * adds a log retrieved from a property file {@link WorkflowMessages} and
-	 * parameterized with variables Each string "%VAR%" is replaced by a given
-	 * variable
-	 */
-	@Override
-	public void logFromProperty(final Level level, final String msgKey, final String... variables) {
-		log(level, WorkflowMessages.getString(msgKey, variables));
-	}
+  /**
+   * adds a log retrieved from a property file {@link WorkflowMessages} and parameterized with variables Each string "%VAR%" is replaced by a given variable.
+   *
+   * @param level
+   *          the level
+   * @param msgKey
+   *          the msg key
+   * @param variables
+   *          the variables
+   */
+  @Override
+  public void logFromProperty(final Level level, final String msgKey, final String... variables) {
+    log(level, WorkflowMessages.getString(msgKey, variables));
+  }
 
-	@Override
-	public void log(final LogRecord record) {
-		if (DFToolsWorkflowLogger.isRunningFromCLI) {
-			logCLI(record);
-		} else {
-			logGUI(record);
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.util.logging.Logger#log(java.util.logging.LogRecord)
+   */
+  @Override
+  public void log(final LogRecord record) {
+    if (DFToolsWorkflowLogger.isRunningFromCLI) {
+      logCLI(record);
+    } else {
+      logGUI(record);
+    }
 
-	}
+  }
 
-	private void logGUI(final LogRecord record) {
-		final Level level = record.getLevel();
-		final int levelVal = level.intValue();
-		if ((getLevel() == null) || (levelVal >= getLevel().intValue())) {
+  /**
+   * Log GUI.
+   *
+   * @param record
+   *          the record
+   */
+  private void logGUI(final LogRecord record) {
+    final Level level = record.getLevel();
+    final int levelVal = level.intValue();
+    if ((getLevel() == null) || (levelVal >= getLevel().intValue())) {
 
-			// Writes a log in standard output
-			if (this.console == null) {
-				if (levelVal < Level.INFO.intValue()) {
-					final String msg = record.getMillis() + " " + level.toString() + ": " + record.getMessage() + " (in " + record.getSourceClassName() + "#"
-							+ record.getSourceMethodName() + ")";
-					System.out.println(msg);
-				} else {
-					final Date date = new Date(record.getMillis());
-					final DateFormat df = DateFormat.getTimeInstance();
-					final String msg = df.format(date) + " " + level.toString() + ": " + record.getMessage();
+      // Writes a log in standard output
+      if (this.console == null) {
+        if (levelVal < Level.INFO.intValue()) {
+          final String msg = record.getMillis() + " " + level.toString() + ": " + record.getMessage() + " (in " + record.getSourceClassName() + "#"
+              + record.getSourceMethodName() + ")";
+          System.out.println(msg);
+        } else {
+          final Date date = new Date(record.getMillis());
+          final DateFormat df = DateFormat.getTimeInstance();
+          final String msg = df.format(date) + " " + level.toString() + ": " + record.getMessage();
 
-					if (levelVal < Level.WARNING.intValue()) {
-						System.out.println(msg);
-					} else {
-						System.err.println(msg);
-					}
-				}
-			} else {
-				// Writes a log in console
-				final MessageConsoleStream stream = this.console.newMessageStream();
+          if (levelVal < Level.WARNING.intValue()) {
+            System.out.println(msg);
+          } else {
+            System.err.println(msg);
+          }
+        }
+      } else {
+        // Writes a log in console
+        final MessageConsoleStream stream = this.console.newMessageStream();
 
-				Activator.getDefault().getWorkbench().getDisplay().asyncExec(() -> {
-					if (levelVal < Level.WARNING.intValue()) {
-						stream.setColor(new Color(null, 0, 0, 0));
-					} else if (levelVal == Level.WARNING.intValue()) {
-						stream.setColor(new Color(null, 255, 150, 0));
-					} else if (levelVal > Level.WARNING.intValue()) {
-						stream.setColor(new Color(null, 255, 0, 0));
-					}
-				});
+        Activator.getDefault().getWorkbench().getDisplay().asyncExec(() -> {
+          if (levelVal < Level.WARNING.intValue()) {
+            stream.setColor(new Color(null, 0, 0, 0));
+          } else if (levelVal == Level.WARNING.intValue()) {
+            stream.setColor(new Color(null, 255, 150, 0));
+          } else if (levelVal > Level.WARNING.intValue()) {
+            stream.setColor(new Color(null, 255, 0, 0));
+          }
+        });
 
-				stream.println(WorkflowLogger.getFormattedTime() + record.getMessage());
+        stream.println(WorkflowLogger.getFormattedTime() + record.getMessage());
 
-				if (getLevel().intValue() >= Level.SEVERE.intValue()) {
-					// throw (new PreesmException(record.getMessage()));
-				}
-			}
-		}
-	}
+        if (getLevel().intValue() >= Level.SEVERE.intValue()) {
+          // throw (new PreesmException(record.getMessage()));
+        }
+      }
+    }
+  }
 
-	private void logCLI(final LogRecord record) {
-		CLIWorkflowLogger.log(record.getLevel(), record.getMessage());
-	}
+  /**
+   * Log CLI.
+   *
+   * @param record
+   *          the record
+   */
+  private void logCLI(final LogRecord record) {
+    CLIWorkflowLogger.log(record.getLevel(), record.getMessage());
+  }
 
-	public void initConsole() {
-		setLevel(Level.INFO);
-		final IConsoleManager mgr = ConsolePlugin.getDefault().getConsoleManager();
+  /**
+   * Inits the console.
+   */
+  public void initConsole() {
+    setLevel(Level.INFO);
+    final IConsoleManager mgr = ConsolePlugin.getDefault().getConsoleManager();
 
-		if (this.console == null) {
-			this.console = new MessageConsole("DFTools Workflow console", null);
-			mgr.addConsoles(new IConsole[] { this.console });
-		}
+    if (this.console == null) {
+      this.console = new MessageConsole("DFTools Workflow console", null);
+      mgr.addConsoles(new IConsole[] { this.console });
+    }
 
-		this.console.activate();
-		this.console.setBackground(new Color(null, 230, 228, 252));
+    this.console.activate();
+    this.console.setBackground(new Color(null, 230, 228, 252));
 
-		mgr.refresh(this.console);
-	}
+    mgr.refresh(this.console);
+  }
 
-	/**
-	 * Method to call before the first log when running preesm through command
-	 * line interface Basically called by CLIWorkflowExecutor
-	 */
-	public static void runFromCLI() {
-		DFToolsWorkflowLogger.isRunningFromCLI = true;
-	}
+  /**
+   * Method to call before the first log when running preesm through command line interface Basically called by CLIWorkflowExecutor.
+   */
+  public static void runFromCLI() {
+    DFToolsWorkflowLogger.isRunningFromCLI = true;
+  }
 
 }

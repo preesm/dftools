@@ -39,7 +39,6 @@ package org.ietr.dftools.ui.slam;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -60,6 +59,7 @@ import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 import org.eclipse.ui.dialogs.SearchPattern;
 import org.ietr.dftools.ui.Activator;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class defines a custom filtered items selection dialog.
  *
@@ -68,198 +68,271 @@ import org.ietr.dftools.ui.Activator;
  */
 public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
-	/**
-	 * This class defines a comparator.
-	 *
-	 * @author Matthieu Wipliez
-	 *
-	 */
-	private class ResourceComparator implements Comparator<Object> {
+  /**
+   * This class defines a comparator.
+   *
+   * @author Matthieu Wipliez
+   *
+   */
+  private class ResourceComparator implements Comparator<Object> {
 
-		@Override
-		public int compare(final Object o1, final Object o2) {
-			return getElementName(o1).compareTo(getElementName(o2));
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
+    @Override
+    public int compare(final Object o1, final Object o2) {
+      return getElementName(o1).compareTo(getElementName(o2));
+    }
 
-	}
+  }
 
-	/**
-	 * This class defines a filter.
-	 *
-	 * @author Matthieu Wipliez
-	 *
-	 */
-	private class ResourceFilter extends ItemsFilter {
+  /**
+   * This class defines a filter.
+   *
+   * @author Matthieu Wipliez
+   *
+   */
+  private class ResourceFilter extends ItemsFilter {
 
-		public ResourceFilter() {
-			super(new SearchPattern(SearchPattern.RULE_PATTERN_MATCH));
+    /**
+     * Instantiates a new resource filter.
+     */
+    public ResourceFilter() {
+      super(new SearchPattern(SearchPattern.RULE_PATTERN_MATCH));
 
-			// update pattern to look for anything before and after the original
-			// pattern
-			String pattern = this.patternMatcher.getPattern();
-			pattern = "*" + pattern + "*";
-			this.patternMatcher.setPattern(pattern);
-		}
+      // update pattern to look for anything before and after the original
+      // pattern
+      String pattern = this.patternMatcher.getPattern();
+      pattern = "*" + pattern + "*";
+      this.patternMatcher.setPattern(pattern);
+    }
 
-		@Override
-		public boolean isConsistentItem(final Object item) {
-			return true;
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter#isConsistentItem(java.lang.Object)
+     */
+    @Override
+    public boolean isConsistentItem(final Object item) {
+      return true;
+    }
 
-		@Override
-		public boolean matchItem(final Object item) {
-			final String name = getElementName(item);
-			return matches(name);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter#matchItem(java.lang.Object)
+     */
+    @Override
+    public boolean matchItem(final Object item) {
+      final String name = getElementName(item);
+      return matches(name);
+    }
+  }
 
-	private static final String DIALOG_SETTINGS = "org.ietr.dftools.ui.slam.FilteredRefinementDialog"; //$NON-NLS-1$
+  /** The Constant DIALOG_SETTINGS. */
+  private static final String DIALOG_SETTINGS = "org.ietr.dftools.ui.slam.FilteredRefinementDialog"; //$NON-NLS-1$
 
-	private final ResourceComparator comparator;
+  /** The comparator. */
+  private final ResourceComparator comparator;
 
-	private final IJavaProject project;
+  /** The project. */
+  private final IJavaProject project;
 
-	private final String fileExt;
+  /** The file ext. */
+  private final String fileExt;
 
-	/**
-	 * Creates a new filtered actors dialog.
-	 *
-	 * @param project
-	 * @param shell
-	 */
-	public FilteredRefinementDialog(final IProject project, final Shell shell, final String fileExt) {
-		super(shell);
-		this.project = JavaCore.create(project);
-		this.comparator = new ResourceComparator();
-		this.fileExt = fileExt;
-	}
+  /**
+   * Creates a new filtered actors dialog.
+   *
+   * @param project
+   *          the project
+   * @param shell
+   *          the shell
+   * @param fileExt
+   *          the file ext
+   */
+  public FilteredRefinementDialog(final IProject project, final Shell shell, final String fileExt) {
+    super(shell);
+    this.project = JavaCore.create(project);
+    this.comparator = new ResourceComparator();
+    this.fileExt = fileExt;
+  }
 
-	private void addChildren(final AbstractContentProvider contentProvider, final ItemsFilter itemsFilter, String path, final IResource resource)
-			throws CoreException {
-		if (resource.getType() == IResource.FOLDER) {
-			final IFolder folder = (IFolder) resource;
-			path = path + resource.getName() + ".";
-			for (final IResource member : folder.members()) {
-				addChildren(contentProvider, itemsFilter, path, member);
-			}
-		} else if (this.fileExt.equals(resource.getFileExtension())) {
-			// remove file extension
-			final String resourceName = resource.getFullPath().removeFileExtension().lastSegment();
-			contentProvider.add(path + resourceName, itemsFilter);
-		}
-	}
+  /**
+   * Adds the children.
+   *
+   * @param contentProvider
+   *          the content provider
+   * @param itemsFilter
+   *          the items filter
+   * @param path
+   *          the path
+   * @param resource
+   *          the resource
+   * @throws CoreException
+   *           the core exception
+   */
+  private void addChildren(final AbstractContentProvider contentProvider, final ItemsFilter itemsFilter, String path, final IResource resource)
+      throws CoreException {
+    if (resource.getType() == IResource.FOLDER) {
+      final IFolder folder = (IFolder) resource;
+      path = path + resource.getName() + ".";
+      for (final IResource member : folder.members()) {
+        addChildren(contentProvider, itemsFilter, path, member);
+      }
+    } else if (this.fileExt.equals(resource.getFileExtension())) {
+      // remove file extension
+      final String resourceName = resource.getFullPath().removeFileExtension().lastSegment();
+      contentProvider.add(path + resourceName, itemsFilter);
+    }
+  }
 
-	@Override
-	protected Control createExtendedContentArea(final Composite parent) {
-		// do nothing here
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createExtendedContentArea(org.eclipse.swt.widgets.Composite)
+   */
+  @Override
+  protected Control createExtendedContentArea(final Composite parent) {
+    // do nothing here
+    return null;
+  }
 
-	@Override
-	protected ItemsFilter createFilter() {
-		return new ResourceFilter();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createFilter()
+   */
+  @Override
+  protected ItemsFilter createFilter() {
+    return new ResourceFilter();
+  }
 
-	@Override
-	protected void fillContentProvider(final AbstractContentProvider contentProvider, final ItemsFilter itemsFilter, final IProgressMonitor progressMonitor)
-			throws CoreException {
-		final List<IFolder> srcFolders = FilteredRefinementDialog.getAllSourceFolders(this.project.getProject());
-		for (final IFolder srcFolder : srcFolders) {
-			for (final IResource member : srcFolder.members()) {
-				addChildren(contentProvider, itemsFilter, "", member);
-			}
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#fillContentProvider(org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.AbstractContentProvider,
+   * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter, org.eclipse.core.runtime.IProgressMonitor)
+   */
+  @Override
+  protected void fillContentProvider(final AbstractContentProvider contentProvider, final ItemsFilter itemsFilter, final IProgressMonitor progressMonitor)
+      throws CoreException {
+    final List<IFolder> srcFolders = FilteredRefinementDialog.getAllSourceFolders(this.project.getProject());
+    for (final IFolder srcFolder : srcFolders) {
+      for (final IResource member : srcFolder.members()) {
+        addChildren(contentProvider, itemsFilter, "", member);
+      }
+    }
+  }
 
-	/**
-	 * Returns the list of ALL source folders of the required projects as well
-	 * as of the given project as a list of absolute workspace paths.
-	 *
-	 * @param project
-	 *            a project
-	 * @return a list of absolute workspace paths
-	 * @throws CoreException
-	 */
-	public static List<IFolder> getAllSourceFolders(final IProject project) {
-		final List<IFolder> srcFolders = new ArrayList<>();
+  /**
+   * Returns the list of ALL source folders of the required projects as well as of the given project as a list of absolute workspace paths.
+   *
+   * @param project
+   *          a project
+   * @return a list of absolute workspace paths
+   */
+  public static List<IFolder> getAllSourceFolders(final IProject project) {
+    final List<IFolder> srcFolders = new ArrayList<>();
 
-		final IJavaProject javaProject = JavaCore.create(project);
-		if (!javaProject.exists()) {
-			return srcFolders;
-		}
+    final IJavaProject javaProject = JavaCore.create(project);
+    if (!javaProject.exists()) {
+      return srcFolders;
+    }
 
-		// add source folders of this project
-		srcFolders.addAll(FilteredRefinementDialog.getSourceFolders(project));
+    // add source folders of this project
+    srcFolders.addAll(FilteredRefinementDialog.getSourceFolders(project));
 
-		// add source folders of required projects
-		final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		try {
-			for (final String name : javaProject.getRequiredProjectNames()) {
-				final IProject refProject = root.getProject(name);
-				srcFolders.addAll(FilteredRefinementDialog.getAllSourceFolders(refProject));
-			}
-		} catch (final CoreException e) {
-			e.printStackTrace();
-		}
+    // add source folders of required projects
+    final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+    try {
+      for (final String name : javaProject.getRequiredProjectNames()) {
+        final IProject refProject = root.getProject(name);
+        srcFolders.addAll(FilteredRefinementDialog.getAllSourceFolders(refProject));
+      }
+    } catch (final CoreException e) {
+      e.printStackTrace();
+    }
 
-		return srcFolders;
-	}
+    return srcFolders;
+  }
 
-	/**
-	 * Returns the list of source folders of the given project as a list of
-	 * absolute workspace paths.
-	 *
-	 * @param project
-	 *            a project
-	 * @return a list of absolute workspace paths
-	 */
-	public static List<IFolder> getSourceFolders(final IProject project) {
-		final List<IFolder> srcFolders = new ArrayList<>();
+  /**
+   * Returns the list of source folders of the given project as a list of absolute workspace paths.
+   *
+   * @param project
+   *          a project
+   * @return a list of absolute workspace paths
+   */
+  public static List<IFolder> getSourceFolders(final IProject project) {
+    final List<IFolder> srcFolders = new ArrayList<>();
 
-		final IJavaProject javaProject = JavaCore.create(project);
-		if (!javaProject.exists()) {
-			return srcFolders;
-		}
+    final IJavaProject javaProject = JavaCore.create(project);
+    if (!javaProject.exists()) {
+      return srcFolders;
+    }
 
-		// iterate over package roots
-		try {
-			for (final IPackageFragmentRoot root : javaProject.getPackageFragmentRoots()) {
-				final IResource resource = root.getCorrespondingResource();
-				if ((resource != null) && (resource.getType() == IResource.FOLDER)) {
-					srcFolders.add((IFolder) resource);
-				}
-			}
-		} catch (final CoreException e) {
-			e.printStackTrace();
-		}
+    // iterate over package roots
+    try {
+      for (final IPackageFragmentRoot root : javaProject.getPackageFragmentRoots()) {
+        final IResource resource = root.getCorrespondingResource();
+        if ((resource != null) && (resource.getType() == IResource.FOLDER)) {
+          srcFolders.add((IFolder) resource);
+        }
+      }
+    } catch (final CoreException e) {
+      e.printStackTrace();
+    }
 
-		return srcFolders;
-	}
+    return srcFolders;
+  }
 
-	@Override
-	protected IDialogSettings getDialogSettings() {
-		IDialogSettings settings = Activator.getDefault().getDialogSettings().getSection(FilteredRefinementDialog.DIALOG_SETTINGS);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getDialogSettings()
+   */
+  @Override
+  protected IDialogSettings getDialogSettings() {
+    IDialogSettings settings = Activator.getDefault().getDialogSettings().getSection(FilteredRefinementDialog.DIALOG_SETTINGS);
 
-		if (settings == null) {
-			settings = Activator.getDefault().getDialogSettings().addNewSection(FilteredRefinementDialog.DIALOG_SETTINGS);
-		}
+    if (settings == null) {
+      settings = Activator.getDefault().getDialogSettings().addNewSection(FilteredRefinementDialog.DIALOG_SETTINGS);
+    }
 
-		return settings;
-	}
+    return settings;
+  }
 
-	@Override
-	public String getElementName(final Object item) {
-		return String.valueOf(item);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getElementName(java.lang.Object)
+   */
+  @Override
+  public String getElementName(final Object item) {
+    return String.valueOf(item);
+  }
 
-	@Override
-	protected Comparator<?> getItemsComparator() {
-		return this.comparator;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getItemsComparator()
+   */
+  @Override
+  protected Comparator<?> getItemsComparator() {
+    return this.comparator;
+  }
 
-	@Override
-	protected IStatus validateItem(final Object item) {
-		return Status.OK_STATUS;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#validateItem(java.lang.Object)
+   */
+  @Override
+  protected IStatus validateItem(final Object item) {
+    return Status.OK_STATUS;
+  }
 
 }

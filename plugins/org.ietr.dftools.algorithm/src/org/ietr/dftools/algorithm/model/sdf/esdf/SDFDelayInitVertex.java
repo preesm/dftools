@@ -39,24 +39,43 @@ package org.ietr.dftools.algorithm.model.sdf.esdf;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SDFDelayInitVertex.
+ */
 public class SDFDelayInitVertex extends SDFAbstractVertex {
 
-	@Override
-	public SDFAbstractVertex clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
+   */
+  @Override
+  public SDFAbstractVertex clone() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
-	@Override
-	public void connectionAdded(final AbstractEdge<?, ?> e) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void connectionAdded(final AbstractEdge<?, ?> e) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public void connectionRemoved(final AbstractEdge<?, ?> e) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void connectionRemoved(final AbstractEdge<?, ?> e) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
 }

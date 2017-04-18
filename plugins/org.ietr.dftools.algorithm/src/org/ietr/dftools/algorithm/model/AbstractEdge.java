@@ -41,221 +41,239 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 
+// TODO: Auto-generated Javadoc
 /**
- * Abstract class common to all edges
+ * Abstract class common to all edges.
  *
  * @author jpiat
- *
  * @param <G>
+ *          the generic type
  * @param <V>
+ *          the value type
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AbstractEdge<G, V extends AbstractVertex> extends Observable implements PropertySource, Observer {
 
-	/**
-	 *
-	 */
-	private final PropertyBean	property;
-	/**
-	 * Property name for property base
-	 */
-	public static final String	BASE	= "base";
+  /** The property. */
+  private final PropertyBean property;
 
-	/**
-	 * Property name for property source_port
-	 */
-	public static final String SOURCE_PORT = "source_port";
+  /** Property name for property base. */
+  public static final String BASE = "base";
 
-	/**
-	 * Property name for property target_port
-	 */
-	public static final String TARGET_PORT = "target_port";
+  /** Property name for property source_port. */
+  public static final String SOURCE_PORT = "source_port";
 
-	protected static List<String> public_properties = new ArrayList<String>() {
-		/**
-		 *
-		 */
-		private static final long serialVersionUID = -192484208835323176L;
+  /** Property name for property target_port. */
+  public static final String TARGET_PORT = "target_port";
 
-		{
+  /** The public properties. */
+  protected static List<String> public_properties = new ArrayList<String>() {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -192484208835323176L;
 
-		}
-	};
+    {
 
-	/**
-	 * Creates a new AbstractEdge
-	 */
-	public AbstractEdge() {
-		this.property = new PropertyBean();
-	}
+    }
+  };
 
-	@Override
-	public List<String> getPublicProperties() {
-		return AbstractEdge.public_properties;
-	}
+  /**
+   * Creates a new AbstractEdge.
+   */
+  public AbstractEdge() {
+    this.property = new PropertyBean();
+  }
 
-	/**
-	 * @param visitor
-	 *            The visitor to accept
-	 */
-	public void accept(final IGraphVisitor visitor) {
-		visitor.visit(this);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getPublicProperties()
+   */
+  @Override
+  public List<String> getPublicProperties() {
+    return AbstractEdge.public_properties;
+  }
 
-	/**
-	 * Gives this edge parent graph
-	 *
-	 * @return The parent graph of this edge
-	 */
-	public G getBase() {
-		return (G) this.property.getValue(AbstractEdge.BASE);
-	}
+  /**
+   * Accept.
+   *
+   * @param visitor
+   *          The visitor to accept
+   */
+  public void accept(final IGraphVisitor visitor) {
+    visitor.visit(this);
+  }
 
-	/**
-	 * Give this edge property bean
-	 *
-	 * @return The edge property bean
-	 */
-	@Override
-	public PropertyBean getPropertyBean() {
-		return this.property;
-	}
+  /**
+   * Gives this edge parent graph.
+   *
+   * @return The parent graph of this edge
+   */
+  public G getBase() {
+    return (G) this.property.getValue(AbstractEdge.BASE);
+  }
 
-	/**
-	 * Gives the source label
-	 *
-	 * @return The label of the source, usually the name of the port this edge
-	 *         is conected to
-	 */
-	public String getSourceLabel() {
-		if (getPropertyBean().getValue(AbstractEdge.SOURCE_PORT) != null) {
-			return getPropertyBean().getValue(AbstractEdge.SOURCE_PORT).toString();
-		}
-		return null;
-	}
+  /**
+   * Give this edge property bean.
+   *
+   * @return The edge property bean
+   */
+  @Override
+  public PropertyBean getPropertyBean() {
+    return this.property;
+  }
 
-	/**
-	 * Gives the target label
-	 *
-	 * @return The label of the target, usually the name of the port this edge
-	 *         is conected to
-	 */
-	public String getTargetLabel() {
-		if (getPropertyBean().getValue(AbstractEdge.TARGET_PORT) != null) {
-			return getPropertyBean().getValue(AbstractEdge.TARGET_PORT).toString();
-		}
-		return null;
-	}
+  /**
+   * Gives the source label.
+   *
+   * @return The label of the source, usually the name of the port this edge is conected to
+   */
+  public String getSourceLabel() {
+    if (getPropertyBean().getValue(AbstractEdge.SOURCE_PORT) != null) {
+      return getPropertyBean().getValue(AbstractEdge.SOURCE_PORT).toString();
+    }
+    return null;
+  }
 
-	/**
-	 * Sets the target label
-	 *
-	 * @param label
-	 *            The label of the target, usually the name of the port this
-	 *            edge is conected to
-	 */
-	public void setTargetLabel(final String label) {
-		getPropertyBean().setValue(AbstractEdge.TARGET_PORT, label);
-	}
+  /**
+   * Gives the target label.
+   *
+   * @return The label of the target, usually the name of the port this edge is conected to
+   */
+  public String getTargetLabel() {
+    if (getPropertyBean().getValue(AbstractEdge.TARGET_PORT) != null) {
+      return getPropertyBean().getValue(AbstractEdge.TARGET_PORT).toString();
+    }
+    return null;
+  }
 
-	/**
-	 * Sets the source label
-	 *
-	 * @param label
-	 *            The label of the source, usually the name of the port this
-	 *            edge is conected to
-	 */
-	public void setSourceLabel(final String label) {
-		getPropertyBean().setValue(AbstractEdge.SOURCE_PORT, label);
-	}
+  /**
+   * Sets the target label.
+   *
+   * @param label
+   *          The label of the target, usually the name of the port this edge is conected to
+   */
+  public void setTargetLabel(final String label) {
+    getPropertyBean().setValue(AbstractEdge.TARGET_PORT, label);
+  }
 
-	/**
-	 * Gives this edge source
-	 *
-	 * @return The source vertex of this edge
-	 */
-	public V getSource() {
-		if (getBase() != null) {
-			return (V) ((AbstractGraph) getBase()).getEdgeSource(this);
-		}
-		return null;
+  /**
+   * Sets the source label.
+   *
+   * @param label
+   *          The label of the source, usually the name of the port this edge is conected to
+   */
+  public void setSourceLabel(final String label) {
+    getPropertyBean().setValue(AbstractEdge.SOURCE_PORT, label);
+  }
 
-	}
+  /**
+   * Gives this edge source.
+   *
+   * @return The source vertex of this edge
+   */
+  public V getSource() {
+    if (getBase() != null) {
+      return (V) ((AbstractGraph) getBase()).getEdgeSource(this);
+    }
+    return null;
 
-	/**
-	 * Gives this edge target
-	 *
-	 * @return The target vertex of this edge
-	 */
-	public V getTarget() {
-		if (getBase() != null) {
-			return (V) ((AbstractGraph) getBase()).getEdgeTarget(this);
-		}
-		return null;
-	}
+  }
 
-	/**
-	 * Set this edge parent graph
-	 *
-	 * @param base
-	 *            The parent graph to set for this edge
-	 */
-	protected void setBase(final G base) {
-		this.property.setValue(AbstractEdge.BASE, base);
-	}
+  /**
+   * Gives this edge target.
+   *
+   * @return The target vertex of this edge
+   */
+  public V getTarget() {
+    if (getBase() != null) {
+      return (V) ((AbstractGraph) getBase()).getEdgeTarget(this);
+    }
+    return null;
+  }
 
-	@Override
-	public void update(final Observable o, final Object arg) {
-		if (arg != null) {
-			if ((arg instanceof String) && (o instanceof AbstractEdge)) {
-				final Object property = ((AbstractEdge) o).getPropertyBean().getValue((String) arg);
-				if (property != null) {
-					this.getPropertyBean().setValue((String) arg, property);
-				}
-			}
-		}
-	}
+  /**
+   * Set this edge parent graph.
+   *
+   * @param base
+   *          The parent graph to set for this edge
+   */
+  protected void setBase(final G base) {
+    this.property.setValue(AbstractEdge.BASE, base);
+  }
 
-	/**
-	 * Test if the given edge has the same properties than this edge
-	 *
-	 * @param edge
-	 *            The edge to compare with
-	 * @return True if the given edge has the same properties, false otherwise
-	 */
-	public boolean compare(final AbstractEdge edge) {
-		return edge.getSource().getName().equals(this.getSource().getName()) && edge.getTarget().getName().equals(this.getTarget().getName());
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+   */
+  @Override
+  public void update(final Observable o, final Object arg) {
+    if (arg != null) {
+      if ((arg instanceof String) && (o instanceof AbstractEdge)) {
+        final Object property = ((AbstractEdge) o).getPropertyBean().getValue((String) arg);
+        if (property != null) {
+          this.getPropertyBean().setValue((String) arg, property);
+        }
+      }
+    }
+  }
 
-	@Override
-	public void copyProperties(final PropertySource props) {
-		for (final String key : props.getPropertyBean().keys()) {
-			if (!key.equals(AbstractEdge.BASE)) {
-				if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-					this.getPropertyBean().setValue(key, ((CloneableProperty) props.getPropertyBean().getValue(key)).clone());
-				} else {
-					this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
-				}
-			}
-		}
-	}
+  /**
+   * Test if the given edge has the same properties than this edge.
+   *
+   * @param edge
+   *          The edge to compare with
+   * @return True if the given edge has the same properties, false otherwise
+   */
+  public boolean compare(final AbstractEdge edge) {
+    return edge.getSource().getName().equals(this.getSource().getName()) && edge.getTarget().getName().equals(this.getTarget().getName());
+  }
 
-	@Override
-	public String getPropertyStringValue(final String propertyName) {
-		final Object o = this.getPropertyBean().getValue(propertyName);
-		if (o != null) {
-			return o.toString();
-		} else {
-			return "";
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   */
+  @Override
+  public void copyProperties(final PropertySource props) {
+    for (final String key : props.getPropertyBean().keys()) {
+      if (!key.equals(AbstractEdge.BASE)) {
+        if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
+          this.getPropertyBean().setValue(key, ((CloneableProperty) props.getPropertyBean().getValue(key)).clone());
+        } else {
+          this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
+        }
+      }
+    }
+  }
 
-	@Override
-	public void setPropertyValue(final String propertyName, final Object value) {
-		this.getPropertyBean().setValue(propertyName, value);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
+   */
+  @Override
+  public String getPropertyStringValue(final String propertyName) {
+    final Object o = this.getPropertyBean().getValue(propertyName);
+    if (o != null) {
+      return o.toString();
+    } else {
+      return "";
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
+   */
+  @Override
+  public void setPropertyValue(final String propertyName, final Object value) {
+    this.getPropertyBean().setValue(propertyName, value);
+  }
 
 }

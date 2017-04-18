@@ -40,7 +40,6 @@ package org.ietr.dftools.ui.workflow.launch;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
@@ -50,51 +49,55 @@ import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 import org.ietr.dftools.workflow.WorkflowManager;
 
+// TODO: Auto-generated Javadoc
 /**
- * Launch a workflow in run mode, using the previously created launch
- * configuration.
+ * Launch a workflow in run mode, using the previously created launch configuration.
  *
  * @author mwipliez
  * @author mpelcat
  */
 public class WorkflowLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
 
-	public static final String ATTR_WORKFLOW_FILE_NAME = "org.ietr.dftools.ui.workflow.fileName";
+  /** The Constant ATTR_WORKFLOW_FILE_NAME. */
+  public static final String ATTR_WORKFLOW_FILE_NAME = "org.ietr.dftools.ui.workflow.fileName";
 
-	// Beware: Changing this ID without modifying the corresponding ID in
-	// org.ietr.dftools.ui/plugin.xml
-	// can break the launch shortcut for wokflows (Right Click > Run as)
-	public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
+  // Beware: Changing this ID without modifying the corresponding ID in
+  // org.ietr.dftools.ui/plugin.xml
+  /** The workflow launch configuration type id. */
+  // can break the launch shortcut for wokflows (Right Click > Run as)
+  public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
 
-	/**
-	 * Launches a workflow
-	 *
-	 * @param configuration
-	 *            Retrieved from configuration tabs
-	 * @param mode
-	 *            Run or debug
-	 * @param launch
-	 *            Not used
-	 * @param monitor
-	 *            Monitoring the workflow progress
-	 */
-	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
+  /**
+   * Launches a workflow.
+   *
+   * @param configuration
+   *          Retrieved from configuration tabs
+   * @param mode
+   *          Run or debug
+   * @param launch
+   *          Not used
+   * @param monitor
+   *          Monitoring the workflow progress
+   * @throws CoreException
+   *           the core exception
+   */
+  @Override
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 
-		final String workflowPath = configuration.getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, "");
+    final String workflowPath = configuration.getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, "");
 
-		// Retrieving environment variables
-		Map<String, String> configEnv = configuration.getAttribute(ILaunchManager.ATTR_ENVIRONMENT_VARIABLES, (Map) null);
-		if (configEnv == null) {
-			configEnv = new HashMap<>();
-		}
+    // Retrieving environment variables
+    Map<String, String> configEnv = configuration.getAttribute(ILaunchManager.ATTR_ENVIRONMENT_VARIABLES, (Map) null);
+    if (configEnv == null) {
+      configEnv = new HashMap<>();
+    }
 
-		final WorkflowManager workflowManager = new WorkflowManager();
+    final WorkflowManager workflowManager = new WorkflowManager();
 
-		final String scenarioPath = configuration.getAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, "");
+    final String scenarioPath = configuration.getAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, "");
 
-		workflowManager.execute(workflowPath, scenarioPath, monitor);
+    workflowManager.execute(workflowPath, scenarioPath, monitor);
 
-	}
+  }
 }

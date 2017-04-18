@@ -40,6 +40,7 @@ package org.ietr.dftools.workflow.elements;
 
 import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class provides methods to manipulate workflow nodes.
  *
@@ -48,23 +49,30 @@ import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
  */
 public abstract class AbstractWorkflowNode {
 
-	/**
-	 * Implementation of this node
-	 */
-	protected AbstractWorkflowNodeImplementation implementation = null;
+  /** Implementation of this node. */
+  protected AbstractWorkflowNodeImplementation implementation = null;
 
-	final public AbstractWorkflowNodeImplementation getImplementation() {
-		return this.implementation;
-	}
+  /**
+   * Gets the implementation.
+   *
+   * @return the implementation
+   */
+  public final AbstractWorkflowNodeImplementation getImplementation() {
+    return this.implementation;
+  }
 
-	/**
-	 * @return True if this node is a scenario node, false otherwise.
-	 */
-	public abstract boolean isScenarioNode();
+  /**
+   * Checks if is scenario node.
+   *
+   * @return True if this node is a scenario node, false otherwise.
+   */
+  public abstract boolean isScenarioNode();
 
-	/**
-	 * @return True if this node is a transformation node, false otherwise.
-	 */
-	public abstract boolean isTaskNode();
+  /**
+   * Checks if is task node.
+   *
+   * @return True if this node is a transformation node, false otherwise.
+   */
+  public abstract boolean isTaskNode();
 
 }

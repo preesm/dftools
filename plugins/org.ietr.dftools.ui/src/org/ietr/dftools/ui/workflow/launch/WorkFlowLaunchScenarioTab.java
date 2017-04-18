@@ -44,43 +44,63 @@ import org.eclipse.swt.widgets.Composite;
 import org.ietr.dftools.ui.Activator;
 import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 
+// TODO: Auto-generated Javadoc
 /**
- * Launch Tab for scenario options. From this tab, an
- * {@link ScenarioConfiguration} is generated that feeds an
- * {@link ScenarioRetriever} to create the input scenario.
+ * Launch Tab for scenario options. From this tab, an {@link ScenarioConfiguration} is generated that feeds an {@link ScenarioRetriever} to create the input
+ * scenario.
  *
  * @author mpelcat
  */
 public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
-	@Override
-	public void createControl(final Composite parent) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#createControl(org.eclipse.swt.widgets.Composite)
+   */
+  @Override
+  public void createControl(final Composite parent) {
 
-		super.createControl(parent);
+    super.createControl(parent);
 
-		drawFileChooser("Scenario file:", ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME);
+    drawFileChooser("Scenario file:", ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME);
 
-	}
+  }
 
-	@Override
-	public String getName() {
-		return "Scenario";
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
+   */
+  @Override
+  public String getName() {
+    return "Scenario";
+  }
 
-	@Override
-	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   */
+  @Override
+  public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public Image getImage() {
-		final Image image = Activator.getImage("icons/workflow.png");
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
+   */
+  @Override
+  public Image getImage() {
+    final Image image = Activator.getImage("icons/workflow.png");
 
-		if (image != null) {
-			return image;
-		}
+    if (image != null) {
+      return image;
+    }
 
-		return super.getImage();
-	}
+    return super.getImage();
+  }
 }

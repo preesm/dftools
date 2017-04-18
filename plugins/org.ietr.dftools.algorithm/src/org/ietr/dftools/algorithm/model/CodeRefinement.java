@@ -39,116 +39,128 @@ package org.ietr.dftools.algorithm.model;
 
 import org.eclipse.core.runtime.IPath;
 
+// TODO: Auto-generated Javadoc
 /**
- * Code to refine a vertex
+ * Code to refine a vertex.
  *
  * @author jpiat
- *
  */
 public class CodeRefinement implements IRefinement, CloneableProperty {
 
-	/**
-	 * Describe the language that can be used as a code refinement
-	 *
-	 * @author jpiat
-	 *
-	 */
-	public enum Language {
-		/**
-		 * CAL Actor Language
-		 */
-		CAL,
-		/**
-		 * C Language
-		 */
-		C,
-		/**
-		 * C++ Language
-		 */
-		CPP,
-		/**
-		 * Java Language
-		 */
-		JAVA,
-		/**
-		 * Interface Description Language
-		 */
-		IDL,
-		/**
-		 * Text refinement, not a path
-		 */
-		TEXT;
+  /**
+   * Describe the language that can be used as a code refinement.
+   *
+   * @author jpiat
+   */
+  public enum Language {
 
-		/**
-		 * Gives a Language corresponding to the given extension
-		 *
-		 * @param s
-		 *            The extension of the code refinement
-		 * @return The Language instance
-		 */
-		public static Language fromExtension(final String s) {
-			if (s.equals(".c") || s.equals("c")) {
-				return C;
-			} else if (s.equals(".cal") || s.equals("cal")) {
-				return CAL;
-			} else if (s.equals(".cpp") || s.equals("cpp")) {
-				return CPP;
-			} else if (s.equals(".java") || s.equals("java")) {
-				return JAVA;
-			} else if (s.equals(".idl") || s.equals("idl")) {
-				return IDL;
-			} else {
-				return TEXT;
-			}
-		}
-	}
+    /** CAL Actor Language. */
+    CAL,
 
-	private final IPath	filePath;
-	private Language	lang;
+    /** C Language. */
+    C,
 
-	/**
-	 * Builds a new CodeRefinement instance
-	 *
-	 * @param name
-	 */
-	public CodeRefinement(final IPath path) {
-		this.filePath = path;
-		if (this.filePath != null) {
-			final String extension = this.filePath.getFileExtension();
-			if (extension != null) {
-				this.lang = Language.fromExtension(extension);
-			} else {
-				this.lang = Language.TEXT;
-			}
-		}
-	}
+    /** C++ Language. */
+    CPP,
 
-	public IPath getPath() {
-		return this.filePath;
-	}
+    /** Java Language. */
+    JAVA,
 
-	/**
-	 * Gives the code refinement language
-	 *
-	 * @return The code refinement language
-	 */
-	public Language getLanguage() {
-		return this.lang;
-	}
+    /** Interface Description Language. */
+    IDL,
 
-	@Override
-	public String toString() {
-		if (this.filePath != null) {
-			return this.filePath.toString();
-		} else {
-			return "Empty refinement";
-		}
-	}
+    /** Text refinement, not a path. */
+    TEXT;
 
-	@Override
-	public CodeRefinement clone() {
-		final CodeRefinement clone = new CodeRefinement(this.filePath);
-		return clone;
-	}
+    /**
+     * Gives a Language corresponding to the given extension.
+     *
+     * @param s
+     *          The extension of the code refinement
+     * @return The Language instance
+     */
+    public static Language fromExtension(final String s) {
+      if (s.equals(".c") || s.equals("c")) {
+        return C;
+      } else if (s.equals(".cal") || s.equals("cal")) {
+        return CAL;
+      } else if (s.equals(".cpp") || s.equals("cpp")) {
+        return CPP;
+      } else if (s.equals(".java") || s.equals("java")) {
+        return JAVA;
+      } else if (s.equals(".idl") || s.equals("idl")) {
+        return IDL;
+      } else {
+        return TEXT;
+      }
+    }
+  }
+
+  /** The file path. */
+  private final IPath filePath;
+
+  /** The lang. */
+  private Language lang;
+
+  /**
+   * Builds a new CodeRefinement instance.
+   *
+   * @param path
+   *          the path
+   */
+  public CodeRefinement(final IPath path) {
+    this.filePath = path;
+    if (this.filePath != null) {
+      final String extension = this.filePath.getFileExtension();
+      if (extension != null) {
+        this.lang = Language.fromExtension(extension);
+      } else {
+        this.lang = Language.TEXT;
+      }
+    }
+  }
+
+  /**
+   * Gets the path.
+   *
+   * @return the path
+   */
+  public IPath getPath() {
+    return this.filePath;
+  }
+
+  /**
+   * Gives the code refinement language.
+   *
+   * @return The code refinement language
+   */
+  public Language getLanguage() {
+    return this.lang;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    if (this.filePath != null) {
+      return this.filePath.toString();
+    } else {
+      return "Empty refinement";
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public CodeRefinement clone() {
+    final CodeRefinement clone = new CodeRefinement(this.filePath);
+    return clone;
+  }
 
 }

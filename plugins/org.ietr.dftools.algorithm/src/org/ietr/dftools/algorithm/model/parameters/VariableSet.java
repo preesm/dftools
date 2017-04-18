@@ -38,48 +38,47 @@ package org.ietr.dftools.algorithm.model.parameters;
 
 import java.util.HashMap;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class o represent sets of variable
+ * Class o represent sets of variable.
  *
  * @author jpiat
- *
  */
 public class VariableSet extends HashMap<String, Variable> {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -8364762425793222529L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -8364762425793222529L;
 
-	/**
-	 * Add a variable to the set
-	 *
-	 * @param v
-	 *            The variable to add
-	 */
-	public void addVariable(final Variable v) {
-		put(v.getName(), v);
-	}
+  /**
+   * Add a variable to the set.
+   *
+   * @param v
+   *          The variable to add
+   */
+  public void addVariable(final Variable v) {
+    put(v.getName(), v);
+  }
 
-	/**
-	 * Gives the variable with the given name
-	 *
-	 * @param n
-	 *            The name of the variable to return
-	 * @return The variable with the given name
-	 */
-	public Variable getVariable(final String n) {
-		return get(n);
-	}
+  /**
+   * Gives the variable with the given name.
+   *
+   * @param n
+   *          The name of the variable to return
+   * @return The variable with the given name
+   */
+  public Variable getVariable(final String n) {
+    return get(n);
+  }
 
-	/**
-	 * Set the expression solver to use for this variable set
-	 *
-	 * @param solver
-	 */
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		for (final Variable var : values()) {
-			var.setExpressionSolver(solver);
-		}
-	}
+  /**
+   * Set the expression solver to use for this variable set.
+   *
+   * @param solver
+   *          the new expression solver
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    for (final Variable var : values()) {
+      var.setExpressionSolver(solver);
+    }
+  }
 }

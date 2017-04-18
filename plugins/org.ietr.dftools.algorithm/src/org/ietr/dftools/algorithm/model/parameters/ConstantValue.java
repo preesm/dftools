@@ -37,42 +37,78 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ConstantValue.
+ */
 public class ConstantValue implements Value {
 
-	int value;
+  /** The value. */
+  int value;
 
-	public ConstantValue(final Integer value) {
-		this.value = value;
-	}
+  /**
+   * Instantiates a new constant value.
+   *
+   * @param value
+   *          the value
+   */
+  public ConstantValue(final Integer value) {
+    this.value = value;
+  }
 
-	@Override
-	public String getValue() {
-		return String.valueOf(this.value);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.parameters.Value#getValue()
+   */
+  @Override
+  public String getValue() {
+    return String.valueOf(this.value);
+  }
 
-	@Override
-	public int intValue() throws InvalidExpressionException {
-		return this.value;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.parameters.Value#intValue()
+   */
+  @Override
+  public int intValue() throws InvalidExpressionException {
+    return this.value;
+  }
 
-	@Override
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.parameters.Value#setExpressionSolver(org.ietr.dftools.algorithm.model.parameters.IExpressionSolver)
+   */
+  @Override
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public void setValue(final String value) {
-		try {
-			final int integerValue = Integer.decode(value);
-			this.value = integerValue;
-		} catch (final NumberFormatException e) {
-			e.printStackTrace();
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.parameters.Value#setValue(java.lang.String)
+   */
+  @Override
+  public void setValue(final String value) {
+    try {
+      final int integerValue = Integer.decode(value);
+      this.value = integerValue;
+    } catch (final NumberFormatException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	public String toString() {
-		return getValue();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return getValue();
+  }
 }

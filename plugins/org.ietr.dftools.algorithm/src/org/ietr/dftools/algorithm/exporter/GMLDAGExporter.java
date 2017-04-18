@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.exporter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
@@ -47,137 +46,163 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.dag.types.DAGDefaultEdgePropertyType;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
 /**
- * GML exporter for dag
+ * GML exporter for dag.
  *
  * @author jpiat
- *
  */
 public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
 
-	/**
-	 * Creates a graph to test the Explorer
-	 *
-	 * @return The created Graph
-	 */
-	public static DirectedAcyclicGraph createTestComGraph() {
+  /**
+   * Creates a graph to test the Explorer.
+   *
+   * @return The created Graph
+   */
+  public static DirectedAcyclicGraph createTestComGraph() {
 
-		final DirectedAcyclicGraph graph = new DirectedAcyclicGraph();
+    final DirectedAcyclicGraph graph = new DirectedAcyclicGraph();
 
-		// test_com_basique
-		final DAGVertex sensorInt = new DAGVertex();
-		sensorInt.setName("1");
-		graph.addVertex(sensorInt);
+    // test_com_basique
+    final DAGVertex sensorInt = new DAGVertex();
+    sensorInt.setName("1");
+    graph.addVertex(sensorInt);
 
-		final DAGVertex gen5 = new DAGVertex();
-		gen5.setName("Gen5");
-		graph.addVertex(gen5);
+    final DAGVertex gen5 = new DAGVertex();
+    gen5.setName("Gen5");
+    graph.addVertex(gen5);
 
-		final DAGVertex recopie5 = new DAGVertex();
-		recopie5.setName("recopie_5");
-		graph.addVertex(recopie5);
+    final DAGVertex recopie5 = new DAGVertex();
+    recopie5.setName("recopie_5");
+    graph.addVertex(recopie5);
 
-		final DAGVertex acqData = new DAGVertex();
-		acqData.setName("acq_data");
-		graph.addVertex(acqData);
+    final DAGVertex acqData = new DAGVertex();
+    acqData.setName("acq_data");
+    graph.addVertex(acqData);
 
-		final DAGEdge sensGen = graph.addEdge(sensorInt, gen5);
-		sensGen.setWeight(new DAGDefaultEdgePropertyType(8));
+    final DAGEdge sensGen = graph.addEdge(sensorInt, gen5);
+    sensGen.setWeight(new DAGDefaultEdgePropertyType(8));
 
-		final DAGEdge genRec = graph.addEdge(gen5, recopie5);
-		genRec.setWeight(new DAGDefaultEdgePropertyType(100));
+    final DAGEdge genRec = graph.addEdge(gen5, recopie5);
+    genRec.setWeight(new DAGDefaultEdgePropertyType(100));
 
-		final DAGEdge genAcq = graph.addEdge(gen5, acqData);
-		genAcq.setWeight(new DAGDefaultEdgePropertyType(2));
+    final DAGEdge genAcq = graph.addEdge(gen5, acqData);
+    genAcq.setWeight(new DAGDefaultEdgePropertyType(2));
 
-		final DAGEdge recAcq = graph.addEdge(recopie5, acqData);
-		recAcq.setWeight(new DAGDefaultEdgePropertyType(1000));
-		return graph;
-	}
+    final DAGEdge recAcq = graph.addEdge(recopie5, acqData);
+    recAcq.setWeight(new DAGDefaultEdgePropertyType(1000));
+    return graph;
+  }
 
-	/**
-	 * Tests this exporter behavior
-	 *
-	 * @param args
-	 */
-	public static void main(final String[] args) {
-		final DirectedAcyclicGraph graph = GMLDAGExporter.createTestComGraph();
-		final GMLDAGExporter exporter = new GMLDAGExporter();
-		try {
-			exporter.exportGraph(graph);
-			exporter.transform(new FileOutputStream("C:\\test_dag_gml.xml"));
-		} catch (final FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+  /**
+   * Tests this exporter behavior.
+   *
+   * @param args
+   *          the arguments
+   */
+  public static void main(final String[] args) {
+    final DirectedAcyclicGraph graph = GMLDAGExporter.createTestComGraph();
+    final GMLDAGExporter exporter = new GMLDAGExporter();
+    try {
+      exporter.exportGraph(graph);
+      exporter.transform(new FileOutputStream("C:\\test_dag_gml.xml"));
+    } catch (final FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
 
-	/**
-	 * Builds a new GMLDAGExporter
-	 */
-	public GMLDAGExporter() {
-		super();
-	}
+  /**
+   * Builds a new GMLDAGExporter.
+   */
+  public GMLDAGExporter() {
+    super();
+  }
 
-	@Override
-	public void export(final AbstractGraph<DAGVertex, DAGEdge> graph, final String path) {
-		this.path = path;
-		try {
-			exportGraph(graph);
-			transform(new FileOutputStream(path));
-		} catch (final FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#export(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.String)
+   */
+  @Override
+  public void export(final AbstractGraph<DAGVertex, DAGEdge> graph, final String path) {
+    this.path = path;
+    try {
+      exportGraph(graph);
+      transform(new FileOutputStream(path));
+    } catch (final FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
 
-	@Override
-	protected Element exportEdge(final DAGEdge edge, final Element parentELement) {
-		final Element edgeElt = createEdge(parentELement, edge.getSource().getId(), edge.getTarget().getId());
-		exportKeys(edge, "edge", edgeElt);
-		return edgeElt;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportEdge(org.ietr.dftools.algorithm.model.AbstractEdge, org.w3c.dom.Element)
+   */
+  @Override
+  protected Element exportEdge(final DAGEdge edge, final Element parentELement) {
+    final Element edgeElt = createEdge(parentELement, edge.getSource().getId(), edge.getTarget().getId());
+    exportKeys(edge, "edge", edgeElt);
+    return edgeElt;
+  }
 
-	@Override
-	public Element exportGraph(final AbstractGraph<DAGVertex, DAGEdge> graph) {
-		try {
-			addKeySet(this.rootElt);
-			final DirectedAcyclicGraph myGraph = (DirectedAcyclicGraph) graph;
-			final Element graphElt = createGraph(this.rootElt, true);
-			graphElt.setAttribute("edgedefault", "directed");
-			exportKeys(graph, "graph", graphElt);
-			if (myGraph.getParameters() != null) {
-				exportParameters(myGraph.getParameters(), graphElt);
-			}
-			if (myGraph.getVariables() != null) {
-				exportVariables(myGraph.getVariables(), graphElt);
-			}
-			for (final DAGVertex child : myGraph.vertexSet()) {
-				exportNode(child, graphElt);
-			}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportGraph(org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public Element exportGraph(final AbstractGraph<DAGVertex, DAGEdge> graph) {
+    try {
+      addKeySet(this.rootElt);
+      final DirectedAcyclicGraph myGraph = (DirectedAcyclicGraph) graph;
+      final Element graphElt = createGraph(this.rootElt, true);
+      graphElt.setAttribute("edgedefault", "directed");
+      exportKeys(graph, "graph", graphElt);
+      if (myGraph.getParameters() != null) {
+        exportParameters(myGraph.getParameters(), graphElt);
+      }
+      if (myGraph.getVariables() != null) {
+        exportVariables(myGraph.getVariables(), graphElt);
+      }
+      for (final DAGVertex child : myGraph.vertexSet()) {
+        exportNode(child, graphElt);
+      }
 
-			for (final DAGEdge edge : myGraph.edgeSet()) {
-				exportEdge(edge, graphElt);
-			}
-			return graphElt;
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+      for (final DAGEdge edge : myGraph.edgeSet()) {
+        exportEdge(edge, graphElt);
+      }
+      return graphElt;
+    } catch (final Exception e) {
+      e.printStackTrace();
+    }
+    return null;
 
-	}
+  }
 
-	@Override
-	protected Element exportNode(final DAGVertex vertex, final Element parentELement) {
-		final Element vertexElt = createNode(parentELement, vertex.getId());
-		exportKeys(vertex, "vertex", vertexElt);
-		if (vertex.getArguments() != null) {
-			exportArguments(vertex.getArguments(), vertexElt);
-		}
-		return vertexElt;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportNode(org.ietr.dftools.algorithm.model.AbstractVertex, org.w3c.dom.Element)
+   */
+  @Override
+  protected Element exportNode(final DAGVertex vertex, final Element parentELement) {
+    final Element vertexElt = createNode(parentELement, vertex.getId());
+    exportKeys(vertex, "vertex", vertexElt);
+    if (vertex.getArguments() != null) {
+      exportArguments(vertex.getArguments(), vertexElt);
+    }
+    return vertexElt;
+  }
 
-	@Override
-	protected Element exportPort(final DAGVertex interfaceVertex, final Element parentELement) {
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportPort(org.ietr.dftools.algorithm.model.AbstractVertex, org.w3c.dom.Element)
+   */
+  @Override
+  protected Element exportPort(final DAGVertex interfaceVertex, final Element parentELement) {
+    return null;
+  }
 
 }

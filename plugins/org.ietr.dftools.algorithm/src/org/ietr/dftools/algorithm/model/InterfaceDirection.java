@@ -37,48 +37,51 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * Enumeration of the interface directions
+ * Enumeration of the interface directions.
  *
  * @author jpiat
- *
  */
 public enum InterfaceDirection {
-	/**
-	 * The direction is Input
-	 */
-	Input,
-	/**
-	 * The direction is Output
-	 */
-	Output;
 
-	@Override
-	public String toString() {
-		switch (this) {
-			case Input:
-				return "Input";
-			case Output:
-				return "Output";
-			default:
-				return "";
-		}
-	}
+  /** The direction is Input. */
+  Input,
 
-	/**
-	 * Gives the InterfaceDirection represented by the String dir
-	 *
-	 * @param dir
-	 *            The String representation of the InterfaceDirection
-	 * @return The InterfaceDirection represented by the String dir
-	 */
-	public static InterfaceDirection fromString(final String dir) {
-		if (dir.equalsIgnoreCase("Input")) {
-			return Input;
-		} else if (dir.equalsIgnoreCase("Output")) {
-			return Output;
-		}
-		return null;
-	}
+  /** The direction is Output. */
+  Output;
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Enum#toString()
+   */
+  @Override
+  public String toString() {
+    switch (this) {
+      case Input:
+        return "Input";
+      case Output:
+        return "Output";
+      default:
+        return "";
+    }
+  }
+
+  /**
+   * Gives the InterfaceDirection represented by the String dir.
+   *
+   * @param dir
+   *          The String representation of the InterfaceDirection
+   * @return The InterfaceDirection represented by the String dir
+   */
+  public static InterfaceDirection fromString(final String dir) {
+    if (dir.equalsIgnoreCase("Input")) {
+      return Input;
+    } else if (dir.equalsIgnoreCase("Output")) {
+      return Output;
+    }
+    return null;
+  }
 
 }

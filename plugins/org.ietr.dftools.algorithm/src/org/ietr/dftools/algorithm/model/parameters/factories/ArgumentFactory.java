@@ -40,15 +40,35 @@ package org.ietr.dftools.algorithm.model.parameters.factories;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Argument objects.
+ */
 public class ArgumentFactory {
 
-	protected AbstractVertex<?> pVertex;
+  /** The p vertex. */
+  protected AbstractVertex<?> pVertex;
 
-	public ArgumentFactory(final AbstractVertex<?> vertex) {
-		this.pVertex = vertex;
-	}
+  /**
+   * Instantiates a new argument factory.
+   *
+   * @param vertex
+   *          the vertex
+   */
+  public ArgumentFactory(final AbstractVertex<?> vertex) {
+    this.pVertex = vertex;
+  }
 
-	public Argument create(final String name, final String value) {
-		return new Argument(name, value);
-	}
+  /**
+   * Creates the.
+   *
+   * @param name
+   *          the name
+   * @param value
+   *          the value
+   * @return the argument
+   */
+  public Argument create(final String name, final String value) {
+    return new Argument(name, value);
+  }
 }

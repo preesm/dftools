@@ -39,7 +39,6 @@
 package org.ietr.dftools.algorithm.importer;
 
 import java.util.List;
-
 import org.ietr.dftools.algorithm.factories.ModelGraphFactory;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
@@ -48,119 +47,136 @@ import org.ietr.dftools.algorithm.model.IInterface;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GMLGenericImporter.
+ */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVertex, AbstractEdge> {
 
-	/**
-	 * COnstructs a new importer for SDF graphs
-	 */
-	public GMLGenericImporter() {
-		super(null);
-	}
+  /**
+   * COnstructs a new importer for SDF graphs.
+   */
+  public GMLGenericImporter() {
+    super(null);
+  }
 
-	/**
-	 * Parses an Edge in the DOM document
-	 *
-	 * @param edgeElt
-	 *            The DOM Element
-	 * @param parentGraph
-	 *            The parent Graph of this Edge
-	 */
-	@Override
-	public void parseEdge(final Element edgeElt, final AbstractGraph parentGraph) throws InvalidModelException {
-		final AbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
-		final AbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
+  /**
+   * Parses an Edge in the DOM document.
+   *
+   * @param edgeElt
+   *          The DOM Element
+   * @param parentGraph
+   *          The parent Graph of this Edge
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @Override
+  public void parseEdge(final Element edgeElt, final AbstractGraph parentGraph) throws InvalidModelException {
+    final AbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
+    final AbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
 
-		IInterface sourcePort = null;
-		IInterface targetPort = null;
-		final String sourcePortName = edgeElt.getAttribute("sourceport");
-		for (final IInterface sinksPort : (List<IInterface>) vertexSource.getInterfaces()) {
-			if (sinksPort.getName().equals(sourcePortName)) {
-				sourcePort = sinksPort;
-			}
-		}
-		if (sourcePort == null) {
-			sourcePort = this.vertexFactory.createInterface(sourcePortName, 1);
-			vertexSource.addInterface(sourcePort);
-		}
-		final String targetPortName = edgeElt.getAttribute("targetport");
-		for (final IInterface sourcesPort : (List<IInterface>) vertexTarget.getInterfaces()) {
-			if (sourcesPort.getName().equals(targetPortName)) {
-				targetPort = sourcesPort;
-			}
-		}
+    IInterface sourcePort = null;
+    IInterface targetPort = null;
+    final String sourcePortName = edgeElt.getAttribute("sourceport");
+    for (final IInterface sinksPort : (List<IInterface>) vertexSource.getInterfaces()) {
+      if (sinksPort.getName().equals(sourcePortName)) {
+        sourcePort = sinksPort;
+      }
+    }
+    if (sourcePort == null) {
+      sourcePort = this.vertexFactory.createInterface(sourcePortName, 1);
+      vertexSource.addInterface(sourcePort);
+    }
+    final String targetPortName = edgeElt.getAttribute("targetport");
+    for (final IInterface sourcesPort : (List<IInterface>) vertexTarget.getInterfaces()) {
+      if (sourcesPort.getName().equals(targetPortName)) {
+        targetPort = sourcesPort;
+      }
+    }
 
-		if (targetPort == null) {
-			targetPort = this.vertexFactory.createInterface(targetPortName, 0);
-			vertexTarget.addInterface(targetPort);
-		}
-		final AbstractEdge edge = parentGraph.addEdge(vertexSource, sourcePort, vertexTarget, targetPort);
-		parseKeys(edgeElt, edge);
-	}
+    if (targetPort == null) {
+      targetPort = this.vertexFactory.createInterface(targetPortName, 0);
+      vertexTarget.addInterface(targetPort);
+    }
+    final AbstractEdge edge = parentGraph.addEdge(vertexSource, sourcePort, vertexTarget, targetPort);
+    parseKeys(edgeElt, edge);
+  }
 
-	/**
-	 * Parses a Graph in the DOM document
-	 *
-	 * @param graphElt
-	 *            The graph Element in the DOM document
-	 * @return The parsed graph
-	 */
-	@Override
-	public AbstractGraph parseGraph(final Element graphElt) throws InvalidModelException {
-		final String parseModel = parseModel(graphElt);
-		AbstractGraph graph;
-		try {
-			graph = ModelGraphFactory.getModel(parseModel);
-			this.edgeFactory = graph.getEdgeFactory();
-			this.vertexFactory = graph.getVertexFactory();
-			final NodeList childList = graphElt.getChildNodes();
-			parseParameters(graph, graphElt);
-			parseVariables(graph, graphElt);
-			for (int i = 0; i < childList.getLength(); i++) {
-				if (childList.item(i).getNodeName().equals("node")) {
-					final Element vertexElt = (Element) childList.item(i);
-					parseNode(vertexElt, graph);
-				}
-			}
-			for (int i = 0; i < childList.getLength(); i++) {
-				if (childList.item(i).getNodeName().equals("edge")) {
-					final Element edgeElt = (Element) childList.item(i);
-					parseEdge(edgeElt, graph);
-				}
-			}
-			parseKeys(graphElt, graph);
-			return graph;
-		} catch (final InstantiationException e) {
-			throw new InvalidModelException("Failed to parse graph with message :" + e.getMessage());
-		} catch (final IllegalAccessException e) {
-			throw new InvalidModelException("Failed to parse graph with message :" + e.getMessage());
-		}
-	}
+  /**
+   * Parses a Graph in the DOM document.
+   *
+   * @param graphElt
+   *          The graph Element in the DOM document
+   * @return The parsed graph
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @Override
+  public AbstractGraph parseGraph(final Element graphElt) throws InvalidModelException {
+    final String parseModel = parseModel(graphElt);
+    AbstractGraph graph;
+    try {
+      graph = ModelGraphFactory.getModel(parseModel);
+      this.edgeFactory = graph.getEdgeFactory();
+      this.vertexFactory = graph.getVertexFactory();
+      final NodeList childList = graphElt.getChildNodes();
+      parseParameters(graph, graphElt);
+      parseVariables(graph, graphElt);
+      for (int i = 0; i < childList.getLength(); i++) {
+        if (childList.item(i).getNodeName().equals("node")) {
+          final Element vertexElt = (Element) childList.item(i);
+          parseNode(vertexElt, graph);
+        }
+      }
+      for (int i = 0; i < childList.getLength(); i++) {
+        if (childList.item(i).getNodeName().equals("edge")) {
+          final Element edgeElt = (Element) childList.item(i);
+          parseEdge(edgeElt, graph);
+        }
+      }
+      parseKeys(graphElt, graph);
+      return graph;
+    } catch (final InstantiationException e) {
+      throw new InvalidModelException("Failed to parse graph with message :" + e.getMessage());
+    } catch (final IllegalAccessException e) {
+      throw new InvalidModelException("Failed to parse graph with message :" + e.getMessage());
+    }
+  }
 
-	/**
-	 * Parses a Vertex from the DOM document
-	 *
-	 * @param vertexElt
-	 *            The node Element in the DOM document
-	 * @return The parsed node
-	 */
-	@Override
-	public AbstractVertex parseNode(final Element vertexElt, final AbstractGraph parentGraph) throws InvalidModelException {
-		AbstractVertex vertex;
-		vertex = this.vertexFactory.createVertex(vertexElt);
-		vertex.setId(vertexElt.getAttribute("id"));
-		vertex.setName(vertexElt.getAttribute("id"));
-		parseKeys(vertexElt, vertex);
-		parentGraph.addVertex(vertex);
-		this.vertexFromId.put(vertex.getId(), vertex);
-		parseArguments(vertex, vertexElt);
-		parseGraphDescription(vertex, vertexElt);
-		return vertex;
-	}
+  /**
+   * Parses a Vertex from the DOM document.
+   *
+   * @param vertexElt
+   *          The node Element in the DOM document
+   * @param parentGraph
+   *          the parent graph
+   * @return The parsed node
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @Override
+  public AbstractVertex parseNode(final Element vertexElt, final AbstractGraph parentGraph) throws InvalidModelException {
+    AbstractVertex vertex;
+    vertex = this.vertexFactory.createVertex(vertexElt);
+    vertex.setId(vertexElt.getAttribute("id"));
+    vertex.setName(vertexElt.getAttribute("id"));
+    parseKeys(vertexElt, vertex);
+    parentGraph.addVertex(vertex);
+    this.vertexFromId.put(vertex.getId(), vertex);
+    parseArguments(vertex, vertexElt);
+    parseGraphDescription(vertex, vertexElt);
+    return vertex;
+  }
 
-	@Override
-	public AbstractVertex parsePort(final Element portElt, final AbstractGraph parentGraph) throws InvalidModelException {
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public AbstractVertex parsePort(final Element portElt, final AbstractGraph parentGraph) throws InvalidModelException {
+    return null;
+  }
 
 }

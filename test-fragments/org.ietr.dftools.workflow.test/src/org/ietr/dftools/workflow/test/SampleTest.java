@@ -36,10 +36,17 @@ package org.ietr.dftools.workflow.test;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SampleTest.
+ */
 public class SampleTest {
 
-	@Test
-	public void testSample() {
-		// success
-	}
+  /**
+   * Test sample.
+   */
+  @Test
+  public void testSample() {
+    // success
+  }
 }

@@ -36,17 +36,15 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.exceptions;
 
+// TODO: Auto-generated Javadoc
 /**
- * Exception generated when adding a dependency created a Multigraph in a DAG
+ * Exception generated when adding a dependency created a Multigraph in a DAG.
  *
  * @author jpiat
- *
  */
 public class CreateMultigraphException extends Exception {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 8671405308315687570L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 8671405308315687570L;
 
 }

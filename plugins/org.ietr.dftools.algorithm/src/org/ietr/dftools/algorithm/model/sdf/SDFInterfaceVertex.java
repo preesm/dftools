@@ -41,128 +41,144 @@ import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the interfaces of a Hierarchical vertex
+ * Class used to represent the interfaces of a Hierarchical vertex.
  *
  * @author jpiat
- *
  */
 public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements IInterface {
 
-	/**
-	 * Name of the property containing the direction
-	 */
-	public static final String	PORT_DIRECTION	= "port_direction";
-	/**
-	 * String representation of the type of data carried by this port
-	 */
-	public final static String	DATA_TYPE		= "data_type";
+  /** Name of the property containing the direction. */
+  public static final String PORT_DIRECTION = "port_direction";
 
-	/**
-	 * Kind of node
-	 */
-	public static final String PORT = "port";
+  /** String representation of the type of data carried by this port. */
+  public static final String DATA_TYPE = "data_type";
 
-	static {
-		{
-			AbstractVertex.public_properties.add(SDFInterfaceVertex.PORT_DIRECTION);
-			AbstractVertex.public_properties.add(SDFInterfaceVertex.DATA_TYPE);
-		}
-	};
+  /** Kind of node. */
+  public static final String PORT = "port";
 
-	/**
-	 * Creates a new SDFInterfaceVertex with the default direction (SINK)
-	 */
-	public SDFInterfaceVertex() {
-		super();
-		setKind(SDFInterfaceVertex.PORT);
-		setDirection(InterfaceDirection.Output);
-	}
+  static {
+    AbstractVertex.public_properties.add(SDFInterfaceVertex.PORT_DIRECTION);
+    AbstractVertex.public_properties.add(SDFInterfaceVertex.DATA_TYPE);
+  }
 
-	/**
-	 * Construct a new SDFInterfaceVertex using the String dir to specifiy the
-	 * direction Input=Source, Output=Sink
-	 *
-	 * @param dir
-	 */
-	public SDFInterfaceVertex(final String dir) {
-		super();
-		setKind(SDFInterfaceVertex.PORT);
-		setDirection(dir);
-	}
+  /**
+   * Creates a new SDFInterfaceVertex with the default direction (SINK).
+   */
+  public SDFInterfaceVertex() {
+    super();
+    setKind(SDFInterfaceVertex.PORT);
+    setDirection(InterfaceDirection.Output);
+  }
 
-	@Override
-	public abstract SDFInterfaceVertex clone();
+  /**
+   * Construct a new SDFInterfaceVertex using the String dir to specifiy the direction Input=Source, Output=Sink.
+   *
+   * @param dir
+   *          the dir
+   */
+  public SDFInterfaceVertex(final String dir) {
+    super();
+    setKind(SDFInterfaceVertex.PORT);
+    setDirection(dir);
+  }
 
-	@Override
-	public boolean equals(final Object e) {
-		if (e instanceof SDFInterfaceVertex) {
-			return (((SDFInterfaceVertex) e).getName().equals(getName()) && ((SDFInterfaceVertex) e).getDirection().equals(getDirection()));
-		} else {
-			return false;
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
+   */
+  @Override
+  public abstract SDFInterfaceVertex clone();
 
-	/**
-	 * Gives this interface direction
-	 *
-	 * @return The direction of this interface
-	 */
-	@Override
-	public InterfaceDirection getDirection() {
-		return (InterfaceDirection) getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.class);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object e) {
+    if (e instanceof SDFInterfaceVertex) {
+      return (((SDFInterfaceVertex) e).getName().equals(getName()) && ((SDFInterfaceVertex) e).getDirection().equals(getDirection()));
+    } else {
+      return false;
+    }
+  }
 
-	/**
-	 * Set this interface direction
-	 *
-	 * @param direction
-	 */
-	@Override
-	public void setDirection(final String direction) {
-		getPropertyBean().setValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.fromString(direction));
-	}
+  /**
+   * Gives this interface direction.
+   *
+   * @return The direction of this interface
+   */
+  @Override
+  public InterfaceDirection getDirection() {
+    return (InterfaceDirection) getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.class);
+  }
 
-	/**
-	 * Set this interface direction
-	 *
-	 * @param direction
-	 */
-	@Override
-	public void setDirection(final InterfaceDirection direction) {
-		getPropertyBean().setValue(SDFInterfaceVertex.PORT_DIRECTION, direction);
-	}
+  /**
+   * Set this interface direction.
+   *
+   * @param direction
+   *          the new direction
+   */
+  @Override
+  public void setDirection(final String direction) {
+    getPropertyBean().setValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.fromString(direction));
+  }
 
-	/**
-	 * Sets the type of data on this interface
-	 *
-	 * @param type
-	 */
-	public void setDataType(final String type) {
-		getPropertyBean().setValue(SDFInterfaceVertex.DATA_TYPE, type);
-	}
+  /**
+   * Set this interface direction.
+   *
+   * @param direction
+   *          the new direction
+   */
+  @Override
+  public void setDirection(final InterfaceDirection direction) {
+    getPropertyBean().setValue(SDFInterfaceVertex.PORT_DIRECTION, direction);
+  }
 
-	@Override
-	public Object getNbRepeat() {
-		return 1;
-	}
+  /**
+   * Sets the type of data on this interface.
+   *
+   * @param type
+   *          the new data type
+   */
+  public void setDataType(final String type) {
+    getPropertyBean().setValue(SDFInterfaceVertex.DATA_TYPE, type);
+  }
 
-	/**
-	 * Gives the type of data on this interface
-	 *
-	 * @return The string representation of the type of data on this interface
-	 */
-	public String getDataType() {
-		return (String) getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE, String.class);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#getNbRepeat()
+   */
+  @Override
+  public Object getNbRepeat() {
+    return 1;
+  }
 
-	@Override
-	public void setPropertyValue(final String propertyName, final Object value) {
-		if (propertyName.equals(SDFInterfaceVertex.PORT_DIRECTION) && (value instanceof String)) {
-			super.setPropertyValue(propertyName, InterfaceDirection.fromString((String) value));
-		} else {
-			super.setPropertyValue(propertyName, value);
-		}
+  /**
+   * Gives the type of data on this interface.
+   *
+   * @return The string representation of the type of data on this interface
+   */
+  public String getDataType() {
+    return (String) getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE, String.class);
+  }
 
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#setPropertyValue(java.lang.String, java.lang.Object)
+   */
+  @Override
+  public void setPropertyValue(final String propertyName, final Object value) {
+    if (propertyName.equals(SDFInterfaceVertex.PORT_DIRECTION) && (value instanceof String)) {
+      super.setPropertyValue(propertyName, InterfaceDirection.fromString((String) value));
+    } else {
+      super.setPropertyValue(propertyName, value);
+    }
+
+  }
 }

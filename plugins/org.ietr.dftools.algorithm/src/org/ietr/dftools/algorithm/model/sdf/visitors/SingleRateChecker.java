@@ -43,6 +43,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
+// TODO: Auto-generated Javadoc
 /**
  * Checks whether a visited graph is single-rate.
  *
@@ -50,8 +51,7 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  * <ul>
  * <li>Each edge has an identical production and consumption rate.</li>
  * <li>Each actor has a unit coefficient in the repetition vector.</li>
- * <li>The number of delay on each edge is 0 or a multiplier of the exchange
- * rate on this edge.</li>
+ * <li>The number of delay on each edge is 0 or a multiplier of the exchange rate on this edge.</li>
  * </ul>
  *
  * @author kdesnos
@@ -59,41 +59,57 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  */
 public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
-	public boolean isSingleRate = true;
+  /** The is single rate. */
+  public boolean isSingleRate = true;
 
-	@Override
-	public void visit(final SDFEdge sdfEdge) {
-		try {
-			this.isSingleRate &= sdfEdge.getCons().intValue() == sdfEdge.getProd().intValue();
-			this.isSingleRate &= ((sdfEdge.getDelay().intValue() % sdfEdge.getCons().intValue()) == 0);
-		} catch (final InvalidExpressionException e) {
-			// Supposedly, will not happen, expressions were already parsed when
-			// verifying actors number of repetition.
-			throw new RuntimeException(e.getMessage());
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void visit(final SDFEdge sdfEdge) {
+    try {
+      this.isSingleRate &= sdfEdge.getCons().intValue() == sdfEdge.getProd().intValue();
+      this.isSingleRate &= ((sdfEdge.getDelay().intValue() % sdfEdge.getCons().intValue()) == 0);
+    } catch (final InvalidExpressionException e) {
+      // Supposedly, will not happen, expressions were already parsed when
+      // verifying actors number of repetition.
+      throw new RuntimeException(e.getMessage());
+    }
+  }
 
-	@Override
-	public void visit(final SDFGraph sdf) throws SDF4JException {
-		// Visit vertices
-		for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
-			vertex.accept(this);
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public void visit(final SDFGraph sdf) throws SDF4JException {
+    // Visit vertices
+    for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
+      vertex.accept(this);
+    }
 
-		// Visit edges
-		for (final SDFEdge edge : sdf.edgeSet()) {
-			edge.accept(this);
-		}
+    // Visit edges
+    for (final SDFEdge edge : sdf.edgeSet()) {
+      edge.accept(this);
+    }
 
-	}
+  }
 
-	@Override
-	public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
-		// Check number of repetitions
-		try {
-			this.isSingleRate &= (sdfVertex.getNbRepeatAsInteger() == 1);
-		} catch (final InvalidExpressionException e) {
-			throw new SDF4JException(e.getMessage());
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
+   */
+  @Override
+  public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
+    // Check number of repetitions
+    try {
+      this.isSingleRate &= (sdfVertex.getNbRepeatAsInteger() == 1);
+    } catch (final InvalidExpressionException e) {
+      throw new SDF4JException(e.getMessage());
+    }
+  }
 }

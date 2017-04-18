@@ -39,45 +39,58 @@ package org.ietr.dftools.algorithm.model.sdf.esdf;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Special vertex to initialize data on looping edges
+ * Special vertex to initialize data on looping edges.
  *
  * @author jpiat
- *
  */
 public class SDFEndVertex extends SDFInitVertex {
 
-	/**
-	 * Kind of node
-	 */
-	public static final String END = "END";
+  /** Kind of node. */
+  public static final String END = "END";
 
-	/**
-	 * Creates a new SDFInterfaceVertex with the default direction (SINK)
-	 */
-	public SDFEndVertex() {
-		super();
-		setKind(SDFEndVertex.END);
-		setNbRepeat(1);
-	}
+  /**
+   * Creates a new SDFInterfaceVertex with the default direction (SINK).
+   */
+  public SDFEndVertex() {
+    super();
+    setKind(SDFEndVertex.END);
+    setNbRepeat(1);
+  }
 
-	@Override
-	public SDFAbstractVertex clone() {
-		final SDFEndVertex init = new SDFEndVertex();
-		init.setName(getName());
-		return init;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#clone()
+   */
+  @Override
+  public SDFAbstractVertex clone() {
+    final SDFEndVertex init = new SDFEndVertex();
+    init.setName(getName());
+    return init;
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionAdded(final AbstractEdge e) {
-		// Nothing to do for the moment
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionAdded(final AbstractEdge e) {
+    // Nothing to do for the moment
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionRemoved(final AbstractEdge e) {
-		// Nothing to do for the moment
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionRemoved(final AbstractEdge e) {
+    // Nothing to do for the moment
+  }
 
 }

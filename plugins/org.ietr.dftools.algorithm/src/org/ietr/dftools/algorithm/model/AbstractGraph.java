@@ -43,7 +43,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -63,706 +62,779 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Abstract class common to all graphs
+ * Abstract class common to all graphs.
  *
  * @author jpiat
  * @author kdesnos
- *
  * @param <V>
+ *          the value type
  * @param <E>
+ *          the element type
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AbstractGraph<V extends AbstractVertex, E extends AbstractEdge> extends DirectedMultigraph<V, E>
-		implements PropertySource, IRefinement, IExpressionSolver, IModelObserver, CloneableProperty {
-
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1381565218127310945L;
-
-	/**
-	 * Property name for property name
-	 */
-	public static final String NAME = "name";
-
-	/**
-	 * Property name for property parameters
-	 */
-	public static final String PARAMETERS = "parameters";
-
-	/**
-	 * Property name for property variables
-	 */
-	public static final String VARIABLES = "variables";
-
-	/**
-	 * Property name for property variables
-	 */
-	public static final String MODEL = "kind";
-
-	/**
-	 * Property name to store the path of the file of the graph.
-	 */
-	public static final String PATH = "path";
-
-	/**
-	 * This graph parent vertex if it exist
-	 */
-	public static final String PARENT_VERTEX = "parent_vertex";
-
-	protected static List<String> public_properties = new ArrayList<String>() {
-		/**
-		 *
-		 */
-		private static final long serialVersionUID = -7087214178114135188L;
-
-		{
-			add(AbstractGraph.NAME);
-			add(AbstractGraph.PARAMETERS);
-			add(AbstractGraph.VARIABLES);
-			add(AbstractGraph.MODEL);
-		}
-	};
-
-	protected PropertyBean			properties;
-	protected List<IModelObserver>	observers;
-	protected boolean				hasChanged;
-
-	/**
-	 * Creates a new Instance of Abstract graph with the given factory
-	 *
-	 * @param factory
-	 */
-	public AbstractGraph(final EdgeFactory<V, E> factory) {
-		super(factory);
-		this.properties = new PropertyBean();
-		this.observers = new ArrayList<>();
-		this.hasChanged = false;
-	}
-
-	/**
-	 * @param visitor
-	 *            The visitor to accept
-	 * @throws SDF4JException
-	 */
-	public void accept(final IGraphVisitor visitor) throws SDF4JException {
-		visitor.visit(this);
-	}
-
-	/**
-	 * Edge adding method used by parser
-	 *
-	 * @param source
-	 *            The source vertex of the edge
-	 * @param sourcePort
-	 *            The source port of the edge
-	 * @param target
-	 *            The target vertex of the edge
-	 * @param targetPort
-	 *            The target port of the edge
-	 * @return
-	 */
-	public E addEdge(final V source, final IInterface sourcePort, final V target, final IInterface targetPort) {
-		final E edge = super.addEdge(source, target);
-		edge.setSourceLabel(sourcePort.getName());
-		edge.setTargetLabel(targetPort.getName());
-		edge.setBase(this);
-		this.setChanged();
-		this.notifyObservers(edge);
-		return edge;
-	}
-
-	@Override
-	public E addEdge(final V source, final V target) {
-		final E edge = super.addEdge(source, target);
-		edge.setBase(this);
-		this.setChanged();
-		this.notifyObservers(edge);
-		return edge;
-	}
-
-	/**
-	 * Add an observer to this graph model
-	 *
-	 * @param o
-	 *            Te observer to be added
-	 */
-	public void addObserver(final IModelObserver o) {
-		this.observers.add(o);
-	}
-
-	/**
-	 * Add the given parameter to his graph parameter set
-	 *
-	 * @param param
-	 *            The parameter to add
-	 */
-	public void addParameter(final Parameter param) {
-		if (this.properties.getValue(AbstractGraph.PARAMETERS) == null) {
-			setParameterSet(new ParameterSet());
-		}
-		((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS)).addParameter(param);
-	}
-
-	/**
-	 * Add the given variable to his graph parameter set
-	 *
-	 * @param var
-	 *            The variable to add
-	 */
-	public void addVariable(final Variable var) {
-		if (this.properties.getValue(AbstractGraph.VARIABLES) == null) {
-			setVariableSet(new VariableSet());
-		}
-		((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES)).addVariable(var);
-		var.setExpressionSolver(this);
-	}
-
-	@Override
-	public boolean addVertex(final V vertex) {
-		int number = 0;
-		String name = vertex.getName();
-		while (this.getVertex(name) != null) {
-			name = vertex.getName() + "_" + number;
-			number++;
-		}
-		vertex.setName(name);
-		final boolean result = super.addVertex(vertex);
-		vertex.setBase(this);
-		this.setChanged();
-		this.notifyObservers(vertex);
-		return result;
-	}
-
-	/**
-	 * This method check whether the source and target {@link AbstractVertex
-	 * vertices} passed as parameter are linked by a unique edge. If several
-	 * edges link the two vertices, a {@link RuntimeException} is thrown.
-	 *
-	 * @param source
-	 *            the source {@link AbstractVertex} of the {@link AbstractEdge}
-	 * @param target
-	 *            the target {@link AbstractVertex} of the {@link AbstractEdge}
-	 * @throws RuntimeException
-	 *             if there are several {@link AbstractEdge} between the source
-	 *             and the target
-	 */
-	protected void checkMultipleEdges(final V source, final V target) throws RuntimeException {
-		// Check if the source and target have a unique edge between them
-		if (getAllEdges(source, target).size() > 1) {
-			throw new RuntimeException("removeEdge(source,target) cannot be used.\n" + "Reason: there are " + getAllEdges(source, target).size()
-					+ " edges between actors " + source + " and " + target);
-		}
-	}
-
-	/**
-	 * Indicates that this object has no longer changed, or that it has already
-	 * notified all of its observers of its most recent change, so that the
-	 * hasChanged method will now return false.
-	 */
-	public void clearChanged() {
-		this.hasChanged = true;
-	}
-
-	/**
-	 * Clear the list of observers
-	 */
-	public void clearObservers() {
-		this.observers.clear();
-	}
-
-	@Override
-	public abstract AbstractGraph<V, E> clone();
-
-	@Override
-	public void copyProperties(final PropertySource props) {
-		for (final String key : props.getPropertyBean().keys()) {
-			if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-				this.getPropertyBean().setValue(key, ((CloneableProperty) props.getPropertyBean().getValue(key)).clone());
-			} else {
-				this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
-			}
-		}
-	}
-
-	/**
-	 * Delete the given observer from the observers list
-	 *
-	 * @param o
-	 */
-	public void deleteObserver(final IModelObserver o) {
-		this.observers.remove(o);
-	}
-
-	public ArgumentFactory getArgumentFactory(final V v) {
-		return new ArgumentFactory(v);
-	}
-
-	/**
-	 * Gives the path of a given vertex
-	 *
-	 * @param vertex
-	 *            The vertex
-	 * @return The vertex path in the graph hierarchy
-	 */
-	public String getHierarchicalPath(final V vertex) {
-		return getHierarchicalPath(vertex, "");
-	}
-
-	/**
-	 * Gives the path of a given vertex
-	 *
-	 * @param vertex
-	 *            The vertex
-	 * @param pathAlreadyRead
-	 *            The path that we are already in. For example, if we are in the
-	 *            MyParentVertex refinement,
-	 *            pathAlreadyRead=MyGrandParentVertex/MyParentVertex.
-	 * @return The vertex path in the graph hierarchy
-	 */
-	private String getHierarchicalPath(final V vertex, final String currentPath) {
-
-		for (final Object v : vertexSet()) {
-			final V castV = (V) v;
-			String newPath = currentPath + castV.getName();
-
-			if (castV == vertex) {
-				return newPath;
-			}
-			newPath += "/";
-			if (vertex.getGraphDescription() != null) {
-				newPath = vertex.getGraphDescription().getHierarchicalPath(vertex, newPath);
-				if (newPath != null) {
-					return newPath;
-				}
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Gives the vertex with the given name
-	 *
-	 * @param name
-	 *            The vertex name
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
-	 */
-	public V getHierarchicalVertex(final String name) {
-		for (final V vertex : vertexSet()) {
-			if (vertex.getName().equals(name)) {
-				return vertex;
-			} else if (vertex.getGraphDescription() != null) {
-				final AbstractVertex result = ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertex(name);
-				if (result != null) {
-					return (V) result;
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Gives the vertex with the given path
-	 *
-	 * @param path
-	 *            The vertex path in format
-	 *            MyGrandParentVertex/MyParentVertex/Myself
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
-	 */
-	public V getHierarchicalVertexFromPath(final String path) {
-
-		final String[] splitPath = path.split("/");
-		int index = 0;
-		// Get the first segment of the path, this is the name of the first
-		// actor we will look for
-		String currentName = splitPath[index];
-		index++;
-		String currentPath = "";
-		// Handle the case where the first segment of path == name
-		if (this.getName().equals(currentName)) {
-			currentName = splitPath[index];
-			index++;
-		}
-		// Compute the path for the next search (path minus currentName)
-		for (int i = index; i < splitPath.length; i++) {
-			if (i > index) {
-				currentPath += "/";
-			}
-			currentPath += splitPath[i];
-		}
-		// Look for an actor named currentName
-		for (final V a : vertexSet()) {
-			if (a.getName().equals(currentName)) {
-				// If currentPath is empty, then we are at the last hierarchy
-				// level
-				if (currentPath.equals("")) {
-					// We found the actor
-					return a;
-					// Otherwise, we need to go deeper in the hierarchy
-				} else {
-					final IRefinement refinement = a.getRefinement();
-					if ((refinement != null) && (refinement instanceof AbstractGraph)) {
-						final AbstractGraph subgraph = (AbstractGraph) refinement;
-						return (V) subgraph.getHierarchicalVertexFromPath(currentPath);
-					}
-				}
-			}
-		}
-		// If we reach this point, no actor was found, return null
-		return null;
-
-		// return getHierarchicalVertexFromPath(path, "");
-	}
-
-	/**
-	 * Gives the vertex with the given path
-	 *
-	 * @param path
-	 *            The vertex path in format
-	 *            MyGrandParentVertex/MyParentVertex/Myself
-	 * @param pathAlreadyRead
-	 *            The path that we are already in. For example, if we are in the
-	 *            MyParentVertex refinement,
-	 *            pathAlreadyRead=MyGrandParentVertex/MyParentVertex.
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
-	 */
-	public V getHierarchicalVertexFromPath(final String path, String pathAlreadyRead) {
-
-		String vertexToFind = path; // The name of the vertex to find in the
-									// current level of hierarchy
-		boolean isPathRead = true; // true if we have already read the hierarchy
-									// and we are looking for a vertex here
-
-		// Removing the path already read from the path
-		if (!pathAlreadyRead.isEmpty()) {
-			vertexToFind = vertexToFind.replaceFirst(pathAlreadyRead + "/", "");
-			pathAlreadyRead += "/";
-		}
-
-		// Selecting the first vertex name to find
-		if (vertexToFind.indexOf("/") != -1) {
-			vertexToFind = vertexToFind.substring(0, vertexToFind.indexOf("/"));
-			isPathRead = false;
-		}
-
-		if (vertexToFind.equals(this.getName())) {
-			this.getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
-		}
-
-		final V vertex = getVertex(vertexToFind);
-		if (vertex != null) {
-			if (isPathRead) {
-				return vertex;
-			} else if (vertex.getGraphDescription() != null) {
-				return (V) ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Gives the vertex set of current graph merged with the vertex set of all
-	 * its subgraphs
-	 *
-	 * @param name
-	 *            The vertex name
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
-	 */
-	public Set<V> getHierarchicalVertexSet() {
-
-		final Set<V> vset = new HashSet<>(vertexSet());
-
-		for (final V vertex : vertexSet()) {
-			if (vertex.getGraphDescription() != null) {
-				vset.addAll(vertex.getGraphDescription().getHierarchicalVertexSet());
-			}
-		}
-		return vset;
-	}
-
-	/**
-	 * Gives this graph name
-	 *
-	 * @return The name of this graph
-	 */
-	public String getName() {
-		return (String) this.properties.getValue(AbstractGraph.NAME);
-	}
-
-	/**
-	 * Gives the parameter of this graph with the given name
-	 *
-	 * @param name
-	 *            The name of the parameter to get
-	 * @return The parameter with the given name
-	 */
-	public Parameter getParameter(final String name) {
-		if (this.properties.getValue(AbstractGraph.PARAMETERS) != null) {
-			return ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS)).getParameter(name);
-		}
-		return null;
-	}
-
-	public ParameterFactory getParameterFactory() {
-		return new ParameterFactory(this);
-	}
-
-	/**
-	 * Gives the parameter set of this graph
-	 *
-	 * @return The set of parameter of this graph
-	 */
-	public ParameterSet getParameters() {
-		if (this.properties.getValue(AbstractGraph.PARAMETERS) != null) {
-			return ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS));
-		}
-		return null;
-	}
-
-	public V getParentVertex() {
-		return ((V) this.properties.getValue(AbstractGraph.PARENT_VERTEX));
-	}
-
-	/**
-	 * Gives this graph PropertyBean
-	 *
-	 * @return This Graph PropertyBean
-	 */
-	@Override
-	public PropertyBean getPropertyBean() {
-		return this.properties;
-	}
-
-	@Override
-	public String getPropertyStringValue(final String propertyName) {
-		if (this.getPropertyBean().getValue(propertyName) != null) {
-			return this.getPropertyBean().getValue(propertyName).toString();
-		}
-		return null;
-	}
-
-	@Override
-	public List<String> getPublicProperties() {
-		return AbstractGraph.public_properties;
-	}
-
-	/**
-	 * Gives the variable of this graph with the given name
-	 *
-	 * @param name
-	 *            The name of the variable to get
-	 * @return The variable with the given name
-	 */
-	public Variable getVariable(final String name) {
-		if (this.properties.getValue(AbstractGraph.VARIABLES) != null) {
-			return ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES)).getVariable(name);
-		}
-		return null;
-	}
-
-	/**
-	 * Gives the variables set of this graph
-	 *
-	 * @return The set of variables of this graph
-	 */
-	public VariableSet getVariables() {
-		if (this.properties.getValue(AbstractGraph.VARIABLES) == null) {
-			final VariableSet variables = new VariableSet();
-			this.setVariableSet(variables);
-		}
-		return ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES));
-	}
-
-	/**
-	 * Gives the vertex with the given name
-	 *
-	 * @param name
-	 *            The vertex name
-	 * @return The vertex with the given name, null, if the vertex does not
-	 *         exist
-	 */
-	public V getVertex(final String name) {
-		for (final V vertex : vertexSet()) {
-			if (vertex.getName().equals(name)) {
-				return vertex;
-			}
-		}
-		return null;
-	}
-
-	public abstract ModelVertexFactory<V> getVertexFactory();
-
-	/**
-	 * Tests if this object has changed.
-	 *
-	 * @return True if the object has changed, false otherwise
-	 */
-	public boolean hasChanged() {
-		return this.hasChanged;
-	}
-
-	/**
-	 * If this object has changed, as indicated by the hasChanged method, then
-	 * notify all of its observers and then call the clearChanged method to
-	 * indicate that this object has no longer changed.
-	 */
-	public void notifyObservers() {
-		if (this.hasChanged) {
-			for (final IModelObserver o : this.observers) {
-				o.update(this, null);
-			}
-			clearChanged();
-		}
-	}
-
-	/**
-	 * If this object has changed, as indicated by the hasChanged method, then
-	 * notify all of its observers and then call the clearChanged method to
-	 * indicate that this object has no longer changed.
-	 *
-	 * @param arg
-	 *            Arguments to be passe to the update method
-	 */
-	public void notifyObservers(final Object arg) {
-		if (this.hasChanged) {
-			for (final IModelObserver o : this.observers) {
-				o.update(this, arg);
-			}
-			clearChanged();
-		}
-	}
-
-	@Override
-	public boolean removeEdge(final E edge) {
-		final boolean res = super.removeEdge(edge);
-		this.setChanged();
-		this.notifyObservers(edge);
-		return res;
-	}
-
-	/**
-	 * @deprecated The method is deprecated.
-	 *             {@link AbstractGraph#removeEdge(AbstractEdge)} should be used
-	 *             instead. Indeed, if several edges link the source and the
-	 *             target vertex, a random edge will be removed.
-	 */
-	@Override
-	@Deprecated
-	public E removeEdge(final V source, final V target) {
-		checkMultipleEdges(source, target);
-		final E edge = super.removeEdge(source, target);
-		this.setChanged();
-		this.notifyObservers(edge);
-		return edge;
-	}
-
-	@Override
-	public boolean removeVertex(final V vertex) {
-		final boolean result = super.removeVertex(vertex);
-		this.setChanged();
-		this.notifyObservers(vertex);
-		return result;
-	}
-
-	/**
-	 * Marks this Observable object as having been changed the hasChanged method
-	 * will now return true.
-	 */
-	public void setChanged() {
-		this.hasChanged = true;
-	}
-
-	/**
-	 * Set this graph name
-	 *
-	 * @param name
-	 *            The name to set for this graph
-	 */
-	public void setName(final String name) {
-		this.properties.setValue(AbstractGraph.NAME, this.properties.getValue(AbstractGraph.NAME), name);
-	}
-
-	/**
-	 * Set the parameter set for this graph
-	 *
-	 * @param parameters
-	 *            The set of parameters for this graph
-	 */
-	public void setParameterSet(final ParameterSet parameters) {
-		this.properties.setValue(AbstractGraph.PARAMETERS, this.properties.getValue(AbstractGraph.PARAMETERS), parameters);
-	}
-
-	protected void setParentVertex(final V parentVertex) {
-		this.properties.setValue(AbstractGraph.PARENT_VERTEX, parentVertex);
-	}
-
-	@Override
-	public void setPropertyValue(final String propertyName, final Object value) {
-		this.getPropertyBean().setValue(propertyName, value);
-	}
-
-	/**
-	 * Set the variables set for this graph
-	 *
-	 * @param variables
-	 *            The set of variables for this graph
-	 */
-	public void setVariableSet(final VariableSet variables) {
-		this.properties.setValue(AbstractGraph.VARIABLES, this.properties.getValue(AbstractGraph.VARIABLES), variables);
-	}
-
-	@Override
-	public int solveExpression(final String expression, final Value caller) throws InvalidExpressionException, NoIntegerValueException {
-		int resultValue;
-		try {
-			final JEP jep = new JEP();
-			if (this.getVariables() != null /*
-											 * && !(caller instanceof Argument)
-											 */) {
-				for (final String var : this.getVariables().keySet()) {
-					if ((this.getVariable(var) == caller) || this.getVariable(var).getValue().equals(expression)) {
-						break;
-					} else {
-						jep.addVariable(var, this.getVariable(var).intValue());
-					}
-				}
-			}
-			if ((this.getParameters() != null) && (this.getParentVertex() != null)) {
-				for (final String arg : this.getParameters().keySet()) {
-					try {
-						Integer paramValue = this.getParameters().get(arg).getValue();
-						if (paramValue == null) {
-							paramValue = this.getParentVertex().getArgument(arg).intValue();
-							this.getParameters().get(arg).setValue(paramValue);
-						}
-						jep.addVariable(arg, paramValue);
-					} catch (final NoIntegerValueException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			final Node expressionMainNode = jep.parse(expression);
-			final Object result = jep.evaluate(expressionMainNode);
-			if (result instanceof Number) {
-				resultValue = ((Number) result).intValue();
-			} else {
-				throw (new InvalidExpressionException("Not a numerical expression"));
-			}
-		} catch (final ParseException e) {
-			throw (new InvalidExpressionException("Could not parse expresion:" + expression));
-		} catch (final Exception e) {
-			throw (new InvalidExpressionException("Could not parse expresion:" + expression));
-		}
-		return resultValue;
-	}
-
-	public abstract boolean validateModel(Logger logger) throws SDF4JException;
+    implements PropertySource, IRefinement, IExpressionSolver, IModelObserver, CloneableProperty {
+
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1381565218127310945L;
+
+  /** Property name for property name. */
+  public static final String NAME = "name";
+
+  /** Property name for property parameters. */
+  public static final String PARAMETERS = "parameters";
+
+  /** Property name for property variables. */
+  public static final String VARIABLES = "variables";
+
+  /** Property name for property variables. */
+  public static final String MODEL = "kind";
+
+  /**
+   * Property name to store the path of the file of the graph.
+   */
+  public static final String PATH = "path";
+
+  /** This graph parent vertex if it exist. */
+  public static final String PARENT_VERTEX = "parent_vertex";
+
+  /** The public properties. */
+  protected static List<String> public_properties = new ArrayList<String>() {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7087214178114135188L;
+
+    {
+      add(AbstractGraph.NAME);
+      add(AbstractGraph.PARAMETERS);
+      add(AbstractGraph.VARIABLES);
+      add(AbstractGraph.MODEL);
+    }
+  };
+
+  /** The properties. */
+  protected PropertyBean properties;
+
+  /** The observers. */
+  protected List<IModelObserver> observers;
+
+  /** The has changed. */
+  protected boolean hasChanged;
+
+  /**
+   * Creates a new Instance of Abstract graph with the given factory.
+   *
+   * @param factory
+   *          the factory
+   */
+  public AbstractGraph(final EdgeFactory<V, E> factory) {
+    super(factory);
+    this.properties = new PropertyBean();
+    this.observers = new ArrayList<>();
+    this.hasChanged = false;
+  }
+
+  /**
+   * Accept.
+   *
+   * @param visitor
+   *          The visitor to accept
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  public void accept(final IGraphVisitor visitor) throws SDF4JException {
+    visitor.visit(this);
+  }
+
+  /**
+   * Edge adding method used by parser.
+   *
+   * @param source
+   *          The source vertex of the edge
+   * @param sourcePort
+   *          The source port of the edge
+   * @param target
+   *          The target vertex of the edge
+   * @param targetPort
+   *          The target port of the edge
+   * @return the e
+   */
+  public E addEdge(final V source, final IInterface sourcePort, final V target, final IInterface targetPort) {
+    final E edge = super.addEdge(source, target);
+    edge.setSourceLabel(sourcePort.getName());
+    edge.setTargetLabel(targetPort.getName());
+    edge.setBase(this);
+    this.setChanged();
+    this.notifyObservers(edge);
+    return edge;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.jgrapht.graph.AbstractBaseGraph#addEdge(java.lang.Object, java.lang.Object)
+   */
+  @Override
+  public E addEdge(final V source, final V target) {
+    final E edge = super.addEdge(source, target);
+    edge.setBase(this);
+    this.setChanged();
+    this.notifyObservers(edge);
+    return edge;
+  }
+
+  /**
+   * Add an observer to this graph model.
+   *
+   * @param o
+   *          Te observer to be added
+   */
+  public void addObserver(final IModelObserver o) {
+    this.observers.add(o);
+  }
+
+  /**
+   * Add the given parameter to his graph parameter set.
+   *
+   * @param param
+   *          The parameter to add
+   */
+  public void addParameter(final Parameter param) {
+    if (this.properties.getValue(AbstractGraph.PARAMETERS) == null) {
+      setParameterSet(new ParameterSet());
+    }
+    ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS)).addParameter(param);
+  }
+
+  /**
+   * Add the given variable to his graph parameter set.
+   *
+   * @param var
+   *          The variable to add
+   */
+  public void addVariable(final Variable var) {
+    if (this.properties.getValue(AbstractGraph.VARIABLES) == null) {
+      setVariableSet(new VariableSet());
+    }
+    ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES)).addVariable(var);
+    var.setExpressionSolver(this);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.jgrapht.graph.AbstractBaseGraph#addVertex(java.lang.Object)
+   */
+  @Override
+  public boolean addVertex(final V vertex) {
+    int number = 0;
+    String name = vertex.getName();
+    while (this.getVertex(name) != null) {
+      name = vertex.getName() + "_" + number;
+      number++;
+    }
+    vertex.setName(name);
+    final boolean result = super.addVertex(vertex);
+    vertex.setBase(this);
+    this.setChanged();
+    this.notifyObservers(vertex);
+    return result;
+  }
+
+  /**
+   * This method check whether the source and target {@link AbstractVertex vertices} passed as parameter are linked by a unique edge. If several edges link the
+   * two vertices, a {@link RuntimeException} is thrown.
+   *
+   * @param source
+   *          the source {@link AbstractVertex} of the {@link AbstractEdge}
+   * @param target
+   *          the target {@link AbstractVertex} of the {@link AbstractEdge}
+   * @throws RuntimeException
+   *           if there are several {@link AbstractEdge} between the source and the target
+   */
+  protected void checkMultipleEdges(final V source, final V target) throws RuntimeException {
+    // Check if the source and target have a unique edge between them
+    if (getAllEdges(source, target).size() > 1) {
+      throw new RuntimeException("removeEdge(source,target) cannot be used.\n" + "Reason: there are " + getAllEdges(source, target).size()
+          + " edges between actors " + source + " and " + target);
+    }
+  }
+
+  /**
+   * Indicates that this object has no longer changed, or that it has already notified all of its observers of its most recent change, so that the hasChanged
+   * method will now return false.
+   */
+  public void clearChanged() {
+    this.hasChanged = true;
+  }
+
+  /**
+   * Clear the list of observers.
+   */
+  public void clearObservers() {
+    this.observers.clear();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.jgrapht.graph.AbstractBaseGraph#clone()
+   */
+  @Override
+  public abstract AbstractGraph<V, E> clone();
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   */
+  @Override
+  public void copyProperties(final PropertySource props) {
+    for (final String key : props.getPropertyBean().keys()) {
+      if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
+        this.getPropertyBean().setValue(key, ((CloneableProperty) props.getPropertyBean().getValue(key)).clone());
+      } else {
+        this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
+      }
+    }
+  }
+
+  /**
+   * Delete the given observer from the observers list.
+   *
+   * @param o
+   *          the o
+   */
+  public void deleteObserver(final IModelObserver o) {
+    this.observers.remove(o);
+  }
+
+  /**
+   * Gets the argument factory.
+   *
+   * @param v
+   *          the v
+   * @return the argument factory
+   */
+  public ArgumentFactory getArgumentFactory(final V v) {
+    return new ArgumentFactory(v);
+  }
+
+  /**
+   * Gives the path of a given vertex.
+   *
+   * @param vertex
+   *          The vertex
+   * @return The vertex path in the graph hierarchy
+   */
+  public String getHierarchicalPath(final V vertex) {
+    return getHierarchicalPath(vertex, "");
+  }
+
+  /**
+   * Gives the path of a given vertex.
+   *
+   * @param vertex
+   *          The vertex
+   * @param currentPath
+   *          the current path
+   * @return The vertex path in the graph hierarchy
+   */
+  private String getHierarchicalPath(final V vertex, final String currentPath) {
+
+    for (final Object v : vertexSet()) {
+      final V castV = (V) v;
+      String newPath = currentPath + castV.getName();
+
+      if (castV == vertex) {
+        return newPath;
+      }
+      newPath += "/";
+      if (vertex.getGraphDescription() != null) {
+        newPath = vertex.getGraphDescription().getHierarchicalPath(vertex, newPath);
+        if (newPath != null) {
+          return newPath;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Gives the vertex with the given name.
+   *
+   * @param name
+   *          The vertex name
+   * @return The vertex with the given name, null, if the vertex does not exist
+   */
+  public V getHierarchicalVertex(final String name) {
+    for (final V vertex : vertexSet()) {
+      if (vertex.getName().equals(name)) {
+        return vertex;
+      } else if (vertex.getGraphDescription() != null) {
+        final AbstractVertex result = ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertex(name);
+        if (result != null) {
+          return (V) result;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Gives the vertex with the given path.
+   *
+   * @param path
+   *          The vertex path in format MyGrandParentVertex/MyParentVertex/Myself
+   * @return The vertex with the given name, null, if the vertex does not exist
+   */
+  public V getHierarchicalVertexFromPath(final String path) {
+
+    final String[] splitPath = path.split("/");
+    int index = 0;
+    // Get the first segment of the path, this is the name of the first
+    // actor we will look for
+    String currentName = splitPath[index];
+    index++;
+    String currentPath = "";
+    // Handle the case where the first segment of path == name
+    if (this.getName().equals(currentName)) {
+      currentName = splitPath[index];
+      index++;
+    }
+    // Compute the path for the next search (path minus currentName)
+    for (int i = index; i < splitPath.length; i++) {
+      if (i > index) {
+        currentPath += "/";
+      }
+      currentPath += splitPath[i];
+    }
+    // Look for an actor named currentName
+    for (final V a : vertexSet()) {
+      if (a.getName().equals(currentName)) {
+        // If currentPath is empty, then we are at the last hierarchy
+        // level
+        if (currentPath.equals("")) {
+          // We found the actor
+          return a;
+          // Otherwise, we need to go deeper in the hierarchy
+        } else {
+          final IRefinement refinement = a.getRefinement();
+          if ((refinement != null) && (refinement instanceof AbstractGraph)) {
+            final AbstractGraph subgraph = (AbstractGraph) refinement;
+            return (V) subgraph.getHierarchicalVertexFromPath(currentPath);
+          }
+        }
+      }
+    }
+    // If we reach this point, no actor was found, return null
+    return null;
+
+    // return getHierarchicalVertexFromPath(path, "");
+  }
+
+  /**
+   * Gives the vertex with the given path.
+   *
+   * @param path
+   *          The vertex path in format MyGrandParentVertex/MyParentVertex/Myself
+   * @param pathAlreadyRead
+   *          The path that we are already in. For example, if we are in the MyParentVertex refinement, pathAlreadyRead=MyGrandParentVertex/MyParentVertex.
+   * @return The vertex with the given name, null, if the vertex does not exist
+   */
+  public V getHierarchicalVertexFromPath(final String path, String pathAlreadyRead) {
+
+    String vertexToFind = path; // The name of the vertex to find in the
+    // current level of hierarchy
+    boolean isPathRead = true; // true if we have already read the hierarchy
+    // and we are looking for a vertex here
+
+    // Removing the path already read from the path
+    if (!pathAlreadyRead.isEmpty()) {
+      vertexToFind = vertexToFind.replaceFirst(pathAlreadyRead + "/", "");
+      pathAlreadyRead += "/";
+    }
+
+    // Selecting the first vertex name to find
+    if (vertexToFind.indexOf("/") != -1) {
+      vertexToFind = vertexToFind.substring(0, vertexToFind.indexOf("/"));
+      isPathRead = false;
+    }
+
+    if (vertexToFind.equals(this.getName())) {
+      this.getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
+    }
+
+    final V vertex = getVertex(vertexToFind);
+    if (vertex != null) {
+      if (isPathRead) {
+        return vertex;
+      } else if (vertex.getGraphDescription() != null) {
+        return (V) ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Gives the vertex set of current graph merged with the vertex set of all its subgraphs.
+   *
+   * @return The vertex with the given name, null, if the vertex does not exist
+   */
+  public Set<V> getHierarchicalVertexSet() {
+
+    final Set<V> vset = new HashSet<>(vertexSet());
+
+    for (final V vertex : vertexSet()) {
+      if (vertex.getGraphDescription() != null) {
+        vset.addAll(vertex.getGraphDescription().getHierarchicalVertexSet());
+      }
+    }
+    return vset;
+  }
+
+  /**
+   * Gives this graph name.
+   *
+   * @return The name of this graph
+   */
+  public String getName() {
+    return (String) this.properties.getValue(AbstractGraph.NAME);
+  }
+
+  /**
+   * Gives the parameter of this graph with the given name.
+   *
+   * @param name
+   *          The name of the parameter to get
+   * @return The parameter with the given name
+   */
+  public Parameter getParameter(final String name) {
+    if (this.properties.getValue(AbstractGraph.PARAMETERS) != null) {
+      return ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS)).getParameter(name);
+    }
+    return null;
+  }
+
+  /**
+   * Gets the parameter factory.
+   *
+   * @return the parameter factory
+   */
+  public ParameterFactory getParameterFactory() {
+    return new ParameterFactory(this);
+  }
+
+  /**
+   * Gives the parameter set of this graph.
+   *
+   * @return The set of parameter of this graph
+   */
+  public ParameterSet getParameters() {
+    if (this.properties.getValue(AbstractGraph.PARAMETERS) != null) {
+      return ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS));
+    }
+    return null;
+  }
+
+  /**
+   * Gets the parent vertex.
+   *
+   * @return the parent vertex
+   */
+  public V getParentVertex() {
+    return ((V) this.properties.getValue(AbstractGraph.PARENT_VERTEX));
+  }
+
+  /**
+   * Gives this graph PropertyBean.
+   *
+   * @return This Graph PropertyBean
+   */
+  @Override
+  public PropertyBean getPropertyBean() {
+    return this.properties;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
+   */
+  @Override
+  public String getPropertyStringValue(final String propertyName) {
+    if (this.getPropertyBean().getValue(propertyName) != null) {
+      return this.getPropertyBean().getValue(propertyName).toString();
+    }
+    return null;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getPublicProperties()
+   */
+  @Override
+  public List<String> getPublicProperties() {
+    return AbstractGraph.public_properties;
+  }
+
+  /**
+   * Gives the variable of this graph with the given name.
+   *
+   * @param name
+   *          The name of the variable to get
+   * @return The variable with the given name
+   */
+  public Variable getVariable(final String name) {
+    if (this.properties.getValue(AbstractGraph.VARIABLES) != null) {
+      return ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES)).getVariable(name);
+    }
+    return null;
+  }
+
+  /**
+   * Gives the variables set of this graph.
+   *
+   * @return The set of variables of this graph
+   */
+  public VariableSet getVariables() {
+    if (this.properties.getValue(AbstractGraph.VARIABLES) == null) {
+      final VariableSet variables = new VariableSet();
+      this.setVariableSet(variables);
+    }
+    return ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES));
+  }
+
+  /**
+   * Gives the vertex with the given name.
+   *
+   * @param name
+   *          The vertex name
+   * @return The vertex with the given name, null, if the vertex does not exist
+   */
+  public V getVertex(final String name) {
+    for (final V vertex : vertexSet()) {
+      if (vertex.getName().equals(name)) {
+        return vertex;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Gets the vertex factory.
+   *
+   * @return the vertex factory
+   */
+  public abstract ModelVertexFactory<V> getVertexFactory();
+
+  /**
+   * Tests if this object has changed.
+   *
+   * @return True if the object has changed, false otherwise
+   */
+  public boolean hasChanged() {
+    return this.hasChanged;
+  }
+
+  /**
+   * If this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that
+   * this object has no longer changed.
+   */
+  public void notifyObservers() {
+    if (this.hasChanged) {
+      for (final IModelObserver o : this.observers) {
+        o.update(this, null);
+      }
+      clearChanged();
+    }
+  }
+
+  /**
+   * If this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that
+   * this object has no longer changed.
+   *
+   * @param arg
+   *          Arguments to be passe to the update method
+   */
+  public void notifyObservers(final Object arg) {
+    if (this.hasChanged) {
+      for (final IModelObserver o : this.observers) {
+        o.update(this, arg);
+      }
+      clearChanged();
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.jgrapht.graph.AbstractBaseGraph#removeEdge(java.lang.Object)
+   */
+  @Override
+  public boolean removeEdge(final E edge) {
+    final boolean res = super.removeEdge(edge);
+    this.setChanged();
+    this.notifyObservers(edge);
+    return res;
+  }
+
+  /**
+   * Removes the edge.
+   *
+   * @param source
+   *          the source
+   * @param target
+   *          the target
+   * @return the e
+   * @deprecated The method is deprecated. {@link AbstractGraph#removeEdge(AbstractEdge)} should be used instead. Indeed, if several edges link the source and
+   *             the target vertex, a random edge will be removed.
+   */
+  @Override
+  @Deprecated
+  public E removeEdge(final V source, final V target) {
+    checkMultipleEdges(source, target);
+    final E edge = super.removeEdge(source, target);
+    this.setChanged();
+    this.notifyObservers(edge);
+    return edge;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.jgrapht.graph.AbstractBaseGraph#removeVertex(java.lang.Object)
+   */
+  @Override
+  public boolean removeVertex(final V vertex) {
+    final boolean result = super.removeVertex(vertex);
+    this.setChanged();
+    this.notifyObservers(vertex);
+    return result;
+  }
+
+  /**
+   * Marks this Observable object as having been changed the hasChanged method will now return true.
+   */
+  public void setChanged() {
+    this.hasChanged = true;
+  }
+
+  /**
+   * Set this graph name.
+   *
+   * @param name
+   *          The name to set for this graph
+   */
+  public void setName(final String name) {
+    this.properties.setValue(AbstractGraph.NAME, this.properties.getValue(AbstractGraph.NAME), name);
+  }
+
+  /**
+   * Set the parameter set for this graph.
+   *
+   * @param parameters
+   *          The set of parameters for this graph
+   */
+  public void setParameterSet(final ParameterSet parameters) {
+    this.properties.setValue(AbstractGraph.PARAMETERS, this.properties.getValue(AbstractGraph.PARAMETERS), parameters);
+  }
+
+  /**
+   * Sets the parent vertex.
+   *
+   * @param parentVertex
+   *          the new parent vertex
+   */
+  protected void setParentVertex(final V parentVertex) {
+    this.properties.setValue(AbstractGraph.PARENT_VERTEX, parentVertex);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
+   */
+  @Override
+  public void setPropertyValue(final String propertyName, final Object value) {
+    this.getPropertyBean().setValue(propertyName, value);
+  }
+
+  /**
+   * Set the variables set for this graph.
+   *
+   * @param variables
+   *          The set of variables for this graph
+   */
+  public void setVariableSet(final VariableSet variables) {
+    this.properties.setValue(AbstractGraph.VARIABLES, this.properties.getValue(AbstractGraph.VARIABLES), variables);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.parameters.IExpressionSolver#solveExpression(java.lang.String, org.ietr.dftools.algorithm.model.parameters.Value)
+   */
+  @Override
+  public int solveExpression(final String expression, final Value caller) throws InvalidExpressionException, NoIntegerValueException {
+    int resultValue;
+    try {
+      final JEP jep = new JEP();
+      if (this.getVariables() != null /*
+                                       * && !(caller instanceof Argument)
+                                       */) {
+        for (final String var : this.getVariables().keySet()) {
+          if ((this.getVariable(var) == caller) || this.getVariable(var).getValue().equals(expression)) {
+            break;
+          } else {
+            jep.addVariable(var, this.getVariable(var).intValue());
+          }
+        }
+      }
+      if ((this.getParameters() != null) && (this.getParentVertex() != null)) {
+        for (final String arg : this.getParameters().keySet()) {
+          try {
+            Integer paramValue = this.getParameters().get(arg).getValue();
+            if (paramValue == null) {
+              paramValue = this.getParentVertex().getArgument(arg).intValue();
+              this.getParameters().get(arg).setValue(paramValue);
+            }
+            jep.addVariable(arg, paramValue);
+          } catch (final NoIntegerValueException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+      final Node expressionMainNode = jep.parse(expression);
+      final Object result = jep.evaluate(expressionMainNode);
+      if (result instanceof Number) {
+        resultValue = ((Number) result).intValue();
+      } else {
+        throw (new InvalidExpressionException("Not a numerical expression"));
+      }
+    } catch (final ParseException e) {
+      throw (new InvalidExpressionException("Could not parse expresion:" + expression));
+    } catch (final Exception e) {
+      throw (new InvalidExpressionException("Could not parse expresion:" + expression));
+    }
+    return resultValue;
+  }
+
+  /**
+   * Validate model.
+   *
+   * @param logger
+   *          the logger
+   * @return true, if successful
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  public abstract boolean validateModel(Logger logger) throws SDF4JException;
 
 }

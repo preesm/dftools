@@ -40,26 +40,39 @@ package org.ietr.dftools.workflow.test;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-
 import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestWorkflowScenario.
+ */
 public class TestWorkflowScenario extends AbstractScenarioImplementation {
 
-	@Override
-	public Map<String, Object> extractData(final String path) throws WorkflowException {
-		final Map<String, Object> outputs = new HashMap<>();
-		WorkflowLogger.getLogger().log(Level.INFO, "Retrieving data from scenario");
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.implement.AbstractScenarioImplementation#extractData(java.lang.String)
+   */
+  @Override
+  public Map<String, Object> extractData(final String path) throws WorkflowException {
+    final Map<String, Object> outputs = new HashMap<>();
+    WorkflowLogger.getLogger().log(Level.INFO, "Retrieving data from scenario");
 
-		outputs.put("algo", "algo1");
-		outputs.put("archi", "archi1");
-		return outputs;
-	}
+    outputs.put("algo", "algo1");
+    outputs.put("archi", "archi1");
+    return outputs;
+  }
 
-	@Override
-	public String monitorMessage() {
-		return "Retrieving data from scenario";
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation#monitorMessage()
+   */
+  @Override
+  public String monitorMessage() {
+    return "Retrieving data from scenario";
+  }
 
 }

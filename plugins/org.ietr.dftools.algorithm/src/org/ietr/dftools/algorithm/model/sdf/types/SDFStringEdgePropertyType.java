@@ -38,37 +38,52 @@ package org.ietr.dftools.algorithm.model.sdf.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the string edge property type in a SDF
+ * Class used to represent the string edge property type in a SDF.
  *
  * @author mpelcat
- *
  */
 public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> {
 
-	/**
-	 * Creates a new SDFDefaultEdgePropertyType with the given String value
-	 *
-	 * @param val
-	 *            The String value of this SDFDefaultEdgePropertyType
-	 */
-	public SDFStringEdgePropertyType(final String val) {
-		super(val);
-	}
+  /**
+   * Creates a new SDFDefaultEdgePropertyType with the given String value.
+   *
+   * @param val
+   *          The String value of this SDFDefaultEdgePropertyType
+   */
+  public SDFStringEdgePropertyType(final String val) {
+    super(val);
+  }
 
-	@Override
-	public AbstractEdgePropertyType<String> clone() {
-		return new SDFStringEdgePropertyType(this.value);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   */
+  @Override
+  public AbstractEdgePropertyType<String> clone() {
+    return new SDFStringEdgePropertyType(this.value);
+  }
 
-	@Override
-	public int intValue() {
-		return 0;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public int intValue() {
+    return 0;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 
 }

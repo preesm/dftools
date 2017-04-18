@@ -41,7 +41,6 @@ package org.ietr.dftools.workflow.elements;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -50,6 +49,7 @@ import org.ietr.dftools.workflow.WorkflowParser;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class provides a task workflow node.
  *
@@ -59,158 +59,173 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  */
 public class TaskNode extends AbstractWorkflowNode {
 
-	/**
-	 * Transformation Id.
-	 */
-	private final String pluginId;
+  /**
+   * Transformation Id.
+   */
+  private final String pluginId;
 
-	/**
-	 * Instance Id.
-	 */
-	private final String taskId;
+  /**
+   * Instance Id.
+   */
+  private final String taskId;
 
-	/**
-	 * Parameters used to parameterize the transformation.
-	 */
-	private final Map<String, String> parameters;
+  /**
+   * Parameters used to parameterize the transformation.
+   */
+  private final Map<String, String> parameters;
 
-	/**
-	 * Creates a new transformation node with the given transformation
-	 * identifier and the given name.
-	 *
-	 * @param taskId
-	 *            The transformation identifier.
-	 */
-	public TaskNode(final String pluginId, final String taskId) {
-		this.pluginId = pluginId;
-		this.taskId = taskId;
+  /**
+   * Creates a new transformation node with the given transformation identifier and the given name.
+   *
+   * @param pluginId
+   *          the plugin id
+   * @param taskId
+   *          The transformation identifier.
+   */
+  public TaskNode(final String pluginId, final String taskId) {
+    this.pluginId = pluginId;
+    this.taskId = taskId;
 
-		this.parameters = new HashMap<>();
-	}
+    this.parameters = new HashMap<>();
+  }
 
-	/**
-	 * Creates a new parameter retrieved from the xml in {@link WorkflowParser}.
-	 *
-	 * @param key
-	 *            the name of the variable.
-	 * @param value
-	 *            the value of the variable.
-	 */
-	public void addParameter(final String key, final String value) {
-		this.parameters.put(key, value);
-	}
+  /**
+   * Creates a new parameter retrieved from the xml in {@link WorkflowParser}.
+   *
+   * @param key
+   *          the name of the variable.
+   * @param value
+   *          the value of the variable.
+   */
+  public void addParameter(final String key, final String value) {
+    this.parameters.put(key, value);
+  }
 
-	/**
-	 * Returns the transformation associated with this {@link TaskNode}. Note
-	 * that it is only valid if {@link #isTransformationPossible()} returns
-	 * true.
-	 *
-	 * @return The transformation associated with this transformation node, or
-	 *         <code>null</code> if the transformation is not valid.
-	 */
-	public AbstractTaskImplementation getTask() {
-		return (AbstractTaskImplementation) this.implementation;
-	}
+  /**
+   * Returns the transformation associated with this {@link TaskNode}. Note that it is only valid if {@link #isTransformationPossible()} returns true.
+   *
+   * @return The transformation associated with this transformation node, or <code>null</code> if the transformation is not valid.
+   */
+  public AbstractTaskImplementation getTask() {
+    return (AbstractTaskImplementation) this.implementation;
+  }
 
-	/**
-	 * Returns the variables map.
-	 *
-	 * @return the variables map.
-	 */
-	public Map<String, String> getParameters() {
-		return this.parameters;
-	}
+  /**
+   * Returns the variables map.
+   *
+   * @return the variables map.
+   */
+  public Map<String, String> getParameters() {
+    return this.parameters;
+  }
 
-	/**
-	 * Returns the value of the parameter with name key.
-	 *
-	 * @param key
-	 *            the name of the variable.
-	 * @return the value of the variable.
-	 */
-	public String getParameter(final String key) {
-		return this.parameters.get(key);
-	}
+  /**
+   * Returns the value of the parameter with name key.
+   *
+   * @param key
+   *          the name of the variable.
+   * @return the value of the variable.
+   */
+  public String getParameter(final String key) {
+    return this.parameters.get(key);
+  }
 
-	@Override
-	public boolean isScenarioNode() {
-		return false;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isScenarioNode()
+   */
+  @Override
+  public boolean isScenarioNode() {
+    return false;
+  }
 
-	@Override
-	public boolean isTaskNode() {
-		return true;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isTaskNode()
+   */
+  @Override
+  public boolean isTaskNode() {
+    return true;
+  }
 
-	/**
-	 * Specifies the inputs and outputs types of the workflow task using
-	 * information from the plugin extension.
-	 *
-	 * @return True if the prototype was correctly set.
-	 */
-	private boolean initPrototype(final AbstractTaskImplementation task, final IConfigurationElement element) {
+  /**
+   * Specifies the inputs and outputs types of the workflow task using information from the plugin extension.
+   *
+   * @param task
+   *          the task
+   * @param element
+   *          the element
+   * @return True if the prototype was correctly set.
+   */
+  private boolean initPrototype(final AbstractTaskImplementation task, final IConfigurationElement element) {
 
-		for (final IConfigurationElement child : element.getChildren()) {
-			if (child.getName().equals("inputs")) {
-				for (final IConfigurationElement input : child.getChildren()) {
-					task.addInput(input.getAttribute("id"), input.getAttribute("object"));
-				}
-			} else if (child.getName().equals("outputs")) {
-				for (final IConfigurationElement output : child.getChildren()) {
-					task.addOutput(output.getAttribute("id"), output.getAttribute("object"));
-				}
-			}
-		}
-		return true;
-	}
+    for (final IConfigurationElement child : element.getChildren()) {
+      if (child.getName().equals("inputs")) {
+        for (final IConfigurationElement input : child.getChildren()) {
+          task.addInput(input.getAttribute("id"), input.getAttribute("object"));
+        }
+      } else if (child.getName().equals("outputs")) {
+        for (final IConfigurationElement output : child.getChildren()) {
+          task.addOutput(output.getAttribute("id"), output.getAttribute("object"));
+        }
+      }
+    }
+    return true;
+  }
 
-	/**
-	 * Checks if this task exists based on its ID.
-	 *
-	 * @return True if this task exists, false otherwise.
-	 */
-	public boolean getExtensionInformation() {
-		try {
-			final IExtensionRegistry registry = Platform.getExtensionRegistry();
+  /**
+   * Checks if this task exists based on its ID.
+   *
+   * @return True if this task exists, false otherwise.
+   */
+  public boolean getExtensionInformation() {
+    try {
+      final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-			boolean found = false;
-			final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
-			for (int i = 0; (i < elements.length) && !found; i++) {
-				final IConfigurationElement element = elements[i];
-				if (element.getAttribute("id").equals(this.pluginId)) {
-					// Tries to create the transformation
-					final Object obj = element.createExecutableExtension("type");
+      boolean found = false;
+      final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
+      for (int i = 0; (i < elements.length) && !found; i++) {
+        final IConfigurationElement element = elements[i];
+        if (element.getAttribute("id").equals(this.pluginId)) {
+          // Tries to create the transformation
+          final Object obj = element.createExecutableExtension("type");
 
-					// and checks it actually is a TaskImplementation.
-					if (obj instanceof AbstractTaskImplementation) {
-						this.implementation = (AbstractTaskImplementation) obj;
-						found = true;
+          // and checks it actually is a TaskImplementation.
+          if (obj instanceof AbstractTaskImplementation) {
+            this.implementation = (AbstractTaskImplementation) obj;
+            found = true;
 
-						// Initializes the prototype of the workflow task
-						initPrototype((AbstractTaskImplementation) this.implementation, element);
-					}
-				}
-			}
+            // Initializes the prototype of the workflow task
+            initPrototype((AbstractTaskImplementation) this.implementation, element);
+          }
+        }
+      }
 
-			return found;
-		} catch (final CoreException e) {
-			WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find plugins from workflow");
-			return false;
-		}
-	}
+      return found;
+    } catch (final CoreException e) {
+      WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find plugins from workflow");
+      return false;
+    }
+  }
 
-	/**
-	 * Get task transformation Id.
-	 */
-	public String getPluginId() {
-		return this.pluginId;
-	}
+  /**
+   * Get task transformation Id.
+   *
+   * @return the plugin id
+   */
+  public String getPluginId() {
+    return this.pluginId;
+  }
 
-	/**
-	 * Get task instance Id.
-	 */
-	public String getTaskId() {
-		return this.taskId;
-	}
+  /**
+   * Get task instance Id.
+   *
+   * @return the task id
+   */
+  public String getTaskId() {
+    return this.taskId;
+  }
 
 }

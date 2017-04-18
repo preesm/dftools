@@ -36,15 +36,23 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NoIntegerValueException.
+ */
 public class NoIntegerValueException extends Exception {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 329486828642421615L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 329486828642421615L;
 
-	public NoIntegerValueException(final String msg) {
-		super(msg);
-	}
+  /**
+   * Instantiates a new no integer value exception.
+   *
+   * @param msg
+   *          the msg
+   */
+  public NoIntegerValueException(final String msg) {
+    super(msg);
+  }
 
 }

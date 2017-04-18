@@ -41,99 +41,109 @@ package org.ietr.dftools.workflow.implement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.elements.Workflow;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
 /**
- * This interface must be implemented by any workflow task element. The
- * prototype of the workflow task is specified in the plugin extension.
+ * This interface must be implemented by any workflow task element. The prototype of the workflow task is specified in the plugin extension.
  *
  * @author mpelcat
  */
 public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImplementation {
 
-	/**
-	 * Id and fully qualified names of task input and output retrieved from the
-	 * extension.
-	 */
-	private final Map<String, String> inputPrototype;
+  /**
+   * Id and fully qualified names of task input and output retrieved from the extension.
+   */
+  private final Map<String, String> inputPrototype;
 
-	public AbstractTaskImplementation() {
-		this.inputPrototype = new HashMap<>();
-	}
+  /**
+   * Instantiates a new abstract task implementation.
+   */
+  public AbstractTaskImplementation() {
+    this.inputPrototype = new HashMap<>();
+  }
 
-	/**
-	 * Adds an input to the task prototype.
-	 */
-	final public void addInput(final String id, final String type) {
-		this.inputPrototype.put(id, type);
-	}
+  /**
+   * Adds an input to the task prototype.
+   *
+   * @param id
+   *          the id
+   * @param type
+   *          the type
+   */
+  public final void addInput(final String id, final String type) {
+    this.inputPrototype.put(id, type);
+  }
 
-	/**
-	 * Compares the prototype with the input edges id AND type. All inputs need
-	 * to be initialized
-	 */
-	final public boolean acceptInputs(final Map<String, String> graphInputPorts) {
+  /**
+   * Compares the prototype with the input edges id AND type. All inputs need to be initialized
+   *
+   * @param graphInputPorts
+   *          the graph input ports
+   * @return true, if successful
+   */
+  public final boolean acceptInputs(final Map<String, String> graphInputPorts) {
 
-		for (final String protoInputPortName : this.inputPrototype.keySet()) {
-			if (!graphInputPorts.keySet().contains(protoInputPortName)) {
-				WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputEdge", protoInputPortName);
-				return false;
-			} else {
-				final String protoType = this.inputPrototype.get(protoInputPortName);
-				final String graphType = graphInputPorts.get(protoInputPortName);
-				if (!protoType.equals(graphType)) {
-					WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName, graphType, protoType);
-					return false;
-				}
-			}
-		}
+    for (final String protoInputPortName : this.inputPrototype.keySet()) {
+      if (!graphInputPorts.keySet().contains(protoInputPortName)) {
+        WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputEdge", protoInputPortName);
+        return false;
+      } else {
+        final String protoType = this.inputPrototype.get(protoInputPortName);
+        final String graphType = graphInputPorts.get(protoInputPortName);
+        if (!protoType.equals(graphType)) {
+          WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName, graphType, protoType);
+          return false;
+        }
+      }
+    }
 
-		if (graphInputPorts.keySet().size() > this.inputPrototype.keySet().size()) {
-			WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges", String.valueOf(graphInputPorts.keySet().size()),
-					String.valueOf(this.inputPrototype.keySet().size()));
-			return false;
-		}
+    if (graphInputPorts.keySet().size() > this.inputPrototype.keySet().size()) {
+      WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges", String.valueOf(graphInputPorts.keySet().size()),
+          String.valueOf(this.inputPrototype.keySet().size()));
+      return false;
+    }
 
-		return true;
-	}
+    return true;
+  }
 
-	/**
-	 * Returns the preferred prototype for the node in a workflow. Useful to
-	 * give user information in the workflow
-	 */
-	@Override
-	public final String displayPrototype() {
-		return " inputs=" + this.inputPrototype.toString() + super.displayPrototype();
-	}
+  /**
+   * Returns the preferred prototype for the node in a workflow. Useful to give user information in the workflow
+   *
+   * @return the string
+   */
+  @Override
+  public final String displayPrototype() {
+    return " inputs=" + this.inputPrototype.toString() + super.displayPrototype();
+  }
 
-	/**
-	 * The workflow task element implementation must have a execute method that
-	 * is called by the workflow manager
-	 *
-	 * @param inputs
-	 *            a map associating input objects to their data type in the
-	 *            graph
-	 * @param parameters
-	 *            a map containing the vertex parameters
-	 * @param monitor
-	 *            the progress monitor that can be checked to cancel a task if
-	 *            requested
-	 * @param nodeName
-	 *            name of the graph node that triggered this execution
-	 * @param workflow
-	 *            the workflow that launched the task
-	 * @return a map associating output objects to their data type in the graph
-	 */
-	public abstract Map<String, Object> execute(Map<String, Object> inputs, Map<String, String> parameters, IProgressMonitor monitor, String nodeName,
-			Workflow workflow) throws WorkflowException;
+  /**
+   * The workflow task element implementation must have a execute method that is called by the workflow manager.
+   *
+   * @param inputs
+   *          a map associating input objects to their data type in the graph
+   * @param parameters
+   *          a map containing the vertex parameters
+   * @param monitor
+   *          the progress monitor that can be checked to cancel a task if requested
+   * @param nodeName
+   *          name of the graph node that triggered this execution
+   * @param workflow
+   *          the workflow that launched the task
+   * @return a map associating output objects to their data type in the graph
+   * @throws WorkflowException
+   *           the workflow exception
+   */
+  public abstract Map<String, Object> execute(Map<String, Object> inputs, Map<String, String> parameters, IProgressMonitor monitor, String nodeName,
+      Workflow workflow) throws WorkflowException;
 
-	/**
-	 * Returns the task parameters and their default values. These parameters
-	 * are automatically added in the graph if not present.
-	 */
-	public abstract Map<String, String> getDefaultParameters();
+  /**
+   * Returns the task parameters and their default values. These parameters are automatically added in the graph if not present.
+   *
+   * @return the default parameters
+   */
+  public abstract Map<String, String> getDefaultParameters();
 }

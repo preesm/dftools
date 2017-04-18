@@ -46,7 +46,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.ietr.dftools.algorithm.SDFMath;
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.demo.SDFtoDAGDemo;
@@ -86,498 +85,561 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 import org.jgrapht.alg.CycleDetector;
 
+// TODO: Auto-generated Javadoc
 /**
- * Visitor to use to transform a SDF Graph in a Directed Acyclic Graph
+ * Visitor to use to transform a SDF Graph in a Directed Acyclic Graph.
  *
  * @author pthebault
  * @author kdesnos
  * @param <T>
- *            The DAG type of the output dag
- *
+ *          The DAG type of the output dag
  */
 public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
-	/**
-	 * Main method for debug purposes ...
-	 *
-	 * @param args
-	 * @throws InvalidExpressionException
-	 * @throws SDF4JException
-	 */
-	public static void main(final String[] args) throws InvalidExpressionException, SDF4JException {
-		final int nbVertex = 30, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 5;
-		final SDFtoDAGDemo applet = new SDFtoDAGDemo();
-		final SDFAdapterDemo applet2 = new SDFAdapterDemo();
+  /**
+   * Main method for debug purposes ...
+   *
+   * @param args
+   *          the arguments
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  public static void main(final String[] args) throws InvalidExpressionException, SDF4JException {
+    final int nbVertex = 30;
+    final int minInDegree = 1;
+    final int maxInDegree = 5;
+    final int minOutDegree = 1;
+    final int maxOutDegree = 5;
+    final SDFtoDAGDemo applet = new SDFtoDAGDemo();
+    final SDFAdapterDemo applet2 = new SDFAdapterDemo();
 
-		// Creates a random SDF graph
-		final int minrate = 1, maxrate = 100;
-		final SDFRandomGraph test = new SDFRandomGraph();
+    // Creates a random SDF graph
+    final int minrate = 1;
+    final int maxrate = 100;
+    final SDFRandomGraph test = new SDFRandomGraph();
 
-		SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
-		final GMLSDFImporter importer = new GMLSDFImporter();
-		try {
-			/*
-			 * demoGraph = importer .parse(new File(
-			 * "D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
-			 */
-			demoGraph = importer.parse(new File("D:\\Preesm\\trunk\\tests\\RACH_Hierarchy\\RACH_Hierarchy\\flatten.graphml"));
-		} catch (InvalidModelException | FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
-		try {
-			demoGraph.accept(dageur);
-		} catch (final SDF4JException e) {
-			e.printStackTrace();
-		}
-		final DirectedAcyclicGraph dag = dageur.getOutput();
-		final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
-		System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
-		applet.init(dag);
+    SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+    final GMLSDFImporter importer = new GMLSDFImporter();
+    try {
+      /*
+       * demoGraph = importer .parse(new File( "D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
+       */
+      demoGraph = importer.parse(new File("D:\\Preesm\\trunk\\tests\\RACH_Hierarchy\\RACH_Hierarchy\\flatten.graphml"));
+    } catch (InvalidModelException | FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
+    try {
+      demoGraph.accept(dageur);
+    } catch (final SDF4JException e) {
+      e.printStackTrace();
+    }
+    final DirectedAcyclicGraph dag = dageur.getOutput();
+    final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
+    System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
+    applet.init(dag);
 
-		applet2.init(demoGraph);
-	}
+    applet2.init(demoGraph);
+  }
 
-	private final T								outputGraph;
-	private final ModelVertexFactory<DAGVertex>	factory;
+  /** The output graph. */
+  private final T outputGraph;
 
-	/**
-	 * Builds a new DAGTransformation visitor,
-	 *
-	 * @param outputGraph
-	 *            The graph in which the DAG will be output
-	 * @param vertexFactory
-	 *            The factory used to create vertices
-	 */
-	public DAGTransformation(final T outputGraph, final ModelVertexFactory<DAGVertex> vertexFactory) {
-		this.outputGraph = outputGraph;
-		this.factory = vertexFactory;
-	}
+  /** The factory. */
+  private final ModelVertexFactory<DAGVertex> factory;
 
-	/**
-	 * Copy the cycles nb times in the graph
-	 *
-	 * @param graph
-	 *            The graph in which the cycle should be copied
-	 * @param vertices
-	 *            The set of vertices of the cycle
-	 * @param nb
-	 *            The number of copy to produce
-	 * @throws InvalidExpressionException
-	 */
-	private void copyCycle(final SDFGraph graph, final Set<SDFAbstractVertex> vertices, final int nb) throws InvalidExpressionException {
-		SDFAbstractVertex root = null;
-		SDFAbstractVertex last = null;
-		SDFEdge loop = null;
-		for (final SDFAbstractVertex vertex : vertices) {
-			vertex.setNbRepeat(vertex.getNbRepeatAsInteger() / nb);
-			for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
-				if (edge.getDelay().intValue() > 0) {
-					root = edge.getTarget();
-					last = edge.getSource();
-					loop = edge;
-				}
-			}
-		}
-		final HashMap<SDFAbstractVertex, List<SDFAbstractVertex>> mapCopies = new HashMap<>();
-		final List<SDFAbstractVertex> createdVertices = new ArrayList<>();
-		final List<SDFAbstractVertex> sortedCycle = new ArrayList<>();
-		final SDFIterator iterator = new SDFIterator(graph, root);
-		while (iterator.hasNext()) {
-			final SDFAbstractVertex next = iterator.next();
-			if (vertices.contains(next) && !sortedCycle.contains(next)) {
-				sortedCycle.add(next);
-			}
-			if (next == last) {
-				break;
-			}
-		}
-		if ((root != null) && (last != null)) {
-			SDFAbstractVertex previous = last;
-			SDFAbstractVertex previousCopy = last;
-			for (int i = 1; i < nb; i++) {
-				for (final SDFAbstractVertex current : sortedCycle) {
-					final SDFAbstractVertex copy = current.clone();
-					if (mapCopies.get(current) == null) {
-						mapCopies.put(current, new ArrayList<SDFAbstractVertex>());
-					}
-					mapCopies.get(current).add(copy);
-					createdVertices.add(copy);
-					copy.setName(copy.getName() + "_" + i);
-					graph.addVertex(copy);
-					for (final SDFEdge edge : graph.getAllEdges(previous, current)) {
-						final SDFEdge newEdge = graph.addEdge(previousCopy, copy);
-						newEdge.copyProperties(edge);
-						if (newEdge.getDelay().intValue() > 0) {
-							newEdge.setDelay(new SDFIntEdgePropertyType(0));
-						}
-					}
-					for (final SDFEdge edge : graph.incomingEdgesOf(current)) {
-						if ((edge.getSource() != previous) && !sortedCycle.contains(edge.getSource()) && !createdVertices.contains(edge.getSource())) {
-							final SDFEdge newEdge = graph.addEdge(edge.getSource(), copy);
-							newEdge.copyProperties(edge);
-							edge.setProd(new SDFIntEdgePropertyType(edge.getCons().intValue()));
-						} else if ((edge.getSource() != previous) && sortedCycle.contains(edge.getSource()) && !createdVertices.contains(edge.getSource())) {
-							final SDFEdge newEdge = graph.addEdge(mapCopies.get(edge.getSource()).get(i - 1), copy);
-							newEdge.copyProperties(edge);
-						}
-					}
-					final List<SDFEdge> edges = new ArrayList<>(graph.outgoingEdgesOf(current));
-					for (int k = 0; k < edges.size(); k++) {
-						final SDFEdge edge = edges.get(k);
-						if (!sortedCycle.contains(edge.getTarget()) && !createdVertices.contains(edge.getTarget())) {
-							// if(! (edge.getTarget() instanceof
-							// SDFRoundBufferVertex)){ // need improvements
-							final SDFEdge newEdge = graph.addEdge(copy, edge.getTarget());
-							newEdge.copyProperties(edge);
-							edge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
-						}
-					}
-					previousCopy = copy;
-					previous = current;
-				}
-			}
-		}
-		final SDFInitVertex initVertex = new SDFInitVertex();
-		initVertex.setName(loop.getTarget().getName() + "_init_" + loop.getTargetInterface().getName());
-		final SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
-		sink_init.setName(loop.getSourceInterface().getName());
-		initVertex.addSink(sink_init);
-		initVertex.setNbRepeat(1);
-		graph.addVertex(initVertex);
+  /**
+   * Builds a new DAGTransformation visitor,.
+   *
+   * @param outputGraph
+   *          The graph in which the DAG will be output
+   * @param vertexFactory
+   *          The factory used to create vertices
+   */
+  public DAGTransformation(final T outputGraph, final ModelVertexFactory<DAGVertex> vertexFactory) {
+    this.outputGraph = outputGraph;
+    this.factory = vertexFactory;
+  }
 
-		final SDFEndVertex endVertex = new SDFEndVertex();
-		endVertex.setName(loop.getSource().getName() + "_end_" + loop.getSourceInterface().getName());
-		final SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
-		source_end.setName(loop.getTargetInterface().getName());
-		endVertex.addSource(source_end);
-		endVertex.setNbRepeat(1);
-		initVertex.setEndReference(endVertex);
-		initVertex.setInitSize(loop.getDelay().intValue());
-		endVertex.setEndReference(initVertex);
-		graph.addVertex(endVertex);
+  /**
+   * Copy the cycles nb times in the graph.
+   *
+   * @param graph
+   *          The graph in which the cycle should be copied
+   * @param vertices
+   *          The set of vertices of the cycle
+   * @param nb
+   *          The number of copy to produce
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  private void copyCycle(final SDFGraph graph, final Set<SDFAbstractVertex> vertices, final int nb) throws InvalidExpressionException {
+    SDFAbstractVertex root = null;
+    SDFAbstractVertex last = null;
+    SDFEdge loop = null;
+    for (final SDFAbstractVertex vertex : vertices) {
+      vertex.setNbRepeat(vertex.getNbRepeatAsInteger() / nb);
+      for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
+        if (edge.getDelay().intValue() > 0) {
+          root = edge.getTarget();
+          last = edge.getSource();
+          loop = edge;
+        }
+      }
+    }
+    final HashMap<SDFAbstractVertex, List<SDFAbstractVertex>> mapCopies = new HashMap<>();
+    final List<SDFAbstractVertex> createdVertices = new ArrayList<>();
+    final List<SDFAbstractVertex> sortedCycle = new ArrayList<>();
+    final SDFIterator iterator = new SDFIterator(graph, root);
+    while (iterator.hasNext()) {
+      final SDFAbstractVertex next = iterator.next();
+      if (vertices.contains(next) && !sortedCycle.contains(next)) {
+        sortedCycle.add(next);
+      }
+      if (next == last) {
+        break;
+      }
+    }
+    if ((root != null) && (last != null)) {
+      SDFAbstractVertex previous = last;
+      SDFAbstractVertex previousCopy = last;
+      for (int i = 1; i < nb; i++) {
+        for (final SDFAbstractVertex current : sortedCycle) {
+          final SDFAbstractVertex copy = current.clone();
+          if (mapCopies.get(current) == null) {
+            mapCopies.put(current, new ArrayList<SDFAbstractVertex>());
+          }
+          mapCopies.get(current).add(copy);
+          createdVertices.add(copy);
+          copy.setName(copy.getName() + "_" + i);
+          graph.addVertex(copy);
+          for (final SDFEdge edge : graph.getAllEdges(previous, current)) {
+            final SDFEdge newEdge = graph.addEdge(previousCopy, copy);
+            newEdge.copyProperties(edge);
+            if (newEdge.getDelay().intValue() > 0) {
+              newEdge.setDelay(new SDFIntEdgePropertyType(0));
+            }
+          }
+          for (final SDFEdge edge : graph.incomingEdgesOf(current)) {
+            if ((edge.getSource() != previous) && !sortedCycle.contains(edge.getSource()) && !createdVertices.contains(edge.getSource())) {
+              final SDFEdge newEdge = graph.addEdge(edge.getSource(), copy);
+              newEdge.copyProperties(edge);
+              edge.setProd(new SDFIntEdgePropertyType(edge.getCons().intValue()));
+            } else if ((edge.getSource() != previous) && sortedCycle.contains(edge.getSource()) && !createdVertices.contains(edge.getSource())) {
+              final SDFEdge newEdge = graph.addEdge(mapCopies.get(edge.getSource()).get(i - 1), copy);
+              newEdge.copyProperties(edge);
+            }
+          }
+          final List<SDFEdge> edges = new ArrayList<>(graph.outgoingEdgesOf(current));
+          for (int k = 0; k < edges.size(); k++) {
+            final SDFEdge edge = edges.get(k);
+            if (!sortedCycle.contains(edge.getTarget()) && !createdVertices.contains(edge.getTarget())) {
+              // if(! (edge.getTarget() instanceof
+              // SDFRoundBufferVertex)){ // need improvements
+              final SDFEdge newEdge = graph.addEdge(copy, edge.getTarget());
+              newEdge.copyProperties(edge);
+              edge.setCons(new SDFIntEdgePropertyType(edge.getProd().intValue()));
+            }
+          }
+          previousCopy = copy;
+          previous = current;
+        }
+      }
+    }
+    final SDFInitVertex initVertex = new SDFInitVertex();
+    initVertex.setName(loop.getTarget().getName() + "_init_" + loop.getTargetInterface().getName());
+    final SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
+    sink_init.setName(loop.getSourceInterface().getName());
+    initVertex.addSink(sink_init);
+    initVertex.setNbRepeat(1);
+    graph.addVertex(initVertex);
 
-		final SDFEdge initEdge = graph.addEdge(initVertex, loop.getTarget());
-		initEdge.copyProperties(loop);
-		initEdge.setSourceInterface(sink_init);
-		initEdge.setDelay(new SDFIntEdgePropertyType(0));
+    final SDFEndVertex endVertex = new SDFEndVertex();
+    endVertex.setName(loop.getSource().getName() + "_end_" + loop.getSourceInterface().getName());
+    final SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
+    source_end.setName(loop.getTargetInterface().getName());
+    endVertex.addSource(source_end);
+    endVertex.setNbRepeat(1);
+    initVertex.setEndReference(endVertex);
+    initVertex.setInitSize(loop.getDelay().intValue());
+    endVertex.setEndReference(initVertex);
+    graph.addVertex(endVertex);
 
-		final SDFEdge endEdge = graph.addEdge(createdVertices.get(createdVertices.size() - 1), endVertex);
-		endEdge.copyProperties(loop);
-		endEdge.setTargetInterface(source_end);
-		endEdge.setDelay(new SDFIntEdgePropertyType(0));
-		graph.removeEdge(loop);
-	}
+    final SDFEdge initEdge = graph.addEdge(initVertex, loop.getTarget());
+    initEdge.copyProperties(loop);
+    initEdge.setSourceInterface(sink_init);
+    initEdge.setDelay(new SDFIntEdgePropertyType(0));
 
-	private int gcdOfVerticesVrb(final Set<SDFAbstractVertex> vertices) throws InvalidExpressionException {
-		int gcd = 0;
-		for (final SDFAbstractVertex vertex : vertices) {
-			if (gcd == 0) {
-				gcd = vertex.getNbRepeatAsInteger();
-			} else {
-				gcd = SDFMath.gcd(gcd, vertex.getNbRepeatAsInteger());
-			}
-		}
-		return gcd;
-	}
+    final SDFEdge endEdge = graph.addEdge(createdVertices.get(createdVertices.size() - 1), endVertex);
+    endEdge.copyProperties(loop);
+    endEdge.setTargetInterface(source_end);
+    endEdge.setDelay(new SDFIntEdgePropertyType(0));
+    graph.removeEdge(loop);
+  }
 
-	/**
-	 * GIves this visitor output
-	 *
-	 * @return The output of the visitor
-	 */
-	public T getOutput() {
-		return this.outputGraph;
-	}
+  /**
+   * Gcd of vertices vrb.
+   *
+   * @param vertices
+   *          the vertices
+   * @return the int
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  private int gcdOfVerticesVrb(final Set<SDFAbstractVertex> vertices) throws InvalidExpressionException {
+    int gcd = 0;
+    for (final SDFAbstractVertex vertex : vertices) {
+      if (gcd == 0) {
+        gcd = vertex.getNbRepeatAsInteger();
+      } else {
+        gcd = SDFMath.gcd(gcd, vertex.getNbRepeatAsInteger());
+      }
+    }
+    return gcd;
+  }
 
-	private void transformsTop(final SDFGraph graph) throws SDF4JException {
-		try {
-			if (graph.validateModel(Logger.getAnonymousLogger())) {
-				// insertImplodeExplodesVertices(graph);
-				this.outputGraph.copyProperties(graph);
-				this.outputGraph.setCorrespondingSDFGraph(graph);
-				for (final DAGVertex vertex : this.outputGraph.vertexSet()) {
-					vertex.setNbRepeat(new DAGDefaultVertexPropertyType(graph.getVertex(vertex.getName()).getNbRepeatAsInteger()));
-				}
-				DAGEdge newedge;
-				for (final SDFEdge edge : graph.edgeSet()) {
-					if (edge.getDelay().intValue() == 0) {
-						try {
-							if (this.outputGraph.containsEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-									this.outputGraph.getVertex(edge.getTarget().getName()))) {
-								newedge = this.outputGraph.getEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-										this.outputGraph.getVertex(edge.getTarget().getName()));
-								newedge.getAggregate().add(edge);
-								final DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge.getWeight();
-								newedge.setWeight(new DAGDefaultEdgePropertyType(weigth.intValue() + computeEdgeWeight(edge)));
-							} else {
-								newedge = this.outputGraph.addDAGEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-										this.outputGraph.getVertex(edge.getTarget().getName()));
-								newedge.getAggregate().add(edge);
-								newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
+  /**
+   * GIves this visitor output.
+   *
+   * @return The output of the visitor
+   */
+  public T getOutput() {
+    return this.outputGraph;
+  }
 
-							}
-						} catch (final CreateMultigraphException e) {
-							e.printStackTrace();
-						} catch (final CreateCycleException e) {
-							e.printStackTrace();
-							final Logger logger = WorkflowLogger.getLogger();
-							logger.log(Level.SEVERE,
-									"Error in the DAG creation:\n" + e.getMessage() + "\nCheck the single-rate SDF to identify where delays are missing.");
-						} catch (final RuntimeException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		} catch (final InvalidExpressionException e) {
-			throw (new SDF4JException(e.getMessage()));
-		}
-	}
+  /**
+   * Transforms top.
+   *
+   * @param graph
+   *          the graph
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  private void transformsTop(final SDFGraph graph) throws SDF4JException {
+    try {
+      if (graph.validateModel(Logger.getAnonymousLogger())) {
+        // insertImplodeExplodesVertices(graph);
+        this.outputGraph.copyProperties(graph);
+        this.outputGraph.setCorrespondingSDFGraph(graph);
+        for (final DAGVertex vertex : this.outputGraph.vertexSet()) {
+          vertex.setNbRepeat(new DAGDefaultVertexPropertyType(graph.getVertex(vertex.getName()).getNbRepeatAsInteger()));
+        }
+        DAGEdge newedge;
+        for (final SDFEdge edge : graph.edgeSet()) {
+          if (edge.getDelay().intValue() == 0) {
+            try {
+              if (this.outputGraph.containsEdge(this.outputGraph.getVertex(edge.getSource().getName()),
+                  this.outputGraph.getVertex(edge.getTarget().getName()))) {
+                newedge = this.outputGraph.getEdge(this.outputGraph.getVertex(edge.getSource().getName()),
+                    this.outputGraph.getVertex(edge.getTarget().getName()));
+                newedge.getAggregate().add(edge);
+                final DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge.getWeight();
+                newedge.setWeight(new DAGDefaultEdgePropertyType(weigth.intValue() + computeEdgeWeight(edge)));
+              } else {
+                newedge = this.outputGraph.addDAGEdge(this.outputGraph.getVertex(edge.getSource().getName()),
+                    this.outputGraph.getVertex(edge.getTarget().getName()));
+                newedge.getAggregate().add(edge);
+                newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
 
-	int computeEdgeWeight(final SDFEdge edge) throws InvalidExpressionException {
-		return edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
+              }
+            } catch (final CreateMultigraphException e) {
+              e.printStackTrace();
+            } catch (final CreateCycleException e) {
+              e.printStackTrace();
+              final Logger logger = WorkflowLogger.getLogger();
+              logger.log(Level.SEVERE, "Error in the DAG creation:\n" + e.getMessage() + "\nCheck the single-rate SDF to identify where delays are missing.");
+            } catch (final RuntimeException e) {
+              e.printStackTrace();
+            }
+          }
+        }
+      }
+    } catch (final InvalidExpressionException e) {
+      throw (new SDF4JException(e.getMessage()));
+    }
+  }
 
-	}
+  /**
+   * Compute edge weight.
+   *
+   * @param edge
+   *          the edge
+   * @return the int
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  int computeEdgeWeight(final SDFEdge edge) throws InvalidExpressionException {
+    return edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
 
-	/**
-	 * Treat the cycles in the graph
-	 *
-	 * @param graph
-	 *            The graph to treat
-	 *
-	 * @throws InvalidExpressionException
-	 */
-	private void treatCycles(final SDFGraph graph) throws InvalidExpressionException {
-		final List<Set<SDFAbstractVertex>> cycles = new ArrayList<>();
-		final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(graph);
-		final List<SDFAbstractVertex> vertices = new ArrayList<>(graph.vertexSet());
-		while (vertices.size() > 0) {
-			final SDFAbstractVertex vertex = vertices.get(0);
-			final Set<SDFAbstractVertex> cycle = detector.findCyclesContainingVertex(vertex);
-			if (cycle.size() > 0) {
-				vertices.removeAll(cycle);
-				cycles.add(cycle);
-			}
-			vertices.remove(vertex);
-		}
+  }
 
-		for (final Set<SDFAbstractVertex> cycle : cycles) {
-			// This code is dumb for single-rate SDF.
-			// Since in a single-rate graph, all actors are fired
-			// exactly once
-			final int gcd = gcdOfVerticesVrb(cycle);
-			if (gcd > 1) {
-				copyCycle(graph, cycle, gcd);
-			} else {
-				treatSDFCycles(graph, cycle);
-			}
-		}
-		// SDFIterator sdfIterator = new SDFIterator(graph);
-		// List<SDFAbstractVertex> orderedList = new
-		// ArrayList<SDFAbstractVertex>();
-		// while (sdfIterator.hasNext()) {
-		// SDFAbstractVertex current = sdfIterator.next();
-		// orderedList.add(current);
-		// if (current instanceof SDFRoundBufferVertex) {
-		// int nbTokens = 0;
-		// for (SDFEdge edgeData : graph.outgoingEdgesOf(current)) {
-		// nbTokens = edgeData.getProd().intValue();
-		// }
-		// for (int i = orderedList.size() - 1; i >= 0; i--) {
-		// if (graph.getAllEdges(orderedList.get(i), current).size() == 1) {
-		// if (nbTokens <= 0) {
-		// graph.removeAllEdges(orderedList.get(i), current);
-		// } else {
-		// for (SDFEdge thisEdge : graph.getAllEdges(
-		// orderedList.get(i), current)) {
-		// nbTokens = nbTokens
-		// - thisEdge.getProd().intValue();
-		// }
-		// }
-		// }
-		// }
-		// // traiter le roundBuffer pour le supprimer
-		// if (graph.incomingEdgesOf(current).size() == 1
-		// && graph.outgoingEdgesOf(current).size() == 1) {
-		// SDFAbstractVertex source = ((SDFEdge) graph
-		// .incomingEdgesOf(current).toArray()[0]).getSource();
-		// SDFEdge oldEdge = ((SDFEdge) graph.incomingEdgesOf(current)
-		// .toArray()[0]);
-		// SDFAbstractVertex target = ((SDFEdge) graph
-		// .outgoingEdgesOf(current).toArray()[0]).getTarget();
-		// SDFEdge refEdge = ((SDFEdge) graph.outgoingEdgesOf(current)
-		// .toArray()[0]);
-		// SDFEdge newEdge = graph.addEdge(source, target);
-		// newEdge.copyProperties(refEdge);
-		// graph.removeEdge(refEdge);
-		// graph.removeEdge(oldEdge);
-		// graph.removeVertex(current);
-		// orderedList.remove(current);
-		// } else if (graph.incomingEdgesOf(current).size() == 1
-		// && graph.outgoingEdgesOf(current).size() > 1) {
-		//
-		// } else if (graph.incomingEdgesOf(current).size() > 1
-		// && graph.outgoingEdgesOf(current).size() == 1) {
-		//
-		// }
-		// }
-		// }
-		/*
-		 * { CycleDetector<SDFAbstractVertex, SDFEdge> detect = new
-		 * CycleDetector<SDFAbstractVertex, SDFEdge>( graph);
-		 * List<SDFAbstractVertex> vert = new ArrayList<SDFAbstractVertex>(
-		 * graph.vertexSet()); while (vert.size() > 0) { SDFAbstractVertex
-		 * vertex = vert.get(0); Set<SDFAbstractVertex> cycle = detect
-		 * .findCyclesContainingVertex(vertex); if (cycle.size() > 0) {
-		 * vert.removeAll(cycle); cycles.add(cycle); } vert.remove(vertex); } }
-		 */
+  /**
+   * Treat the cycles in the graph.
+   *
+   * @param graph
+   *          The graph to treat
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  private void treatCycles(final SDFGraph graph) throws InvalidExpressionException {
+    final List<Set<SDFAbstractVertex>> cycles = new ArrayList<>();
+    final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(graph);
+    final List<SDFAbstractVertex> vertices = new ArrayList<>(graph.vertexSet());
+    while (vertices.size() > 0) {
+      final SDFAbstractVertex vertex = vertices.get(0);
+      final Set<SDFAbstractVertex> cycle = detector.findCyclesContainingVertex(vertex);
+      if (cycle.size() > 0) {
+        vertices.removeAll(cycle);
+        cycles.add(cycle);
+      }
+      vertices.remove(vertex);
+    }
 
-		return;
-	}
+    for (final Set<SDFAbstractVertex> cycle : cycles) {
+      // This code is dumb for single-rate SDF.
+      // Since in a single-rate graph, all actors are fired
+      // exactly once
+      final int gcd = gcdOfVerticesVrb(cycle);
+      if (gcd > 1) {
+        copyCycle(graph, cycle, gcd);
+      } else {
+        treatSDFCycles(graph, cycle);
+      }
+    }
+    // SDFIterator sdfIterator = new SDFIterator(graph);
+    // List<SDFAbstractVertex> orderedList = new
+    // ArrayList<SDFAbstractVertex>();
+    // while (sdfIterator.hasNext()) {
+    // SDFAbstractVertex current = sdfIterator.next();
+    // orderedList.add(current);
+    // if (current instanceof SDFRoundBufferVertex) {
+    // int nbTokens = 0;
+    // for (SDFEdge edgeData : graph.outgoingEdgesOf(current)) {
+    // nbTokens = edgeData.getProd().intValue();
+    // }
+    // for (int i = orderedList.size() - 1; i >= 0; i--) {
+    // if (graph.getAllEdges(orderedList.get(i), current).size() == 1) {
+    // if (nbTokens <= 0) {
+    // graph.removeAllEdges(orderedList.get(i), current);
+    // } else {
+    // for (SDFEdge thisEdge : graph.getAllEdges(
+    // orderedList.get(i), current)) {
+    // nbTokens = nbTokens
+    // - thisEdge.getProd().intValue();
+    // }
+    // }
+    // }
+    // }
+    // // traiter le roundBuffer pour le supprimer
+    // if (graph.incomingEdgesOf(current).size() == 1
+    // && graph.outgoingEdgesOf(current).size() == 1) {
+    // SDFAbstractVertex source = ((SDFEdge) graph
+    // .incomingEdgesOf(current).toArray()[0]).getSource();
+    // SDFEdge oldEdge = ((SDFEdge) graph.incomingEdgesOf(current)
+    // .toArray()[0]);
+    // SDFAbstractVertex target = ((SDFEdge) graph
+    // .outgoingEdgesOf(current).toArray()[0]).getTarget();
+    // SDFEdge refEdge = ((SDFEdge) graph.outgoingEdgesOf(current)
+    // .toArray()[0]);
+    // SDFEdge newEdge = graph.addEdge(source, target);
+    // newEdge.copyProperties(refEdge);
+    // graph.removeEdge(refEdge);
+    // graph.removeEdge(oldEdge);
+    // graph.removeVertex(current);
+    // orderedList.remove(current);
+    // } else if (graph.incomingEdgesOf(current).size() == 1
+    // && graph.outgoingEdgesOf(current).size() > 1) {
+    //
+    // } else if (graph.incomingEdgesOf(current).size() > 1
+    // && graph.outgoingEdgesOf(current).size() == 1) {
+    //
+    // }
+    // }
+    // }
+    /*
+     * { CycleDetector<SDFAbstractVertex, SDFEdge> detect = new CycleDetector<SDFAbstractVertex, SDFEdge>( graph); List<SDFAbstractVertex> vert = new
+     * ArrayList<SDFAbstractVertex>( graph.vertexSet()); while (vert.size() > 0) { SDFAbstractVertex vertex = vert.get(0); Set<SDFAbstractVertex> cycle = detect
+     * .findCyclesContainingVertex(vertex); if (cycle.size() > 0) { vert.removeAll(cycle); cycles.add(cycle); } vert.remove(vertex); } }
+     */
 
-	protected void treatSDFCycles(final SDFGraph graph, final Set<SDFAbstractVertex> cycle) throws InvalidExpressionException {
-		final List<SDFEdge> loops = new ArrayList<>();
-		for (final SDFAbstractVertex vertex : cycle) {
-			for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
-				if (edge.getDelay().intValue() > 0) {
-					loops.add(edge);
-				}
-			}
-		}
-		for (final SDFEdge loop : loops) {
-			final SDFInitVertex initVertex = new SDFInitVertex();
-			initVertex.setName(loop.getTarget().getName() + "_init_" + loop.getTargetInterface().getName());
-			final SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
-			sink_init.setName("init_out");
-			initVertex.addSink(sink_init);
-			initVertex.setNbRepeat(1);
-			graph.addVertex(initVertex);
+    return;
+  }
 
-			final SDFEndVertex endVertex = new SDFEndVertex();
-			endVertex.setName(loop.getSource().getName() + "_end_" + loop.getSourceInterface().getName());
-			final SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
-			source_end.setName("end_in");
-			endVertex.addSource(source_end);
-			endVertex.setNbRepeat(1);
-			initVertex.setEndReference(endVertex);
-			initVertex.setInitSize(loop.getDelay().intValue());
-			endVertex.setEndReference(initVertex);
-			graph.addVertex(endVertex);
+  /**
+   * Treat SDF cycles.
+   *
+   * @param graph
+   *          the graph
+   * @param cycle
+   *          the cycle
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  protected void treatSDFCycles(final SDFGraph graph, final Set<SDFAbstractVertex> cycle) throws InvalidExpressionException {
+    final List<SDFEdge> loops = new ArrayList<>();
+    for (final SDFAbstractVertex vertex : cycle) {
+      for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
+        if (edge.getDelay().intValue() > 0) {
+          loops.add(edge);
+        }
+      }
+    }
+    for (final SDFEdge loop : loops) {
+      final SDFInitVertex initVertex = new SDFInitVertex();
+      initVertex.setName(loop.getTarget().getName() + "_init_" + loop.getTargetInterface().getName());
+      final SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
+      sink_init.setName("init_out");
+      initVertex.addSink(sink_init);
+      initVertex.setNbRepeat(1);
+      graph.addVertex(initVertex);
 
-			final SDFEdge initEdge = graph.addEdge(initVertex, loop.getTarget());
-			initEdge.copyProperties(loop);
-			initEdge.setSourceInterface(sink_init);
-			initEdge.setDelay(new SDFIntEdgePropertyType(0));
+      final SDFEndVertex endVertex = new SDFEndVertex();
+      endVertex.setName(loop.getSource().getName() + "_end_" + loop.getSourceInterface().getName());
+      final SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
+      source_end.setName("end_in");
+      endVertex.addSource(source_end);
+      endVertex.setNbRepeat(1);
+      initVertex.setEndReference(endVertex);
+      initVertex.setInitSize(loop.getDelay().intValue());
+      endVertex.setEndReference(initVertex);
+      graph.addVertex(endVertex);
 
-			final SDFEdge endEdge = graph.addEdge(loop.getSource(), endVertex);
-			endEdge.copyProperties(loop);
-			endEdge.setTargetInterface(source_end);
-			endEdge.setDelay(new SDFIntEdgePropertyType(0));
-			graph.removeEdge(loop);
-		}
-	}
+      final SDFEdge initEdge = graph.addEdge(initVertex, loop.getTarget());
+      initEdge.copyProperties(loop);
+      initEdge.setSourceInterface(sink_init);
+      initEdge.setDelay(new SDFIntEdgePropertyType(0));
 
-	public void treatDelays(final SDFGraph graph) {
-		final ArrayList<SDFEdge> edges = new ArrayList<>(graph.edgeSet());
-		while (edges.size() > 0) {
-			final SDFEdge edge = edges.get(0);
-			try {
-				if (edge.getDelay().intValue() > 0) {
-					final SDFInitVertex initVertex = new SDFInitVertex();
-					initVertex.setName(edge.getTarget().getName() + "_init_" + edge.getTargetInterface().getName());
-					final SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
-					sink_init.setName("init_out");
-					initVertex.addSink(sink_init);
-					initVertex.setNbRepeat(1);
-					graph.addVertex(initVertex);
+      final SDFEdge endEdge = graph.addEdge(loop.getSource(), endVertex);
+      endEdge.copyProperties(loop);
+      endEdge.setTargetInterface(source_end);
+      endEdge.setDelay(new SDFIntEdgePropertyType(0));
+      graph.removeEdge(loop);
+    }
+  }
 
-					final SDFEndVertex endVertex = new SDFEndVertex();
-					endVertex.setName(edge.getSource().getName() + "_end_" + edge.getSourceInterface().getName());
-					final SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
-					source_end.setName("end_in");
-					endVertex.addSource(source_end);
-					endVertex.setNbRepeat(1);
-					initVertex.setEndReference(endVertex);
-					initVertex.setInitSize(edge.getDelay().intValue());
-					endVertex.setEndReference(initVertex);
-					graph.addVertex(endVertex);
+  /**
+   * Treat delays.
+   *
+   * @param graph
+   *          the graph
+   */
+  public void treatDelays(final SDFGraph graph) {
+    final ArrayList<SDFEdge> edges = new ArrayList<>(graph.edgeSet());
+    while (edges.size() > 0) {
+      final SDFEdge edge = edges.get(0);
+      try {
+        if (edge.getDelay().intValue() > 0) {
+          final SDFInitVertex initVertex = new SDFInitVertex();
+          initVertex.setName(edge.getTarget().getName() + "_init_" + edge.getTargetInterface().getName());
+          final SDFSinkInterfaceVertex sink_init = new SDFSinkInterfaceVertex();
+          sink_init.setName("init_out");
+          initVertex.addSink(sink_init);
+          initVertex.setNbRepeat(1);
+          graph.addVertex(initVertex);
 
-					final SDFEdge initEdge = graph.addEdge(initVertex, edge.getTarget());
-					initEdge.copyProperties(edge);
-					initEdge.setSourceInterface(sink_init);
-					initEdge.setDelay(new SDFIntEdgePropertyType(0));
-					// initEdge.setProd(edge.getDelay());
+          final SDFEndVertex endVertex = new SDFEndVertex();
+          endVertex.setName(edge.getSource().getName() + "_end_" + edge.getSourceInterface().getName());
+          final SDFSourceInterfaceVertex source_end = new SDFSourceInterfaceVertex();
+          source_end.setName("end_in");
+          endVertex.addSource(source_end);
+          endVertex.setNbRepeat(1);
+          initVertex.setEndReference(endVertex);
+          initVertex.setInitSize(edge.getDelay().intValue());
+          endVertex.setEndReference(initVertex);
+          graph.addVertex(endVertex);
 
-					final SDFEdge endEdge = graph.addEdge(edge.getSource(), endVertex);
-					endEdge.copyProperties(edge);
-					endEdge.setTargetInterface(source_end);
-					endEdge.setDelay(new SDFIntEdgePropertyType(0));
-					graph.removeEdge(edge);
-				}
-			} catch (final InvalidExpressionException e) {
-				e.printStackTrace();
-			}
-			edges.remove(0);
-		}
-	}
+          final SDFEdge initEdge = graph.addEdge(initVertex, edge.getTarget());
+          initEdge.copyProperties(edge);
+          initEdge.setSourceInterface(sink_init);
+          initEdge.setDelay(new SDFIntEdgePropertyType(0));
+          // initEdge.setProd(edge.getDelay());
 
-	@Override
-	public void visit(final SDFEdge sdfEdge) {
-	}
+          final SDFEdge endEdge = graph.addEdge(edge.getSource(), endVertex);
+          endEdge.copyProperties(edge);
+          endEdge.setTargetInterface(source_end);
+          endEdge.setDelay(new SDFIntEdgePropertyType(0));
+          graph.removeEdge(edge);
+        }
+      } catch (final InvalidExpressionException e) {
+        e.printStackTrace();
+      }
+      edges.remove(0);
+    }
+  }
 
-	@Override
-	public void visit(final SDFGraph sdf) throws SDF4JException {
-		try {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void visit(final SDFEdge sdfEdge) {
+  }
 
-			int k = 5;
-			while (k-- > 0) {
-				treatCycles(sdf);
-				treatDelays(sdf);
-			}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public void visit(final SDFGraph sdf) throws SDF4JException {
+    try {
 
-			final ArrayList<SDFAbstractVertex> vertices = new ArrayList<>(sdf.vertexSet());
-			for (int i = 0; i < vertices.size(); i++) {
-				vertices.get(i).accept(this);
-			}
-			sdf.getPropertyBean().setValue("schedulable", true);
-			transformsTop(sdf);
-		} catch (final InvalidExpressionException e) {
-			e.printStackTrace();
-			throw (new SDF4JException(e.getMessage()));
-		}
+      int k = 5;
+      while (k-- > 0) {
+        treatCycles(sdf);
+        treatDelays(sdf);
+      }
 
-		// Make sure all ports are in order
-		if (!SpecialActorPortsIndexer.checkIndexes(sdf)) {
-			throw new SDF4JException("There are still special actors with non-indexed ports. Contact Preesm developers.");
-		}
-		SpecialActorPortsIndexer.sortIndexedPorts(sdf);
-	}
+      final ArrayList<SDFAbstractVertex> vertices = new ArrayList<>(sdf.vertexSet());
+      for (int i = 0; i < vertices.size(); i++) {
+        vertices.get(i).accept(this);
+      }
+      sdf.getPropertyBean().setValue("schedulable", true);
+      transformsTop(sdf);
+    } catch (final InvalidExpressionException e) {
+      e.printStackTrace();
+      throw (new SDF4JException(e.getMessage()));
+    }
 
-	@Override
-	public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
-		DAGVertex vertex;
-		if (sdfVertex instanceof SDFBroadcastVertex) {
-			vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
-		} else if (sdfVertex instanceof SDFForkVertex) {
-			vertex = this.factory.createVertex(DAGForkVertex.DAG_FORK_VERTEX);
-		} else if (sdfVertex instanceof SDFJoinVertex) {
-			vertex = this.factory.createVertex(DAGJoinVertex.DAG_JOIN_VERTEX);
-		} else if (sdfVertex instanceof SDFEndVertex) {
-			vertex = this.factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
-		} else if (sdfVertex instanceof SDFInitVertex) {
-			vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
-			if (this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()) != null) {
-				((DAGInitVertex) vertex).setEndReference((DAGEndVertex) this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
-			}
-		} else {
-			vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
-		}
-		vertex.setName(sdfVertex.getName());
-		vertex.setTime(new DAGDefaultVertexPropertyType(0));
-		vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
-		vertex.setCorrespondingSDFVertex(sdfVertex);
-		this.outputGraph.addVertex(vertex);
-	}
+    // Make sure all ports are in order
+    if (!SpecialActorPortsIndexer.checkIndexes(sdf)) {
+      throw new SDF4JException("There are still special actors with non-indexed ports. Contact Preesm developers.");
+    }
+    SpecialActorPortsIndexer.sortIndexedPorts(sdf);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
+   */
+  @Override
+  public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
+    DAGVertex vertex;
+    if (sdfVertex instanceof SDFBroadcastVertex) {
+      vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
+    } else if (sdfVertex instanceof SDFForkVertex) {
+      vertex = this.factory.createVertex(DAGForkVertex.DAG_FORK_VERTEX);
+    } else if (sdfVertex instanceof SDFJoinVertex) {
+      vertex = this.factory.createVertex(DAGJoinVertex.DAG_JOIN_VERTEX);
+    } else if (sdfVertex instanceof SDFEndVertex) {
+      vertex = this.factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
+    } else if (sdfVertex instanceof SDFInitVertex) {
+      vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
+      if (this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()) != null) {
+        ((DAGInitVertex) vertex).setEndReference((DAGEndVertex) this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
+      }
+    } else {
+      vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
+    }
+    vertex.setName(sdfVertex.getName());
+    vertex.setTime(new DAGDefaultVertexPropertyType(0));
+    vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
+    vertex.setCorrespondingSDFVertex(sdfVertex);
+    this.outputGraph.addVertex(vertex);
+  }
 
 }

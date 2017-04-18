@@ -40,11 +40,20 @@ import org.ietr.dftools.algorithm.model.generic.GenericEdge;
 import org.ietr.dftools.algorithm.model.generic.GenericVertex;
 import org.jgrapht.EdgeFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating GenericEdge objects.
+ */
 public class GenericEdgeFactory implements EdgeFactory<GenericVertex, GenericEdge> {
 
-	@Override
-	public GenericEdge createEdge(final GenericVertex arg0, final GenericVertex arg1) {
-		return new GenericEdge();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.jgrapht.EdgeFactory#createEdge(java.lang.Object, java.lang.Object)
+   */
+  @Override
+  public GenericEdge createEdge(final GenericVertex arg0, final GenericVertex arg1) {
+    return new GenericEdge();
+  }
 
 }

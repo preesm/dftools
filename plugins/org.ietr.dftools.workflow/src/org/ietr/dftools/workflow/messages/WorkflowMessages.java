@@ -41,36 +41,46 @@ package org.ietr.dftools.workflow.messages;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class is used to gather all texts displayed while managing the workflow.
- * The strings are stored in message.properties and retrieved through a text
- * file.
+ * This class is used to gather all texts displayed while managing the workflow. The strings are stored in message.properties and retrieved through a text file.
  *
  * @author mpelcat
  */
 public class WorkflowMessages {
-	private static final String BUNDLE_NAME = "org.ietr.dftools.workflow.messages.workflowMessages";
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(WorkflowMessages.BUNDLE_NAME);
+  /** The Constant BUNDLE_NAME. */
+  private static final String BUNDLE_NAME = "org.ietr.dftools.workflow.messages.workflowMessages";
 
-	private WorkflowMessages() {
-	}
+  /** The Constant RESOURCE_BUNDLE. */
+  private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(WorkflowMessages.BUNDLE_NAME);
 
-	/**
-	 * Gets the string defined in the key. Replace the nth chain "%VAR%" by the
-	 * nth string variable
-	 */
-	public static String getString(final String key, final String... variables) {
-		try {
-			String message = WorkflowMessages.RESOURCE_BUNDLE.getString(key);
-			for (final String var : variables) {
-				if (var != null) {
-					message = message.replaceFirst("%VAR%", var);
-				}
-			}
-			return message;
-		} catch (final MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
+  /**
+   * Instantiates a new workflow messages.
+   */
+  private WorkflowMessages() {
+  }
+
+  /**
+   * Gets the string defined in the key. Replace the nth chain "%VAR%" by the nth string variable
+   *
+   * @param key
+   *          the key
+   * @param variables
+   *          the variables
+   * @return the string
+   */
+  public static String getString(final String key, final String... variables) {
+    try {
+      String message = WorkflowMessages.RESOURCE_BUNDLE.getString(key);
+      for (final String var : variables) {
+        if (var != null) {
+          message = message.replaceFirst("%VAR%", var);
+        }
+      }
+      return message;
+    } catch (final MissingResourceException e) {
+      return '!' + key + '!';
+    }
+  }
 }

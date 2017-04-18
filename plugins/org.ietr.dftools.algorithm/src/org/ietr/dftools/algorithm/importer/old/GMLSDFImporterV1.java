@@ -41,7 +41,6 @@ package org.ietr.dftools.algorithm.importer.old;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-
 import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
@@ -63,187 +62,212 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
 /**
- * Importer for SDF graphs
+ * Importer for SDF graphs.
  *
  * @author jpiat
- *
  */
 public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
-	/**
-	 * Main function allowing to debug the class
-	 *
-	 * @param args
-	 * @throws InvalidExpressionException
-	 */
-	public static void main(final String[] args) throws InvalidExpressionException {
-		final SDFAdapterDemo applet = new SDFAdapterDemo();
-		final GMLSDFImporterV1 importer = new GMLSDFImporterV1();
-		try {
-			final SDFGraph graph = importer.parse(new File("D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
-			applet.init(graph);
-		} catch (FileNotFoundException | InvalidModelException e) {
-			e.printStackTrace();
-		}
+  /**
+   * Main function allowing to debug the class.
+   *
+   * @param args
+   *          the arguments
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  public static void main(final String[] args) throws InvalidExpressionException {
+    final SDFAdapterDemo applet = new SDFAdapterDemo();
+    final GMLSDFImporterV1 importer = new GMLSDFImporterV1();
+    try {
+      final SDFGraph graph = importer.parse(new File("D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
+      applet.init(graph);
+    } catch (FileNotFoundException | InvalidModelException e) {
+      e.printStackTrace();
+    }
 
-	}
+  }
 
-	/**
-	 * COnstructs a new importer for SDF graphs
-	 */
-	public GMLSDFImporterV1() {
-		super(new SDFEdgeFactory());
-	}
+  /**
+   * COnstructs a new importer for SDF graphs.
+   */
+  public GMLSDFImporterV1() {
+    super(new SDFEdgeFactory());
+  }
 
-	/**
-	 * Parses an Edge in the DOM document
-	 *
-	 * @param edgeElt
-	 *            The DOM Element
-	 * @param parentGraph
-	 *            The parent Graph of this Edge
-	 */
-	@Override
-	public void parseEdge(final Element edgeElt, final SDFGraph parentGraph) throws InvalidModelException {
-		final SDFAbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
-		final SDFAbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
+  /**
+   * Parses an Edge in the DOM document.
+   *
+   * @param edgeElt
+   *          The DOM Element
+   * @param parentGraph
+   *          The parent Graph of this Edge
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @Override
+  public void parseEdge(final Element edgeElt, final SDFGraph parentGraph) throws InvalidModelException {
+    final SDFAbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
+    final SDFAbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
 
-		SDFInterfaceVertex sourcePort = null;
-		SDFInterfaceVertex targetPort = null;
-		final String sourcePortName = edgeElt.getAttribute("sourceport");
-		for (final SDFInterfaceVertex sinksPort : vertexSource.getSinks()) {
-			if (sinksPort.getName().equals(sourcePortName)) {
-				sourcePort = sinksPort;
-			}
-		}
-		if (sourcePort == null) {
-			sourcePort = new SDFSinkInterfaceVertex();
-			sourcePort.setName(sourcePortName);
-			vertexSource.addSink(sourcePort);
-		}
-		final String targetPortName = edgeElt.getAttribute("targetport");
-		for (final SDFInterfaceVertex sourcesPort : vertexTarget.getSources()) {
-			if (sourcesPort.getName().equals(targetPortName)) {
-				targetPort = sourcesPort;
-			}
-		}
-		if (targetPort == null) {
-			targetPort = new SDFSourceInterfaceVertex();
-			targetPort.setName(targetPortName);
-			vertexTarget.addSource(targetPort);
-		}
+    SDFInterfaceVertex sourcePort = null;
+    SDFInterfaceVertex targetPort = null;
+    final String sourcePortName = edgeElt.getAttribute("sourceport");
+    for (final SDFInterfaceVertex sinksPort : vertexSource.getSinks()) {
+      if (sinksPort.getName().equals(sourcePortName)) {
+        sourcePort = sinksPort;
+      }
+    }
+    if (sourcePort == null) {
+      sourcePort = new SDFSinkInterfaceVertex();
+      sourcePort.setName(sourcePortName);
+      vertexSource.addSink(sourcePort);
+    }
+    final String targetPortName = edgeElt.getAttribute("targetport");
+    for (final SDFInterfaceVertex sourcesPort : vertexTarget.getSources()) {
+      if (sourcesPort.getName().equals(targetPortName)) {
+        targetPort = sourcesPort;
+      }
+    }
+    if (targetPort == null) {
+      targetPort = new SDFSourceInterfaceVertex();
+      targetPort.setName(targetPortName);
+      vertexTarget.addSource(targetPort);
+    }
 
-		final SDFEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
-		edge.setSourceInterface(sourcePort);
-		vertexSource.setInterfaceVertexExternalLink(edge, sourcePort);
-		edge.setTargetInterface(targetPort);
-		vertexTarget.setInterfaceVertexExternalLink(edge, targetPort);
-		parseKeys(edgeElt, edge);
-	}
+    final SDFEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
+    edge.setSourceInterface(sourcePort);
+    vertexSource.setInterfaceVertexExternalLink(edge, sourcePort);
+    edge.setTargetInterface(targetPort);
+    vertexTarget.setInterfaceVertexExternalLink(edge, targetPort);
+    parseKeys(edgeElt, edge);
+  }
 
-	/**
-	 * Parses a Graph in the DOM document
-	 *
-	 * @param graphElt
-	 *            The graph Element in the DOM document
-	 * @return The parsed graph
-	 */
-	@Override
-	public SDFGraph parseGraph(final Element graphElt) throws InvalidModelException {
-		final SDFGraph graph = new SDFGraph((SDFEdgeFactory) this.edgeFactory);
-		final NodeList childList = graphElt.getChildNodes();
-		parseParameters(graph, graphElt);
-		parseVariables(graph, graphElt);
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("node")) {
-				final Element vertexElt = (Element) childList.item(i);
-				parseNode(vertexElt, graph);
-			}
-		}
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("edge")) {
-				final Element edgeElt = (Element) childList.item(i);
-				parseEdge(edgeElt, graph);
-			}
-		}
-		parseKeys(graphElt, graph);
-		return graph;
-	}
+  /**
+   * Parses a Graph in the DOM document.
+   *
+   * @param graphElt
+   *          The graph Element in the DOM document
+   * @return The parsed graph
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @Override
+  public SDFGraph parseGraph(final Element graphElt) throws InvalidModelException {
+    final SDFGraph graph = new SDFGraph((SDFEdgeFactory) this.edgeFactory);
+    final NodeList childList = graphElt.getChildNodes();
+    parseParameters(graph, graphElt);
+    parseVariables(graph, graphElt);
+    for (int i = 0; i < childList.getLength(); i++) {
+      if (childList.item(i).getNodeName().equals("node")) {
+        final Element vertexElt = (Element) childList.item(i);
+        parseNode(vertexElt, graph);
+      }
+    }
+    for (int i = 0; i < childList.getLength(); i++) {
+      if (childList.item(i).getNodeName().equals("edge")) {
+        final Element edgeElt = (Element) childList.item(i);
+        parseEdge(edgeElt, graph);
+      }
+    }
+    parseKeys(graphElt, graph);
+    return graph;
+  }
 
-	protected void parseGraphDescription(final SDFAbstractVertex vertex, final Element parentElt) throws InvalidModelException {
-		final NodeList childList = parentElt.getChildNodes();
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(AbstractVertex.REFINEMENT)) {
-				final Element graphDesc = (Element) childList.item(i);
-				final String path = graphDesc.getTextContent();
-				if (path.contains(".graphml")) {
-					if ((this.path != null) && (path.length() > 0)) {
-						final String directoryPath = this.path.substring(0, this.path.lastIndexOf(File.separator) + 1);
-						final GMLSDFImporter importer = new GMLSDFImporter();
-						try {
-							final File refinementFile = new File(directoryPath + path);
-							String fileName = refinementFile.getName();
-							fileName = fileName.substring(0, fileName.indexOf('.'));
-							SDFGraph refine;
-							try {
-								refine = importer.parse(refinementFile);
-							} catch (FileNotFoundException | InvalidModelException e) {
-								final GMLGenericImporter genericImporter = new GMLGenericImporter();
-								refine = (SDFGraph) genericImporter.parse(refinementFile);
-							}
-							refine.setName(fileName);
-							vertex.setGraphDescription(refine);
-							for (final SDFAbstractVertex refineVertex : refine.vertexSet()) {
-								if (refineVertex instanceof SDFInterfaceVertex) {
-									if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.Input) {
-										vertex.addSource(((SDFInterfaceVertex) refineVertex).clone());
-									} else if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.Output) {
-										vertex.addSink(((SDFInterfaceVertex) refineVertex).clone());
-									}
-								}
-							}
-						} catch (final FileNotFoundException e) {
-							e.printStackTrace();
-						}
-					}
-				} else if (path.length() > 0) {
-					vertex.setRefinement(new CodeRefinement(new Path(path)));
-				}
-			}
-		}
-	}
+  /**
+   * Parses the graph description.
+   *
+   * @param vertex
+   *          the vertex
+   * @param parentElt
+   *          the parent elt
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  protected void parseGraphDescription(final SDFAbstractVertex vertex, final Element parentElt) throws InvalidModelException {
+    final NodeList childList = parentElt.getChildNodes();
+    for (int i = 0; i < childList.getLength(); i++) {
+      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(AbstractVertex.REFINEMENT)) {
+        final Element graphDesc = (Element) childList.item(i);
+        final String path = graphDesc.getTextContent();
+        if (path.contains(".graphml")) {
+          if ((this.path != null) && (path.length() > 0)) {
+            final String directoryPath = this.path.substring(0, this.path.lastIndexOf(File.separator) + 1);
+            final GMLSDFImporter importer = new GMLSDFImporter();
+            try {
+              final File refinementFile = new File(directoryPath + path);
+              String fileName = refinementFile.getName();
+              fileName = fileName.substring(0, fileName.indexOf('.'));
+              SDFGraph refine;
+              try {
+                refine = importer.parse(refinementFile);
+              } catch (FileNotFoundException | InvalidModelException e) {
+                final GMLGenericImporter genericImporter = new GMLGenericImporter();
+                refine = (SDFGraph) genericImporter.parse(refinementFile);
+              }
+              refine.setName(fileName);
+              vertex.setGraphDescription(refine);
+              for (final SDFAbstractVertex refineVertex : refine.vertexSet()) {
+                if (refineVertex instanceof SDFInterfaceVertex) {
+                  if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.Input) {
+                    vertex.addSource(((SDFInterfaceVertex) refineVertex).clone());
+                  } else if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.Output) {
+                    vertex.addSink(((SDFInterfaceVertex) refineVertex).clone());
+                  }
+                }
+              }
+            } catch (final FileNotFoundException e) {
+              e.printStackTrace();
+            }
+          }
+        } else if (path.length() > 0) {
+          vertex.setRefinement(new CodeRefinement(new Path(path)));
+        }
+      }
+    }
+  }
 
-	/**
-	 * Parses a Vertex from the DOM document
-	 *
-	 * @param vertexElt
-	 *            The node Element in the DOM document
-	 * @return The parsed node
-	 */
-	@Override
-	@SuppressWarnings("deprecation")
-	public SDFAbstractVertex parseNode(final Element vertexElt, final SDFGraph parentGraph) throws InvalidModelException {
+  /**
+   * Parses a Vertex from the DOM document.
+   *
+   * @param vertexElt
+   *          The node Element in the DOM document
+   * @param parentGraph
+   *          the parent graph
+   * @return The parsed node
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @Override
+  @SuppressWarnings("deprecation")
+  public SDFAbstractVertex parseNode(final Element vertexElt, final SDFGraph parentGraph) throws InvalidModelException {
 
-		SDFAbstractVertex vertex;
-		final HashMap<String, String> attributes = new HashMap<>();
-		for (int i = 0; i < vertexElt.getAttributes().getLength(); i++) {
-			attributes.put(vertexElt.getAttributes().item(i).getNodeName(), vertexElt.getAttributes().item(i).getNodeValue());
-		}
-		vertex = SDFVertexFactory.getInstance().createVertex(attributes);
-		parentGraph.addVertex(vertex);
-		vertex.setId(vertexElt.getAttribute("id"));
-		vertex.setName(vertexElt.getAttribute("id"));
-		parseKeys(vertexElt, vertex);
-		this.vertexFromId.put(vertex.getId(), vertex);
-		parseArguments(vertex, vertexElt);
-		parseGraphDescription(vertex, vertexElt);
-		return vertex;
-	}
+    SDFAbstractVertex vertex;
+    final HashMap<String, String> attributes = new HashMap<>();
+    for (int i = 0; i < vertexElt.getAttributes().getLength(); i++) {
+      attributes.put(vertexElt.getAttributes().item(i).getNodeName(), vertexElt.getAttributes().item(i).getNodeValue());
+    }
+    vertex = SDFVertexFactory.getInstance().createVertex(attributes);
+    parentGraph.addVertex(vertex);
+    vertex.setId(vertexElt.getAttribute("id"));
+    vertex.setName(vertexElt.getAttribute("id"));
+    parseKeys(vertexElt, vertex);
+    this.vertexFromId.put(vertex.getId(), vertex);
+    parseArguments(vertex, vertexElt);
+    parseGraphDescription(vertex, vertexElt);
+    return vertex;
+  }
 
-	@Override
-	public SDFAbstractVertex parsePort(final Element portElt, final SDFGraph parentGraph) throws InvalidModelException {
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public SDFAbstractVertex parsePort(final Element portElt, final SDFGraph parentGraph) throws InvalidModelException {
+    return null;
+  }
 
 }

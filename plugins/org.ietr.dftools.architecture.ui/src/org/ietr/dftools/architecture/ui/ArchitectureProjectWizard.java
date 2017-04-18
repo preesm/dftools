@@ -38,7 +38,6 @@ package org.ietr.dftools.architecture.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -46,6 +45,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class provides a wizard to create a new Architecture project.
  *
@@ -53,52 +53,67 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
  */
 public class ArchitectureProjectWizard extends BasicNewProjectResourceWizard {
 
-	@Override
-	public void addPages() {
-		super.addPages();
-		super.setWindowTitle("New Architecture Project");
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#addPages()
+   */
+  @Override
+  public void addPages() {
+    super.addPages();
+    super.setWindowTitle("New Architecture Project");
+  }
 
-	@Override
-	protected void initializeDefaultPageImageDescriptor() {
-		super.initializeDefaultPageImageDescriptor();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#initializeDefaultPageImageDescriptor()
+   */
+  @Override
+  protected void initializeDefaultPageImageDescriptor() {
+    super.initializeDefaultPageImageDescriptor();
+  }
 
-	@Override
-	public boolean performFinish() {
-		final boolean finish = super.performFinish();
-		try {
-			final IProject project = getNewProject();
-			IProjectDescription description = project.getDescription();
-			final String[] natures = description.getNatureIds();
-			final String[] newNatures = new String[natures.length + 1];
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#performFinish()
+   */
+  @Override
+  public boolean performFinish() {
+    final boolean finish = super.performFinish();
+    try {
+      final IProject project = getNewProject();
+      IProjectDescription description = project.getDescription();
+      final String[] natures = description.getNatureIds();
+      final String[] newNatures = new String[natures.length + 1];
 
-			// add new natures
-			System.arraycopy(natures, 0, newNatures, 1, natures.length);
-			newNatures[0] = JavaCore.NATURE_ID;
-			description.setNatureIds(newNatures);
-			project.setDescription(description, null);
+      // add new natures
+      System.arraycopy(natures, 0, newNatures, 1, natures.length);
+      newNatures[0] = JavaCore.NATURE_ID;
+      description.setNatureIds(newNatures);
+      project.setDescription(description, null);
 
-			// retrieves the up-to-date description
-			description = project.getDescription();
+      // retrieves the up-to-date description
+      description = project.getDescription();
 
-			// filters out the Java builder
-			final ICommand[] commands = description.getBuildSpec();
-			final List<ICommand> buildSpec = new ArrayList<>(commands.length);
-			for (final ICommand command : commands) {
-				if (!JavaCore.BUILDER_ID.equals(command.getBuilderName())) {
-					buildSpec.add(command);
-				}
-			}
+      // filters out the Java builder
+      final ICommand[] commands = description.getBuildSpec();
+      final List<ICommand> buildSpec = new ArrayList<>(commands.length);
+      for (final ICommand command : commands) {
+        if (!JavaCore.BUILDER_ID.equals(command.getBuilderName())) {
+          buildSpec.add(command);
+        }
+      }
 
-			// updates the description and replaces the existing description
-			description.setBuildSpec(buildSpec.toArray(new ICommand[0]));
-			project.setDescription(description, null);
-		} catch (final CoreException e) {
-			e.printStackTrace();
-		}
+      // updates the description and replaces the existing description
+      description.setBuildSpec(buildSpec.toArray(new ICommand[0]));
+      project.setDescription(description, null);
+    } catch (final CoreException e) {
+      e.printStackTrace();
+    }
 
-		return finish;
-	}
+    return finish;
+  }
 
 }

@@ -37,9 +37,9 @@
 package org.ietr.dftools.algorithm.demo;
 
 import javax.swing.JFrame;
-
 import org.jgrapht.demo.JGraphAdapterDemo;
 
+// TODO: Auto-generated Javadoc
 /**
  * Calling JGraphT demo to check import.
  *
@@ -48,21 +48,21 @@ import org.jgrapht.demo.JGraphAdapterDemo;
  */
 public class AdapterDemo {
 
-	/**
-	 * Calling JGraphT test applet.
-	 *
-	 * @param args
-	 *            ignored.
-	 */
-	public static void main(final String[] args) {
-		final JGraphAdapterDemo applet = new JGraphAdapterDemo();
-		applet.init();
+  /**
+   * Calling JGraphT test applet.
+   *
+   * @param args
+   *          ignored.
+   */
+  public static void main(final String[] args) {
+    final JGraphAdapterDemo applet = new JGraphAdapterDemo();
+    applet.init();
 
-		final JFrame frame = new JFrame();
-		frame.getContentPane().add(applet);
-		frame.setTitle("Calling JGraphT demo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
-	}
+    final JFrame frame = new JFrame();
+    frame.getContentPane().add(applet);
+    frame.setTitle("Calling JGraphT demo");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setVisible(true);
+  }
 }

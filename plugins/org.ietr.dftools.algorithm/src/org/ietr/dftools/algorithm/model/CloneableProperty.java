@@ -36,18 +36,18 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * A class to implements when th eproperty can be cloned
+ * A class to implements when th eproperty can be cloned.
  *
  * @author jpiat
- *
  */
 public interface CloneableProperty extends Cloneable {
 
-	/**
-	 * The clone method to implements
-	 *
-	 * @return The cloned object
-	 */
-	public Object clone();
+  /**
+   * The clone method to implements.
+   *
+   * @return The cloned object
+   */
+  public Object clone();
 }

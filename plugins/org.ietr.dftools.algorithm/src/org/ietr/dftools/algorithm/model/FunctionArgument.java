@@ -36,35 +36,38 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author jpiat
+ * The Class FunctionArgument.
  *
+ * @author jpiat
  */
 public class FunctionArgument {
 
-	private final String name;
+  /** The name. */
+  private final String name;
 
-	/**
-	 * Builds a new FunctionArgument with the given name, type, size
-	 *
-	 * @param name
-	 *            The name of the function argument
-	 * @param type
-	 *            The type of the function argument
-	 * @param size
-	 *            The size of the argument
-	 */
-	public FunctionArgument(final String name, final String type, final int size) {
-		this.name = name;
-	}
+  /**
+   * Builds a new FunctionArgument with the given name, type, size.
+   *
+   * @param name
+   *          The name of the function argument
+   * @param type
+   *          The type of the function argument
+   * @param size
+   *          The size of the argument
+   */
+  public FunctionArgument(final String name, final String type, final int size) {
+    this.name = name;
+  }
 
-	/**
-	 * Gives this function argument name
-	 *
-	 * @return The name of the Function argument
-	 */
-	public String getName() {
-		return this.name;
-	}
+  /**
+   * Gives this function argument name.
+   *
+   * @return The name of the Function argument
+   */
+  public String getName() {
+    return this.name;
+  }
 
 }

@@ -44,73 +44,94 @@ import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.parameters.Value;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the integer edge property type in a SDF
+ * Class used to represent the integer edge property type in a SDF.
  *
  * @author jpiat
- *
  */
 public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> {
 
-	private Integer computedValue;
+  /** The computed value. */
+  private Integer computedValue;
 
-	/**
-	 * Creates a new SDFDefaultEdgePropertyType with the given graph value
-	 *
-	 * @param val
-	 *            The Integer value of this SDFDefaultEdgePropertyType
-	 */
-	public SDFExpressionEdgePropertyType(final Value val) {
-		super(val);
-		this.computedValue = null;
-	}
+  /**
+   * Creates a new SDFDefaultEdgePropertyType with the given graph value.
+   *
+   * @param val
+   *          The Integer value of this SDFDefaultEdgePropertyType
+   */
+  public SDFExpressionEdgePropertyType(final Value val) {
+    super(val);
+    this.computedValue = null;
+  }
 
-	@Override
-	public AbstractEdgePropertyType<Value> clone() {
-		final SDFExpressionEdgePropertyType clone = new SDFExpressionEdgePropertyType(this.value);
-		try {
-			clone.computedValue = intValue();
-		} catch (final InvalidExpressionException e) {
-			clone.computedValue = null;
-		}
-		return clone;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   */
+  @Override
+  public AbstractEdgePropertyType<Value> clone() {
+    final SDFExpressionEdgePropertyType clone = new SDFExpressionEdgePropertyType(this.value);
+    try {
+      clone.computedValue = intValue();
+    } catch (final InvalidExpressionException e) {
+      clone.computedValue = null;
+    }
+    return clone;
+  }
 
-	@Override
-	public void setValue(final Value val) {
-		super.setValue(val);
-		this.computedValue = null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#setValue(java.lang.Object)
+   */
+  @Override
+  public void setValue(final Value val) {
+    super.setValue(val);
+    this.computedValue = null;
+  }
 
-	/**
-	 * Sets the expression solver to use to compute intValue
-	 *
-	 * @param solver
-	 *            The solver to be used
-	 */
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		getValue().setExpressionSolver(solver);
-		this.computedValue = null;
-	}
+  /**
+   * Sets the expression solver to use to compute intValue.
+   *
+   * @param solver
+   *          The solver to be used
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    getValue().setExpressionSolver(solver);
+    this.computedValue = null;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 
-	@Override
-	public int intValue() throws InvalidExpressionException {
-		if (this.computedValue == null) {
-			try {
-				this.computedValue = this.value.intValue();
-				return this.computedValue;
-			} catch (final NoIntegerValueException e) {
-				e.printStackTrace();
-				return 0;
-			}
-		}
-		return this.computedValue;
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public int intValue() throws InvalidExpressionException {
+    if (this.computedValue == null) {
+      try {
+        this.computedValue = this.value.intValue();
+        return this.computedValue;
+      } catch (final NoIntegerValueException e) {
+        e.printStackTrace();
+        return 0;
+      }
+    }
+    return this.computedValue;
 
-	}
+  }
 
 }

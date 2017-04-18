@@ -36,22 +36,22 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface that defines the method to update an observer object
+ * Interface that defines the method to update an observer object.
  *
  * @author jpiat
- *
  */
 public interface IModelObserver {
 
-	/**
-	 * The update method from the MVC design pattern applied to graph model
-	 *
-	 * @param observable
-	 *            The model observed
-	 * @param arg
-	 *            arguments to be passed
-	 */
-	public void update(AbstractGraph<?, ?> observable, Object arg);
+  /**
+   * The update method from the MVC design pattern applied to graph model.
+   *
+   * @param observable
+   *          The model observed
+   * @param arg
+   *          arguments to be passed
+   */
+  public void update(AbstractGraph<?, ?> observable, Object arg);
 
 }

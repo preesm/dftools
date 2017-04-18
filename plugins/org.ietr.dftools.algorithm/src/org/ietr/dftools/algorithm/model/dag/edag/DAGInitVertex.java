@@ -39,55 +39,69 @@ package org.ietr.dftools.algorithm.model.dag.edag;
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Represent a initialization vertex in the DAG
+ * Represent a initialization vertex in the DAG.
  *
  * @author jpiat
- *
  */
 public class DAGInitVertex extends DAGVertex {
 
-	/**
-	 * Key to access to property dag_init_vertex
-	 */
-	public static final String DAG_INIT_VERTEX = "dag_init_vertex";
+  /** Key to access to property dag_init_vertex. */
+  public static final String DAG_INIT_VERTEX = "dag_init_vertex";
 
-	public static final String END_REFERENCE = "END_REFERENCE";
+  /** The Constant END_REFERENCE. */
+  public static final String END_REFERENCE = "END_REFERENCE";
 
-	/**
-	 * Creates a new DAGInitVertex
-	 */
-	public DAGInitVertex() {
-		super();
-		setKind(DAGInitVertex.DAG_INIT_VERTEX);
-	}
+  /**
+   * Creates a new DAGInitVertex.
+   */
+  public DAGInitVertex() {
+    super();
+    setKind(DAGInitVertex.DAG_INIT_VERTEX);
+  }
 
-	/**
-	 * Creates a new DAGForkVertex with the name "n", the execution time "t" and
-	 * the number of repetition "nb"
-	 *
-	 * @param n
-	 *            This Vertex name
-	 * @param t
-	 *            This Vertex execution time
-	 * @param nb
-	 *            This Vertex number of repetition
-	 */
-	public DAGInitVertex(final String n, final AbstractVertexPropertyType<?> t, final AbstractVertexPropertyType<?> nb) {
-		super(n, t, nb);
-		setKind(DAGInitVertex.DAG_INIT_VERTEX);
-	}
+  /**
+   * Creates a new DAGForkVertex with the name "n", the execution time "t" and the number of repetition "nb".
+   *
+   * @param n
+   *          This Vertex name
+   * @param t
+   *          This Vertex execution time
+   * @param nb
+   *          This Vertex number of repetition
+   */
+  public DAGInitVertex(final String n, final AbstractVertexPropertyType<?> t, final AbstractVertexPropertyType<?> nb) {
+    super(n, t, nb);
+    setKind(DAGInitVertex.DAG_INIT_VERTEX);
+  }
 
-	public void setEndReference(final DAGEndVertex ref) {
-		getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, ref);
-	}
+  /**
+   * Sets the end reference.
+   *
+   * @param ref
+   *          the new end reference
+   */
+  public void setEndReference(final DAGEndVertex ref) {
+    getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, ref);
+  }
 
-	public DAGEndVertex getEndReference() {
-		return (DAGEndVertex) getPropertyBean().getValue(DAGInitVertex.END_REFERENCE);
-	}
+  /**
+   * Gets the end reference.
+   *
+   * @return the end reference
+   */
+  public DAGEndVertex getEndReference() {
+    return (DAGEndVertex) getPropertyBean().getValue(DAGInitVertex.END_REFERENCE);
+  }
 
-	@Override
-	public String toString() {
-		return getName();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#toString()
+   */
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

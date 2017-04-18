@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -49,202 +48,235 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class to represent fork vertices (explode)
+ * Class to represent fork vertices (explode).
  *
  * @author jpiat
  * @author kdesnos
- *
  */
 public class SDFForkVertex extends SDFAbstractVertex {
 
-	/**
-	 * Kind of node
-	 */
-	public static final String FORK = "fork";
+  /** Kind of node. */
+  public static final String FORK = "fork";
 
-	/**
-	 * String to access the property edges order
-	 */
-	public static final String EDGES_ORDER = "edges_order";
+  /** String to access the property edges order. */
+  public static final String EDGES_ORDER = "edges_order";
 
-	/**
-	 * Creates a new SDFInterfaceVertex with the default direction (SINK)
-	 */
-	public SDFForkVertex() {
-		super();
-		setKind(SDFForkVertex.FORK);
-		setNbRepeat(1);
-	}
+  /**
+   * Creates a new SDFInterfaceVertex with the default direction (SINK).
+   */
+  public SDFForkVertex() {
+    super();
+    setKind(SDFForkVertex.FORK);
+    setNbRepeat(1);
+  }
 
-	private void addConnection(final SDFEdge newEdge) {
-		getConnections().put(getConnections().size(), newEdge);
-	}
+  /**
+   * Adds the connection.
+   *
+   * @param newEdge
+   *          the new edge
+   */
+  private void addConnection(final SDFEdge newEdge) {
+    getConnections().put(getConnections().size(), newEdge);
+  }
 
-	private void removeConnection(final SDFEdge newEdge) {
-		final Integer index = getEdgeIndex(newEdge);
-		getConnections().remove(index);
+  /**
+   * Removes the connection.
+   *
+   * @param newEdge
+   *          the new edge
+   */
+  private void removeConnection(final SDFEdge newEdge) {
+    final Integer index = getEdgeIndex(newEdge);
+    getConnections().remove(index);
 
-		// update the indexes of remaining connections.
-		for (int i = index; i < getConnections().size(); i++) {
-			final SDFEdge edge = getConnections().remove(i + 1);
-			getConnections().put(i, edge);
-		}
-	}
+    // update the indexes of remaining connections.
+    for (int i = index; i < getConnections().size(); i++) {
+      final SDFEdge edge = getConnections().remove(i + 1);
+      getConnections().put(i, edge);
+    }
+  }
 
-	/**
-	 * Gives the edge connection index
-	 *
-	 * @param edge
-	 *            The edge to get the connection index
-	 * @return The connection index of the edge
-	 */
-	public Integer getEdgeIndex(final SDFEdge edge) {
-		for (final Integer connIndex : getConnections().keySet()) {
-			if (getConnections().get(connIndex).equals(edge)) {
-				return connIndex;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the edge connection index.
+   *
+   * @param edge
+   *          The edge to get the connection index
+   * @return The connection index of the edge
+   */
+  public Integer getEdgeIndex(final SDFEdge edge) {
+    for (final Integer connIndex : getConnections().keySet()) {
+      if (getConnections().get(connIndex).equals(edge)) {
+        return connIndex;
+      }
+    }
+    return null;
+  }
 
-	@SuppressWarnings("unchecked")
-	protected Map<Integer, SDFEdge> getConnections() {
-		Map<Integer, SDFEdge> connections;
-		if ((connections = (Map<Integer, SDFEdge>) getPropertyBean().getValue(SDFForkVertex.EDGES_ORDER)) == null) {
-			connections = new HashMap<>();
-			getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
-		}
-		return connections;
-	}
+  /**
+   * Gets the connections.
+   *
+   * @return the connections
+   */
+  @SuppressWarnings("unchecked")
+  protected Map<Integer, SDFEdge> getConnections() {
+    Map<Integer, SDFEdge> connections;
+    if ((connections = (Map<Integer, SDFEdge>) getPropertyBean().getValue(SDFForkVertex.EDGES_ORDER)) == null) {
+      connections = new HashMap<>();
+      getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
+    }
+    return connections;
+  }
 
-	/**
-	 * @return The outgoing connections of this for in an ordered list
-	 */
-	public List<SDFEdge> getOutgoingConnections() {
-		final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
-		for (int i = 0; i < getConnections().size(); i++) {
-			if (getConnections().get(i) != null) {
-				edges.add(getConnections().get(i));
-			}
-		}
-		return edges;
-	}
+  /**
+   * Gets the outgoing connections.
+   *
+   * @return The outgoing connections of this for in an ordered list
+   */
+  public List<SDFEdge> getOutgoingConnections() {
+    final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
+    for (int i = 0; i < getConnections().size(); i++) {
+      if (getConnections().get(i) != null) {
+        edges.add(getConnections().get(i));
+      }
+    }
+    return edges;
+  }
 
-	@Override
-	public SDFAbstractVertex clone() {
-		// Copy the vertex properties
-		final SDFForkVertex newVertex = new SDFForkVertex();
-		for (final String key : getPropertyBean().keys()) {
-			if (getPropertyBean().getValue(key) != null) {
-				final Object val = getPropertyBean().getValue(key);
-				newVertex.getPropertyBean().setValue(key, val);
-			}
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
+   */
+  @Override
+  public SDFAbstractVertex clone() {
+    // Copy the vertex properties
+    final SDFForkVertex newVertex = new SDFForkVertex();
+    for (final String key : getPropertyBean().keys()) {
+      if (getPropertyBean().getValue(key) != null) {
+        final Object val = getPropertyBean().getValue(key);
+        newVertex.getPropertyBean().setValue(key, val);
+      }
+    }
 
-		// Copy the ports
-		for (final SDFInterfaceVertex sink : getSinks()) {
-			if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
-				newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
-			} else {
-				newVertex.addSink(sink.clone());
-			}
-		}
-		for (final SDFInterfaceVertex source : getSources()) {
-			if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
-				newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
-			} else {
-				newVertex.addSource(source.clone());
-			}
-		}
+    // Copy the ports
+    for (final SDFInterfaceVertex sink : getSinks()) {
+      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
+        newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+      } else {
+        newVertex.addSink(sink.clone());
+      }
+    }
+    for (final SDFInterfaceVertex source : getSources()) {
+      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
+        newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+      } else {
+        newVertex.addSource(source.clone());
+      }
+    }
 
-		// Copy the nr of repetitions
-		try {
-			newVertex.setNbRepeat(getNbRepeat());
-		} catch (final InvalidExpressionException e) {
-			e.printStackTrace();
-		}
+    // Copy the nr of repetitions
+    try {
+      newVertex.setNbRepeat(getNbRepeat());
+    } catch (final InvalidExpressionException e) {
+      e.printStackTrace();
+    }
 
-		// Remove the edge order
-		newVertex.getPropertyBean().removeProperty(SDFForkVertex.EDGES_ORDER);
+    // Remove the edge order
+    newVertex.getPropertyBean().removeProperty(SDFForkVertex.EDGES_ORDER);
 
-		return newVertex;
-	}
+    return newVertex;
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionAdded(final AbstractEdge e) {
-		addConnection((SDFEdge) e);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionAdded(final AbstractEdge e) {
+    addConnection((SDFEdge) e);
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionRemoved(final AbstractEdge e) {
-		removeConnection((SDFEdge) e);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionRemoved(final AbstractEdge e) {
+    removeConnection((SDFEdge) e);
+  }
 
-	@Override
-	public void copyProperties(final PropertySource props) {
-		super.copyProperties(props);
-		final Map<Integer, SDFEdge> connections = new HashMap<>();
-		getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   */
+  @Override
+  public void copyProperties(final PropertySource props) {
+    super.copyProperties(props);
+    final Map<Integer, SDFEdge> connections = new HashMap<>();
+    getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
+  }
 
-	/**
-	 * Swap two {@link SDFEdge} with given indexes in the ordered connection
-	 * map.
-	 *
-	 * @param index0
-	 * @param index1
-	 * @return <code>true</code> if both indices were valid and could be
-	 *         swapped, <code>false</code> otherwise.
-	 */
-	public boolean swapEdges(final int index0, final int index1) {
-		final Map<Integer, SDFEdge> connections = getConnections();
-		if (connections.containsKey(index0) && connections.containsKey(index1)) {
-			final SDFEdge buffer = connections.get(index0);
-			connections.replace(index0, connections.get(index1));
-			connections.replace(index1, buffer);
-			return true;
-		}
+  /**
+   * Swap two {@link SDFEdge} with given indexes in the ordered connection map.
+   *
+   * @param index0
+   *          the index 0
+   * @param index1
+   *          the index 1
+   * @return <code>true</code> if both indices were valid and could be swapped, <code>false</code> otherwise.
+   */
+  public boolean swapEdges(final int index0, final int index1) {
+    final Map<Integer, SDFEdge> connections = getConnections();
+    if (connections.containsKey(index0) && connections.containsKey(index1)) {
+      final SDFEdge buffer = connections.get(index0);
+      connections.replace(index0, connections.get(index1));
+      connections.replace(index1, buffer);
+      return true;
+    }
 
-		return false;
-	}
+    return false;
+  }
 
-	/**
-	 * Remove the given {@link SDFEdge} from its current index and insert it
-	 * just before the {@link SDFEdge} currently at the given index (or at the
-	 * end of the list if index == connections.size).
-	 *
-	 * @param edge
-	 *            the {@link SDFEdge} to move
-	 * @param index
-	 *            the new index for the {@link SDFEdge}
-	 * @return <code>true</code> if the edge was found and moved at an existing
-	 *         index, <code>false</code> otherwise.
-	 */
-	public boolean setEdgeIndex(final SDFEdge edge, int index) {
-		final Map<Integer, SDFEdge> connections = getConnections();
-		if ((index < connections.size()) && connections.containsValue(edge)) {
-			final int oldIndex = getEdgeIndex(edge);
-			removeConnection(edge);
-			index = (oldIndex < index) ? index - 1 : index;
-			// update the indexes of subsequent edges.
-			for (int i = connections.size() - 1; i >= index; i--) {
-				connections.put(i + 1, connections.remove(i));
-			}
-			// put the edge in it new place
-			connections.put(index, edge);
-			return true;
-		}
+  /**
+   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at the given index (or at the end of the
+   * list if index == connections.size).
+   *
+   * @param edge
+   *          the {@link SDFEdge} to move
+   * @param index
+   *          the new index for the {@link SDFEdge}
+   * @return <code>true</code> if the edge was found and moved at an existing index, <code>false</code> otherwise.
+   */
+  public boolean setEdgeIndex(final SDFEdge edge, int index) {
+    final Map<Integer, SDFEdge> connections = getConnections();
+    if ((index < connections.size()) && connections.containsValue(edge)) {
+      final int oldIndex = getEdgeIndex(edge);
+      removeConnection(edge);
+      index = (oldIndex < index) ? index - 1 : index;
+      // update the indexes of subsequent edges.
+      for (int i = connections.size() - 1; i >= index; i--) {
+        connections.put(i + 1, connections.remove(i));
+      }
+      // put the edge in it new place
+      connections.put(index, edge);
+      return true;
+    }
 
-		// Special case, put the edge at the end
-		if ((index == connections.size()) && connections.containsValue(edge)) {
-			removeConnection(edge);
-			addConnection(edge);
-			return true;
-		}
-		return false;
-	}
+    // Special case, put the edge at the end
+    if ((index == connections.size()) && connections.containsValue(edge)) {
+      removeConnection(edge);
+      addConnection(edge);
+      return true;
+    }
+    return false;
+  }
 
 }

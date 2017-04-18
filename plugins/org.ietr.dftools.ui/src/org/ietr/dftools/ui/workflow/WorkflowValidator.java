@@ -40,7 +40,6 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
@@ -51,132 +50,154 @@ import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.IValidator;
 import org.ietr.dftools.graphiti.model.Vertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class implements a Workflow model validator. This validator checks that
- * the workflow is executable.
+ * This class implements a Workflow model validator. This validator checks that the workflow is executable.
  *
  * @author mpelcat
  *
  */
 public class WorkflowValidator implements IValidator {
 
-	/**
-	 * Validates the workflow by checking that every tasks are declared in
-	 * loaded plug-ins. Each task implementation must additionally accept the
-	 * textual input and output edges connected to it.
-	 */
-	@Override
-	public boolean validate(final Graph graph, final IFile file) {
+  /**
+   * Validates the workflow by checking that every tasks are declared in loaded plug-ins. Each task implementation must additionally accept the textual input
+   * and output edges connected to it.
+   *
+   * @param graph
+   *          the graph
+   * @param file
+   *          the file
+   * @return true, if successful
+   */
+  @Override
+  public boolean validate(final Graph graph, final IFile file) {
 
-		/**
-		 * Testing each task independently.
-		 */
-		final Set<Vertex> vertices = graph.vertexSet();
-		for (final Vertex vertex : vertices) {
-			if ("Task".equals(vertex.getType().getName())) {
-				// Getting the plugin ID and the associated class name.
-				final String pluginId = (String) vertex.getValue("plugin identifier");
+    /**
+     * Testing each task independently.
+     */
+    final Set<Vertex> vertices = graph.vertexSet();
+    for (final Vertex vertex : vertices) {
+      if ("Task".equals(vertex.getType().getName())) {
+        // Getting the plugin ID and the associated class name.
+        final String pluginId = (String) vertex.getValue("plugin identifier");
 
-				if (pluginId == null) {
-					createMarker(file, "Enter a plugin identifier for each plugin.", "Any plugin", IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
-					return false;
-				}
+        if (pluginId == null) {
+          createMarker(file, "Enter a plugin identifier for each plugin.", "Any plugin", IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          return false;
+        }
 
-				final IExtensionRegistry registry = Platform.getExtensionRegistry();
-				final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
+        final IExtensionRegistry registry = Platform.getExtensionRegistry();
+        final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
 
-				boolean foundClass = false;
+        boolean foundClass = false;
 
-				// Looking for the Id of the workflow task among the registry
-				// elements
-				for (final IConfigurationElement element : elements) {
-					final String taskId = element.getAttribute("id");
-					if (pluginId.equals(taskId)) {
-						try {
-							final String taskType = element.getAttribute("type");
-							/**
-							 * Getting the class corresponding to the taskType
-							 * string. This is only possible because of
-							 * "Eclipse-BuddyPolicy: global" in the manifest:
-							 * the Graphiti configuration class loader has a
-							 * global knowledge of classes
-							 */
+        // Looking for the Id of the workflow task among the registry
+        // elements
+        for (final IConfigurationElement element : elements) {
+          final String taskId = element.getAttribute("id");
+          if (pluginId.equals(taskId)) {
+            try {
+              final String taskType = element.getAttribute("type");
+              /**
+               * Getting the class corresponding to the taskType string. This is only possible because of "Eclipse-BuddyPolicy: global" in the manifest: the
+               * Graphiti configuration class loader has a global knowledge of classes
+               */
 
-							final Class<?> vertexTaskClass = Class.forName(taskType);
+              final Class<?> vertexTaskClass = Class.forName(taskType);
 
-							final Object vertexTaskObj = vertexTaskClass.newInstance();
+              final Object vertexTaskObj = vertexTaskClass.newInstance();
 
-							// Adding the default parameters if necessary
-							addDefaultParameters(vertex, vertexTaskObj, graph, file);
+              // Adding the default parameters if necessary
+              addDefaultParameters(vertex, vertexTaskObj, graph, file);
 
-							foundClass = true;
+              foundClass = true;
 
-						} catch (final Exception e) {
-							createMarker(file, "Class associated to the workflow task not found. Is the class path exported?", pluginId, IMarker.PROBLEM,
-									IMarker.SEVERITY_ERROR);
-							return true;
-						}
-					}
-				}
+            } catch (final Exception e) {
+              createMarker(file, "Class associated to the workflow task not found. Is the class path exported?", pluginId, IMarker.PROBLEM,
+                  IMarker.SEVERITY_ERROR);
+              return true;
+            }
+          }
+        }
 
-				if (foundClass == false) {
-					createMarker(file, "Plugin associated to the workflow task not found.", pluginId, IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
-					return false;
-				}
-			}
-		}
+        if (foundClass == false) {
+          createMarker(file, "Plugin associated to the workflow task not found.", pluginId, IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          return false;
+        }
+      }
+    }
 
-		return true;
-	}
+    return true;
+  }
 
-	/**
-	 * Getting the default parameters from the task class and adding them in the
-	 * graph if they were not present. A warning giving the possible parameter
-	 * values is displayed
-	 */
-	@SuppressWarnings("unchecked")
-	private void addDefaultParameters(final Vertex vertex, final Object object, final Graph graph, final IFile file) {
-		Map<String, String> parameterDefaults = null;
-		try {
-			final Method prototypeMethod = object.getClass().getDeclaredMethod("getDefaultParameters");
-			final Object obj = prototypeMethod.invoke(object);
-			if (obj instanceof Map<?, ?>) {
-				parameterDefaults = (Map<String, String>) obj;
-			}
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
+  /**
+   * Getting the default parameters from the task class and adding them in the graph if they were not present. A warning giving the possible parameter values is
+   * displayed
+   *
+   * @param vertex
+   *          the vertex
+   * @param object
+   *          the object
+   * @param graph
+   *          the graph
+   * @param file
+   *          the file
+   */
+  @SuppressWarnings("unchecked")
+  private void addDefaultParameters(final Vertex vertex, final Object object, final Graph graph, final IFile file) {
+    Map<String, String> parameterDefaults = null;
+    try {
+      final Method prototypeMethod = object.getClass().getDeclaredMethod("getDefaultParameters");
+      final Object obj = prototypeMethod.invoke(object);
+      if (obj instanceof Map<?, ?>) {
+        parameterDefaults = (Map<String, String>) obj;
+      }
+    } catch (final Exception e) {
+      e.printStackTrace();
+    }
 
-		if (parameterDefaults != null) {
+    if (parameterDefaults != null) {
 
-			final Object var = vertex.getValue("variable declaration");
-			final Class<?> clasz = var.getClass();
-			if (clasz == TreeMap.class) {
-				final TreeMap<String, String> varMap = (TreeMap<String, String>) var;
+      final Object var = vertex.getValue("variable declaration");
+      final Class<?> clasz = var.getClass();
+      if (clasz == TreeMap.class) {
+        final TreeMap<String, String> varMap = (TreeMap<String, String>) var;
 
-				for (final String key : parameterDefaults.keySet()) {
-					if (!varMap.containsKey(key)) {
-						varMap.put(key, parameterDefaults.get(key));
+        for (final String key : parameterDefaults.keySet()) {
+          if (!varMap.containsKey(key)) {
+            varMap.put(key, parameterDefaults.get(key));
 
-						createMarker(file, "Added default parameter value: " + key + ", " + parameterDefaults.get(key), (String) vertex.getValue("id"),
-								IMarker.MESSAGE, IMarker.SEVERITY_INFO);
-					}
-				}
-			}
-		}
-	}
+            createMarker(file, "Added default parameter value: " + key + ", " + parameterDefaults.get(key), (String) vertex.getValue("id"), IMarker.MESSAGE,
+                IMarker.SEVERITY_INFO);
+          }
+        }
+      }
+    }
+  }
 
-	/**
-	 * Displays an error
-	 */
-	protected void createMarker(final IFile file, final String message, final String location, final String type, final int severity) {
-		try {
-			final IMarker marker = file.createMarker(type);
-			marker.setAttribute(IMarker.LOCATION, location);
-			marker.setAttribute(IMarker.SEVERITY, severity);
-			marker.setAttribute(IMarker.MESSAGE, message);
-		} catch (final CoreException e) {
-		}
-	}
+  /**
+   * Displays an error.
+   *
+   * @param file
+   *          the file
+   * @param message
+   *          the message
+   * @param location
+   *          the location
+   * @param type
+   *          the type
+   * @param severity
+   *          the severity
+   */
+  protected void createMarker(final IFile file, final String message, final String location, final String type, final int severity) {
+    try {
+      final IMarker marker = file.createMarker(type);
+      marker.setAttribute(IMarker.LOCATION, location);
+      marker.setAttribute(IMarker.SEVERITY, severity);
+      marker.setAttribute(IMarker.MESSAGE, message);
+    } catch (final CoreException e) {
+      e.printStackTrace();
+    }
+  }
 
 }

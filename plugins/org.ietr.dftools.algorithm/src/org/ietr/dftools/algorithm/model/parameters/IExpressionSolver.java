@@ -36,25 +36,27 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface for expression solver
+ * Interface for expression solver.
  *
  * @author jpiat
- *
  */
 public interface IExpressionSolver {
 
-	/**
-	 * Solves the given expression
-	 *
-	 * @param expression
-	 *            The expression to solve
-	 * @param caller
-	 *            The Expression calling the solver
-	 * @return The integer value of the solved expression
-	 * @throws InvalidExpressionException
-	 * @throws NoIntegerValueException
-	 */
-	public int solveExpression(String expression, Value caller) throws InvalidExpressionException, NoIntegerValueException;
+  /**
+   * Solves the given expression.
+   *
+   * @param expression
+   *          The expression to solve
+   * @param caller
+   *          The Expression calling the solver
+   * @return The integer value of the solved expression
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   * @throws NoIntegerValueException
+   *           the no integer value exception
+   */
+  public int solveExpression(String expression, Value caller) throws InvalidExpressionException, NoIntegerValueException;
 
 }

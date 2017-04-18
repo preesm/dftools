@@ -40,35 +40,54 @@ package org.ietr.dftools.workflow.test;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.ietr.dftools.workflow.elements.Workflow;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestWorkflowTask1.
+ */
 public class TestWorkflowTask1 extends AbstractTaskImplementation {
 
-	@Override
-	public Map<String, Object> execute(final Map<String, Object> inputs, final Map<String, String> parameters, final IProgressMonitor monitor,
-			final String nodeName, final Workflow workflow) {
-		final Map<String, Object> outputs = new HashMap<>();
-		WorkflowLogger.getLogger().log(Level.INFO, "Executing TestWorkflowTask1; node: " + nodeName);
-		outputs.put("superData", "superData1");
-		return outputs;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.implement.AbstractTaskImplementation#execute(java.util.Map, java.util.Map, org.eclipse.core.runtime.IProgressMonitor,
+   * java.lang.String, org.ietr.dftools.workflow.elements.Workflow)
+   */
+  @Override
+  public Map<String, Object> execute(final Map<String, Object> inputs, final Map<String, String> parameters, final IProgressMonitor monitor,
+      final String nodeName, final Workflow workflow) {
+    final Map<String, Object> outputs = new HashMap<>();
+    WorkflowLogger.getLogger().log(Level.INFO, "Executing TestWorkflowTask1; node: " + nodeName);
+    outputs.put("superData", "superData1");
+    return outputs;
+  }
 
-	@Override
-	public Map<String, String> getDefaultParameters() {
-		final Map<String, String> parameters = new HashMap<>();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.implement.AbstractTaskImplementation#getDefaultParameters()
+   */
+  @Override
+  public Map<String, String> getDefaultParameters() {
+    final Map<String, String> parameters = new HashMap<>();
 
-		parameters.put("size", "25");
-		parameters.put("duration", "short");
-		return parameters;
-	}
+    parameters.put("size", "25");
+    parameters.put("duration", "short");
+    return parameters;
+  }
 
-	@Override
-	public String monitorMessage() {
-		return "Executing TestWorkflowTask1";
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation#monitorMessage()
+   */
+  @Override
+  public String monitorMessage() {
+    return "Executing TestWorkflowTask1";
+  }
 
 }

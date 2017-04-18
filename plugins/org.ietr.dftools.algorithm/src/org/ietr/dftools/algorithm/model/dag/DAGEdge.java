@@ -42,105 +42,110 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent an Edge in a Directed Acyclic Graph
+ * Class used to represent an Edge in a Directed Acyclic Graph.
  *
  * @author jpiat
- *
  */
 public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
 
-	/**
-	 * Key to access to property weight
-	 */
-	public static final String WEIGHT = "Weight";
+  /** Key to access to property weight. */
+  public static final String WEIGHT = "Weight";
 
-	/**
-	 * Key to access to property aggregate
-	 */
-	public static final String AGGREGATE = "aggregate";
+  /** Key to access to property aggregate. */
+  public static final String AGGREGATE = "aggregate";
 
-	static {
-		{
-			AbstractEdge.public_properties.add(DAGEdge.WEIGHT);
-		}
-	};
+  static {
+    AbstractEdge.public_properties.add(DAGEdge.WEIGHT);
+  }
 
-	/**
-	 * Creates a new empty DAGEdge
-	 */
-	public DAGEdge() {
-		super();
-	}
+  /**
+   * Creates a new empty DAGEdge.
+   */
+  public DAGEdge() {
+    super();
+  }
 
-	/**
-	 * Creates a new DAGEdge with the given property
-	 *
-	 * @param w
-	 */
-	public DAGEdge(final AbstractEdgePropertyType<?> w) {
-		super();
-		setWeight(w);
-	}
+  /**
+   * Creates a new DAGEdge with the given property.
+   *
+   * @param w
+   *          the w
+   */
+  public DAGEdge(final AbstractEdgePropertyType<?> w) {
+    super();
+    setWeight(w);
+  }
 
-	/**
-	 * Gives this DAGEdge weight
-	 *
-	 * @return This DAGEdge weight
-	 */
-	public AbstractEdgePropertyType<?> getWeight() {
-		if (getPropertyBean().getValue(DAGEdge.WEIGHT) != null) {
-			return (AbstractEdgePropertyType<?>) getPropertyBean().getValue(DAGEdge.WEIGHT);
-		}
-		return null;
-	}
+  /**
+   * Gives this DAGEdge weight.
+   *
+   * @return This DAGEdge weight
+   */
+  public AbstractEdgePropertyType<?> getWeight() {
+    if (getPropertyBean().getValue(DAGEdge.WEIGHT) != null) {
+      return (AbstractEdgePropertyType<?>) getPropertyBean().getValue(DAGEdge.WEIGHT);
+    }
+    return null;
+  }
 
-	/**
-	 * Set this DAGEdge weight
-	 *
-	 * @param w
-	 *            The weight to set for this DAGEdge
-	 */
-	public void setWeight(final AbstractEdgePropertyType<?> w) {
-		getPropertyBean().setValue(DAGEdge.WEIGHT, w);
-	}
+  /**
+   * Set this DAGEdge weight.
+   *
+   * @param w
+   *          The weight to set for this DAGEdge
+   */
+  public void setWeight(final AbstractEdgePropertyType<?> w) {
+    getPropertyBean().setValue(DAGEdge.WEIGHT, w);
+  }
 
-	/**
-	 * Gives this DAGEdge aggregate
-	 *
-	 * @return This DAGEdge aggregate
-	 */
-	public EdgeAggregate getAggregate() {
-		if (getPropertyBean().getValue(DAGEdge.AGGREGATE) != null) {
-			return (EdgeAggregate) getPropertyBean().getValue(DAGEdge.AGGREGATE);
-		} else {
-			final EdgeAggregate agg = new EdgeAggregate();
-			setAggregate(agg);
-			return agg;
-		}
-	}
+  /**
+   * Gives this DAGEdge aggregate.
+   *
+   * @return This DAGEdge aggregate
+   */
+  public EdgeAggregate getAggregate() {
+    if (getPropertyBean().getValue(DAGEdge.AGGREGATE) != null) {
+      return (EdgeAggregate) getPropertyBean().getValue(DAGEdge.AGGREGATE);
+    } else {
+      final EdgeAggregate agg = new EdgeAggregate();
+      setAggregate(agg);
+      return agg;
+    }
+  }
 
-	/**
-	 * Set this DAGEdge weight
-	 *
-	 * @param a
-	 *            The weight to set for this DAGEdge
-	 */
-	public void setAggregate(final EdgeAggregate a) {
-		getPropertyBean().setValue(DAGEdge.AGGREGATE, a);
-	}
+  /**
+   * Set this DAGEdge weight.
+   *
+   * @param a
+   *          The weight to set for this DAGEdge
+   */
+  public void setAggregate(final EdgeAggregate a) {
+    getPropertyBean().setValue(DAGEdge.AGGREGATE, a);
+  }
 
-	@Override
-	public String toString() {
-		String result = new String();
-		result += " w=" + getWeight();
-		// result += "["+getAggregate()+"]";
-		return result;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    String result = new String();
+    result += " w=" + getWeight();
+    // result += "["+getAggregate()+"]";
+    return result;
+  }
 
-	@Override
-	public PropertyFactory getFactoryForProperty(final String propertyName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
+   */
+  @Override
+  public PropertyFactory getFactoryForProperty(final String propertyName) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

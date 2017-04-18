@@ -41,31 +41,36 @@ import org.eclipse.jface.viewers.IFilter;
 import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.Vertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class filters s-lam elements to enable the correct property tabs
+ * This class filters s-lam elements to enable the correct property tabs.
  *
  * @author mpelcat
- *
  */
 public class SlamComponentFilter implements IFilter {
 
-	@Override
-	public boolean select(final Object toTest) {
-		if (toTest instanceof EditPart) {
-			final Object model = ((EditPart) toTest).getModel();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.jface.viewers.IFilter#select(java.lang.Object)
+   */
+  @Override
+  public boolean select(final Object toTest) {
+    if (toTest instanceof EditPart) {
+      final Object model = ((EditPart) toTest).getModel();
 
-			// Hierarchical connection vertices and edges have no custom
-			// parameters.
-			// Elements of other types have.
-			if (model instanceof Vertex) {
-				final Vertex vertex = (Vertex) model;
-				if (!vertex.getType().toString().equals("hierConnection")) {
-					final Graph graph = vertex.getParent();
-					return graph.getType().getName().equals("S-LAM Design");
-				}
-			}
-		}
-		return false;
-	}
+      // Hierarchical connection vertices and edges have no custom
+      // parameters.
+      // Elements of other types have.
+      if (model instanceof Vertex) {
+        final Vertex vertex = (Vertex) model;
+        if (!vertex.getType().toString().equals("hierConnection")) {
+          final Graph graph = vertex.getParent();
+          return graph.getType().getName().equals("S-LAM Design");
+        }
+      }
+    }
+    return false;
+  }
 
 }

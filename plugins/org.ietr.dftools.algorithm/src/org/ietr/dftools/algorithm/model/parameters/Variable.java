@@ -37,99 +37,127 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent variable
+ * Class used to represent variable.
  *
  * @author jpiat
- *
  */
 public class Variable {
 
-	private String	name;
-	private Value	value;
+  /** The name. */
+  private String name;
 
-	/**
-	 * Builds a new variable with the given name
-	 *
-	 * @param name
-	 *            The name of the variable
-	 */
-	public Variable(final String name) {
-		this.name = name;
-		this.value = new ExpressionValue("");
-	}
+  /** The value. */
+  private Value value;
 
-	/**
-	 * Builds a new variable with the given name and value
-	 *
-	 * @param name
-	 *            The name of the variable
-	 * @param value
-	 *            The value of the variable
-	 */
-	public Variable(final String name, final String value) {
-		this.name = name;
-		try {
-			final int integerValue = Integer.decode(value);
-			this.value = new ConstantValue(integerValue);
-		} catch (final NumberFormatException e) {
-			this.value = new ExpressionValue(value);
-		}
-	}
+  /**
+   * Builds a new variable with the given name.
+   *
+   * @param name
+   *          The name of the variable
+   */
+  public Variable(final String name) {
+    this.name = name;
+    this.value = new ExpressionValue("");
+  }
 
-	/**
-	 * Gives the name of the variable
-	 *
-	 * @return The name of the variable
-	 */
-	public String getName() {
-		return this.name;
-	}
+  /**
+   * Builds a new variable with the given name and value.
+   *
+   * @param name
+   *          The name of the variable
+   * @param value
+   *          The value of the variable
+   */
+  public Variable(final String name, final String value) {
+    this.name = name;
+    try {
+      final int integerValue = Integer.decode(value);
+      this.value = new ConstantValue(integerValue);
+    } catch (final NumberFormatException e) {
+      this.value = new ExpressionValue(value);
+    }
+  }
 
-	/**
-	 * Sets the name of the variable
-	 *
-	 * @param name
-	 *            The name to set for the variable
-	 */
-	public void setName(final String name) {
-		this.name = name;
-	}
+  /**
+   * Gives the name of the variable.
+   *
+   * @return The name of the variable
+   */
+  public String getName() {
+    return this.name;
+  }
 
-	/**
-	 * Set the solver to use for this expression
-	 *
-	 * @param solver
-	 *            The solver to use to compute int value
-	 */
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		this.value.setExpressionSolver(solver);
-	}
+  /**
+   * Sets the name of the variable.
+   *
+   * @param name
+   *          The name to set for the variable
+   */
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public int intValue() throws InvalidExpressionException, NoIntegerValueException {
-		final int val = this.value.intValue();
-		this.value = new ConstantValue(val);
-		return val;
-	}
+  /**
+   * Set the solver to use for this expression.
+   *
+   * @param solver
+   *          The solver to use to compute int value
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    this.value.setExpressionSolver(solver);
+  }
 
-	public String getValue() {
-		return this.value.getValue();
-	}
+  /**
+   * Int value.
+   *
+   * @return the int
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   * @throws NoIntegerValueException
+   *           the no integer value exception
+   */
+  public int intValue() throws InvalidExpressionException, NoIntegerValueException {
+    final int val = this.value.intValue();
+    this.value = new ConstantValue(val);
+    return val;
+  }
 
-	public void setValue(final String value) {
-		try {
-			final int integerValue = Integer.decode(value);
-			this.value = new ConstantValue(integerValue);
-		} catch (final NumberFormatException e) {
-			this.value = new ExpressionValue(value);
-		}
-	}
+  /**
+   * Gets the value.
+   *
+   * @return the value
+   */
+  public String getValue() {
+    return this.value.getValue();
+  }
 
-	@Override
-	public Variable clone() {
-		final Variable var = new Variable(this.name);
-		var.setValue(this.value.getValue());
-		return var;
-	}
+  /**
+   * Sets the value.
+   *
+   * @param value
+   *          the new value
+   */
+  public void setValue(final String value) {
+    try {
+      final int integerValue = Integer.decode(value);
+      this.value = new ConstantValue(integerValue);
+    } catch (final NumberFormatException e) {
+      this.value = new ExpressionValue(value);
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public Variable clone() {
+    final Variable var = new Variable(this.name);
+    var.setValue(this.value.getValue());
+    return var;
+  }
 
 }

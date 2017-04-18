@@ -39,11 +39,18 @@ import org.ietr.dftools.architecture.slam.SlamFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FactoryTest.
+ */
 public class FactoryTest {
 
-	@Test
-	public void testFactoryDesign() {
-		final Design d = SlamFactory.eINSTANCE.createDesign();
-		Assert.assertNotNull(d);
-	}
+  /**
+   * Test factory design.
+   */
+  @Test
+  public void testFactoryDesign() {
+    final Design d = SlamFactory.eINSTANCE.createDesign();
+    Assert.assertNotNull(d);
+  }
 }

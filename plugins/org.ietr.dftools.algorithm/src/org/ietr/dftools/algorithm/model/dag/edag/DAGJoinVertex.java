@@ -38,108 +38,129 @@ package org.ietr.dftools.algorithm.model.dag.edag;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a braodcast Vertex in a Directed Acyclic Graph
+ * Class used to represent a braodcast Vertex in a Directed Acyclic Graph.
  *
  * @author jpiat
- *
  */
 public class DAGJoinVertex extends DAGVertex {
 
-	/**
-	 * Key to access to property dag_broadcast_vertex
-	 */
-	public static final String DAG_JOIN_VERTEX = "dag_join_vertex";
+  /** Key to access to property dag_broadcast_vertex. */
+  public static final String DAG_JOIN_VERTEX = "dag_join_vertex";
 
-	/**
-	 * String to access the property edges order
-	 */
-	public static final String EDGES_ORDER = "edges_order";
+  /** String to access the property edges order. */
+  public static final String EDGES_ORDER = "edges_order";
 
-	/**
-	 * Creates a new DAGVertex
-	 */
-	public DAGJoinVertex() {
-		super();
-		setKind(DAGJoinVertex.DAG_JOIN_VERTEX);
-	}
+  /**
+   * Creates a new DAGVertex.
+   */
+  public DAGJoinVertex() {
+    super();
+    setKind(DAGJoinVertex.DAG_JOIN_VERTEX);
+  }
 
-	/**
-	 * Creates a new DAGJoinVertex with the name "n", the execution time "t" and
-	 * the number of repetition "nb"
-	 *
-	 * @param n
-	 *            This Vertex name
-	 * @param t
-	 *            This Vertex execution time
-	 * @param nb
-	 *            This Vertex number of repetition
-	 */
-	public DAGJoinVertex(final String n, final AbstractVertexPropertyType<?> t, final AbstractVertexPropertyType<?> nb) {
-		super(n, t, nb);
-		setKind(DAGJoinVertex.DAG_JOIN_VERTEX);
-	}
+  /**
+   * Creates a new DAGJoinVertex with the name "n", the execution time "t" and the number of repetition "nb".
+   *
+   * @param n
+   *          This Vertex name
+   * @param t
+   *          This Vertex execution time
+   * @param nb
+   *          This Vertex number of repetition
+   */
+  public DAGJoinVertex(final String n, final AbstractVertexPropertyType<?> t, final AbstractVertexPropertyType<?> nb) {
+    super(n, t, nb);
+    setKind(DAGJoinVertex.DAG_JOIN_VERTEX);
+  }
 
-	@SuppressWarnings("unchecked")
-	private void addConnection(final DAGEdge newEdge) {
-		if (getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER) == null) {
-			final List<DAGEdge> connections = new ArrayList<>();
-			getPropertyBean().setValue(DAGJoinVertex.EDGES_ORDER, connections);
-		}
-		((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)).add(newEdge);
-	}
+  /**
+   * Adds the connection.
+   *
+   * @param newEdge
+   *          the new edge
+   */
+  @SuppressWarnings("unchecked")
+  private void addConnection(final DAGEdge newEdge) {
+    if (getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER) == null) {
+      final List<DAGEdge> connections = new ArrayList<>();
+      getPropertyBean().setValue(DAGJoinVertex.EDGES_ORDER, connections);
+    }
+    ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)).add(newEdge);
+  }
 
-	@SuppressWarnings("unchecked")
-	private void removeConnection(final DAGEdge newEdge) {
-		if (getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER) == null) {
-			final List<DAGEdge> connections = new ArrayList<>();
-			getPropertyBean().setValue(DAGJoinVertex.EDGES_ORDER, connections);
-		}
-		((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)).remove(newEdge);
-	}
+  /**
+   * Removes the connection.
+   *
+   * @param newEdge
+   *          the new edge
+   */
+  @SuppressWarnings("unchecked")
+  private void removeConnection(final DAGEdge newEdge) {
+    if (getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER) == null) {
+      final List<DAGEdge> connections = new ArrayList<>();
+      getPropertyBean().setValue(DAGJoinVertex.EDGES_ORDER, connections);
+    }
+    ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)).remove(newEdge);
+  }
 
-	/**
-	 * Gives the edge connection index
-	 *
-	 * @param edge
-	 *            The edge to get the connection index
-	 * @return The connection index of the edge
-	 */
-	@SuppressWarnings("unchecked")
-	public Integer getEdgeIndex(final DAGEdge edge) {
-		if (((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)) != null) {
-			int i = 0;
-			final List<DAGEdge> connections = ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER));
-			for (final DAGEdge eqEdge : connections) {
-				if (eqEdge.compare(edge)) {
-					return i;
-				}
-				i++;
-			}
-		}
-		return 0;
-	}
+  /**
+   * Gives the edge connection index.
+   *
+   * @param edge
+   *          The edge to get the connection index
+   * @return The connection index of the edge
+   */
+  @SuppressWarnings("unchecked")
+  public Integer getEdgeIndex(final DAGEdge edge) {
+    if (((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)) != null) {
+      int i = 0;
+      final List<DAGEdge> connections = ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER));
+      for (final DAGEdge eqEdge : connections) {
+        if (eqEdge.compare(edge)) {
+          return i;
+        }
+        i++;
+      }
+    }
+    return 0;
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionAdded(final AbstractEdge e) {
-		addConnection((DAGEdge) e);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionAdded(final AbstractEdge e) {
+    addConnection((DAGEdge) e);
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionRemoved(final AbstractEdge e) {
-		removeConnection((DAGEdge) e);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionRemoved(final AbstractEdge e) {
+    removeConnection((DAGEdge) e);
+  }
 
-	@Override
-	public String toString() {
-		return getName();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#toString()
+   */
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

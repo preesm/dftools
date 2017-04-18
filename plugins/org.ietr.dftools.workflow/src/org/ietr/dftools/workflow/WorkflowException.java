@@ -38,19 +38,24 @@
 
 package org.ietr.dftools.workflow;
 
+// TODO: Auto-generated Javadoc
 /**
- * Exception thrown when an error has occured in a workflow task
+ * Exception thrown when an error has occured in a workflow task.
  *
  * @author mpelcat
  */
 public class WorkflowException extends Exception {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -82239037652340760L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -82239037652340760L;
 
-	public WorkflowException(final String arg0) {
-		super(arg0);
-	}
+  /**
+   * Instantiates a new workflow exception.
+   *
+   * @param arg0
+   *          the arg 0
+   */
+  public WorkflowException(final String arg0) {
+    super(arg0);
+  }
 }

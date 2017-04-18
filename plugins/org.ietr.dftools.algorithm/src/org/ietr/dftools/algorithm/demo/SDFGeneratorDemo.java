@@ -43,50 +43,56 @@ import org.ietr.dftools.algorithm.model.sdf.visitors.ToHSDFVisitor;
 import org.ietr.dftools.algorithm.model.sdf.visitors.TopologyVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Demo class to demonstrate the display features of a random graph
+ * Demo class to demonstrate the display features of a random graph.
  *
  * @author pthebault
- *
  */
 public class SDFGeneratorDemo {
 
-	/**
-	 * An alternative starting point for this test, to also allow running this
-	 * applet as an application.
-	 *
-	 * @param args
-	 *            ignored.
-	 * @throws InvalidExpressionException
-	 * @throws SDF4JException
-	 */
+  /**
+   * An alternative starting point for this test, to also allow running this applet as an application.
+   *
+   * @param args
+   *          ignored.
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
 
-	public static void main(final String[] args) throws InvalidExpressionException, SDF4JException {
-		final int nbVertex = 10, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 5;
-		final SDFAdapterDemo applet = new SDFAdapterDemo();
+  public static void main(final String[] args) throws InvalidExpressionException, SDF4JException {
+    final int nbVertex = 10;
+    final int minInDegree = 1;
+    final int maxInDegree = 5;
+    final int minOutDegree = 1;
+    final int maxOutDegree = 5;
+    final SDFAdapterDemo applet = new SDFAdapterDemo();
 
-		// Creates a random SDF graph
-		final int minrate = 1, maxrate = 4;
-		final SDFRandomGraph test = new SDFRandomGraph();
-		final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+    // Creates a random SDF graph
+    final int minrate = 1;
+    final int maxrate = 4;
+    final SDFRandomGraph test = new SDFRandomGraph();
+    final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
 
-		final TopologyVisitor topo = new TopologyVisitor();
-		try {
-			demoGraph.accept(topo);
-		} catch (final SDF4JException e) {
-			e.printStackTrace();
-		}
-		applet.init(demoGraph);
+    final TopologyVisitor topo = new TopologyVisitor();
+    try {
+      demoGraph.accept(topo);
+    } catch (final SDF4JException e) {
+      e.printStackTrace();
+    }
+    applet.init(demoGraph);
 
-		final SDFAdapterDemo applet3 = new SDFAdapterDemo();
-		final ToHSDFVisitor visitor2 = new ToHSDFVisitor();
-		try {
-			demoGraph.accept(visitor2);
-		} catch (final SDF4JException e) {
-			e.printStackTrace();
-		}
-		applet3.init(visitor2.getOutput());
+    final SDFAdapterDemo applet3 = new SDFAdapterDemo();
+    final ToHSDFVisitor visitor2 = new ToHSDFVisitor();
+    try {
+      demoGraph.accept(visitor2);
+    } catch (final SDF4JException e) {
+      e.printStackTrace();
+    }
+    applet3.init(visitor2.getOutput());
 
-	}
+  }
 
 }

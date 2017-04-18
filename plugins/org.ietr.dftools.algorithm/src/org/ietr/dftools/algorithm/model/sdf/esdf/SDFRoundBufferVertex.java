@@ -41,115 +41,122 @@ package org.ietr.dftools.algorithm.model.sdf.esdf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * ROund buffer vertex
+ * ROund buffer vertex.
  *
  * @author jpiat
- *
  */
 public class SDFRoundBufferVertex extends SDFBroadcastVertex {
 
-	/**
-	 * String to access the property edges order
-	 */
-	public static final String EDGES_ORDER = "edges_order";
+  /** String to access the property edges order. */
+  public static final String EDGES_ORDER = "edges_order";
 
-	/**
-	 * Kind of node
-	 */
-	public static final String ROUND_BUFFER = "RoundBuffer";
+  /** Kind of node. */
+  public static final String ROUND_BUFFER = "RoundBuffer";
 
-	/**
-	 * Creates a new SDFInterfaceVertex with the default direction (SINK)
-	 */
-	public SDFRoundBufferVertex() {
-		super();
-		setNbRepeat(1);
-	}
+  /**
+   * Creates a new SDFInterfaceVertex with the default direction (SINK).
+   */
+  public SDFRoundBufferVertex() {
+    super();
+    setNbRepeat(1);
+  }
 
-	/**
-	 * Gives the edge connection index
-	 *
-	 * @param edge
-	 *            The edge to get the connection index
-	 * @return The connection index of the edge
-	 */
-	@Override
-	public Integer getEdgeIndex(final SDFEdge edge) {
-		for (final Integer index : getConnections().keySet()) {
-			if (getConnections().get(index).equals(edge)) {
-				return index;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the edge connection index.
+   *
+   * @param edge
+   *          The edge to get the connection index
+   * @return The connection index of the edge
+   */
+  @Override
+  public Integer getEdgeIndex(final SDFEdge edge) {
+    for (final Integer index : getConnections().keySet()) {
+      if (getConnections().get(index).equals(edge)) {
+        return index;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * @return The incoming connection of this for in an ordered list
-	 */
-	public List<SDFEdge> getIncomingConnections() {
-		final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
-		for (final Integer index : getConnections().keySet()) {
-			edges.add(index, getConnections().get(index));
-		}
-		return edges;
-	}
+  /**
+   * Gets the incoming connections.
+   *
+   * @return The incoming connection of this for in an ordered list
+   */
+  public List<SDFEdge> getIncomingConnections() {
+    final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
+    for (final Integer index : getConnections().keySet()) {
+      edges.add(index, getConnections().get(index));
+    }
+    return edges;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<SDFEdge> getOutgoingConnections() {
-		return new ArrayList<SDFEdge>(getBase().outgoingEdgesOf(this));
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex#getOutgoingConnections()
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<SDFEdge> getOutgoingConnections() {
+    return new ArrayList<SDFEdge>(getBase().outgoingEdgesOf(this));
+  }
 
-	/**
-	 * Sets this edge connection index
-	 *
-	 * @param edge
-	 *            The edge connected to the vertex
-	 * @param index
-	 *            The index in the connections
-	 */
-	public void setConnectionIndex(final SDFEdge edge, final int index) {
-		final Map<Integer, SDFEdge> connections = getConnections();
-		SDFEdge connectionToRemove = null;
-		connectionToRemove = connections.get(index);
-		connections.remove(connectionToRemove);
-		connections.put(index, edge);
-	}
+  /**
+   * Sets this edge connection index.
+   *
+   * @param edge
+   *          The edge connected to the vertex
+   * @param index
+   *          The index in the connections
+   */
+  public void setConnectionIndex(final SDFEdge edge, final int index) {
+    final Map<Integer, SDFEdge> connections = getConnections();
+    SDFEdge connectionToRemove = null;
+    connectionToRemove = connections.get(index);
+    connections.remove(connectionToRemove);
+    connections.put(index, edge);
+  }
 
-	@Override
-	public SDFAbstractVertex clone() {
-		final SDFRoundBufferVertex copy = new SDFRoundBufferVertex();
-		copy.setName(getName());
-		try {
-			copy.setNbRepeat(getNbRepeat());
-		} catch (final InvalidExpressionException e) {
-			e.printStackTrace();
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex#clone()
+   */
+  @Override
+  public SDFAbstractVertex clone() {
+    final SDFRoundBufferVertex copy = new SDFRoundBufferVertex();
+    copy.setName(getName());
+    try {
+      copy.setNbRepeat(getNbRepeat());
+    } catch (final InvalidExpressionException e) {
+      e.printStackTrace();
+    }
 
-		// Copy the ports
-		for (final SDFInterfaceVertex sink : getSinks()) {
-			if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
-				copy.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
-			} else {
-				copy.addSink(sink.clone());
-			}
-		}
-		for (final SDFInterfaceVertex source : getSources()) {
-			if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
-				copy.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
-			} else {
-				copy.addSource(source.clone());
-			}
-		}
+    // Copy the ports
+    for (final SDFInterfaceVertex sink : getSinks()) {
+      if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
+        copy.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+      } else {
+        copy.addSink(sink.clone());
+      }
+    }
+    for (final SDFInterfaceVertex source : getSources()) {
+      if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
+        copy.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+      } else {
+        copy.addSource(source.clone());
+      }
+    }
 
-		return copy;
-	}
+    return copy;
+  }
 
 }

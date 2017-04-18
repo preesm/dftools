@@ -37,37 +37,35 @@
 package org.ietr.dftools.algorithm.model.dag;
 
 import java.util.ArrayList;
-
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class to represent the edges aggregate while transforming SDF to DAG
+ * Class to represent the edges aggregate while transforming SDF to DAG.
  *
  * @author jpiat
- *
  */
 @SuppressWarnings("rawtypes")
 public class EdgeAggregate extends ArrayList<AbstractEdge> {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 7171243311938464065L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 7171243311938464065L;
 
-	/**
-	 * Creates a new EdgeAggregate
-	 */
-	public EdgeAggregate() {
-		super();
-	}
+  /**
+   * Creates a new EdgeAggregate.
+   */
+  public EdgeAggregate() {
+    super();
+  }
 
-	/**
-	 * Add an edge to this aggregate
-	 *
-	 * @param edge
-	 */
-	public void addEdge(final AbstractEdge edge) {
-		super.add(edge);
-	}
+  /**
+   * Add an edge to this aggregate.
+   *
+   * @param edge
+   *          the edge
+   */
+  public void addEdge(final AbstractEdge edge) {
+    super.add(edge);
+  }
 
 }

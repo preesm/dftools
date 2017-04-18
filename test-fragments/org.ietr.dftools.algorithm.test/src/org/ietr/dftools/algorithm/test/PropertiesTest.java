@@ -5,39 +5,47 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.junit.Assert;
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertiesTest.
+ */
 public class PropertiesTest {
 
-	private static final String MY_PROPERTY_CONSTANT = "toregregzegergregreto";
+  /** The Constant MY_PROPERTY_CONSTANT. */
+  private static final String MY_PROPERTY_CONSTANT = "toregregzegergregreto";
 
-	@Test
-	public void testSetProp() {
-		SDFAbstractVertex toto = new SDFAbstractVertex() {
+  /**
+   * Test set prop.
+   */
+  @Test
+  public void testSetProp() {
+    final SDFAbstractVertex toto = new SDFAbstractVertex() {
 
-			@Override
-			public void connectionRemoved(AbstractEdge<?, ?> e) {
-				// TODO Auto-generated method stub
+      @Override
+      public void connectionRemoved(final AbstractEdge<?, ?> e) {
+        // TODO Auto-generated method stub
 
-			}
+      }
 
-			@Override
-			public void connectionAdded(AbstractEdge<?, ?> e) {
-				// TODO Auto-generated method stub
+      @Override
+      public void connectionAdded(final AbstractEdge<?, ?> e) {
+        // TODO Auto-generated method stub
 
-			}
+      }
 
-			@Override
-			public SDFAbstractVertex clone() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
+      @Override
+      public SDFAbstractVertex clone() {
+        // TODO Auto-generated method stub
+        return null;
+      }
+    };
 
-		int input = 15;
-		toto.getPropertyBean().setValue(MY_PROPERTY_CONSTANT, input);
+    final int input = 15;
+    toto.getPropertyBean().setValue(PropertiesTest.MY_PROPERTY_CONSTANT, input);
 
-		final Integer value = (Integer) toto.getPropertyBean().getValue(MY_PROPERTY_CONSTANT,Integer.class);
-		Assert.assertEquals(input, value.intValue());
+    final Integer value = (Integer) toto.getPropertyBean().getValue(PropertiesTest.MY_PROPERTY_CONSTANT, Integer.class);
+    Assert.assertEquals(input, value.intValue());
 
-	}
+  }
 
 }
