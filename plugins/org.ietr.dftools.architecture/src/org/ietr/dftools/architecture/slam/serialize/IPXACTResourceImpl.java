@@ -43,46 +43,56 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.ietr.dftools.architecture.slam.Design;
 
+// TODO: Auto-generated Javadoc
 /**
- * Resource implementation used to (de)serialize the System-Level Architecture
- * Model into IP-XACT.
+ * Resource implementation used to (de)serialize the System-Level Architecture Model into IP-XACT.
  *
  * @author mpelcat
  */
 public class IPXACTResourceImpl extends ResourceImpl {
 
-	/**
-	 * Constructor for XMIResourceImpl.
-	 *
-	 * @param uri
-	 */
-	public IPXACTResourceImpl(final URI uri) {
-		super(uri);
-	}
+  /**
+   * Constructor for XMIResourceImpl.
+   *
+   * @param uri
+   *          the uri
+   */
+  public IPXACTResourceImpl(final URI uri) {
+    super(uri);
+  }
 
-	@Override
-	public void doSave(final OutputStream outputStream, final Map<?, ?> options) throws IOException {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.emf.ecore.resource.impl.ResourceImpl#doSave(java.io.OutputStream, java.util.Map)
+   */
+  @Override
+  public void doSave(final OutputStream outputStream, final Map<?, ?> options) throws IOException {
 
-		final IPXACTDesignWriter designWriter = new IPXACTDesignWriter(this.uri);
+    final IPXACTDesignWriter designWriter = new IPXACTDesignWriter(this.uri);
 
-		final Design design = (Design) getContents().get(0);
+    final Design design = (Design) getContents().get(0);
 
-		designWriter.write(design, outputStream);
-	}
+    designWriter.write(design, outputStream);
+  }
 
-	@Override
-	protected void doLoad(final InputStream inputStream, final Map<?, ?> options) throws IOException {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.emf.ecore.resource.impl.ResourceImpl#doLoad(java.io.InputStream, java.util.Map)
+   */
+  @Override
+  protected void doLoad(final InputStream inputStream, final Map<?, ?> options) throws IOException {
 
-		final IPXACTDesignParser designParser = new IPXACTDesignParser(this.uri);
+    final IPXACTDesignParser designParser = new IPXACTDesignParser(this.uri);
 
-		final Design design = designParser.parse(inputStream, null, null);
-		if ((design != null) && !getContents().contains(design)) {
-			getContents().add(design);
-		}
-	}
+    final Design design = designParser.parse(inputStream, null, null);
+    if ((design != null) && !getContents().contains(design)) {
+      getContents().add(design);
+    }
+  }
 }

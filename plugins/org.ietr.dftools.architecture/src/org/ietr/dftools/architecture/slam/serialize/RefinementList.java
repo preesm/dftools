@@ -41,67 +41,101 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * A complex refinement made of a list of files. Used to serialize multiple
- * refinements.
+ * A complex refinement made of a list of files. Used to serialize multiple refinements.
  *
  * @author mpelcat
  */
 public class RefinementList {
 
-	/**
-	 * Storing relative paths to the refinements
-	 */
-	List<String> nameList = new ArrayList<>();
+  /** Storing relative paths to the refinements. */
+  List<String> nameList = new ArrayList<>();
 
-	public RefinementList() {
-	}
+  /**
+   * Instantiates a new refinement list.
+   */
+  public RefinementList() {
+  }
 
-	public RefinementList(final String stringList) {
-		fromString(stringList);
-	}
+  /**
+   * Instantiates a new refinement list.
+   *
+   * @param stringList
+   *          the string list
+   */
+  public RefinementList(final String stringList) {
+    fromString(stringList);
+  }
 
-	public void addName(final String name) {
-		this.nameList.add(name);
-	}
+  /**
+   * Adds the name.
+   *
+   * @param name
+   *          the name
+   */
+  public void addName(final String name) {
+    this.nameList.add(name);
+  }
 
-	public void removeName(final String name) {
-		final Iterator<String> iterator = this.nameList.listIterator();
-		while (iterator.hasNext()) {
-			final String next = iterator.next();
-			if (next.equals(name)) {
-				iterator.remove();
-			}
-		}
-	}
+  /**
+   * Removes the name.
+   *
+   * @param name
+   *          the name
+   */
+  public void removeName(final String name) {
+    final Iterator<String> iterator = this.nameList.listIterator();
+    while (iterator.hasNext()) {
+      final String next = iterator.next();
+      if (next.equals(name)) {
+        iterator.remove();
+      }
+    }
+  }
 
-	/**
-	 * Parsing the refinement paths from a comma-separated list of strings
-	 */
-	public void fromString(final String stringList) {
-		this.nameList.addAll(Arrays.asList(stringList.split(",")));
-	}
+  /**
+   * Parsing the refinement paths from a comma-separated list of strings.
+   *
+   * @param stringList
+   *          the string list
+   */
+  public void fromString(final String stringList) {
+    this.nameList.addAll(Arrays.asList(stringList.split(",")));
+  }
 
-	public int size() {
-		return this.nameList.size();
-	}
+  /**
+   * Size.
+   *
+   * @return the int
+   */
+  public int size() {
+    return this.nameList.size();
+  }
 
-	public String[] toStringArray() {
-		return this.nameList.toArray(new String[0]);
-	}
+  /**
+   * To string array.
+   *
+   * @return the string[]
+   */
+  public String[] toStringArray() {
+    return this.nameList.toArray(new String[0]);
+  }
 
-	/**
-	 * Exporting the refinement paths as a comma-separated list of strings
-	 */
-	@Override
-	public String toString() {
-		String stringList = "";
-		for (final String fileName : this.nameList) {
-			stringList += fileName + ",";
-		}
-		if (!stringList.isEmpty()) {
-			stringList = stringList.substring(0, stringList.length() - 1);
-		}
-		return stringList;
-	}
+  /**
+   * Exporting the refinement paths as a comma-separated list of strings.
+   *
+   * @return the string
+   */
+  @Override
+  public String toString() {
+    String stringList = "";
+    for (final String fileName : this.nameList) {
+      stringList += fileName + ",";
+    }
+    if (!stringList.isEmpty()) {
+      stringList = stringList.substring(0, stringList.length() - 1);
+    }
+    return stringList;
+  }
 }

@@ -41,7 +41,6 @@ package org.ietr.dftools.architecture.slam.test;
 
 import java.io.IOException;
 import java.util.Map;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -52,66 +51,76 @@ import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.process.SlamFlattener;
 import org.ietr.dftools.architecture.slam.serialize.IPXACTResourceFactoryImpl;
 
+// TODO: Auto-generated Javadoc
 /**
- * A tester for the EMF generated System-Level Architecture Model
+ * A tester for the EMF generated System-Level Architecture Model.
  *
  * @author mpelcat
  */
 public class SlamTester2 {
 
-	/**
-	 * Testing the S-LAM architecture model
-	 *
-	 * @param args
-	 */
-	public static void main(final String[] args) {
+  /**
+   * Testing the S-LAM architecture model.
+   *
+   * @param args
+   *          the arguments
+   */
+  public static void main(final String[] args) {
 
-		// check that the factory is registered
-		// (only happens in command-line mode)
-		// ...
-		// duck you command line :)
-		final Map<String, Object> extToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
-		Object instance = extToFactoryMap.get("slam");
-		if (instance == null) {
-			instance = new IPXACTResourceFactoryImpl();
-			extToFactoryMap.put("slam", instance);
-		}
+    // check that the factory is registered
+    // (only happens in command-line mode)
+    // ...
+    // duck you command line :)
+    final Map<String, Object> extToFactoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
+    Object instance = extToFactoryMap.get("slam");
+    if (instance == null) {
+      instance = new IPXACTResourceFactoryImpl();
+      extToFactoryMap.put("slam", instance);
+    }
 
-		if (!EPackage.Registry.INSTANCE.containsKey(SlamPackage.eNS_URI)) {
-			EPackage.Registry.INSTANCE.put(SlamPackage.eNS_URI, SlamPackage.eINSTANCE);
-		}
+    if (!EPackage.Registry.INSTANCE.containsKey(SlamPackage.eNS_URI)) {
+      EPackage.Registry.INSTANCE.put(SlamPackage.eNS_URI, SlamPackage.eINSTANCE);
+    }
 
-		final SlamTester2 tester = new SlamTester2();
-		// tester.flatten("../../../test/SlamBeta/testArchi/top.slam",
-		// "../../../test/SlamBeta/testArchi/top_write.slam");
-		tester.flatten("../../../test/SlamBeta/tci6488/top.slam", "../../../test/SlamBeta/tci6488/top_write.slam");
-		// tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core.slam",
-		// "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core_write.slam");
-		// tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top.slam",
-		// "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top_write.slam");
-	}
+    final SlamTester2 tester = new SlamTester2();
+    // tester.flatten("../../../test/SlamBeta/testArchi/top.slam",
+    // "../../../test/SlamBeta/testArchi/top_write.slam");
+    tester.flatten("../../../test/SlamBeta/tci6488/top.slam", "../../../test/SlamBeta/tci6488/top_write.slam");
+    // tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core.slam",
+    // "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/core_write.slam");
+    // tester.flatten("D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top.slam",
+    // "D:/Projets/Preesm/trunk/tests/NewArchitecture/Archi/top_write.slam");
+  }
 
-	private void flatten(final String inputTopPath, final String outputPath) {
-		// Demand load the resource into the resource set.
-		final ResourceSet resourceSet = new ResourceSetImpl();
+  /**
+   * Flatten.
+   *
+   * @param inputTopPath
+   *          the input top path
+   * @param outputPath
+   *          the output path
+   */
+  private void flatten(final String inputTopPath, final String outputPath) {
+    // Demand load the resource into the resource set.
+    final ResourceSet resourceSet = new ResourceSetImpl();
 
-		// resourceSet.
-		final Resource resource = resourceSet.getResource(URI.createFileURI(inputTopPath), true);
-		// Extract the root object from the resource.
-		final Design design = (Design) resource.getContents().get(0);
-		System.out.println(design.getVlnv().getName());
+    // resourceSet.
+    final Resource resource = resourceSet.getResource(URI.createFileURI(inputTopPath), true);
+    // Extract the root object from the resource.
+    final Design design = (Design) resource.getContents().get(0);
+    System.out.println(design.getVlnv().getName());
 
-		final SlamFlattener flattener = new SlamFlattener();
-		flattener.flattenAllLevels(design);
+    final SlamFlattener flattener = new SlamFlattener();
+    flattener.flattenAllLevels(design);
 
-		final ResourceSet resourceSet2 = new ResourceSetImpl();
-		final Resource resource2 = resourceSet2.createResource(URI.createFileURI(outputPath));
-		resource2.getContents().add(design);
-		try {
-			resource2.save(null);
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-	}
+    final ResourceSet resourceSet2 = new ResourceSetImpl();
+    final Resource resource2 = resourceSet2.createResource(URI.createFileURI(outputPath));
+    resource2.getContents().add(design);
+    try {
+      resource2.save(null);
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
+  }
 
 }
