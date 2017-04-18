@@ -8,7 +8,7 @@
   	<properties>
 		<tycho-version>1.0.0</tycho-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<complete.p2.repo>file:///home/anmorvan/test/aggregated-site/complete/</complete.p2.repo>
+		<complete.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</complete.p2.repo>
 	</properties>
 
 	<repositories>
