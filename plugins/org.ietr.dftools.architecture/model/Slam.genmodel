@@ -1,21 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ietr.dftools.architecture/src"
-    modelPluginID="org.ietr.dftools.architecture" modelName="Slam" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.ietr.dftools.architecture/ecore-gen" editDirectory="/org.ietr.dftools.architecture.edit/ecore-gen"
+    editorDirectory="/org.ietr.dftools.architecture.editor/ecore-gen" modelPluginID="org.ietr.dftools.architecture"
+    modelName="Slam" testsDirectory="/org.ietr.dftools.architecture.tests/ecore-gen"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false">
   <foreignModel>Slam.ecore</foreignModel>
   <genPackages prefix="Slam" basePackage="org.ietr.dftools.architecture" disposableProviderFactory="true"
       ecorePackage="Slam.ecore#/">
-    <nestedGenPackages prefix="Design" disposableProviderFactory="true" ecorePackage="Slam.ecore#//design">
-      <genClasses ecoreClass="Slam.ecore#//design/Operator"/>
-      <genClasses ecoreClass="Slam.ecore#//design/Connection"/>
-      <genClasses ecoreClass="Slam.ecore#//design/Component">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//design/Component/size"/>
+    <genClasses ecoreClass="Slam.ecore#//Design">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//Design/componentInstances"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//Design/links"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//Design/hierarchyPorts"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Slam.ecore#//Design/refined"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//Design/path"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Slam.ecore#//Design/componentHolder"/>
+      <genOperations ecoreOperation="Slam.ecore#//Design/containsComponentInstance">
+        <genParameters ecoreParameter="Slam.ecore#//Design/containsComponentInstance/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="Slam.ecore#//Design/containsComponent">
+        <genParameters ecoreParameter="Slam.ecore#//Design/containsComponent/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="Slam.ecore#//Design/getComponentInstance">
+        <genParameters ecoreParameter="Slam.ecore#//Design/getComponentInstance/name"/>
+      </genOperations>
+      <genOperations ecoreOperation="Slam.ecore#//Design/getComponent">
+        <genParameters ecoreParameter="Slam.ecore#//Design/getComponent/name"/>
+        <genParameters ecoreParameter="Slam.ecore#//Design/getComponent/class"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Slam.ecore#//ComponentInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Slam.ecore#//ComponentInstance/component"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//ComponentInstance/instanceName"/>
+      <genOperations ecoreOperation="Slam.ecore#//ComponentInstance/isHierarchical"/>
+    </genClasses>
+    <genClasses ecoreClass="Slam.ecore#//VLNVedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//VLNVedElement/vlnv"/>
+    </genClasses>
+    <genClasses ecoreClass="Slam.ecore#//ParameterizedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//ParameterizedElement/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="Slam.ecore#//ComponentHolder">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//ComponentHolder/components"/>
+    </genClasses>
+    <nestedGenPackages prefix="Component" disposableProviderFactory="true" ecorePackage="Slam.ecore#//component">
+      <genClasses ecoreClass="Slam.ecore#//component/Component">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//component/Component/interfaces"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//component/Component/instances"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//component/Component/refinements"/>
+        <genOperations ecoreOperation="Slam.ecore#//component/Component/getInterface">
+          <genParameters ecoreParameter="Slam.ecore#//component/Component/getInterface/name"/>
+        </genOperations>
       </genClasses>
-      <genClasses ecoreClass="Slam.ecore#//design/ComponentInstance"/>
-      <genClasses ecoreClass="Slam.ecore#//design/UndirectedConnection"/>
-      <genClasses ecoreClass="Slam.ecore#//design/DirectedConnection"/>
+      <genClasses ecoreClass="Slam.ecore#//component/Operator"/>
+      <genClasses ecoreClass="Slam.ecore#//component/ComNode">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//component/ComNode/parallel"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//component/ComNode/speed"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="Slam.ecore#//component/Enabler"/>
+      <genClasses ecoreClass="Slam.ecore#//component/Dma">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//component/Dma/setupTime"/>
+      </genClasses>
+      <genClasses ecoreClass="Slam.ecore#//component/Mem">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//component/Mem/size"/>
+      </genClasses>
+      <genClasses ecoreClass="Slam.ecore#//component/HierarchyPort">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//component/HierarchyPort/externalInterface"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//component/HierarchyPort/internalInterface"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//component/HierarchyPort/internalComponentInstance"/>
+      </genClasses>
+      <genClasses ecoreClass="Slam.ecore#//component/ComInterface">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Slam.ecore#//component/ComInterface/component"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Slam.ecore#//component/ComInterface/busType"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//component/ComInterface/name"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Link" disposableProviderFactory="true" ecorePackage="Slam.ecore#//link">
+      <genClasses image="false" ecoreClass="Slam.ecore#//link/Link">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//link/Link/sourceInterface"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//link/Link/destinationInterface"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//link/Link/sourceComponentInstance"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference Slam.ecore#//link/Link/destinationComponentInstance"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//link/Link/uuid"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//link/Link/directed"/>
+      </genClasses>
+      <genClasses ecoreClass="Slam.ecore#//link/DataLink"/>
+      <genClasses ecoreClass="Slam.ecore#//link/ControlLink"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Attributes" disposableProviderFactory="true" ecorePackage="Slam.ecore#//attributes">
+      <genClasses ecoreClass="Slam.ecore#//attributes/VLNV">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//attributes/VLNV/vendor"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//attributes/VLNV/library"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//attributes/VLNV/name"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//attributes/VLNV/version"/>
+      </genClasses>
+      <genClasses ecoreClass="Slam.ecore#//attributes/Parameter">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//attributes/Parameter/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Slam.ecore#//attributes/Parameter/value"/>
+      </genClasses>
     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

@@ -42,11 +42,9 @@ import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.geom.Rectangle2D;
 import java.util.Vector;
-
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-
 import org.ietr.dftools.algorithm.generator.DirectedAcyclicGraphGenerator;
 import org.ietr.dftools.algorithm.iterators.SDFIterator;
 import org.ietr.dftools.algorithm.model.listenable.SDFListenableGraph;
@@ -65,174 +63,200 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.traverse.GraphIterator;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
+// TODO: Auto-generated Javadoc
 /**
- * Demo class to demonstrate the display features of a random DAG
+ * Demo class to demonstrate the display features of a random DAG.
  *
  * @author pthebault
- *
  */
 public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
-	// ~ Static fields/initializers
-	// ---------------------------------------------
+  // ~ Static fields/initializers
+  // ---------------------------------------------
 
-	/**
-	 * Static field containing all the instances of this class
-	 */
-	public static Vector<DirectedAcyclicGraphGenerator> adapters = new Vector<>();
+  /** Static field containing all the instances of this class. */
+  public static Vector<DirectedAcyclicGraphGenerator> adapters = new Vector<>();
 
-	private static final Color		DEFAULT_BG_COLOR	= Color.decode("#FAFBFF");
-	private static final Dimension	DEFAULT_SIZE		= new Dimension(530, 320);
-	private static final long		serialVersionUID	= 853642557926207725L;
+  /** The Constant DEFAULT_BG_COLOR. */
+  private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
 
-	// ~ Instance fields
-	// --------------------------------------------------------
+  /** The Constant DEFAULT_SIZE. */
+  private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
-	// ~ Methods
-	// ----------------------------------------------------------------
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 853642557926207725L;
 
-	/**
-	 * An alternative starting point for this test, to also allow running this
-	 * applet as an application.
-	 *
-	 * @param args
-	 *            ignored.
-	 * @throws InvalidExpressionException
-	 */
+  // ~ Instance fields
+  // --------------------------------------------------------
 
-	public static void main(final String[] args) throws InvalidExpressionException {
-		final int nbVertex = 30, minInDegree = 1, maxInDegree = 5, minOutDegree = 1, maxOutDegree = 5;
-		final DirectedAcyclicGraphGeneratorDemo applet = new DirectedAcyclicGraphGeneratorDemo();
+  // ~ Methods
+  // ----------------------------------------------------------------
 
-		// Creates a random DAG
-		final DirectedAcyclicGraphGenerator DAGG = new DirectedAcyclicGraphGenerator();
-		final SDFGraph demoGraph = DAGG.createAcyclicRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree);
+  /**
+   * An alternative starting point for this test, to also allow running this applet as an application.
+   *
+   * @param args
+   *          ignored.
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
 
-		final TopologyVisitor topo = new TopologyVisitor();
-		try {
-			demoGraph.accept(topo);
-		} catch (final SDF4JException e) {
-			e.printStackTrace();
-		}
-		applet.init(demoGraph);
+  public static void main(final String[] args) throws InvalidExpressionException {
+    final int nbVertex = 30;
+    final int minInDegree = 1;
+    final int maxInDegree = 5;
+    final int minOutDegree = 1;
+    final int maxOutDegree = 5;
+    final DirectedAcyclicGraphGeneratorDemo applet = new DirectedAcyclicGraphGeneratorDemo();
 
-	}
+    // Creates a random DAG
+    final DirectedAcyclicGraphGenerator DAGG = new DirectedAcyclicGraphGenerator();
+    final SDFGraph demoGraph = DAGG.createAcyclicRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree);
 
-	@SuppressWarnings("rawtypes")
-	private JGraphModelAdapter jgAdapter;
+    final TopologyVisitor topo = new TopologyVisitor();
+    try {
+      demoGraph.accept(topo);
+    } catch (final SDF4JException e) {
+      e.printStackTrace();
+    }
+    applet.init(demoGraph);
 
-	private SDFListenableGraph model;
+  }
 
-	private void adjustDisplaySettings(final JGraph jg) {
-		jg.setPreferredSize(DirectedAcyclicGraphGeneratorDemo.DEFAULT_SIZE);
+  /** The jg adapter. */
+  @SuppressWarnings("rawtypes")
+  private JGraphModelAdapter jgAdapter;
 
-		Color c = DirectedAcyclicGraphGeneratorDemo.DEFAULT_BG_COLOR;
-		String colorStr = null;
+  /** The model. */
+  private SDFListenableGraph model;
 
-		try {
-			colorStr = getParameter("bgcolor");
-		} catch (final Exception e) {
-		}
+  /**
+   * Adjust display settings.
+   *
+   * @param jg
+   *          the jg
+   */
+  private void adjustDisplaySettings(final JGraph jg) {
+    jg.setPreferredSize(DirectedAcyclicGraphGeneratorDemo.DEFAULT_SIZE);
 
-		if (colorStr != null) {
-			c = Color.decode(colorStr);
-		}
+    Color c = DirectedAcyclicGraphGeneratorDemo.DEFAULT_BG_COLOR;
+    String colorStr = null;
 
-		jg.setBackground(c);
-	}
+    try {
+      colorStr = getParameter("bgcolor");
+    } catch (final Exception e) {
+      e.printStackTrace();
+    }
 
-	/**
-	 * Initialize a created SDFAdpaterDemo with the given Graph to display
-	 *
-	 * @param graphIn
-	 *            The graph to display
-	 * @throws InvalidExpressionException
-	 */
-	public void init(final SDFGraph graphIn) throws InvalidExpressionException {
+    if (colorStr != null) {
+      c = Color.decode(colorStr);
+    }
 
-		final SDFGraph graph = graphIn.clone();
-		// create a JGraphT graph
-		this.model = new SDFListenableGraph();
+    jg.setBackground(c);
+  }
 
-		// create a visualization using JGraph, via an adapter
-		this.jgAdapter = new JGraphModelAdapter<>(this.model);
+  /**
+   * Initialize a created SDFAdpaterDemo with the given Graph to display.
+   *
+   * @param graphIn
+   *          The graph to display
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  public void init(final SDFGraph graphIn) throws InvalidExpressionException {
 
-		final JGraph jgraph = new JGraph(this.jgAdapter);
+    final SDFGraph graph = graphIn.clone();
+    // create a JGraphT graph
+    this.model = new SDFListenableGraph();
 
-		adjustDisplaySettings(jgraph);
-		getContentPane().add(jgraph);
-		resize(DirectedAcyclicGraphGeneratorDemo.DEFAULT_SIZE);
-		System.out.println(" graph has " + graph.vertexSet().size() + " vertice, including broadcast");
-		for (final SDFAbstractVertex vertex : graph.vertexSet()) {
-			this.model.addVertex(vertex);
-		}
+    // create a visualization using JGraph, via an adapter
+    this.jgAdapter = new JGraphModelAdapter<>(this.model);
 
-		for (final SDFEdge edge : graph.edgeSet()) {
-			final SDFEdge newEdge = this.model.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
-			newEdge.setProd(edge.getProd());
-			newEdge.setCons(edge.getCons());
-			newEdge.setDelay(edge.getDelay());
-		}
+    final JGraph jgraph = new JGraph(this.jgAdapter);
 
-		final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(this.model);
-		GraphIterator<SDFAbstractVertex, SDFEdge> order;
-		if (detector.detectCycles()) {
-			order = new SDFIterator(this.model);
-		} else {
-			order = new TopologicalOrderIterator<>(this.model);
-		}
+    adjustDisplaySettings(jgraph);
+    getContentPane().add(jgraph);
+    resize(DirectedAcyclicGraphGeneratorDemo.DEFAULT_SIZE);
+    System.out.println(" graph has " + graph.vertexSet().size() + " vertice, including broadcast");
+    for (final SDFAbstractVertex vertex : graph.vertexSet()) {
+      this.model.addVertex(vertex);
+    }
 
-		final Vector<SDFAbstractVertex> vertices = new Vector<>();
-		int x = 0;
-		int y = 100;
-		int ymax = y;
-		SDFAbstractVertex previousVertex = null;
-		while (order.hasNext()) {
-			final SDFAbstractVertex nextVertex = order.next();
-			vertices.add(nextVertex);
-			if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null)
-					&& (this.model.getEdge(previousVertex, nextVertex) == null)) {
-				y += 50;
-				positionVertexAt(nextVertex, x, y);
-				if (y > ymax) {
-					ymax = y;
-				}
-			} else {
-				y = 100;
-				x += 200;
-				positionVertexAt(nextVertex, x, 100);
-				previousVertex = nextVertex;
-			}
-		}
+    for (final SDFEdge edge : graph.edgeSet()) {
+      final SDFEdge newEdge = this.model.addEdge(graph.getEdgeSource(edge), graph.getEdgeTarget(edge));
+      newEdge.setProd(edge.getProd());
+      newEdge.setCons(edge.getCons());
+      newEdge.setDelay(edge.getDelay());
+    }
 
-		final JFrame frame = new JFrame();
-		jgraph.setPreferredSize(new Dimension(x + 200, ymax + 300));
-		frame.setContentPane(new ScrollPane());
-		frame.getContentPane().add(this);
-		frame.setTitle("JGraphT Adapter to JGraph Demo");
-		if (DirectedAcyclicGraphGeneratorDemo.adapters.size() == 1) {
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		} else {
-			frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-		}
-		frame.pack();
-		frame.setVisible(true);
-	}
+    final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(this.model);
+    GraphIterator<SDFAbstractVertex, SDFEdge> order;
+    if (detector.detectCycles()) {
+      order = new SDFIterator(this.model);
+    } else {
+      order = new TopologicalOrderIterator<>(this.model);
+    }
 
-	@SuppressWarnings("unchecked")
-	// FIXME hb 28-nov-05: See FIXME below
-	private void positionVertexAt(final Object vertex, final int x, final int y) {
-		final DefaultGraphCell cell = this.jgAdapter.getVertexCell(vertex);
-		final AttributeMap attr = cell.getAttributes();
-		final Rectangle2D bounds = GraphConstants.getBounds(attr);
+    final Vector<SDFAbstractVertex> vertices = new Vector<>();
+    int x = 0;
+    int y = 100;
+    int ymax = y;
+    SDFAbstractVertex previousVertex = null;
+    while (order.hasNext()) {
+      final SDFAbstractVertex nextVertex = order.next();
+      vertices.add(nextVertex);
+      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null) && (this.model.getEdge(previousVertex, nextVertex) == null)) {
+        y += 50;
+        positionVertexAt(nextVertex, x, y);
+        if (y > ymax) {
+          ymax = y;
+        }
+      } else {
+        y = 100;
+        x += 200;
+        positionVertexAt(nextVertex, x, 100);
+        previousVertex = nextVertex;
+      }
+    }
 
-		final Rectangle2D newBounds = new Rectangle2D.Double(x, y, bounds.getWidth(), bounds.getHeight());
+    final JFrame frame = new JFrame();
+    jgraph.setPreferredSize(new Dimension(x + 200, ymax + 300));
+    frame.setContentPane(new ScrollPane());
+    frame.getContentPane().add(this);
+    frame.setTitle("JGraphT Adapter to JGraph Demo");
+    if (DirectedAcyclicGraphGeneratorDemo.adapters.size() == 1) {
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    } else {
+      frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+    }
+    frame.pack();
+    frame.setVisible(true);
+  }
 
-		GraphConstants.setBounds(attr, newBounds);
+  /**
+   * Position vertex at.
+   *
+   * @param vertex
+   *          the vertex
+   * @param x
+   *          the x
+   * @param y
+   *          the y
+   */
+  @SuppressWarnings("unchecked")
+  // FIXME hb 28-nov-05: See FIXME below
+  private void positionVertexAt(final Object vertex, final int x, final int y) {
+    final DefaultGraphCell cell = this.jgAdapter.getVertexCell(vertex);
+    final AttributeMap attr = cell.getAttributes();
+    final Rectangle2D bounds = GraphConstants.getBounds(attr);
 
-		// TODO: Clean up generics once JGraph goes generic
-		final AttributeMap cellAttr = new AttributeMap();
-		cellAttr.put(cell, attr);
-		this.jgAdapter.edit(cellAttr, null, null, null);
-	}
+    final Rectangle2D newBounds = new Rectangle2D.Double(x, y, bounds.getWidth(), bounds.getHeight());
+
+    GraphConstants.setBounds(attr, newBounds);
+
+    // TODO: Clean up generics once JGraph goes generic
+    final AttributeMap cellAttr = new AttributeMap();
+    cellAttr.put(cell, attr);
+    this.jgAdapter.edit(cellAttr, null, null, null);
+  }
 
 }

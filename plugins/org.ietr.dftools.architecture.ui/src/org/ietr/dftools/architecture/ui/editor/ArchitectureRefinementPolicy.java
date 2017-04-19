@@ -44,6 +44,7 @@ import org.eclipse.core.runtime.IPath;
 import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
 import org.ietr.dftools.graphiti.model.Vertex;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class extends the default refinement policy.
  *
@@ -52,27 +53,32 @@ import org.ietr.dftools.graphiti.model.Vertex;
  */
 public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
 
-	/**
-	 * Returns the project to which the vertex belongs.
-	 *
-	 * @param vertex
-	 *            a vertex
-	 * @return a project
-	 */
-	private IProject getProject(final Vertex vertex) {
-		return vertex.getParent().getFile().getProject();
-	}
+  /**
+   * Returns the project to which the vertex belongs.
+   *
+   * @param vertex
+   *          a vertex
+   * @return a project
+   */
+  private IProject getProject(final Vertex vertex) {
+    return vertex.getParent().getFile().getProject();
+  }
 
-	@Override
-	public IFile getRefinementFile(final Vertex vertex) {
-		final IPath refinement = getRefinement(vertex);
-		if (refinement != null) {
-			final IProject project = getProject(vertex);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.graphiti.model.DefaultRefinementPolicy#getRefinementFile(org.ietr.dftools.graphiti.model.Vertex)
+   */
+  @Override
+  public IFile getRefinementFile(final Vertex vertex) {
+    final IPath refinement = getRefinement(vertex);
+    if (refinement != null) {
+      final IProject project = getProject(vertex);
 
-			final IFile file = project.getFile(refinement);
-			return file;
-		}
-		return null;
-	}
+      final IFile file = project.getFile(refinement);
+      return file;
+    }
+    return null;
+  }
 
 }

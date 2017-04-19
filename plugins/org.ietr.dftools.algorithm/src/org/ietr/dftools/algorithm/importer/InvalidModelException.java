@@ -37,24 +37,31 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.importer;
 
+// TODO: Auto-generated Javadoc
 /**
- * Exception to return when the file to import is not from the desired type
+ * Exception to return when the file to import is not from the desired type.
  *
  * @author jpiat
- *
  */
 public class InvalidModelException extends Exception {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -8589958989242269799L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -8589958989242269799L;
 
-	public InvalidModelException(final String msg) {
-		super(msg);
-	}
+  /**
+   * Instantiates a new invalid model exception.
+   *
+   * @param msg
+   *          the msg
+   */
+  public InvalidModelException(final String msg) {
+    super(msg);
+  }
 
-	public InvalidModelException() {
-		super();
-	}
+  /**
+   * Instantiates a new invalid model exception.
+   */
+  public InvalidModelException() {
+    super();
+  }
 }

@@ -39,34 +39,61 @@ package org.ietr.dftools.algorithm.model;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface for object using a property bean to store properties
+ * Interface for object using a property bean to store properties.
  *
  * @author jpiat
- *
  */
 public interface PropertySource {
 
-	/**
-	 * Gives the object's property bean
-	 *
-	 * @return The objects property bean
-	 */
-	public PropertyBean getPropertyBean();
+  /**
+   * Gives the object's property bean.
+   *
+   * @return The objects property bean
+   */
+  public PropertyBean getPropertyBean();
 
-	/**
-	 * Copy the properties of the given PropertySource to this PropertySource
-	 *
-	 * @param props
-	 *            The properties to be copied
-	 */
-	public void copyProperties(PropertySource props);
+  /**
+   * Copy the properties of the given PropertySource to this PropertySource.
+   *
+   * @param props
+   *          The properties to be copied
+   */
+  public void copyProperties(PropertySource props);
 
-	public List<String> getPublicProperties();
+  /**
+   * Gets the public properties.
+   *
+   * @return the public properties
+   */
+  public List<String> getPublicProperties();
 
-	public PropertyFactory getFactoryForProperty(String propertyName);
+  /**
+   * Gets the factory for property.
+   *
+   * @param propertyName
+   *          the property name
+   * @return the factory for property
+   */
+  public PropertyFactory getFactoryForProperty(String propertyName);
 
-	public String getPropertyStringValue(String propertyName);
+  /**
+   * Gets the property string value.
+   *
+   * @param propertyName
+   *          the property name
+   * @return the property string value
+   */
+  public String getPropertyStringValue(String propertyName);
 
-	public void setPropertyValue(String propertyName, Object value);
+  /**
+   * Sets the property value.
+   *
+   * @param propertyName
+   *          the property name
+   * @param value
+   *          the value
+   */
+  public void setPropertyValue(String propertyName, Object value);
 }

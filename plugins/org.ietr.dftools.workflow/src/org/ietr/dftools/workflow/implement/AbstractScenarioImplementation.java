@@ -39,31 +39,36 @@
 package org.ietr.dftools.workflow.implement;
 
 import java.util.Map;
-
 import org.ietr.dftools.workflow.WorkflowException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Abstract scenario that can be implemented by a plugin wanting workflow
- * execution capabilities. The prototype of the scenario element is set in the
- * plugin extension.
+ * Abstract scenario that can be implemented by a plugin wanting workflow execution capabilities. The prototype of the scenario element is set in the plugin
+ * extension.
  *
  * @author mpelcat
  */
 public abstract class AbstractScenarioImplementation extends AbstractWorkflowNodeImplementation {
 
-	/**
-	 * Returns the preferred prototype for the node in a workflow. Useful to
-	 * give user information in the workflow
-	 */
-	@Override
-	public final String displayPrototype() {
-		return super.displayPrototype();
-	}
+  /**
+   * Returns the preferred prototype for the node in a workflow. Useful to give user information in the workflow
+   *
+   * @return the string
+   */
+  @Override
+  public final String displayPrototype() {
+    return super.displayPrototype();
+  }
 
-	/**
-	 * The workflow scenario element must have an initialize method that is
-	 * called by the workflow to generate the scenario outputs (for example, an
-	 * algorithm and an architecture).
-	 */
-	public abstract Map<String, Object> extractData(String path) throws WorkflowException;
+  /**
+   * The workflow scenario element must have an initialize method that is called by the workflow to generate the scenario outputs (for example, an algorithm and
+   * an architecture).
+   *
+   * @param path
+   *          the path
+   * @return the map
+   * @throws WorkflowException
+   *           the workflow exception
+   */
+  public abstract Map<String, Object> extractData(String path) throws WorkflowException;
 }

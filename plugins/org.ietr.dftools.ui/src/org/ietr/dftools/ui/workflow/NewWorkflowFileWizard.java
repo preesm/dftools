@@ -56,6 +56,7 @@ import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.ObjectType;
 import org.ietr.dftools.graphiti.ui.wizards.WizardSaveGraphPage;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class provides a wizard to create a new workflow network.
  *
@@ -64,60 +65,77 @@ import org.ietr.dftools.graphiti.ui.wizards.WizardSaveGraphPage;
  */
 public class NewWorkflowFileWizard extends Wizard implements INewWizard {
 
-	private IStructuredSelection selection;
+  /** The selection. */
+  private IStructuredSelection selection;
 
-	private IWorkbench workbench;
+  /** The workbench. */
+  private IWorkbench workbench;
 
-	/**
-	 * Creates a new wizard.
-	 */
-	public NewWorkflowFileWizard() {
-		super();
-		setNeedsProgressMonitor(true);
-		setWindowTitle("New Workflow");
-	}
+  /**
+   * Creates a new wizard.
+   */
+  public NewWorkflowFileWizard() {
+    super();
+    setNeedsProgressMonitor(true);
+    setWindowTitle("New Workflow");
+  }
 
-	@Override
-	public void addPages() {
-		final WizardSaveGraphPage page = new WizardSaveGraphPage(this.selection);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.jface.wizard.Wizard#addPages()
+   */
+  @Override
+  public void addPages() {
+    final WizardSaveGraphPage page = new WizardSaveGraphPage(this.selection);
 
-		final Configuration configuration = GraphitiModelPlugin.getDefault().getConfiguration("Workflow");
-		final ObjectType type = configuration.getGraphType("DFTools Workflow");
+    final Configuration configuration = GraphitiModelPlugin.getDefault().getConfiguration("Workflow");
+    final ObjectType type = configuration.getGraphType("DFTools Workflow");
 
-		page.setGraph(new Graph(configuration, type, true));
-		page.setDescription("Create a new Workflow.");
-		addPage(page);
-	}
+    page.setGraph(new Graph(configuration, type, true));
+    page.setDescription("Create a new Workflow.");
+    addPage(page);
+  }
 
-	@Override
-	public void init(final IWorkbench workbench, final IStructuredSelection selection) {
-		this.selection = selection;
-		this.workbench = workbench;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
+   */
+  @Override
+  public void init(final IWorkbench workbench, final IStructuredSelection selection) {
+    this.selection = selection;
+    this.workbench = workbench;
+  }
 
-	@Override
-	public boolean performFinish() {
-		final WizardSaveGraphPage page = (WizardSaveGraphPage) getPage("saveGraph");
-		final IFile file = page.createNewFile();
-		if (file == null) {
-			return false;
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.jface.wizard.Wizard#performFinish()
+   */
+  @Override
+  public boolean performFinish() {
+    final WizardSaveGraphPage page = (WizardSaveGraphPage) getPage("saveGraph");
+    final IFile file = page.createNewFile();
+    if (file == null) {
+      return false;
+    }
 
-		// Open editor on new file.
-		final IWorkbenchWindow dw = this.workbench.getActiveWorkbenchWindow();
-		try {
-			if (dw != null) {
-				BasicNewResourceWizard.selectAndReveal(file, dw);
-				final IWorkbenchPage activePage = dw.getActivePage();
-				if (activePage != null) {
-					IDE.openEditor(activePage, file, true);
-				}
-			}
-		} catch (final PartInitException e) {
-			MessageDialog.openError(dw.getShell(), "Problem opening editor", e.getMessage());
-		}
+    // Open editor on new file.
+    final IWorkbenchWindow dw = this.workbench.getActiveWorkbenchWindow();
+    try {
+      if (dw != null) {
+        BasicNewResourceWizard.selectAndReveal(file, dw);
+        final IWorkbenchPage activePage = dw.getActivePage();
+        if (activePage != null) {
+          IDE.openEditor(activePage, file, true);
+        }
+      }
+    } catch (final PartInitException e) {
+      MessageDialog.openError(dw.getShell(), "Problem opening editor", e.getMessage());
+    }
 
-		return true;
-	}
+    return true;
+  }
 
 }

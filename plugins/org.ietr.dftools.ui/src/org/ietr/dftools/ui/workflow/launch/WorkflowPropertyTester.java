@@ -41,6 +41,7 @@ package org.ietr.dftools.ui.workflow.launch;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IFile;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class tests the isWorkflow property to enable workflow execution.
  *
@@ -49,18 +50,26 @@ import org.eclipse.core.resources.IFile;
  */
 public class WorkflowPropertyTester extends PropertyTester {
 
-	public WorkflowPropertyTester() {
-	}
+  /**
+   * Instantiates a new workflow property tester.
+   */
+  public WorkflowPropertyTester() {
+  }
 
-	@Override
-	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
-		if (property.equals("isWorkflow")) {
-			if (receiver instanceof IFile) {
-				final IFile file = (IFile) receiver;
-				return file.getFileExtension().equals("workflow");
-			}
-		}
-		return false;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.core.expressions.IPropertyTester#test(java.lang.Object, java.lang.String, java.lang.Object[], java.lang.Object)
+   */
+  @Override
+  public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
+    if (property.equals("isWorkflow")) {
+      if (receiver instanceof IFile) {
+        final IFile file = (IFile) receiver;
+        return file.getFileExtension().equals("workflow");
+      }
+    }
+    return false;
+  }
 
 }

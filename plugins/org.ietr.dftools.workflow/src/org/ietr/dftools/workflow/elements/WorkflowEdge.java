@@ -38,53 +38,79 @@
 
 package org.ietr.dftools.workflow.elements;
 
+// TODO: Auto-generated Javadoc
 /**
- * An edge between two workflow tasks
+ * An edge between two workflow tasks.
  *
  * @author mpelcat
  */
 
 public class WorkflowEdge {
 
-	/**
-	 * Name of the output port of the source that must correspond to the name in
-	 * the corresponding task prototype
-	 */
-	private String sourcePort = null;
+  /** Name of the output port of the source that must correspond to the name in the corresponding task prototype. */
+  private String sourcePort = null;
 
-	/**
-	 * Name of the input port of the target that must correspond to the name in
-	 * the corresponding task prototype
-	 */
-	private String targetPort = null;
+  /** Name of the input port of the target that must correspond to the name in the corresponding task prototype. */
+  private String targetPort = null;
 
-	/**
-	 * Object carrying the data
-	 */
-	private Object data = null;
+  /** Object carrying the data. */
+  private Object data = null;
 
-	public Object getData() {
-		return this.data;
-	}
+  /**
+   * Gets the data.
+   *
+   * @return the data
+   */
+  public Object getData() {
+    return this.data;
+  }
 
-	public void setData(final Object data) {
-		this.data = data;
-	}
+  /**
+   * Sets the data.
+   *
+   * @param data
+   *          the new data
+   */
+  public void setData(final Object data) {
+    this.data = data;
+  }
 
-	public String getSourcePort() {
-		return this.sourcePort;
-	}
+  /**
+   * Gets the source port.
+   *
+   * @return the source port
+   */
+  public String getSourcePort() {
+    return this.sourcePort;
+  }
 
-	public void setSourcePort(final String sourcePort) {
-		this.sourcePort = sourcePort;
-	}
+  /**
+   * Sets the source port.
+   *
+   * @param sourcePort
+   *          the new source port
+   */
+  public void setSourcePort(final String sourcePort) {
+    this.sourcePort = sourcePort;
+  }
 
-	public String getTargetPort() {
-		return this.targetPort;
-	}
+  /**
+   * Gets the target port.
+   *
+   * @return the target port
+   */
+  public String getTargetPort() {
+    return this.targetPort;
+  }
 
-	public void setTargetPort(final String targetPort) {
-		this.targetPort = targetPort;
-	}
+  /**
+   * Sets the target port.
+   *
+   * @param targetPort
+   *          the new target port
+   */
+  public void setTargetPort(final String targetPort) {
+    this.targetPort = targetPort;
+  }
 
 }

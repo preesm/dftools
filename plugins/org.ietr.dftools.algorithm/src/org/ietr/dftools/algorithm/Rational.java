@@ -39,6 +39,7 @@ package org.ietr.dftools.algorithm;
 import java.util.List;
 import java.util.Vector;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class to represent rational numbers, and performs computation on it.
  *
@@ -47,216 +48,247 @@ import java.util.Vector;
  */
 public class Rational {
 
-	/**
-	 * Adds two rationnal a, b and returns the sum
-	 *
-	 * @param a
-	 * @param b
-	 * @return the rational containing the sum of a and b
-	 */
-	public static Rational add(final Rational a, final Rational b) {
-		if (a.zero()) {
-			return new Rational(b.num, b.denum);
-		} else if (b.zero()) {
-			return new Rational(a.num, a.denum);
-		}
-		final int denumCom = SDFMath.lcm(a.denum, b.denum);
-		final int num = (a.num * (denumCom / a.denum)) + (b.num * (denumCom / b.denum));
-		final Rational res = new Rational(num, denumCom);
-		return res;
-	}
+  /**
+   * Adds two rationnal a, b and returns the sum.
+   *
+   * @param a
+   *          the a
+   * @param b
+   *          the b
+   * @return the rational containing the sum of a and b
+   */
+  public static Rational add(final Rational a, final Rational b) {
+    if (a.zero()) {
+      return new Rational(b.num, b.denum);
+    } else if (b.zero()) {
+      return new Rational(a.num, a.denum);
+    }
+    final int denumCom = SDFMath.lcm(a.denum, b.denum);
+    final int num = (a.num * (denumCom / a.denum)) + (b.num * (denumCom / b.denum));
+    final Rational res = new Rational(num, denumCom);
+    return res;
+  }
 
-	/**
-	 * Divides two rational a and b
-	 *
-	 * @param a
-	 * @param b
-	 * @return the result of the division of a by b
-	 */
-	public static Rational div(final Rational a, final Rational b) {
-		final Rational newB = new Rational(b.denum, b.num);
-		return Rational.prod(a, newB);
-	}
+  /**
+   * Divides two rational a and b.
+   *
+   * @param a
+   *          the a
+   * @param b
+   *          the b
+   * @return the result of the division of a by b
+   */
+  public static Rational div(final Rational a, final Rational b) {
+    final Rational newB = new Rational(b.denum, b.num);
+    return Rational.prod(a, newB);
+  }
 
-	/**
-	 * Gives the greater common divider of an integer and a rationnal
-	 *
-	 * @param a
-	 * @param b
-	 * @return the gcd of a and b
-	 */
-	public static int gcd(final int a, final Rational b) {
-		return SDFMath.lcm(a, b.denum);
-	}
+  /**
+   * Gives the greater common divider of an integer and a rationnal.
+   *
+   * @param a
+   *          the a
+   * @param b
+   *          the b
+   * @return the gcd of a and b
+   */
+  public static int gcd(final int a, final Rational b) {
+    return SDFMath.lcm(a, b.denum);
+  }
 
-	/**
-	 * Gives the greater common divider of s a set of rational
-	 *
-	 * @param fracs
-	 * @return the gcd of the given set of rational
-	 */
-	public static int gcd(final Iterable<Rational> fracs) {
-		int gcd = 1;
-		for (final Rational f : fracs) {
-			gcd = Rational.gcd(gcd, f.abs());
-		}
-		return gcd;
-	}
+  /**
+   * Gives the greater common divider of s a set of rational.
+   *
+   * @param fracs
+   *          the fracs
+   * @return the gcd of the given set of rational
+   */
+  public static int gcd(final Iterable<Rational> fracs) {
+    int gcd = 1;
+    for (final Rational f : fracs) {
+      gcd = Rational.gcd(gcd, f.abs());
+    }
+    return gcd;
+  }
 
-	/**
-	 * Gives the greater common divider of two rational a and b
-	 *
-	 * @param a
-	 * @param b
-	 * @return the gcd of a and b
-	 */
-	public static int gcd(final Rational a, final Rational b) {
-		return SDFMath.lcm(a.denum, b.denum);
-	}
+  /**
+   * Gives the greater common divider of two rational a and b.
+   *
+   * @param a
+   *          the a
+   * @param b
+   *          the b
+   * @return the gcd of a and b
+   */
+  public static int gcd(final Rational a, final Rational b) {
+    return SDFMath.lcm(a.denum, b.denum);
+  }
 
-	/**
-	 * Gives the product of two rational a and b
-	 *
-	 * @param a
-	 * @param b
-	 * @return the product of a and b
-	 */
-	public static Rational prod(final Rational a, final Rational b) {
-		final Rational res = new Rational(a.num * b.num, a.denum * b.denum);
-		if (res.zero()) {
-			return new Rational(0, 1);
-		}
-		res.reduc();
-		return res;
-	}
+  /**
+   * Gives the product of two rational a and b.
+   *
+   * @param a
+   *          the a
+   * @param b
+   *          the b
+   * @return the product of a and b
+   */
+  public static Rational prod(final Rational a, final Rational b) {
+    final Rational res = new Rational(a.num * b.num, a.denum * b.denum);
+    if (res.zero()) {
+      return new Rational(0, 1);
+    }
+    res.reduc();
+    return res;
+  }
 
-	/**
-	 * Substracts two rational and returns the sub
-	 *
-	 * @param a
-	 * @param b
-	 * @return a less b
-	 */
-	public static Rational sub(final Rational a, final Rational b) {
-		final int denumCom = SDFMath.lcm(a.denum, b.denum);
-		final int num = (a.num * (denumCom / a.denum)) - (b.num * (denumCom / b.denum));
-		final Rational res = new Rational(num, denumCom);
-		return res;
-	}
+  /**
+   * Substracts two rational and returns the sub.
+   *
+   * @param a
+   *          the a
+   * @param b
+   *          the b
+   * @return a less b
+   */
+  public static Rational sub(final Rational a, final Rational b) {
+    final int denumCom = SDFMath.lcm(a.denum, b.denum);
+    final int num = (a.num * (denumCom / a.denum)) - (b.num * (denumCom / b.denum));
+    final Rational res = new Rational(num, denumCom);
+    return res;
+  }
 
-	/**
-	 * Transforms a set of rationals into integers
-	 *
-	 * @param fracs
-	 * @return the natural representation of a set of rational
-	 */
-	public static List<Integer> toNatural(final Iterable<Rational> fracs) {
-		final long gcd = new Long(Rational.gcd(fracs));
-		final Vector<Integer> result = new Vector<>();
-		for (final Rational f : fracs) {
-			final Rational absRat = f.abs();
-			final long longNum = new Long(absRat.num);
-			final long longRes = (longNum * gcd) / new Long(absRat.denum);
-			result.add(((Long) longRes).intValue());
-		}
-		return result;
-	}
+  /**
+   * Transforms a set of rationals into integers.
+   *
+   * @param fracs
+   *          the fracs
+   * @return the natural representation of a set of rational
+   */
+  public static List<Integer> toNatural(final Iterable<Rational> fracs) {
+    final long gcd = new Long(Rational.gcd(fracs));
+    final Vector<Integer> result = new Vector<>();
+    for (final Rational f : fracs) {
+      final Rational absRat = f.abs();
+      final long longNum = new Long(absRat.num);
+      final long longRes = (longNum * gcd) / new Long(absRat.denum);
+      result.add(((Long) longRes).intValue());
+    }
+    return result;
+  }
 
-	private int denum;
+  /** The denum. */
+  private int denum;
 
-	private int num;
+  /** The num. */
+  private int num;
 
-	/**
-	 * Construct a new zero rational
-	 */
-	public Rational() {
-		this.num = 0;
-		this.denum = 0;
-	}
+  /**
+   * Construct a new zero rational.
+   */
+  public Rational() {
+    this.num = 0;
+    this.denum = 0;
+  }
 
-	/**
-	 * Coinstructs a new rationan given its numerator and denumerator
-	 *
-	 * @param num
-	 * @param denum
-	 */
-	public Rational(final int num, final int denum) {
-		this.num = num;
-		this.denum = denum;
-	}
+  /**
+   * Coinstructs a new rationan given its numerator and denumerator.
+   *
+   * @param num
+   *          the num
+   * @param denum
+   *          the denum
+   */
+  public Rational(final int num, final int denum) {
+    this.num = num;
+    this.denum = denum;
+  }
 
-	/**
-	 * Gives the absolute value of the rational
-	 *
-	 * @return the the absolute value of this rational
-	 */
-	public Rational abs() {
-		return new Rational(Math.abs(this.num), Math.abs(this.denum));
-	}
+  /**
+   * Gives the absolute value of the rational.
+   *
+   * @return the the absolute value of this rational
+   */
+  public Rational abs() {
+    return new Rational(Math.abs(this.num), Math.abs(this.denum));
+  }
 
-	@Override
-	public Rational clone() {
-		return new Rational(this.num, this.denum);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public Rational clone() {
+    return new Rational(this.num, this.denum);
+  }
 
-	/**
-	 * Gives the double value of this rational
-	 *
-	 * @return the double value of this rational
-	 */
-	public double doubleValue() {
-		final double doubleNum = new Double(this.num);
-		final double doubleDenum = new Double(this.denum);
-		return doubleNum / doubleDenum;
-	}
+  /**
+   * Gives the double value of this rational.
+   *
+   * @return the double value of this rational
+   */
+  public double doubleValue() {
+    final double doubleNum = new Double(this.num);
+    final double doubleDenum = new Double(this.denum);
+    return doubleNum / doubleDenum;
+  }
 
-	/**
-	 * Gives the rational deumerator
-	 *
-	 * @return the denuminator
-	 */
-	public int getDenum() {
-		return this.denum;
-	}
+  /**
+   * Gives the rational deumerator.
+   *
+   * @return the denuminator
+   */
+  public int getDenum() {
+    return this.denum;
+  }
 
-	/**
-	 * Gives the rational numerator
-	 *
-	 * @return the numerator
-	 */
-	public int getNum() {
-		return this.num;
-	}
+  /**
+   * Gives the rational numerator.
+   *
+   * @return the numerator
+   */
+  public int getNum() {
+    return this.num;
+  }
 
-	/**
-	 * Gives whether or not this rational is positive
-	 *
-	 * @return True if this rational is positive
-	 */
-	public boolean greaterThanZero() {
-		if (((this.num >= 0) && (this.denum >= 0)) || ((this.num <= 0) && (this.denum <= 0))) {
-			return true;
-		}
-		return false;
-	}
+  /**
+   * Gives whether or not this rational is positive.
+   *
+   * @return True if this rational is positive
+   */
+  public boolean greaterThanZero() {
+    if (((this.num >= 0) && (this.denum >= 0)) || ((this.num <= 0) && (this.denum <= 0))) {
+      return true;
+    }
+    return false;
+  }
 
-	private void reduc() {
-		final int pgcd = SDFMath.gcd(Math.abs(this.num), Math.abs(this.denum));
-		this.num = this.num / pgcd;
-		this.denum = this.denum / pgcd;
-	}
+  /**
+   * Reduc.
+   */
+  private void reduc() {
+    final int pgcd = SDFMath.gcd(Math.abs(this.num), Math.abs(this.denum));
+    this.num = this.num / pgcd;
+    this.denum = this.denum / pgcd;
+  }
 
-	@Override
-	public String toString() {
-		return this.num + "/" + this.denum;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return this.num + "/" + this.denum;
+  }
 
-	/**
-	 * Returns true if this rational is equal to zero
-	 *
-	 * @return true if equal to zero
-	 */
-	public boolean zero() {
-		return ((this.num == 0) || (this.denum == 0));
-	}
+  /**
+   * Returns true if this rational is equal to zero.
+   *
+   * @return true if equal to zero
+   */
+  public boolean zero() {
+    return ((this.num == 0) || (this.denum == 0));
+  }
 }

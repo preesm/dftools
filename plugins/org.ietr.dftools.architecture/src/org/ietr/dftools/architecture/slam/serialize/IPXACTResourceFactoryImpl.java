@@ -43,23 +43,28 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
+// TODO: Auto-generated Javadoc
 /**
- * Resource factory used to serialize the System-Level Architecture Model into
- * IP-XACT
+ * Resource factory used to serialize the System-Level Architecture Model into IP-XACT.
  *
  * @author mpelcat
  */
 public class IPXACTResourceFactoryImpl extends ResourceFactoryImpl {
 
-	/**
-	 * Constructor for IPXACTResourceFactoryImpl.
-	 */
-	public IPXACTResourceFactoryImpl() {
-		super();
-	}
+  /**
+   * Constructor for IPXACTResourceFactoryImpl.
+   */
+  public IPXACTResourceFactoryImpl() {
+    super();
+  }
 
-	@Override
-	public Resource createResource(final URI uri) {
-		return new IPXACTResourceImpl(uri);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl#createResource(org.eclipse.emf.common.util.URI)
+   */
+  @Override
+  public Resource createResource(final URI uri) {
+    return new IPXACTResourceImpl(uri);
+  }
 }

@@ -63,6 +63,7 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+// TODO: Auto-generated Javadoc
 /**
  * Containing common funtionalities of launch tabs.
  *
@@ -70,125 +71,154 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
  */
 public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurationTab {
 
-	/**
-	 * current Composite
-	 */
-	private Composite currentComposite;
+  /** current Composite. */
+  private Composite currentComposite;
 
-	/**
-	 * file attribute name to save the entered file
-	 */
-	private String fileAttributeName = null;
+  /** file attribute name to save the entered file. */
+  private String fileAttributeName = null;
 
-	/**
-	 * file path of the current Tab. There can be only one file chooser for the
-	 * moment
-	 */
-	private IPath	fileIPath	= null;
-	private Text	filePath	= null;
+  /**
+   * file path of the current Tab. There can be only one file chooser for the moment
+   */
+  private IPath fileIPath = null;
 
-	/**
-	 * Displays a file browser in a shell
-	 */
-	protected void browseFiles(final Shell shell) {
-		final ElementTreeSelectionDialog tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
-				new WorkbenchContentProvider());
-		tree.setAllowMultiple(false);
-		tree.setInput(ResourcesPlugin.getWorkspace().getRoot());
-		tree.setMessage("Please select an existing file:");
-		tree.setTitle("Choose an existing file");
-		// opens the dialog
-		if (tree.open() == Window.OK) {
-			this.fileIPath = ((IFile) tree.getFirstResult()).getFullPath();
-			this.filePath.setText(this.fileIPath.toString());
-		}
-	}
+  /** The file path. */
+  private Text filePath = null;
 
-	@Override
-	public void createControl(final Composite parent) {
+  /**
+   * Displays a file browser in a shell.
+   *
+   * @param shell
+   *          the shell
+   */
+  protected void browseFiles(final Shell shell) {
+    final ElementTreeSelectionDialog tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
+        new WorkbenchContentProvider());
+    tree.setAllowMultiple(false);
+    tree.setInput(ResourcesPlugin.getWorkspace().getRoot());
+    tree.setMessage("Please select an existing file:");
+    tree.setTitle("Choose an existing file");
+    // opens the dialog
+    if (tree.open() == Window.OK) {
+      this.fileIPath = ((IFile) tree.getFirstResult()).getFullPath();
+      this.filePath.setText(this.fileIPath.toString());
+    }
+  }
 
-		this.currentComposite = new Composite(parent, SWT.NONE);
-		setControl(this.currentComposite);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse.swt.widgets.Composite)
+   */
+  @Override
+  public void createControl(final Composite parent) {
 
-		final GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 2;
-		this.currentComposite.setLayout(gridLayout);
+    this.currentComposite = new Composite(parent, SWT.NONE);
+    setControl(this.currentComposite);
 
-	}
+    final GridLayout gridLayout = new GridLayout();
+    gridLayout.numColumns = 2;
+    this.currentComposite.setLayout(gridLayout);
 
-	/**
-	 * Displays a file text window with a browser button.
-	 *
-	 * @param title
-	 *            A line of text displayed before the file chooser
-	 * @param attributeName
-	 *            The name of the attribute in which the property should be
-	 *            saved
-	 */
-	public void drawFileChooser(final String title, final String attributeName) {
+  }
 
-		final Label label2 = new Label(this.currentComposite, SWT.NONE);
-		label2.setText(title);
-		this.fileAttributeName = attributeName;
+  /**
+   * Displays a file text window with a browser button.
+   *
+   * @param title
+   *          A line of text displayed before the file chooser
+   * @param attributeName
+   *          The name of the attribute in which the property should be saved
+   */
+  public void drawFileChooser(final String title, final String attributeName) {
 
-		new Label(this.currentComposite, SWT.NONE);
+    final Label label2 = new Label(this.currentComposite, SWT.NONE);
+    label2.setText(title);
+    this.fileAttributeName = attributeName;
 
-		final Button buttonBrowse = new Button(this.currentComposite, SWT.PUSH);
-		buttonBrowse.setText("Browse...");
-		buttonBrowse.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				browseFiles(getCurrentComposite().getShell());
-			}
-		});
+    new Label(this.currentComposite, SWT.NONE);
 
-		this.filePath = new Text(this.currentComposite, SWT.BORDER);
+    final Button buttonBrowse = new Button(this.currentComposite, SWT.PUSH);
+    buttonBrowse.setText("Browse...");
+    buttonBrowse.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(final SelectionEvent e) {
+        browseFiles(getCurrentComposite().getShell());
+      }
+    });
 
-		final GridData layoutData = new GridData(SWT.FILL, SWT.TOP, true, false);
-		layoutData.widthHint = 200;
-		this.filePath.setLayoutData(layoutData);
-		this.filePath.addModifyListener(e -> {
-			setDirty(true);
-			updateLaunchConfigurationDialog();
-		});
+    this.filePath = new Text(this.currentComposite, SWT.BORDER);
 
-	}
+    final GridData layoutData = new GridData(SWT.FILL, SWT.TOP, true, false);
+    layoutData.widthHint = 200;
+    this.filePath.setLayoutData(layoutData);
+    this.filePath.addModifyListener(e -> {
+      setDirty(true);
+      updateLaunchConfigurationDialog();
+    });
 
-	protected Composite getCurrentComposite() {
-		return this.currentComposite;
-	}
+  }
 
-	@Override
-	public void initializeFrom(final ILaunchConfiguration configuration) {
-		try {
-			this.filePath.setText(configuration.getAttribute(this.fileAttributeName, ""));
-		} catch (final CoreException e) {
-			// OcamlPlugin.logError("ocaml plugin error", e);
-			this.filePath.setText("");
-		}
+  /**
+   * Gets the current composite.
+   *
+   * @return the current composite
+   */
+  protected Composite getCurrentComposite() {
+    return this.currentComposite;
+  }
 
-		setDirty(false);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(org.eclipse.debug.core.ILaunchConfiguration)
+   */
+  @Override
+  public void initializeFrom(final ILaunchConfiguration configuration) {
+    try {
+      this.filePath.setText(configuration.getAttribute(this.fileAttributeName, ""));
+    } catch (final CoreException e) {
+      // OcamlPlugin.logError("ocaml plugin error", e);
+      this.filePath.setText("");
+    }
 
-	@Override
-	public boolean isValid(final ILaunchConfiguration launchConfig) {
-		return true;
-	}
+    setDirty(false);
+  }
 
-	@Override
-	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
-		// Saving the file path chosen in a tab attribute
-		if ((this.filePath != null) && (this.fileAttributeName != null)) {
-			configuration.setAttribute(this.fileAttributeName, this.filePath.getText());
-		}
-		setDirty(false);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#isValid(org.eclipse.debug.core.ILaunchConfiguration)
+   */
+  @Override
+  public boolean isValid(final ILaunchConfiguration launchConfig) {
+    return true;
+  }
 
-	@Override
-	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   */
+  @Override
+  public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
+    // Saving the file path chosen in a tab attribute
+    if ((this.filePath != null) && (this.fileAttributeName != null)) {
+      configuration.setAttribute(this.fileAttributeName, this.filePath.getText());
+    }
+    setDirty(false);
+  }
 
-		configuration.setAttribute(this.fileAttributeName, "");
-		setDirty(false);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   */
+  @Override
+  public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
+
+    configuration.setAttribute(this.fileAttributeName, "");
+    setDirty(false);
+  }
 
 }

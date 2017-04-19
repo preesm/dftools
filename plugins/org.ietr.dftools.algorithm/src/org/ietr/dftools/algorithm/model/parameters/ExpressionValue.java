@@ -40,101 +40,108 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Represents an numerical expression
+ * Represents an numerical expression.
  *
  * @author jpiat
- *
  */
 public class ExpressionValue implements Value {
 
-	/**
-	 * The parent graph to use to solve this expresion
-	 */
-	private IExpressionSolver	solver;
-	private Integer				value;
-	private String				expression;
+  /** The parent graph to use to solve this expresion. */
+  private IExpressionSolver solver;
 
-	/**
-	 * Constructs a new Expression
-	 *
-	 * @param expression
-	 *            The string representation of the expression
-	 */
-	public ExpressionValue(final String expression) {
-		this.expression = expression;
-		this.value = null;
-	}
+  /** The value. */
+  private Integer value;
 
-	/**
-	 * Gives the integer value of this expression
-	 *
-	 * @return The integer value of the expression
-	 * @throws InvalidExpressionException
-	 *             When expression can't be solved
-	 */
-	@Override
-	public int intValue() throws InvalidExpressionException, NoIntegerValueException {
-		if (this.value != null) {
-			return this.value;
-		}
-		if (this.solver != null) {
-			this.value = this.solver.solveExpression(this.expression, this);
-			return this.value;
-		} else {
-			Object result;
-			try {
-				final JEP jep = new JEP();
-				final Node mainExpressionNode = jep.parse(this.expression);
-				result = jep.evaluate(mainExpressionNode);
-				if (result instanceof Double) {
-					this.value = ((Double) result).intValue();
-					return this.value;
-				} else {
-					throw (new InvalidExpressionException("Not a num�ric expression"));
-				}
-			} catch (final ParseException e) {
-				throw (new InvalidExpressionException("Can't parse expresion :" + this.expression));
-			}
-		}
-	}
+  /** The expression. */
+  private String expression;
 
-	/**
-	 * Set the solver to use for this expression
-	 *
-	 * @param solver
-	 *            The solver to use to compute int value
-	 */
-	@Override
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		this.solver = solver;
-		this.value = null;
-	}
+  /**
+   * Constructs a new Expression.
+   *
+   * @param expression
+   *          The string representation of the expression
+   */
+  public ExpressionValue(final String expression) {
+    this.expression = expression;
+    this.value = null;
+  }
 
-	/**
-	 * Gives the value of the variable
-	 *
-	 * @return The value of the variable
-	 */
-	@Override
-	public String getValue() {
-		return this.expression;
-	}
+  /**
+   * Gives the integer value of this expression.
+   *
+   * @return The integer value of the expression
+   * @throws InvalidExpressionException
+   *           When expression can't be solved
+   * @throws NoIntegerValueException
+   *           the no integer value exception
+   */
+  @Override
+  public int intValue() throws InvalidExpressionException, NoIntegerValueException {
+    if (this.value == null) {
+      if (this.solver != null) {
+        this.value = this.solver.solveExpression(this.expression, this);
+      } else {
+        Object result;
+        try {
+          final JEP jep = new JEP();
+          final Node mainExpressionNode = jep.parse(this.expression);
+          result = jep.evaluate(mainExpressionNode);
+          if (result instanceof Number) {
+            this.value = ((Number) result).intValue();
+          } else {
+            throw (new InvalidExpressionException("Not a numeric expression"));
+          }
+        } catch (final ParseException e) {
+          throw (new InvalidExpressionException("Can't parse expresion :" + this.expression));
+        }
+      }
+    }
+    return this.value;
+  }
 
-	/**
-	 * Sets the value of the variable
-	 *
-	 * @param value
-	 *            The value to set for the variable
-	 */
-	@Override
-	public void setValue(final String value) {
-		this.value = null;
-		this.expression = value;
-	}
+  /**
+   * Set the solver to use for this expression.
+   *
+   * @param solver
+   *          The solver to use to compute int value
+   */
+  @Override
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    this.solver = solver;
+    this.value = null;
+  }
 
-	@Override
-	public String toString() {
-		return this.expression;
-	}
+  /**
+   * Gives the value of the variable.
+   *
+   * @return The value of the variable
+   */
+  @Override
+  public String getValue() {
+    return this.expression;
+  }
+
+  /**
+   * Sets the value of the variable.
+   *
+   * @param value
+   *          The value to set for the variable
+   */
+  @Override
+  public void setValue(final String value) {
+    this.value = null;
+    this.expression = value;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return this.expression;
+  }
 }

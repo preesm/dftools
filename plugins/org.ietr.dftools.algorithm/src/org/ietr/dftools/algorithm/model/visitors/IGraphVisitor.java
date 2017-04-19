@@ -41,42 +41,47 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Interface of the SDF visitor
+ * Interface of the SDF visitor.
  *
  * @author jpiat
  * @param <G>
- *            The graph type
+ *          The graph type
  * @param <V>
- *            The vertex type
+ *          The vertex type
  * @param <E>
- *            The edge type
- *
+ *          The edge type
  */
 @SuppressWarnings("rawtypes")
 public interface IGraphVisitor<G extends AbstractGraph, V extends AbstractVertex, E extends AbstractEdge> {
 
-	/**
-	 * Visit the given edge
-	 *
-	 * @param sdfEdge
-	 */
-	public abstract void visit(E sdfEdge);
+  /**
+   * Visit the given edge.
+   *
+   * @param sdfEdge
+   *          the sdf edge
+   */
+  public abstract void visit(E sdfEdge);
 
-	/**
-	 * Visit the given graph
-	 *
-	 * @param sdf
-	 * @throws SDF4JException
-	 */
-	public abstract void visit(G sdf) throws SDF4JException;
+  /**
+   * Visit the given graph.
+   *
+   * @param sdf
+   *          the sdf
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  public abstract void visit(G sdf) throws SDF4JException;
 
-	/**
-	 * Visit the given vertex
-	 *
-	 * @param sdfVertex
-	 * @throws SDF4JException
-	 */
-	public abstract void visit(V sdfVertex) throws SDF4JException;
+  /**
+   * Visit the given vertex.
+   *
+   * @param sdfVertex
+   *          the sdf vertex
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  public abstract void visit(V sdfVertex) throws SDF4JException;
 
 }

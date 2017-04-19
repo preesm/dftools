@@ -41,9 +41,11 @@ package org.ietr.dftools.algorithm.model.dag.types;
 
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author mpelcat
+ * The Class DAGDefaultVertexPropertyType.
  *
+ * @author mpelcat
  */
 
 /**
@@ -51,36 +53,52 @@ import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
  */
 public class DAGDefaultVertexPropertyType extends AbstractVertexPropertyType<Integer> {
 
-	/**
-	 * Creates a new DAGDefaultVertexPropertyType without specifying any value
-	 */
-	public DAGDefaultVertexPropertyType() {
-		super();
-	}
+  /**
+   * Creates a new DAGDefaultVertexPropertyType without specifying any value.
+   */
+  public DAGDefaultVertexPropertyType() {
+    super();
+  }
 
-	/**
-	 * Creates a new DAGDefaultVertexPropertyType with the given value
-	 *
-	 * @param val
-	 */
-	public DAGDefaultVertexPropertyType(final int val) {
-		super(val);
-	}
+  /**
+   * Creates a new DAGDefaultVertexPropertyType with the given value.
+   *
+   * @param val
+   *          the val
+   */
+  public DAGDefaultVertexPropertyType(final int val) {
+    super(val);
+  }
 
-	@Override
-	public int intValue() {
-		return this.value;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
+   */
+  @Override
+  public int intValue() {
+    return this.value;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 
-	@Override
-	public AbstractVertexPropertyType<Integer> clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
+   */
+  @Override
+  public AbstractVertexPropertyType<Integer> clone() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

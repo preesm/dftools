@@ -45,63 +45,62 @@ import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.alg.CycleDetector;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class for testing purposes
+ * Class for testing purposes.
  *
  * @author jpiat
- *
  */
 public class SDFTest {
 
-	/**
-	 * Main method of the class
-	 *
-	 * @param args
-	 * @throws SDF4JException
-	 */
-	public static void main(final String[] args) throws SDF4JException {
-		final SDFGraph graph = new SDFGraph();
+  /**
+   * Main method of the class.
+   *
+   * @param args
+   *          the arguments
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   */
+  public static void main(final String[] args) throws SDF4JException {
+    final SDFGraph graph = new SDFGraph();
 
-		final SDFVertex vertex1 = new SDFVertex();
-		vertex1.setName("V1");
-		graph.addVertex(vertex1);
+    final SDFVertex vertex1 = new SDFVertex();
+    vertex1.setName("V1");
+    graph.addVertex(vertex1);
 
-		final SDFVertex vertex2 = new SDFVertex();
-		vertex2.setName("V2");
-		graph.addVertex(vertex2);
+    final SDFVertex vertex2 = new SDFVertex();
+    vertex2.setName("V2");
+    graph.addVertex(vertex2);
 
-		/*
-		 * SDFVertex vertex3 = new SDFVertex(); vertex3.setName("V3");
-		 * graph.addVertex(vertex3);
-		 */
+    /*
+     * SDFVertex vertex3 = new SDFVertex(); vertex3.setName("V3"); graph.addVertex(vertex3);
+     */
 
-		/*
-		 * SDFVertex vertex4 = new SDFVertex(); graph.addVertex(vertex4);
-		 */
+    /*
+     * SDFVertex vertex4 = new SDFVertex(); graph.addVertex(vertex4);
+     */
 
-		final SDFEdge edge1 = graph.addEdge(vertex1, vertex2);
-		edge1.setProd(new SDFIntEdgePropertyType(999));
-		edge1.setCons(new SDFIntEdgePropertyType(1000));
+    final SDFEdge edge1 = graph.addEdge(vertex1, vertex2);
+    edge1.setProd(new SDFIntEdgePropertyType(999));
+    edge1.setCons(new SDFIntEdgePropertyType(1000));
 
-		/*
-		 * SDFEdge edge2 = graph.addEdge(vertex2, vertex3); edge2.setProd(3);
-		 * edge2.setCons(2);
-		 */
+    /*
+     * SDFEdge edge2 = graph.addEdge(vertex2, vertex3); edge2.setProd(3); edge2.setCons(2);
+     */
 
-		/*
-		 * SDFEdge edge3 = graph.addEdge(vertex3, vertex3); edge3.setProd(1);
-		 * edge3.setCons(1);
-		 */
+    /*
+     * SDFEdge edge3 = graph.addEdge(vertex3, vertex3); edge3.setProd(1); edge3.setCons(1);
+     */
 
-		/*
-		 * SDFEdge edge4 = graph.addEdge(vertex4, vertex1); edge4.setProd(3);
-		 */
+    /*
+     * SDFEdge edge4 = graph.addEdge(vertex4, vertex1); edge4.setProd(3);
+     */
 
-		System.out.println("Is schedulable : " + graph.isSchedulable());
-		final CycleDetector<SDFAbstractVertex, SDFEdge> detectCycles = new CycleDetector<>(graph);
-		System.out.println("As cycles :" + detectCycles.detectCycles());
+    System.out.println("Is schedulable : " + graph.isSchedulable());
+    final CycleDetector<SDFAbstractVertex, SDFEdge> detectCycles = new CycleDetector<>(graph);
+    System.out.println("As cycles :" + detectCycles.detectCycles());
 
-		System.out.println("As nb cycles :" + detectCycles.findCycles().size());
+    System.out.println("As nb cycles :" + detectCycles.findCycles().size());
 
-	}
+  }
 }

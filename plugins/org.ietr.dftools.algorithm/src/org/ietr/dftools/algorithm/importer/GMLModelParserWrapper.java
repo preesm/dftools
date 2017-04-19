@@ -40,14 +40,44 @@ package org.ietr.dftools.algorithm.importer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GMLModelParserWrapper.
+ *
+ * @param <G>
+ *          the generic type
+ */
 public abstract class GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
 
-	public abstract SDFGraph parse(File f) throws InvalidModelException, FileNotFoundException;
+  /**
+   * Parses the.
+   *
+   * @param f
+   *          the f
+   * @return the SDF graph
+   * @throws InvalidModelException
+   *           the invalid model exception
+   * @throws FileNotFoundException
+   *           the file not found exception
+   */
+  public abstract SDFGraph parse(File f) throws InvalidModelException, FileNotFoundException;
 
-	public abstract G parse(InputStream input, String path) throws InvalidModelException, FileNotFoundException;
+  /**
+   * Parses the.
+   *
+   * @param input
+   *          the input
+   * @param path
+   *          the path
+   * @return the g
+   * @throws InvalidModelException
+   *           the invalid model exception
+   * @throws FileNotFoundException
+   *           the file not found exception
+   */
+  public abstract G parse(InputStream input, String path) throws InvalidModelException, FileNotFoundException;
 
 }

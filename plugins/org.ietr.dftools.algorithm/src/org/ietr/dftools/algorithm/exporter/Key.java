@@ -38,106 +38,120 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.exporter;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class describing a GML key
+ * Class describing a GML key.
  *
  * @author jpiat
- *
  */
 public class Key {
-	String		applyTo;
-	Class<?>	desc;
-	String		id;
-	String		name;
-	String		type;
 
-	/**
-	 * Construct a new key with the given name, applyint to instanceof the class
-	 * "applyTo" and with a value of the type "type". The last parameter is a
-	 * description of the key meaning
-	 *
-	 * @param name
-	 *            The key name
-	 * @param applyTo
-	 *            The type of element this key apply to (node, edge, port ...)
-	 * @param type
-	 *            The type of the value of this key (string, int, double)
-	 * @param desc
-	 *            The class name of the properties value (SDFEdgePorperty.class)
-	 *            ...
-	 */
-	public Key(final String name, final String applyTo, final String type, final Class<?> desc) {
-		this.name = name;
-		this.type = type;
-		this.applyTo = applyTo;
-		this.desc = desc;
-	}
+  /** The apply to. */
+  String applyTo;
 
-	/**
-	 * Gives a string representation of the class this key applies to
-	 *
-	 * @return Gives the Class name it applies to
-	 */
-	public String getApplyTo() {
-		return this.applyTo;
-	}
+  /** The desc. */
+  Class<?> desc;
 
-	/**
-	 * Gives this key id
-	 *
-	 * @return The id of the key
-	 */
-	public String getId() {
-		return this.id;
-	}
+  /** The id. */
+  String id;
 
-	/**
-	 * Gives this key's name
-	 *
-	 * @return The name of this key
-	 */
-	public String getName() {
-		return this.name;
-	}
+  /** The name. */
+  String name;
 
-	/**
-	 * Gives a String representation of the type of this key
-	 *
-	 * @return The STring representation of this key type
-	 */
-	public String getType() {
-		return this.type;
-	}
+  /** The type. */
+  String type;
 
-	/**
-	 * Gives the description of this key
-	 *
-	 * @return The description of this key
-	 */
-	public Class<?> getTypeClass() {
-		return this.desc;
-	}
+  /**
+   * Construct a new key with the given name, applyint to instanceof the class "applyTo" and with a value of the type "type". The last parameter is a
+   * description of the key meaning
+   *
+   * @param name
+   *          The key name
+   * @param applyTo
+   *          The type of element this key apply to (node, edge, port ...)
+   * @param type
+   *          The type of the value of this key (string, int, double)
+   * @param desc
+   *          The class name of the properties value (SDFEdgePorperty.class) ...
+   */
+  public Key(final String name, final String applyTo, final String type, final Class<?> desc) {
+    this.name = name;
+    this.type = type;
+    this.applyTo = applyTo;
+    this.desc = desc;
+  }
 
-	/**
-	 * Sets this key d
-	 *
-	 * @param id
-	 */
-	public void setId(final String id) {
-		this.id = id;
-	}
+  /**
+   * Gives a string representation of the class this key applies to.
+   *
+   * @return Gives the Class name it applies to
+   */
+  public String getApplyTo() {
+    return this.applyTo;
+  }
 
-	@Override
-	public boolean equals(final Object key) {
-		if (key instanceof Key) {
-			final Key kKey = (Key) key;
-			// Since when it exists, the id is always equal to the name, we
-			// remove
-			// the equality test for this.id
-			// @author Karol Desnos
-			// @date 2012.10.17
-			return kKey.applyTo.equals(this.applyTo) && kKey.name.equals(this.name) && kKey.type.equals(this.type);
-		}
-		return false;
-	}
+  /**
+   * Gives this key id.
+   *
+   * @return The id of the key
+   */
+  public String getId() {
+    return this.id;
+  }
+
+  /**
+   * Gives this key's name.
+   *
+   * @return The name of this key
+   */
+  public String getName() {
+    return this.name;
+  }
+
+  /**
+   * Gives a String representation of the type of this key.
+   *
+   * @return The STring representation of this key type
+   */
+  public String getType() {
+    return this.type;
+  }
+
+  /**
+   * Gives the description of this key.
+   *
+   * @return The description of this key
+   */
+  public Class<?> getTypeClass() {
+    return this.desc;
+  }
+
+  /**
+   * Sets this key d.
+   *
+   * @param id
+   *          the new id
+   */
+  public void setId(final String id) {
+    this.id = id;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  @Override
+  public boolean equals(final Object key) {
+    if (key instanceof Key) {
+      final Key kKey = (Key) key;
+      // Since when it exists, the id is always equal to the name, we
+      // remove
+      // the equality test for this.id
+      // @author Karol Desnos
+      // @date 2012.10.17
+      return kKey.applyTo.equals(this.applyTo) && kKey.name.equals(this.name) && kKey.type.equals(this.type);
+    }
+    return false;
+  }
 }

@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import jscl.math.JsclInteger;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
@@ -57,421 +57,446 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
-import jscl.math.JSCLInteger;
-
+// TODO: Auto-generated Javadoc
 /**
- * Abstract class representing SDF Vertices
+ * Abstract class representing SDF Vertices.
  *
  * @author jpiat
  * @author kdesnos
- *
  */
 public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> implements PropertySource {
 
-	/**
-	 * Property nb repeat of the node
-	 */
-	public static final String NB_REPEAT = "nbRepeat";
+  /** Property nb repeat of the node. */
+  public static final String NB_REPEAT = "nbRepeat";
 
-	static {
-		{
-			AbstractVertex.public_properties.add(SDFAbstractVertex.NB_REPEAT);
-		}
-	};
+  static {
+    AbstractVertex.public_properties.add(SDFAbstractVertex.NB_REPEAT);
+  }
 
-	protected List<SDFInterfaceVertex> sinks;
+  /** The sinks. */
+  protected List<SDFInterfaceVertex> sinks;
 
-	protected List<SDFInterfaceVertex> sources;
+  /** The sources. */
+  protected List<SDFInterfaceVertex> sources;
 
-	/**
-	 * Constructs a new SDFAbstractVertex using the given Edge Factory ef
-	 *
-	 */
-	public SDFAbstractVertex() {
-		super();
-		this.sinks = new ArrayList<>();
-		this.sources = new ArrayList<>();
-		setId(UUID.randomUUID().toString());
+  /**
+   * Constructs a new SDFAbstractVertex using the given Edge Factory ef.
+   */
+  public SDFAbstractVertex() {
+    super();
+    this.sinks = new ArrayList<>();
+    this.sources = new ArrayList<>();
+    setId(UUID.randomUUID().toString());
 
-		// TODO Auto-generated constructor stub
-	}
+    // TODO Auto-generated constructor stub
+  }
 
-	/**
-	 * Add a list of interface to this vertex
-	 *
-	 * @param interfaces
-	 *            The list of interface to add
-	 */
-	@Override
-	public void addInterfaces(final List<IInterface> interfaces) {
-		super.addInterfaces(interfaces);
-		for (final IInterface vertex : interfaces) {
-			if ((vertex instanceof SDFInterfaceVertex) && (vertex.getDirection() == InterfaceDirection.Input)) {
-				this.sources.add((SDFInterfaceVertex) vertex);
-			} else if ((vertex instanceof SDFInterfaceVertex) && (vertex.getDirection() == InterfaceDirection.Output)) {
-				this.sinks.add((SDFInterfaceVertex) vertex);
-			}
-		}
-	}
+  /**
+   * Add a list of interface to this vertex.
+   *
+   * @param interfaces
+   *          The list of interface to add
+   */
+  @Override
+  public void addInterfaces(final List<IInterface> interfaces) {
+    super.addInterfaces(interfaces);
+    for (final IInterface vertex : interfaces) {
+      if ((vertex instanceof SDFInterfaceVertex) && (vertex.getDirection() == InterfaceDirection.Input)) {
+        this.sources.add((SDFInterfaceVertex) vertex);
+      } else if ((vertex instanceof SDFInterfaceVertex) && (vertex.getDirection() == InterfaceDirection.Output)) {
+        this.sinks.add((SDFInterfaceVertex) vertex);
+      }
+    }
+  }
 
-	@Override
-	public boolean addInterface(final IInterface port) {
-		if (port.getDirection().equals(InterfaceDirection.Input)) {
-			return addSource((SDFInterfaceVertex) port);
-		} else if (port.getDirection().equals(InterfaceDirection.Output)) {
-			return addSink((SDFInterfaceVertex) port);
-		}
-		return false;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#addInterface(org.ietr.dftools.algorithm.model.IInterface)
+   */
+  @Override
+  public boolean addInterface(final IInterface port) {
+    if (port.getDirection().equals(InterfaceDirection.Input)) {
+      return addSource((SDFInterfaceVertex) port);
+    } else if (port.getDirection().equals(InterfaceDirection.Output)) {
+      return addSink((SDFInterfaceVertex) port);
+    }
+    return false;
+  }
 
-	/**
-	 * Add a Sink interface vertex linked to the given edge in the base graph
-	 *
-	 * @param sink
-	 */
-	@SuppressWarnings("unchecked")
-	public boolean addSink(final SDFInterfaceVertex sink) {
-		if (this.sinks == null) {
-			this.sinks = new ArrayList<>();
-		}
-		super.addInterface(sink);
-		this.sinks.add(sink);
-		if ((getGraphDescription() != null) && (getGraphDescription().getVertex(sink.getName()) == null)) {
-			return getGraphDescription().addVertex(sink);
-		} else {
-			return false;
-		}
-	}
+  /**
+   * Add a Sink interface vertex linked to the given edge in the base graph.
+   *
+   * @param sink
+   *          the sink
+   * @return true, if successful
+   */
+  @SuppressWarnings("unchecked")
+  public boolean addSink(final SDFInterfaceVertex sink) {
+    if (this.sinks == null) {
+      this.sinks = new ArrayList<>();
+    }
+    super.addInterface(sink);
+    this.sinks.add(sink);
+    if ((getGraphDescription() != null) && (getGraphDescription().getVertex(sink.getName()) == null)) {
+      return getGraphDescription().addVertex(sink);
+    } else {
+      return false;
+    }
+  }
 
-	/**
-	 * Add a Source interface vertex linked to the given edge in the base graph
-	 *
-	 * @param src
-	 */
-	@SuppressWarnings("unchecked")
-	public boolean addSource(final SDFInterfaceVertex src) {
-		if (this.sources == null) {
-			this.sources = new ArrayList<>();
-		}
-		super.addInterface(src);
-		this.sources.add(src);
-		if ((getGraphDescription() != null) && (getGraphDescription().getVertex(src.getName()) == null)) {
-			return getGraphDescription().addVertex(src);
-		} else {
-			return false;
-		}
-	}
+  /**
+   * Add a Source interface vertex linked to the given edge in the base graph.
+   *
+   * @param src
+   *          the src
+   * @return true, if successful
+   */
+  @SuppressWarnings("unchecked")
+  public boolean addSource(final SDFInterfaceVertex src) {
+    if (this.sources == null) {
+      this.sources = new ArrayList<>();
+    }
+    super.addInterface(src);
+    this.sources.add(src);
+    if ((getGraphDescription() != null) && (getGraphDescription().getVertex(src.getName()) == null)) {
+      return getGraphDescription().addVertex(src);
+    } else {
+      return false;
+    }
+  }
 
-	/**
-	 * Cleans the vertex by removing all its properties
-	 */
-	public void clean() {
-		this.sinks.clear();
-		this.sources.clear();
-		this.properties = new PropertyBean();
-	}
+  /**
+   * Cleans the vertex by removing all its properties.
+   */
+  public void clean() {
+    this.sinks.clear();
+    this.sources.clear();
+    this.properties = new PropertyBean();
+  }
 
-	@Override
-	public abstract SDFAbstractVertex clone();
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
+   */
+  @Override
+  public abstract SDFAbstractVertex clone();
 
-	/**
-	 * Gives the edge associated with the given interface
-	 *
-	 * @param graphInterface
-	 *            The interface the edge is connected to
-	 * @return The Edge the given interface is connected to
-	 */
-	public SDFEdge getAssociatedEdge(final SDFInterfaceVertex graphInterface) {
-		for (final SDFEdge edge : ((SDFGraph) getBase()).incomingEdgesOf(this)) {
-			if (((edge.getTargetInterface() != null) && edge.getTargetInterface().equals(graphInterface))) {
-				return edge;
-			}
-		}
-		for (final SDFEdge edge : ((SDFGraph) getBase()).outgoingEdgesOf(this)) {
-			if ((edge.getSourceInterface() != null) && edge.getSourceInterface().equals(graphInterface)) {
-				return edge;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the edge associated with the given interface.
+   *
+   * @param graphInterface
+   *          The interface the edge is connected to
+   * @return The Edge the given interface is connected to
+   */
+  public SDFEdge getAssociatedEdge(final SDFInterfaceVertex graphInterface) {
+    for (final SDFEdge edge : ((SDFGraph) getBase()).incomingEdgesOf(this)) {
+      if (((edge.getTargetInterface() != null) && edge.getTargetInterface().equals(graphInterface))) {
+        return edge;
+      }
+    }
+    for (final SDFEdge edge : ((SDFGraph) getBase()).outgoingEdgesOf(this)) {
+      if ((edge.getSourceInterface() != null) && edge.getSourceInterface().equals(graphInterface)) {
+        return edge;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * Gives the interface vertex associated with the given edge
-	 *
-	 * @param edge
-	 *            The which is connected to the interface
-	 * @return The Interface the given edge is connected to
-	 */
-	public SDFInterfaceVertex getAssociatedInterface(final SDFEdge edge) {
-		for (final SDFInterfaceVertex source : this.sources) {
-			if (source.equals(edge.getTargetInterface())) {
-				return source;
-			}
-		}
-		for (final SDFInterfaceVertex sink : this.sinks) {
-			if (sink.equals(edge.getSourceInterface())) {
-				return sink;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the interface vertex associated with the given edge.
+   *
+   * @param edge
+   *          The which is connected to the interface
+   * @return The Interface the given edge is connected to
+   */
+  public SDFInterfaceVertex getAssociatedInterface(final SDFEdge edge) {
+    for (final SDFInterfaceVertex source : this.sources) {
+      if (source.equals(edge.getTargetInterface())) {
+        return source;
+      }
+    }
+    for (final SDFInterfaceVertex sink : this.sinks) {
+      if (sink.equals(edge.getSourceInterface())) {
+        return sink;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * Gives the interface with the given name
-	 *
-	 * @param name
-	 *            The name of the interface
-	 * @return The interface with the given name, null if the interface does not
-	 *         exist
-	 */
-	public SDFInterfaceVertex getInterface(final String name) {
-		for (final SDFInterfaceVertex port : this.sources) {
-			if (port.getName().equals(name)) {
-				return port;
-			}
-		}
-		for (final SDFInterfaceVertex port : this.sinks) {
-			if (port.getName().equals(name)) {
-				return port;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the interface with the given name.
+   *
+   * @param name
+   *          The name of the interface
+   * @return The interface with the given name, null if the interface does not exist
+   */
+  public SDFInterfaceVertex getInterface(final String name) {
+    for (final SDFInterfaceVertex port : this.sources) {
+      if (port.getName().equals(name)) {
+        return port;
+      }
+    }
+    for (final SDFInterfaceVertex port : this.sinks) {
+      if (port.getName().equals(name)) {
+        return port;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * Getter of the property <tt>sinks</tt>
-	 *
-	 * @return Returns the sinks.
-	 *
-	 */
-	public List<SDFInterfaceVertex> getSinks() {
-		return this.sinks;
-	}
+  /**
+   * Getter of the property <tt>sinks</tt>.
+   *
+   * @return Returns the sinks.
+   */
+  public List<SDFInterfaceVertex> getSinks() {
+    return this.sinks;
+  }
 
-	/**
-	 * Gives the sink with the given name
-	 *
-	 * @param name
-	 *            The name of the sink to return
-	 * @return The Sink with the given name
-	 */
-	public SDFInterfaceVertex getSink(final String name) {
-		for (final SDFInterfaceVertex sink : this.sinks) {
-			if (sink.getName().equals(name)) {
-				return sink;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the sink with the given name.
+   *
+   * @param name
+   *          The name of the sink to return
+   * @return The Sink with the given name
+   */
+  public SDFInterfaceVertex getSink(final String name) {
+    for (final SDFInterfaceVertex sink : this.sinks) {
+      if (sink.getName().equals(name)) {
+        return sink;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * Gives the source with the given name
-	 *
-	 * @param name
-	 *            The name of the source to return
-	 * @return The Source with the given name
-	 */
-	public SDFInterfaceVertex getSource(final String name) {
-		for (final SDFInterfaceVertex source : this.sources) {
-			if (source.getName().equals(name)) {
-				return source;
-			}
-		}
-		return null;
-	}
+  /**
+   * Gives the source with the given name.
+   *
+   * @param name
+   *          The name of the source to return
+   * @return The Source with the given name
+   */
+  public SDFInterfaceVertex getSource(final String name) {
+    for (final SDFInterfaceVertex source : this.sources) {
+      if (source.getName().equals(name)) {
+        return source;
+      }
+    }
+    return null;
+  }
 
-	/**
-	 * Getter of the property <tt>sources</tt>
-	 *
-	 * @return Returns the sources.
-	 *
-	 */
-	public List<SDFInterfaceVertex> getSources() {
-		return this.sources;
-	}
+  /**
+   * Getter of the property <tt>sources</tt>.
+   *
+   * @return Returns the sources.
+   */
+  public List<SDFInterfaceVertex> getSources() {
+    return this.sources;
+  }
 
-	/**
-	 * Remove the interface vertex connected to the given edge in the parent
-	 * graph. If the interface is are still connected to an edge, they are not
-	 * removed. This may happen when a removed edge was replaced just before
-	 * being removed, the replacement edge and the removed edge are thus briefly
-	 * connected to the same interface.
-	 *
-	 * @param edge
-	 */
-	public void removeSink(final SDFEdge edge) {
-		// Check if the interface is still used before removing it
-		final SDFSinkInterfaceVertex sinkInterface = (SDFSinkInterfaceVertex) edge.getSourceInterface();
-		if (this.getAssociatedEdge(sinkInterface) == null) {
-			this.sinks.remove(sinkInterface);
-		}
-	}
+  /**
+   * Remove the interface vertex connected to the given edge in the parent graph. If the interface is are still connected to an edge, they are not removed. This
+   * may happen when a removed edge was replaced just before being removed, the replacement edge and the removed edge are thus briefly connected to the same
+   * interface.
+   *
+   * @param edge
+   *          the edge
+   */
+  public void removeSink(final SDFEdge edge) {
+    // Check if the interface is still used before removing it
+    final SDFSinkInterfaceVertex sinkInterface = (SDFSinkInterfaceVertex) edge.getSourceInterface();
+    if (this.getAssociatedEdge(sinkInterface) == null) {
+      this.sinks.remove(sinkInterface);
+    }
+  }
 
-	/**
-	 * Removes the interface vertex linked to the given edge in the base graph
-	 * If the interface is are still connected to an edge, they are not removed.
-	 * This may happen when a removed edge was replaced just before being
-	 * removed, the replacement edge and the removed edge are thus briefly
-	 * connected to the same interface.
-	 *
-	 * @param edge
-	 */
-	public void removeSource(final SDFEdge edge) {
-		// Check if the interface is still used before removing it
-		final SDFSourceInterfaceVertex sourceInterface = (SDFSourceInterfaceVertex) edge.getTargetInterface();
-		if (this.getAssociatedEdge(sourceInterface) == null) {
-			this.sources.remove(sourceInterface);
-		}
-	}
+  /**
+   * Removes the interface vertex linked to the given edge in the base graph If the interface is are still connected to an edge, they are not removed. This may
+   * happen when a removed edge was replaced just before being removed, the replacement edge and the removed edge are thus briefly connected to the same
+   * interface.
+   *
+   * @param edge
+   *          the edge
+   */
+  public void removeSource(final SDFEdge edge) {
+    // Check if the interface is still used before removing it
+    final SDFSourceInterfaceVertex sourceInterface = (SDFSourceInterfaceVertex) edge.getTargetInterface();
+    if (this.getAssociatedEdge(sourceInterface) == null) {
+      this.sources.remove(sourceInterface);
+    }
+  }
 
-	/**
-	 * Set an interface vertex external edge
-	 *
-	 * @param extEdge
-	 *            The edge the given interface is to associate
-	 * @param interfaceVertex
-	 *            The interface vertex the edge is to associate
-	 */
-	public void setInterfaceVertexExternalLink(final SDFEdge extEdge, final SDFInterfaceVertex interfaceVertex) {
-		if (interfaceVertex.getDirection() == InterfaceDirection.Output) {
-			extEdge.setSourceInterface(interfaceVertex);
-		} else {
-			extEdge.setTargetInterface(interfaceVertex);
-		}
+  /**
+   * Set an interface vertex external edge.
+   *
+   * @param extEdge
+   *          The edge the given interface is to associate
+   * @param interfaceVertex
+   *          The interface vertex the edge is to associate
+   */
+  public void setInterfaceVertexExternalLink(final SDFEdge extEdge, final SDFInterfaceVertex interfaceVertex) {
+    if (interfaceVertex.getDirection() == InterfaceDirection.Output) {
+      extEdge.setSourceInterface(interfaceVertex);
+    } else {
+      extEdge.setTargetInterface(interfaceVertex);
+    }
 
-	}
+  }
 
-	/**
-	 * Setter of the property <tt>sinks</tt>
-	 *
-	 * @param sinks
-	 *            The sinks to set.
-	 *
-	 */
-	public void setSinks(final List<SDFInterfaceVertex> sinks) {
-		this.sinks = sinks;
-	}
+  /**
+   * Setter of the property <tt>sinks</tt>.
+   *
+   * @param sinks
+   *          The sinks to set.
+   */
+  public void setSinks(final List<SDFInterfaceVertex> sinks) {
+    this.sinks = sinks;
+  }
 
-	/**
-	 * Setter of the property <tt>sources</tt>
-	 *
-	 * @param sources
-	 *            The sources to set.
-	 *
-	 */
-	public void setSources(final List<SDFInterfaceVertex> sources) {
-		this.sources = sources;
-	}
+  /**
+   * Setter of the property <tt>sources</tt>.
+   *
+   * @param sources
+   *          The sources to set.
+   */
+  public void setSources(final List<SDFInterfaceVertex> sources) {
+    this.sources = sources;
+  }
 
-	/**
-	 * Gives this vertex Nb repeat
-	 *
-	 * @return The number of time to repeat this vertex
-	 * @throws InvalidExpressionException
-	 */
-	public Object getNbRepeat() throws InvalidExpressionException {
-		if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
-			((SDFGraph) getBase()).computeVRB();
-		}
-		return getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
-	}
+  /**
+   * Gives this vertex Nb repeat.
+   *
+   * @return The number of time to repeat this vertex
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  public Object getNbRepeat() throws InvalidExpressionException {
+    if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
+      ((SDFGraph) getBase()).computeVRB();
+    }
+    return getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
+  }
 
-	/**
-	 * Gives this vertex Nb repeat
-	 *
-	 * @return The number of time to repeat this vertex
-	 * @throws InvalidExpressionException
-	 */
-	public int getNbRepeatAsInteger() throws InvalidExpressionException {
-		if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
-			((SDFGraph) getBase()).computeVRB();
-		}
-		if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Integer) {
-			return (Integer) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
-		} else if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof JSCLInteger) {
-			return ((JSCLInteger) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).intValue();
-		} else {
-			return 1;
-		}
-	}
+  /**
+   * Gives this vertex Nb repeat.
+   *
+   * @return The number of time to repeat this vertex
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  public int getNbRepeatAsInteger() throws InvalidExpressionException {
+    if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
+      ((SDFGraph) getBase()).computeVRB();
+    }
+    if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Integer) {
+      return (Integer) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
+    } else if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof JsclInteger) {
+      return ((JsclInteger) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).intValue();
+    } else {
+      return 1;
+    }
+  }
 
-	/**
-	 * Set the number of time to repeat this vertex
-	 *
-	 * @param nbRepeat
-	 *            The number of time to repeat this vertex
-	 */
-	public void setNbRepeat(final int nbRepeat) {
-		getPropertyBean().setValue(SDFAbstractVertex.NB_REPEAT, nbRepeat);
-	}
+  /**
+   * Set the number of time to repeat this vertex.
+   *
+   * @param nbRepeat
+   *          The number of time to repeat this vertex
+   */
+  public void setNbRepeat(final int nbRepeat) {
+    getPropertyBean().setValue(SDFAbstractVertex.NB_REPEAT, nbRepeat);
+  }
 
-	/**
-	 * Set the number of time to repeat this vertex as a generic
-	 *
-	 * @param nbRepeat
-	 *            The number of time to repeat this vertex
-	 */
-	public void setNbRepeat(final Object nbRepeat) {
-		getPropertyBean().setValue(SDFAbstractVertex.NB_REPEAT, nbRepeat);
-	}
+  /**
+   * Set the number of time to repeat this vertex as a generic.
+   *
+   * @param nbRepeat
+   *          The number of time to repeat this vertex
+   */
+  public void setNbRepeat(final Object nbRepeat) {
+    getPropertyBean().setValue(SDFAbstractVertex.NB_REPEAT, nbRepeat);
+  }
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public boolean validateModel(final Logger logger) throws SDF4JException, InvalidExpressionException {
-		int i = 0;
-		while (i < this.sources.size()) {
-			final SDFInterfaceVertex source = this.sources.get(i);
-			final SDFEdge outsideEdge = this.getAssociatedEdge(source);
-			if (getGraphDescription() != null) {
-				final AbstractVertex truePort = getGraphDescription().getVertex(source.getName());
-				if (getGraphDescription().outgoingEdgesOf(truePort).size() == 0) {
-					if (logger != null) {
-						logger.log(Level.INFO, "interface " + source.getName()
-								+ " has no inside connection and will be removed for further processing.\n Outside connection has been taken into account for reptition factor computation");
-					}
-					this.sources.remove(i);
-					getGraphDescription().removeVertex(source);
-					getBase().removeEdge(outsideEdge);
-				} else {
-					i++;
-				}
-			} else {
-				i++;
-			}
-		}
-		i = 0;
-		for (final SDFInterfaceVertex sink : this.sinks) {
-			// SDFEdge outsideEdge = this.getAssociatedEdge(sink);
-			if (getGraphDescription() != null) {
-				final AbstractVertex truePort = getGraphDescription().getVertex(sink.getName());
-				if (getGraphDescription().incomingEdgesOf(truePort).size() == 0) {
-					if (logger != null) {
-						logger.log(Level.INFO, "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused");
-						throw (new SDF4JException("interface " + sink.getName() + " has no inside connection, consider removing this interface if unused"));
-					}
-				}
-			}
-		}
-		if (getArguments() != null) {
-			for (final Argument arg : getArguments().values()) {
-				try {
-					arg.intValue();
-				} catch (final NoIntegerValueException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return true;
-	}
+  /**
+   * Validate model.
+   *
+   * @param logger
+   *          the logger
+   * @return true, if successful
+   * @throws SDF4JException
+   *           the SDF 4 J exception
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public boolean validateModel(final Logger logger) throws SDF4JException, InvalidExpressionException {
+    int i = 0;
+    while (i < this.sources.size()) {
+      final SDFInterfaceVertex source = this.sources.get(i);
+      final SDFEdge outsideEdge = this.getAssociatedEdge(source);
+      if (getGraphDescription() != null) {
+        final AbstractVertex truePort = getGraphDescription().getVertex(source.getName());
+        if (getGraphDescription().outgoingEdgesOf(truePort).size() == 0) {
+          if (logger != null) {
+            logger.log(Level.INFO, "interface " + source.getName() + " has no inside connection and will be removed for further processing.\n "
+                + "Outside connection has been taken into account for reptition factor computation");
+          }
+          this.sources.remove(i);
+          getGraphDescription().removeVertex(source);
+          getBase().removeEdge(outsideEdge);
+        } else {
+          i++;
+        }
+      } else {
+        i++;
+      }
+    }
+    i = 0;
+    for (final SDFInterfaceVertex sink : this.sinks) {
+      // SDFEdge outsideEdge = this.getAssociatedEdge(sink);
+      if (getGraphDescription() != null) {
+        final AbstractVertex truePort = getGraphDescription().getVertex(sink.getName());
+        if (getGraphDescription().incomingEdgesOf(truePort).size() == 0) {
+          if (logger != null) {
+            logger.log(Level.INFO, "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused");
+            throw (new SDF4JException("interface " + sink.getName() + " has no inside connection, consider removing this interface if unused"));
+          }
+        }
+      }
+    }
+    if (getArguments() != null) {
+      for (final Argument arg : getArguments().values()) {
+        try {
+          arg.intValue();
+        } catch (final NoIntegerValueException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    return true;
+  }
 
-	@Override
-	public String toString() {
-		return getName();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return getName();
+  }
 
-	@Override
-	public PropertyFactory getFactoryForProperty(final String propertyName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
+   */
+  @Override
+  public PropertyFactory getFactoryForProperty(final String propertyName) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

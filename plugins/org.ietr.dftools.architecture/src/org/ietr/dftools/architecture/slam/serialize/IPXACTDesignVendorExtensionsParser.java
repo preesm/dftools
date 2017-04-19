@@ -41,360 +41,501 @@ package org.ietr.dftools.architecture.slam.serialize;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class managing information stored in design vendor extensions
+ * Class managing information stored in design vendor extensions.
  *
  * @author mpelcat
  */
 public class IPXACTDesignVendorExtensionsParser {
 
-	/**
-	 * Class storing a component description in vendor extensions
-	 */
-	public class ComponentDescription {
-		/**
-		 * ID representing the component
-		 */
-		private final String componentRef;
+  /**
+   * Class storing a component description in vendor extensions.
+   */
+  public class ComponentDescription {
 
-		/**
-		 * Type (Operator, Mem...) of the ecore EClass representing the
-		 * component
-		 */
-		private final String componentType;
+    /** ID representing the component. */
+    private final String componentRef;
 
-		/**
-		 * Eclipse path of the potential design refining the component
-		 */
-		private final String refinement;
+    /**
+     * Type (Operator, Mem...) of the ecore EClass representing the component
+     */
+    private final String componentType;
 
-		/**
-		 * Parameters that vary depending on component type
-		 */
-		private Map<String, String> specificParameters = null;
+    /** Eclipse path of the potential design refining the component. */
+    private final String refinement;
 
-		public ComponentDescription(final String componentRef, final String componentType, final String refinement) {
-			super();
-			this.componentRef = componentRef;
-			this.componentType = componentType;
-			this.refinement = refinement;
-			this.specificParameters = new HashMap<>();
-		}
+    /** Parameters that vary depending on component type. */
+    private Map<String, String> specificParameters = null;
 
-		public String getComponentRef() {
-			return this.componentRef;
-		}
+    /**
+     * Instantiates a new component description.
+     *
+     * @param componentRef
+     *          the component ref
+     * @param componentType
+     *          the component type
+     * @param refinement
+     *          the refinement
+     */
+    public ComponentDescription(final String componentRef, final String componentType, final String refinement) {
+      super();
+      this.componentRef = componentRef;
+      this.componentType = componentType;
+      this.refinement = refinement;
+      this.specificParameters = new HashMap<>();
+    }
 
-		public String getComponentType() {
-			return this.componentType;
-		}
+    /**
+     * Gets the component ref.
+     *
+     * @return the component ref
+     */
+    public String getComponentRef() {
+      return this.componentRef;
+    }
 
-		public String getRefinement() {
-			return this.refinement;
-		}
+    /**
+     * Gets the component type.
+     *
+     * @return the component type
+     */
+    public String getComponentType() {
+      return this.componentType;
+    }
 
-		public void addSpecificParameter(final String key, final String value) {
-			this.specificParameters.put(key, value);
-		}
+    /**
+     * Gets the refinement.
+     *
+     * @return the refinement
+     */
+    public String getRefinement() {
+      return this.refinement;
+    }
 
-		public String getSpecificParameter(final String key) {
-			return this.specificParameters.get(key);
-		}
+    /**
+     * Adds the specific parameter.
+     *
+     * @param key
+     *          the key
+     * @param value
+     *          the value
+     */
+    public void addSpecificParameter(final String key, final String value) {
+      this.specificParameters.put(key, value);
+    }
 
-		public Map<String, String> getSpecificParameters() {
-			return this.specificParameters;
-		}
+    /**
+     * Gets the specific parameter.
+     *
+     * @param key
+     *          the key
+     * @return the specific parameter
+     */
+    public String getSpecificParameter(final String key) {
+      return this.specificParameters.get(key);
+    }
 
-	}
+    /**
+     * Gets the specific parameters.
+     *
+     * @return the specific parameters
+     */
+    public Map<String, String> getSpecificParameters() {
+      return this.specificParameters;
+    }
 
-	/**
-	 * Class storing a link description in vendor extensions
-	 */
-	public class LinkDescription {
-		// Referencing the link
-		private String linkUuid = "";
+  }
 
-		private Boolean directed = false;
+  /**
+   * Class storing a link description in vendor extensions.
+   */
+  public class LinkDescription {
 
-		private String type = "";
+    /** The link uuid. */
+    // Referencing the link
+    private String linkUuid = "";
 
-		/**
-		 * Parameters that vary depending on component type
-		 */
-		private Map<String, String> specificParameters = null;
+    /** The directed. */
+    private Boolean directed = false;
 
-		public LinkDescription(final String uuid, final Boolean directed, final String type) {
-			this.linkUuid = uuid;
-			this.type = type;
-			this.directed = directed;
-			this.specificParameters = new HashMap<>();
-		}
+    /** The type. */
+    private String type = "";
 
-		public String getLinkUuid() {
-			return this.linkUuid;
-		}
+    /** Parameters that vary depending on component type. */
+    private Map<String, String> specificParameters = null;
 
-		public Boolean isDirected() {
-			return this.directed;
-		}
+    /**
+     * Instantiates a new link description.
+     *
+     * @param uuid
+     *          the uuid
+     * @param directed
+     *          the directed
+     * @param type
+     *          the type
+     */
+    public LinkDescription(final String uuid, final Boolean directed, final String type) {
+      this.linkUuid = uuid;
+      this.type = type;
+      this.directed = directed;
+      this.specificParameters = new HashMap<>();
+    }
 
-		public String getType() {
-			return this.type;
-		}
+    /**
+     * Gets the link uuid.
+     *
+     * @return the link uuid
+     */
+    public String getLinkUuid() {
+      return this.linkUuid;
+    }
 
-		public void addSpecificParameter(final String key, final String value) {
-			this.specificParameters.put(key, value);
-		}
+    /**
+     * Checks if is directed.
+     *
+     * @return the boolean
+     */
+    public Boolean isDirected() {
+      return this.directed;
+    }
 
-		public String getSpecificParameter(final String key) {
-			return this.specificParameters.get(key);
-		}
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
+    public String getType() {
+      return this.type;
+    }
 
-		public Map<String, String> getSpecificParameters() {
-			return this.specificParameters;
-		}
-	}
+    /**
+     * Adds the specific parameter.
+     *
+     * @param key
+     *          the key
+     * @param value
+     *          the value
+     */
+    public void addSpecificParameter(final String key, final String value) {
+      this.specificParameters.put(key, value);
+    }
 
-	/**
-	 * Description associated to each component
-	 */
-	private Map<String, ComponentDescription> componentDescriptions = null;
+    /**
+     * Gets the specific parameter.
+     *
+     * @param key
+     *          the key
+     * @return the specific parameter
+     */
+    public String getSpecificParameter(final String key) {
+      return this.specificParameters.get(key);
+    }
 
-	/**
-	 * Description associated to each link referenced by uuid (unique id)
-	 */
-	private Map<String, LinkDescription> linkDescriptions = null;
+    /**
+     * Gets the specific parameters.
+     *
+     * @return the specific parameters
+     */
+    public Map<String, String> getSpecificParameters() {
+      return this.specificParameters;
+    }
+  }
 
-	/**
-	 * Parameters of the current design
-	 */
-	private Map<String, String> designParameters = null;
+  /** Description associated to each component. */
+  private Map<String, ComponentDescription> componentDescriptions = null;
 
-	public IPXACTDesignVendorExtensionsParser() {
-		this.componentDescriptions = new HashMap<>();
-		this.linkDescriptions = new HashMap<>();
-		this.designParameters = new HashMap<>();
-	}
+  /** Description associated to each link referenced by uuid (unique id). */
+  private Map<String, LinkDescription> linkDescriptions = null;
 
-	public Map<String, String> getDesignParameters() {
-		return this.designParameters;
-	}
+  /** Parameters of the current design. */
+  private Map<String, String> designParameters = null;
 
-	public ComponentDescription getComponentDescription(final String componentRef) {
-		return this.componentDescriptions.get(componentRef);
-	}
+  /**
+   * Instantiates a new IPXACT design vendor extensions parser.
+   */
+  public IPXACTDesignVendorExtensionsParser() {
+    this.componentDescriptions = new HashMap<>();
+    this.linkDescriptions = new HashMap<>();
+    this.designParameters = new HashMap<>();
+  }
 
-	public Map<String, ComponentDescription> getComponentDescriptions() {
-		return this.componentDescriptions;
-	}
+  /**
+   * Gets the design parameters.
+   *
+   * @return the design parameters
+   */
+  public Map<String, String> getDesignParameters() {
+    return this.designParameters;
+  }
 
-	public LinkDescription getLinkDescription(final String linkUuid) {
-		return this.linkDescriptions.get(linkUuid);
-	}
+  /**
+   * Gets the component description.
+   *
+   * @param componentRef
+   *          the component ref
+   * @return the component description
+   */
+  public ComponentDescription getComponentDescription(final String componentRef) {
+    return this.componentDescriptions.get(componentRef);
+  }
 
-	public Map<String, LinkDescription> getLinkDescriptions() {
-		return this.linkDescriptions;
-	}
+  /**
+   * Gets the component descriptions.
+   *
+   * @return the component descriptions
+   */
+  public Map<String, ComponentDescription> getComponentDescriptions() {
+    return this.componentDescriptions;
+  }
 
-	/**
-	 * Parses vendor extensions from the design root element
-	 */
-	public void parse(final Element root) {
-		Node node = root.getFirstChild();
+  /**
+   * Gets the link description.
+   *
+   * @param linkUuid
+   *          the link uuid
+   * @return the link description
+   */
+  public LinkDescription getLinkDescription(final String linkUuid) {
+    return this.linkDescriptions.get(linkUuid);
+  }
 
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				final Element element = (Element) node;
-				final String nodeName = node.getNodeName();
-				if (nodeName.equals("spirit:vendorExtensions")) {
-					parseVendorExtensions(element);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
+  /**
+   * Gets the link descriptions.
+   *
+   * @return the link descriptions
+   */
+  public Map<String, LinkDescription> getLinkDescriptions() {
+    return this.linkDescriptions;
+  }
 
-	/**
-	 * Parses vendor extensions from the vendor extensions element
-	 */
-	public void parseVendorExtensions(final Element parent) {
-		Node node = parent.getFirstChild();
+  /**
+   * Parses vendor extensions from the design root element.
+   *
+   * @param root
+   *          the root
+   */
+  public void parse(final Element root) {
+    Node node = root.getFirstChild();
 
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				final Element element = (Element) node;
-				final String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:componentDescriptions")) {
-					parseComponentDescriptions(element);
-				} else if (nodeName.equals("slam:linkDescriptions")) {
-					parseLinkDescriptions(element);
-				} else if (nodeName.equals("slam:designDescription")) {
-					parseDesignDescription(element);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
+    while (node != null) {
+      // this test allows us to skip #text nodes
+      if (node.getNodeType() == Node.ELEMENT_NODE) {
+        final Element element = (Element) node;
+        final String nodeName = node.getNodeName();
+        if (nodeName.equals("spirit:vendorExtensions")) {
+          parseVendorExtensions(element);
+        }
+      }
+      node = node.getNextSibling();
+    }
+  }
 
-	/**
-	 * Parses description of a graph
-	 */
-	public void parseDesignDescription(final Element parent) {
-		Node node = parent.getFirstChild();
+  /**
+   * Parses vendor extensions from the vendor extensions element.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseVendorExtensions(final Element parent) {
+    Node node = parent.getFirstChild();
 
-		// Parsing parameters
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				final Element element = (Element) node;
-				final String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:parameters")) {
-					parseDesignParameters(element);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
+    while (node != null) {
+      // this test allows us to skip #text nodes
+      if (node.getNodeType() == Node.ELEMENT_NODE) {
+        final Element element = (Element) node;
+        final String nodeName = node.getNodeName();
+        if (nodeName.equals("slam:componentDescriptions")) {
+          parseComponentDescriptions(element);
+        } else if (nodeName.equals("slam:linkDescriptions")) {
+          parseLinkDescriptions(element);
+        } else if (nodeName.equals("slam:designDescription")) {
+          parseDesignDescription(element);
+        }
+      }
+      node = node.getNextSibling();
+    }
+  }
 
-	/**
-	 * Parses description of a graph
-	 */
-	public void parseDesignParameters(final Element parent) {
-		Node node = parent.getFirstChild();
+  /**
+   * Parses description of a graph.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseDesignDescription(final Element parent) {
+    Node node = parent.getFirstChild();
 
-		// Parsing parameters
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				final Element element = (Element) node;
-				final String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:parameter")) {
-					parseDesignParameter(element);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
+    // Parsing parameters
+    while (node != null) {
+      // this test allows us to skip #text nodes
+      if (node.getNodeType() == Node.ELEMENT_NODE) {
+        final Element element = (Element) node;
+        final String nodeName = node.getNodeName();
+        if (nodeName.equals("slam:parameters")) {
+          parseDesignParameters(element);
+        }
+      }
+      node = node.getNextSibling();
+    }
+  }
 
-	/**
-	 * Parses description of a graph
-	 */
-	public void parseDesignParameter(final Element parent) {
-		final String key = parent.getAttribute("slam:key");
-		final String value = parent.getAttribute("slam:value");
+  /**
+   * Parses description of a graph.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseDesignParameters(final Element parent) {
+    Node node = parent.getFirstChild();
 
-		if ((key != null) && !key.isEmpty() && (value != null) && !value.isEmpty()) {
-			this.designParameters.put(key, value);
-		}
-	}
+    // Parsing parameters
+    while (node != null) {
+      // this test allows us to skip #text nodes
+      if (node.getNodeType() == Node.ELEMENT_NODE) {
+        final Element element = (Element) node;
+        final String nodeName = node.getNodeName();
+        if (nodeName.equals("slam:parameter")) {
+          parseDesignParameter(element);
+        }
+      }
+      node = node.getNextSibling();
+    }
+  }
 
-	/**
-	 * Parses descriptions of links
-	 */
-	public void parseLinkDescriptions(final Element parent) {
-		Node node = parent.getFirstChild();
+  /**
+   * Parses description of a graph.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseDesignParameter(final Element parent) {
+    final String key = parent.getAttribute("slam:key");
+    final String value = parent.getAttribute("slam:value");
 
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				final Element element = (Element) node;
-				final String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:linkDescription")) {
-					final String uuid = element.getAttribute("slam:referenceId");
-					parseLinkDescription(element, uuid);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
+    if ((key != null) && !key.isEmpty() && (value != null) && !value.isEmpty()) {
+      this.designParameters.put(key, value);
+    }
+  }
 
-	/**
-	 * Parses description of a link
-	 */
-	public void parseLinkDescription(final Element parent, final String uuid) {
+  /**
+   * Parses descriptions of links.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseLinkDescriptions(final Element parent) {
+    Node node = parent.getFirstChild();
 
-		final Boolean directed = parent.getAttribute("slam:directedLink").equals("directed");
-		final String type = parent.getAttribute("slam:linkType");
-		final LinkDescription description = new LinkDescription(uuid, directed, type);
+    while (node != null) {
+      // this test allows us to skip #text nodes
+      if (node.getNodeType() == Node.ELEMENT_NODE) {
+        final Element element = (Element) node;
+        final String nodeName = node.getNodeName();
+        if (nodeName.equals("slam:linkDescription")) {
+          final String uuid = element.getAttribute("slam:referenceId");
+          parseLinkDescription(element, uuid);
+        }
+      }
+      node = node.getNextSibling();
+    }
+  }
 
-		this.linkDescriptions.put(uuid, description);
+  /**
+   * Parses description of a link.
+   *
+   * @param parent
+   *          the parent
+   * @param uuid
+   *          the uuid
+   */
+  public void parseLinkDescription(final Element parent, final String uuid) {
 
-		// Retrieving known specific parameters
-		final NamedNodeMap attributeMap = parent.getAttributes();
-		for (int j = 0; j < attributeMap.getLength(); j++) {
-			final String name = attributeMap.item(j).getNodeName();
-			final String value = attributeMap.item(j).getNodeValue();
+    final Boolean directed = parent.getAttribute("slam:directedLink").equals("directed");
+    final String type = parent.getAttribute("slam:linkType");
+    final LinkDescription description = new LinkDescription(uuid, directed, type);
 
-			if (name.equals("slam:setupTime")) {
-				description.addSpecificParameter(name, value);
-			}
-		}
-	}
+    this.linkDescriptions.put(uuid, description);
 
-	/**
-	 * Parses descriptions of components
-	 */
-	public void parseComponentDescriptions(final Element parent) {
-		Node node = parent.getFirstChild();
+    // Retrieving known specific parameters
+    final NamedNodeMap attributeMap = parent.getAttributes();
+    for (int j = 0; j < attributeMap.getLength(); j++) {
+      final String name = attributeMap.item(j).getNodeName();
+      final String value = attributeMap.item(j).getNodeValue();
 
-		while (node != null) {
-			// this test allows us to skip #text nodes
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				final Element element = (Element) node;
-				final String nodeName = node.getNodeName();
-				if (nodeName.equals("slam:componentDescription")) {
-					parseComponentDescription(element);
-				}
-			}
-			node = node.getNextSibling();
-		}
-	}
+      if (name.equals("slam:setupTime")) {
+        description.addSpecificParameter(name, value);
+      }
+    }
+  }
 
-	/**
-	 * Parses descriptions of a component
-	 */
-	public void parseComponentDescription(final Element parent) {
-		final String componentRef = parent.getAttribute("slam:componentRef");
-		String componentType = parent.getAttribute("slam:componentType");
-		final String refinement = parent.getAttribute("slam:refinement");
+  /**
+   * Parses descriptions of components.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseComponentDescriptions(final Element parent) {
+    Node node = parent.getFirstChild();
 
-		// Specific case of com nodes for which the contention property
-		// is contatenated with the type
-		String parallelOrContentionNode = "";
-		if (componentType.contains("ComNode")) {
-			parallelOrContentionNode = componentType.replace("ComNode", "");
-			componentType = "ComNode";
-		}
+    while (node != null) {
+      // this test allows us to skip #text nodes
+      if (node.getNodeType() == Node.ELEMENT_NODE) {
+        final Element element = (Element) node;
+        final String nodeName = node.getNodeName();
+        if (nodeName.equals("slam:componentDescription")) {
+          parseComponentDescription(element);
+        }
+      }
+      node = node.getNextSibling();
+    }
+  }
 
-		final ComponentDescription description = new ComponentDescription(componentRef, componentType, refinement);
+  /**
+   * Parses descriptions of a component.
+   *
+   * @param parent
+   *          the parent
+   */
+  public void parseComponentDescription(final Element parent) {
+    final String componentRef = parent.getAttribute("slam:componentRef");
+    String componentType = parent.getAttribute("slam:componentType");
+    final String refinement = parent.getAttribute("slam:refinement");
 
-		if (componentType.contains("ComNode")) {
-			description.addSpecificParameter("ComNodeType", parallelOrContentionNode);
-		} else if (componentType.contains("Mem")) {
-			description.addSpecificParameter("slam:size", parent.getAttribute("slam:size"));
-		} else if (componentType.contains("Dma")) {
-			description.addSpecificParameter("slam:setupTime", parent.getAttribute("slam:setupTime"));
-		}
+    // Specific case of com nodes for which the contention property
+    // is contatenated with the type
+    String parallelOrContentionNode = "";
+    if (componentType.contains("ComNode")) {
+      parallelOrContentionNode = componentType.replace("ComNode", "");
+      componentType = "ComNode";
+    }
 
-		// Retrieving known specific parameters
-		final NamedNodeMap attributeMap = parent.getAttributes();
-		for (int j = 0; j < attributeMap.getLength(); j++) {
-			final String name = attributeMap.item(j).getNodeName();
-			final String value = attributeMap.item(j).getNodeValue();
+    final ComponentDescription description = new ComponentDescription(componentRef, componentType, refinement);
 
-			if (name.equals("slam:speed")) {
-				description.addSpecificParameter(name, value);
-			}
-		}
+    if (componentType.contains("ComNode")) {
+      description.addSpecificParameter("ComNodeType", parallelOrContentionNode);
+    } else if (componentType.contains("Mem")) {
+      description.addSpecificParameter("slam:size", parent.getAttribute("slam:size"));
+    } else if (componentType.contains("Dma")) {
+      description.addSpecificParameter("slam:setupTime", parent.getAttribute("slam:setupTime"));
+    }
 
-		this.componentDescriptions.put(description.getComponentRef(), description);
-	}
+    // Retrieving known specific parameters
+    final NamedNodeMap attributeMap = parent.getAttributes();
+    for (int j = 0; j < attributeMap.getLength(); j++) {
+      final String name = attributeMap.item(j).getNodeName();
+      final String value = attributeMap.item(j).getNodeValue();
+
+      if (name.equals("slam:speed")) {
+        description.addSpecificParameter(name, value);
+      }
+    }
+
+    this.componentDescriptions.put(description.getComponentRef(), description);
+  }
 
 }

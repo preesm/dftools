@@ -40,7 +40,6 @@ package org.ietr.dftools.algorithm.importer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import org.ietr.dftools.algorithm.exporter.GMLDAGExporter;
 import org.ietr.dftools.algorithm.factories.DAGEdgeFactory;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
@@ -49,86 +48,107 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
 /**
- * Importer for DAG graphs
+ * Importer for DAG graphs.
  *
  * @author jpiat
- *
  */
 public class GMLDAGImporter extends GMLImporter<DirectedAcyclicGraph, DAGVertex, DAGEdge> {
 
-	/**
-	 * Test method
-	 *
-	 * @param args
-	 */
-	public static void main(final String[] args) {
-		try {
-			final GMLDAGImporter importer = new GMLDAGImporter();
-			final DirectedAcyclicGraph graph = importer.parse(new File("C:\\test_dag_gml.xml"));
-			final GMLDAGExporter exporter = new GMLDAGExporter();
-			exporter.setKeySet(importer.getKeySet());
-			exporter.exportGraph(graph);
-			exporter.transform(new FileOutputStream("C:\\test_dag_gml_2.xml"));
-		} catch (FileNotFoundException | InvalidModelException e) {
-			e.printStackTrace();
-		}
-	}
+  /**
+   * Test method.
+   *
+   * @param args
+   *          the arguments
+   */
+  public static void main(final String[] args) {
+    try {
+      final GMLDAGImporter importer = new GMLDAGImporter();
+      final DirectedAcyclicGraph graph = importer.parse(new File("C:\\test_dag_gml.xml"));
+      final GMLDAGExporter exporter = new GMLDAGExporter();
+      exporter.setKeySet(importer.getKeySet());
+      exporter.exportGraph(graph);
+      exporter.transform(new FileOutputStream("C:\\test_dag_gml_2.xml"));
+    } catch (FileNotFoundException | InvalidModelException e) {
+      e.printStackTrace();
+    }
+  }
 
-	/**
-	 * Constructs a new DAG importer with the specified factories
-	 */
-	public GMLDAGImporter() {
-		super(new DAGEdgeFactory());
-	}
+  /**
+   * Constructs a new DAG importer with the specified factories.
+   */
+  public GMLDAGImporter() {
+    super(new DAGEdgeFactory());
+  }
 
-	@Override
-	public void parseEdge(final Element edgeElt, final DirectedAcyclicGraph parentGraph) {
-		final DAGVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
-		final DAGVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parseEdge(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public void parseEdge(final Element edgeElt, final DirectedAcyclicGraph parentGraph) {
+    final DAGVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
+    final DAGVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
 
-		final DAGEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
+    final DAGEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
 
-		parseKeys(edgeElt, edge);
-	}
+    parseKeys(edgeElt, edge);
+  }
 
-	@Override
-	public DirectedAcyclicGraph parseGraph(final Element graphElt) {
-		final DirectedAcyclicGraph graph = new DirectedAcyclicGraph(this.edgeFactory);
-		parseKeys(graphElt, graph);
-		final NodeList childList = graphElt.getChildNodes();
-		parseParameters(graph, graphElt);
-		parseVariables(graph, graphElt);
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("node")) {
-				final Element vertexElt = (Element) childList.item(i);
-				parseNode(vertexElt, graph);
-			}
-		}
-		for (int i = 0; i < childList.getLength(); i++) {
-			if (childList.item(i).getNodeName().equals("edge")) {
-				final Element edgeElt = (Element) childList.item(i);
-				parseEdge(edgeElt, graph);
-			}
-		}
-		return graph;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parseGraph(org.w3c.dom.Element)
+   */
+  @Override
+  public DirectedAcyclicGraph parseGraph(final Element graphElt) {
+    final DirectedAcyclicGraph graph = new DirectedAcyclicGraph(this.edgeFactory);
+    parseKeys(graphElt, graph);
+    final NodeList childList = graphElt.getChildNodes();
+    parseParameters(graph, graphElt);
+    parseVariables(graph, graphElt);
+    for (int i = 0; i < childList.getLength(); i++) {
+      if (childList.item(i).getNodeName().equals("node")) {
+        final Element vertexElt = (Element) childList.item(i);
+        parseNode(vertexElt, graph);
+      }
+    }
+    for (int i = 0; i < childList.getLength(); i++) {
+      if (childList.item(i).getNodeName().equals("edge")) {
+        final Element edgeElt = (Element) childList.item(i);
+        parseEdge(edgeElt, graph);
+      }
+    }
+    return graph;
+  }
 
-	@Override
-	public DAGVertex parseNode(final Element vertexElt, final DirectedAcyclicGraph parentGraph) {
-		final DAGVertex vertex = new DAGVertex();
-		parentGraph.addVertex(vertex);
-		vertex.setId(vertexElt.getAttribute("id"));
-		this.vertexFromId.put(vertex.getId(), vertex);
-		parseKeys(vertexElt, vertex);
-		parseArguments(vertex, vertexElt);
-		return vertex;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parseNode(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public DAGVertex parseNode(final Element vertexElt, final DirectedAcyclicGraph parentGraph) {
+    final DAGVertex vertex = new DAGVertex();
+    parentGraph.addVertex(vertex);
+    vertex.setId(vertexElt.getAttribute("id"));
+    this.vertexFromId.put(vertex.getId(), vertex);
+    parseKeys(vertexElt, vertex);
+    parseArguments(vertex, vertexElt);
+    return vertex;
+  }
 
-	@Override
-	public DAGVertex parsePort(final Element portElt, final DirectedAcyclicGraph parentGraph) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public DAGVertex parsePort(final Element portElt, final DirectedAcyclicGraph parentGraph) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

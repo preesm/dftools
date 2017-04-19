@@ -38,48 +38,47 @@ package org.ietr.dftools.algorithm.model.parameters;
 
 import java.util.HashMap;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a set of argument
+ * Class used to represent a set of argument.
  *
  * @author jpiat
- *
  */
 public class ArgumentSet extends HashMap<String, Argument> {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -8364762425793222529L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -8364762425793222529L;
 
-	/**
-	 * Add a argument to the set
-	 *
-	 * @param a
-	 *            The argument to add
-	 */
-	public void addArgument(final Argument a) {
-		put(a.getName(), a);
-	}
+  /**
+   * Add a argument to the set.
+   *
+   * @param a
+   *          The argument to add
+   */
+  public void addArgument(final Argument a) {
+    put(a.getName(), a);
+  }
 
-	/**
-	 * Gives the argument with the given name
-	 *
-	 * @param n
-	 *            The name of the argument to return
-	 * @return The argument with the given name
-	 */
-	public Argument getArgument(final String n) {
-		return get(n);
-	}
+  /**
+   * Gives the argument with the given name.
+   *
+   * @param n
+   *          The name of the argument to return
+   * @return The argument with the given name
+   */
+  public Argument getArgument(final String n) {
+    return get(n);
+  }
 
-	/**
-	 * Set the expression solver to use for this variable set
-	 *
-	 * @param solver
-	 */
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		for (final Argument arg : values()) {
-			arg.setExpressionSolver(solver);
-		}
-	}
+  /**
+   * Set the expression solver to use for this variable set.
+   *
+   * @param solver
+   *          the new expression solver
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    for (final Argument arg : values()) {
+      arg.setExpressionSolver(solver);
+    }
+  }
 }

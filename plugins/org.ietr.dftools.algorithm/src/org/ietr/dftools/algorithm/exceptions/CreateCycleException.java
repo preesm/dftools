@@ -37,26 +37,33 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.exceptions;
 
+// TODO: Auto-generated Javadoc
 /**
- * Exception generated when adding a dependency in a DAG graph creates a Cycle
+ * Exception generated when adding a dependency in a DAG graph creates a Cycle.
  *
  * @author jpiat
  * @author kdesnos
- *
  */
 public class CreateCycleException extends Exception {
 
-	public CreateCycleException() {
-		super();
-	}
+  /**
+   * Instantiates a new creates the cycle exception.
+   */
+  public CreateCycleException() {
+    super();
+  }
 
-	public CreateCycleException(final String message) {
-		super(message);
-	}
+  /**
+   * Instantiates a new creates the cycle exception.
+   *
+   * @param message
+   *          the message
+   */
+  public CreateCycleException(final String message) {
+    super(message);
+  }
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -6735424529007211737L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -6735424529007211737L;
 
 }

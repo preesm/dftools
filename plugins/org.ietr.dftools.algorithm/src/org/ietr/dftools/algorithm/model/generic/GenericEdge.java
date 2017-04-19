@@ -39,12 +39,21 @@ package org.ietr.dftools.algorithm.model.generic;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenericEdge.
+ */
 public class GenericEdge extends AbstractEdge<GenericGraph, GenericVertex> {
 
-	@Override
-	public PropertyFactory getFactoryForProperty(final String propertyName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
+   */
+  @Override
+  public PropertyFactory getFactoryForProperty(final String propertyName) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

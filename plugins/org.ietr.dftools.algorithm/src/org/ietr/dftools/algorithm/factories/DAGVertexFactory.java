@@ -47,56 +47,80 @@ import org.ietr.dftools.algorithm.model.dag.edag.DAGInitVertex;
 import org.ietr.dftools.algorithm.model.dag.edag.DAGJoinVertex;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
 /**
- * Factory for DAGVertex creation
+ * Factory for DAGVertex creation.
  *
  * @author jpiat
- *
  */
 public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
 
-	private static DAGVertexFactory instance;
+  /** The instance. */
+  private static DAGVertexFactory instance;
 
-	private DAGVertexFactory() {
+  /**
+   * Instantiates a new DAG vertex factory.
+   */
+  private DAGVertexFactory() {
 
-	}
+  }
 
-	public static DAGVertexFactory getInstance() {
-		if (DAGVertexFactory.instance == null) {
-			DAGVertexFactory.instance = new DAGVertexFactory();
-		}
-		return DAGVertexFactory.instance;
-	}
+  /**
+   * Gets the single instance of DAGVertexFactory.
+   *
+   * @return single instance of DAGVertexFactory
+   */
+  public static DAGVertexFactory getInstance() {
+    if (DAGVertexFactory.instance == null) {
+      DAGVertexFactory.instance = new DAGVertexFactory();
+    }
+    return DAGVertexFactory.instance;
+  }
 
-	@Override
-	public DAGVertex createVertex(final Element vertexElt) {
-		final String kind = getProperty(vertexElt, AbstractVertex.KIND);
-		return this.createVertex(kind);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.factories.ModelVertexFactory#createVertex(org.w3c.dom.Element)
+   */
+  @Override
+  public DAGVertex createVertex(final Element vertexElt) {
+    final String kind = getProperty(vertexElt, AbstractVertex.KIND);
+    return this.createVertex(kind);
+  }
 
-	@Override
-	public DAGVertex createVertex(final String kind) {
-		if (kind.equals(DAGVertex.DAG_VERTEX)) {
-			return new DAGVertex();
-		} else if (kind.equals(DAGBroadcastVertex.DAG_BROADCAST_VERTEX)) {
-			return new DAGBroadcastVertex();
-		} else if (kind.equals(DAGForkVertex.DAG_FORK_VERTEX)) {
-			return new DAGForkVertex();
-		} else if (kind.equals(DAGJoinVertex.DAG_JOIN_VERTEX)) {
-			return new DAGJoinVertex();
-		} else if (kind.equals(DAGInitVertex.DAG_INIT_VERTEX)) {
-			return new DAGInitVertex();
-		} else if (kind.equals(DAGEndVertex.DAG_END_VERTEX)) {
-			return new DAGEndVertex();
-		} else {
-			return new DAGVertex();
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.factories.ModelVertexFactory#createVertex(java.lang.String)
+   */
+  @Override
+  public DAGVertex createVertex(final String kind) {
+    if (kind.equals(DAGVertex.DAG_VERTEX)) {
+      return new DAGVertex();
+    } else if (kind.equals(DAGBroadcastVertex.DAG_BROADCAST_VERTEX)) {
+      return new DAGBroadcastVertex();
+    } else if (kind.equals(DAGForkVertex.DAG_FORK_VERTEX)) {
+      return new DAGForkVertex();
+    } else if (kind.equals(DAGJoinVertex.DAG_JOIN_VERTEX)) {
+      return new DAGJoinVertex();
+    } else if (kind.equals(DAGInitVertex.DAG_INIT_VERTEX)) {
+      return new DAGInitVertex();
+    } else if (kind.equals(DAGEndVertex.DAG_END_VERTEX)) {
+      return new DAGEndVertex();
+    } else {
+      return new DAGVertex();
+    }
+  }
 
-	@Override
-	public IInterface createInterface(final String name, final int dir) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.factories.ModelVertexFactory#createInterface(java.lang.String, int)
+   */
+  @Override
+  public IInterface createInterface(final String name, final int dir) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

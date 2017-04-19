@@ -38,42 +38,58 @@ package org.ietr.dftools.algorithm.model.dag.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a DAG edge property
+ * Class used to represent a DAG edge property.
  *
  * @author jpiat
- *
  */
 public class DAGEdgePropertyType extends AbstractEdgePropertyType<Integer> {
 
-	/**
-	 * Creates a new empty DAGEdgePropertyType
-	 */
-	public DAGEdgePropertyType() {
-		super();
-	}
+  /**
+   * Creates a new empty DAGEdgePropertyType.
+   */
+  public DAGEdgePropertyType() {
+    super();
+  }
 
-	/**
-	 * Creates a new DAGEdgePropertyType with the given value
-	 *
-	 * @param val
-	 */
-	public DAGEdgePropertyType(final int val) {
-		this.value = val;
-	}
+  /**
+   * Creates a new DAGEdgePropertyType with the given value.
+   *
+   * @param val
+   *          the val
+   */
+  public DAGEdgePropertyType(final int val) {
+    this.value = val;
+  }
 
-	@Override
-	public AbstractEdgePropertyType<Integer> clone() {
-		return new DAGEdgePropertyType(this.value);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   */
+  @Override
+  public AbstractEdgePropertyType<Integer> clone() {
+    return new DAGEdgePropertyType(this.value);
+  }
 
-	@Override
-	public int intValue() {
-		return this.value;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public int intValue() {
+    return this.value;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 }

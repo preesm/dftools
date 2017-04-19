@@ -43,21 +43,26 @@ import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.jgrapht.EdgeFactory;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used as an EdgeFactory to provides SDFAbstractGraph with convenient
- * method to create Edges
+ * Class used as an EdgeFactory to provides SDFAbstractGraph with convenient method to create Edges.
  *
  * @author jpiat
- *
  */
 public class SDFEdgeFactory implements EdgeFactory<SDFAbstractVertex, SDFEdge> {
 
-	/**
-	 * Create a new SDEdge
-	 */
-	@Override
-	public SDFEdge createEdge(final SDFAbstractVertex arg0, final SDFAbstractVertex arg1) {
-		return new SDFEdge(new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(0), new SDFStringEdgePropertyType("char"));
-	}
+  /**
+   * Create a new SDEdge.
+   *
+   * @param arg0
+   *          the arg 0
+   * @param arg1
+   *          the arg 1
+   * @return the SDF edge
+   */
+  @Override
+  public SDFEdge createEdge(final SDFAbstractVertex arg0, final SDFAbstractVertex arg1) {
+    return new SDFEdge(new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(0), new SDFStringEdgePropertyType("char"));
+  }
 
 }

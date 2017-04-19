@@ -38,54 +38,69 @@ package org.ietr.dftools.algorithm.model.dag.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent Edge properties in a DAG
+ * Class used to represent Edge properties in a DAG.
  *
  * @author jpiat
- *
  */
 public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer> {
 
-	/**
-	 * Creates a new DAGDefaultEdgePropertyType without specifying any value
-	 */
-	public DAGDefaultEdgePropertyType() {
-		super();
-	}
+  /**
+   * Creates a new DAGDefaultEdgePropertyType without specifying any value.
+   */
+  public DAGDefaultEdgePropertyType() {
+    super();
+  }
 
-	/**
-	 * Creates a new DAGDefaultEdgePropertyType with the given value
-	 *
-	 * @param val
-	 *            The value to set for this DAGDefaultEdgePropertyType
-	 */
-	public DAGDefaultEdgePropertyType(final int val) {
-		super(val);
-	}
+  /**
+   * Creates a new DAGDefaultEdgePropertyType with the given value.
+   *
+   * @param val
+   *          The value to set for this DAGDefaultEdgePropertyType
+   */
+  public DAGDefaultEdgePropertyType(final int val) {
+    super(val);
+  }
 
-	/**
-	 * Creates a new DAGDefaultEdgePropertyType with the given value
-	 *
-	 * @param val
-	 *            The value to set
-	 */
-	public DAGDefaultEdgePropertyType(final String val) {
-		super(new Integer(val));
-	}
+  /**
+   * Creates a new DAGDefaultEdgePropertyType with the given value.
+   *
+   * @param val
+   *          The value to set
+   */
+  public DAGDefaultEdgePropertyType(final String val) {
+    super(new Integer(val));
+  }
 
-	@Override
-	public AbstractEdgePropertyType<Integer> clone() {
-		return new DAGDefaultEdgePropertyType(this.value);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   */
+  @Override
+  public AbstractEdgePropertyType<Integer> clone() {
+    return new DAGDefaultEdgePropertyType(this.value);
+  }
 
-	@Override
-	public int intValue() {
-		return this.value;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public int intValue() {
+    return this.value;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 
 }

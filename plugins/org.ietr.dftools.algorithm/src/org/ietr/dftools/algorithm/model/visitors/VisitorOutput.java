@@ -38,49 +38,55 @@ package org.ietr.dftools.algorithm.model.visitors;
 
 import java.util.logging.Logger;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class for visitors that outputs logs
+ * Class for visitors that outputs logs.
  *
  * @author jpiat
- *
  */
 public class VisitorOutput {
 
-	protected Logger				log;
-	protected static VisitorOutput	instance	= null;
+  /** The log. */
+  protected Logger log;
 
-	protected VisitorOutput() {
-		this.log = Logger.getLogger(VisitorOutput.class.toString());
-	}
+  /** The instance. */
+  protected static VisitorOutput instance = null;
 
-	/**
-	 * Gives an output in which to output messages
-	 *
-	 * @return The unique instance of VisitorOutput
-	 */
-	protected static VisitorOutput getOutput() {
-		if (VisitorOutput.instance == null) {
-			VisitorOutput.instance = new VisitorOutput();
-		}
-		return VisitorOutput.instance;
-	}
+  /**
+   * Instantiates a new visitor output.
+   */
+  protected VisitorOutput() {
+    this.log = Logger.getLogger(VisitorOutput.class.toString());
+  }
 
-	/**
-	 * Set the logger in which to output messages
-	 *
-	 * @param log
-	 *            The logger in which to output messages
-	 */
-	public static void setLogger(final Logger log) {
-		VisitorOutput.getOutput().log = log;
-	}
+  /**
+   * Gives an output in which to output messages.
+   *
+   * @return The unique instance of VisitorOutput
+   */
+  protected static VisitorOutput getOutput() {
+    if (VisitorOutput.instance == null) {
+      VisitorOutput.instance = new VisitorOutput();
+    }
+    return VisitorOutput.instance;
+  }
 
-	/**
-	 * Gives the logger
-	 *
-	 * @return The logger
-	 */
-	public static Logger getLogger() {
-		return VisitorOutput.getOutput().log;
-	}
+  /**
+   * Set the logger in which to output messages.
+   *
+   * @param log
+   *          The logger in which to output messages
+   */
+  public static void setLogger(final Logger log) {
+    VisitorOutput.getOutput().log = log;
+  }
+
+  /**
+   * Gives the logger.
+   *
+   * @return The logger
+   */
+  public static Logger getLogger() {
+    return VisitorOutput.getOutput().log;
+  }
 }

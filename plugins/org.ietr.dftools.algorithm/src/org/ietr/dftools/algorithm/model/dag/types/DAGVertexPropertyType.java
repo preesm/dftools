@@ -38,44 +38,59 @@ package org.ietr.dftools.algorithm.model.dag.types;
 
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a Vertex property in a DAG
+ * Class used to represent a Vertex property in a DAG.
  *
  * @author jpiat
- *
  */
 public class DAGVertexPropertyType extends AbstractVertexPropertyType<Integer> {
 
-	/**
-	 * Creates a new empty DAGVertexPropertyType
-	 */
-	public DAGVertexPropertyType() {
-		super();
-	}
+  /**
+   * Creates a new empty DAGVertexPropertyType.
+   */
+  public DAGVertexPropertyType() {
+    super();
+  }
 
-	/**
-	 * Creates a new DAGVertexPropertyType with the given value
-	 *
-	 * @param val
-	 *            The value to set for this DAGVertexPropertyType
-	 */
-	public DAGVertexPropertyType(final int val) {
-		this.value = val;
-	}
+  /**
+   * Creates a new DAGVertexPropertyType with the given value.
+   *
+   * @param val
+   *          The value to set for this DAGVertexPropertyType
+   */
+  public DAGVertexPropertyType(final int val) {
+    this.value = val;
+  }
 
-	@Override
-	public int intValue() {
-		return this.value;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
+   */
+  @Override
+  public int intValue() {
+    return this.value;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 
-	@Override
-	public AbstractVertexPropertyType<Integer> clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
+   */
+  @Override
+  public AbstractVertexPropertyType<Integer> clone() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

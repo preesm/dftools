@@ -49,116 +49,152 @@ import org.ietr.dftools.architecture.slam.link.Link;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class managing information stored in design vendor extensions
+ * Class managing information stored in design vendor extensions.
  *
  * @author mpelcat
  */
 public class IPXACTDesignVendorExtensionsWriter {
 
-	private final Design design;
+  /** The design. */
+  private final Design design;
 
-	public IPXACTDesignVendorExtensionsWriter(final Design design) {
-		this.design = design;
-	}
+  /**
+   * Instantiates a new IPXACT design vendor extensions writer.
+   *
+   * @param design
+   *          the design
+   */
+  public IPXACTDesignVendorExtensionsWriter(final Design design) {
+    this.design = design;
+  }
 
-	/**
-	 * Writes the vendor extension inside a dom element
-	 */
-	public void write(final Element parent, final Document document) {
-		final Element vendorExtensionsElt = document.createElement("spirit:vendorExtensions");
-		parent.appendChild(vendorExtensionsElt);
+  /**
+   * Writes the vendor extension inside a dom element.
+   *
+   * @param parent
+   *          the parent
+   * @param document
+   *          the document
+   */
+  public void write(final Element parent, final Document document) {
+    final Element vendorExtensionsElt = document.createElement("spirit:vendorExtensions");
+    parent.appendChild(vendorExtensionsElt);
 
-		final Element componentDescriptionsElt = document.createElement("slam:componentDescriptions");
-		vendorExtensionsElt.appendChild(componentDescriptionsElt);
+    final Element componentDescriptionsElt = document.createElement("slam:componentDescriptions");
+    vendorExtensionsElt.appendChild(componentDescriptionsElt);
 
-		this.design.getComponentHolder().getComponents();
-		for (final Component component : this.design.getComponentHolder().getComponents()) {
-			writeComponentDescription(componentDescriptionsElt, component, document);
-		}
+    this.design.getComponentHolder().getComponents();
+    for (final Component component : this.design.getComponentHolder().getComponents()) {
+      writeComponentDescription(componentDescriptionsElt, component, document);
+    }
 
-		final Element linkDescriptionsElt = document.createElement("slam:linkDescriptions");
-		vendorExtensionsElt.appendChild(linkDescriptionsElt);
+    final Element linkDescriptionsElt = document.createElement("slam:linkDescriptions");
+    vendorExtensionsElt.appendChild(linkDescriptionsElt);
 
-		for (final Link link : this.design.getLinks()) {
-			writeLinkDescription(linkDescriptionsElt, link, document);
-		}
+    for (final Link link : this.design.getLinks()) {
+      writeLinkDescription(linkDescriptionsElt, link, document);
+    }
 
-		final Element designDescriptionElt = document.createElement("slam:designDescription");
-		vendorExtensionsElt.appendChild(designDescriptionElt);
+    final Element designDescriptionElt = document.createElement("slam:designDescription");
+    vendorExtensionsElt.appendChild(designDescriptionElt);
 
-		final Element parametersElt = document.createElement("slam:parameters");
-		designDescriptionElt.appendChild(parametersElt);
+    final Element parametersElt = document.createElement("slam:parameters");
+    designDescriptionElt.appendChild(parametersElt);
 
-		for (final Parameter p : this.design.getParameters()) {
-			writeDesignParameter(parametersElt, p.getKey(), p.getValue(), document);
-		}
-	}
+    for (final Parameter p : this.design.getParameters()) {
+      writeDesignParameter(parametersElt, p.getKey(), p.getValue(), document);
+    }
+  }
 
-	/**
-	 * Writes a parameter of the design
-	 */
-	public void writeDesignParameter(final Element parent, final String key, final String value, final Document document) {
-		final Element parameterElt = document.createElement("slam:parameter");
-		parent.appendChild(parameterElt);
+  /**
+   * Writes a parameter of the design.
+   *
+   * @param parent
+   *          the parent
+   * @param key
+   *          the key
+   * @param value
+   *          the value
+   * @param document
+   *          the document
+   */
+  public void writeDesignParameter(final Element parent, final String key, final String value, final Document document) {
+    final Element parameterElt = document.createElement("slam:parameter");
+    parent.appendChild(parameterElt);
 
-		parameterElt.setAttribute("slam:key", key);
-		parameterElt.setAttribute("slam:value", value);
-	}
+    parameterElt.setAttribute("slam:key", key);
+    parameterElt.setAttribute("slam:value", value);
+  }
 
-	/**
-	 * Writes a component description inside a dom element
-	 */
-	public void writeComponentDescription(final Element parent, final Component component, final Document document) {
+  /**
+   * Writes a component description inside a dom element.
+   *
+   * @param parent
+   *          the parent
+   * @param component
+   *          the component
+   * @param document
+   *          the document
+   */
+  public void writeComponentDescription(final Element parent, final Component component, final Document document) {
 
-		// Adding as component type the name of the component ecore EClass.
-		final String componentRef = component.getVlnv().getName();
-		String componentType = component.eClass().getName();
+    // Adding as component type the name of the component ecore EClass.
+    final String componentRef = component.getVlnv().getName();
+    String componentType = component.eClass().getName();
 
-		// Communication node type is concatenated if necessary
-		if (componentType.equals("ComNode")) {
-			if (((ComNode) component).isParallel()) {
-				componentType = "parallel" + componentType;
-			} else {
-				componentType = "contention" + componentType;
-			}
+    // Communication node type is concatenated if necessary
+    if (componentType.equals("ComNode")) {
+      if (((ComNode) component).isParallel()) {
+        componentType = "parallel" + componentType;
+      } else {
+        componentType = "contention" + componentType;
+      }
 
-		}
+    }
 
-		final Element componentElt = document.createElement("slam:componentDescription");
-		parent.appendChild(componentElt);
+    final Element componentElt = document.createElement("slam:componentDescription");
+    parent.appendChild(componentElt);
 
-		componentElt.setAttribute("slam:componentRef", componentRef);
-		componentElt.setAttribute("slam:componentType", componentType);
+    componentElt.setAttribute("slam:componentRef", componentRef);
+    componentElt.setAttribute("slam:componentType", componentType);
 
-		final RefinementList list = new RefinementList();
-		for (final Design subDesign : component.getRefinements()) {
-			list.addName(subDesign.getPath());
-		}
-		final String refinementPath = list.toString();
+    final RefinementList list = new RefinementList();
+    for (final Design subDesign : component.getRefinements()) {
+      list.addName(subDesign.getPath());
+    }
+    final String refinementPath = list.toString();
 
-		componentElt.setAttribute("slam:refinement", refinementPath);
+    componentElt.setAttribute("slam:refinement", refinementPath);
 
-		// Managing specific component properties
-		if (component instanceof ComNode) {
-			componentElt.setAttribute("slam:speed", Float.toString(((ComNode) component).getSpeed()));
-		} else if (component instanceof Mem) {
-			componentElt.setAttribute("slam:size", Integer.toString(((Mem) component).getSize()));
-		} else if (component instanceof Dma) {
-			componentElt.setAttribute("slam:setupTime", Integer.toString(((Dma) component).getSetupTime()));
-		}
-	}
+    // Managing specific component properties
+    if (component instanceof ComNode) {
+      componentElt.setAttribute("slam:speed", Float.toString(((ComNode) component).getSpeed()));
+    } else if (component instanceof Mem) {
+      componentElt.setAttribute("slam:size", Integer.toString(((Mem) component).getSize()));
+    } else if (component instanceof Dma) {
+      componentElt.setAttribute("slam:setupTime", Integer.toString(((Dma) component).getSetupTime()));
+    }
+  }
 
-	/**
-	 * Writes a link description inside a dom element
-	 */
-	public void writeLinkDescription(final Element parent, final Link link, final Document document) {
-		final Element linkElt = document.createElement("slam:linkDescription");
-		parent.appendChild(linkElt);
+  /**
+   * Writes a link description inside a dom element.
+   *
+   * @param parent
+   *          the parent
+   * @param link
+   *          the link
+   * @param document
+   *          the document
+   */
+  public void writeLinkDescription(final Element parent, final Link link, final Document document) {
+    final Element linkElt = document.createElement("slam:linkDescription");
+    parent.appendChild(linkElt);
 
-		linkElt.setAttribute("slam:referenceId", link.getUuid());
-		final String directed = link.isDirected() ? "directed" : "undirected";
-		linkElt.setAttribute("slam:directedLink", directed);
-		linkElt.setAttribute("slam:linkType", link.eClass().getName());
-	}
+    linkElt.setAttribute("slam:referenceId", link.getUuid());
+    final String directed = link.isDirected() ? "directed" : "undirected";
+    linkElt.setAttribute("slam:directedLink", directed);
+    linkElt.setAttribute("slam:linkType", link.eClass().getName());
+  }
 }

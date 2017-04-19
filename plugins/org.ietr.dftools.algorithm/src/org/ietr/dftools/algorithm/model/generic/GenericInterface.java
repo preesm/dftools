@@ -39,34 +39,66 @@ package org.ietr.dftools.algorithm.model.generic;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenericInterface.
+ */
 public class GenericInterface implements IInterface {
 
-	private InterfaceDirection	dir;
-	private String				name;
+  /** The dir. */
+  private InterfaceDirection dir;
 
-	@Override
-	public InterfaceDirection getDirection() {
-		return this.dir;
-	}
+  /** The name. */
+  private String name;
 
-	@Override
-	public void setDirection(final String direction) {
-		this.dir = InterfaceDirection.fromString(direction);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.IInterface#getDirection()
+   */
+  @Override
+  public InterfaceDirection getDirection() {
+    return this.dir;
+  }
 
-	@Override
-	public void setDirection(final InterfaceDirection direction) {
-		this.dir = direction;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.IInterface#setDirection(java.lang.String)
+   */
+  @Override
+  public void setDirection(final String direction) {
+    this.dir = InterfaceDirection.fromString(direction);
+  }
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.IInterface#setDirection(org.ietr.dftools.algorithm.model.InterfaceDirection)
+   */
+  @Override
+  public void setDirection(final InterfaceDirection direction) {
+    this.dir = direction;
+  }
 
-	@Override
-	public void setName(final String name) {
-		this.name = name;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.IInterface#getName()
+   */
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.IInterface#setName(java.lang.String)
+   */
+  @Override
+  public void setName(final String name) {
+    this.name = name;
+  }
 
 }

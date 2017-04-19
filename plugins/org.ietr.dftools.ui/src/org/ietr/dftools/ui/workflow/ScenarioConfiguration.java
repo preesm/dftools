@@ -38,18 +38,16 @@
 
 package org.ietr.dftools.ui.workflow;
 
+// TODO: Auto-generated Javadoc
 /**
- * Representing the configuration for the scenario retrieved from launch tab. It
- * feeds a {@link ScenarioRetriever} to create the input scenario.
+ * Representing the configuration for the scenario retrieved from launch tab. It feeds a {@link ScenarioRetriever} to create the input scenario.
  *
  * @author mpelcat
  *
  */
 public class ScenarioConfiguration {
 
-	/**
-	 * ID used to save scenario file name in tab attributes
-	 */
-	public static final String ATTR_SCENARIO_FILE_NAME = "org.ietr.dftools.ui.workflow.scenarioFileName";
+  /** ID used to save scenario file name in tab attributes. */
+  public static final String ATTR_SCENARIO_FILE_NAME = "org.ietr.dftools.ui.workflow.scenarioFileName";
 
 }

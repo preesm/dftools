@@ -38,7 +38,6 @@
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.util.Vector;
-
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -47,59 +46,77 @@ import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.alg.CycleDetector;
 
+// TODO: Auto-generated Javadoc
 /**
- * Visitor to use to detect cycle in a hierarchical graph
+ * Visitor to use to detect cycle in a hierarchical graph.
  *
  * @author jpiat
- *
  */
 public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, SDFEdge> {
 
-	private final Vector<SDFGraph>	containsCycles	= new Vector<>();
-	private boolean					hasCycle		= true;
+  /** The contains cycles. */
+  private final Vector<SDFGraph> containsCycles = new Vector<>();
 
-	/**
-	 * Detect cycles in the given graph
-	 *
-	 * @param graph
-	 *            The graph to visit
-	 * @return true if the graph has cycles
-	 */
-	public boolean detectCyles(final SDFGraph graph) {
-		try {
-			graph.accept(this);
-		} catch (final SDF4JException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return this.hasCycle;
-	}
+  /** The has cycle. */
+  private boolean hasCycle = true;
 
-	@Override
-	public void visit(final SDFEdge sdfEdge) {
-		// TODO Auto-generated method stub
+  /**
+   * Detect cycles in the given graph.
+   *
+   * @param graph
+   *          The graph to visit
+   * @return true if the graph has cycles
+   */
+  public boolean detectCyles(final SDFGraph graph) {
+    try {
+      graph.accept(this);
+    } catch (final SDF4JException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return this.hasCycle;
+  }
 
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void visit(final SDFEdge sdfEdge) {
+    // TODO Auto-generated method stub
 
-	@Override
-	public void visit(final SDFGraph sdf) throws SDF4JException {
-		boolean hasCycle;
-		final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(sdf);
-		hasCycle = detector.detectCycles();
-		if (hasCycle) {
-			this.containsCycles.add(sdf);
-		}
-		this.hasCycle = this.hasCycle && hasCycle;
-		for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
-			vertex.accept(this);
-		}
-	}
+  }
 
-	@Override
-	public void visit(final SDFVertex sdfVertex) throws SDF4JException {
-		if (sdfVertex.getGraphDescription() != null) {
-			sdfVertex.getGraphDescription().accept(this);
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public void visit(final SDFGraph sdf) throws SDF4JException {
+    boolean hasCycle;
+    final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(sdf);
+    hasCycle = detector.detectCycles();
+    if (hasCycle) {
+      this.containsCycles.add(sdf);
+    }
+    this.hasCycle = this.hasCycle && hasCycle;
+    for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
+      vertex.accept(this);
+    }
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
+   */
+  @Override
+  public void visit(final SDFVertex sdfVertex) throws SDF4JException {
+    if (sdfVertex.getGraphDescription() != null) {
+      sdfVertex.getGraphDescription().accept(this);
+    }
+  }
 
 }

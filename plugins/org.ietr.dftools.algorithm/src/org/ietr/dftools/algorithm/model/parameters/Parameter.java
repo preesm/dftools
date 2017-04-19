@@ -37,6 +37,7 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class representing parameters that can be used to configure a graph ...
  *
@@ -45,58 +46,72 @@ package org.ietr.dftools.algorithm.model.parameters;
  */
 public class Parameter {
 
-	private String	name;
-	private Integer	value	= null;
+  /** The name. */
+  private String name;
 
-	/**
-	 * Builds a parameter with the given name
-	 *
-	 * @param name
-	 *            The name of the parameter
-	 */
-	public Parameter(final String name) {
-		this.name = name;
-	}
+  /** The value. */
+  private Integer value = null;
 
-	/**
-	 * Gives this parameter name
-	 *
-	 * @return The name of this parameter
-	 */
-	public String getName() {
-		return this.name;
-	}
+  /**
+   * Builds a parameter with the given name.
+   *
+   * @param name
+   *          The name of the parameter
+   */
+  public Parameter(final String name) {
+    this.name = name;
+  }
 
-	/**
-	 * Set this parameter name
-	 *
-	 * @param name
-	 *            The name to set for this parameter
-	 */
-	public void setName(final String name) {
-		this.name = name;
-	}
+  /**
+   * Gives this parameter name.
+   *
+   * @return The name of this parameter
+   */
+  public String getName() {
+    return this.name;
+  }
 
-	/**
-	 * @return The value of the parameter
-	 */
-	public Integer getValue() throws NoIntegerValueException {
-		return this.value;
-	}
+  /**
+   * Set this parameter name.
+   *
+   * @param name
+   *          The name to set for this parameter
+   */
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	/**
-	 * @param value
-	 *            The value of this parameter
-	 */
-	public void setValue(final Integer value) {
-		this.value = value;
-	}
+  /**
+   * Gets the value.
+   *
+   * @return The value of the parameter
+   * @throws NoIntegerValueException
+   *           the no integer value exception
+   */
+  public Integer getValue() throws NoIntegerValueException {
+    return this.value;
+  }
 
-	@Override
-	public Parameter clone() {
-		final Parameter par = new Parameter(this.name);
-		par.setValue(this.value);
-		return par;
-	}
+  /**
+   * Sets the value.
+   *
+   * @param value
+   *          The value of this parameter
+   */
+  public void setValue(final Integer value) {
+    this.value = value;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#clone()
+   */
+  @Override
+  public Parameter clone() {
+    final Parameter par = new Parameter(this.name);
+    par.setValue(this.value);
+    return par;
+  }
 
 }

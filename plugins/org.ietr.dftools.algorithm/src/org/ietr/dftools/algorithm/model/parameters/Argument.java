@@ -37,115 +37,143 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent Argument
+ * Class used to represent Argument.
  *
  * @author jpiat
  * @author kdesnos
- *
  */
 public class Argument {
 
-	private String	name;
-	private Value	value;
+  /** The name. */
+  private String name;
 
-	/**
-	 * Builds a new argument with the given name
-	 *
-	 * @param name
-	 *            The name of the argument
-	 */
-	public Argument(final String name) {
-		this.name = name;
-		this.value = new ExpressionValue("");
-	}
+  /** The value. */
+  private Value value;
 
-	/**
-	 * Builds a new argument with the given name and value
-	 *
-	 * @param name
-	 *            The name of the argument
-	 * @param value
-	 *            The value of the argument
-	 */
-	public Argument(final String name, final String value) {
-		this.name = name;
-		try {
-			final int integerValue = Integer.decode(value);
-			this.value = new ConstantValue(integerValue);
-		} catch (final NumberFormatException e) {
-			this.value = new ExpressionValue(value);
-		}
-	}
+  /**
+   * Builds a new argument with the given name.
+   *
+   * @param name
+   *          The name of the argument
+   */
+  public Argument(final String name) {
+    this.name = name;
+    this.value = new ExpressionValue("");
+  }
 
-	/**
-	 * Builds a new argument with the given name and value
-	 *
-	 * @param name
-	 *            The name of the argument
-	 * @param value
-	 *            The value of the argument
-	 */
-	public Argument(final String name, final Value value) {
-		this.name = name;
-		this.value = value;
-	}
+  /**
+   * Builds a new argument with the given name and value.
+   *
+   * @param name
+   *          The name of the argument
+   * @param value
+   *          The value of the argument
+   */
+  public Argument(final String name, final String value) {
+    this.name = name;
+    try {
+      final int integerValue = Integer.decode(value);
+      this.value = new ConstantValue(integerValue);
+    } catch (final NumberFormatException e) {
+      this.value = new ExpressionValue(value);
+    }
+  }
 
-	/**
-	 * Gives the name of the argument
-	 *
-	 * @return The name of the argument
-	 */
-	public String getName() {
-		return this.name;
-	}
+  /**
+   * Builds a new argument with the given name and value.
+   *
+   * @param name
+   *          The name of the argument
+   * @param value
+   *          The value of the argument
+   */
+  public Argument(final String name, final Value value) {
+    this.name = name;
+    this.value = value;
+  }
 
-	/**
-	 * Sets the name of the argument
-	 *
-	 * @param name
-	 *            The name to set for the argument
-	 */
-	public void setName(final String name) {
-		this.name = name;
-	}
+  /**
+   * Gives the name of the argument.
+   *
+   * @return The name of the argument
+   */
+  public String getName() {
+    return this.name;
+  }
 
-	/**
-	 * Set the solver to use for this expression
-	 *
-	 * @param solver
-	 *            The solver to use to compute int value
-	 */
-	public void setExpressionSolver(final IExpressionSolver solver) {
-		this.value.setExpressionSolver(solver);
-	}
+  /**
+   * Sets the name of the argument.
+   *
+   * @param name
+   *          The name to set for the argument
+   */
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public int intValue() throws InvalidExpressionException, NoIntegerValueException {
-		final int val = this.value.intValue();
-		// kdesnos: Removed this line because it was
-		// removing information from the graph before
-		// flattening. Putting this line back implies
-		// that all expressions be replaced with their constant
-		// value very early in graph transformations
-		// this.value = new ConstantValue(val);
-		return val;
-	}
+  /**
+   * Set the solver to use for this expression.
+   *
+   * @param solver
+   *          The solver to use to compute int value
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    this.value.setExpressionSolver(solver);
+  }
 
-	public String getValue() {
-		return this.value.getValue();
-	}
+  /**
+   * Int value.
+   *
+   * @return the int
+   * @throws InvalidExpressionException
+   *           the invalid expression exception
+   * @throws NoIntegerValueException
+   *           the no integer value exception
+   */
+  public int intValue() throws InvalidExpressionException, NoIntegerValueException {
+    final int val = this.value.intValue();
+    // kdesnos: Removed this line because it was
+    // removing information from the graph before
+    // flattening. Putting this line back implies
+    // that all expressions be replaced with their constant
+    // value very early in graph transformations
+    // this.value = new ConstantValue(val);
+    return val;
+  }
 
-	public Value getObjectValue() {
-		return this.value;
-	}
+  /**
+   * Gets the value.
+   *
+   * @return the value
+   */
+  public String getValue() {
+    return this.value.getValue();
+  }
 
-	public void setValue(final String value) {
-		try {
-			final int integerValue = Integer.decode(value);
-			this.value = new ConstantValue(integerValue);
-		} catch (final NumberFormatException e) {
-			this.value = new ExpressionValue(value);
-		}
-	}
+  /**
+   * Gets the object value.
+   *
+   * @return the object value
+   */
+  public Value getObjectValue() {
+    return this.value;
+  }
+
+  /**
+   * Sets the value.
+   *
+   * @param value
+   *          the new value
+   */
+  public void setValue(final String value) {
+    try {
+      final int integerValue = Integer.decode(value);
+      this.value = new ConstantValue(integerValue);
+    } catch (final NumberFormatException e) {
+      this.value = new ExpressionValue(value);
+    }
+  }
 
 }

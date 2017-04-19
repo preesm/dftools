@@ -39,64 +39,102 @@ package org.ietr.dftools.algorithm.model.sdf.esdf;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Special vertex to initialize data on looping edges
+ * Special vertex to initialize data on looping edges.
  *
  * @author jpiat
- *
  */
 public class SDFInitVertex extends SDFAbstractVertex {
 
-	/**
-	 * Kind of node
-	 */
-	public static final String INIT = "init";
+  /** Kind of node. */
+  public static final String INIT = "init";
 
-	public static final String	END_REFERENCE	= "END_REFERENCE";
-	public static final String	INIT_SIZE		= "INIT_SIZE";
+  /** The Constant END_REFERENCE. */
+  public static final String END_REFERENCE = "END_REFERENCE";
 
-	/**
-	 * Creates a new SDFInterfaceVertex with the default direction (SINK)
-	 */
-	public SDFInitVertex() {
-		super();
-		setKind(SDFInitVertex.INIT);
-		setNbRepeat(1);
-	}
+  /** The Constant INIT_SIZE. */
+  public static final String INIT_SIZE = "INIT_SIZE";
 
-	@Override
-	public SDFAbstractVertex clone() {
-		final SDFInitVertex init = new SDFInitVertex();
-		init.setName(getName());
-		return init;
-	}
+  /**
+   * Creates a new SDFInterfaceVertex with the default direction (SINK).
+   */
+  public SDFInitVertex() {
+    super();
+    setKind(SDFInitVertex.INIT);
+    setNbRepeat(1);
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionAdded(final AbstractEdge e) {
-		// Nothing to do for the moment
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
+   */
+  @Override
+  public SDFAbstractVertex clone() {
+    final SDFInitVertex init = new SDFInitVertex();
+    init.setName(getName());
+    return init;
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionRemoved(final AbstractEdge e) {
-		// Nothing to do for the moment
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionAdded(final AbstractEdge e) {
+    // Nothing to do for the moment
+  }
 
-	public void setEndReference(final SDFInitVertex ref) {
-		getPropertyBean().setValue(SDFInitVertex.END_REFERENCE, ref);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionRemoved(final AbstractEdge e) {
+    // Nothing to do for the moment
+  }
 
-	public SDFInitVertex getEndReference() {
-		return (SDFInitVertex) getPropertyBean().getValue(SDFInitVertex.END_REFERENCE);
-	}
+  /**
+   * Sets the end reference.
+   *
+   * @param ref
+   *          the new end reference
+   */
+  public void setEndReference(final SDFInitVertex ref) {
+    getPropertyBean().setValue(SDFInitVertex.END_REFERENCE, ref);
+  }
 
-	public void setInitSize(final int size) {
-		getPropertyBean().setValue(SDFInitVertex.INIT_SIZE, size);
-	}
+  /**
+   * Gets the end reference.
+   *
+   * @return the end reference
+   */
+  public SDFInitVertex getEndReference() {
+    return (SDFInitVertex) getPropertyBean().getValue(SDFInitVertex.END_REFERENCE);
+  }
 
-	public int getInitSize() {
-		return (Integer) getPropertyBean().getValue(SDFInitVertex.INIT_SIZE);
-	}
+  /**
+   * Sets the inits the size.
+   *
+   * @param size
+   *          the new inits the size
+   */
+  public void setInitSize(final int size) {
+    getPropertyBean().setValue(SDFInitVertex.INIT_SIZE, size);
+  }
+
+  /**
+   * Gets the inits the size.
+   *
+   * @return the inits the size
+   */
+  public int getInitSize() {
+    return (Integer) getPropertyBean().getValue(SDFInitVertex.INIT_SIZE);
+  }
 
 }

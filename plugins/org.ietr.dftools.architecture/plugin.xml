@@ -47,4 +47,28 @@
             genModel="model/Slam.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Slam -->
+      <package
+            uri="http://net.sf.dftools/architecture/slam/component"
+            class="org.ietr.dftools.architecture.slam.component.ComponentPackage"
+            genModel="model/Slam.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Slam -->
+      <package
+            uri="http://net.sf.dftools/architecture/slam/link"
+            class="org.ietr.dftools.architecture.slam.link.LinkPackage"
+            genModel="model/Slam.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Slam -->
+      <package
+            uri="http://net.sf.dftools/architecture/slam/attributes"
+            class="org.ietr.dftools.architecture.slam.attributes.AttributesPackage"
+            genModel="model/Slam.genmodel"/>
+   </extension>
+
 </plugin>

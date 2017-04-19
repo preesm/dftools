@@ -38,47 +38,62 @@ package org.ietr.dftools.algorithm.model.sdf.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the integer edge property type in a SDF
+ * Class used to represent the integer edge property type in a SDF.
  *
  * @author jpiat
- *
  */
 public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Integer> {
 
-	/**
-	 * Creates a new SDFDefaultEdgePropertyType with the given Integer value
-	 *
-	 * @param val
-	 *            The Integer value of this SDFDefaultEdgePropertyType
-	 */
-	public SDFIntEdgePropertyType(final int val) {
-		super(val);
-	}
+  /**
+   * Creates a new SDFDefaultEdgePropertyType with the given Integer value.
+   *
+   * @param val
+   *          The Integer value of this SDFDefaultEdgePropertyType
+   */
+  public SDFIntEdgePropertyType(final int val) {
+    super(val);
+  }
 
-	/**
-	 * Creates a new SDFDefaultEdgePropertyType with the given String value
-	 *
-	 * @param val
-	 *            The String value of this SDFDefaultEdgePropertyType
-	 */
-	public SDFIntEdgePropertyType(final String val) {
-		super(new Integer(val));
-	}
+  /**
+   * Creates a new SDFDefaultEdgePropertyType with the given String value.
+   *
+   * @param val
+   *          The String value of this SDFDefaultEdgePropertyType
+   */
+  public SDFIntEdgePropertyType(final String val) {
+    super(new Integer(val));
+  }
 
-	@Override
-	public AbstractEdgePropertyType<Integer> clone() {
-		return new SDFIntEdgePropertyType(this.value);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   */
+  @Override
+  public AbstractEdgePropertyType<Integer> clone() {
+    return new SDFIntEdgePropertyType(this.value);
+  }
 
-	@Override
-	public int intValue() {
-		return this.value;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public int intValue() {
+    return this.value;
+  }
 
-	@Override
-	public String toString() {
-		return this.value.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 
 }

@@ -36,26 +36,44 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Value.
+ */
 public interface Value {
-	/**
-	 * Gives the integer value of this expression
-	 *
-	 * @return The integer value of the expression
-	 * @throws InvalidExpressionException
-	 *             When expression can't be solved
-	 */
-	public int intValue() throws InvalidExpressionException, NoIntegerValueException;
 
-	/**
-	 * Set the solver to use for this expression
-	 *
-	 * @param solver
-	 *            The solver to use to compute int value
-	 */
-	public void setExpressionSolver(IExpressionSolver solver);
+  /**
+   * Gives the integer value of this expression.
+   *
+   * @return The integer value of the expression
+   * @throws InvalidExpressionException
+   *           When expression can't be solved
+   * @throws NoIntegerValueException
+   *           the no integer value exception
+   */
+  public int intValue() throws InvalidExpressionException, NoIntegerValueException;
 
-	public String getValue();
+  /**
+   * Set the solver to use for this expression.
+   *
+   * @param solver
+   *          The solver to use to compute int value
+   */
+  public void setExpressionSolver(IExpressionSolver solver);
 
-	public void setValue(String value);
+  /**
+   * Gets the value.
+   *
+   * @return the value
+   */
+  public String getValue();
+
+  /**
+   * Sets the value.
+   *
+   * @param value
+   *          the new value
+   */
+  public void setValue(String value);
 
 }

@@ -42,102 +42,106 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent Hierachical vertices, meaning it is a vertex in the
- * parent graph, but is itself a graph
+ * Class used to represent Hierachical vertices, meaning it is a vertex in the parent graph, but is itself a graph.
  *
  * @author jpiat
- *
  */
 public class SDFVertex extends SDFAbstractVertex {
 
-	/**
-	 * Property memory script
-	 */
-	public static final String MEMORY_SCRIPT = "memory_script";
+  /** Property memory script. */
+  public static final String MEMORY_SCRIPT = "memory_script";
 
-	static {
-		{
-			AbstractVertex.public_properties.add(SDFVertex.MEMORY_SCRIPT);
-		}
-	};
+  static {
+    AbstractVertex.public_properties.add(SDFVertex.MEMORY_SCRIPT);
+  }
 
-	/**
-	 *
-	 */
-	protected static final long serialVersionUID = -4281714330859590518L;
+  /** The Constant serialVersionUID. */
+  protected static final long serialVersionUID = -4281714330859590518L;
 
-	/**
-	 * Kind of node
-	 */
-	public static final String VERTEX = "vertex";
+  /** Kind of node. */
+  public static final String VERTEX = "vertex";
 
-	/**
-	 * Builds a new vertex
-	 */
-	public SDFVertex() {
-		super();
-		setKind(SDFVertex.VERTEX);
-	}
+  /**
+   * Builds a new vertex.
+   */
+  public SDFVertex() {
+    super();
+    setKind(SDFVertex.VERTEX);
+  }
 
-	/**
-	 * Constructs a new SDFVertex given its base graph arg0
-	 *
-	 * @param arg0
-	 */
-	public SDFVertex(final SDFGraph arg0) {
-		super();
-		setKind(SDFVertex.VERTEX);
-		setBase(arg0);
-	}
+  /**
+   * Constructs a new SDFVertex given its base graph arg0.
+   *
+   * @param arg0
+   *          the arg 0
+   */
+  public SDFVertex(final SDFGraph arg0) {
+    super();
+    setKind(SDFVertex.VERTEX);
+    setBase(arg0);
+  }
 
-	/**
-	 * Clone the vertex
-	 */
-	@Override
-	public SDFVertex clone() {
-		final SDFVertex newVertex = new SDFVertex(null);
-		for (final String key : getPropertyBean().keys()) {
-			if (getPropertyBean().getValue(key) != null) {
-				final Object val = getPropertyBean().getValue(key);
-				newVertex.getPropertyBean().setValue(key, val);
-			}
-		}
-		// Copy refinement properties
-		newVertex.setRefinement(getRefinement());
-		for (final SDFInterfaceVertex sink : getSinks()) {
-			if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
-				newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
-			} else {
-				newVertex.addSink(sink.clone());
-			}
-		}
-		for (final SDFInterfaceVertex source : getSources()) {
-			if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
-				newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
-			} else {
-				newVertex.addSource(source.clone());
-			}
-		}
-		try {
-			newVertex.setNbRepeat(getNbRepeat());
-		} catch (final InvalidExpressionException e) {
-			e.printStackTrace();
-		}
+  /**
+   * Clone the vertex.
+   *
+   * @return the SDF vertex
+   */
+  @Override
+  public SDFVertex clone() {
+    final SDFVertex newVertex = new SDFVertex(null);
+    for (final String key : getPropertyBean().keys()) {
+      if (getPropertyBean().getValue(key) != null) {
+        final Object val = getPropertyBean().getValue(key);
+        newVertex.getPropertyBean().setValue(key, val);
+      }
+    }
+    // Copy refinement properties
+    newVertex.setRefinement(getRefinement());
+    for (final SDFInterfaceVertex sink : getSinks()) {
+      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
+        newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+      } else {
+        newVertex.addSink(sink.clone());
+      }
+    }
+    for (final SDFInterfaceVertex source : getSources()) {
+      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
+        newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+      } else {
+        newVertex.addSource(source.clone());
+      }
+    }
+    try {
+      newVertex.setNbRepeat(getNbRepeat());
+    } catch (final InvalidExpressionException e) {
+      e.printStackTrace();
+    }
 
-		return newVertex;
-	}
+    return newVertex;
+  }
 
-	@Override
-	public void connectionAdded(final AbstractEdge<?, ?> e) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void connectionAdded(final AbstractEdge<?, ?> e) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public void connectionRemoved(final AbstractEdge<?, ?> e) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void connectionRemoved(final AbstractEdge<?, ?> e) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
 }

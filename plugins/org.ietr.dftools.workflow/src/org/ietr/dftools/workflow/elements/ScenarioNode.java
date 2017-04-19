@@ -39,7 +39,6 @@
 package org.ietr.dftools.workflow.elements;
 
 import java.util.logging.Level;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -47,6 +46,7 @@ import org.eclipse.core.runtime.Platform;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class provides a scenario workflow node.
  *
@@ -54,83 +54,111 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  */
 public class ScenarioNode extends AbstractWorkflowNode {
 
-	/**
-	 * The identifier of this scenario node. It is needed to retrieve the
-	 * implementation of this node
-	 */
-	private String scenarioId = null;
+  /**
+   * The identifier of this scenario node. It is needed to retrieve the implementation of this node
+   */
+  private String scenarioId = null;
 
-	public ScenarioNode(final String scenarioId) {
-		super();
-		this.scenarioId = scenarioId;
-	}
+  /**
+   * Instantiates a new scenario node.
+   *
+   * @param scenarioId
+   *          the scenario id
+   */
+  public ScenarioNode(final String scenarioId) {
+    super();
+    this.scenarioId = scenarioId;
+  }
 
-	public String getScenarioId() {
-		return this.scenarioId;
-	}
+  /**
+   * Gets the scenario id.
+   *
+   * @return the scenario id
+   */
+  public String getScenarioId() {
+    return this.scenarioId;
+  }
 
-	public AbstractScenarioImplementation getScenario() {
-		return (AbstractScenarioImplementation) this.implementation;
-	}
+  /**
+   * Gets the scenario.
+   *
+   * @return the scenario
+   */
+  public AbstractScenarioImplementation getScenario() {
+    return (AbstractScenarioImplementation) this.implementation;
+  }
 
-	@Override
-	public boolean isScenarioNode() {
-		return true;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isScenarioNode()
+   */
+  @Override
+  public boolean isScenarioNode() {
+    return true;
+  }
 
-	@Override
-	public boolean isTaskNode() {
-		return false;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isTaskNode()
+   */
+  @Override
+  public boolean isTaskNode() {
+    return false;
+  }
 
-	/**
-	 * Initializes the outputs types of the scenario using information from the
-	 * plugin extension.
-	 *
-	 * @return True if the prototype was correctly set.
-	 */
-	private boolean initPrototype(final AbstractScenarioImplementation scenario, final IConfigurationElement element) {
+  /**
+   * Initializes the outputs types of the scenario using information from the plugin extension.
+   *
+   * @param scenario
+   *          the scenario
+   * @param element
+   *          the element
+   * @return True if the prototype was correctly set.
+   */
+  private boolean initPrototype(final AbstractScenarioImplementation scenario, final IConfigurationElement element) {
 
-		for (final IConfigurationElement child : element.getChildren()) {
-			if (child.getName().equals("outputs")) {
-				for (final IConfigurationElement output : child.getChildren()) {
-					scenario.addOutput(output.getAttribute("id"), output.getAttribute("object"));
-				}
-			}
-		}
-		return true;
-	}
+    for (final IConfigurationElement child : element.getChildren()) {
+      if (child.getName().equals("outputs")) {
+        for (final IConfigurationElement output : child.getChildren()) {
+          scenario.addOutput(output.getAttribute("id"), output.getAttribute("object"));
+        }
+      }
+    }
+    return true;
+  }
 
-	/**
-	 * Checks if this scenario exists based on its ID.
-	 *
-	 * @return True if this scenario exists, false otherwise.
-	 */
-	public boolean getExtensionInformation() {
-		try {
-			final IExtensionRegistry registry = Platform.getExtensionRegistry();
+  /**
+   * Checks if this scenario exists based on its ID.
+   *
+   * @return True if this scenario exists, false otherwise.
+   */
+  public boolean getExtensionInformation() {
+    try {
+      final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-			final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
-			for (final IConfigurationElement element : elements) {
-				if (element.getAttribute("id").equals(this.scenarioId)) {
-					// Tries to create the transformation
-					final Object obj = element.createExecutableExtension("type");
+      final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
+      for (final IConfigurationElement element : elements) {
+        if (element.getAttribute("id").equals(this.scenarioId)) {
+          // Tries to create the transformation
+          final Object obj = element.createExecutableExtension("type");
 
-					// and checks it actually is an ITransformation.
-					if (obj instanceof AbstractScenarioImplementation) {
-						this.implementation = (AbstractScenarioImplementation) obj;
+          // and checks it actually is an ITransformation.
+          if (obj instanceof AbstractScenarioImplementation) {
+            this.implementation = (AbstractScenarioImplementation) obj;
 
-						// Initializes the prototype of the scenario
-						initPrototype((AbstractScenarioImplementation) this.implementation, element);
-						return true;
-					}
-				}
-			}
+            // Initializes the prototype of the scenario
+            initPrototype((AbstractScenarioImplementation) this.implementation, element);
+            return true;
+          }
+        }
+      }
 
-			return false;
-		} catch (final CoreException e) {
-			WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find the scenario from workflow");
-			return false;
-		}
-	}
+      return false;
+    } catch (final CoreException e) {
+      WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find the scenario from workflow");
+      return false;
+    }
+  }
 }

@@ -39,32 +39,40 @@
 package org.ietr.dftools.workflow;
 
 import java.util.logging.Level;
-
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class provides methods to check and execute a workflow. A workflow
- * consists of several transformation plug-ins tasks applied to a scenario.
+ * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins tasks applied to a scenario.
  *
  * @author mpelcat
  */
 public class WorkflowManager extends AbstractWorkflowExecutor {
 
-	/**
-	 * Ports with this name are ignored when exchanging data. They just specify
-	 * precedence.
-	 */
-	public static String IGNORE_PORT_NAME = "void";
+  /**
+   * Ports with this name are ignored when exchanging data. They just specify precedence.
+   */
+  public static String IGNORE_PORT_NAME = "void";
 
-	public WorkflowManager() {
-		super();
-	}
+  /**
+   * Instantiates a new workflow manager.
+   */
+  public WorkflowManager() {
+    super();
+  }
 
-	/**
-	 * Log method for workflow execution with eclipse UI
-	 */
-	@Override
-	protected void log(final Level level, final String msgKey, final String... variables) {
-		WorkflowLogger.getLogger().logFromProperty(level, msgKey, variables);
-	}
+  /**
+   * Log method for workflow execution with eclipse UI.
+   *
+   * @param level
+   *          the level
+   * @param msgKey
+   *          the msg key
+   * @param variables
+   *          the variables
+   */
+  @Override
+  protected void log(final Level level, final String msgKey, final String... variables) {
+    WorkflowLogger.getLogger().logFromProperty(level, msgKey, variables);
+  }
 }

@@ -40,64 +40,84 @@ package org.ietr.dftools.workflow.elements;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.core.runtime.IPath;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
+// TODO: Auto-generated Javadoc
 /**
- * Workflow graph
+ * Workflow graph.
  *
  * @author mpelcat
  */
 public class Workflow extends DirectedMultigraph<AbstractWorkflowNode, WorkflowEdge> {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -908014142930559238L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -908014142930559238L;
 
-	/**
-	 * Path of the file that contains the workflow
-	 */
-	private IPath path = null;
+  /** Path of the file that contains the workflow. */
+  private IPath path = null;
 
-	public Workflow() {
-		super(WorkflowEdge.class);
-	}
+  /**
+   * Instantiates a new workflow.
+   */
+  public Workflow() {
+    super(WorkflowEdge.class);
+  }
 
-	public List<AbstractWorkflowNode> vertexTopologicalList() {
-		final List<AbstractWorkflowNode> nodeList = new ArrayList<>();
-		final TopologicalOrderIterator<AbstractWorkflowNode, WorkflowEdge> it = new TopologicalOrderIterator<>(this);
+  /**
+   * Vertex topological list.
+   *
+   * @return the list
+   */
+  public List<AbstractWorkflowNode> vertexTopologicalList() {
+    final List<AbstractWorkflowNode> nodeList = new ArrayList<>();
+    final TopologicalOrderIterator<AbstractWorkflowNode, WorkflowEdge> it = new TopologicalOrderIterator<>(this);
 
-		while (it.hasNext()) {
-			final AbstractWorkflowNode node = it.next();
-			nodeList.add(node);
-		}
+    while (it.hasNext()) {
+      final AbstractWorkflowNode node = it.next();
+      nodeList.add(node);
+    }
 
-		return nodeList;
-	}
+    return nodeList;
+  }
 
-	public void setPath(final IPath path) {
-		this.path = path;
-	}
+  /**
+   * Sets the path.
+   *
+   * @param path
+   *          the new path
+   */
+  public void setPath(final IPath path) {
+    this.path = path;
+  }
 
-	public String getProjectName() {
-		return this.path.segment(0);
-	}
+  /**
+   * Gets the project name.
+   *
+   * @return the project name
+   */
+  public String getProjectName() {
+    return this.path.segment(0);
+  }
 
-	public boolean hasScenario() {
-		int nbScenarios = 0;
-		for (final AbstractWorkflowNode node : vertexSet()) {
-			if (node.isScenarioNode()) {
-				nbScenarios++;
-			}
-		}
+  /**
+   * Checks for scenario.
+   *
+   * @return true, if successful
+   */
+  public boolean hasScenario() {
+    int nbScenarios = 0;
+    for (final AbstractWorkflowNode node : vertexSet()) {
+      if (node.isScenarioNode()) {
+        nbScenarios++;
+      }
+    }
 
-		if (nbScenarios == 1) {
-			return true;
-		}
+    if (nbScenarios == 1) {
+      return true;
+    }
 
-		return false;
-	}
+    return false;
+  }
 }

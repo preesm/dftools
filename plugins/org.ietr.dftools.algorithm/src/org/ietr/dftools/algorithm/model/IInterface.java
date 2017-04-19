@@ -37,37 +37,50 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model;
 
+// TODO: Auto-generated Javadoc
 /**
- * An abstract class representing interfaces to the outside world
+ * An abstract class representing interfaces to the outside world.
  *
  * @author jpiat
- *
  */
 public interface IInterface {
 
-	/**
-	 * Gives this interface direction
-	 *
-	 * @return The direction of this interface
-	 */
-	public InterfaceDirection getDirection();
+  /**
+   * Gives this interface direction.
+   *
+   * @return The direction of this interface
+   */
+  public InterfaceDirection getDirection();
 
-	/**
-	 * Set this interface direction
-	 *
-	 * @param direction
-	 */
-	public void setDirection(String direction);
+  /**
+   * Set this interface direction.
+   *
+   * @param direction
+   *          the new direction
+   */
+  public void setDirection(String direction);
 
-	/**
-	 * Set this interface direction
-	 *
-	 * @param direction
-	 */
-	public void setDirection(InterfaceDirection direction);
+  /**
+   * Set this interface direction.
+   *
+   * @param direction
+   *          the new direction
+   */
+  public void setDirection(InterfaceDirection direction);
 
-	public String getName();
+  /**
+   * Gets the name.
+   *
+   * @return the name
+   */
+  public String getName();
 
-	public void setName(String name);
+  /**
+   * Sets the name.
+   *
+   * @param name
+   *          the new name
+   */
+  public void setName(String name);
 
 }

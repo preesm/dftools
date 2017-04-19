@@ -39,7 +39,6 @@ package org.ietr.dftools.architecture.utils;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -50,102 +49,110 @@ import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSParser;
 import org.w3c.dom.ls.LSSerializer;
 
+// TODO: Auto-generated Javadoc
 /**
- * This class defines utility methods to create DOM documents and print them to
- * an output stream using DOM 3 Load Save objects.
+ * This class defines utility methods to create DOM documents and print them to an output stream using DOM 3 Load Save objects.
  *
  * @author Matthieu Wipliez
  *
  */
 public class DomUtil {
 
-	private static DOMImplementation impl;
+  /** The impl. */
+  private static DOMImplementation impl;
 
-	private static DOMImplementationRegistry registry;
+  /** The registry. */
+  private static DOMImplementationRegistry registry;
 
-	/**
-	 * Creates a new DOM document.
-	 *
-	 * @param docElt
-	 *            name of the document element
-	 * @return a new DOM document if something goes wrong
-	 */
-	public static Document createDocument(final String docElt) {
-		DomUtil.getImplementation();
-		return DomUtil.impl.createDocument("", docElt, null);
-	}
+  /**
+   * Creates a new DOM document.
+   *
+   * @param docElt
+   *          name of the document element
+   * @return a new DOM document if something goes wrong
+   */
+  public static Document createDocument(final String docElt) {
+    DomUtil.getImplementation();
+    return DomUtil.impl.createDocument("", docElt, null);
+  }
 
-	public static Document createDocument(final String namespaceURI, final String docElt) {
-		DomUtil.getImplementation();
-		return DomUtil.impl.createDocument(namespaceURI, docElt, null);
-	}
+  /**
+   * Creates the document.
+   *
+   * @param namespaceURI
+   *          the namespace URI
+   * @param docElt
+   *          the doc elt
+   * @return the document
+   */
+  public static Document createDocument(final String namespaceURI, final String docElt) {
+    DomUtil.getImplementation();
+    return DomUtil.impl.createDocument(namespaceURI, docElt, null);
+  }
 
-	/**
-	 * Creates a new instance of the DOM registry and get an implementation of
-	 * DOM 3 with Load Save objects.
-	 *
-	 */
-	private static void getImplementation() {
-		if (DomUtil.registry == null) {
-			try {
-				DomUtil.registry = DOMImplementationRegistry.newInstance();
-			} catch (ClassCastException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
+  /**
+   * Creates a new instance of the DOM registry and get an implementation of DOM 3 with Load Save objects.
+   *
+   * @return the implementation
+   */
+  private static void getImplementation() {
+    if (DomUtil.registry == null) {
+      try {
+        DomUtil.registry = DOMImplementationRegistry.newInstance();
+      } catch (ClassCastException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        e.printStackTrace();
+      }
+    }
 
-		if (DomUtil.impl == null) {
-			DomUtil.impl = DomUtil.registry.getDOMImplementation("Core 3.0 XML 3.0 LS");
-		}
-	}
+    if (DomUtil.impl == null) {
+      DomUtil.impl = DomUtil.registry.getDOMImplementation("Core 3.0 XML 3.0 LS");
+    }
+  }
 
-	/**
-	 * Parses the given input stream as XML and returns the corresponding DOM
-	 * document.
-	 *
-	 * @param is
-	 *            an input stream
-	 * @return a DOM document if something goes wrong
-	 */
-	public static Document parseDocument(final InputStream is) {
-		DomUtil.getImplementation();
-		final DOMImplementationLS implLS = (DOMImplementationLS) DomUtil.impl;
+  /**
+   * Parses the given input stream as XML and returns the corresponding DOM document.
+   *
+   * @param is
+   *          an input stream
+   * @return a DOM document if something goes wrong
+   */
+  public static Document parseDocument(final InputStream is) {
+    DomUtil.getImplementation();
+    final DOMImplementationLS implLS = (DOMImplementationLS) DomUtil.impl;
 
-		// serialize to XML
-		final LSInput input = implLS.createLSInput();
-		input.setByteStream(is);
+    // serialize to XML
+    final LSInput input = implLS.createLSInput();
+    input.setByteStream(is);
 
-		// parse without comments and whitespace
-		final LSParser builder = implLS.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, null);
-		final DOMConfiguration config = builder.getDomConfig();
-		config.setParameter("comments", false);
-		config.setParameter("element-content-whitespace", false);
+    // parse without comments and whitespace
+    final LSParser builder = implLS.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, null);
+    final DOMConfiguration config = builder.getDomConfig();
+    config.setParameter("comments", false);
+    config.setParameter("element-content-whitespace", false);
 
-		return builder.parse(input);
-	}
+    return builder.parse(input);
+  }
 
-	/**
-	 * Writes the given document to the given output stream.
-	 *
-	 * @param os
-	 *            an output stream
-	 * @param document
-	 *            a DOM document created by
-	 *            {@link #writeDocument(OutputStream, Document)} if something
-	 *            goes wrong
-	 */
-	public static void writeDocument(final OutputStream os, final Document document) {
-		DomUtil.getImplementation();
-		final DOMImplementationLS implLS = (DOMImplementationLS) DomUtil.impl;
+  /**
+   * Writes the given document to the given output stream.
+   *
+   * @param os
+   *          an output stream
+   * @param document
+   *          a DOM document created by {@link #writeDocument(OutputStream, Document)} if something goes wrong
+   */
+  public static void writeDocument(final OutputStream os, final Document document) {
+    DomUtil.getImplementation();
+    final DOMImplementationLS implLS = (DOMImplementationLS) DomUtil.impl;
 
-		// serialize to XML
-		final LSOutput output = implLS.createLSOutput();
-		output.setByteStream(os);
+    // serialize to XML
+    final LSOutput output = implLS.createLSOutput();
+    output.setByteStream(os);
 
-		// serialize the document, close the stream
-		final LSSerializer serializer = implLS.createLSSerializer();
-		serializer.getDomConfig().setParameter("format-pretty-print", true);
-		serializer.write(document, output);
-	}
+    // serialize the document, close the stream
+    final LSSerializer serializer = implLS.createLSSerializer();
+    serializer.getDomConfig().setParameter("format-pretty-print", true);
+    serializer.write(document, output);
+  }
 
 }

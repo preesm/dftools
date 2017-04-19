@@ -42,69 +42,88 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import org.ietr.dftools.algorithm.exporter.GMLGenericExporter;
 import org.ietr.dftools.algorithm.importer.old.GMLSDFImporterV1;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
+// TODO: Auto-generated Javadoc
 /**
- * wrapper for different versions
+ * wrapper for different versions.
  *
  * @author jpiat
- *
  */
 public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
 
-	private GMLImporter<?, ?, ?> trueImporter;
+  /** The true importer. */
+  private GMLImporter<?, ?, ?> trueImporter;
 
-	/**
-	 * COnstructs a new importer for SDF graphs
-	 */
-	public GMLSDFImporter() {
-		this.trueImporter = new GMLGenericImporter();
-	}
+  /**
+   * COnstructs a new importer for SDF graphs.
+   */
+  public GMLSDFImporter() {
+    this.trueImporter = new GMLGenericImporter();
+  }
 
-	@Override
-	public SDFGraph parse(final File f) throws InvalidModelException, FileNotFoundException {
-		try {
-			return (SDFGraph) this.trueImporter.parse(f);
-		} catch (final Exception e1) {
-			this.trueImporter = new GMLSDFImporterV1();
-			try {
-				System.out.println("Parsing using generic parser failed, trying specialized parser\n");
-				return (SDFGraph) this.trueImporter.parse(f);
-			} catch (final Exception e2) {
-				throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + e2.getMessage());
-			}
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.File)
+   */
+  @Override
+  public SDFGraph parse(final File f) throws InvalidModelException, FileNotFoundException {
+    try {
+      return (SDFGraph) this.trueImporter.parse(f);
+    } catch (final Exception e) {
+      this.trueImporter = new GMLSDFImporterV1();
+      try {
+        System.out.println("Parsing using generic parser failed, trying specialized parser\n");
+        return (SDFGraph) this.trueImporter.parse(f);
+      } catch (final Exception ex) {
+        throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());
+      }
+    }
+  }
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static void main(final String[] args) throws FileNotFoundException, InvalidModelException {
-		new ArrayList<File>();
-		final GMLSDFImporter importer = new GMLSDFImporter();
-		final SDFGraph graph = importer
-				.parse(new File("/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml"));
-		System.out.println("Graph " + graph + " parsed \n");
-		final GMLGenericExporter exporter = new GMLGenericExporter();
-		exporter.export((AbstractGraph) graph, "/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml");
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.InputStream, java.lang.String)
+   */
+  @Override
+  public SDFGraph parse(final InputStream input, final String path) throws InvalidModelException, FileNotFoundException {
 
-	@Override
-	public SDFGraph parse(final InputStream input, final String path) throws InvalidModelException, FileNotFoundException {
+    try {
+      return (SDFGraph) this.trueImporter.parse(input, path);
+    } catch (final Exception e) {
+      try {
+        this.trueImporter = new GMLSDFImporterV1();
+        System.out.println("Parsing using generic parser failed, trying specialized parser\n");
+        return (SDFGraph) this.trueImporter.parse(input, path);
+      } catch (final Exception ex) {
+        throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());
+      }
+    }
+  }
 
-		try {
-			return (SDFGraph) this.trueImporter.parse(input, path);
-		} catch (final Exception e1) {
-			try {
-				this.trueImporter = new GMLSDFImporterV1();
-				System.out.println("Parsing using generic parser failed, trying specialized parser\n");
-				return (SDFGraph) this.trueImporter.parse(input, path);
-			} catch (final Exception e2) {
-				throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + e2.getMessage());
-			}
-		}
-	}
+  /**
+   * The main method.
+   *
+   * @param args
+   *          the arguments
+   * @throws FileNotFoundException
+   *           the file not found exception
+   * @throws InvalidModelException
+   *           the invalid model exception
+   */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public static void main(final String[] args) throws FileNotFoundException, InvalidModelException {
+    new ArrayList<File>();
+    final GMLSDFImporter importer = new GMLSDFImporter();
+    final SDFGraph graph = importer.parse(new File("/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml"));
+    System.out.println("Graph " + graph + " parsed \n");
+    final GMLGenericExporter exporter = new GMLGenericExporter();
+    exporter.export((AbstractGraph) graph, "/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml");
+  }
 
 }

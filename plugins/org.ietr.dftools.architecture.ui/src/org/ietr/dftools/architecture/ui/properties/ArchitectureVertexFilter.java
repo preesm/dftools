@@ -41,19 +41,28 @@ import org.eclipse.jface.viewers.IFilter;
 import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.Vertex;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ArchitectureVertexFilter.
+ */
 public class ArchitectureVertexFilter implements IFilter {
 
-	@Override
-	public boolean select(final Object toTest) {
-		if (toTest instanceof EditPart) {
-			final Object model = ((EditPart) toTest).getModel();
-			if (model instanceof Vertex) {
-				final Vertex vertex = (Vertex) model;
-				final Graph graph = vertex.getParent();
-				return graph.getType().getName().equals("IP-XACT design");
-			}
-		}
-		return false;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.jface.viewers.IFilter#select(java.lang.Object)
+   */
+  @Override
+  public boolean select(final Object toTest) {
+    if (toTest instanceof EditPart) {
+      final Object model = ((EditPart) toTest).getModel();
+      if (model instanceof Vertex) {
+        final Vertex vertex = (Vertex) model;
+        final Graph graph = vertex.getParent();
+        return graph.getType().getName().equals("IP-XACT design");
+      }
+    }
+    return false;
+  }
 
 }

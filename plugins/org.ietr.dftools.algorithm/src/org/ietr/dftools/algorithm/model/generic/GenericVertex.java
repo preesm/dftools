@@ -41,37 +41,61 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenericVertex.
+ */
 public class GenericVertex extends AbstractVertex<GenericGraph> {
 
-	@Override
-	public AbstractVertex<?> clone() {
-		final GenericVertex newVertex = new GenericVertex();
-		for (final String key : getPropertyBean().keys()) {
-			if (getPropertyBean().getValue(key) != null) {
-				final Object val = getPropertyBean().getValue(key);
-				newVertex.getPropertyBean().setValue(key, val);
-			}
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
+   */
+  @Override
+  public AbstractVertex<?> clone() {
+    final GenericVertex newVertex = new GenericVertex();
+    for (final String key : getPropertyBean().keys()) {
+      if (getPropertyBean().getValue(key) != null) {
+        final Object val = getPropertyBean().getValue(key);
+        newVertex.getPropertyBean().setValue(key, val);
+      }
+    }
 
-		return newVertex;
-	}
+    return newVertex;
+  }
 
-	@Override
-	public void connectionAdded(final AbstractEdge<?, ?> e) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void connectionAdded(final AbstractEdge<?, ?> e) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public void connectionRemoved(final AbstractEdge<?, ?> e) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void connectionRemoved(final AbstractEdge<?, ?> e) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public PropertyFactory getFactoryForProperty(final String propertyName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
+   */
+  @Override
+  public PropertyFactory getFactoryForProperty(final String propertyName) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

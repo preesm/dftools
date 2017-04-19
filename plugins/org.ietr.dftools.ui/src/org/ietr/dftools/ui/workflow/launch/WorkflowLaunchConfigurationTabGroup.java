@@ -42,27 +42,32 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
+// TODO: Auto-generated Javadoc
 /**
- * Creating the tabs displaying launch properties for a workflow. The only
- * options here are a scenario path and a workflow path.
+ * Creating the tabs displaying launch properties for a workflow. The only options here are a scenario path and a workflow path.
  *
  * @author Matthieu Wipliez
  * @author mpelcat
  */
 public class WorkflowLaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-	/**
-	 *
-	 */
-	public WorkflowLaunchConfigurationTabGroup() {
-	}
+  /**
+   * Instantiates a new workflow launch configuration tab group.
+   */
+  public WorkflowLaunchConfigurationTabGroup() {
+  }
 
-	@Override
-	public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
-		final ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { new WorkFlowLaunchWorkflowTab(),
-				// new WorkFlowLaunchArchitectureTab(),
-				new WorkFlowLaunchScenarioTab() };
-		setTabs(tabs);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTabGroup#createTabs(org.eclipse.debug.ui.ILaunchConfigurationDialog, java.lang.String)
+   */
+  @Override
+  public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
+    final ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] { new WorkFlowLaunchWorkflowTab(),
+        // new WorkFlowLaunchArchitectureTab(),
+        new WorkFlowLaunchScenarioTab() };
+    setTabs(tabs);
+  }
 
 }

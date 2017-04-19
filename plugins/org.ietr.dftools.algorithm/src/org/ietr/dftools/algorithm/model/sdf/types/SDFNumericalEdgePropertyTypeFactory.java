@@ -41,61 +41,75 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 
+// TODO: Auto-generated Javadoc
 /**
- * Factory to build SDF edge property base on an input string
+ * Factory to build SDF edge property base on an input string.
  *
  * @author jpiat
- *
  */
 public class SDFNumericalEdgePropertyTypeFactory implements PropertyFactory {
 
-	private static SDFNumericalEdgePropertyTypeFactory instance;
+  /** The instance. */
+  private static SDFNumericalEdgePropertyTypeFactory instance;
 
-	private SDFNumericalEdgePropertyTypeFactory() {
+  /**
+   * Instantiates a new SDF numerical edge property type factory.
+   */
+  private SDFNumericalEdgePropertyTypeFactory() {
 
-	}
+  }
 
-	public static SDFNumericalEdgePropertyTypeFactory getInstance() {
-		if (SDFNumericalEdgePropertyTypeFactory.instance == null) {
-			SDFNumericalEdgePropertyTypeFactory.instance = new SDFNumericalEdgePropertyTypeFactory();
-		}
-		return SDFNumericalEdgePropertyTypeFactory.instance;
-	}
+  /**
+   * Gets the single instance of SDFNumericalEdgePropertyTypeFactory.
+   *
+   * @return single instance of SDFNumericalEdgePropertyTypeFactory
+   */
+  public static SDFNumericalEdgePropertyTypeFactory getInstance() {
+    if (SDFNumericalEdgePropertyTypeFactory.instance == null) {
+      SDFNumericalEdgePropertyTypeFactory.instance = new SDFNumericalEdgePropertyTypeFactory();
+    }
+    return SDFNumericalEdgePropertyTypeFactory.instance;
+  }
 
-	/**
-	 * Creates a new SDFExpressionEdgePropertyType given the expression expr
-	 *
-	 * @param expr
-	 *            The expression
-	 * @return The created SDFExpressionEdgePropertyType
-	 */
-	public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final String expr) {
-		try {
-			final int value = Integer.decode(expr);
-			return new SDFIntEdgePropertyType(value);
-		} catch (final NumberFormatException e) {
-			return new SDFExpressionEdgePropertyType(new ExpressionValue(expr));
-		}
-	}
+  /**
+   * Creates a new SDFExpressionEdgePropertyType given the expression expr.
+   *
+   * @param expr
+   *          The expression
+   * @return The created SDFExpressionEdgePropertyType
+   */
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final String expr) {
+    try {
+      final int value = Integer.decode(expr);
+      return new SDFIntEdgePropertyType(value);
+    } catch (final NumberFormatException e) {
+      return new SDFExpressionEdgePropertyType(new ExpressionValue(expr));
+    }
+  }
 
-	/**
-	 * Creates a new SDFIntEdgePropertyType given the value val
-	 *
-	 * @param val
-	 *            The integer value
-	 * @return The created SDFIntEdgePropertyType
-	 */
-	public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final int val) {
-		return new SDFIntEdgePropertyType(val);
-	}
+  /**
+   * Creates a new SDFIntEdgePropertyType given the value val.
+   *
+   * @param val
+   *          The integer value
+   * @return The created SDFIntEdgePropertyType
+   */
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final int val) {
+    return new SDFIntEdgePropertyType(val);
+  }
 
-	@Override
-	public Object create(final Object value) {
-		if (value instanceof String) {
-			return getSDFEdgePropertyType((String) value);
-		} else if (value instanceof Integer) {
-			return getSDFEdgePropertyType((Integer) value);
-		}
-		return null;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.PropertyFactory#create(java.lang.Object)
+   */
+  @Override
+  public Object create(final Object value) {
+    if (value instanceof String) {
+      return getSDFEdgePropertyType((String) value);
+    } else if (value instanceof Integer) {
+      return getSDFEdgePropertyType((Integer) value);
+    }
+    return null;
+  }
 }

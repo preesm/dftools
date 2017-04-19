@@ -42,10 +42,10 @@ import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
 import java.util.Set;
-
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
+import org.jgraph.graph.Edge;
 import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.event.GraphEdgeChangeEvent;
@@ -53,377 +53,480 @@ import org.jgrapht.event.GraphListener;
 import org.jgrapht.event.GraphVertexChangeEvent;
 import org.jgrapht.event.VertexSetListener;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a listenable DAG
+ * Class used to represent a listenable DAG.
  *
  * @author pthebault
  * @author kdesnos
  */
 public class DAGListenableGraph extends DirectedAcyclicGraph implements ListenableGraph<DAGVertex, DAGEdge> {
 
-	/**
-	 * A reuseable edge event.
-	 *
-	 * @author Barak Naveh
-	 * @since Aug 10, 2003
-	 */
-	private static class FlyweightEdgeEvent<VV, EE> extends GraphEdgeChangeEvent<VV, EE> {
-		private static final long serialVersionUID = 3907207152526636089L;
+  /**
+   * A reuseable edge event.
+   *
+   * @author Barak Naveh
+   * @param <VV>
+   *          the generic type
+   * @param <EE>
+   *          the generic type
+   * @since Aug 10, 2003
+   */
+  private static class FlyweightEdgeEvent<VV, EE> extends GraphEdgeChangeEvent<VV, EE> {
 
-		/**
-		 * @see GraphEdgeChangeEvent#GraphEdgeChangeEvent(Object, int, Edge)
-		 */
-		private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e) {
-			super(eventSource, type, e);
-		}
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 3907207152526636089L;
 
-		/**
-		 * Sets the edge of this event.
-		 *
-		 * @param e
-		 *            the edge to be set.
-		 */
-		protected void setEdge(final EE e) {
-			this.edge = e;
-		}
+    /**
+     * Instantiates a new flyweight edge event.
+     *
+     * @param eventSource
+     *          the event source
+     * @param type
+     *          the type
+     * @param e
+     *          the e
+     * @see GraphEdgeChangeEvent#GraphEdgeChangeEvent(Object, int, Edge)
+     */
+    private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e) {
+      super(eventSource, type, e);
+    }
 
-		/**
-		 * Set the event type of this event.
-		 *
-		 * @param type
-		 *            the type to be set.
-		 */
-		protected void setType(final int type) {
-			this.type = type;
-		}
-	}
+    /**
+     * Sets the edge of this event.
+     *
+     * @param e
+     *          the edge to be set.
+     */
+    protected void setEdge(final EE e) {
+      this.edge = e;
+    }
 
-	/**
-	 * A reuseable vertex event.
-	 *
-	 * @author Barak Naveh
-	 * @since Aug 10, 2003
-	 */
-	private static class FlyweightVertexEvent<VV> extends GraphVertexChangeEvent<VV> {
-		private static final long serialVersionUID = 3257848787857585716L;
+    /**
+     * Set the event type of this event.
+     *
+     * @param type
+     *          the type to be set.
+     */
+    protected void setType(final int type) {
+      this.type = type;
+    }
+  }
 
-		/**
-		 * @see GraphVertexChangeEvent#GraphVertexChangeEvent(Object, int,
-		 *      Object)
-		 */
-		private FlyweightVertexEvent(final Object eventSource, final int type, final VV vertex) {
-			super(eventSource, type, vertex);
-		}
+  /**
+   * A reuseable vertex event.
+   *
+   * @author Barak Naveh
+   * @param <VV>
+   *          the generic type
+   * @since Aug 10, 2003
+   */
+  private static class FlyweightVertexEvent<VV> extends GraphVertexChangeEvent<VV> {
 
-		/**
-		 * Set the event type of this event.
-		 *
-		 * @param type
-		 *            type to be set.
-		 */
-		protected void setType(final int type) {
-			this.type = type;
-		}
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 3257848787857585716L;
 
-		/**
-		 * Sets the vertex of this event.
-		 *
-		 * @param vertex
-		 *            the vertex to be set.
-		 */
-		protected void setVertex(final VV vertex) {
-			this.vertex = vertex;
-		}
-	}
+    /**
+     * Instantiates a new flyweight vertex event.
+     *
+     * @param eventSource
+     *          the event source
+     * @param type
+     *          the type
+     * @param vertex
+     *          the vertex
+     * @see GraphVertexChangeEvent#GraphVertexChangeEvent(Object, int, Object)
+     */
+    private FlyweightVertexEvent(final Object eventSource, final int type, final VV vertex) {
+      super(eventSource, type, vertex);
+    }
 
-	/**
-		 *
-		 */
-	private static final long serialVersionUID = -7651455929185604666L;
+    /**
+     * Set the event type of this event.
+     *
+     * @param type
+     *          type to be set.
+     */
+    protected void setType(final int type) {
+      this.type = type;
+    }
 
-	private static <L extends EventListener> void addToListenerList(final List<L> list, final L l) {
-		if (!list.contains(l)) {
-			list.add(l);
-		}
-	}
+    /**
+     * Sets the vertex of this event.
+     *
+     * @param vertex
+     *          the vertex to be set.
+     */
+    protected void setVertex(final VV vertex) {
+      this.vertex = vertex;
+    }
+  }
 
-	private final ArrayList<GraphListener<DAGVertex, DAGEdge>>	graphListeners	= new ArrayList<>();
-	private FlyweightEdgeEvent<DAGVertex, DAGEdge>				reuseableEdgeEvent;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = -7651455929185604666L;
 
-	private FlyweightVertexEvent<DAGVertex> reuseableVertexEvent;
+  /**
+   * Adds the to listener list.
+   *
+   * @param <L>
+   *          the generic type
+   * @param list
+   *          the list
+   * @param l
+   *          the l
+   */
+  private static <L extends EventListener> void addToListenerList(final List<L> list, final L l) {
+    if (!list.contains(l)) {
+      list.add(l);
+    }
+  }
 
-	// ~ Methods
-	// ----------------------------------------------------------------
+  /** The graph listeners. */
+  private final ArrayList<GraphListener<DAGVertex, DAGEdge>> graphListeners = new ArrayList<>();
 
-	private boolean reuseEvents;
+  /** The reuseable edge event. */
+  private FlyweightEdgeEvent<DAGVertex, DAGEdge> reuseableEdgeEvent;
 
-	private final ArrayList<VertexSetListener<DAGVertex>> vertexSetListeners = new ArrayList<>();
+  /** The reuseable vertex event. */
+  private FlyweightVertexEvent<DAGVertex> reuseableVertexEvent;
 
-	/**
-	 * Creates a new DAGListenableGraph
-	 */
-	public DAGListenableGraph() {
-		super();
-	}
+  // ~ Methods
+  // ----------------------------------------------------------------
 
-	@Override
-	public DAGEdge addEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex) {
-		final DAGEdge e = super.addEdge(sourceVertex, targetVertex);
+  /** The reuse events. */
+  private boolean reuseEvents;
 
-		if (e != null) {
-			fireEdgeAdded(e);
-		}
+  /** The vertex set listeners. */
+  private final ArrayList<VertexSetListener<DAGVertex>> vertexSetListeners = new ArrayList<>();
 
-		return e;
-	}
+  /**
+   * Creates a new DAGListenableGraph.
+   */
+  public DAGListenableGraph() {
+    super();
+  }
 
-	/**
-	 * @see Graph#addEdge(Object, Object, Object)
-	 */
-	@Override
-	public boolean addEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex, final DAGEdge e) {
-		final boolean added = super.addEdge(sourceVertex, targetVertex, e);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph#addEdge(org.ietr.dftools.algorithm.model.dag.DAGVertex,
+   * org.ietr.dftools.algorithm.model.dag.DAGVertex)
+   */
+  @Override
+  public DAGEdge addEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex) {
+    final DAGEdge e = super.addEdge(sourceVertex, targetVertex);
 
-		if (added) {
-			fireEdgeAdded(e);
-		}
+    if (e != null) {
+      fireEdgeAdded(e);
+    }
 
-		return added;
-	}
+    return e;
+  }
 
-	/**
-	 * @see Graph#addEdge(Object, Object)
-	 */
-	/*
-	 * public DAGEdge addEdgeWithLink(DAGVertex sourceVertex, DAGVertex
-	 * targetVertex) { DAGEdge e = super.addEdgeWithLink(sourceVertex,
-	 * targetVertex);
-	 *
-	 * if (e != null) { fireEdgeAdded(e); }
-	 *
-	 * return e; } //
-	 */
-	/**
-	 * @see ListenableGraph#addGraphListener(GraphListener)
-	 */
-	@Override
-	public void addGraphListener(final GraphListener<DAGVertex, DAGEdge> l) {
-		DAGListenableGraph.addToListenerList(this.graphListeners, l);
-	}
+  /**
+   * Adds the edge.
+   *
+   * @param sourceVertex
+   *          the source vertex
+   * @param targetVertex
+   *          the target vertex
+   * @param e
+   *          the e
+   * @return true, if successful
+   * @see Graph#addEdge(Object, Object, Object)
+   */
+  @Override
+  public boolean addEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex, final DAGEdge e) {
+    final boolean added = super.addEdge(sourceVertex, targetVertex, e);
 
-	/**
-	 * @see Graph#addVertex(Object)
-	 */
-	@Override
-	public boolean addVertex(final DAGVertex v) {
-		final boolean modified = super.addVertex(v);
+    if (added) {
+      fireEdgeAdded(e);
+    }
 
-		if (modified) {
-			fireVertexAdded(v);
-		}
+    return added;
+  }
 
-		return modified;
-	}
+  /**
+   * Adds the graph listener.
+   *
+   * @param l
+   *          the l
+   * @see Graph#addEdge(Object, Object)
+   */
+  /*
+   * public DAGEdge addEdgeWithLink(DAGVertex sourceVertex, DAGVertex targetVertex) { DAGEdge e = super.addEdgeWithLink(sourceVertex, targetVertex);
+   *
+   * if (e != null) { fireEdgeAdded(e); }
+   *
+   * return e; } //
+   */
+  /**
+   * @see ListenableGraph#addGraphListener(GraphListener)
+   */
+  @Override
+  public void addGraphListener(final GraphListener<DAGVertex, DAGEdge> l) {
+    DAGListenableGraph.addToListenerList(this.graphListeners, l);
+  }
 
-	/**
-	 * @see ListenableGraph#addVertexSetListener(VertexSetListener)
-	 */
-	@Override
-	public void addVertexSetListener(final VertexSetListener<DAGVertex> l) {
-		DAGListenableGraph.addToListenerList(this.vertexSetListeners, l);
-	}
+  /**
+   * Adds the vertex.
+   *
+   * @param v
+   *          the v
+   * @return true, if successful
+   * @see Graph#addVertex(Object)
+   */
+  @Override
+  public boolean addVertex(final DAGVertex v) {
+    final boolean modified = super.addVertex(v);
 
-	private GraphEdgeChangeEvent<DAGVertex, DAGEdge> createGraphEdgeChangeEvent(final int eventType, final DAGEdge edge) {
-		if (this.reuseEvents) {
-			this.reuseableEdgeEvent.setType(eventType);
-			this.reuseableEdgeEvent.setEdge(edge);
+    if (modified) {
+      fireVertexAdded(v);
+    }
 
-			return this.reuseableEdgeEvent;
-		} else {
-			return new GraphEdgeChangeEvent<>(this, eventType, edge);
-		}
-	}
+    return modified;
+  }
 
-	private GraphVertexChangeEvent<DAGVertex> createGraphVertexChangeEvent(final int eventType, final DAGVertex vertex) {
-		if (this.reuseEvents) {
-			this.reuseableVertexEvent.setType(eventType);
-			this.reuseableVertexEvent.setVertex(vertex);
+  /**
+   * Adds the vertex set listener.
+   *
+   * @param l
+   *          the l
+   * @see ListenableGraph#addVertexSetListener(VertexSetListener)
+   */
+  @Override
+  public void addVertexSetListener(final VertexSetListener<DAGVertex> l) {
+    DAGListenableGraph.addToListenerList(this.vertexSetListeners, l);
+  }
 
-			return this.reuseableVertexEvent;
-		} else {
-			return new GraphVertexChangeEvent<>(this, eventType, vertex);
-		}
-	}
+  /**
+   * Creates the graph edge change event.
+   *
+   * @param eventType
+   *          the event type
+   * @param edge
+   *          the edge
+   * @return the graph edge change event
+   */
+  private GraphEdgeChangeEvent<DAGVertex, DAGEdge> createGraphEdgeChangeEvent(final int eventType, final DAGEdge edge) {
+    if (this.reuseEvents) {
+      this.reuseableEdgeEvent.setType(eventType);
+      this.reuseableEdgeEvent.setEdge(edge);
 
-	/**
-	 * Notify listeners that the specified edge was added.
-	 *
-	 * @param edge
-	 *            the edge that was added.
-	 */
-	protected void fireEdgeAdded(final DAGEdge edge) {
-		final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
+      return this.reuseableEdgeEvent;
+    } else {
+      return new GraphEdgeChangeEvent<>(this, eventType, edge);
+    }
+  }
 
-		for (int i = 0; i < this.graphListeners.size(); i++) {
-			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
+  /**
+   * Creates the graph vertex change event.
+   *
+   * @param eventType
+   *          the event type
+   * @param vertex
+   *          the vertex
+   * @return the graph vertex change event
+   */
+  private GraphVertexChangeEvent<DAGVertex> createGraphVertexChangeEvent(final int eventType, final DAGVertex vertex) {
+    if (this.reuseEvents) {
+      this.reuseableVertexEvent.setType(eventType);
+      this.reuseableVertexEvent.setVertex(vertex);
 
-			l.edgeAdded(e);
-		}
-	}
+      return this.reuseableVertexEvent;
+    } else {
+      return new GraphVertexChangeEvent<>(this, eventType, vertex);
+    }
+  }
 
-	/**
-	 * Notify listeners that the specified edge was removed.
-	 *
-	 * @param edge
-	 *            the edge that was removed.
-	 */
-	protected void fireEdgeRemoved(final DAGEdge edge) {
-		final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
+  /**
+   * Notify listeners that the specified edge was added.
+   *
+   * @param edge
+   *          the edge that was added.
+   */
+  protected void fireEdgeAdded(final DAGEdge edge) {
+    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
 
-		for (int i = 0; i < this.graphListeners.size(); i++) {
-			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
+    for (int i = 0; i < this.graphListeners.size(); i++) {
+      final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
-			l.edgeRemoved(e);
-		}
-	}
+      l.edgeAdded(e);
+    }
+  }
 
-	/**
-	 * Notify listeners that the specified vertex was added.
-	 *
-	 * @param vertex
-	 *            the vertex that was added.
-	 */
-	protected void fireVertexAdded(final DAGVertex vertex) {
-		final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
+  /**
+   * Notify listeners that the specified edge was removed.
+   *
+   * @param edge
+   *          the edge that was removed.
+   */
+  protected void fireEdgeRemoved(final DAGEdge edge) {
+    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
 
-		for (int i = 0; i < this.vertexSetListeners.size(); i++) {
-			final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
+    for (int i = 0; i < this.graphListeners.size(); i++) {
+      final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
-			l.vertexAdded(e);
-		}
+      l.edgeRemoved(e);
+    }
+  }
 
-		for (int i = 0; i < this.graphListeners.size(); i++) {
-			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
+  /**
+   * Notify listeners that the specified vertex was added.
+   *
+   * @param vertex
+   *          the vertex that was added.
+   */
+  protected void fireVertexAdded(final DAGVertex vertex) {
+    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
 
-			l.vertexAdded(e);
-		}
-	}
+    for (int i = 0; i < this.vertexSetListeners.size(); i++) {
+      final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
 
-	/**
-	 * Notify listeners that the specified vertex was removed.
-	 *
-	 * @param vertex
-	 *            the vertex that was removed.
-	 */
-	protected void fireVertexRemoved(final DAGVertex vertex) {
-		final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
+      l.vertexAdded(e);
+    }
 
-		for (int i = 0; i < this.vertexSetListeners.size(); i++) {
-			final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
+    for (int i = 0; i < this.graphListeners.size(); i++) {
+      final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
-			l.vertexRemoved(e);
-		}
+      l.vertexAdded(e);
+    }
+  }
 
-		for (int i = 0; i < this.graphListeners.size(); i++) {
-			final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
+  /**
+   * Notify listeners that the specified vertex was removed.
+   *
+   * @param vertex
+   *          the vertex that was removed.
+   */
+  protected void fireVertexRemoved(final DAGVertex vertex) {
+    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
 
-			l.vertexRemoved(e);
-		}
-	}
+    for (int i = 0; i < this.vertexSetListeners.size(); i++) {
+      final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
 
-	/**
-	 * Tests whether the <code>reuseEvents</code> flag is set. If the flag is
-	 * set to <code>true</code> this class will reuse previously fired events
-	 * and will not create a new object for each event. This option increases
-	 * performance but should be used with care, especially in multithreaded
-	 * environment.
-	 *
-	 * @return the value of the <code>reuseEvents</code> flag.
-	 */
-	public boolean isReuseEvents() {
-		return this.reuseEvents;
-	}
+      l.vertexRemoved(e);
+    }
 
-	/**
-	 * @see Graph#removeEdge(Object)
-	 */
-	@Override
-	public boolean removeEdge(final DAGEdge e) {
-		final boolean modified = super.removeEdge(e);
+    for (int i = 0; i < this.graphListeners.size(); i++) {
+      final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
 
-		if (modified) {
-			fireEdgeRemoved(e);
-		}
+      l.vertexRemoved(e);
+    }
+  }
 
-		return modified;
-	}
+  /**
+   * Tests whether the <code>reuseEvents</code> flag is set. If the flag is set to <code>true</code> this class will reuse previously fired events and will not
+   * create a new object for each event. This option increases performance but should be used with care, especially in multithreaded environment.
+   *
+   * @return the value of the <code>reuseEvents</code> flag.
+   */
+  public boolean isReuseEvents() {
+    return this.reuseEvents;
+  }
 
-	/**
-	 * @see Graph#removeEdge(Object, Object)
-	 */
-	@Override
-	@Deprecated
-	public DAGEdge removeEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex) {
-		final DAGEdge e = super.removeEdge(sourceVertex, targetVertex);
+  /**
+   * Removes the edge.
+   *
+   * @param e
+   *          the e
+   * @return true, if successful
+   * @see Graph#removeEdge(Object)
+   */
+  @Override
+  public boolean removeEdge(final DAGEdge e) {
+    final boolean modified = super.removeEdge(e);
 
-		if (e != null) {
-			fireEdgeRemoved(e);
-		}
+    if (modified) {
+      fireEdgeRemoved(e);
+    }
 
-		return e;
-	}
+    return modified;
+  }
 
-	/**
-	 * @see ListenableGraph#removeGraphListener(GraphListener)
-	 */
-	@Override
-	public void removeGraphListener(final GraphListener<DAGVertex, DAGEdge> l) {
-		this.graphListeners.remove(l);
-	}
+  /**
+   * Removes the edge.
+   *
+   * @param sourceVertex
+   *          the source vertex
+   * @param targetVertex
+   *          the target vertex
+   * @return the DAG edge
+   * @see Graph#removeEdge(Object, Object)
+   */
+  @Override
+  @Deprecated
+  public DAGEdge removeEdge(final DAGVertex sourceVertex, final DAGVertex targetVertex) {
+    final DAGEdge e = super.removeEdge(sourceVertex, targetVertex);
 
-	/**
-	 * @see Graph#removeVertex(Object)
-	 */
-	@Override
-	public boolean removeVertex(final DAGVertex v) {
-		if (containsVertex(v)) {
-			final Set<DAGEdge> touchingEdgesList = edgesOf(v);
+    if (e != null) {
+      fireEdgeRemoved(e);
+    }
 
-			// copy set to avoid ConcurrentModificationException
-			removeAllEdges(new ArrayList<>(touchingEdgesList));
+    return e;
+  }
 
-			super.removeVertex(v); // remove the vertex itself
+  /**
+   * Removes the graph listener.
+   *
+   * @param l
+   *          the l
+   * @see ListenableGraph#removeGraphListener(GraphListener)
+   */
+  @Override
+  public void removeGraphListener(final GraphListener<DAGVertex, DAGEdge> l) {
+    this.graphListeners.remove(l);
+  }
 
-			fireVertexRemoved(v);
+  /**
+   * Removes the vertex.
+   *
+   * @param v
+   *          the v
+   * @return true, if successful
+   * @see Graph#removeVertex(Object)
+   */
+  @Override
+  public boolean removeVertex(final DAGVertex v) {
+    if (containsVertex(v)) {
+      final Set<DAGEdge> touchingEdgesList = edgesOf(v);
 
-			return true;
-		} else {
-			return false;
-		}
-	}
+      // copy set to avoid ConcurrentModificationException
+      removeAllEdges(new ArrayList<>(touchingEdgesList));
 
-	// ~ Inner Classes
-	// ----------------------------------------------------------
+      super.removeVertex(v); // remove the vertex itself
 
-	/**
-	 * @see ListenableGraph#removeVertexSetListener(VertexSetListener)
-	 */
-	@Override
-	public void removeVertexSetListener(final VertexSetListener<DAGVertex> l) {
-		this.vertexSetListeners.remove(l);
-	}
+      fireVertexRemoved(v);
 
-	/**
-	 * If the <code>reuseEvents</code> flag is set to <code>true</code> this
-	 * class will reuse previously fired events and will not create a new object
-	 * for each event. This option increases performance but should be used with
-	 * care, especially in multithreaded environment.
-	 *
-	 * @param reuseEvents
-	 *            whether to reuse previously fired event objects instead of
-	 *            creating a new event object for each event.
-	 */
-	public void setReuseEvents(final boolean reuseEvents) {
-		this.reuseEvents = reuseEvents;
-	}
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // ~ Inner Classes
+  // ----------------------------------------------------------
+
+  /**
+   * Removes the vertex set listener.
+   *
+   * @param l
+   *          the l
+   * @see ListenableGraph#removeVertexSetListener(VertexSetListener)
+   */
+  @Override
+  public void removeVertexSetListener(final VertexSetListener<DAGVertex> l) {
+    this.vertexSetListeners.remove(l);
+  }
+
+  /**
+   * If the <code>reuseEvents</code> flag is set to <code>true</code> this class will reuse previously fired events and will not create a new object for each
+   * event. This option increases performance but should be used with care, especially in multithreaded environment.
+   *
+   * @param reuseEvents
+   *          whether to reuse previously fired event objects instead of creating a new event object for each event.
+   */
+  public void setReuseEvents(final boolean reuseEvents) {
+    this.reuseEvents = reuseEvents;
+  }
 }

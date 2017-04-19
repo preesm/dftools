@@ -44,51 +44,81 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.ietr.dftools.ui.Activator;
 
+// TODO: Auto-generated Javadoc
 /**
- * Launch Tab for algorithm options. From this tab, an
- * {@link AlgorithmConfiguration} is generated that feeds an
- * {@link AlgorithmRetriever} to create the input algorithm.
+ * Launch Tab for algorithm options. From this tab, an {@link AlgorithmConfiguration} is generated that feeds an {@link AlgorithmRetriever} to create the input
+ * algorithm.
  *
  * @author mpelcat
  */
 public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
-	@Override
-	public void createControl(final Composite parent) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#createControl(org.eclipse.swt.widgets.Composite)
+   */
+  @Override
+  public void createControl(final Composite parent) {
 
-		super.createControl(parent);
-		drawFileChooser("Workflow file:", WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME);
-	}
+    super.createControl(parent);
+    drawFileChooser("Workflow file:", WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME);
+  }
 
-	@Override
-	public String getName() {
-		return "Workflow";
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
+   */
+  @Override
+  public String getName() {
+    return "Workflow";
+  }
 
-	@Override
-	public void initializeFrom(final ILaunchConfiguration configuration) {
-		super.initializeFrom(configuration);
-		setDirty(false);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#initializeFrom(org.eclipse.debug.core.ILaunchConfiguration)
+   */
+  @Override
+  public void initializeFrom(final ILaunchConfiguration configuration) {
+    super.initializeFrom(configuration);
+    setDirty(false);
+  }
 
-	@Override
-	public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
-		super.performApply(configuration);
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   */
+  @Override
+  public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
+    super.performApply(configuration);
+  }
 
-	@Override
-	public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   */
+  @Override
+  public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
 
-	}
+  }
 
-	@Override
-	public Image getImage() {
-		final Image image = Activator.getImage("icons/workflow.png");
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
+   */
+  @Override
+  public Image getImage() {
+    final Image image = Activator.getImage("icons/workflow.png");
 
-		if (image != null) {
-			return image;
-		}
+    if (image != null) {
+      return image;
+    }
 
-		return super.getImage();
-	}
+    return super.getImage();
+  }
 }

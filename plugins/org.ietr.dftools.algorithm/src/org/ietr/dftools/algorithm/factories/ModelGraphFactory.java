@@ -39,27 +39,42 @@ package org.ietr.dftools.algorithm.factories;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.generic.GenericGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating ModelGraph objects.
+ */
 public class ModelGraphFactory {
 
-	private static Map<String, Class<?>> models = new HashMap<>();
+  /** The models. */
+  private static Map<String, Class<?>> models = new HashMap<>();
 
-	static {
-		ModelGraphFactory.models.put("sdf", SDFGraph.class);
-		ModelGraphFactory.models.put("dag", DirectedAcyclicGraph.class);
-	};
+  static {
+    ModelGraphFactory.models.put("sdf", SDFGraph.class);
+    ModelGraphFactory.models.put("dag", DirectedAcyclicGraph.class);
+  }
 
-	@SuppressWarnings("rawtypes")
-	public static AbstractGraph getModel(final String model) throws InstantiationException, IllegalAccessException {
-		Class modelClass = ModelGraphFactory.models.get(model);
-		if (modelClass == null) {
-			modelClass = GenericGraph.class;
-		}
-		return (AbstractGraph) modelClass.newInstance();
-	}
+  /**
+   * Gets the model.
+   *
+   * @param model
+   *          the model
+   * @return the model
+   * @throws InstantiationException
+   *           the instantiation exception
+   * @throws IllegalAccessException
+   *           the illegal access exception
+   */
+  @SuppressWarnings("rawtypes")
+  public static AbstractGraph getModel(final String model) throws InstantiationException, IllegalAccessException {
+    Class modelClass = ModelGraphFactory.models.get(model);
+    if (modelClass == null) {
+      modelClass = GenericGraph.class;
+    }
+    return (AbstractGraph) modelClass.newInstance();
+  }
 }

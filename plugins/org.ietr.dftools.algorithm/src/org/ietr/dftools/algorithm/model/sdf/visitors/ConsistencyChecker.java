@@ -38,7 +38,6 @@
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.util.logging.Level;
-
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -46,84 +45,99 @@ import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 
+// TODO: Auto-generated Javadoc
 /**
- * Verifies that graph doesn't contains mistakes (port mismatch, case
- * sensitivity)
+ * Verifies that graph doesn't contains mistakes (port mismatch, case sensitivity).
  *
  * @author jpiat
- *
  */
 public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
-	private boolean isConsistent;
+  /** The is consistent. */
+  private boolean isConsistent;
 
-	@Override
-	public void visit(final SDFEdge sdfEdge) {
-		// TODO Auto-generated method stub
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @Override
+  public void visit(final SDFEdge sdfEdge) {
+    // TODO Auto-generated method stub
 
-	}
+  }
 
-	@Override
-	public void visit(final SDFGraph sdf) throws SDF4JException {
-		for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
-			vertex.accept(this);
-		}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
+   */
+  @Override
+  public void visit(final SDFGraph sdf) throws SDF4JException {
+    for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
+      vertex.accept(this);
+    }
 
-	}
+  }
 
-	@Override
-	public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
-		final SDFGraph graphDescription = (SDFGraph) sdfVertex.getGraphDescription();
-		final SDFGraph base = (SDFGraph) sdfVertex.getBase();
-		if (graphDescription != null) {
-			for (final SDFEdge edge : base.incomingEdgesOf(sdfVertex)) {
-				if (graphDescription.getVertex(edge.getTargetInterface().getName()) == null) {
-					VisitorOutput.getLogger().log(Level.SEVERE,
-							"Interface " + edge.getTargetInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
-					this.isConsistent &= false;
-				} else if (graphDescription.getVertex(edge.getTargetInterface().getName()) != null) {
-					final SDFAbstractVertex sourceNode = graphDescription.getVertex(edge.getTargetInterface().getName());
-					if (graphDescription.outgoingEdgesOf(sourceNode).size() == 0) {
-						VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getTargetInterface().getName()
-								+ " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
-						this.isConsistent &= false;
-					}
-				}
-			}
-			for (final SDFEdge edge : base.outgoingEdgesOf(sdfVertex)) {
-				if (graphDescription.getVertex(edge.getSourceInterface().getName()) == null) {
-					VisitorOutput.getLogger().log(Level.SEVERE,
-							"Interface " + edge.getSourceInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
-					this.isConsistent &= false;
-				} else if (graphDescription.getVertex(edge.getSourceInterface().getName()) != null) {
-					final SDFAbstractVertex sinkNode = graphDescription.getVertex(edge.getSourceInterface().getName());
-					if (graphDescription.incomingEdgesOf(sinkNode).size() == 0) {
-						VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getSourceInterface().getName()
-								+ " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
-						this.isConsistent &= false;
-					}
-				}
-			}
-			graphDescription.accept(this);
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
+   */
+  @Override
+  public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
+    final SDFGraph graphDescription = (SDFGraph) sdfVertex.getGraphDescription();
+    final SDFGraph base = (SDFGraph) sdfVertex.getBase();
+    if (graphDescription != null) {
+      for (final SDFEdge edge : base.incomingEdgesOf(sdfVertex)) {
+        if (graphDescription.getVertex(edge.getTargetInterface().getName()) == null) {
+          VisitorOutput.getLogger().log(Level.SEVERE,
+              "Interface " + edge.getTargetInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
+          this.isConsistent &= false;
+        } else if (graphDescription.getVertex(edge.getTargetInterface().getName()) != null) {
+          final SDFAbstractVertex sourceNode = graphDescription.getVertex(edge.getTargetInterface().getName());
+          if (graphDescription.outgoingEdgesOf(sourceNode).size() == 0) {
+            VisitorOutput.getLogger().log(Level.SEVERE,
+                "Interface " + edge.getTargetInterface().getName() + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
+            this.isConsistent &= false;
+          }
+        }
+      }
+      for (final SDFEdge edge : base.outgoingEdgesOf(sdfVertex)) {
+        if (graphDescription.getVertex(edge.getSourceInterface().getName()) == null) {
+          VisitorOutput.getLogger().log(Level.SEVERE,
+              "Interface " + edge.getSourceInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
+          this.isConsistent &= false;
+        } else if (graphDescription.getVertex(edge.getSourceInterface().getName()) != null) {
+          final SDFAbstractVertex sinkNode = graphDescription.getVertex(edge.getSourceInterface().getName());
+          if (graphDescription.incomingEdgesOf(sinkNode).size() == 0) {
+            VisitorOutput.getLogger().log(Level.SEVERE,
+                "Interface " + edge.getSourceInterface().getName() + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
+            this.isConsistent &= false;
+          }
+        }
+      }
+      graphDescription.accept(this);
+    }
+  }
 
-	/**
-	 * Verify a given graph consistency
-	 *
-	 * @param toVerify
-	 *            The graph on which to verify consistency
-	 * @return True if the graph is consistent, false otherwise
-	 */
-	public boolean verifyGraph(final SDFGraph toVerify) {
-		this.isConsistent = true;
-		try {
-			toVerify.accept(this);
-		} catch (final SDF4JException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return this.isConsistent;
-	}
+  /**
+   * Verify a given graph consistency.
+   *
+   * @param toVerify
+   *          The graph on which to verify consistency
+   * @return True if the graph is consistent, false otherwise
+   */
+  public boolean verifyGraph(final SDFGraph toVerify) {
+    this.isConsistent = true;
+    try {
+      toVerify.accept(this);
+    } catch (final SDF4JException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return this.isConsistent;
+  }
 
 }

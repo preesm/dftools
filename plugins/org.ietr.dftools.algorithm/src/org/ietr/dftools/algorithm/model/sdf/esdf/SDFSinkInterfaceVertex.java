@@ -41,44 +41,59 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
+// TODO: Auto-generated Javadoc
 /**
- * Sink interface vertex receive tokens on its input edge
+ * Sink interface vertex receive tokens on its input edge.
  *
  * @author jpiat
- *
  */
 public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
 
-	/**
-	 * Builds a new Sink interface
-	 */
-	public SDFSinkInterfaceVertex() {
-		super();
-		setKind(SDFInterfaceVertex.PORT);
-		setDirection(InterfaceDirection.Output);
-	}
+  /**
+   * Builds a new Sink interface.
+   */
+  public SDFSinkInterfaceVertex() {
+    super();
+    setKind(SDFInterfaceVertex.PORT);
+    setDirection(InterfaceDirection.Output);
+  }
 
-	@Override
-	public SDFInterfaceVertex clone() {
-		final SDFSinkInterfaceVertex copy = new SDFSinkInterfaceVertex();
-		copy.setName(getName());
-		if (getSources().size() != 0) {
-			final SDFSourceInterfaceVertex so = new SDFSourceInterfaceVertex();
-			so.setName(getName());
-			copy.addSink(so);
-		}
-		return copy;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex#clone()
+   */
+  @Override
+  public SDFInterfaceVertex clone() {
+    final SDFSinkInterfaceVertex copy = new SDFSinkInterfaceVertex();
+    copy.setName(getName());
+    if (getSources().size() != 0) {
+      final SDFSourceInterfaceVertex so = new SDFSourceInterfaceVertex();
+      so.setName(getName());
+      copy.addSink(so);
+    }
+    return copy;
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionAdded(final AbstractEdge e) {
-		// Nothing to do for the moment
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionAdded(final AbstractEdge e) {
+    // Nothing to do for the moment
+  }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void connectionRemoved(final AbstractEdge e) {
-		// Nothing to do for the moment
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   */
+  @SuppressWarnings("rawtypes")
+  @Override
+  public void connectionRemoved(final AbstractEdge e) {
+    // Nothing to do for the moment
+  }
 }

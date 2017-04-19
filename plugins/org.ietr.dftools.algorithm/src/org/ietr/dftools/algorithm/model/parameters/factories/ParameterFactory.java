@@ -40,15 +40,33 @@ package org.ietr.dftools.algorithm.model.parameters.factories;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.parameters.Parameter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Parameter objects.
+ */
 public class ParameterFactory {
 
-	protected AbstractGraph<?, ?> pGraph;
+  /** The p graph. */
+  protected AbstractGraph<?, ?> pGraph;
 
-	public ParameterFactory(final AbstractGraph<?, ?> graph) {
-		this.pGraph = graph;
-	}
+  /**
+   * Instantiates a new parameter factory.
+   *
+   * @param graph
+   *          the graph
+   */
+  public ParameterFactory(final AbstractGraph<?, ?> graph) {
+    this.pGraph = graph;
+  }
 
-	public Parameter create(final String name) {
-		return new Parameter(name);
-	}
+  /**
+   * Creates the.
+   *
+   * @param name
+   *          the name
+   * @return the parameter
+   */
+  public Parameter create(final String name) {
+    return new Parameter(name);
+  }
 }
