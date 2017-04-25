@@ -43,7 +43,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jscl.math.JsclInteger;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
@@ -392,8 +391,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
     }
     if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Integer) {
       return (Integer) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
-    } else if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof JsclInteger) {
-      return ((JsclInteger) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).intValue();
     } else {
       return 1;
     }
