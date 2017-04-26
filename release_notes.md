@@ -6,7 +6,7 @@ DFTools Changelog
 
 ### New Feature
 * Add test plug-in fragments for future test campaigns
-* Build process now produces 
+* Build process now produces
   * a source feature (include source code)
   * a 'meta' feature including all development requirements for DFTools
   * The aggregated Javadoc
@@ -32,10 +32,11 @@ DFTools Changelog
 * Update README.md
 * Fix copyright header on most files (see ./releng/ scripts)
 * Add .mailmap file for prettier git logs
+* Modifications in the API of some exceptions
 
 ### Bug fix
 * Fix Checkstyle and Findbugs issues
 * Fix few warnings that raised after Eclipse cleanup
 
 ## Release version 1.1.8
-* 2016.09.28 - See PREESM 2.2.4 release notes 
+* 2016.09.28 - See PREESM 2.2.4 release notes
