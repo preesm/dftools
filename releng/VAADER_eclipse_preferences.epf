@@ -398,6 +398,10 @@
 /instance/org.eclipse.releng.tools/org.eclipse.releng.tools.useDefaultRevisionYear=true
 /instance/org.eclipse.wst.xml.core/indentationChar=space
 /instance/org.eclipse.wst.xml.core/indentationSize=2
+/instance/org.eclipse.xtend.core.Xtend/generateGeneratedAnnotation=true
+/instance/org.eclipse.xtend.core.Xtend/generatedAnnotationComment=
+/instance/org.eclipse.xtend.core.Xtend/generateSuppressWarnings=false
+/instance/org.eclipse.xtend.core.Xtend/includeDateInGenerated=true
 /instance/org.eclipse.xtend.core.Xtend/org.eclipse.xtend.core.validation.IssueCodes.api_type_inference=warning
 /instance/org.eclipse.xtend.core.Xtend/org.eclipse.xtend.core.validation.IssueCodes.implicit_return=warning
 /instance/org.eclipse.xtend.core.Xtend/org.eclipse.xtend.core.validation.IssueCodes.java_doc_linking=warning
@@ -408,6 +412,7 @@
 /instance/org.eclipse.xtend.core.Xtend/org.eclipse.xtext.xbase.validation.IssueCodes.obsolete_instanceof=warning
 /instance/org.eclipse.xtend.core.Xtend/org.eclipse.xtext.xbase.validation.IssueCodes.unhandled_exception=warning
 /instance/org.eclipse.xtend.core.Xtend/outlet.DEFAULT_OUTPUT.cleanDirectory=true
+/instance/org.eclipse.xtend.core.Xtend/useJavaCompilerCompliance=true
 @org.eclipse.jdt.core=3.12.2.v20161117-1814
 @org.eclipse.jdt.ui=3.12.2.v20160929-0804
 file_export_version=3.0
