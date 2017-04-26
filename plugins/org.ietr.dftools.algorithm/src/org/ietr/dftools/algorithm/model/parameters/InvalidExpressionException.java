@@ -36,13 +36,18 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.workflow.AbstractWorkflowExecutor;
+import org.ietr.dftools.workflow.WorkflowException;
+
 /**
  * Class representing exception while solving expressions.
  *
+ * This extends {@link WorkflowException} so that it is caught by the {@link AbstractWorkflowExecutor}.
+ *
  * @author jpiat
+ * @author Antoine Morvan
  */
-public class InvalidExpressionException extends Exception {
+public class InvalidExpressionException extends WorkflowException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 8877519082638596867L;
@@ -54,7 +59,11 @@ public class InvalidExpressionException extends Exception {
    *          The message to pass to the expression
    */
   public InvalidExpressionException(final String expression) {
-    super(expression);
+    this(expression, null);
+  }
+
+  public InvalidExpressionException(final String expression, final Throwable t) {
+    super(expression, t);
   }
 
 }

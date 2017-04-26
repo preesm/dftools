@@ -1,24 +1,24 @@
 /*********************************************************
- * Copyright or � or Copr. IETR/INSA: Karol Desnos, Maxime Pelcat, 
+ * Copyright or � or Copr. IETR/INSA: Karol Desnos, Maxime Pelcat,
  * Jean-Francois Nezan, Julien Heulot, Clement Guy
- * 
+ *
  * [kdesnos,mpelcat,jnezan,jheulot,cguy]@insa-rennes.fr
- * 
+ *
  * This software is a computer program whose purpose is to prototype
  * parallel applications.
- * 
+ *
  * This software is governed by the CeCILL-C license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL-C
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
- * 
+ * "http://www.cecill.info".
+ *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
- * 
+ * liability.
+ *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
  * software by the user in light of its specific status of free software,
@@ -26,10 +26,10 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
- * 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
+ *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
@@ -37,6 +37,7 @@ package org.ietr.dftools.algorithm.model.sdf.transformations
 
 import java.util.LinkedHashMap
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.ietr.dftools.algorithm.model.AbstractGraph
 import org.ietr.dftools.algorithm.model.parameters.Variable
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge
@@ -79,14 +80,14 @@ class IbsdfFlattener {
 	 * Each fifo with a delay will be replaced with:
 	 * <ul><li>A fork with two outputs</li>
 	 * <li>A join with two inputs</li>
-	 * <li>The two outputs of the fork (o_0 and o_1) are respectively connected to 
+	 * <li>The two outputs of the fork (o_0 and o_1) are respectively connected to
 	 * the two inputs (i_1 and i_0) of the join.</li>
-	 * <li>Delays of the fifos between fork and join are computed to ensure 
+	 * <li>Delays of the fifos between fork and join are computed to ensure
 	 * the correct single-rate transformation of the application.</li></ul>
 	 */
-	protected def addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
+	protected def void addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
 		// Scan the fifos with delays in the subgraph
-		for (fifo : subgraph.edgeSet.filter[it.delay != null && it.delay.intValue != 0].toList) {
+		for (fifo : subgraph.edgeSet.filter[it.delay !== null && it.delay.intValue != 0].toList) {
 			// Get the number of tokens produced and consumed during each
 			// subgraph iteration for this fifo
 			val tgtRepeat = fifo.target.nbRepeatAsInteger
@@ -98,13 +99,13 @@ class IbsdfFlattener {
 			val rate0 = (tgtCons * tgtRepeat) - rate1
 
 			if(rate1 == 0) {
-				// The number of delay is a perfect modulo of the number of 
-				// tokens produced/consumed during an iteration, there is no 
-				// need to add fork and join, only to set the correct number 
+				// The number of delay is a perfect modulo of the number of
+				// tokens produced/consumed during an iteration, there is no
+				// need to add fork and join, only to set the correct number
 				// of delays
 				fifo.delay = new SDFIntEdgePropertyType(nbDelay * nbRepeat)
 			} else {
-				// Minimum difference of iteration between the production and 
+				// Minimum difference of iteration between the production and
 				// consumption of tokens
 				val minIterDiff = nbDelay / (tgtCons * tgtRepeat)
 
@@ -174,20 +175,20 @@ class IbsdfFlattener {
 	}
 
 	/**
-	 * This method scans the {@link SDFInterfaceVertex} of an {@link 
+	 * This method scans the {@link SDFInterfaceVertex} of an {@link
 	 * SDFGraph IBSDF} subgraph  and adds {@link SDFBroadcastVertex} and
 	 * {@link SDFRoundBufferVertex}, if needed.
-	 * 
+	 *
 	 * @param subgraph
 	 * 		the {@link SDFGraph} whose {@link SDFInterfaceVertex} are to checked.
-	 *      This graph will be modified within the method. The 
-	 *      schedulability of this subgraph must have been tested before being 
+	 *      This graph will be modified within the method. The
+	 *      schedulability of this subgraph must have been tested before being
 	 *      given to this method.
-	 * 
-	 *  
+	 *
+	 *
 	 * @throws SDF4JException if an interface is connected to several FIFOs.
 	 */
-	static public def addInterfaceSubstitutes(SDFGraph subgraph) throws ArithmeticException {
+	static public def void addInterfaceSubstitutes(SDFGraph subgraph) throws ArithmeticException {
 		for (interface : subgraph.vertexSet.filter(SDFInterfaceVertex).toList) {
 			if(interface instanceof SDFSourceInterfaceVertex) {
 				// Get successors
@@ -203,13 +204,13 @@ class IbsdfFlattener {
 				val consRate = outEdge.cons.intValue
 				val nbRepeatCons = outEdge.target.nbRepeatAsInteger
 
-				// If more token are consumed during an iteration of 
-				// the subgraph than the number of available tokens 
+				// If more token are consumed during an iteration of
+				// the subgraph than the number of available tokens
 				// => broadcast needed
 				val nbConsumedTokens = try {
 					Math.multiplyExact(consRate, nbRepeatCons)
 				} catch(ArithmeticException e) {
-					throw new SDF4JException('''Number of repetitions of actor «outEdge.target» (x «nbRepeatCons») or number of consumed tokens on edge «outEdge» is too big and causes an overflow in the tool.''')
+					throw new SDF4JException('''Number of repetitions of actor «outEdge.target» (x «nbRepeatCons») or number of consumed tokens on edge «outEdge» is too big and causes an overflow in the tool.''', e)
 				}
 				if(prodRate < nbConsumedTokens) {
 					// Add the broadcast and connect edges
@@ -253,13 +254,13 @@ class IbsdfFlattener {
 				val consRate = inEdge.cons.intValue
 				val nbRepeatProd = inEdge.source.nbRepeatAsInteger
 
-				// If more token are produced during an iteration of 
-				// the subgraph than the number of consumed tokens 
+				// If more token are produced during an iteration of
+				// the subgraph than the number of consumed tokens
 				// => roundbuffer needed
 				val nbProducedTokens = try {
 					Math.multiplyExact(prodRate, nbRepeatProd)
 				} catch(ArithmeticException e) {
-					throw new SDF4JException('''Number of repetitions of actor «inEdge.source» (x «nbRepeatProd») or number of consumed tokens on edge «inEdge» is too big and causes an overflow in the tool.''')
+					throw new SDF4JException('''Number of repetitions of actor «inEdge.source» (x «nbRepeatProd») or number of consumed tokens on edge «inEdge» is too big and causes an overflow in the tool.''', e)
 				}
 				if(nbProducedTokens > consRate) {
 					// Add the roundbuffer and connect edges
@@ -300,17 +301,17 @@ class IbsdfFlattener {
 	}
 
 	/**
-	 * Flatten the graph up to the {@link #depth} specified in the {@link 
+	 * Flatten the graph up to the {@link #depth} specified in the {@link
 	 * IbsdfFlattener} attributes. Result of the flattening can be obtained
 	 * through the {@link #getFlattenedGraph()} method.
 	 */
-	def flattenGraph() throws SDF4JException{
+	def void flattenGraph() throws SDF4JException{
 		// Copy the original graph
 		flattenedGraph = originalGraph.clone
 
 		// Flatten depth times one hierarchy level of the graph
 		for (i : 1 .. depth) {
-			// Check the schedulability of the top level graph (this will also 
+			// Check the schedulability of the top level graph (this will also
 			// set the repetition vector for each actor).
 			if(!flattenedGraph.schedulable) {
 				throw new SDF4JException('''Graph «flattenedGraph.name» is not schedulable''')
@@ -318,7 +319,7 @@ class IbsdfFlattener {
 
 			// Check if there is anything to flatten
 			val hasNoHierarchy = flattenedGraph.vertexSet.forall [
-				!(it.graphDescription != null && it.graphDescription instanceof SDFGraph)
+				!(it.graphDescription !== null && it.graphDescription instanceof SDFGraph)
 			]
 
 			// If there is nothing to flatten, leave the method
@@ -327,35 +328,37 @@ class IbsdfFlattener {
 			}
 
 			// Flatten one level of the graph
-			flattenOneLevel
+			flattenOneLevel(i)
 		}
 
-		// Make sure the fifos of special actors are in order (according to 
+		// Make sure the fifos of special actors are in order (according to
 		// their indices)
 		SpecialActorPortsIndexer.sortIndexedPorts(flattenedGraph)
 	}
 
-	protected def flattenOneLevel() {
+	@SuppressWarnings("unchecked")
+	protected def void flattenOneLevel(int level) {
 		// Get the list of hierarchical actors
 		val hierActors = flattenedGraph.vertexSet.filter [
-			it.graphDescription != null && it.graphDescription instanceof SDFGraph
+			it.graphDescription !== null && it.graphDescription instanceof SDFGraph
 		].clone // Clone because filter produces a view
 		// Process actors to flatten one by one
 		for (hierActor : hierActors) {
 			// Copy the orginal subgraph
-			val subgraph = (hierActor.graphDescription as SDFGraph).clone
+			val AbstractGraph<?,?> graphDescription = hierActor.graphDescription
+			val subgraph = (graphDescription as SDFGraph).clone
 
-			// Check its schedulability (this will also 
+			// Check its schedulability (this will also
 			// set the repetition vector for each actor).
 			if(!subgraph.schedulable) {
-				throw new SDF4JException('''Subgraph «subgraph.name» is not schedulable''')
+				throw new SDF4JException('''Subgraph «subgraph.name» at level «level» is not schedulable''')
 			}
 
 			val nbRepeat = hierActor.nbRepeatAsInteger;
-			val containsNoDelay = subgraph.edgeSet.forall[it.delay == null || it.delay.intValue == 0]
+			val containsNoDelay = subgraph.edgeSet.forall[it.delay === null || it.delay.intValue == 0]
 
 			// Prepare the subgraph for instantiation:
-			// - Add roundbuffers and broadcast actors next to interfaces 
+			// - Add roundbuffers and broadcast actors next to interfaces
 			// - fork/join delays if needed
 			addInterfaceSubstitutes(subgraph)
 			if(!containsNoDelay && nbRepeat > 1) {
@@ -363,13 +366,13 @@ class IbsdfFlattener {
 			}
 
 			// Substitute subgraph parameters with expression set in their parent graph
-			// /!\ Getting prod and cons rate from the subgraph will no longer 
+			// /!\ Getting prod and cons rate from the subgraph will no longer
 			// be possible afterwards, unless it is copied in the parent.
 			substituteSubgraphParameters(hierActor, subgraph)
 
-			// Change variable names in subgraph if they are in conflict (i.e. 
+			// Change variable names in subgraph if they are in conflict (i.e.
 			// identical) with variables from the flattened graph
-			val duplicateVar = subgraph.variables.filter[flattenedGraph.getVariable($0) != null].values.clone
+			val duplicateVar = subgraph.variables.filter[flattenedGraph.getVariable($0) !== null].values.clone
 			duplicateVar.forEach [
 				renameSubgraphVariable(subgraph, it)
 			]
@@ -382,26 +385,26 @@ class IbsdfFlattener {
 
 	/**
 	 * This method replaces {@link SDFGraph#getParameters() parameters}
-	 * of a subgraph with the corresponding expression associated to it in the 
+	 * of a subgraph with the corresponding expression associated to it in the
 	 * hierarchical actor instance arguments.
-	 * 
+	 *
 	 * @param hierActor
-	 * 		The hierarchical actor whose subgraph is processed. Instance 
+	 * 		The hierarchical actor whose subgraph is processed. Instance
 	 * 		arguments of the actor give the expression used to substitute
 	 * 		parameters in the subgraph.
 	 * @param subgraph
 	 * 		The subgraph whose expressions are substituted.
 	 */
-	protected def substituteSubgraphParameters(SDFAbstractVertex hierActor, SDFGraph subgraph) {
+	protected def void substituteSubgraphParameters(SDFAbstractVertex hierActor, SDFGraph subgraph) {
 
-		if(subgraph.parameters != null) {
+		if(subgraph.parameters !== null) {
 			// Get list of subgraph parameters, except those masked with subgraph variables
 			// Also get associated expression from parent graph
-			val subgraphParameters = subgraph.parameters.filter[subgraph.getVariable($0) == null].mapValues [
+			val subgraphParameters = subgraph.parameters.filter[subgraph.getVariable($0) === null].mapValues [
 				hierActor.getArgument(it.name).value
 			]
 
-			// Do the substitution only for parameters whose expression differs 
+			// Do the substitution only for parameters whose expression differs
 			// from the parameter name (to avoid unnecessary computations)
 			subgraphParameters.filter[name, expression|name != expression].forEach [ name, expression |
 				replaceInExpressions(subgraph, name, expression)
@@ -410,27 +413,27 @@ class IbsdfFlattener {
 	}
 
 	/**
-	 * If a {@link Variable} of the subgraph is in conflict with a variable 
+	 * If a {@link Variable} of the subgraph is in conflict with a variable
 	 * of the parent graph (i.e. if it has the same name), the variable of the
-	 * subgraph must be given a new name in this method before flattening the 
+	 * subgraph must be given a new name in this method before flattening the
 	 * subgraph.
-	 * 
+	 *
 	 * @param subgraph
 	 * 		The subgraph that contains a conflicting variable.
 	 * @param variable
 	 * 		The variable that is in conflict with a variable from the parent
 	 * 		graph.
 	 */
-	protected def renameSubgraphVariable(SDFGraph subgraph, Variable variable) {
+	protected def void renameSubgraphVariable(SDFGraph subgraph, Variable variable) {
 		// Create the new variable name
 		val oldName = variable.name
 		var newName = subgraph.name + "_" + variable.name
 
 		// Ensure the uniqueness of this name in the flattened graph
-		newName = if(flattenedGraph.getVariable(newName) != null) {
+		newName = if(flattenedGraph.getVariable(newName) !== null) {
 			var uniqueName = newName + "_0"
 			var i = 0
-			while(flattenedGraph.getVariable(uniqueName) != null) {
+			while(flattenedGraph.getVariable(uniqueName) !== null) {
 				i++
 				uniqueName = newName + "_" + i
 			}
@@ -439,8 +442,8 @@ class IbsdfFlattener {
 			newName
 		}
 
-		// replace the name everywhere	
-		// The Variable itself	
+		// replace the name everywhere
+		// The Variable itself
 		subgraph.variables.remove(oldName)
 		variable.name = newName
 		subgraph.addVariable(variable)
@@ -449,18 +452,18 @@ class IbsdfFlattener {
 	}
 
 	/**
-	 * In all expressions of the given subgraph, replace the string oldName 
+	 * In all expressions of the given subgraph, replace the string oldName
 	 * with the given replacementString.
-	 * 
+	 *
 	 * @param subgraph
 	 * 		The subgraph whose expressions will be altered (in {@link SDFEdge fifos},
-	 * 		{@SDFAbstractVertex actors}, and {@link Variable variables}). 
+	 * 		{@SDFAbstractVertex actors}, and {@link Variable variables}).
 	 * @param oldName
 	 * 		The String that should be replaced in all expressions.
 	 * @param replacementString
 	 * 		The replacement.
 	 */
-	protected def replaceInExpressions(SDFGraph subgraph, String oldName, String replacementString) {
+	protected def void replaceInExpressions(SDFGraph subgraph, String oldName, String replacementString) {
 		// Regular expression used when replacing oldName in expressions
 		// Ensure that only the exact variable name will be replaced
 		// but not variables "containing" the variable names
@@ -494,23 +497,23 @@ class IbsdfFlattener {
 	}
 
 	/**
-	 * This method copy the subgraph of the hierarchical actor passed as a 
-	 * parameter into the {@link #flattenedGraph}. Before calling this method, 
-	 * the subgraph must have been "prepared" by calling other methods from 
-	 * this class : {@link #addDelaySubstitutes(SDFGraph,int)}, 
-	 * {@link #addInterfaceSubstitutes(SDFGraph)}, 
-	 * {@link #addDelaySubstitutes(SDFGraph,int)}, 
-	 * {@link #renameSubgraphVariable(SDFGraph,Variable)}, 
+	 * This method copy the subgraph of the hierarchical actor passed as a
+	 * parameter into the {@link #flattenedGraph}. Before calling this method,
+	 * the subgraph must have been "prepared" by calling other methods from
+	 * this class : {@link #addDelaySubstitutes(SDFGraph,int)},
+	 * {@link #addInterfaceSubstitutes(SDFGraph)},
+	 * {@link #addDelaySubstitutes(SDFGraph,int)},
+	 * {@link #renameSubgraphVariable(SDFGraph,Variable)},
 	 * {@link #substituteSubgraphParameters(SDFAbstractVertex,SDFGraph)}.
-	 * 
-	 * @param hierActor 
-	 * 		the hierarchical {@link SDFAbstractVertex actor} that 
+	 *
+	 * @param hierActor
+	 * 		the hierarchical {@link SDFAbstractVertex actor} that
 	 * 		is flattened.
 	 * @param subgraph
 	 * 		the {@link SDFGraph subgraph} associated to the hierarchical
 	 * 		actor.
 	 */
-	protected def instantiateSubgraph(
+	protected def void instantiateSubgraph(
 		SDFAbstractVertex hierActor,
 		SDFGraph subgraph
 	) {
@@ -556,7 +559,7 @@ class IbsdfFlattener {
 					val newFifo = flattenedGraph.addEdge(externalFifo.source, clones.get(internalFifo.target))
 					newFifo.copyProperties(externalFifo)
 					newFifo.cons = internalFifo.cons
-					if(internalFifo.delay != null) {
+					if(internalFifo.delay !== null) {
 						newFifo.delay = internalFifo.delay
 					}
 					newFifo.targetInterface = internalFifo.targetInterface
@@ -571,7 +574,7 @@ class IbsdfFlattener {
 					}
 					newFifo.copyProperties(externalFifo)
 					newFifo.prod = internalFifo.prod
-					if(internalFifo.delay != null) {
+					if(internalFifo.delay !== null) {
 						newFifo.delay = internalFifo.delay
 					}
 					newFifo.sourceInterface = internalFifo.sourceInterface
@@ -579,8 +582,8 @@ class IbsdfFlattener {
 					newFifo
 				}
 			// Set delay of the new FIFO
-			val externDelay = if(externalFifo.delay != null) externalFifo.delay.intValue else 0
-			val internDelay = if(newFifo.delay != null) newFifo.delay.intValue else 0
+			val externDelay = if(externalFifo.delay !== null) externalFifo.delay.intValue else 0
+			val internDelay = if(newFifo.delay !== null) newFifo.delay.intValue else 0
 			if(externDelay != 0) {
 				newFifo.delay = new SDFIntEdgePropertyType(externDelay + internDelay)
 			}
@@ -588,10 +591,10 @@ class IbsdfFlattener {
 	}
 
 	/**
-	 * Rename all actors (except interfaces) of the subgraph such that their 
+	 * Rename all actors (except interfaces) of the subgraph such that their
 	 * name is prefixed with the name of the hierarchical actor.
 	 */
-	protected def renameSubgraphActors(SDFAbstractVertex hierActor, SDFGraph subgraph) {
+	protected def void renameSubgraphActors(SDFAbstractVertex hierActor, SDFGraph subgraph) {
 		for (actor : subgraph.vertexSet.filter[!(it instanceof SDFInterfaceVertex)]) {
 			actor.name = '''«hierActor.name»_«actor.name»'''
 		}
