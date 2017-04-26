@@ -42,7 +42,7 @@ package org.ietr.dftools.algorithm.model.visitors;
  *
  * @author jpiat
  */
-public class SDF4JException extends Exception {
+public class SDF4JException extends Error {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = -1803030544045591261L;
@@ -54,6 +54,10 @@ public class SDF4JException extends Exception {
    *          The error message
    */
   public SDF4JException(final String message) {
-    super(message);
+    this(message, null);
+  }
+
+  public SDF4JException(final String message, final Throwable t) {
+    super(message, t);
   }
 }

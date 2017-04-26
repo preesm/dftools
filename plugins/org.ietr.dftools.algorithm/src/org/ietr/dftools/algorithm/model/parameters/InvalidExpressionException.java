@@ -54,7 +54,11 @@ public class InvalidExpressionException extends Exception {
    *          The message to pass to the expression
    */
   public InvalidExpressionException(final String expression) {
-    super(expression);
+    this(expression, null);
+  }
+
+  public InvalidExpressionException(final String expression, final Throwable t) {
+    super(expression, t);
   }
 
 }

@@ -52,10 +52,12 @@ public class WorkflowException extends Exception {
   /**
    * Instantiates a new workflow exception.
    *
-   * @param arg0
-   *          the arg 0
    */
-  public WorkflowException(final String arg0) {
-    super(arg0);
+  public WorkflowException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
+
+  public WorkflowException(final String message) {
+    this(message, null);
   }
 }
