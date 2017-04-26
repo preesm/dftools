@@ -1,24 +1,24 @@
 /*********************************************************
- * Copyright or � or Copr. IETR/INSA: Karol Desnos, Maxime Pelcat, 
+ * Copyright or � or Copr. IETR/INSA: Karol Desnos, Maxime Pelcat,
  * Jean-Francois Nezan, Julien Heulot, Clement Guy
- * 
+ *
  * [kdesnos,mpelcat,jnezan,jheulot,cguy]@insa-rennes.fr
- * 
+ *
  * This software is a computer program whose purpose is to prototype
  * parallel applications.
- * 
+ *
  * This software is governed by the CeCILL-C license under French law and
- * abiding by the rules of distribution of free software.  You can  use, 
+ * abiding by the rules of distribution of free software.  You can  use,
  * modify and/ or redistribute the software under the terms of the CeCILL-C
  * license as circulated by CEA, CNRS and INRIA at the following URL
- * "http://www.cecill.info". 
- * 
+ * "http://www.cecill.info".
+ *
  * As a counterpart to the access to the source code and  rights to copy,
  * modify and redistribute granted by the license, users are provided only
  * with a limited warranty  and the software's author,  the holder of the
  * economic rights,  and the successive licensors  have only  limited
- * liability. 
- * 
+ * liability.
+ *
  * In this respect, the user's attention is drawn to the risks associated
  * with loading,  using,  modifying and/or developing or reproducing the
  * software by the user in light of its specific status of free software,
@@ -26,10 +26,10 @@
  * therefore means  that it is reserved for developers  and  experienced
  * professionals having in-depth computer knowledge. Users are therefore
  * encouraged to load and test the software's suitability as regards their
- * requirements in conditions enabling the security of their systems and/or 
- * data to be ensured and,  more generally, to use and operate it in the 
- * same conditions as regards security. 
- * 
+ * requirements in conditions enabling the security of their systems and/or
+ * data to be ensured and,  more generally, to use and operate it in the
+ * same conditions as regards security.
+ *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-C license and that you accept its terms.
  *********************************************************/
@@ -45,11 +45,12 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex
+import org.ietr.dftools.algorithm.model.AbstractGraph
 
 /**
- * The purpose of this class is to automatically add indexes to all ordered 
+ * The purpose of this class is to automatically add indexes to all ordered
  * ports of special actors (Fork, Join, RoundBuffer, Broadcast).
- * 
+ *
  * @author kdesnos
  */
 class SpecialActorPortsIndexer {
@@ -57,43 +58,43 @@ class SpecialActorPortsIndexer {
 	/**
 	 * Regular expression used on the name of a port in order to extract its
 	 * index(es). Explanation:<ul>
-	 * <li><code>.*?</code>: matches as many characters as possible (0..*) 
+	 * <li><code>.*?</code>: matches as many characters as possible (0..*)
 	 * corresponding to the name of the port</li>
-	 * <li><code>(_([0-9]*))?</code>: matches an underscore followed by a 
+	 * <li><code>(_([0-9]*))?</code>: matches an underscore followed by a
 	 * number corresponding to the YY index. (optional match)</li>
-	 * <li><code>_([0-9]*)\\z</code>: matches an underscore followed by a 
-	 * number corresponding to the XX index, immediately before the end of the 
+	 * <li><code>_([0-9]*)\\z</code>: matches an underscore followed by a
+	 * number corresponding to the XX index, immediately before the end of the
 	 * matched string. (mandatory match)</li></ul>
 	 */
-	public static val indexRegex = ".*?(_([0-9]*))?_([0-9]*)\\z"
+	public static val String indexRegex = ".*?(_([0-9]*))?_([0-9]*)\\z"
 
 	/**
 	 * Group of the XX index in the {@link #indexRegex}
 	 */
-	public static val groupXX = 3
+	public static val int groupXX = 3
 
 	/**
 	 * Group of the YY index in the {@link #indexRegex}
 	 */
-	public static val groupYY = 2
+	public static val int groupYY = 2
 
-	/** 
-	 * This method rename all ordered ports of special actors in the following 
-	 * fashion: 
-	 * <ul><li>Join and Fork: <code>original_port_name_XX</code> where XX is 
-	 * the index of the first data token accessed by this edge (out of the 
+	/**
+	 * This method rename all ordered ports of special actors in the following
+	 * fashion:
+	 * <ul><li>Join and Fork: <code>original_port_name_XX</code> where XX is
+	 * the index of the first data token accessed by this edge (out of the
 	 * total number of data tokens fork/joined)</li>
 	 * <li><li>Broadcast and RoundBuffer: <code>original_port_name_YY_XX</code
 	 * > where XX is the index of the first data token accessed by this edge (
-	 * out of the total number of data tokens broadcasted/roundbuffered) and 
-	 * YY is the absolute index of this first token if the total number of 
-	 * tokens distributed/kept by the broadcast/roundbuffer is not considered 
+	 * out of the total number of data tokens broadcasted/roundbuffered) and
+	 * YY is the absolute index of this first token if the total number of
+	 * tokens distributed/kept by the broadcast/roundbuffer is not considered
 	 * as a modulo.</li></ul>
-	 * 
-	 * @param graph {@link SDFGraph} whose special actor ports are renamed. 
+	 *
+	 * @param graph {@link SDFGraph} whose special actor ports are renamed.
 	 * Subgraph associated to actors of this graph will also be processed.
 	 */
-	static def addIndexes(SDFGraph sdfGraph) {
+	static def void addIndexes(SDFGraph sdfGraph) {
 		// Initialize the list of processed graph with the given one.
 		val processedGraphs = newArrayList
 		processedGraphs.add(sdfGraph)
@@ -102,9 +103,10 @@ class SpecialActorPortsIndexer {
 			val graph = processedGraphs.get(i)
 
 			for (actor : graph.vertexSet()) {
+				val AbstractGraph<?,?> actorGraphDesc = actor.graphDescription
 				// If the actor is hierarchical, add its subgraph to the list of graphs to process
-				if (actor.graphDescription != null) {
-					processedGraphs.add(actor.graphDescription as SDFGraph)
+				if (actorGraphDesc !== null) {
+					processedGraphs.add(actorGraphDesc as SDFGraph)
 				}
 
 				// Check if the ports already have indexed names
@@ -157,10 +159,10 @@ class SpecialActorPortsIndexer {
 	}
 
 	/**
-	 * Calls the checkIndexes(SDFAbstractVertex actor) method for all special 
+	 * Calls the checkIndexes(SDFAbstractVertex actor) method for all special
 	 * actors of this graph and all actors of its subgraphs
 	 */
-	def static checkIndexes(SDFGraph sdfGraph) {
+	def static boolean checkIndexes(SDFGraph sdfGraph) {
 		var result = true
 
 		// Initialize the list of processed graph with the given one.
@@ -171,11 +173,12 @@ class SpecialActorPortsIndexer {
 			val graph = processedGraphs.get(i)
 
 			for (actor : graph.vertexSet()) {
+				val AbstractGraph<?,?> actorGraphDesc = actor.graphDescription
 				// If the actor is hierarchical, add its subgraph to the list of graphs to process
-				if (actor.graphDescription != null) {
-					processedGraphs.add(actor.graphDescription as SDFGraph)
+				if (actorGraphDesc !== null) {
+					processedGraphs.add(actorGraphDesc as SDFGraph)
 				}
-				
+
 				// Check only special actors
 				switch (actor) {
 					SDFJoinVertex,
@@ -195,13 +198,13 @@ class SpecialActorPortsIndexer {
 	}
 
 	/**
-	 * This method checks if the ports the given {@link SDFAbstractActor}
+	 * This method checks if the ports the given {@link SDFAbstractVertex}
 	 * passed as a parameter are already indexed.
-	 * 
-	 * @return <code>true</code> if the actor is a special actor and its 
+	 *
+	 * @return <code>true</code> if the actor is a special actor and its
 	 * ports are already indexed, <code>false</code> otherwise.
 	 */
-	def static checkIndexes(SDFAbstractVertex actor) {
+	def static boolean checkIndexes(SDFAbstractVertex actor) {
 		var isSource = true;
 
 		val fifos = switch (actor) {
@@ -223,21 +226,21 @@ class SpecialActorPortsIndexer {
 		}
 
 		val valIsSource = isSource
-		checkIndexes(fifos, valIsSource)
+		return checkIndexes(fifos, valIsSource)
 	}
 
-	/** 
-	 * Check wether all {@link SDFEdge} in the given {@link List} have a valid 
+	/**
+	 * Check wether all {@link SDFEdge} in the given {@link List} have a valid
 	 * index.
-	 * 
-	 * @param valIsSource whether the source or target ports of SDFEdge are 
+	 *
+	 * @param valIsSource whether the source or target ports of SDFEdge are
 	 * considered
-	 * 
-	 * @return <code>true</code> if the list of SDFEdge is not empty and if its 
+	 *
+	 * @return <code>true</code> if the list of SDFEdge is not empty and if its
 	 * ports are already indexed, <code>false</code> otherwise.
 	 */
-	protected def static checkIndexes(List<SDFEdge> fifos, boolean valIsSource) {
-		fifos.forall [
+	protected def static boolean checkIndexes(List<SDFEdge> fifos, boolean valIsSource) {
+		return fifos.forall [
 			val name = if(valIsSource) it.sourceInterface.name else it.targetInterface.name
 			name.matches(indexRegex)
 		] && !fifos.empty
@@ -246,7 +249,7 @@ class SpecialActorPortsIndexer {
 	/**
 	 * Sort all indexed ports of the special actors of the graph.
 	 */
-	def static sortIndexedPorts(SDFGraph sdfGraph) {
+	def static void sortIndexedPorts(SDFGraph sdfGraph) {
 
 		// Initialize the list of processed graph with the given one.
 		val processedGraphs = newArrayList
@@ -256,9 +259,10 @@ class SpecialActorPortsIndexer {
 			val graph = processedGraphs.get(i)
 
 			for (actor : graph.vertexSet()) {
+				val AbstractGraph<?,?> actorGraphDesc = actor.graphDescription
 				// If the actor is hierarchical, add its subgraph to the list of graphs to process
-				if (actor.graphDescription != null) {
-					processedGraphs.add(actor.graphDescription as SDFGraph)
+				if (actorGraphDesc !== null) {
+					processedGraphs.add(actorGraphDesc as SDFGraph)
 				}
 
 				val alreadyIndexed = checkIndexes(actor)
@@ -313,11 +317,11 @@ class SpecialActorPortsIndexer {
 	}
 
 	/**
-	 * Sort a {@link List} of {@link SDFEdge} according to their port index. 
+	 * Sort a {@link List} of {@link SDFEdge} according to their port index.
 	 * The source or target ports will be considered depending on the valIs
 	 * Source boolean.
 	 */
-	def static sortFifoList(List<SDFEdge> fifos, boolean valIsSource) {
+	def static void sortFifoList(List<SDFEdge> fifos, boolean valIsSource) {
 		// Check that all fifos have an index
 		if (checkIndexes(fifos, valIsSource)) {
 			// If indexes are valid, do the sort
@@ -335,12 +339,12 @@ class SpecialActorPortsIndexer {
 					m1.find
 
 					// Retrieve the indexes
-					val yy0 = if(m0.group(groupYY) != null) Integer.decode(m0.group(groupYY)) else 0
-					val yy1 = if(m1.group(groupYY) != null) Integer.decode(m1.group(groupYY)) else 0
+					val yy0 = if(m0.group(groupYY) !== null) Integer.decode(m0.group(groupYY)) else 0
+					val yy1 = if(m1.group(groupYY) !== null) Integer.decode(m1.group(groupYY)) else 0
 					val xx0 = Integer.decode(m0.group(groupXX))
 					val xx1 = Integer.decode(m1.group(groupXX))
 
-					// Sort according to yy indexes if they are different, 
+					// Sort according to yy indexes if they are different,
 					// and according to xx indexes otherwise
 					if(yy0 != yy1) yy0 - yy1 else xx0 - xx1
 				}
