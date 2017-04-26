@@ -38,13 +38,16 @@
 
 package org.ietr.dftools.workflow;
 
-// TODO: Auto-generated Javadoc
 /**
- * Exception thrown when an error has occured in a workflow task.
+ * Exception thrown when an error has occurred in a workflow task.
+ *
+ * It extends {@link RuntimeException} so that it does not need to be checked (and actually it should not be caught by anything else than a
+ * {@link AbstractWorkflowExecutor}).
  *
  * @author mpelcat
+ * @author Antoine Morvan
  */
-public class WorkflowException extends Exception {
+public class WorkflowException extends RuntimeException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = -82239037652340760L;
