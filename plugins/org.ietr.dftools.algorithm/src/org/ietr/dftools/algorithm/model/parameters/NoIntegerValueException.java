@@ -36,11 +36,16 @@
  *******************************************************************************/
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.workflow.AbstractWorkflowExecutor;
+import org.ietr.dftools.workflow.WorkflowException;
+
 /**
  * The Class NoIntegerValueException.
+ *
+ * This extends {@link WorkflowException} so that it is caught by the {@link AbstractWorkflowExecutor}.
+ *
  */
-public class NoIntegerValueException extends Exception {
+public class NoIntegerValueException extends WorkflowException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 329486828642421615L;
@@ -52,7 +57,11 @@ public class NoIntegerValueException extends Exception {
    *          the msg
    */
   public NoIntegerValueException(final String msg) {
-    super(msg);
+    this(msg, null);
+  }
+
+  public NoIntegerValueException(final String msg, final Throwable t) {
+    super(msg, t);
   }
 
 }
