@@ -10,8 +10,7 @@ DFTools Changelog
   * a source feature (include source code)
   * a 'meta' feature including all development requirements for DFTools
   * The aggregated Javadoc
-* Maven build process allows to automatically deploy on SourceForge server (needs Unix OS)
-  * On windows, it still builds the complete site, but stops before the upload
+* Maven build process allows to automatically deploy on SourceForge server
 
 ### Changes
 * The build process does not require Graphiti and Preesm source code anymore
