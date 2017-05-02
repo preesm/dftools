@@ -1,201 +1,197 @@
-<!--
-    Copyright or © or Copr. IETR/INSA - Rennes (2017) :
-   
-    Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
-   
-    This software is a computer program whose purpose is to [describe
-    functionalities and technical features of your software].
-   
-    This software is governed by the CeCILL  license under French law and
-    abiding by the rules of distribution of free software.  You can  use, 
-    modify and/ or redistribute the software under the terms of the CeCILL
-    license as circulated by CEA, CNRS and INRIA at the following URL
-    "http://www.cecill.info". 
-   
-    As a counterpart to the access to the source code and  rights to copy,
-    modify and redistribute granted by the license, users are provided only
-    with a limited warranty  and the software's author,  the holder of the
-    economic rights,  and the successive licensors  have only  limited
-    liability. 
-   
-    In this respect, the user's attention is drawn to the risks associated
-    with loading,  using,  modifying and/or developing or reproducing the
-    software by the user in light of its specific status of free software,
-    that may mean  that it is complicated to manipulate,  and  that  also
-    therefore means  that it is reserved for developers  and  experienced
-    professionals having in-depth computer knowledge. Users are therefore
-    encouraged to load and test the software's suitability as regards their
-    requirements in conditions enabling the security of their systems and/or 
-    data to be ensured and,  more generally, to use and operate it in the 
-    same conditions as regards security. 
-   
-    The fact that you are presently reading this means that you have had
-    knowledge of the CeCILL license and that you accept its terms.
- -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.ietr.dftools.complete.site</artifactId>
-	<packaging>eclipse-repository</packaging>
-	
-	<parent>
-		<groupId>org.ietr.dftools</groupId>
-		<artifactId>org.ietr.dftools.releng</artifactId>
-		<version>1.1.9</version>
-		<relativePath>..</relativePath>
-	</parent>
-	
-	<pluginRepositories>
-		<pluginRepository>
-			<id>preesm</id>
-			<url>http://preesm.sourceforge.net/maven/</url>
-		</pluginRepository>
-	</pluginRepositories>
-	
-	<build>
-		<plugins>
-			<!--
-				This plugins builds the update site for the current release
-				and puts all files in ${project.build.directory}/repository
-				-->
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-p2-repository-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<includeAllDependencies>true</includeAllDependencies>
-					<compress>false</compress>
-					<repositoryName>IETR/INSA - Rennes DFTools Update Site</repositoryName>
-					<skipArchive>true</skipArchive>
-				</configuration>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<configuration>
-					<failOnError>false</failOnError>
-				</configuration>
-				<executions>
-					<execution>
-						<id>javadoc-gen</id>
-						<phase/>
-					</execution>
-					<execution>
-						<id>javadoc-aggregation</id>
-						<phase>package</phase>
-						<goals>
-							<goal>javadoc-no-fork</goal>
-						</goals>
-						<configuration>
-							<failOnError>false</failOnError>
-							<!-- switch on dependency-driven aggregation -->
-							<includeDependencySources>true</includeDependencySources>
-							<!-- include ONLY dependencies with same groupId -->
-							<dependencySourceIncludes>
-								<dependencySourceInclude>${project.groupId}:*</dependencySourceInclude>
-							</dependencySourceIncludes>
-							<!-- make sure aggregated javadoc is put in the complete site -->
-							<reportOutputDirectory>${project.build.directory}/gensite/API/</reportOutputDirectory>
-							<destDir>${project.groupId}-${project.version}</destDir>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<plugin>
-				<!-- ## NOTE: make sure this is after the tycho-p2-extras-plugin in the pom.xml text -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>copy-repo</id>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target name="Copy repo">
-								<!-- Copy repo to gensite folder -->
-								<copy todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/">
-									<fileset dir="${project.build.directory}/repository/"/>
-								</copy>
-								<!-- Web resources for the current release -->
-								<copy todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/web/" >
-									<fileset dir="${basedir}/web" includes="*"/>
-								</copy>
-								<copy todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/" >
-									<fileset dir="${basedir}" includes="index.html" />
-								</copy>
-								<copy file="${project.build.directory}/category.xml" tofile="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/site.xml"/>
-								<!-- Add symlink for latest release -->
-								<symlink link="${project.build.directory}/gensite/update-site/${project.groupId}-latest" resource="${project.groupId}-${project.version}"/>
-							</target>
-							<exportAntProperties>true</exportAntProperties>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<!--
-				This plugin will fetch all features and plugins
-				from the online Preesm update site (URL defined in the 
-				parent POM). This will be executed after packaging the
-				update site for the current release. It will merge the
-				features and plugins from the online update site and 
-				the ones generated for the current release, in 
-				${project.build.directory}/gensite/update-site/complete.
-				It also copies the update-site for the current release
-				in ${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}
-				-->
-			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-p2-extras-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>copy-current</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>mirror</goal>
-						</goals>
-						<configuration>
-							<source>
-								<repository><url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url></repository>
-								<repository><url>${complete.p2.repo}</url></repository>
-							</source>
-							<append>false</append>
-							<compress>false</compress>
-							<includeOptional>true</includeOptional>
-							<destination>${project.build.directory}/gensite/update-site/complete</destination>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.ietr.maven</groupId>
-				<artifactId>sftp-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<executions>
-					<execution>
-						<id>upload-repo</id>
-						<phase>deploy</phase>
-						<configuration>
-							<serverId>sf-preesm-update-site</serverId>
-							<serverHost>web.sourceforge.net</serverHost>
-							<strictHostKeyChecking>false</strictHostKeyChecking>
-							<mode>send</mode>
-							<remotePath>/home/project-web/preesm/htdocs/gensite/</remotePath>
-							<localPath>${project.build.directory}/gensite/</localPath>
-						</configuration>
-						<goals>
-							<goal>sftp-transfert</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-		
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>org.ietr.dftools.complete.site</artifactId>
+  <packaging>eclipse-repository</packaging>
+
+  <parent>
+    <groupId>org.ietr.dftools</groupId>
+    <artifactId>org.ietr.dftools.releng</artifactId>
+    <version>1.1.9</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>preesm</id>
+      <url>http://preesm.sourceforge.net/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <plugins>
+      <!-- This plugins builds the update site for the current release and
+        puts all files in ${project.build.directory}/repository -->
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-repository-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <includeAllDependencies>true</includeAllDependencies>
+          <compress>false</compress>
+          <repositoryName>IETR/INSA - Rennes DFTools Update Site</repositoryName>
+          <skipArchive>true</skipArchive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <configuration>
+          <failOnError>false</failOnError>
+        </configuration>
+        <executions>
+          <execution>
+            <id>javadoc-gen</id>
+            <phase />
+          </execution>
+          <execution>
+            <id>javadoc-aggregation</id>
+            <phase>package</phase>
+            <goals>
+              <goal>javadoc-no-fork</goal>
+            </goals>
+            <configuration>
+              <failOnError>false</failOnError>
+              <!-- switch on dependency-driven aggregation -->
+              <includeDependencySources>true</includeDependencySources>
+              <!-- include ONLY dependencies with same groupId -->
+              <dependencySourceIncludes>
+                <dependencySourceInclude>${project.groupId}:*</dependencySourceInclude>
+              </dependencySourceIncludes>
+              <!-- make sure aggregated javadoc is put in the complete site -->
+              <reportOutputDirectory>${project.build.directory}/gensite/API/</reportOutputDirectory>
+              <destDir>${project.groupId}-${project.version}</destDir>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <!-- ## NOTE: make sure this is after the tycho-p2-extras-plugin
+          in the pom.xml text -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>copy-repo</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="Copy repo">
+                <!-- Copy repo to gensite folder -->
+                <copy
+                  todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/">
+                  <fileset dir="${project.build.directory}/repository/" />
+                </copy>
+                <!-- Web resources for the current release -->
+                <copy
+                  todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/web/">
+                  <fileset dir="${basedir}/web" includes="*" />
+                </copy>
+                <copy
+                  todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/">
+                  <fileset dir="${basedir}" includes="index.html" />
+                </copy>
+                <copy file="${project.build.directory}/category.xml"
+                  tofile="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/site.xml" />
+                <!-- Add symlink for latest release -->
+                <symlink
+                  link="${project.build.directory}/gensite/update-site/${project.groupId}-latest"
+                  resource="${project.groupId}-${project.version}" />
+              </target>
+              <exportAntProperties>true</exportAntProperties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <version>1.3.0</version>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <id>fetch-artifacts.xml</id>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>${complete.p2.repo}/artifacts.xml</url>
+              <outputFileName>artifacts.xml</outputFileName>
+              <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <phase>deploy</phase>
+            <id>fetch-content.xml</id>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>${complete.p2.repo}/content.xml</url>
+              <outputFileName>content.xml</outputFileName>
+              <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.tycho.extras</groupId>
+        <artifactId>tycho-p2-extras-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <executions>
+          <execution>
+            <id>append-current-build</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${project.baseUri}/target/gensite/update-site/${project.groupId}-${project.version}</url>
+                </repository>
+              </source>
+              <append>true</append>
+              <compress>false</compress>
+              <includeOptional>true</includeOptional>
+              <destination>${project.build.directory}/gensite/update-site/complete</destination>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Finally upload merged metadata and new content -->
+      <plugin>
+        <groupId>org.ietr.maven</groupId>
+        <artifactId>sftp-maven-plugin</artifactId>
+        <version>2.1.0</version>
+        <executions>
+          <execution>
+            <id>upload-repo</id>
+            <phase>deploy</phase>
+            <configuration>
+              <serverId>sf-preesm-update-site</serverId>
+              <serverHost>web.sourceforge.net</serverHost>
+              <strictHostKeyChecking>false</strictHostKeyChecking>
+              <transferThreadCount>12</transferThreadCount>
+              <mode>send</mode>
+              <remotePath>/home/project-web/preesm/htdocs/gensite/</remotePath>
+              <localPath>${project.build.directory}/gensite/</localPath>
+            </configuration>
+            <goals>
+              <goal>sftp-transfert</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
