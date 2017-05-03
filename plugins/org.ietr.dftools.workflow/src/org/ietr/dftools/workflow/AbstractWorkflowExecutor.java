@@ -288,8 +288,7 @@ public abstract class AbstractWorkflowExecutor {
               monitor.worked(1);
             }
           } catch (final WorkflowException e) {
-            log(Level.SEVERE, "Workflow.ScenarioExecutionException", e.getMessage());
-
+            error(e, e.getMessage());
             return false;
           }
 
@@ -355,7 +354,7 @@ public abstract class AbstractWorkflowExecutor {
               monitor.worked(1);
             }
           } catch (final WorkflowException e) {
-            log(Level.SEVERE, "Workflow.ExecutionException", nodeId, e.getMessage());
+            error(e, e.getMessage());
             return false;
           } catch (final Exception e) {
             final StringWriter error = new StringWriter();
@@ -476,4 +475,12 @@ public abstract class AbstractWorkflowExecutor {
    *          the variables
    */
   protected abstract void log(Level level, String msgKey, String... variables);
+
+  /**
+   * This special logging method is used for handling severe message with associated exception or error.
+   * TODO: add debug parameter to the application and handle it here to show (or not) the full stack trace/
+   */
+  protected void error(Throwable cause, String msg) {
+    log(Level.SEVERE, "Workflow.ExecutionException", msg + ": " + cause.getMessage());
+  }
 }
