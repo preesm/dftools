@@ -2,13 +2,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ietr.dftools</groupId>
 	<artifactId>org.ietr.dftools.parent</artifactId>
-	<version>1.1.9</version>
+	<version>1.1.10</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho-version>1.0.0</tycho-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<complete.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</complete.p2.repo>
+		
 		<!-- ############### -->
 		<!-- ECLIPSE MIRRORS -->
 		<!-- ############### -->
