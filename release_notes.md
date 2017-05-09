@@ -1,6 +1,29 @@
 DFTools Changelog
 =================
 
+
+## Release version 1.1.11
+*2017.05.XX*
+
+### New Feature
+
+### Changes
+* Add TMF updates repo for latest XTend lib
+* Update Graphiti to 1.3.18
+
+### Bug fix
+
+## Release version 1.1.10
+*2017.05.08*
+
+### New Feature
+
+### Changes
+* Update Graphiti to 1.3.17
+
+### Bug fix
+* Fix a bug in the Workflow due to Graphiti issue
+
 ## Release version 1.1.9
 *2017.04.19*
 
