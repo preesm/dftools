@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.ietr.dftools</groupId>
     <artifactId>org.ietr.dftools.releng</artifactId>
-    <version>1.1.10</version>
+    <version>1.1.11</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -122,6 +122,7 @@
               <goal>wget</goal>
             </goals>
             <configuration>
+              <skipCache>true</skipCache>
               <url>${complete.p2.repo}/artifacts.xml</url>
               <outputFileName>artifacts.xml</outputFileName>
               <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>
@@ -134,6 +135,7 @@
               <goal>wget</goal>
             </goals>
             <configuration>
+              <skipCache>true</skipCache>
               <url>${complete.p2.repo}/content.xml</url>
               <outputFileName>content.xml</outputFileName>
               <outputDirectory>${project.build.directory}/gensite/update-site/complete/</outputDirectory>

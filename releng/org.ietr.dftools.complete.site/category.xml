@@ -22,5 +22,4 @@
          The DFTools project offers features for dataflow modeling tools such as the Open RVC-CAL Compiler (Orcc) and PREESM.
       </description>
    </category-def>
-   <repository-reference location="http://download.eclipse.org/releases/neon/" enabled="true" />
 </site>
