@@ -1,9 +1,18 @@
 DFTools Changelog
 =================
 
+## Release version 1.1.12
+*2017.05.10*
+
+### New Feature
+
+### Changes
+
+### Bug fix
+* Include .exsd schemas in the binaries
 
 ## Release version 1.1.11
-*2017.05.XX*
+*2017.05.09*
 
 ### New Feature
 
