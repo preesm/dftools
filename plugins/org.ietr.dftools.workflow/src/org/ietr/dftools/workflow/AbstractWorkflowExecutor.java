@@ -68,6 +68,12 @@ import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
  */
 public abstract class AbstractWorkflowExecutor {
 
+  private boolean debug = false;
+
+  public final void setDebug(final boolean newDebugMode) {
+    this.debug = newDebugMode;
+  }
+
   /**
    * Ports with this name are ignored when exchanging data. They just specify precedence.
    */
@@ -477,10 +483,13 @@ public abstract class AbstractWorkflowExecutor {
   protected abstract void log(Level level, String msgKey, String... variables);
 
   /**
-   * This special logging method is used for handling severe message with associated exception or error.
-   * TODO: add debug parameter to the application and handle it here to show (or not) the full stack trace/
+   * This special logging method is used for handling severe message with associated exception or error. TODO: add debug parameter to the application and handle
+   * it here to show (or not) the full stack trace/
    */
-  protected void error(Throwable cause, String msg) {
+  protected void error(final Throwable cause, final String msg) {
     log(Level.SEVERE, "Workflow.ExecutionException", msg + ": " + cause.getMessage());
+    if (this.debug) {
+      cause.printStackTrace();
+    }
   }
 }
