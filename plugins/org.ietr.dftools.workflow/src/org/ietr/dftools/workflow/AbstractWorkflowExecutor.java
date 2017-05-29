@@ -334,7 +334,8 @@ public abstract class AbstractWorkflowExecutor {
 
             // Checks that the requested parameters are available
             // for the task
-            if (checkParameters(taskNode, task) == false) {
+            boolean checkParameters = checkParameters(taskNode, task);
+            if (!checkParameters) {
               return false;
             }
 
@@ -460,8 +461,12 @@ public abstract class AbstractWorkflowExecutor {
       } else {
         for (final String param : defaultParameters.keySet()) {
           if (!parameters.containsKey(param)) {
-            log(Level.SEVERE, "Workflow.MissingParameter", taskNode.getTaskId(), defaultParameters.keySet().toString());
-            return false;
+            // Antoine Morvan, 29/05/2017 :
+            // https://github.com/preesm/dftools/issues/2
+            // Instead of failing when a parameter is not specified, simply log a warning and
+            // use value from defaultParameters.
+            log(Level.WARNING, "Workflow.MissingParameter", taskNode.getTaskId(), defaultParameters.keySet().toString());
+            parameters.put(param, defaultParameters.get(param));
           }
         }
       }
