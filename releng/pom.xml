@@ -1,33 +1,41 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.ietr.dftools.releng</artifactId>
-	<packaging>pom</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>org.ietr.dftools.releng</artifactId>
+  <packaging>pom</packaging>
 
-	<parent>
-		<groupId>org.ietr.dftools</groupId>
-		<artifactId>org.ietr.dftools.parent</artifactId>
-		<version>1.1.13-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+  <parent>
+    <groupId>org.ietr.dftools</groupId>
+    <artifactId>org.ietr.dftools.parent</artifactId>
+    <version>1.1.13-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
 
-	<!-- Extra repositories for building the all-in-one dev feature -->
-	<repositories>
-		<repository>
-			<id>Tycho M2E extension</id>
-			<layout>p2</layout>
-			<url>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/LATEST/</url>
-		</repository>
-		<repository>
-			<id>Checkstyle</id>
-			<layout>p2</layout>
-			<url>http://eclipse-cs.sf.net/update/</url>
-		</repository>
-	</repositories>
+  <!-- Extra repositories for building the all-in-one dev feature -->
+  <repositories>
+    <repository>
+      <id>Tycho M2E extension</id>
+      <layout>p2</layout>
+      <url>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.9.0/N/LATEST/</url>
+    </repository>
+    <repository>
+      <id>Checkstyle</id>
+      <layout>p2</layout>
+      <url>http://eclipse-cs.sf.net/update/</url>
+    </repository>
+  </repositories>
 
-	<modules>
-		<module>org.ietr.dftools.feature</module>
-		<module>org.ietr.dftools.dev.feature</module>
-		<module>org.ietr.dftools.complete.site</module>
-	</modules>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>preesm</id>
+      <url>http://preesm.sourceforge.net/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <modules>
+    <module>org.ietr.dftools.feature</module>
+    <module>org.ietr.dftools.dev.feature</module>
+    <module>org.ietr.dftools.complete.site</module>
+  </modules>
 
 </project>

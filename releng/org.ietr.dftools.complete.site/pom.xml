@@ -11,13 +11,6 @@
     <relativePath>..</relativePath>
   </parent>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>preesm</id>
-      <url>http://preesm.sourceforge.net/maven/</url>
-    </pluginRepository>
-  </pluginRepositories>
-
   <build>
     <plugins>
       <!-- This plugins builds the update site for the current release and
@@ -82,7 +75,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <target name="Copy repo">
+              <target name="Copy content">
                 <!-- Copy repo to gensite folder -->
                 <copy
                   todir="${project.build.directory}/gensite/update-site/${project.groupId}-${project.version}/">

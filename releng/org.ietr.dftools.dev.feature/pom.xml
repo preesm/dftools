@@ -1,33 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.ietr.dftools.dev.feature</artifactId>
-	<packaging>eclipse-feature</packaging>
-	
-	<parent>
-		<groupId>org.ietr.dftools</groupId>
-		<artifactId>org.ietr.dftools.releng</artifactId>
-		<version>1.1.13-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
-	
-	<build>
-		<plugins>
-			<!-- disable source feature -->
-			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-source-feature-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>source-feature</id>
-						<phase></phase>
-						<goals>
-							<goal>source-feature</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>org.ietr.dftools.dev.feature</artifactId>
+  <packaging>eclipse-feature</packaging>
+
+  <parent>
+    <groupId>org.ietr.dftools</groupId>
+    <artifactId>org.ietr.dftools.releng</artifactId>
+    <version>1.1.13-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+  <build>
+    <plugins>
+      <!-- disable source feature -->
+      <plugin>
+        <groupId>org.eclipse.tycho.extras</groupId>
+        <artifactId>tycho-source-feature-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <executions>
+          <execution>
+            <id>source-feature</id>
+            <phase></phase>
+            <goals>
+              <goal>source-feature</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
