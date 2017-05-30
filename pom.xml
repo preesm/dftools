@@ -6,7 +6,12 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<jacoco-version>0.7.9</jacoco-version>
 		<tycho-version>1.0.0</tycho-version>
+		<findbugs-version>3.0.4</findbugs-version>
+		<sonar-version>3.3.0.603</sonar-version>
+		<checkstyle-version>7.6.1</checkstyle-version>
+		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<complete.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</complete.p2.repo>
 		
@@ -49,6 +54,10 @@
 			<id>Complete Repo</id>
 			<layout>p2</layout>
 			<url>${complete.p2.repo}</url>
+		</repository>
+		<repository>
+			<id>preesm</id>
+			<url>http://preesm.sourceforge.net/maven/</url>
 		</repository>
 	</repositories>
 
@@ -184,7 +193,7 @@
 						<!-- Override checkstyle version -->
 						<groupId>com.puppycrawl.tools</groupId>
 						<artifactId>checkstyle</artifactId>
-						<version>7.6.1</version>
+						<version>${checkstyle-version}</version>
 					</dependency>
 				</dependencies>
 				<executions>
@@ -210,58 +219,47 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-		</plugins>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>${findbugs-version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>${sonar-version}</version>
+      </plugin>
+      
+    </plugins>
+  </build>
 
-		<!-- Disable m2e lifecycle mapping to avoid errors showing in Eclipse -->
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<!-- Disable Checkstyle (already covered by the Eclipse checkstyle
-									plugin) -->
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-checkstyle-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>checkstyle</goal>
-											<goal>checkstyle-aggregate</goal>
-											<goal>check</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
+  <dependencies>
+    <dependency>
+      <!-- Override checkstyle version -->
+      <groupId>com.puppycrawl.tools</groupId>
+      <artifactId>checkstyle</artifactId>
+	  <version>${checkstyle-version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/findbugs-maven-plugin -->
+	<dependency>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>findbugs-maven-plugin</artifactId>
+		<version>${findbugs-version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+	<dependency>
+		<groupId>org.sonarsource.scanner.maven</groupId>
+		<artifactId>sonar-maven-plugin</artifactId>
+		<version>${sonar-version}</version>
+	</dependency>
 
-								<!-- Disable directory maven plugin (unsupported and unused -->
-								<pluginExecution>
-								  <pluginExecutionFilter>
-									<groupId>org.commonjava.maven.plugins</groupId>
-									<artifactId>directory-maven-plugin</artifactId>
-									<versionRange>[0.0.0,)</versionRange>
-									<goals>
-									  <goal>highest-basedir</goal>
-									</goals>
-								  </pluginExecutionFilter>
-								  <action>
-									<ignore />
-								  </action>
-								</pluginExecution>
-
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+  </dependencies>
 
 	<modules>
 		<module>plugins/org.ietr.dftools.architecture</module>
@@ -372,5 +370,65 @@
 				</plugins>
 			</build>
 		</profile>
+    <!-- Specific profile for Eclipse related configuration -->
+    <profile>
+	  <id>only-eclipse</id>
+	  <activation>
+		<property>
+		  <name>m2e.version</name>
+		</property>
+	  </activation>
+	  <build>
+		<!-- Disable m2e lifecycle mapping to avoid errors showing in Eclipse -->
+		<pluginManagement>
+		  <plugins>
+			<plugin>
+			  <groupId>org.eclipse.m2e</groupId>
+			  <artifactId>lifecycle-mapping</artifactId>
+			  <version>1.0.0</version>
+			  <configuration>
+				<lifecycleMappingMetadata>
+				  <pluginExecutions>
+					<!-- Disable Checkstyle (already covered by the Eclipse checkstyle
+					  plugin) -->
+					<pluginExecution>
+					  <pluginExecutionFilter>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<versionRange>[1.0.0,)</versionRange>
+						<goals>
+						  <goal>checkstyle</goal>
+						  <goal>checkstyle-aggregate</goal>
+						  <goal>check</goal>
+						</goals>
+					  </pluginExecutionFilter>
+					  <action>
+						<ignore />
+					  </action>
+					</pluginExecution>
+
+					<!-- Disable directory maven plugin (unsupported and unused -->
+					<pluginExecution>
+					  <pluginExecutionFilter>
+						<groupId>org.commonjava.maven.plugins</groupId>
+						<artifactId>directory-maven-plugin</artifactId>
+						<versionRange>[0.0.0,)</versionRange>
+						<goals>
+						  <goal>highest-basedir</goal>
+						</goals>
+					  </pluginExecutionFilter>
+					  <action>
+						<ignore />
+					  </action>
+					</pluginExecution>
+
+				  </pluginExecutions>
+				</lifecycleMappingMetadata>
+			  </configuration>
+			</plugin>
+		  </plugins>
+		</pluginManagement>
+	  </build>
+	</profile>
 	</profiles>
 </project>
