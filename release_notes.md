@@ -1,6 +1,30 @@
 DFTools Changelog
 =================
 
+## Release version 1.1.13
+*XXXX.XX.XX*
+
+### New Feature
+* Add debug mode in WorkflowExecutors (print stacktraces)
+
+### Changes
+* Workflow Task parameters can now be omitted in workflow definition. Their default value will be used without make the flow fail;
+
+* For XTend version to 2.11+
+* Use feature import instead of inclusion
+* Add discovery sites in dev feature
+* Remove unsupported target environments
+* Update Checkstyle config file path in parent POM
+* Add Eclipse profile in parent POM to disable m2e configuration outside Eclipse
+* Update wrapper scripts
+* Cleanup releng files
+* Update licensing
+* Update headers
+* Remove use of composite P2 repositories
+* Add Jenkinsfile for Multibranch Pipeline projects
+
+### Bug fix
+
 ## Release version 1.1.12
 *2017.05.10*
 
