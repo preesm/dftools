@@ -8,7 +8,7 @@ def javaToolID = "JDK-${javaVersion}"
 
 def mavenVersion = "3.5.0"
 def mavenToolID = "Maven-${mavenVersion}"
-def mavenOpts = "--errors --batch-mode -Dmaven.repo.local=m2-repository -T 1C"
+def mavenOpts = "--errors --batch-mode -Dmaven.repo.local=m2-repository"
 def mavenEnvOpt = "MAVEN_OPT=-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 
 // tell Jenkins to remove 7 days old artifacts/builds and keep only 7 last ones
@@ -29,9 +29,19 @@ node {
 				checkout scm
 			}
 			
-			stage ('Checkstyle') {
-				sh "java -jar releng/hooks/checkstyle-7.6.1-all.jar -c releng/VAADER_checkstyle.xml plugins/"
-			}
+			parallel (
+				'Checkstyle': {
+					stage ('Checkstyle') {
+						sh "java -jar releng/hooks/checkstyle-7.6.1-all.jar -c releng/VAADER_checkstyle.xml plugins/"
+					}
+				}
+			,
+				'Validate POM': {
+					stage ('Validate POM') {
+						sh "mvn ${mavenOpts} -P releng -Dtycho.mode=maven help:help -q"
+					}
+				}
+			)
 
 			parallel (
 				'Maven Plugins': {
