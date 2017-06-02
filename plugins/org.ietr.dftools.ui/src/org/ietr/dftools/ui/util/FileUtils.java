@@ -39,16 +39,22 @@
 package org.ietr.dftools.ui.util;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
@@ -71,7 +77,7 @@ public class FileUtils {
   public static class FileContentProvider extends WorkbenchContentProvider {
 
     /** The file extensions. */
-    Set<String> fileExtensions = null;
+    final Collection<String> fileExtensions;
 
     /**
      * Instantiates a new file content provider.
@@ -80,9 +86,7 @@ public class FileUtils {
      *          the file extension
      */
     public FileContentProvider(final String fileExtension) {
-      super();
-      this.fileExtensions = new HashSet<>();
-      this.fileExtensions.add(fileExtension);
+      this(Collections.singleton(fileExtension));
     }
 
     /**
@@ -91,14 +95,14 @@ public class FileUtils {
      * @param fileExtensions
      *          the file extensions
      */
-    public FileContentProvider(final Set<String> fileExtensions) {
+    public FileContentProvider(final Collection<String> fileExtensions) {
       super();
-      this.fileExtensions = new HashSet<>(fileExtensions);
+      this.fileExtensions = Collections.unmodifiableCollection(fileExtensions);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.model.BaseWorkbenchContentProvider#getChildren(java.lang.Object)
      */
     @Override
@@ -125,15 +129,28 @@ public class FileUtils {
    */
   private static class SingleFileSelectionValidator implements ISelectionStatusValidator {
 
+    private final boolean filterFolders;
+
+    public SingleFileSelectionValidator(final boolean filterFolders) {
+      this.filterFolders = filterFolders;
+    }
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.dialogs.ISelectionStatusValidator#validate(java.lang.Object[])
      */
     @Override
     public IStatus validate(final Object[] selection) {
-      if ((selection.length == 1) && ((selection[0] instanceof IFile) || (selection[0] instanceof IFolder))) {
-        return new Status(IStatus.OK, Activator.PLUGIN_ID, "");
+      final boolean hasOneElementOnly = selection.length == 1;
+      if (hasOneElementOnly) {
+        final Object object = selection[0];
+        final boolean selectedItemIsFile = object instanceof IFile;
+        final boolean selectedItemIsFolder = object instanceof IFolder;
+        final boolean selectedItemIsWhatsExcepted = (selectedItemIsFile && this.filterFolders) || (selectedItemIsFolder && !this.filterFolders);
+        if (selectedItemIsWhatsExcepted) {
+          return new Status(IStatus.OK, Activator.PLUGIN_ID, "");
+        }
       }
       return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "");
     }
@@ -153,7 +170,7 @@ public class FileUtils {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.model.BaseWorkbenchContentProvider#getChildren(java.lang.Object)
      */
     @Override
@@ -184,10 +201,7 @@ public class FileUtils {
    * @return the string
    */
   public static String browseFiles(final Shell shell, final String title, final String fileExtension) {
-    final Set<String> fileExtensions = new HashSet<>();
-    fileExtensions.add(fileExtension);
-
-    return FileUtils.browseFiles(shell, title, fileExtensions);
+    return FileUtils.browseFiles(shell, title, Collections.singleton(fileExtension));
   }
 
   /**
@@ -201,21 +215,57 @@ public class FileUtils {
    *          the file extensions
    * @return the string
    */
-  public static String browseFiles(final Shell shell, final String title, final Set<String> fileExtensions) {
+  public static String browseFiles(final Shell shell, final String title, final Collection<String> fileExtensions) {
     String returnVal = "";
+    final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+    final ILabelProvider decoratingWorkbenchLabelProvider = WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
 
     ElementTreeSelectionDialog tree = null;
 
     if (fileExtensions == null) {
-      tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), new DirectoryContentProvider());
+      tree = new ElementTreeSelectionDialog(shell, decoratingWorkbenchLabelProvider, new DirectoryContentProvider());
+      tree.setValidator(new SingleFileSelectionValidator(false));
     } else {
-      tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), new FileContentProvider(fileExtensions));
+      tree = new ElementTreeSelectionDialog(shell, decoratingWorkbenchLabelProvider, new FileContentProvider(fileExtensions));
+      tree.setValidator(new SingleFileSelectionValidator(true));
+
+      tree.addFilter(new ViewerFilter() {
+        @Override
+        public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
+          final boolean isFile = element instanceof IFile;
+          final boolean isContainer = element instanceof IContainer;
+          if (isFile) {
+            return true;
+          } else if (isContainer) {
+            final IContainer container = (IContainer) element;
+            try {
+              container.accept(resource -> {
+                final boolean contains = fileExtensions.contains(resource.getFileExtension());
+                if (contains && (resource instanceof IFile)) {
+                  throw new CoreException(new Status(IStatus.OK, title, title));
+                }
+                return true;
+              });
+            } catch (final CoreException e) {
+              final IStatus status = e.getStatus();
+              if ((status.getSeverity() == IStatus.OK) && title.equals(status.getPlugin())) {
+                return true;
+              }
+              return false;
+            }
+            return false;
+          } else {
+            return false;
+          }
+        }
+      });
+
     }
     tree.setAllowMultiple(false);
-    tree.setInput(ResourcesPlugin.getWorkspace().getRoot());
+    tree.setInput(root);
     tree.setMessage(title);
     tree.setTitle(title);
-    tree.setValidator(new SingleFileSelectionValidator());
+
     // opens the dialog
     if (tree.open() == Window.OK) {
       IPath fileIPath = null;
