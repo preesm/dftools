@@ -75,7 +75,7 @@ public class DAGBroadcastVertex extends DAGVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#toString()
    */
   @Override

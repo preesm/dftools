@@ -43,156 +43,151 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 import org.ietr.dftools.architecture.slam.component.Dma;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Dma</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Dma</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.DmaImpl#getSetupTime
- * <em>Setup Time</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.DmaImpl#getSetupTime <em>Setup Time</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class DmaImpl extends EnablerImpl implements Dma {
-	/**
-	 * The default value of the '{@link #getSetupTime() <em>Setup Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getSetupTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int	SETUP_TIME_EDEFAULT	= 0;
-	/**
-	 * The cached value of the '{@link #getSetupTime() <em>Setup Time</em>}'
-	 * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getSetupTime()
-	 * @generated
-	 * @ordered
-	 */
-	protected int				setupTime			= DmaImpl.SETUP_TIME_EDEFAULT;
+  /**
+   * The default value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getSetupTime()
+   * @generated
+   * @ordered
+   */
+  protected static final int SETUP_TIME_EDEFAULT = 0;
+  /**
+   * The cached value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getSetupTime()
+   * @generated
+   * @ordered
+   */
+  protected int              setupTime           = DmaImpl.SETUP_TIME_EDEFAULT;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	protected DmaImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected DmaImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ComponentPackage.Literals.DMA;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ComponentPackage.Literals.DMA;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public int getSetupTime() {
-		return this.setupTime;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public int getSetupTime() {
+    return this.setupTime;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setSetupTime(final int newSetupTime) {
-		final int oldSetupTime = this.setupTime;
-		this.setupTime = newSetupTime;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DMA__SETUP_TIME, oldSetupTime, this.setupTime));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setSetupTime(final int newSetupTime) {
+    final int oldSetupTime = this.setupTime;
+    this.setupTime = newSetupTime;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DMA__SETUP_TIME, oldSetupTime, this.setupTime));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.DMA__SETUP_TIME:
-				return getSetupTime();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+      case ComponentPackage.DMA__SETUP_TIME:
+        return getSetupTime();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eSet(final int featureID, final Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.DMA__SETUP_TIME:
-				setSetupTime((Integer) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eSet(final int featureID, final Object newValue) {
+    switch (featureID) {
+      case ComponentPackage.DMA__SETUP_TIME:
+        setSetupTime((Integer) newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eUnset(final int featureID) {
-		switch (featureID) {
-			case ComponentPackage.DMA__SETUP_TIME:
-				setSetupTime(DmaImpl.SETUP_TIME_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eUnset(final int featureID) {
+    switch (featureID) {
+      case ComponentPackage.DMA__SETUP_TIME:
+        setSetupTime(DmaImpl.SETUP_TIME_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(final int featureID) {
-		switch (featureID) {
-			case ComponentPackage.DMA__SETUP_TIME:
-				return this.setupTime != DmaImpl.SETUP_TIME_EDEFAULT;
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+      case ComponentPackage.DMA__SETUP_TIME:
+        return this.setupTime != DmaImpl.SETUP_TIME_EDEFAULT;
+    }
+    return super.eIsSet(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) {
-			return super.toString();
-		}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) {
+      return super.toString();
+    }
 
-		final StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (setupTime: ");
-		result.append(this.setupTime);
-		result.append(')');
-		return result.toString();
-	}
+    final StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (setupTime: ");
+    result.append(this.setupTime);
+    result.append(')');
+    return result.toString();
+  }
 
 } // DmaImpl

@@ -70,7 +70,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#clone()
    */
   @Override
@@ -106,7 +106,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

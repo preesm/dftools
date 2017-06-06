@@ -78,7 +78,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     @Override
@@ -111,7 +111,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter#isConsistentItem(java.lang.Object)
      */
     @Override
@@ -121,7 +121,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter#matchItem(java.lang.Object)
      */
     @Override
@@ -191,7 +191,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createExtendedContentArea(org.eclipse.swt.widgets.Composite)
    */
   @Override
@@ -202,7 +202,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#createFilter()
    */
   @Override
@@ -212,7 +212,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#fillContentProvider(org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.AbstractContentProvider,
    * org.eclipse.ui.dialogs.FilteredItemsSelectionDialog.ItemsFilter, org.eclipse.core.runtime.IProgressMonitor)
    */
@@ -291,7 +291,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getDialogSettings()
    */
   @Override
@@ -307,7 +307,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getElementName(java.lang.Object)
    */
   @Override
@@ -317,7 +317,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#getItemsComparator()
    */
   @Override
@@ -327,7 +327,7 @@ public class FilteredRefinementDialog extends FilteredItemsSelectionDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.FilteredItemsSelectionDialog#validateItem(java.lang.Object)
    */
   @Override

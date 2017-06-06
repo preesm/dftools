@@ -208,7 +208,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph#addEdge(org.ietr.dftools.algorithm.model.dag.DAGVertex,
    * org.ietr.dftools.algorithm.model.dag.DAGVertex)
    */

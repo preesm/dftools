@@ -350,7 +350,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -361,7 +361,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override

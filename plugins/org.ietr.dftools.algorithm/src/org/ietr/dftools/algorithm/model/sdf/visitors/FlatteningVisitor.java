@@ -243,7 +243,7 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
@@ -253,7 +253,7 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
@@ -287,7 +287,7 @@ public class FlatteningVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVer
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override

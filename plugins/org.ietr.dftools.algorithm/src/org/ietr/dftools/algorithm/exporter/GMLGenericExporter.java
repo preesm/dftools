@@ -52,7 +52,7 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.exporter.GMLExporter#export(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.String)
    */
   @Override
@@ -69,7 +69,7 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportEdge(org.ietr.dftools.algorithm.model.AbstractEdge, org.w3c.dom.Element)
    */
   @Override
@@ -89,7 +89,7 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportGraph(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
@@ -116,7 +116,7 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportNode(org.ietr.dftools.algorithm.model.AbstractVertex, org.w3c.dom.Element)
    */
   @SuppressWarnings("unchecked")
@@ -152,7 +152,7 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportPort(org.ietr.dftools.algorithm.model.AbstractVertex, org.w3c.dom.Element)
    */
   @Override

@@ -60,7 +60,7 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex#clone()
    */
   @Override
@@ -77,7 +77,7 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -88,7 +88,7 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")

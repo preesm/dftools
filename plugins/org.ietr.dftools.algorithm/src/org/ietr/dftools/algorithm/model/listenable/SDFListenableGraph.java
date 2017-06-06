@@ -208,7 +208,7 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.SDFGraph#addEdge(org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex,
    * org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex)
    */

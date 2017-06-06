@@ -334,7 +334,7 @@ public abstract class AbstractWorkflowExecutor {
 
             // Checks that the requested parameters are available
             // for the task
-            boolean checkParameters = checkParameters(taskNode, task);
+            final boolean checkParameters = checkParameters(taskNode, task);
             if (!checkParameters) {
               return false;
             }

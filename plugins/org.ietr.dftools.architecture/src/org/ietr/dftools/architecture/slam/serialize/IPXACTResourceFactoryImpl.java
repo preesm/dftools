@@ -60,7 +60,7 @@ public class IPXACTResourceFactoryImpl extends ResourceFactoryImpl {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl#createResource(org.eclipse.emf.common.util.URI)
    */
   @Override

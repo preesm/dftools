@@ -110,7 +110,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#addInterface(org.ietr.dftools.algorithm.model.IInterface)
    */
   @Override
@@ -176,7 +176,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
    */
   @Override
@@ -477,7 +477,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -487,7 +487,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override

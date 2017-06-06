@@ -65,7 +65,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.Object)
    */
   @Override
@@ -76,7 +76,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @Override
@@ -87,7 +87,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#validateModel(java.util.logging.Logger)
    */
   @Override
@@ -98,7 +98,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#getVertexFactory()
    */
   @Override
@@ -109,7 +109,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override

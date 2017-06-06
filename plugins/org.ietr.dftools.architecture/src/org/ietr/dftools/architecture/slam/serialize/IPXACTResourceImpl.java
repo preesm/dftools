@@ -67,7 +67,7 @@ public class IPXACTResourceImpl extends ResourceImpl {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.emf.ecore.resource.impl.ResourceImpl#doSave(java.io.OutputStream, java.util.Map)
    */
   @Override
@@ -82,7 +82,7 @@ public class IPXACTResourceImpl extends ResourceImpl {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.emf.ecore.resource.impl.ResourceImpl#doLoad(java.io.InputStream, java.util.Map)
    */
   @Override

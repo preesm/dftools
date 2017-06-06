@@ -54,7 +54,7 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#createControl(org.eclipse.swt.widgets.Composite)
    */
   @Override
@@ -68,7 +68,7 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
    */
   @Override
@@ -78,7 +78,7 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override
@@ -89,7 +89,7 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
    */
   @Override

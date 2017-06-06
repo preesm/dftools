@@ -52,7 +52,7 @@ public class WorkflowTaskFilter implements IFilter {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.jface.viewers.IFilter#select(java.lang.Object)
    */
   @Override

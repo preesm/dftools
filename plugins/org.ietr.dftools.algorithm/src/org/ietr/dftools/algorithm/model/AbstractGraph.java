@@ -174,7 +174,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#addEdge(java.lang.Object, java.lang.Object)
    */
   @Override
@@ -225,7 +225,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#addVertex(java.lang.Object)
    */
   @Override
@@ -280,7 +280,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#clone()
    */
   @Override
@@ -288,7 +288,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
@@ -563,7 +563,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
    */
   @Override
@@ -576,7 +576,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getPublicProperties()
    */
   @Override
@@ -674,7 +674,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#removeEdge(java.lang.Object)
    */
   @Override
@@ -708,7 +708,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#removeVertex(java.lang.Object)
    */
   @Override
@@ -758,7 +758,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
    */
   @Override
@@ -778,7 +778,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.parameters.IExpressionSolver#solveExpression(java.lang.String, org.ietr.dftools.algorithm.model.parameters.Value)
    */
   @Override

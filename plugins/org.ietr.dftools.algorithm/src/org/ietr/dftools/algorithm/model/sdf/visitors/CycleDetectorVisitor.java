@@ -79,7 +79,7 @@ public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
@@ -90,7 +90,7 @@ public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
@@ -109,7 +109,7 @@ public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override

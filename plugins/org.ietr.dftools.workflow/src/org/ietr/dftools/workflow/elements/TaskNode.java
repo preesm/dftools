@@ -131,7 +131,7 @@ public class TaskNode extends AbstractWorkflowNode {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isScenarioNode()
    */
   @Override
@@ -141,7 +141,7 @@ public class TaskNode extends AbstractWorkflowNode {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isTaskNode()
    */
   @Override

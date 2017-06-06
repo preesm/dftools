@@ -75,7 +75,7 @@ public class DAGEndVertex extends DAGVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#toString()
    */
   @Override

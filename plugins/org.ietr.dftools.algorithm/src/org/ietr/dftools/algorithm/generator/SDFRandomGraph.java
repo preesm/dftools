@@ -314,8 +314,8 @@ public class SDFRandomGraph {
       nbSinksVertex[nbVertexgraph] = minInDegree + (int) (Math.random() * ((max + 1) - minInDegree));
       nbSinks += nbSinksVertex[nbVertexgraph];
       nbSources += nbSourcesVertex[nbVertexgraph];
-      double min2 = Math.sqrt(minRate);
-      double max2 = Math.sqrt(maxRate);
+      final double min2 = Math.sqrt(minRate);
+      final double max2 = Math.sqrt(maxRate);
       final int randNum = (int) min2 + (int) (Math.random() * ((max2 - min2) + 1));
       final int randDenum = (int) min2 + (int) (Math.random() * ((max2 - min2) + 1));
       SDFRandomGraph.fractions.put(Vertex, new Rational(randNum, randDenum));

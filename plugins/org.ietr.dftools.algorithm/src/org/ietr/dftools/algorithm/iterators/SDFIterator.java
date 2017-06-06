@@ -137,7 +137,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.traverse.GraphIterator#addTraversalListener(org.jgrapht.event.TraversalListener)
    */
   @Override
@@ -148,7 +148,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#hasNext()
    */
   @Override
@@ -161,7 +161,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.traverse.GraphIterator#isCrossComponentTraversal()
    */
   @Override
@@ -172,7 +172,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.traverse.GraphIterator#isReuseEvents()
    */
   @Override
@@ -183,7 +183,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Iterator#next()
    */
   @Override
@@ -302,7 +302,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.traverse.GraphIterator#remove()
    */
   @Override
@@ -313,7 +313,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.traverse.GraphIterator#removeTraversalListener(org.jgrapht.event.TraversalListener)
    */
   @Override
@@ -324,7 +324,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.traverse.GraphIterator#setReuseEvents(boolean)
    */
   @Override

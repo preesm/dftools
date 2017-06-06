@@ -58,7 +58,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
@@ -68,7 +68,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
@@ -78,7 +78,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
    */
   @Override

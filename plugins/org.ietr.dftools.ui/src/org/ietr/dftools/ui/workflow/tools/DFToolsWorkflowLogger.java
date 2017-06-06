@@ -77,7 +77,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.logging.Logger#setLevel(java.util.logging.Level)
    */
   @Override
@@ -115,7 +115,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.logging.Logger#log(java.util.logging.LogRecord)
    */
   @Override

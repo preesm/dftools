@@ -92,7 +92,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     scenarioExtensions.add("piscenario");
     final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
         WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
-    if (scenarioPath == null || scenarioPath.isEmpty()) {
+    if ((scenarioPath == null) || scenarioPath.isEmpty()) {
       return null;
     }
 
@@ -103,7 +103,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     final ILaunchConfigurationWorkingCopy workingCopy;
 
     try {
-      final String launchConfigurationName = generateLaunchConfigurationName(workflowPath, scenarioPath);
+      final String launchConfigurationName = WorkflowLaunchShortcut.generateLaunchConfigurationName(workflowPath, scenarioPath);
       workingCopy = type.newInstance(null, launchConfigurationName);
     } catch (final CoreException e) {
       WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
@@ -125,10 +125,10 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     }
   }
 
-  private static String generateLaunchConfigurationName(IPath workflowPath, IPath scenarioPath) {
+  private static String generateLaunchConfigurationName(final IPath workflowPath, final IPath scenarioPath) {
     final int workflowSegmentCount = workflowPath.segmentCount();
     final int scenarioSegmentCount = scenarioPath.segmentCount();
-    if (scenarioSegmentCount < 1 || workflowSegmentCount < 1) {
+    if ((scenarioSegmentCount < 1) || (workflowSegmentCount < 1)) {
       throw new IllegalArgumentException("Given path arguments are mal formed");
     }
 

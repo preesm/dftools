@@ -106,7 +106,7 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTab#createControl(org.eclipse.swt.widgets.Composite)
    */
   @Override
@@ -169,7 +169,7 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTab#initializeFrom(org.eclipse.debug.core.ILaunchConfiguration)
    */
   @Override
@@ -186,7 +186,7 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#isValid(org.eclipse.debug.core.ILaunchConfiguration)
    */
   @Override
@@ -196,7 +196,7 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override
@@ -210,7 +210,7 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override

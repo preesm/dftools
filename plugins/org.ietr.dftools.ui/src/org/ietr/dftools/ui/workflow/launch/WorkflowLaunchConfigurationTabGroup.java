@@ -58,7 +58,7 @@ public class WorkflowLaunchConfigurationTabGroup extends AbstractLaunchConfigura
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTabGroup#createTabs(org.eclipse.debug.ui.ILaunchConfigurationDialog, java.lang.String)
    */
   @Override

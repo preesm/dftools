@@ -55,7 +55,7 @@ public class ArchitectureProjectWizard extends BasicNewProjectResourceWizard {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#addPages()
    */
   @Override
@@ -66,7 +66,7 @@ public class ArchitectureProjectWizard extends BasicNewProjectResourceWizard {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#initializeDefaultPageImageDescriptor()
    */
   @Override
@@ -76,7 +76,7 @@ public class ArchitectureProjectWizard extends BasicNewProjectResourceWizard {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard#performFinish()
    */
   @Override

@@ -47,293 +47,281 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 import org.ietr.dftools.architecture.slam.component.HierarchyPort;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Hierarchy Port</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Hierarchy Port</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getExternalInterface
- * <em>External Interface</em>}</li>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalInterface
- * <em>Internal Interface</em>}</li>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalComponentInstance
- * <em>Internal Component Instance</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getExternalInterface <em>External Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalInterface <em>Internal Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalComponentInstance <em>Internal Component Instance</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
-	/**
-	 * The cached value of the '{@link #getExternalInterface() <em>External
-	 * Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getExternalInterface()
-	 * @generated
-	 * @ordered
-	 */
-	protected ComInterface externalInterface;
+  /**
+   * The cached value of the '{@link #getExternalInterface() <em>External Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getExternalInterface()
+   * @generated
+   * @ordered
+   */
+  protected ComInterface externalInterface;
 
-	/**
-	 * The cached value of the '{@link #getInternalInterface() <em>Internal
-	 * Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getInternalInterface()
-	 * @generated
-	 * @ordered
-	 */
-	protected ComInterface internalInterface;
+  /**
+   * The cached value of the '{@link #getInternalInterface() <em>Internal Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getInternalInterface()
+   * @generated
+   * @ordered
+   */
+  protected ComInterface internalInterface;
 
-	/**
-	 * The cached value of the '{@link #getInternalComponentInstance()
-	 * <em>Internal Component Instance</em>}' reference. <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 *
-	 * @see #getInternalComponentInstance()
-	 * @generated
-	 * @ordered
-	 */
-	protected ComponentInstance internalComponentInstance;
+  /**
+   * The cached value of the '{@link #getInternalComponentInstance() <em>Internal Component Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
+   *
+   * @see #getInternalComponentInstance()
+   * @generated
+   * @ordered
+   */
+  protected ComponentInstance internalComponentInstance;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	protected HierarchyPortImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected HierarchyPortImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ComponentPackage.Literals.HIERARCHY_PORT;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ComponentPackage.Literals.HIERARCHY_PORT;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ComInterface getExternalInterface() {
-		if ((this.externalInterface != null) && this.externalInterface.eIsProxy()) {
-			final InternalEObject oldExternalInterface = (InternalEObject) this.externalInterface;
-			this.externalInterface = (ComInterface) eResolveProxy(oldExternalInterface);
-			if (this.externalInterface != oldExternalInterface) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE, oldExternalInterface,
-							this.externalInterface));
-				}
-			}
-		}
-		return this.externalInterface;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ComInterface getExternalInterface() {
+    if ((this.externalInterface != null) && this.externalInterface.eIsProxy()) {
+      final InternalEObject oldExternalInterface = (InternalEObject) this.externalInterface;
+      this.externalInterface = (ComInterface) eResolveProxy(oldExternalInterface);
+      if (this.externalInterface != oldExternalInterface) {
+        if (eNotificationRequired()) {
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE, oldExternalInterface,
+              this.externalInterface));
+        }
+      }
+    }
+    return this.externalInterface;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public ComInterface basicGetExternalInterface() {
-		return this.externalInterface;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public ComInterface basicGetExternalInterface() {
+    return this.externalInterface;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setExternalInterface(final ComInterface newExternalInterface) {
-		final ComInterface oldExternalInterface = this.externalInterface;
-		this.externalInterface = newExternalInterface;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE, oldExternalInterface,
-					this.externalInterface));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setExternalInterface(final ComInterface newExternalInterface) {
+    final ComInterface oldExternalInterface = this.externalInterface;
+    this.externalInterface = newExternalInterface;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE, oldExternalInterface, this.externalInterface));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ComInterface getInternalInterface() {
-		if ((this.internalInterface != null) && this.internalInterface.eIsProxy()) {
-			final InternalEObject oldInternalInterface = (InternalEObject) this.internalInterface;
-			this.internalInterface = (ComInterface) eResolveProxy(oldInternalInterface);
-			if (this.internalInterface != oldInternalInterface) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE, oldInternalInterface,
-							this.internalInterface));
-				}
-			}
-		}
-		return this.internalInterface;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ComInterface getInternalInterface() {
+    if ((this.internalInterface != null) && this.internalInterface.eIsProxy()) {
+      final InternalEObject oldInternalInterface = (InternalEObject) this.internalInterface;
+      this.internalInterface = (ComInterface) eResolveProxy(oldInternalInterface);
+      if (this.internalInterface != oldInternalInterface) {
+        if (eNotificationRequired()) {
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE, oldInternalInterface,
+              this.internalInterface));
+        }
+      }
+    }
+    return this.internalInterface;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public ComInterface basicGetInternalInterface() {
-		return this.internalInterface;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public ComInterface basicGetInternalInterface() {
+    return this.internalInterface;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setInternalInterface(final ComInterface newInternalInterface) {
-		final ComInterface oldInternalInterface = this.internalInterface;
-		this.internalInterface = newInternalInterface;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE, oldInternalInterface,
-					this.internalInterface));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setInternalInterface(final ComInterface newInternalInterface) {
+    final ComInterface oldInternalInterface = this.internalInterface;
+    this.internalInterface = newInternalInterface;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE, oldInternalInterface, this.internalInterface));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ComponentInstance getInternalComponentInstance() {
-		if ((this.internalComponentInstance != null) && this.internalComponentInstance.eIsProxy()) {
-			final InternalEObject oldInternalComponentInstance = (InternalEObject) this.internalComponentInstance;
-			this.internalComponentInstance = (ComponentInstance) eResolveProxy(oldInternalComponentInstance);
-			if (this.internalComponentInstance != oldInternalComponentInstance) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE,
-							oldInternalComponentInstance, this.internalComponentInstance));
-				}
-			}
-		}
-		return this.internalComponentInstance;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ComponentInstance getInternalComponentInstance() {
+    if ((this.internalComponentInstance != null) && this.internalComponentInstance.eIsProxy()) {
+      final InternalEObject oldInternalComponentInstance = (InternalEObject) this.internalComponentInstance;
+      this.internalComponentInstance = (ComponentInstance) eResolveProxy(oldInternalComponentInstance);
+      if (this.internalComponentInstance != oldInternalComponentInstance) {
+        if (eNotificationRequired()) {
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE, oldInternalComponentInstance,
+              this.internalComponentInstance));
+        }
+      }
+    }
+    return this.internalComponentInstance;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public ComponentInstance basicGetInternalComponentInstance() {
-		return this.internalComponentInstance;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public ComponentInstance basicGetInternalComponentInstance() {
+    return this.internalComponentInstance;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setInternalComponentInstance(final ComponentInstance newInternalComponentInstance) {
-		final ComponentInstance oldInternalComponentInstance = this.internalComponentInstance;
-		this.internalComponentInstance = newInternalComponentInstance;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE, oldInternalComponentInstance,
-					this.internalComponentInstance));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setInternalComponentInstance(final ComponentInstance newInternalComponentInstance) {
+    final ComponentInstance oldInternalComponentInstance = this.internalComponentInstance;
+    this.internalComponentInstance = newInternalComponentInstance;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE, oldInternalComponentInstance,
+          this.internalComponentInstance));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
-				if (resolve) {
-					return getExternalInterface();
-				}
-				return basicGetExternalInterface();
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
-				if (resolve) {
-					return getInternalInterface();
-				}
-				return basicGetInternalInterface();
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
-				if (resolve) {
-					return getInternalComponentInstance();
-				}
-				return basicGetInternalComponentInstance();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+      case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
+        if (resolve) {
+          return getExternalInterface();
+        }
+        return basicGetExternalInterface();
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
+        if (resolve) {
+          return getInternalInterface();
+        }
+        return basicGetInternalInterface();
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
+        if (resolve) {
+          return getInternalComponentInstance();
+        }
+        return basicGetInternalComponentInstance();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eSet(final int featureID, final Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
-				setExternalInterface((ComInterface) newValue);
-				return;
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
-				setInternalInterface((ComInterface) newValue);
-				return;
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
-				setInternalComponentInstance((ComponentInstance) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eSet(final int featureID, final Object newValue) {
+    switch (featureID) {
+      case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
+        setExternalInterface((ComInterface) newValue);
+        return;
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
+        setInternalInterface((ComInterface) newValue);
+        return;
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
+        setInternalComponentInstance((ComponentInstance) newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eUnset(final int featureID) {
-		switch (featureID) {
-			case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
-				setExternalInterface((ComInterface) null);
-				return;
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
-				setInternalInterface((ComInterface) null);
-				return;
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
-				setInternalComponentInstance((ComponentInstance) null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eUnset(final int featureID) {
+    switch (featureID) {
+      case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
+        setExternalInterface((ComInterface) null);
+        return;
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
+        setInternalInterface((ComInterface) null);
+        return;
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
+        setInternalComponentInstance((ComponentInstance) null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(final int featureID) {
-		switch (featureID) {
-			case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
-				return this.externalInterface != null;
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
-				return this.internalInterface != null;
-			case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
-				return this.internalComponentInstance != null;
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+      case ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE:
+        return this.externalInterface != null;
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE:
+        return this.internalInterface != null;
+      case ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE:
+        return this.internalComponentInstance != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } // HierarchyPortImpl

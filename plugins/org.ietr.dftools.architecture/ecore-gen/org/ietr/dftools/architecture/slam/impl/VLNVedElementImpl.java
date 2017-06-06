@@ -47,172 +47,168 @@ import org.ietr.dftools.architecture.slam.VLNVedElement;
 import org.ietr.dftools.architecture.slam.attributes.VLNV;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>VLN
- * Ved Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>VLN Ved Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.impl.VLNVedElementImpl#getVlnv
- * <em>Vlnv</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.ietr.dftools.architecture.slam.impl.VLNVedElementImpl#getVlnv <em>Vlnv</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
-	/**
-	 * The cached value of the '{@link #getVlnv() <em>Vlnv</em>}' containment
-	 * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getVlnv()
-	 * @generated
-	 * @ordered
-	 */
-	protected VLNV vlnv;
+  /**
+   * The cached value of the '{@link #getVlnv() <em>Vlnv</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getVlnv()
+   * @generated
+   * @ordered
+   */
+  protected VLNV vlnv;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	protected VLNVedElementImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected VLNVedElementImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return SlamPackage.Literals.VLN_VED_ELEMENT;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return SlamPackage.Literals.VLN_VED_ELEMENT;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public VLNV getVlnv() {
-		return this.vlnv;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public VLNV getVlnv() {
+    return this.vlnv;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public NotificationChain basicSetVlnv(final VLNV newVlnv, NotificationChain msgs) {
-		final VLNV oldVlnv = this.vlnv;
-		this.vlnv = newVlnv;
-		if (eNotificationRequired()) {
-			final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SlamPackage.VLN_VED_ELEMENT__VLNV, oldVlnv, newVlnv);
-			if (msgs == null) {
-				msgs = notification;
-			} else {
-				msgs.add(notification);
-			}
-		}
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public NotificationChain basicSetVlnv(final VLNV newVlnv, NotificationChain msgs) {
+    final VLNV oldVlnv = this.vlnv;
+    this.vlnv = newVlnv;
+    if (eNotificationRequired()) {
+      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SlamPackage.VLN_VED_ELEMENT__VLNV, oldVlnv, newVlnv);
+      if (msgs == null) {
+        msgs = notification;
+      } else {
+        msgs.add(notification);
+      }
+    }
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setVlnv(final VLNV newVlnv) {
-		if (newVlnv != this.vlnv) {
-			NotificationChain msgs = null;
-			if (this.vlnv != null) {
-				msgs = ((InternalEObject) this.vlnv).eInverseRemove(this, InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null,
-						msgs);
-			}
-			if (newVlnv != null) {
-				msgs = ((InternalEObject) newVlnv).eInverseAdd(this, InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
-			}
-			msgs = basicSetVlnv(newVlnv, msgs);
-			if (msgs != null) {
-				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.VLN_VED_ELEMENT__VLNV, newVlnv, newVlnv));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setVlnv(final VLNV newVlnv) {
+    if (newVlnv != this.vlnv) {
+      NotificationChain msgs = null;
+      if (this.vlnv != null) {
+        msgs = ((InternalEObject) this.vlnv).eInverseRemove(this, InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
+      }
+      if (newVlnv != null) {
+        msgs = ((InternalEObject) newVlnv).eInverseAdd(this, InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
+      }
+      msgs = basicSetVlnv(newVlnv, msgs);
+      if (msgs != null) {
+        msgs.dispatch();
+      }
+    } else if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.VLN_VED_ELEMENT__VLNV, newVlnv, newVlnv));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
-		switch (featureID) {
-			case SlamPackage.VLN_VED_ELEMENT__VLNV:
-				return basicSetVlnv(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+    switch (featureID) {
+      case SlamPackage.VLN_VED_ELEMENT__VLNV:
+        return basicSetVlnv(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-		switch (featureID) {
-			case SlamPackage.VLN_VED_ELEMENT__VLNV:
-				return getVlnv();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+      case SlamPackage.VLN_VED_ELEMENT__VLNV:
+        return getVlnv();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eSet(final int featureID, final Object newValue) {
-		switch (featureID) {
-			case SlamPackage.VLN_VED_ELEMENT__VLNV:
-				setVlnv((VLNV) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eSet(final int featureID, final Object newValue) {
+    switch (featureID) {
+      case SlamPackage.VLN_VED_ELEMENT__VLNV:
+        setVlnv((VLNV) newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eUnset(final int featureID) {
-		switch (featureID) {
-			case SlamPackage.VLN_VED_ELEMENT__VLNV:
-				setVlnv((VLNV) null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eUnset(final int featureID) {
+    switch (featureID) {
+      case SlamPackage.VLN_VED_ELEMENT__VLNV:
+        setVlnv((VLNV) null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(final int featureID) {
-		switch (featureID) {
-			case SlamPackage.VLN_VED_ELEMENT__VLNV:
-				return this.vlnv != null;
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+      case SlamPackage.VLN_VED_ELEMENT__VLNV:
+        return this.vlnv != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } // VLNVedElementImpl

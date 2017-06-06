@@ -52,7 +52,7 @@ public class TestWorkflowScenario extends AbstractScenarioImplementation {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.implement.AbstractScenarioImplementation#extractData(java.lang.String)
    */
   @Override
@@ -67,7 +67,7 @@ public class TestWorkflowScenario extends AbstractScenarioImplementation {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation#monitorMessage()
    */
   @Override

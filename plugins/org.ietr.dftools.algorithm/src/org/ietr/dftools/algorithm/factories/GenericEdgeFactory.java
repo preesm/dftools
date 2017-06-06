@@ -48,7 +48,7 @@ public class GenericEdgeFactory implements EdgeFactory<GenericVertex, GenericEdg
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.EdgeFactory#createEdge(java.lang.Object, java.lang.Object)
    */
   @Override

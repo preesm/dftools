@@ -61,7 +61,7 @@ public class SDFEndVertex extends SDFInitVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#clone()
    */
   @Override
@@ -73,7 +73,7 @@ public class SDFEndVertex extends SDFInitVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -84,7 +84,7 @@ public class SDFEndVertex extends SDFInitVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")

@@ -58,7 +58,7 @@ public class ConstantValue implements Value {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.parameters.Value#getValue()
    */
   @Override
@@ -68,7 +68,7 @@ public class ConstantValue implements Value {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.parameters.Value#intValue()
    */
   @Override
@@ -78,7 +78,7 @@ public class ConstantValue implements Value {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.parameters.Value#setExpressionSolver(org.ietr.dftools.algorithm.model.parameters.IExpressionSolver)
    */
   @Override
@@ -89,7 +89,7 @@ public class ConstantValue implements Value {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.parameters.Value#setValue(java.lang.String)
    */
   @Override
@@ -104,7 +104,7 @@ public class ConstantValue implements Value {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

@@ -131,7 +131,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#addEdge(org.ietr.dftools.algorithm.model.AbstractVertex, org.ietr.dftools.algorithm.model.IInterface,
    * org.ietr.dftools.algorithm.model.AbstractVertex, org.ietr.dftools.algorithm.model.IInterface)
    */
@@ -147,7 +147,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#addEdge(org.ietr.dftools.algorithm.model.AbstractVertex,
    * org.ietr.dftools.algorithm.model.AbstractVertex)
    */
@@ -248,7 +248,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#addVertex(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override
@@ -277,7 +277,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @Override
@@ -378,7 +378,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#getEdgeSource(java.lang.Object)
    */
   @Override
@@ -396,7 +396,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractBaseGraph#getEdgeTarget(java.lang.Object)
    */
   @Override
@@ -414,7 +414,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override
@@ -539,7 +539,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#getVertexFactory()
    */
   @Override
@@ -761,7 +761,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.graph.AbstractGraph#toString()
    */
   @Override
@@ -771,7 +771,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.Object)
    */
   @SuppressWarnings("rawtypes")

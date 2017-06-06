@@ -134,7 +134,7 @@ public class DAGForkVertex extends DAGVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -145,7 +145,7 @@ public class DAGForkVertex extends DAGVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -156,7 +156,7 @@ public class DAGForkVertex extends DAGVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#toString()
    */
   @Override

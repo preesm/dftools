@@ -68,7 +68,7 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#clone()
    */
   @Override
@@ -102,7 +102,7 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

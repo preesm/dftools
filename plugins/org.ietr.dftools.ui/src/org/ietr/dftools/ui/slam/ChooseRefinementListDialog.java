@@ -92,7 +92,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
      */
     @Override
@@ -118,7 +118,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.swt.events.SelectionListener#widgetDefaultSelected(org.eclipse.swt.events.SelectionEvent)
      */
     @Override
@@ -181,7 +181,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.ListDialog#setInput(java.lang.Object)
    */
   @Override
@@ -205,7 +205,7 @@ public class ChooseRefinementListDialog extends ListDialog {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.dialogs.ListDialog#createDialogArea(org.eclipse.swt.widgets.Composite)
    */
   @Override

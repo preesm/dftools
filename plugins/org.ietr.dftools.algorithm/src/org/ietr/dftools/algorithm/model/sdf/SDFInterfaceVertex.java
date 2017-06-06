@@ -86,7 +86,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
@@ -94,7 +94,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#equals(java.lang.Object)
    */
   @Override
@@ -150,7 +150,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#getNbRepeat()
    */
   @Override
@@ -169,7 +169,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#setPropertyValue(java.lang.String, java.lang.Object)
    */
   @Override

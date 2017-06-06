@@ -571,7 +571,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
@@ -580,7 +580,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
@@ -613,7 +613,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override

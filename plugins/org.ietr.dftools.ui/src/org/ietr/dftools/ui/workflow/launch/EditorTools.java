@@ -98,7 +98,7 @@ public class EditorTools {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.model.BaseWorkbenchContentProvider#getChildren(java.lang.Object)
      */
     @Override
@@ -127,7 +127,7 @@ public class EditorTools {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.dialogs.ISelectionStatusValidator#validate(java.lang.Object[])
      */
     @Override
@@ -153,7 +153,7 @@ public class EditorTools {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.model.BaseWorkbenchContentProvider#getChildren(java.lang.Object)
      */
     @Override

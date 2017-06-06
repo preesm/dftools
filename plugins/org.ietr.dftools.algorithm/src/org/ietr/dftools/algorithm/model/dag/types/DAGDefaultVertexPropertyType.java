@@ -72,7 +72,7 @@ public class DAGDefaultVertexPropertyType extends AbstractVertexPropertyType<Int
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
    */
   @Override
@@ -82,7 +82,7 @@ public class DAGDefaultVertexPropertyType extends AbstractVertexPropertyType<Int
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
    */
   @Override
@@ -92,7 +92,7 @@ public class DAGDefaultVertexPropertyType extends AbstractVertexPropertyType<Int
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
    */
   @Override

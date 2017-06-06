@@ -53,7 +53,7 @@ public enum InterfaceDirection {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Enum#toString()
    */
   @Override

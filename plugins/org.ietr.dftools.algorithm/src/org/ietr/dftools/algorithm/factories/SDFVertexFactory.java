@@ -74,7 +74,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.factories.ModelVertexFactory#createVertex(org.w3c.dom.Element)
    */
   @Override
@@ -148,7 +148,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.factories.ModelVertexFactory#createVertex(java.lang.String)
    */
   @Override
@@ -170,7 +170,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.factories.ModelVertexFactory#createInterface(java.lang.String, int)
    */
   @Override
