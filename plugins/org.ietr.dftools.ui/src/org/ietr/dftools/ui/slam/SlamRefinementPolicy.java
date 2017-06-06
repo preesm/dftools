@@ -70,7 +70,7 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
    * @return the i path
    */
   public IPath useExistingFile(final Vertex vertex, final Shell shell, final String extension) {
-    String filePath = null;
+    IPath filePath = null;
 
     if (extension.equals("slam")) {
       filePath = FileUtils.browseFiles(shell, "Please select an existing S-LAM network file:", extension);
@@ -79,7 +79,7 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
     }
 
     // Getting relative path
-    final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(filePath));
+    final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(filePath.toString()));
 
     final IPath fileRelativeName = getRefinementValue(vertex, file);
     return fileRelativeName;

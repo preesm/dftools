@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.logging.Level;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
@@ -85,36 +86,32 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
    */
   public static ILaunchConfiguration createLaunchConfiguration(final IFile file) {
 
+    // We ask for the scenario to use with the selected workflow
+    final HashSet<String> scenarioExtensions = new HashSet<>();
+    scenarioExtensions.add("scenario");
+    scenarioExtensions.add("piscenario");
+    final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+        WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
+    if (scenarioPath == null || scenarioPath.isEmpty()) {
+      return null;
+    }
+
+    final IPath workflowPath = file.getFullPath();
+
     final ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
     final ILaunchConfigurationType type = manager.getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID);
-
-    ILaunchConfigurationWorkingCopy workingCopy;
-
-    final String workflowPath = file.getFullPath().toString();
+    final ILaunchConfigurationWorkingCopy workingCopy;
 
     try {
-      final String launchConfigurationName = workflowPath.replaceAll("/", "_");
-
+      final String launchConfigurationName = generateLaunchConfigurationName(workflowPath, scenarioPath);
       workingCopy = type.newInstance(null, launchConfigurationName);
     } catch (final CoreException e) {
       WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
       return null;
     }
 
-    workingCopy.setAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, workflowPath);
-
-    // We ask for the scenario to use with the selected workflow
-    final HashSet<String> scenarioExtensions = new HashSet<>();
-    scenarioExtensions.add("scenario");
-    scenarioExtensions.add("piscenario");
-    final String scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
-
-    workingCopy.setAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, scenarioPath);
-
-    if (scenarioPath.isEmpty()) {
-      return null;
-    }
+    workingCopy.setAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, workflowPath.toString());
+    workingCopy.setAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, scenarioPath.toString());
 
     // set the defaults on the common tab
     final CommonTab tab = new CommonTab();
@@ -126,6 +123,23 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     } catch (final CoreException e) {
       return null;
     }
+  }
+
+  private static String generateLaunchConfigurationName(IPath workflowPath, IPath scenarioPath) {
+    final int workflowSegmentCount = workflowPath.segmentCount();
+    final int scenarioSegmentCount = scenarioPath.segmentCount();
+    if (scenarioSegmentCount < 1 || workflowSegmentCount < 1) {
+      throw new IllegalArgumentException("Given path arguments are mal formed");
+    }
+
+    final String projectName = workflowPath.segments()[0];
+    final String workflowFileName = workflowPath.segments()[workflowSegmentCount - 1].replace("." + workflowPath.getFileExtension(), "");
+    final String scenarioFileName = scenarioPath.segments()[scenarioSegmentCount - 1].replace("." + scenarioPath.getFileExtension(), "");
+
+    // from org.eclipse.debug.internal.core.LaunchManager:
+    // static final char[] DISALLOWED_CONFIG_NAME_CHARS = new char[] { '@', '&','\\', '/', ':', '*', '?', '"', '<', '>', '|', '\0' };
+    final String finalLaunchName = projectName + " [" + workflowFileName + "] [" + scenarioFileName + "]";
+    return finalLaunchName;
   }
 
   /**
