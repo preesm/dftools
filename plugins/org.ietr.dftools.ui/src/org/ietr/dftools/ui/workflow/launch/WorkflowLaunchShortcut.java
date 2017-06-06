@@ -86,14 +86,24 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
    */
   public static ILaunchConfiguration createLaunchConfiguration(final IFile file) {
 
+    // We ask for the scenario to use with the selected workflow
+    final HashSet<String> scenarioExtensions = new HashSet<>();
+    scenarioExtensions.add("scenario");
+    scenarioExtensions.add("piscenario");
+    final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+        WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
+    if (scenarioPath == null || scenarioPath.isEmpty()) {
+      return null;
+    }
+
+    final IPath workflowPath = file.getFullPath();
+
     final ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
     final ILaunchConfigurationType type = manager.getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID);
     final ILaunchConfigurationWorkingCopy workingCopy;
 
-    final String workflowPath = file.getFullPath().toString();
-
     try {
-      final String launchConfigurationName = workflowPath.replaceAll("/", "_");
+      final String launchConfigurationName = generateLaunchConfigurationName(workflowPath, scenarioPath);
 
       workingCopy = type.newInstance(null, launchConfigurationName);
     } catch (final CoreException e) {
@@ -101,19 +111,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
       return null;
     }
 
-    workingCopy.setAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, workflowPath);
-
-    // We ask for the scenario to use with the selected workflow
-    final HashSet<String> scenarioExtensions = new HashSet<>();
-    scenarioExtensions.add("scenario");
-    scenarioExtensions.add("piscenario");
-    final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
-
-    if (scenarioPath == null || scenarioPath.isEmpty()) {
-      return null;
-    }
-
+    workingCopy.setAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, workflowPath.toString());
     workingCopy.setAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, scenarioPath.toString());
 
     // set the defaults on the common tab
@@ -126,6 +124,11 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     } catch (final CoreException e) {
       return null;
     }
+  }
+
+  private static String generateLaunchConfigurationName(IPath workflowPath, IPath scenarioPath) {
+
+    return workflowPath.toString().replaceAll("/", "_");
   }
 
   /**
