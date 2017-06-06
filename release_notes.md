@@ -9,6 +9,8 @@ DFTools Changelog
 
 ### Changes
 * Workflow Task parameters can now be omitted in workflow definition. Their default value will be used without make the flow fail;
+* Popup window to select scenario now shows folders containing scenario files only;
+* Update Workflow launch configuration. new format is `<project name> [<workflow file name>] [<scenario file name>]`;
 
 * For XTend version to 2.11+
 * Use feature import instead of inclusion
