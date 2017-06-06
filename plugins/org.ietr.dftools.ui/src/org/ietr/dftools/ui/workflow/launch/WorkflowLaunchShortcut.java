@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.logging.Level;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
@@ -87,8 +88,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 
     final ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
     final ILaunchConfigurationType type = manager.getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID);
-
-    ILaunchConfigurationWorkingCopy workingCopy;
+    final ILaunchConfigurationWorkingCopy workingCopy;
 
     final String workflowPath = file.getFullPath().toString();
 
@@ -107,14 +107,14 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     final HashSet<String> scenarioExtensions = new HashSet<>();
     scenarioExtensions.add("scenario");
     scenarioExtensions.add("piscenario");
-    final String scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+    final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
         WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
 
-    workingCopy.setAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, scenarioPath);
-
-    if (scenarioPath.isEmpty()) {
+    if (scenarioPath == null || scenarioPath.isEmpty()) {
       return null;
     }
+
+    workingCopy.setAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, scenarioPath.toString());
 
     // set the defaults on the common tab
     final CommonTab tab = new CommonTab();

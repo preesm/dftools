@@ -200,7 +200,7 @@ public class FileUtils {
    *          the file extension
    * @return the string
    */
-  public static String browseFiles(final Shell shell, final String title, final String fileExtension) {
+  public static IPath browseFiles(final Shell shell, final String title, final String fileExtension) {
     return FileUtils.browseFiles(shell, title, Collections.singleton(fileExtension));
   }
 
@@ -215,8 +215,7 @@ public class FileUtils {
    *          the file extensions
    * @return the string
    */
-  public static String browseFiles(final Shell shell, final String title, final Collection<String> fileExtensions) {
-    String returnVal = "";
+  public static IPath browseFiles(final Shell shell, final String title, final Collection<String> fileExtensions) {
     final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     final ILabelProvider decoratingWorkbenchLabelProvider = WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
 
@@ -274,9 +273,9 @@ public class FileUtils {
       } else {
         fileIPath = ((IFile) tree.getFirstResult()).getFullPath();
       }
-      returnVal = fileIPath.toString();
+      return fileIPath;
     }
 
-    return returnVal;
+    return null;
   }
 }
