@@ -104,7 +104,6 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 
     try {
       final String launchConfigurationName = generateLaunchConfigurationName(workflowPath, scenarioPath);
-
       workingCopy = type.newInstance(null, launchConfigurationName);
     } catch (final CoreException e) {
       WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
@@ -127,8 +126,20 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
   }
 
   private static String generateLaunchConfigurationName(IPath workflowPath, IPath scenarioPath) {
+    final int workflowSegmentCount = workflowPath.segmentCount();
+    final int scenarioSegmentCount = scenarioPath.segmentCount();
+    if (scenarioSegmentCount < 1 || workflowSegmentCount < 1) {
+      throw new IllegalArgumentException("Given path arguments are mal formed");
+    }
 
-    return workflowPath.toString().replaceAll("/", "_");
+    final String projectName = workflowPath.segments()[0];
+    final String workflowFileName = workflowPath.segments()[workflowSegmentCount - 1].replace("." + workflowPath.getFileExtension(), "");
+    final String scenarioFileName = scenarioPath.segments()[scenarioSegmentCount - 1].replace("." + scenarioPath.getFileExtension(), "");
+
+    // from org.eclipse.debug.internal.core.LaunchManager:
+    // static final char[] DISALLOWED_CONFIG_NAME_CHARS = new char[] { '@', '&','\\', '/', ':', '*', '?', '"', '<', '>', '|', '\0' };
+    final String finalLaunchName = projectName + " [" + workflowFileName + "] [" + scenarioFileName + "]";
+    return finalLaunchName;
   }
 
   /**
