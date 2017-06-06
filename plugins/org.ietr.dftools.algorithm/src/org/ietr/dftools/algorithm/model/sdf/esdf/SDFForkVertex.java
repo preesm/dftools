@@ -38,7 +38,7 @@
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -124,7 +124,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
   protected Map<Integer, SDFEdge> getConnections() {
     Map<Integer, SDFEdge> connections;
     if ((connections = (Map<Integer, SDFEdge>) getPropertyBean().getValue(SDFForkVertex.EDGES_ORDER)) == null) {
-      connections = new HashMap<>();
+      connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
     }
     return connections;
@@ -220,7 +220,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
   @Override
   public void copyProperties(final PropertySource props) {
     super.copyProperties(props);
-    final Map<Integer, SDFEdge> connections = new HashMap<>();
+    final Map<Integer, SDFEdge> connections = new LinkedHashMap<>();
     getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
   }
 

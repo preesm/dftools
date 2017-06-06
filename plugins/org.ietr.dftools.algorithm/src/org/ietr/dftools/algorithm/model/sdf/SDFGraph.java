@@ -40,9 +40,10 @@
 package org.ietr.dftools.algorithm.model.sdf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,7 +96,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   protected static final String VALID_MODEL = "valid_model";
 
   /** The old ref. */
-  private final HashMap<SDFEdge, SDFEdge> oldRef = new HashMap<>();
+  private final Map<SDFEdge, SDFEdge> oldRef = new LinkedHashMap<>();
 
   /**
    * Construct a new SDFGraph with the default edge factory.
@@ -283,7 +284,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   @Override
   public SDFGraph clone() {
     final SDFGraph newGraph = new SDFGraph();
-    final HashMap<SDFAbstractVertex, SDFAbstractVertex> matchCopies = new HashMap<>();
+    final Map<SDFAbstractVertex, SDFAbstractVertex> matchCopies = new LinkedHashMap<>();
     for (final SDFAbstractVertex vertices : vertexSet()) {
       final SDFAbstractVertex newVertex = vertices.clone();
       newGraph.addVertex(newVertex);
@@ -322,7 +323,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    *           the invalid expression exception
    */
   protected boolean computeVRB() throws InvalidExpressionException {
-    final HashMap<SDFAbstractVertex, Integer> vrb = new HashMap<>();
+    final Map<SDFAbstractVertex, Integer> vrb = new LinkedHashMap<>();
     final List<List<SDFAbstractVertex>> subgraphs = getAllSubGraphs();
 
     for (final List<SDFAbstractVertex> subgraph : subgraphs) {
@@ -482,7 +483,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @return the set of all the vertices contained by the graph and its subgraphs
    */
   public Set<SDFAbstractVertex> getAllVertices() {
-    final Set<SDFAbstractVertex> vertices = new HashSet<>();
+    final Set<SDFAbstractVertex> vertices = new LinkedHashSet<>();
     for (final SDFAbstractVertex v : vertexSet()) {
       vertices.add(v);
       if (v.getGraphDescription() != null) {
@@ -557,7 +558,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    *          the logger where display a warning.
    */
   private void insertBroadcast(final SDFVertex vertex, final Logger logger) {
-    final HashMap<SDFInterfaceVertex, ArrayList<SDFEdge>> connections = new HashMap<>();
+    final Map<SDFInterfaceVertex, ArrayList<SDFEdge>> connections = new LinkedHashMap<>();
     for (final SDFEdge edge : outgoingEdgesOf(vertex)) {
       if (connections.get(edge.getSourceInterface()) == null) {
         connections.put(edge.getSourceInterface(), new ArrayList<SDFEdge>());

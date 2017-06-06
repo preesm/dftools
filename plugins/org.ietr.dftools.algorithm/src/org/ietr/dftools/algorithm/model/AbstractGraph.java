@@ -39,7 +39,7 @@
 package org.ietr.dftools.algorithm.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -488,7 +488,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    */
   public Set<V> getHierarchicalVertexSet() {
 
-    final Set<V> vset = new HashSet<>(vertexSet());
+    final Set<V> vset = new LinkedHashSet<>(vertexSet());
 
     for (final V vertex : vertexSet()) {
       if (vertex.getGraphDescription() != null) {

@@ -39,7 +39,7 @@
  */
 package org.ietr.dftools.architecture.slam.serialize;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -87,7 +87,7 @@ public class IPXACTDesignVendorExtensionsParser {
       this.componentRef = componentRef;
       this.componentType = componentType;
       this.refinement = refinement;
-      this.specificParameters = new HashMap<>();
+      this.specificParameters = new LinkedHashMap<>();
     }
 
     /**
@@ -183,7 +183,7 @@ public class IPXACTDesignVendorExtensionsParser {
       this.linkUuid = uuid;
       this.type = type;
       this.directed = directed;
-      this.specificParameters = new HashMap<>();
+      this.specificParameters = new LinkedHashMap<>();
     }
 
     /**
@@ -259,9 +259,9 @@ public class IPXACTDesignVendorExtensionsParser {
    * Instantiates a new IPXACT design vendor extensions parser.
    */
   public IPXACTDesignVendorExtensionsParser() {
-    this.componentDescriptions = new HashMap<>();
-    this.linkDescriptions = new HashMap<>();
-    this.designParameters = new HashMap<>();
+    this.componentDescriptions = new LinkedHashMap<>();
+    this.linkDescriptions = new LinkedHashMap<>();
+    this.designParameters = new LinkedHashMap<>();
   }
 
   /**

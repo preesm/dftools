@@ -45,8 +45,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.exporter.Key;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
@@ -86,7 +87,7 @@ import org.w3c.dom.ls.LSParser;
 public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends AbstractVertex<?>, E extends AbstractEdge<?, ?>> {
 
   /** The class key set. */
-  protected HashMap<String, List<Key>> classKeySet;
+  protected Map<String, List<Key>> classKeySet;
 
   /** The edge factory. */
   protected EdgeFactory<V, E> edgeFactory;
@@ -101,7 +102,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
   protected String path;
 
   /** The vertex from id. */
-  protected HashMap<String, V> vertexFromId = new HashMap<>();
+  protected Map<String, V> vertexFromId = new LinkedHashMap<>();
 
   /**
    * Creates a new GMLImporter.
@@ -111,7 +112,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    */
   public GMLImporter(final EdgeFactory<V, E> edgeFactory) {
     this.edgeFactory = edgeFactory;
-    this.classKeySet = new HashMap<>();
+    this.classKeySet = new LinkedHashMap<>();
   }
 
   /**
@@ -119,7 +120,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    *
    * @return This Importer Key set
    */
-  public HashMap<String, List<Key>> getKeySet() {
+  public Map<String, List<Key>> getKeySet() {
     return this.classKeySet;
   }
 
@@ -544,7 +545,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @param keys
    *          the keys
    */
-  public void setKeySet(final HashMap<String, List<Key>> keys) {
+  public void setKeySet(final Map<String, List<Key>> keys) {
     this.classKeySet = keys;
   }
 

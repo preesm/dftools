@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.ui.workflow.launch;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -89,7 +89,7 @@ public class WorkflowLaunchConfigurationDelegate implements ILaunchConfiguration
     // Retrieving environment variables
     Map<String, String> configEnv = configuration.getAttribute(ILaunchManager.ATTR_ENVIRONMENT_VARIABLES, (Map) null);
     if (configEnv == null) {
-      configEnv = new HashMap<>();
+      configEnv = new LinkedHashMap<>();
     }
 
     final WorkflowManager workflowManager = new WorkflowManager();

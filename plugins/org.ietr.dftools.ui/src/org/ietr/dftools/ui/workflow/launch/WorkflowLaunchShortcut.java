@@ -39,8 +39,9 @@
 package org.ietr.dftools.ui.workflow.launch;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -87,7 +88,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
   public static ILaunchConfiguration createLaunchConfiguration(final IFile file) {
 
     // We ask for the scenario to use with the selected workflow
-    final HashSet<String> scenarioExtensions = new HashSet<>();
+    final Set<String> scenarioExtensions = new LinkedHashSet<>();
     scenarioExtensions.add("scenario");
     scenarioExtensions.add("piscenario");
     final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),

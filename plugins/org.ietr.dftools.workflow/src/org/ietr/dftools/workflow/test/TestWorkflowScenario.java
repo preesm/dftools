@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.workflow.test;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import org.ietr.dftools.workflow.WorkflowException;
@@ -57,7 +57,7 @@ public class TestWorkflowScenario extends AbstractScenarioImplementation {
    */
   @Override
   public Map<String, Object> extractData(final String path) throws WorkflowException {
-    final Map<String, Object> outputs = new HashMap<>();
+    final Map<String, Object> outputs = new LinkedHashMap<>();
     WorkflowLogger.getLogger().log(Level.INFO, "Retrieving data from scenario");
 
     outputs.put("algo", "algo1");

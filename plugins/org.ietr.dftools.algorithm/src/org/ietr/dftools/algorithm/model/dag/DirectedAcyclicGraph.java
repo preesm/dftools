@@ -39,7 +39,7 @@
 package org.ietr.dftools.algorithm.model.dag;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -255,7 +255,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
   public Set<DAGVertex> getSuccessorVerticesOf(final DAGVertex vertex) {
     // Create a list of the vertex to process
     final List<DAGVertex> toProcess = new ArrayList<>();
-    final Set<DAGVertex> processed = new HashSet<>();
+    final Set<DAGVertex> processed = new LinkedHashSet<>();
     toProcess.add(vertex);
 
     // While there is a vertex in the toProcess list
@@ -285,11 +285,11 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @return A {@link Set} containing all {@link DAGEdge} that are successors to the given {@link DAGVertex}
    */
   public Set<DAGEdge> getSuccessorEdgesOf(final DAGVertex vertex) {
-    final Set<DAGEdge> result = new HashSet<>();
+    final Set<DAGEdge> result = new LinkedHashSet<>();
 
     // Create a list of the vertex to process
     final List<DAGVertex> toProcess = new ArrayList<>();
-    final Set<DAGVertex> processed = new HashSet<>();
+    final Set<DAGVertex> processed = new LinkedHashSet<>();
     toProcess.add(vertex);
 
     // While there is a vertex in the toProcess list
@@ -323,7 +323,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
   public Set<DAGVertex> getPredecessorVerticesOf(final DAGVertex vertex) {
     // Create a list of the vertex to process
     final List<DAGVertex> toProcess = new ArrayList<>();
-    final Set<DAGVertex> processed = new HashSet<>();
+    final Set<DAGVertex> processed = new LinkedHashSet<>();
     toProcess.add(vertex);
 
     // While there is a vertex in the toProcess list
@@ -353,11 +353,11 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @return A {@link Set} containing all {@link DAGEdge} that are predecessor to the given {@link DAGVertex}
    */
   public Set<DAGEdge> getPredecessorEdgesOf(final DAGVertex vertex) {
-    final Set<DAGEdge> result = new HashSet<>();
+    final Set<DAGEdge> result = new LinkedHashSet<>();
 
     // Create a list of the vertex to process
     final List<DAGVertex> toProcess = new ArrayList<>();
-    final Set<DAGVertex> processed = new HashSet<>();
+    final Set<DAGVertex> processed = new LinkedHashSet<>();
     toProcess.add(vertex);
 
     // While there is a vertex in the toProcess list

@@ -38,7 +38,7 @@
  */
 package org.ietr.dftools.algorithm.factories;
 
-import java.util.HashMap;
+import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
@@ -117,7 +117,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
    * @deprecated Creates a vertex with the given parameters Used when kind was a node attribute, now a property
    */
   @Deprecated
-  public SDFAbstractVertex createVertex(final HashMap<String, String> attributes) {
+  public SDFAbstractVertex createVertex(final Map<String, String> attributes) {
     final String kind = attributes.get("kind");
     if (kind.equals(SDFVertex.VERTEX)) {
       final SDFVertex newVertex = new SDFVertex();

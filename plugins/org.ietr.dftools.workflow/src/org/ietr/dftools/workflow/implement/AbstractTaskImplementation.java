@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.workflow.implement;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -62,7 +62,7 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
    * Instantiates a new abstract task implementation.
    */
   public AbstractTaskImplementation() {
-    this.inputPrototype = new HashMap<>();
+    this.inputPrototype = new LinkedHashMap<>();
   }
 
   /**

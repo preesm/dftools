@@ -40,7 +40,8 @@ package org.ietr.dftools.algorithm.importer.old;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
@@ -245,7 +246,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
   public SDFAbstractVertex parseNode(final Element vertexElt, final SDFGraph parentGraph) throws InvalidModelException {
 
     SDFAbstractVertex vertex;
-    final HashMap<String, String> attributes = new HashMap<>();
+    final Map<String, String> attributes = new LinkedHashMap<>();
     for (int i = 0; i < vertexElt.getAttributes().getLength(); i++) {
       attributes.put(vertexElt.getAttributes().item(i).getNodeName(), vertexElt.getAttributes().item(i).getNodeValue());
     }

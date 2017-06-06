@@ -40,8 +40,8 @@ package org.ietr.dftools.workflow;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -137,7 +137,7 @@ public abstract class AbstractWorkflowExecutor {
    */
   public boolean checkScenarioPrototype(final ScenarioNode scenarioNode, final Workflow workflow) {
     final AbstractScenarioImplementation scenario = scenarioNode.getScenario();
-    final Set<String> outputPorts = new HashSet<>();
+    final Set<String> outputPorts = new LinkedHashSet<>();
 
     // There may be several output edges with same data type (sharing same
     // port). All output names are retrieved here.
@@ -168,8 +168,8 @@ public abstract class AbstractWorkflowExecutor {
    */
   public boolean checkTaskPrototype(final TaskNode taskNode, final Workflow workflow) {
     final AbstractTaskImplementation task = taskNode.getTask();
-    final Map<String, String> inputs = new HashMap<>();
-    final Set<String> outputs = new HashSet<>();
+    final Map<String, String> inputs = new LinkedHashMap<>();
+    final Set<String> outputs = new LinkedHashSet<>();
 
     // input ports are retrieved as well as the data type
     // of the corresponding output port in the connected node
@@ -280,10 +280,10 @@ public abstract class AbstractWorkflowExecutor {
             // reference
             // for
             // predicate
-            final Set<WorkflowEdge> edges = new HashSet<>(workflow.outgoingEdgesOf(scenarioNode));
+            final Set<WorkflowEdge> edges = new LinkedHashSet<>(workflow.outgoingEdgesOf(scenarioNode));
             edges.removeIf(edge -> !outs.containsKey(edge.getSourcePort()));
 
-            final Map<String, Object> checkedOutputs = new HashMap<>();
+            final Map<String, Object> checkedOutputs = new LinkedHashMap<>();
             edges.forEach(edge -> checkedOutputs.put(edge.getSourcePort(), outs.get(edge.getSourcePort())));
 
             // Check the outputs have the right type.
@@ -310,7 +310,7 @@ public abstract class AbstractWorkflowExecutor {
           }
 
           // Preparing the input and output maps of the execute method
-          final Map<String, Object> inputs = new HashMap<>();
+          final Map<String, Object> inputs = new LinkedHashMap<>();
 
           // Retrieving the data from input edges
           for (final WorkflowEdge edge : workflow.incomingEdgesOf(taskNode)) {
@@ -347,10 +347,10 @@ public abstract class AbstractWorkflowExecutor {
             // reference
             // for
             // predicate
-            final Set<WorkflowEdge> edges = new HashSet<>(workflow.outgoingEdgesOf(taskNode));
+            final Set<WorkflowEdge> edges = new LinkedHashSet<>(workflow.outgoingEdgesOf(taskNode));
             edges.removeIf(edge -> !outs.containsKey(edge.getSourcePort()));
 
-            final Map<String, Object> checkedOutputs = new HashMap<>();
+            final Map<String, Object> checkedOutputs = new LinkedHashMap<>();
             edges.forEach(edge -> checkedOutputs.put(edge.getSourcePort(), outs.get(edge.getSourcePort())));
 
             // Check the outputs have the right type.

@@ -45,7 +45,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -316,7 +316,7 @@ public class IPXACTDesignParser extends IPXACTParser {
    *          the design
    */
   private void manageRefinements(final Design design) {
-    final Set<Component> components = new HashSet<>(design.getComponentHolder().getComponents());
+    final Set<Component> components = new LinkedHashSet<>(design.getComponentHolder().getComponents());
     for (final Component component : components) {
       final IPXACTDesignVendorExtensionsParser.ComponentDescription description = this.vendorExtensions.getComponentDescription(component.getVlnv().getName());
 
@@ -368,7 +368,7 @@ public class IPXACTDesignParser extends IPXACTParser {
    *           the core exception
    */
   public static Set<IFolder> getFolders(final IContainer container) throws CoreException {
-    final Set<IFolder> folders = new HashSet<>();
+    final Set<IFolder> folders = new LinkedHashSet<>();
 
     for (final IResource resource : container.members()) {
       if (resource instanceof IFolder) {

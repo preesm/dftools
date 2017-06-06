@@ -40,8 +40,8 @@
 package org.ietr.dftools.architecture.slam.process;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -106,7 +106,7 @@ public class SlamFlattener {
   public void flattenUpperLevel(final Design design) {
 
     // Set of removed subdesigns
-    final Set<Design> removedSubdesigns = new HashSet<>();
+    final Set<Design> removedSubdesigns = new LinkedHashSet<>();
 
     // Replace each instance by its content
     final List<ComponentInstance> componentInstances = new ArrayList<>(design.getComponentInstances());
@@ -153,15 +153,15 @@ public class SlamFlattener {
 
     // Getting all instances and their components from the design and its
     // subdesigns
-    final Set<ComponentInstance> globalInstances = new HashSet<>();
-    final Set<Component> globalComponents = new HashSet<>();
+    final Set<ComponentInstance> globalInstances = new LinkedHashSet<>();
+    final Set<Component> globalComponents = new LinkedHashSet<>();
 
     getAllInstances(design, globalInstances);
     for (final ComponentInstance instance : globalInstances) {
       globalComponents.add(instance.getComponent());
     }
 
-    final Set<Component> holderComponents = new HashSet<>(design.getComponentHolder().getComponents());
+    final Set<Component> holderComponents = new LinkedHashSet<>(design.getComponentHolder().getComponents());
     for (final Component component : holderComponents) {
       // Remove all references to instances of the removed hierarchy level
       if (!globalComponents.contains(component)) {
@@ -181,7 +181,7 @@ public class SlamFlattener {
   private void replaceInstanceByContent(final Design design, final ComponentInstance instance) {
     // Associates a reference instance in the refinement to each cloned
     // instance in the design.
-    final Map<ComponentInstance, ComponentInstance> refMap = new HashMap<>();
+    final Map<ComponentInstance, ComponentInstance> refMap = new LinkedHashMap<>();
     final Component component = instance.getComponent();
     final Design subDesign = component.getRefinements().get(0);
 
@@ -223,7 +223,7 @@ public class SlamFlattener {
       final Map<ComponentInstance, ComponentInstance> refMap) {
 
     // Iterating the upper graph links
-    final Set<Link> links = new HashSet<>(design.getLinks());
+    final Set<Link> links = new LinkedHashSet<>(design.getLinks());
     for (final Link link : links) {
       if (link.getSourceComponentInstance().equals(instance)) {
         manageSourceHierarchicalLink(link, design, subDesign, refMap);

@@ -37,8 +37,9 @@
 package org.ietr.dftools.algorithm.model.visitors;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
@@ -115,7 +116,7 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    */
   private void treatVertex(final AbstractVertex vertex, final G parentGraph, final int depth) throws InvalidExpressionException {
     final Vector<SDFAbstractVertex> vertices = new Vector<SDFAbstractVertex>(vertex.getGraphDescription().vertexSet());
-    final HashMap<AbstractVertex, AbstractVertex> matchCopies = new HashMap<>();
+    final Map<AbstractVertex, AbstractVertex> matchCopies = new LinkedHashMap<>();
     for (int i = 0; i < vertices.size(); i++) {
       if (!(vertices.get(i) instanceof IInterface)) {
         final AbstractVertex trueVertex = vertices.get(i);

@@ -38,7 +38,7 @@
 package org.ietr.dftools.workflow;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -79,7 +79,7 @@ public class WorkflowParser extends DefaultHandler2 {
    * Instantiates a new workflow parser.
    */
   public WorkflowParser() {
-    this.nodes = new HashMap<>();
+    this.nodes = new LinkedHashMap<>();
     this.workflow = new Workflow();
   }
 

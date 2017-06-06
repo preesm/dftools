@@ -38,7 +38,8 @@
 package org.ietr.dftools.algorithm.iterators;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
@@ -60,7 +61,7 @@ public class DAGIterator implements GraphIterator<DAGVertex, DAGEdge> {
   private final CycleDetector<DAGVertex, DAGEdge> cycleDetector;
 
   /** The cycle vertex. */
-  private final HashMap<DAGVertex, DAGEdge> cycleVertex;
+  private final Map<DAGVertex, DAGEdge> cycleVertex;
 
   /** The graph. */
   private final DirectedAcyclicGraph graph;
@@ -81,7 +82,7 @@ public class DAGIterator implements GraphIterator<DAGVertex, DAGEdge> {
     this.graph = graph;
     this.cycleDetector = new CycleDetector<>(graph);
     this.stack = new ArrayList<>();
-    this.cycleVertex = new HashMap<>();
+    this.cycleVertex = new LinkedHashMap<>();
     this.treated = new Vector<>();
     for (final DAGVertex vertex : graph.vertexSet()) {
       if (graph.incomingEdgesOf(vertex).size() == 0) {
