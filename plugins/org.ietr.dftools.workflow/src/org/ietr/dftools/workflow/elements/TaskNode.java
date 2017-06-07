@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.workflow.elements;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import org.eclipse.core.runtime.CoreException;
@@ -85,7 +85,7 @@ public class TaskNode extends AbstractWorkflowNode {
     this.pluginId = pluginId;
     this.taskId = taskId;
 
-    this.parameters = new HashMap<>();
+    this.parameters = new LinkedHashMap<>();
   }
 
   /**
@@ -131,7 +131,7 @@ public class TaskNode extends AbstractWorkflowNode {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isScenarioNode()
    */
   @Override
@@ -141,7 +141,7 @@ public class TaskNode extends AbstractWorkflowNode {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.elements.AbstractWorkflowNode#isTaskNode()
    */
   @Override

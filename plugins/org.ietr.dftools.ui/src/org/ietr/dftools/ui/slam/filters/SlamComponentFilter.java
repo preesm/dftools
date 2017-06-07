@@ -51,7 +51,7 @@ public class SlamComponentFilter implements IFilter {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.jface.viewers.IFilter#select(java.lang.Object)
    */
   @Override

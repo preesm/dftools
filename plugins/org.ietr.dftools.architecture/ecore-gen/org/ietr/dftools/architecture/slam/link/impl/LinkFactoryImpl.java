@@ -47,98 +47,95 @@ import org.ietr.dftools.architecture.slam.link.LinkFactory;
 import org.ietr.dftools.architecture.slam.link.LinkPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  *
  * @generated
  */
 public class LinkFactoryImpl extends EFactoryImpl implements LinkFactory {
-	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public static LinkFactory init() {
-		try {
-			final LinkFactory theLinkFactory = (LinkFactory) EPackage.Registry.INSTANCE.getEFactory("http://net.sf.dftools/architecture/slam/link");
-			if (theLinkFactory != null) {
-				return theLinkFactory;
-			}
-		} catch (final Exception exception) {
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new LinkFactoryImpl();
-	}
+  /**
+   * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public static LinkFactory init() {
+    try {
+      final LinkFactory theLinkFactory = (LinkFactory) EPackage.Registry.INSTANCE.getEFactory(LinkPackage.eNS_URI);
+      if (theLinkFactory != null) {
+        return theLinkFactory;
+      }
+    } catch (final Exception exception) {
+      EcorePlugin.INSTANCE.log(exception);
+    }
+    return new LinkFactoryImpl();
+  }
 
-	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public LinkFactoryImpl() {
-		super();
-	}
+  /**
+   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public LinkFactoryImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public EObject create(final EClass eClass) {
-		switch (eClass.getClassifierID()) {
-			case LinkPackage.DATA_LINK:
-				return createDataLink();
-			case LinkPackage.CONTROL_LINK:
-				return createControlLink();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EObject create(final EClass eClass) {
+    switch (eClass.getClassifierID()) {
+      case LinkPackage.DATA_LINK:
+        return createDataLink();
+      case LinkPackage.CONTROL_LINK:
+        return createControlLink();
+      default:
+        throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public DataLink createDataLink() {
-		final DataLinkImpl dataLink = new DataLinkImpl();
-		return dataLink;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public DataLink createDataLink() {
+    final DataLinkImpl dataLink = new DataLinkImpl();
+    return dataLink;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ControlLink createControlLink() {
-		final ControlLinkImpl controlLink = new ControlLinkImpl();
-		return controlLink;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ControlLink createControlLink() {
+    final ControlLinkImpl controlLink = new ControlLinkImpl();
+    return controlLink;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public LinkPackage getLinkPackage() {
-		return (LinkPackage) getEPackage();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public LinkPackage getLinkPackage() {
+    return (LinkPackage) getEPackage();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @deprecated
-	 * @generated
-	 */
-	@Deprecated
-	public static LinkPackage getPackage() {
-		return LinkPackage.eINSTANCE;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @deprecated
+   * @generated
+   */
+  @Deprecated
+  public static LinkPackage getPackage() {
+    return LinkPackage.eINSTANCE;
+  }
 
 } // LinkFactoryImpl

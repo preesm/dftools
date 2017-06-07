@@ -140,7 +140,7 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -154,7 +154,7 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#clone()
    */
   @Override

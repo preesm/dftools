@@ -67,7 +67,7 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.File)
    */
   @Override
@@ -87,7 +87,7 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.InputStream, java.lang.String)
    */
   @Override

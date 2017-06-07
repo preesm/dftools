@@ -39,7 +39,7 @@
 package org.ietr.dftools.ui.workflow.launch;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.core.resources.IFile;
@@ -81,7 +81,7 @@ public class EditorTools {
      */
     public FileContentProvider(final String fileExtension) {
       super();
-      this.fileExtensions = new HashSet<>();
+      this.fileExtensions = new LinkedHashSet<>();
       this.fileExtensions.add(fileExtension);
     }
 
@@ -93,12 +93,12 @@ public class EditorTools {
      */
     public FileContentProvider(final Set<String> fileExtensions) {
       super();
-      this.fileExtensions = new HashSet<>(fileExtensions);
+      this.fileExtensions = new LinkedHashSet<>(fileExtensions);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.model.BaseWorkbenchContentProvider#getChildren(java.lang.Object)
      */
     @Override
@@ -127,7 +127,7 @@ public class EditorTools {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.dialogs.ISelectionStatusValidator#validate(java.lang.Object[])
      */
     @Override
@@ -153,7 +153,7 @@ public class EditorTools {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.model.BaseWorkbenchContentProvider#getChildren(java.lang.Object)
      */
     @Override
@@ -184,7 +184,7 @@ public class EditorTools {
    * @return the string
    */
   public static String browseFiles(final Shell shell, final String title, final String fileExtension) {
-    final Set<String> fileExtensions = new HashSet<>();
+    final Set<String> fileExtensions = new LinkedHashSet<>();
     fileExtensions.add(fileExtension);
 
     return EditorTools.browseFiles(shell, title, fileExtensions);

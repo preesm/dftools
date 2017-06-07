@@ -49,346 +49,334 @@ import org.ietr.dftools.architecture.slam.component.Component;
 import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Com
- * Interface</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Com Interface</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.ComInterfaceImpl#getComponent
- * <em>Component</em>}</li>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.ComInterfaceImpl#getBusType
- * <em>Bus Type</em>}</li>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.component.impl.ComInterfaceImpl#getName
- * <em>Name</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.ComInterfaceImpl#getComponent <em>Component</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.ComInterfaceImpl#getBusType <em>Bus Type</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.ComInterfaceImpl#getName <em>Name</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
-	/**
-	 * The cached value of the '{@link #getBusType() <em>Bus Type</em>}'
-	 * containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getBusType()
-	 * @generated
-	 * @ordered
-	 */
-	protected VLNV busType;
+  /**
+   * The cached value of the '{@link #getBusType() <em>Bus Type</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getBusType()
+   * @generated
+   * @ordered
+   */
+  protected VLNV busType;
 
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = "";
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = "";
 
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = ComInterfaceImpl.NAME_EDEFAULT;
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = ComInterfaceImpl.NAME_EDEFAULT;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	protected ComInterfaceImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected ComInterfaceImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ComponentPackage.Literals.COM_INTERFACE;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return ComponentPackage.Literals.COM_INTERFACE;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Component getComponent() {
-		if (eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT) {
-			return null;
-		}
-		return (Component) eContainer();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Component getComponent() {
+    if (eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT) {
+      return null;
+    }
+    return (Component) eInternalContainer();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public NotificationChain basicSetComponent(final Component newComponent, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject) newComponent, ComponentPackage.COM_INTERFACE__COMPONENT, msgs);
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public NotificationChain basicSetComponent(final Component newComponent, NotificationChain msgs) {
+    msgs = eBasicSetContainer((InternalEObject) newComponent, ComponentPackage.COM_INTERFACE__COMPONENT, msgs);
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setComponent(final Component newComponent) {
-		if ((newComponent != eInternalContainer()) || ((eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT) && (newComponent != null))) {
-			if (EcoreUtil.isAncestor(this, newComponent)) {
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			}
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null) {
-				msgs = eBasicRemoveFromContainer(msgs);
-			}
-			if (newComponent != null) {
-				msgs = ((InternalEObject) newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INTERFACES, Component.class, msgs);
-			}
-			msgs = basicSetComponent(newComponent, msgs);
-			if (msgs != null) {
-				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__COMPONENT, newComponent, newComponent));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setComponent(final Component newComponent) {
+    if ((newComponent != eInternalContainer()) || ((eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT) && (newComponent != null))) {
+      if (EcoreUtil.isAncestor(this, newComponent)) {
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      }
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null) {
+        msgs = eBasicRemoveFromContainer(msgs);
+      }
+      if (newComponent != null) {
+        msgs = ((InternalEObject) newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INTERFACES, Component.class, msgs);
+      }
+      msgs = basicSetComponent(newComponent, msgs);
+      if (msgs != null) {
+        msgs.dispatch();
+      }
+    } else if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__COMPONENT, newComponent, newComponent));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public VLNV getBusType() {
-		return this.busType;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public VLNV getBusType() {
+    return this.busType;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public NotificationChain basicSetBusType(final VLNV newBusType, NotificationChain msgs) {
-		final VLNV oldBusType = this.busType;
-		this.busType = newBusType;
-		if (eNotificationRequired()) {
-			final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, oldBusType,
-					newBusType);
-			if (msgs == null) {
-				msgs = notification;
-			} else {
-				msgs.add(notification);
-			}
-		}
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public NotificationChain basicSetBusType(final VLNV newBusType, NotificationChain msgs) {
+    final VLNV oldBusType = this.busType;
+    this.busType = newBusType;
+    if (eNotificationRequired()) {
+      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, oldBusType, newBusType);
+      if (msgs == null) {
+        msgs = notification;
+      } else {
+        msgs.add(notification);
+      }
+    }
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setBusType(final VLNV newBusType) {
-		if (newBusType != this.busType) {
-			NotificationChain msgs = null;
-			if (this.busType != null) {
-				msgs = ((InternalEObject) this.busType).eInverseRemove(this, InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE,
-						null, msgs);
-			}
-			if (newBusType != null) {
-				msgs = ((InternalEObject) newBusType).eInverseAdd(this, InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null,
-						msgs);
-			}
-			msgs = basicSetBusType(newBusType, msgs);
-			if (msgs != null) {
-				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, newBusType, newBusType));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setBusType(final VLNV newBusType) {
+    if (newBusType != this.busType) {
+      NotificationChain msgs = null;
+      if (this.busType != null) {
+        msgs = ((InternalEObject) this.busType).eInverseRemove(this, InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null,
+            msgs);
+      }
+      if (newBusType != null) {
+        msgs = ((InternalEObject) newBusType).eInverseAdd(this, InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null, msgs);
+      }
+      msgs = basicSetBusType(newBusType, msgs);
+      if (msgs != null) {
+        msgs.dispatch();
+      }
+    } else if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, newBusType, newBusType));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public String getName() {
-		return this.name;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String getName() {
+    return this.name;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void setName(final String newName) {
-		final String oldName = this.name;
-		this.name = newName;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__NAME, oldName, this.name));
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void setName(final String newName) {
+    final String oldName = this.name;
+    this.name = newName;
+    if (eNotificationRequired()) {
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__NAME, oldName, this.name));
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseAdd(final InternalEObject otherEnd, final int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				if (eInternalContainer() != null) {
-					msgs = eBasicRemoveFromContainer(msgs);
-				}
-				return basicSetComponent((Component) otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseAdd(final InternalEObject otherEnd, final int featureID, NotificationChain msgs) {
+    switch (featureID) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        if (eInternalContainer() != null) {
+          msgs = eBasicRemoveFromContainer(msgs);
+        }
+        return basicSetComponent((Component) otherEnd, msgs);
+    }
+    return super.eInverseAdd(otherEnd, featureID, msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
-		switch (featureID) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				return basicSetComponent(null, msgs);
-			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
-				return basicSetBusType(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+    switch (featureID) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        return basicSetComponent(null, msgs);
+      case ComponentPackage.COM_INTERFACE__BUS_TYPE:
+        return basicSetBusType(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(final NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__INTERFACES, Component.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eBasicRemoveFromContainerFeature(final NotificationChain msgs) {
+    switch (eContainerFeatureID()) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__INTERFACES, Component.class, msgs);
+    }
+    return super.eBasicRemoveFromContainerFeature(msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-		switch (featureID) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				return getComponent();
-			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
-				return getBusType();
-			case ComponentPackage.COM_INTERFACE__NAME:
-				return getName();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        return getComponent();
+      case ComponentPackage.COM_INTERFACE__BUS_TYPE:
+        return getBusType();
+      case ComponentPackage.COM_INTERFACE__NAME:
+        return getName();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eSet(final int featureID, final Object newValue) {
-		switch (featureID) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				setComponent((Component) newValue);
-				return;
-			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
-				setBusType((VLNV) newValue);
-				return;
-			case ComponentPackage.COM_INTERFACE__NAME:
-				setName((String) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eSet(final int featureID, final Object newValue) {
+    switch (featureID) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        setComponent((Component) newValue);
+        return;
+      case ComponentPackage.COM_INTERFACE__BUS_TYPE:
+        setBusType((VLNV) newValue);
+        return;
+      case ComponentPackage.COM_INTERFACE__NAME:
+        setName((String) newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eUnset(final int featureID) {
-		switch (featureID) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				setComponent((Component) null);
-				return;
-			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
-				setBusType((VLNV) null);
-				return;
-			case ComponentPackage.COM_INTERFACE__NAME:
-				setName(ComInterfaceImpl.NAME_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eUnset(final int featureID) {
+    switch (featureID) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        setComponent((Component) null);
+        return;
+      case ComponentPackage.COM_INTERFACE__BUS_TYPE:
+        setBusType((VLNV) null);
+        return;
+      case ComponentPackage.COM_INTERFACE__NAME:
+        setName(ComInterfaceImpl.NAME_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(final int featureID) {
-		switch (featureID) {
-			case ComponentPackage.COM_INTERFACE__COMPONENT:
-				return getComponent() != null;
-			case ComponentPackage.COM_INTERFACE__BUS_TYPE:
-				return this.busType != null;
-			case ComponentPackage.COM_INTERFACE__NAME:
-				return ComInterfaceImpl.NAME_EDEFAULT == null ? this.name != null : !ComInterfaceImpl.NAME_EDEFAULT.equals(this.name);
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+      case ComponentPackage.COM_INTERFACE__COMPONENT:
+        return getComponent() != null;
+      case ComponentPackage.COM_INTERFACE__BUS_TYPE:
+        return this.busType != null;
+      case ComponentPackage.COM_INTERFACE__NAME:
+        return ComInterfaceImpl.NAME_EDEFAULT == null ? this.name != null : !ComInterfaceImpl.NAME_EDEFAULT.equals(this.name);
+    }
+    return super.eIsSet(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) {
-			return super.toString();
-		}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public String toString() {
+    if (eIsProxy()) {
+      return super.toString();
+    }
 
-		final StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(this.name);
-		result.append(')');
-		return result.toString();
-	}
+    final StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(this.name);
+    result.append(')');
+    return result.toString();
+  }
 
 } // ComInterfaceImpl

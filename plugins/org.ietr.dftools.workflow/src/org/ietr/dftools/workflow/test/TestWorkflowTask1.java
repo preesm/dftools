@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.workflow.test;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -53,14 +53,14 @@ public class TestWorkflowTask1 extends AbstractTaskImplementation {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.implement.AbstractTaskImplementation#execute(java.util.Map, java.util.Map, org.eclipse.core.runtime.IProgressMonitor,
    * java.lang.String, org.ietr.dftools.workflow.elements.Workflow)
    */
   @Override
   public Map<String, Object> execute(final Map<String, Object> inputs, final Map<String, String> parameters, final IProgressMonitor monitor,
       final String nodeName, final Workflow workflow) {
-    final Map<String, Object> outputs = new HashMap<>();
+    final Map<String, Object> outputs = new LinkedHashMap<>();
     WorkflowLogger.getLogger().log(Level.INFO, "Executing TestWorkflowTask1; node: " + nodeName);
     outputs.put("superData", "superData1");
     return outputs;
@@ -68,12 +68,12 @@ public class TestWorkflowTask1 extends AbstractTaskImplementation {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.implement.AbstractTaskImplementation#getDefaultParameters()
    */
   @Override
   public Map<String, String> getDefaultParameters() {
-    final Map<String, String> parameters = new HashMap<>();
+    final Map<String, String> parameters = new LinkedHashMap<>();
 
     parameters.put("size", "25");
     parameters.put("duration", "short");
@@ -82,7 +82,7 @@ public class TestWorkflowTask1 extends AbstractTaskImplementation {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation#monitorMessage()
    */
   @Override

@@ -171,7 +171,7 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override

@@ -38,7 +38,7 @@
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -73,7 +73,7 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
@@ -223,7 +223,7 @@ public class SDFJoinVertex extends SDFAbstractVertex {
   protected Map<Integer, SDFEdge> getConnections() {
     Map<Integer, SDFEdge> connections;
     if ((connections = (Map<Integer, SDFEdge>) getPropertyBean().getValue(SDFJoinVertex.EDGES_ORDER)) == null) {
-      connections = new HashMap<>();
+      connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFJoinVertex.EDGES_ORDER, connections);
     }
     return connections;
@@ -246,7 +246,7 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -257,7 +257,7 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -268,13 +268,13 @@ public class SDFJoinVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {
     super.copyProperties(props);
-    final Map<Integer, SDFEdge> connections = new HashMap<>();
+    final Map<Integer, SDFEdge> connections = new LinkedHashMap<>();
     getPropertyBean().setValue(SDFJoinVertex.EDGES_ORDER, connections);
   }
 

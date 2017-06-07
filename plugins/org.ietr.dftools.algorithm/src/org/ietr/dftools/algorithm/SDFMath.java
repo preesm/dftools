@@ -39,7 +39,7 @@
 package org.ietr.dftools.algorithm;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -74,7 +74,7 @@ public class SDFMath {
    */
   public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(final List<SDFAbstractVertex> subgraph, final SDFGraph graph)
       throws InvalidExpressionException {
-    final HashMap<SDFAbstractVertex, Integer> trueVrb = new HashMap<>();
+    final Map<SDFAbstractVertex, Integer> trueVrb = new LinkedHashMap<>();
     int i = 0;
 
     final double[][] topology = graph.getTopologyMatrix(subgraph);

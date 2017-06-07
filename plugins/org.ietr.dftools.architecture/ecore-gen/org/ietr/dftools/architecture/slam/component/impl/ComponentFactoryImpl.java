@@ -52,164 +52,160 @@ import org.ietr.dftools.architecture.slam.component.Mem;
 import org.ietr.dftools.architecture.slam.component.Operator;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  *
  * @generated
  */
 public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFactory {
-	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public static ComponentFactory init() {
-		try {
-			final ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://net.sf.dftools/architecture/slam/component");
-			if (theComponentFactory != null) {
-				return theComponentFactory;
-			}
-		} catch (final Exception exception) {
-			EcorePlugin.INSTANCE.log(exception);
-		}
-		return new ComponentFactoryImpl();
-	}
+  /**
+   * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public static ComponentFactory init() {
+    try {
+      final ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE.getEFactory(ComponentPackage.eNS_URI);
+      if (theComponentFactory != null) {
+        return theComponentFactory;
+      }
+    } catch (final Exception exception) {
+      EcorePlugin.INSTANCE.log(exception);
+    }
+    return new ComponentFactoryImpl();
+  }
 
-	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 *
-	 * @generated
-	 */
-	public ComponentFactoryImpl() {
-		super();
-	}
+  /**
+   * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  public ComponentFactoryImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public EObject create(final EClass eClass) {
-		switch (eClass.getClassifierID()) {
-			case ComponentPackage.COMPONENT:
-				return createComponent();
-			case ComponentPackage.OPERATOR:
-				return createOperator();
-			case ComponentPackage.COM_NODE:
-				return createComNode();
-			case ComponentPackage.DMA:
-				return createDma();
-			case ComponentPackage.MEM:
-				return createMem();
-			case ComponentPackage.HIERARCHY_PORT:
-				return createHierarchyPort();
-			case ComponentPackage.COM_INTERFACE:
-				return createComInterface();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EObject create(final EClass eClass) {
+    switch (eClass.getClassifierID()) {
+      case ComponentPackage.COMPONENT:
+        return createComponent();
+      case ComponentPackage.OPERATOR:
+        return createOperator();
+      case ComponentPackage.COM_NODE:
+        return createComNode();
+      case ComponentPackage.DMA:
+        return createDma();
+      case ComponentPackage.MEM:
+        return createMem();
+      case ComponentPackage.HIERARCHY_PORT:
+        return createHierarchyPort();
+      case ComponentPackage.COM_INTERFACE:
+        return createComInterface();
+      default:
+        throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+    }
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Component createComponent() {
-		final ComponentImpl component = new ComponentImpl();
-		return component;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Component createComponent() {
+    final ComponentImpl component = new ComponentImpl();
+    return component;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Operator createOperator() {
-		final OperatorImpl operator = new OperatorImpl();
-		return operator;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Operator createOperator() {
+    final OperatorImpl operator = new OperatorImpl();
+    return operator;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ComNode createComNode() {
-		final ComNodeImpl comNode = new ComNodeImpl();
-		return comNode;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ComNode createComNode() {
+    final ComNodeImpl comNode = new ComNodeImpl();
+    return comNode;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Dma createDma() {
-		final DmaImpl dma = new DmaImpl();
-		return dma;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Dma createDma() {
+    final DmaImpl dma = new DmaImpl();
+    return dma;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Mem createMem() {
-		final MemImpl mem = new MemImpl();
-		return mem;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Mem createMem() {
+    final MemImpl mem = new MemImpl();
+    return mem;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public HierarchyPort createHierarchyPort() {
-		final HierarchyPortImpl hierarchyPort = new HierarchyPortImpl();
-		return hierarchyPort;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public HierarchyPort createHierarchyPort() {
+    final HierarchyPortImpl hierarchyPort = new HierarchyPortImpl();
+    return hierarchyPort;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ComInterface createComInterface() {
-		final ComInterfaceImpl comInterface = new ComInterfaceImpl();
-		return comInterface;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ComInterface createComInterface() {
+    final ComInterfaceImpl comInterface = new ComInterfaceImpl();
+    return comInterface;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public ComponentPackage getComponentPackage() {
-		return (ComponentPackage) getEPackage();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public ComponentPackage getComponentPackage() {
+    return (ComponentPackage) getEPackage();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @deprecated
-	 * @generated
-	 */
-	@Deprecated
-	public static ComponentPackage getPackage() {
-		return ComponentPackage.eINSTANCE;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @deprecated
+   * @generated
+   */
+  @Deprecated
+  public static ComponentPackage getPackage() {
+    return ComponentPackage.eINSTANCE;
+  }
 
 } // ComponentFactoryImpl

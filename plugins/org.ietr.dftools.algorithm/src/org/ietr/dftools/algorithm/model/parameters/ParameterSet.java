@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -45,7 +45,7 @@ import java.util.HashMap;
  *
  * @author jpiat
  */
-public class ParameterSet extends HashMap<String, Parameter> {
+public class ParameterSet extends LinkedHashMap<String, Parameter> {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = -9089649660961260196L;

@@ -68,7 +68,7 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
@@ -84,7 +84,7 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#setValue(java.lang.Object)
    */
   @Override
@@ -106,7 +106,7 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
    */
   @Override
@@ -116,7 +116,7 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override

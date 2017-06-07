@@ -46,7 +46,7 @@ public class FileRefinement implements IRefinement, CloneableProperty {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#clone()
    */
   @Override

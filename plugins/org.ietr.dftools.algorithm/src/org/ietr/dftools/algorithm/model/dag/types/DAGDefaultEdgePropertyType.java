@@ -75,7 +75,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
@@ -85,7 +85,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
@@ -95,7 +95,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
    */
   @Override

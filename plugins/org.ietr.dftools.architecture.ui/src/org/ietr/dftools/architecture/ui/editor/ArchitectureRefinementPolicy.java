@@ -66,7 +66,7 @@ public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.graphiti.model.DefaultRefinementPolicy#getRefinementFile(org.ietr.dftools.graphiti.model.Vertex)
    */
   @Override

@@ -39,7 +39,7 @@
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -74,7 +74,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
@@ -190,7 +190,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -201,7 +201,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
@@ -250,7 +250,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   protected Map<Integer, SDFEdge> getConnections() {
     Map<Integer, SDFEdge> connections;
     if ((connections = (Map<Integer, SDFEdge>) getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER)) == null) {
-      connections = new HashMap<>();
+      connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
     }
     return connections;
@@ -258,13 +258,13 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {
     super.copyProperties(props);
-    final Map<SDFEdge, Integer> connections = new HashMap<>();
+    final Map<SDFEdge, Integer> connections = new LinkedHashMap<>();
     getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
   }
 

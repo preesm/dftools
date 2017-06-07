@@ -37,7 +37,7 @@
  */
 package org.ietr.dftools.algorithm.factories;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
@@ -51,7 +51,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 public class ModelGraphFactory {
 
   /** The models. */
-  private static Map<String, Class<?>> models = new HashMap<>();
+  private static Map<String, Class<?>> models = new LinkedHashMap<>();
 
   static {
     ModelGraphFactory.models.put("sdf", SDFGraph.class);

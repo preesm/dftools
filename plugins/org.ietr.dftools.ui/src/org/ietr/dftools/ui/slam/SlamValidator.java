@@ -40,7 +40,7 @@
  */
 package org.ietr.dftools.ui.slam;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -330,7 +330,7 @@ public final class SlamValidator implements IValidator {
     boolean valid = true;
     boolean hasSize = false;
     boolean conflictedSizes = false;
-    final Map<String, String> definitionToSize = new HashMap<>();
+    final Map<String, String> definitionToSize = new LinkedHashMap<>();
 
     for (final Vertex v : graph.vertexSet()) {
       hasSize = false;
@@ -479,7 +479,7 @@ public final class SlamValidator implements IValidator {
     boolean valid = true;
     boolean hasRefName = false;
     boolean conflictedRefinements = false;
-    final Map<String, String> definitionToRefinement = new HashMap<>();
+    final Map<String, String> definitionToRefinement = new LinkedHashMap<>();
 
     for (final Vertex v : graph.vertexSet()) {
       hasRefName = false;

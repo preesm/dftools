@@ -47,7 +47,7 @@ public class GenericEdge extends AbstractEdge<GenericGraph, GenericVertex> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override

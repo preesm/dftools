@@ -51,7 +51,7 @@ public class DAGEdgeFactory implements EdgeFactory<DAGVertex, DAGEdge> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.jgrapht.EdgeFactory#createEdge(java.lang.Object, java.lang.Object)
    */
   @Override

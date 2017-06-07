@@ -40,7 +40,7 @@
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -121,7 +121,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
   /**
    * This method adds the {@link SDFEdge}s to the output Single-Rate {@link SDFGraph}.
-   * 
+   *
    * <b>The code of this method strongly inspired JoinForkCleaner.replaceEdge method, if bugs are found here, it is likely they exist also there</b> (sorry for
    * the poor code design).
    *
@@ -135,7 +135,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private void linkVerticesTop(final SDFGraph sdf, final HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies, final SDFGraph output)
+  private void linkVerticesTop(final SDFGraph sdf, final Map<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies, final SDFGraph output)
       throws InvalidExpressionException {
 
     // Scan the edges of the input graph
@@ -487,7 +487,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
   // This map associates each vertex of the input graph to corresponding
   /** The match copies. */
   // instances in the output graph
-  private HashMap<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies;
+  private Map<SDFAbstractVertex, Vector<SDFAbstractVertex>> matchCopies;
 
   /**
    * Gets the match copies.
@@ -500,8 +500,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
   /**
    * This method transforms a schedulable {@link SDFGraph} into its equivalent Single-Rate {@link SDFGraph}. The method duplicate the vertices according to the
-   * Repetition Vector of the {@link SDFGraph} then create the appropriate {@link SDFEdge}s through a call to
-   * {@link #linkVerticesTop(SDFGraph, HashMap, SDFGraph)}.
+   * Repetition Vector of the {@link SDFGraph} then create the appropriate {@link SDFEdge}s through a call to {@link #linkVerticesTop(SDFGraph, Map, SDFGraph)}.
    *
    * @param graph
    *          the input {@link SDFGraph}
@@ -515,7 +514,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
   private void transformsTop(final SDFGraph graph, final SDFGraph output) throws SDF4JException, InvalidExpressionException {
     // This map associates each vertex of the input graph to corresponding
     // instances in the output graph
-    this.matchCopies = new HashMap<>();
+    this.matchCopies = new LinkedHashMap<>();
 
     if (graph.isSchedulable()) {
       // Scan the vertices of the input graph
@@ -563,7 +562,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
@@ -572,7 +571,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
@@ -633,7 +632,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override

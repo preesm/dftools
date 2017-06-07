@@ -53,7 +53,7 @@ public class GenericInterface implements IInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IInterface#getDirection()
    */
   @Override
@@ -63,7 +63,7 @@ public class GenericInterface implements IInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IInterface#setDirection(java.lang.String)
    */
   @Override
@@ -73,7 +73,7 @@ public class GenericInterface implements IInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IInterface#setDirection(org.ietr.dftools.algorithm.model.InterfaceDirection)
    */
   @Override
@@ -83,7 +83,7 @@ public class GenericInterface implements IInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IInterface#getName()
    */
   @Override
@@ -93,7 +93,7 @@ public class GenericInterface implements IInterface {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.IInterface#setName(java.lang.String)
    */
   @Override

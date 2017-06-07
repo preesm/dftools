@@ -54,7 +54,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#createControl(org.eclipse.swt.widgets.Composite)
    */
   @Override
@@ -66,7 +66,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.ILaunchConfigurationTab#getName()
    */
   @Override
@@ -76,7 +76,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#initializeFrom(org.eclipse.debug.core.ILaunchConfiguration)
    */
   @Override
@@ -87,7 +87,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override
@@ -97,7 +97,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override
@@ -107,7 +107,7 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.debug.ui.AbstractLaunchConfigurationTab#getImage()
    */
   @Override

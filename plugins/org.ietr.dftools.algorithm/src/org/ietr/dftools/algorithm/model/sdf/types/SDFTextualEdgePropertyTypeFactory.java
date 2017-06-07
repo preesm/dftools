@@ -82,7 +82,7 @@ public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertyFactory#create(java.lang.Object)
    */
   @Override

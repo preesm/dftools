@@ -41,8 +41,9 @@ package org.ietr.dftools.algorithm.exporter;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
@@ -81,7 +82,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
   protected String path;
 
   /** The class key set. */
-  protected HashMap<String, List<Key>> classKeySet;
+  protected Map<String, List<Key>> classKeySet;
 
   /** The index. */
   protected int index = 0;
@@ -96,7 +97,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
    * Creates a new Instance of GMLExporter.
    */
   public GMLExporter() {
-    this.classKeySet = new HashMap<>();
+    this.classKeySet = new LinkedHashMap<>();
     addKey(AbstractGraph.PARAMETERS, AbstractGraph.PARAMETERS, "graph", null, null);
     addKey(AbstractGraph.VARIABLES, AbstractGraph.VARIABLES, "graph", null, null);
     addKey(AbstractVertex.ARGUMENTS, AbstractVertex.ARGUMENTS, "node", null, null);
@@ -382,9 +383,9 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
   /**
    * Gives this Exporter key set.
    *
-   * @return an HashMap containing this Exporter key set
+   * @return a Map containing this Exporter key set
    */
-  public HashMap<String, List<Key>> getKeySet() {
+  public Map<String, List<Key>> getKeySet() {
     return this.classKeySet;
   }
 
@@ -394,7 +395,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
    * @param keys
    *          The key set
    */
-  public void setKeySet(final HashMap<String, List<Key>> keys) {
+  public void setKeySet(final Map<String, List<Key>> keys) {
     this.classKeySet = keys;
   }
 

@@ -38,7 +38,8 @@
  */
 package org.ietr.dftools.algorithm.generator;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 import org.ietr.dftools.algorithm.Rational;
@@ -69,7 +70,7 @@ public class SDFRandomGraph {
   public static Vector<SDFRandomGraph> adapters = new Vector<>();
 
   /** Instance fractions is the fraction of each vertex. */
-  public static HashMap<SDFAbstractVertex, Rational> fractions;
+  public static Map<SDFAbstractVertex, Rational> fractions;
 
   /** The Constant CLUSTER. */
   private static final String CLUSTER = "cluster";
@@ -85,9 +86,9 @@ public class SDFRandomGraph {
    *          is the number of vertices of the graph
    * @return the repetition vector
    */
-  public static HashMap<SDFAbstractVertex, Integer> CalcRepetitionVector(final SDFGraph graph, final int nbVertexgraph) {
+  public static Map<SDFAbstractVertex, Integer> CalcRepetitionVector(final SDFGraph graph, final int nbVertexgraph) {
 
-    final HashMap<SDFAbstractVertex, Integer> vrb = new HashMap<>(nbVertexgraph);
+    final Map<SDFAbstractVertex, Integer> vrb = new LinkedHashMap<>(nbVertexgraph);
     int l = 1;
     // Find lowest common multiple (lcm) of all denominators
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
@@ -151,7 +152,7 @@ public class SDFRandomGraph {
     final SDFGraph newgraph = graph.clone();// new graph is created to
     // reduce execution time of
     // cycle detection
-    final HashMap<SDFAbstractVertex, Integer> vrb = SDFRandomGraph.CalcRepetitionVector(graph, nbVertexgraph);
+    final Map<SDFAbstractVertex, Integer> vrb = SDFRandomGraph.CalcRepetitionVector(graph, nbVertexgraph);
     for (final SDFAbstractVertex Dst : graph.vertexSet()) {
       // if there is a cycle containing the source and the target of an
       // edge a delay is on placed on it
@@ -290,7 +291,7 @@ public class SDFRandomGraph {
     final SDFVertex[] arrayVertex = new SDFVertex[nbVertex];
     final Vector<Integer> In_free_Vertex = new Vector<>(nbVertex, 0);
     final Vector<Integer> Out_free_Vertex = new Vector<>(nbVertex, 0);
-    SDFRandomGraph.fractions = new HashMap<>();
+    SDFRandomGraph.fractions = new LinkedHashMap<>();
     final Vector<SDFAbstractVertex> Sensors = new Vector<>(nbSensors);
     // Create an SDF Graph
     final SDFGraph graph = new SDFGraph();
@@ -314,8 +315,8 @@ public class SDFRandomGraph {
       nbSinksVertex[nbVertexgraph] = minInDegree + (int) (Math.random() * ((max + 1) - minInDegree));
       nbSinks += nbSinksVertex[nbVertexgraph];
       nbSources += nbSourcesVertex[nbVertexgraph];
-      double min2 = Math.sqrt(minRate);
-      double max2 = Math.sqrt(maxRate);
+      final double min2 = Math.sqrt(minRate);
+      final double max2 = Math.sqrt(maxRate);
       final int randNum = (int) min2 + (int) (Math.random() * ((max2 - min2) + 1));
       final int randDenum = (int) min2 + (int) (Math.random() * ((max2 - min2) + 1));
       SDFRandomGraph.fractions.put(Vertex, new Rational(randNum, randDenum));

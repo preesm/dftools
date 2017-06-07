@@ -82,7 +82,7 @@ public class NewSlamFileWizard extends Wizard implements INewWizard {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.jface.wizard.Wizard#addPages()
    */
   @Override
@@ -99,7 +99,7 @@ public class NewSlamFileWizard extends Wizard implements INewWizard {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench, org.eclipse.jface.viewers.IStructuredSelection)
    */
   @Override
@@ -110,7 +110,7 @@ public class NewSlamFileWizard extends Wizard implements INewWizard {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.eclipse.jface.wizard.Wizard#performFinish()
    */
   @Override

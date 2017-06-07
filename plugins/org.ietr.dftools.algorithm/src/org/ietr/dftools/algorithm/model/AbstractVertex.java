@@ -111,7 +111,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getPublicProperties()
    */
   @Override
@@ -310,7 +310,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
    */
   @Override
@@ -328,7 +328,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
@@ -390,7 +390,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#clone()
    */
   @Override
@@ -448,7 +448,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
@@ -488,7 +488,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
    */
   @Override
@@ -501,7 +501,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
    */
   @Override

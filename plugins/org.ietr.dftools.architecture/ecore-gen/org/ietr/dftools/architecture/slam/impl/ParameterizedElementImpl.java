@@ -37,7 +37,6 @@
 package org.ietr.dftools.architecture.slam.impl;
 
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -50,134 +49,130 @@ import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.attributes.Parameter;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Parameterized Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Parameterized Element</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * <ul>
- * <li>
- * {@link org.ietr.dftools.architecture.slam.impl.ParameterizedElementImpl#getParameters
- * <em>Parameters</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ * <li>{@link org.ietr.dftools.architecture.slam.impl.ParameterizedElementImpl#getParameters <em>Parameters</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class ParameterizedElementImpl extends EObjectImpl implements ParameterizedElement {
-	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}'
-	 * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @see #getParameters()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Parameter> parameters;
+  /**
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @see #getParameters()
+   * @generated
+   * @ordered
+   */
+  protected EList<Parameter> parameters;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	protected ParameterizedElementImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  protected ParameterizedElementImpl() {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return SlamPackage.Literals.PARAMETERIZED_ELEMENT;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass() {
+    return SlamPackage.Literals.PARAMETERIZED_ELEMENT;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public EList<Parameter> getParameters() {
-		if (this.parameters == null) {
-			this.parameters = new EObjectContainmentEList<>(Parameter.class, this, SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS);
-		}
-		return this.parameters;
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public EList<Parameter> getParameters() {
+    if (this.parameters == null) {
+      this.parameters = new EObjectContainmentEList<>(Parameter.class, this, SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS);
+    }
+    return this.parameters;
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
-		switch (featureID) {
-			case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
-				return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+    switch (featureID) {
+      case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
+        return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-		switch (featureID) {
-			case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
-				return getParameters();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+    switch (featureID) {
+      case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
+        return getParameters();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(final int featureID, final Object newValue) {
-		switch (featureID) {
-			case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection<? extends Parameter>) newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(final int featureID, final Object newValue) {
+    switch (featureID) {
+      case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
+        getParameters().clear();
+        getParameters().addAll((Collection<? extends Parameter>) newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public void eUnset(final int featureID) {
-		switch (featureID) {
-			case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
-				getParameters().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public void eUnset(final int featureID) {
+    switch (featureID) {
+      case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
+        getParameters().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 *
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(final int featureID) {
-		switch (featureID) {
-			case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
-				return (this.parameters != null) && !this.parameters.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   *
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(final int featureID) {
+    switch (featureID) {
+      case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
+        return (this.parameters != null) && !this.parameters.isEmpty();
+    }
+    return super.eIsSet(featureID);
+  }
 
 } // ParameterizedElementImpl

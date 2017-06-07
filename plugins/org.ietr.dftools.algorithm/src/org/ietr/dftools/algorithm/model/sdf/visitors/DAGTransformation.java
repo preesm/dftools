@@ -41,8 +41,9 @@ package org.ietr.dftools.algorithm.model.sdf.visitors;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -189,7 +190,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
         }
       }
     }
-    final HashMap<SDFAbstractVertex, List<SDFAbstractVertex>> mapCopies = new HashMap<>();
+    final Map<SDFAbstractVertex, List<SDFAbstractVertex>> mapCopies = new LinkedHashMap<>();
     final List<SDFAbstractVertex> createdVertices = new ArrayList<>();
     final List<SDFAbstractVertex> sortedCycle = new ArrayList<>();
     final SDFIterator iterator = new SDFIterator(graph, root);
@@ -571,7 +572,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
@@ -580,7 +581,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
@@ -613,7 +614,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override

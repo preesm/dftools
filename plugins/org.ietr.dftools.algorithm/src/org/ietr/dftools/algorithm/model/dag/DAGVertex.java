@@ -198,7 +198,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
@@ -208,7 +208,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
    */
   @Override
@@ -219,7 +219,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override
@@ -230,7 +230,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
@@ -241,7 +241,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
