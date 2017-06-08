@@ -408,33 +408,39 @@ public abstract class AbstractWorkflowExecutor {
    *
    * @param outputs
    *          the outputs
-   * @param task
+   * @param currentTaskNode
    *          the task
    * @throws WorkflowException
    *           the workflow exception
    */
-  private void checkOutputType(final Map<String, Object> outputs, final AbstractWorkflowNodeImplementation task) throws WorkflowException {
+  private void checkOutputType(final Map<String, Object> outputs, final AbstractWorkflowNodeImplementation currentTaskNode) throws WorkflowException {
+    final Set<Entry<String, Object>> outputEntries = outputs.entrySet();
     // Check outputs one by one
-    for (final Entry<String, Object> e : outputs.entrySet()) {
-      final String name = e.getKey();
-      final Object output = e.getValue();
+    for (final Entry<String, Object> outputEntry : outputEntries) {
+      final String outputName = outputEntry.getKey();
+      final Object outputValue = outputEntry.getValue();
 
-      final String type = task.getOutputType(name);
-      String givenType = "Null";
+      final String expectedOutputType = currentTaskNode.getOutputType(outputName);
+      if (expectedOutputType == null) {
+        throw new WorkflowException("The task node " + currentTaskNode + " has an unspecified output with name " + outputName);
+      }
       try {
-        if (output != null) {
-          final Class<?> c = Class.forName(type, true, output.getClass().getClassLoader());
-          if (c.isInstance(output)) {
-            continue;
+        if (outputValue != null) {
+          final ClassLoader outputTypeClassLoader = outputValue.getClass().getClassLoader();
+          final Class<?> currentOutputType = Class.forName(expectedOutputType, true, outputTypeClassLoader);
+          if (!currentOutputType.isInstance(outputValue)) {
+            // Type is wrong !
+            final String givenType = outputValue.getClass().getName();
+            throw new WorkflowException("\nOutput \"" + outputName + "\" of workflow task \"" + currentTaskNode.getClass()
+                + "\" is null or has an invalid type.\n(expected: \"" + expectedOutputType + "\" given: \"" + givenType + "\")");
           }
-          givenType = output.getClass().getName();
         }
-
-        // Something went wrong !
-        throw new WorkflowException("\nOutput \"" + name + "\" of workflow task \"" + task.getClass() + "\" is null or has an invalid type.\n(expected: \""
-            + type + "\" given: \"" + givenType + "\")");
-      } catch (final ClassNotFoundException ex) {
-        ex.printStackTrace();
+        // } catch (final ClassNotFoundException ex) {
+        // throw new WorkflowException("Could not check output type for " + outputEntry, ex);
+      } catch (final Exception ex) {
+        final String message = "Could not check output type for [" + outputEntry + "] of task [" + currentTaskNode + "] with expected type ["
+            + expectedOutputType + "].";
+        throw new WorkflowException(message, ex);
       }
     }
   }
