@@ -64,34 +64,44 @@ public class WorkflowConverter {
 
     for (final File file : files) {
       if (file.getCanonicalPath().endsWith(".workflow")) {
-
-        if (!WorkflowConverter.isNewWorkflow(file)) {
-
-          final String inputPath = file.getCanonicalPath();
-          final String outputPath = file.getCanonicalPath().replaceFirst(".workflow", "_new.workflow");
-          final String xslPath = currentDir.getCanonicalPath() + "/newWorkflow.xslt";
-
-          if (!inputPath.isEmpty() && !outputPath.isEmpty() && !xslPath.isEmpty()) {
-            try {
-              final XsltTransformer xsltTransfo = new XsltTransformer();
-              if (xsltTransfo.setXSLFile(xslPath)) {
-                System.out.println("Generating file: " + outputPath);
-                xsltTransfo.transformFileToFile(inputPath, outputPath);
-              }
-
-              // xsltTransfo.
-            } catch (final TransformerConfigurationException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
-            }
-          }
-        }
+        convert(currentDir, file);
       }
     }
 
   }
 
-  private static boolean isNewWorkflow(final File file) throws IOException {
+  /**
+   */
+  public static void convert(final File currentDir, final File file) throws IOException {
+    boolean isNewWorkflow = WorkflowConverter.isNewWorkflow(file);
+    if (!isNewWorkflow) {
+
+      final String inputPath = file.getCanonicalPath();
+      final String outputPath = file.getCanonicalPath().replaceFirst(".workflow", "_new.workflow");
+
+      final String xslPath = currentDir.getCanonicalPath() + "/newWorkflow.xslt";
+
+      if (!inputPath.isEmpty() && !outputPath.isEmpty() && !xslPath.isEmpty()) {
+        try {
+          final XsltTransformer xsltTransfo = new XsltTransformer();
+          boolean setXSLFile = xsltTransfo.setXSLFile(xslPath);
+          if (setXSLFile) {
+            System.out.println("Generating file: " + outputPath);
+            xsltTransfo.transformFileToFile(inputPath, outputPath);
+          }
+
+        } catch (final TransformerConfigurationException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  /**
+   *
+   */
+  public static boolean isNewWorkflow(final File file) throws IOException {
     final FileInputStream fin = new FileInputStream(file);
     String thisLine;
     final BufferedReader myInput = new BufferedReader(new InputStreamReader(fin));
