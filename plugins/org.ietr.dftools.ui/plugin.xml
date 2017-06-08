@@ -72,6 +72,13 @@
             properties="isWorkflow"
             type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
+      <propertyTester
+            class="org.ietr.dftools.ui.workflow.command.OldWorkflowPropertyTester"
+            id="net.sf.dftools.ui.workflow.oldWorkflowTester"
+            namespace="net.sf.dftools"
+            properties="isOldWorkflow"
+            type="org.eclipse.core.runtime.IAdaptable">
+      </propertyTester>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
@@ -584,4 +591,64 @@
          </edgeType>
       </configuration>
    </extension>
+
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.ietr.dftools.ui.command.workflow.converter"
+            name="Convert Old Workflow">
+      </command>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.ietr.dftools.ui.workflow.command.WorkflowConverterHandler"
+            commandId="org.ietr.dftools.ui.command.workflow.converter">
+      </handler>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.ietr.preesm.ui.menu1">
+            <command
+                  commandId="org.ietr.dftools.ui.command.workflow.converter"
+                  icon="icons/workflow.png"
+                  label="Convert Old Workflow"
+                  style="push"
+                  tooltip="Convert a Workflow file using the old format into a workflow using the new format.">
+               <visibleWhen
+                     checkEnabled="true">
+                  <with
+                        variable="selection">
+                     <count
+                           value="1">
+                     </count>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                           <adapt
+                                 type="org.eclipse.core.resources.IResource">
+                       		 <and>
+	                              <test
+	                                    property="org.eclipse.core.resources.extension"
+	                                    value="workflow">
+	                              </test>
+		                           <test
+		                                 forcePluginActivation="false"
+		                                 property="net.sf.dftools.isOldWorkflow">
+		                           </test>
+                     		   </and>
+                           </adapt>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+      </menuContribution>
+   </extension>
+
 </plugin>
