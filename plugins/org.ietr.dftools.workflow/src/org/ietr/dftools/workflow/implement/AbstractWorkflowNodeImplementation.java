@@ -139,13 +139,13 @@ public abstract class AbstractWorkflowNodeImplementation {
   // an
   /** The Constant KEY_BOUND_MIN_SET. */
   // int
-  protected static final String KEY_BOUND_MIN_SET = "BoundMin"; // Should
+  protected static final String KEY_BOUND_MIN_SET = "minBounds"; // Should
   // give
   // a
   // Set<Integer>
   /** The Constant KEY_BOUND_MAX_SET. */
   // object
-  protected static final String KEY_BOUND_MAX_SET = "BoundMax"; // Should
+  protected static final String KEY_BOUND_MAX_SET = "maxBounds"; // Should
   // give
   // a
   // Set<Integer>
