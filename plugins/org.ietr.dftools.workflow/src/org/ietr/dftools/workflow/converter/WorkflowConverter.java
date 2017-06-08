@@ -41,9 +41,16 @@ package org.ietr.dftools.workflow.converter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import javax.xml.transform.TransformerConfigurationException;
+import org.eclipse.core.runtime.Platform;
+import org.ietr.dftools.workflow.Activator;
+import org.osgi.framework.Bundle;
 
 /**
  * @author mpelcat
@@ -52,50 +59,50 @@ import javax.xml.transform.TransformerConfigurationException;
 public class WorkflowConverter {
 
   /**
-   *
    */
-  public static void main(final String[] args) throws IOException {
-
-    final File currentDir = new File(".");
-
-    final File[] files = currentDir.listFiles();
-
-    System.out.println("converting workflow in directory: " + currentDir.getCanonicalPath());
-
-    for (final File file : files) {
-      if (file.getCanonicalPath().endsWith(".workflow")) {
-        convert(currentDir, file);
-      }
-    }
-
-  }
-
-  /**
-   */
-  public static void convert(final File currentDir, final File file) throws IOException {
-    boolean isNewWorkflow = WorkflowConverter.isNewWorkflow(file);
+  public static void convert(final File file) throws IOException {
+    final boolean isNewWorkflow = WorkflowConverter.isNewWorkflow(file);
     if (!isNewWorkflow) {
 
       final String inputPath = file.getCanonicalPath();
       final String outputPath = file.getCanonicalPath().replaceFirst(".workflow", "_new.workflow");
 
-      final String xslPath = currentDir.getCanonicalPath() + "/newWorkflow.xslt";
+      final String pluginId = Activator.PLUGIN_ID;
+      final Bundle bundle = Platform.getBundle(pluginId);
+      final URL fileURL = bundle.getEntry("resources/newWorkflow.xslt");
+      final File createTempFile = extract(fileURL);
+      final String xslPath = createTempFile.getAbsolutePath();
 
       if (!inputPath.isEmpty() && !outputPath.isEmpty() && !xslPath.isEmpty()) {
         try {
           final XsltTransformer xsltTransfo = new XsltTransformer();
-          boolean setXSLFile = xsltTransfo.setXSLFile(xslPath);
+          final boolean setXSLFile = xsltTransfo.setXSLFile(xslPath);
           if (setXSLFile) {
             System.out.println("Generating file: " + outputPath);
             xsltTransfo.transformFileToFile(inputPath, outputPath);
           }
-
         } catch (final TransformerConfigurationException e) {
-          // TODO Auto-generated catch block
           e.printStackTrace();
+        } finally {
+          createTempFile.delete();
         }
       }
     }
+  }
+
+  private static File extract(final URL fileURL) throws IOException, FileNotFoundException {
+    final File createTempFile = File.createTempFile("worklowconvert", ".xslt");
+    final InputStream inputStream = fileURL.openStream();
+    FileOutputStream outputStream;
+    outputStream = new FileOutputStream(createTempFile);
+    final byte[] buf = new byte[1024];
+    int i = 0;
+    while ((i = inputStream.read(buf)) != -1) {
+      outputStream.write(buf, 0, i);
+    }
+    inputStream.close();
+    outputStream.close();
+    return createTempFile;
   }
 
   /**
