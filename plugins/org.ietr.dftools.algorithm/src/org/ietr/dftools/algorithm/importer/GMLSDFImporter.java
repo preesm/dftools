@@ -41,10 +41,7 @@ package org.ietr.dftools.algorithm.importer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import org.ietr.dftools.algorithm.exporter.GMLGenericExporter;
 import org.ietr.dftools.algorithm.importer.old.GMLSDFImporterV1;
-import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
 // TODO: Auto-generated Javadoc
@@ -104,26 +101,6 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
         throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());
       }
     }
-  }
-
-  /**
-   * The main method.
-   *
-   * @param args
-   *          the arguments
-   * @throws FileNotFoundException
-   *           the file not found exception
-   * @throws InvalidModelException
-   *           the invalid model exception
-   */
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  public static void main(final String[] args) throws FileNotFoundException, InvalidModelException {
-    new ArrayList<File>();
-    final GMLSDFImporter importer = new GMLSDFImporter();
-    final SDFGraph graph = importer.parse(new File("/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml"));
-    System.out.println("Graph " + graph + " parsed \n");
-    final GMLGenericExporter exporter = new GMLGenericExporter();
-    exporter.export((AbstractGraph) graph, "/home/jpiat/development/Method/Dataflow/preesm-tools/preesm/trunk/tests/IDCT2D/Algo/IDCT2D_basic.graphml");
   }
 
 }
