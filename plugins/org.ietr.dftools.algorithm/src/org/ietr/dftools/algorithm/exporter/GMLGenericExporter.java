@@ -37,8 +37,8 @@
 package org.ietr.dftools.algorithm.exporter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
@@ -60,8 +60,10 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
     this.path = path;
     try {
       exportGraph(graph);
-      transform(new FileOutputStream(path));
-    } catch (final FileNotFoundException e) {
+      final FileOutputStream out = new FileOutputStream(path);
+      transform(out);
+      out.close();
+    } catch (final IOException e) {
       e.printStackTrace();
     }
 
