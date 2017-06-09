@@ -43,7 +43,6 @@ import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
-import org.ietr.dftools.algorithm.model.dag.types.DAGDefaultEdgePropertyType;
 import org.w3c.dom.Element;
 
 // TODO: Auto-generated Javadoc
@@ -53,63 +52,6 @@ import org.w3c.dom.Element;
  * @author jpiat
  */
 public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
-
-  /**
-   * Creates a graph to test the Explorer.
-   *
-   * @return The created Graph
-   */
-  public static DirectedAcyclicGraph createTestComGraph() {
-
-    final DirectedAcyclicGraph graph = new DirectedAcyclicGraph();
-
-    // test_com_basique
-    final DAGVertex sensorInt = new DAGVertex();
-    sensorInt.setName("1");
-    graph.addVertex(sensorInt);
-
-    final DAGVertex gen5 = new DAGVertex();
-    gen5.setName("Gen5");
-    graph.addVertex(gen5);
-
-    final DAGVertex recopie5 = new DAGVertex();
-    recopie5.setName("recopie_5");
-    graph.addVertex(recopie5);
-
-    final DAGVertex acqData = new DAGVertex();
-    acqData.setName("acq_data");
-    graph.addVertex(acqData);
-
-    final DAGEdge sensGen = graph.addEdge(sensorInt, gen5);
-    sensGen.setWeight(new DAGDefaultEdgePropertyType(8));
-
-    final DAGEdge genRec = graph.addEdge(gen5, recopie5);
-    genRec.setWeight(new DAGDefaultEdgePropertyType(100));
-
-    final DAGEdge genAcq = graph.addEdge(gen5, acqData);
-    genAcq.setWeight(new DAGDefaultEdgePropertyType(2));
-
-    final DAGEdge recAcq = graph.addEdge(recopie5, acqData);
-    recAcq.setWeight(new DAGDefaultEdgePropertyType(1000));
-    return graph;
-  }
-
-  /**
-   * Tests this exporter behavior.
-   *
-   * @param args
-   *          the arguments
-   */
-  public static void main(final String[] args) {
-    final DirectedAcyclicGraph graph = GMLDAGExporter.createTestComGraph();
-    final GMLDAGExporter exporter = new GMLDAGExporter();
-    try {
-      exporter.exportGraph(graph);
-      exporter.transform(new FileOutputStream("C:\\test_dag_gml.xml"));
-    } catch (final FileNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
 
   /**
    * Builds a new GMLDAGExporter.
