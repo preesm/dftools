@@ -37,10 +37,6 @@
  */
 package org.ietr.dftools.algorithm.importer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import org.ietr.dftools.algorithm.exporter.GMLDAGExporter;
 import org.ietr.dftools.algorithm.factories.DAGEdgeFactory;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
@@ -55,25 +51,6 @@ import org.w3c.dom.NodeList;
  * @author jpiat
  */
 public class GMLDAGImporter extends GMLImporter<DirectedAcyclicGraph, DAGVertex, DAGEdge> {
-
-  /**
-   * Test method.
-   *
-   * @param args
-   *          the arguments
-   */
-  public static void main(final String[] args) {
-    try {
-      final GMLDAGImporter importer = new GMLDAGImporter();
-      final DirectedAcyclicGraph graph = importer.parse(new File("C:\\test_dag_gml.xml"));
-      final GMLDAGExporter exporter = new GMLDAGExporter();
-      exporter.setKeySet(importer.getKeySet());
-      exporter.exportGraph(graph);
-      exporter.transform(new FileOutputStream("C:\\test_dag_gml_2.xml"));
-    } catch (FileNotFoundException | InvalidModelException e) {
-      e.printStackTrace();
-    }
-  }
 
   /**
    * Constructs a new DAG importer with the specified factories.
