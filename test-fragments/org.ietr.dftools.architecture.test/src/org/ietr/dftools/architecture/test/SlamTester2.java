@@ -37,7 +37,7 @@
 /**
  *
  */
-package org.ietr.dftools.architecture.slam.test;
+package org.ietr.dftools.architecture.test;
 
 import java.io.IOException;
 import java.util.Map;
