@@ -38,8 +38,8 @@
 package org.ietr.dftools.algorithm.exporter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -47,7 +47,6 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class represent a GML exporter for SDF.
  *
@@ -56,7 +55,7 @@ import org.w3c.dom.Element;
 public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 
   /** The path. */
-  private String path;
+  private String gmlPath;
 
   /**
    * Creates a new Instance of GMLExporter.
@@ -72,11 +71,11 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public void export(final AbstractGraph<SDFAbstractVertex, SDFEdge> graph, final String path) {
-    this.path = path;
-    try {
+    this.gmlPath = path;
+    try (FileOutputStream out = new FileOutputStream(path)) {
       exportGraph(graph);
-      transform(new FileOutputStream(path));
-    } catch (final FileNotFoundException e) {
+      transform(out);
+    } catch (final IOException e) {
       e.printStackTrace();
     }
   }
@@ -159,10 +158,10 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
         filePath = filePath + ".graphml";
         vertex.getGraphDescription().setName(filePath);
       }
-      filePath.replace(File.separator, "/");
-      final String thisPathPrefix = this.path.substring(0, this.path.lastIndexOf(File.separator) + 1);
+      filePath = filePath.replace(File.separator, "/");
+      final String thisPathPrefix = this.gmlPath.substring(0, this.gmlPath.lastIndexOf(File.separator) + 1);
 
-      if ((filePath.lastIndexOf("/") > 0) && filePath.contains(thisPathPrefix)) {
+      if ((filePath.lastIndexOf('/') > 0) && filePath.contains(thisPathPrefix)) {
         if (filePath.compareTo(thisPathPrefix) > 0) {
           vertex.getGraphDescription().setName(filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
           final GMLSDFExporter decExporter = new GMLSDFExporter();
