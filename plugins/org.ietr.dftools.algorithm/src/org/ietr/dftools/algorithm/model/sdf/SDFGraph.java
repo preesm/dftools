@@ -884,50 +884,65 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
   private List<SDFAbstractVertex> validateOutputs(final SDFAbstractVertex hierarchicalActor) throws SDF4JException {
     final SDFGraph subGraph = ((SDFGraph) hierarchicalActor.getGraphDescription());
-    final List<SDFAbstractVertex> treatedInterfaces = new ArrayList<>();
+    final List<SDFAbstractVertex> validatedOutInterfaces = new ArrayList<>();
     final Set<SDFEdge> actorOutgoingEdges = outgoingEdgesOf(hierarchicalActor);
     for (final SDFEdge actorOutgoingEdge : actorOutgoingEdges) {
       final SDFSinkInterfaceVertex subGraphSinkInterface = (SDFSinkInterfaceVertex) actorOutgoingEdge.getSourceInterface();
-      final String sinkInterfaceName = subGraphSinkInterface.getName();
-      if (treatedInterfaces.contains(subGraphSinkInterface)) {
-        throw new SDF4JException(sinkInterfaceName + " is multiply connected, consider using broadcast ");
+      final String subGraphSinkInterfaceName = subGraphSinkInterface.getName();
+      if (validatedOutInterfaces.contains(subGraphSinkInterface)) {
+        throw new SDF4JException(subGraphSinkInterfaceName + " is multiply connected, consider using broadcast ");
       } else {
-        treatedInterfaces.add(subGraphSinkInterface);
+        validatedOutInterfaces.add(subGraphSinkInterface);
       }
-      if (subGraph.getVertex(sinkInterfaceName) != null) {
-        final SDFAbstractVertex trueSinkInterface = subGraph.getVertex(sinkInterfaceName);
-        for (final SDFEdge edgeIn : subGraph.incomingEdgesOf(trueSinkInterface)) {
-          if (edgeIn.getCons().intValue() != actorOutgoingEdge.getProd().intValue()) {
-            throw new SDF4JException(sinkInterfaceName + " in " + hierarchicalActor.getName() + " has incompatible outside production and inside consumption "
-                + edgeIn.getProd().intValue() + " != " + actorOutgoingEdge.getCons().intValue());
+      if (subGraph.getVertex(subGraphSinkInterfaceName) != null) {
+        final AbstractEdgePropertyType<?> actorOutEdgeProdExpr = actorOutgoingEdge.getProd();
+        final int actorOutEdgeProdRate = actorOutEdgeProdExpr.intValue();
+        final SDFAbstractVertex trueSinkInterface = subGraph.getVertex(subGraphSinkInterfaceName);
+        for (final SDFEdge subGraphSinkInterfaceInEdge : subGraph.incomingEdgesOf(trueSinkInterface)) {
+          final AbstractEdgePropertyType<?> subInterfaceConsExpr = subGraphSinkInterfaceInEdge.getCons();
+          final int sinkInterfaceConsrate = subInterfaceConsExpr.intValue();
+          if (sinkInterfaceConsrate != actorOutEdgeProdRate) {
+            throw new SDF4JException("Sink [" + subGraphSinkInterfaceName + "] in actor [" + hierarchicalActor.getName()
+                + "] has incompatible outside actor production and inside sink vertex consumption " + sinkInterfaceConsrate + " != " + actorOutEdgeProdRate
+                + " (sub graph sink interface consumption rate of " + subInterfaceConsExpr + " does not match actor production rate of " + actorOutEdgeProdExpr
+                + ")");
           }
         }
       }
     }
-    return treatedInterfaces;
+    return validatedOutInterfaces;
   }
 
   private List<SDFAbstractVertex> validateInputs(final SDFAbstractVertex hierarchicalActor) throws SDF4JException {
     final SDFGraph subGraph = ((SDFGraph) hierarchicalActor.getGraphDescription());
-    final List<SDFAbstractVertex> treatedInterfaces = new ArrayList<>();
-    for (final SDFEdge edge : incomingEdgesOf(hierarchicalActor)) {
-      final SDFSourceInterfaceVertex sourceInterface = (SDFSourceInterfaceVertex) edge.getTargetInterface();
-      if (treatedInterfaces.contains(sourceInterface)) {
-        throw new SDF4JException(sourceInterface.getName() + " is multiply connected, consider using broadcast ");
+    final List<SDFAbstractVertex> validatedInInterfaces = new ArrayList<>();
+    final Set<SDFEdge> actorIncomingEdges = incomingEdgesOf(hierarchicalActor);
+    for (final SDFEdge actorIncomingEdge : actorIncomingEdges) {
+      final SDFSourceInterfaceVertex subGraphSourceInterface = (SDFSourceInterfaceVertex) actorIncomingEdge.getTargetInterface();
+      final String subGraphSourceInterfaceName = subGraphSourceInterface.getName();
+      if (validatedInInterfaces.contains(subGraphSourceInterface)) {
+        throw new SDF4JException(subGraphSourceInterfaceName + " is multiply connected, consider using broadcast ");
       } else {
-        treatedInterfaces.add(sourceInterface);
+        validatedInInterfaces.add(subGraphSourceInterface);
       }
-      if (subGraph.getVertex(sourceInterface.getName()) != null) {
-        final SDFAbstractVertex trueSourceInterface = subGraph.getVertex(sourceInterface.getName());
-        for (final SDFEdge edgeIn : subGraph.outgoingEdgesOf(trueSourceInterface)) {
-          if (edgeIn.getProd().intValue() != edge.getCons().intValue()) {
-            throw new SDF4JException(sourceInterface.getName() + " in " + hierarchicalActor.getName()
-                + " has incompatible outside consumption and inside production " + edgeIn.getProd().intValue() + " != " + edge.getCons().intValue());
+      if (subGraph.getVertex(subGraphSourceInterfaceName) != null) {
+        final AbstractEdgePropertyType<?> actorInEdgeConsExpr = actorIncomingEdge.getCons();
+        final int actorInEdgeConsRate = actorInEdgeConsExpr.intValue();
+        final SDFAbstractVertex trueSourceInterface = subGraph.getVertex(subGraphSourceInterfaceName);
+        final Set<SDFEdge> subGraphSourceInterfaceOutEdges = subGraph.outgoingEdgesOf(trueSourceInterface);
+        for (final SDFEdge subGraphSourceInterfaceOutEdge : subGraphSourceInterfaceOutEdges) {
+          final AbstractEdgePropertyType<?> subInterfaceProdExpr = subGraphSourceInterfaceOutEdge.getProd();
+          final int sourceInterfaceProdRate = subInterfaceProdExpr.intValue();
+          if (sourceInterfaceProdRate != actorInEdgeConsRate) {
+            throw new SDF4JException("Source [" + subGraphSourceInterfaceName + "] in actor [" + hierarchicalActor.getName()
+                + "} has incompatible outside actor consumption and inside source vertex production " + sourceInterfaceProdRate + " != " + actorInEdgeConsRate
+                + " (sub graph source interface production rate of " + subInterfaceProdExpr + " does not match actor consumption rate of " + actorInEdgeConsExpr
+                + ")");
           }
         }
       }
     }
-    return treatedInterfaces;
+    return validatedInInterfaces;
   }
 
   /**
