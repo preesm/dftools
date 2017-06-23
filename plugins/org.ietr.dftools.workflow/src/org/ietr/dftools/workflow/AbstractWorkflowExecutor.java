@@ -373,9 +373,7 @@ public abstract class AbstractWorkflowExecutor {
           } catch (final Exception e) {
             final StringWriter error = new StringWriter();
             e.printStackTrace(new PrintWriter(error));
-            e.printStackTrace();
-            log(Level.SEVERE, "Unexpected Exception: " + error.toString() + "\n Contact Preesm developers if you cannot solve the problem.", nodeId,
-                error.toString());
+            error(e, "Unexpected Exception: " + error.toString() + "\n Contact Preesm developers if you cannot solve the problem.");
             return false;
           }
         }

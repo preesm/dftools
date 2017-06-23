@@ -255,9 +255,9 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   }
 
   /**
-   * Gets the graph description.
+   * Gets the graph description. Returns null if the refinement is concrete actor definition (C code).
    *
-   * @return the graph description
+   * @return the graph description if the refinement is a Graph, null otherwise
    */
   @SuppressWarnings("rawtypes")
   public AbstractGraph getGraphDescription() {
