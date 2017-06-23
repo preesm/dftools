@@ -320,10 +320,17 @@ public abstract class AbstractWorkflowExecutor {
           // Executing the workflow task
           try {
             // updating monitor and console
-            if (monitor != null) {
-              monitor.subTask(task.monitorMessage());
+            StringBuilder monitorMessage = new StringBuilder();
+            if (debug) {
+              monitorMessage.append("[" + task.getClass().getSimpleName() + "] ");
             }
-            log(Level.INFO, "Workflow.Step", task.monitorMessage());
+            monitorMessage.append(task.monitorMessage());
+
+            final String monitorMessageStr = monitorMessage.toString();
+            if (monitor != null) {
+              monitor.subTask(monitorMessageStr);
+            }
+            log(Level.INFO, "Workflow.Step", monitorMessageStr);
 
             // Workflow cancellation was requested
             if ((monitor != null) && monitor.isCanceled()) {
