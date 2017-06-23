@@ -40,6 +40,7 @@
 package org.ietr.dftools.algorithm.model.sdf;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -47,6 +48,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.ietr.dftools.algorithm.SDFMath;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
@@ -657,7 +659,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
         }
       }
     } catch (final InvalidExpressionException e) {
-      throw new SDF4JException(getName() + ": " + e.getMessage());
+      throw new SDF4JException(getName() + ": " + e.getMessage(), e);
     }
     return schedulable;
   }
@@ -846,58 +848,86 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @param logger
    *          the logger
    * @throws InvalidExpressionException
-   *           the invalid expression exception
+   *           thrown if the child contains invalid expressions
    * @throws SDF4JException
-   *           the SDF 4 J exception
+   *           thrown if the child is not valid
    */
   private void validateChild(final SDFAbstractVertex child, final Logger logger) throws InvalidExpressionException, SDF4JException {
 
-    // System.out.println(child.getName() + " x" + child.getNbRepeat());
+    // validate vertex
     if (!child.validateModel(logger)) {
       throw new SDF4JException(child.getName() + " is not a valid vertex, verify arguments");
     }
-    if (child.getGraphDescription() != null) {
-      final SDFGraph descritption = ((SDFGraph) child.getGraphDescription());
-      if (!((SDFGraph) child.getGraphDescription()).validateModel(logger)) {
-        throw (new SDF4JException(child.getGraphDescription().getName() + " is not schedulable"));
-      }
-      final List<SDFAbstractVertex> treatedInterfaces = new ArrayList<>();
-      for (final SDFEdge edge : incomingEdgesOf(child)) {
-        final SDFSourceInterfaceVertex sourceInterface = (SDFSourceInterfaceVertex) edge.getTargetInterface();
-        if (treatedInterfaces.contains(sourceInterface)) {
-          throw new SDF4JException(sourceInterface.getName() + " is multiply connected, consider using broadcast ");
-        } else {
-          treatedInterfaces.add(sourceInterface);
-        }
-        if (descritption.getVertex(sourceInterface.getName()) != null) {
-          final SDFAbstractVertex trueSourceInterface = descritption.getVertex(sourceInterface.getName());
-          for (final SDFEdge edgeIn : descritption.outgoingEdgesOf(trueSourceInterface)) {
-            if (edgeIn.getProd().intValue() != edge.getCons().intValue()) {
-              throw new SDF4JException(sourceInterface.getName() + " in " + child.getName() + " has incompatible outside consumption and inside production "
-                  + edgeIn.getProd().intValue() + " != " + edge.getCons().intValue());
-            }
-          }
-        }
-      }
 
-      for (final SDFEdge edge : outgoingEdgesOf(child)) {
-        final SDFSinkInterfaceVertex sinkInterface = (SDFSinkInterfaceVertex) edge.getSourceInterface();
-        if (treatedInterfaces.contains(sinkInterface)) {
-          throw new SDF4JException(sinkInterface.getName() + " is multiply connected, consider using broadcast ");
-        } else {
-          treatedInterfaces.add(sinkInterface);
-        }
-        if (descritption.getVertex(sinkInterface.getName()) != null) {
-          final SDFAbstractVertex trueSinkInterface = descritption.getVertex(sinkInterface.getName());
-          for (final SDFEdge edgeIn : descritption.incomingEdgesOf(trueSinkInterface)) {
-            if (edgeIn.getCons().intValue() != edge.getProd().intValue()) {
-              throw new SDF4JException(sinkInterface.getName() + " in " + child.getName() + " has incompatible outside production and inside consumption "
-                  + edgeIn.getProd().intValue() + " != " + edge.getCons().intValue());
-            }
+    if (child.getGraphDescription() != null) {
+      // validate child graph
+      final String childGraphName = child.getGraphDescription().getName();
+      final SDFGraph descritption = ((SDFGraph) child.getGraphDescription());
+      if (!descritption.validateModel(logger)) {
+        throw (new SDF4JException(childGraphName + " is not schedulable"));
+      }
+      // validate child graph I/Os w.r.t. actor I/Os
+      final List<SDFAbstractVertex> validatedInputs = validateInputs(child);
+      final List<SDFAbstractVertex> validatedOutputs = validateOutputs(child);
+      // make sure
+      final boolean disjoint = Collections.disjoint(validatedInputs, validatedOutputs);
+      if (!disjoint) {
+        validatedInputs.retainAll(validatedOutputs);
+        final List<SDFAbstractVertex> multiplyDefinedEdges = validatedInputs.stream().peek(AbstractVertex::getName).collect(Collectors.toList());
+        throw new SDF4JException(multiplyDefinedEdges + " are multiply connected, consider using broadcast ");
+      }
+    } else {
+      // validate concrete actor implementation
+      // not supported yet
+    }
+  }
+
+  private List<SDFAbstractVertex> validateOutputs(final SDFAbstractVertex hierarchicalActor) throws SDF4JException {
+    final SDFGraph subGraph = ((SDFGraph) hierarchicalActor.getGraphDescription());
+    final List<SDFAbstractVertex> treatedInterfaces = new ArrayList<>();
+    final Set<SDFEdge> actorOutgoingEdges = outgoingEdgesOf(hierarchicalActor);
+    for (final SDFEdge actorOutgoingEdge : actorOutgoingEdges) {
+      final SDFSinkInterfaceVertex subGraphSinkInterface = (SDFSinkInterfaceVertex) actorOutgoingEdge.getSourceInterface();
+      final String sinkInterfaceName = subGraphSinkInterface.getName();
+      if (treatedInterfaces.contains(subGraphSinkInterface)) {
+        throw new SDF4JException(sinkInterfaceName + " is multiply connected, consider using broadcast ");
+      } else {
+        treatedInterfaces.add(subGraphSinkInterface);
+      }
+      if (subGraph.getVertex(sinkInterfaceName) != null) {
+        final SDFAbstractVertex trueSinkInterface = subGraph.getVertex(sinkInterfaceName);
+        for (final SDFEdge edgeIn : subGraph.incomingEdgesOf(trueSinkInterface)) {
+          if (edgeIn.getCons().intValue() != actorOutgoingEdge.getProd().intValue()) {
+            throw new SDF4JException(sinkInterfaceName + " in " + hierarchicalActor.getName() + " has incompatible outside production and inside consumption "
+                + edgeIn.getProd().intValue() + " != " + actorOutgoingEdge.getCons().intValue());
           }
         }
       }
     }
+    return treatedInterfaces;
+  }
+
+  private List<SDFAbstractVertex> validateInputs(final SDFAbstractVertex hierarchicalActor) throws SDF4JException {
+    final SDFGraph subGraph = ((SDFGraph) hierarchicalActor.getGraphDescription());
+    final List<SDFAbstractVertex> treatedInterfaces = new ArrayList<>();
+    for (final SDFEdge edge : incomingEdgesOf(hierarchicalActor)) {
+      final SDFSourceInterfaceVertex sourceInterface = (SDFSourceInterfaceVertex) edge.getTargetInterface();
+      if (treatedInterfaces.contains(sourceInterface)) {
+        throw new SDF4JException(sourceInterface.getName() + " is multiply connected, consider using broadcast ");
+      } else {
+        treatedInterfaces.add(sourceInterface);
+      }
+      if (subGraph.getVertex(sourceInterface.getName()) != null) {
+        final SDFAbstractVertex trueSourceInterface = subGraph.getVertex(sourceInterface.getName());
+        for (final SDFEdge edgeIn : subGraph.outgoingEdgesOf(trueSourceInterface)) {
+          if (edgeIn.getProd().intValue() != edge.getCons().intValue()) {
+            throw new SDF4JException(sourceInterface.getName() + " in " + hierarchicalActor.getName()
+                + " has incompatible outside consumption and inside production " + edgeIn.getProd().intValue() + " != " + edge.getCons().intValue());
+          }
+        }
+      }
+    }
+    return treatedInterfaces;
   }
 
   /**
@@ -950,7 +980,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       }
       return false;
     } catch (final InvalidExpressionException e) {
-      throw new SDF4JException(getName() + ": " + e.getMessage());
+      throw new SDF4JException(getName() + ": " + e.getMessage(), e);
     }
   }
 }
