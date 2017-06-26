@@ -4,14 +4,7 @@ Bundle-Name: S-LAM UI
 Bundle-SymbolicName: org.ietr.dftools.architecture.ui;singleton:=true
 Bundle-Version: 1.2.0
 Bundle-Activator: org.ietr.dftools.architecture.ui.Activator
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.debug.ui,
- org.eclipse.gef;bundle-version="3.6.1",
- org.eclipse.jdt.core,
- org.eclipse.ui.ide,
- org.eclipse.ui.views.properties.tabbed,
- org.ietr.graphiti.model;bundle-version="1.3.16",
- org.ietr.graphiti.ui;bundle-version="1.3.16"
+Require-Bundle: org.ietr.dftools.ui;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: IETR/INSA Rennes

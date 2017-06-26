@@ -45,7 +45,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides a wizard to create a new Architecture project.
  *
