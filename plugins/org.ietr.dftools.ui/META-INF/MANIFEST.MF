@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DFTools UI
+Bundle-SymbolicName: org.ietr.dftools.ui;singleton:=true
+Bundle-Version: 1.2.0
+Bundle-Activator: org.ietr.dftools.ui.Activator
+Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.ui.console,
+ org.eclipse.debug.ui;visibility:=reexport,
+ org.eclipse.ui.ide;visibility:=reexport,
+ org.eclipse.core.expressions;bundle-version="3.4.200",
+ org.eclipse.jdt.core;bundle-version="3.7.0";visibility:=reexport,
+ org.eclipse.ui.views.properties.tabbed;bundle-version="3.5.200";visibility:=reexport,
+ org.eclipse.gef;bundle-version="3.7.0";visibility:=reexport,
+ org.ietr.dftools.architecture,
+ org.ietr.dftools.workflow,
+ org.ietr.graphiti.ui;bundle-version="1.4.0";visibility:=reexport
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: org.ietr.dftools.ui.util,
+ org.ietr.dftools.ui.workflow.launch,
+ org.ietr.dftools.ui.workflow.tools
+Eclipse-BuddyPolicy: global
+Bundle-Vendor: IETR/INSA Rennes
