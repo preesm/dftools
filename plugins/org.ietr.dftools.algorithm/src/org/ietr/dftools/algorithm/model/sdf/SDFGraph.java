@@ -957,7 +957,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   @Override
   public boolean validateModel(final Logger logger) throws SDF4JException {
     try {
-      if (isSchedulable()) {
+      final boolean schedulable = isSchedulable();
+      if (schedulable) {
         computeVRB();
         /*
          * if (this.getVariables() != null) { for (Variable var : this.getVariables().values()) { int val; try { val = var.intValue();
