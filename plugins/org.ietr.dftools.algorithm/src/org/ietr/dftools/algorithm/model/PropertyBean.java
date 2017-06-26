@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
+ * Julien Hascoet <jhascoet@kalray.eu> (2017)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -46,7 +47,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * Defines properties for <code>Graph</code>s and <code>Port</code>s.
  *

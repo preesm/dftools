@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Julien Hascoet <jhascoet@kalray.eu> (2017)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2012)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -62,7 +63,6 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract class common to all graphs.
  *
