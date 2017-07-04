@@ -505,8 +505,6 @@ public abstract class AbstractWorkflowExecutor {
    */
   protected void error(final Throwable cause, final String msg) {
     WorkflowLogger.getLogger().log(Level.SEVERE, msg + ": " + cause.getMessage());
-    if (this.debug) {
-      cause.printStackTrace();
-    }
+    cause.printStackTrace();
   }
 }
