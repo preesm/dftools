@@ -55,6 +55,7 @@ import org.ietr.dftools.workflow.elements.WorkflowEdge;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
+import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -503,7 +504,7 @@ public abstract class AbstractWorkflowExecutor {
    * it here to show (or not) the full stack trace/
    */
   protected void error(final Throwable cause, final String msg) {
-    log(Level.SEVERE, "Workflow.ExecutionException", msg + ": " + cause.getMessage());
+    WorkflowLogger.getLogger().log(Level.SEVERE, "Workflow.ExecutionException", msg + ": " + cause.getMessage());
     if (this.debug) {
       cause.printStackTrace();
     }
