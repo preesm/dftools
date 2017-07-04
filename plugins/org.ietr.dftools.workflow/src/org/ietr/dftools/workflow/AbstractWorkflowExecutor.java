@@ -504,7 +504,7 @@ public abstract class AbstractWorkflowExecutor {
    * it here to show (or not) the full stack trace/
    */
   protected void error(final Throwable cause, final String msg) {
-    WorkflowLogger.getLogger().log(Level.SEVERE, "Workflow.ExecutionException", msg + ": " + cause.getMessage());
+    WorkflowLogger.getLogger().log(Level.SEVERE, msg + ": " + cause.getMessage());
     if (this.debug) {
       cause.printStackTrace();
     }
