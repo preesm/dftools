@@ -1,6 +1,18 @@
 DFTools Changelog
 =================
 
+## Release version X.Y.Z
+*XXXX.XX.XX*
+
+### New Feature
+
+### Changes
+* Add explicit verions for Xtend dependencies to avoid bugs due to API break;
+* Cleanup releng files
+
+### Bug fix
+* Fix bug in the Logger throwing exceptions on errors
+
 ## Release version 1.2.0
 *2017.06.26*
 
