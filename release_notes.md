@@ -9,6 +9,7 @@ DFTools Changelog
 ### Changes
 * Add explicit verions for Xtend dependencies to avoid bugs due to API break;
 * Cleanup releng files
+* Normalize feature licenses
 
 ### Bug fix
 * Fix bug in the Logger throwing exceptions on errors
