@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI
 Bundle-SymbolicName: org.ietr.dftools.ui;singleton:=true
-Bundle-Version: 1.2.0
+Bundle-Version: 1.2.1
 Bundle-Activator: org.ietr.dftools.ui.Activator
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.ui.console,
@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.gef;bundle-version="3.7.0";visibility:=reexport,
  org.ietr.dftools.architecture,
  org.ietr.dftools.workflow,
- org.ietr.graphiti.ui;bundle-version="1.4.0";visibility:=reexport
+ org.ietr.graphiti.ui;bundle-version="1.4.1";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.ietr.dftools.ui.util,

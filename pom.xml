@@ -39,7 +39,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ietr.dftools</groupId>
   <artifactId>org.ietr.dftools.parent</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -402,6 +402,15 @@
   </modules>
 
   <profiles>
+    <profile>
+      <id>java8-doclint-disabled</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+      </properties>
+    </profile>
     <!-- Specific arguments for tests on MacOSX platform -->
     <profile>
       <id>os-macosx</id>
@@ -431,7 +440,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>2.10.4</version>
             <configuration>
-              <failOnError>false</failOnError>
+              <additionalparam>${javadoc.opts}</additionalparam>
             </configuration>
             <executions>
               <execution>

@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: S-LAM UI
 Bundle-SymbolicName: org.ietr.dftools.architecture.ui;singleton:=true
-Bundle-Version: 1.2.0
+Bundle-Version: 1.2.1
 Bundle-Activator: org.ietr.dftools.architecture.ui.Activator
-Require-Bundle: org.ietr.dftools.ui;bundle-version="1.2.0"
+Require-Bundle: org.ietr.dftools.ui
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: IETR/INSA Rennes
