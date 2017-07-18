@@ -1,15 +1,14 @@
 DFTools Changelog
 =================
 
-## Release version X.Y.Z
-*XXXX.XX.XX*
-
-### New Feature
+## Release version 1.2.1
+*2017.07.18*
 
 ### Changes
 * Add explicit verions for Xtend dependencies to avoid bugs due to API break;
 * Cleanup releng files
 * Normalize feature licenses
+* Update Graphiti to 1.4.1
 
 ### Bug fix
 * Fix bug in the Logger throwing exceptions on errors
