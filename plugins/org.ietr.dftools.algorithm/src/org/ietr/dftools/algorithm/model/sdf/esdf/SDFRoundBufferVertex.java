@@ -46,16 +46,12 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * ROund buffer vertex.
  *
  * @author jpiat
  */
 public class SDFRoundBufferVertex extends SDFBroadcastVertex {
-
-  /** String to access the property edges order. */
-  public static final String EDGES_ORDER = "edges_order";
 
   /** Kind of node. */
   public static final String ROUND_BUFFER = "RoundBuffer";
@@ -106,7 +102,7 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
   @SuppressWarnings("unchecked")
   @Override
   public List<SDFEdge> getOutgoingConnections() {
-    return new ArrayList<SDFEdge>(getBase().outgoingEdgesOf(this));
+    return new ArrayList<>(getBase().outgoingEdgesOf(this));
   }
 
   /**
@@ -119,9 +115,6 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
    */
   public void setConnectionIndex(final SDFEdge edge, final int index) {
     final Map<Integer, SDFEdge> connections = getConnections();
-    SDFEdge connectionToRemove = null;
-    connectionToRemove = connections.get(index);
-    connections.remove(connectionToRemove);
     connections.put(index, edge);
   }
 
