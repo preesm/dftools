@@ -51,7 +51,6 @@ import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * HierarchyFlattening for a given depth.
  *

@@ -41,7 +41,6 @@ import org.ietr.dftools.algorithm.model.IInterface;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface to create vertex in the given model.
  *
@@ -49,8 +48,7 @@ import org.w3c.dom.NodeList;
  * @param <V>
  *          The model of vertex to create
  */
-@SuppressWarnings("rawtypes")
-public abstract class ModelVertexFactory<V extends AbstractVertex> {
+public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
 
   /**
    * Creates a vertex with the given parameters.
@@ -90,7 +88,7 @@ public abstract class ModelVertexFactory<V extends AbstractVertex> {
    *          the property name
    * @return the property
    */
-  public String getProperty(final Element elt, final String propertyName) {
+  public final String getProperty(final Element elt, final String propertyName) {
     final NodeList childList = elt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
       if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
