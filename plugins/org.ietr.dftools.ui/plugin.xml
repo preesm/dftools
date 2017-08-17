@@ -188,7 +188,7 @@
       </logger>
    </extension>
    <extension
-         point="org.ietr.graphiti.model.definition">
+         point="graphiti.definition">
       <configuration
             extension="slam"
             name="S-LAM Design"

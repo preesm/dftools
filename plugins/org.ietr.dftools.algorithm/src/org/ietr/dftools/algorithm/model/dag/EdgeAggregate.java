@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model.dag;
 import java.util.ArrayList;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class to represent the edges aggregate while transforming SDF to DAG.
  *

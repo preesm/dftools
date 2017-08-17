@@ -41,7 +41,7 @@
 <feature
       id="org.ietr.dftools.feature"
       label="DFTools"
-      version="1.2.1"
+      version="1.2.2"
       provider-name="IETR/INSA Rennes">
 
    <description url="http://preesm.sourceforge.net/website/">
@@ -574,8 +574,8 @@ Version 1.0 dated 2006-09-05.]]>
    <!-- The following section tells where to lookup missing imported features -->
    <url>
       <!-- Eclipse main repos -->
-      <discovery label="Neon" url="http://mirror.ibcp.fr/pub/eclipse/releases/neon/"/>
-      <discovery label="Neon Updates" url="http://mirror.ibcp.fr/pub/eclipse/eclipse/updates/4.6"/>
+      <discovery label="Oxygen" url="http://mirror.ibcp.fr/pub/eclipse/releases/oxygen/"/>
+      <discovery label="Oxygen Updates" url="http://mirror.ibcp.fr/pub/eclipse/eclipse/updates/4.7"/>
 
       <!-- TMF Repo for latest xtend -->
       <discovery label="TMF Releases" url="http://mirror.ibcp.fr/pub/eclipse/modeling/tmf/xtext/updates/releases/"/>
@@ -593,35 +593,35 @@ Version 1.0 dated 2006-09-05.]]>
          id="org.ietr.dftools.algorithm"
          download-size="0"
          install-size="0"
-         version="1.2.1"
+         version="1.2.2"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.architecture"
          download-size="0"
          install-size="0"
-         version="1.2.1"
+         version="1.2.2"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.architecture.ui"
          download-size="0"
          install-size="0"
-         version="1.2.1"
+         version="1.2.2"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.ui"
          download-size="0"
          install-size="0"
-         version="1.2.1"
+         version="1.2.2"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.workflow"
          download-size="0"
          install-size="0"
-         version="1.2.1"
+         version="1.2.2"
          unpack="false"/>
 
 </feature>

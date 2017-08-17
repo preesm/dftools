@@ -41,7 +41,6 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface of the SDF visitor.
  *

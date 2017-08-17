@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.2
+*2017.08.17*
+
+### New Feature
+
+### Changes
+* Upgrade to Eclipse Oxygen;
+* Use new Graphiti extension point name (new version);
+
+### Bug fix
+
 ## Release version 1.2.1
 *2017.07.18*
 
