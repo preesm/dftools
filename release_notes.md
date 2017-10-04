@@ -8,6 +8,7 @@ DFTools Changelog
 * Add feature dependency to TM Terminal to have easy terminal access;
 
 ### Changes
+* Workflow execution now trigger a refresh of the workspace before and after execution;
 
 ### Bug fix
 
