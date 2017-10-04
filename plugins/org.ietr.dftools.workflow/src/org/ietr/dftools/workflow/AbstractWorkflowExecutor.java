@@ -46,6 +46,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.ietr.dftools.workflow.elements.AbstractWorkflowNode;
 import org.ietr.dftools.workflow.elements.ScenarioNode;
@@ -220,6 +224,7 @@ public abstract class AbstractWorkflowExecutor {
   public boolean execute(final String workflowPath, final String scenarioPath, final IProgressMonitor monitor) {
 
     final Workflow workflow = new WorkflowParser().parse(workflowPath);
+    refreshProject(workflow.getProjectName(), monitor, "Warning: Could not refresh project before workflow execution");
 
     // Initializing the workflow console
     log(Level.INFO, "Workflow.StartInfo", workflowPath);
@@ -404,9 +409,20 @@ public abstract class AbstractWorkflowExecutor {
       }
     }
 
+    refreshProject(workflow.getProjectName(), monitor, "Warning: Could not refresh project after workflow execution");
     log(Level.INFO, "Workflow.EndInfo", workflowPath);
 
     return true;
+  }
+
+  private final void refreshProject(final String projectName, final IProgressMonitor monitor, final String warningMessage) {
+    try {
+      IWorkspace workspace = ResourcesPlugin.getWorkspace();
+      IProject project = workspace.getRoot().getProject(projectName);
+      project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+    } catch (Exception e) {
+      WorkflowLogger.getLogger().log(Level.WARNING, warningMessage, e);
+    }
   }
 
   /**
