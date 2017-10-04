@@ -6,6 +6,7 @@ DFTools Changelog
 
 ### New Feature
 * Add feature dependency to TM Terminal to have easy terminal access;
+* Add feature dependency to Graphiti SDK Plus source;
 
 ### Changes
 * Workflow execution now trigger a refresh of the workspace before and after execution;
