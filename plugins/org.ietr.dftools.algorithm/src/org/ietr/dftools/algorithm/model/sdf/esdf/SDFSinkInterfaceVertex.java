@@ -70,7 +70,7 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
     if (getSources().size() != 0) {
       final SDFSourceInterfaceVertex so = new SDFSourceInterfaceVertex();
       so.setName(getName());
-      copy.addSink(so);
+      copy.addSource(so);
     }
     return copy;
   }
