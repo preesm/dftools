@@ -12,6 +12,7 @@ DFTools Changelog
 * Workflow execution now trigger a refresh of the workspace before and after execution;
 
 ### Bug fix
+* Fix clone() method of SDFSinkInterfaceVertex class (see #3);
 
 ## Release version 1.2.2
 *2017.08.17*
