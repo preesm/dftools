@@ -10,6 +10,8 @@ DFTools Changelog
 
 ### Changes
 * Workflow execution now trigger a refresh of the workspace before and after execution;
+* Remove unused code and related unecessary dependencies;
+* Fix log time formatter (prefix digit with 0 instead of a blank space);
 
 ### Bug fix
 * Fix clone() method of SDFSinkInterfaceVertex class (see #3);

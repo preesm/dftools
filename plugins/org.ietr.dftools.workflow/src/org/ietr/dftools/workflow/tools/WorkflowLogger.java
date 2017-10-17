@@ -127,7 +127,7 @@ public abstract class WorkflowLogger extends Logger {
   public static String getFormattedTime() {
     final Calendar cal = Calendar.getInstance();
 
-    final String time = String.format("%2d:%2d:%2d ", cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
+    final String time = String.format("%02d:%02d:%02d ", cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
     return time;
   }
 

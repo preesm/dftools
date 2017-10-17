@@ -49,10 +49,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -356,31 +352,6 @@ public class IPXACTDesignParser extends IPXACTParser {
         }
       }
     }
-  }
-
-  /**
-   * Returns the list of source folders of the given project as a list of absolute workspace paths.
-   *
-   * @param container
-   *          a container (a project for instance)
-   * @return a set of folders
-   * @throws CoreException
-   *           the core exception
-   */
-  public static Set<IFolder> getFolders(final IContainer container) throws CoreException {
-    final Set<IFolder> folders = new LinkedHashSet<>();
-
-    for (final IResource resource : container.members()) {
-      if (resource instanceof IFolder) {
-        folders.add((IFolder) resource);
-      }
-
-      if (resource instanceof IContainer) {
-        folders.addAll(IPXACTDesignParser.getFolders((IContainer) resource));
-      }
-    }
-
-    return folders;
   }
 
   /**
