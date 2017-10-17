@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.core.expressions,
  org.eclipse.ui.views.properties.tabbed;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport,
- org.ietr.graphiti.ui;bundle-version="1.4.2";visibility:=reexport,
+ org.ietr.graphiti.ui;bundle-version="1.4.3";visibility:=reexport,
  org.ietr.dftools.architecture,
  org.ietr.dftools.workflow
 Bundle-ActivationPolicy: lazy
