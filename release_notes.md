@@ -1,8 +1,8 @@
 DFTools Changelog
 =================
 
-## Release version X.Y.Z
-*XXXX.XX.XX*
+## Release version 1.2.3
+*2017.10.17*
 
 ### New Feature
 * Add feature dependency to TM Terminal to have easy terminal access;
