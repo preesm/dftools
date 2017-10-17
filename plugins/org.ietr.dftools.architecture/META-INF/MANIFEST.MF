@@ -22,7 +22,6 @@ Export-Package: org.ietr.dftools.architecture.slam,
  org.ietr.dftools.architecture.slam.serialize,
  org.ietr.dftools.architecture.utils
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.core.resources;bundle-version="3.7.100"
+ org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: IETR/INSA Rennes
