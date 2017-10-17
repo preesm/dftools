@@ -4,6 +4,7 @@
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
  * blaunay <bapt.launay@gmail.com> (2015)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
+ * Hamza Deroui <hamza.deroui@insa-rennes.fr> (2017)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -70,7 +71,7 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
     if (getSources().size() != 0) {
       final SDFSourceInterfaceVertex so = new SDFSourceInterfaceVertex();
       so.setName(getName());
-      copy.addSink(so);
+      copy.addSource(so);
     }
     return copy;
   }

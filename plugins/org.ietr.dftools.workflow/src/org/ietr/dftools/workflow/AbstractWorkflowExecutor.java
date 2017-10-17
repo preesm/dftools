@@ -46,6 +46,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.ietr.dftools.workflow.elements.AbstractWorkflowNode;
 import org.ietr.dftools.workflow.elements.ScenarioNode;
@@ -57,7 +61,6 @@ import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This abstract class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins tasks applied to a scenario.
  *
@@ -78,7 +81,7 @@ public abstract class AbstractWorkflowExecutor {
   /**
    * Ports with this name are ignored when exchanging data. They just specify precedence.
    */
-  public static String IGNORE_PORT_NAME = "void";
+  public static final String IGNORE_PORT_NAME = "void";
 
   /**
    * Checks the existence of all task and scenario classes and sets the classes in the workflow nodess.
@@ -105,16 +108,13 @@ public abstract class AbstractWorkflowExecutor {
           log(Level.SEVERE, "Workflow.FailedFindScenarioPlugin", ((ScenarioNode) node).getScenarioId());
           return false;
         }
-      } else if (node.isTaskNode()) {
-        // Testing only connected nodes
-        if (!workflow.edgesOf(node).isEmpty()) {
-          workflowOk = ((TaskNode) node).getExtensionInformation();
+      } else if (node.isTaskNode() && !workflow.edgesOf(node).isEmpty()) {
+        workflowOk = ((TaskNode) node).getExtensionInformation();
 
-          // The plugin declaring the task class was not found
-          if (!workflowOk) {
-            log(Level.SEVERE, "Workflow.FailedFindTaskPlugin", ((TaskNode) node).getTaskId());
-            return false;
-          }
+        // The plugin declaring the task class was not found
+        if (!workflowOk) {
+          log(Level.SEVERE, "Workflow.FailedFindTaskPlugin", ((TaskNode) node).getTaskId());
+          return false;
         }
       }
     }
@@ -220,6 +220,7 @@ public abstract class AbstractWorkflowExecutor {
   public boolean execute(final String workflowPath, final String scenarioPath, final IProgressMonitor monitor) {
 
     final Workflow workflow = new WorkflowParser().parse(workflowPath);
+    refreshProject(workflow.getProjectName(), monitor, "Warning: Could not refresh project before workflow execution");
 
     // Initializing the workflow console
     log(Level.INFO, "Workflow.StartInfo", workflowPath);
@@ -235,7 +236,7 @@ public abstract class AbstractWorkflowExecutor {
       return false;
     }
 
-    if (workflow.vertexSet().size() == 0) {
+    if (workflow.vertexSet().isEmpty()) {
       log(Level.SEVERE, "Workflow.EmptyVertexSet");
 
       return false;
@@ -404,9 +405,20 @@ public abstract class AbstractWorkflowExecutor {
       }
     }
 
+    refreshProject(workflow.getProjectName(), monitor, "Warning: Could not refresh project after workflow execution");
     log(Level.INFO, "Workflow.EndInfo", workflowPath);
 
     return true;
+  }
+
+  private final void refreshProject(final String projectName, final IProgressMonitor monitor, final String warningMessage) {
+    try {
+      IWorkspace workspace = ResourcesPlugin.getWorkspace();
+      IProject project = workspace.getRoot().getProject(projectName);
+      project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+    } catch (Exception e) {
+      WorkflowLogger.getLogger().log(Level.WARNING, warningMessage, e);
+    }
   }
 
   /**
@@ -419,7 +431,7 @@ public abstract class AbstractWorkflowExecutor {
    * @throws WorkflowException
    *           the workflow exception
    */
-  private void checkOutputType(final Map<String, Object> outputs, final AbstractWorkflowNodeImplementation currentTaskNode) throws WorkflowException {
+  private void checkOutputType(final Map<String, Object> outputs, final AbstractWorkflowNodeImplementation currentTaskNode) {
     final Set<Entry<String, Object>> outputEntries = outputs.entrySet();
     // Check outputs one by one
     for (final Entry<String, Object> outputEntry : outputEntries) {
@@ -441,8 +453,6 @@ public abstract class AbstractWorkflowExecutor {
                 + "\" is null or has an invalid type.\n(expected: \"" + expectedOutputType + "\" given: \"" + givenType + "\")");
           }
         }
-        // } catch (final ClassNotFoundException ex) {
-        // throw new WorkflowException("Could not check output type for " + outputEntry, ex);
       } catch (final Exception ex) {
         final String message = "Could not check output type for [" + outputEntry + "] of task [" + currentTaskNode + "] with expected type ["
             + expectedOutputType + "].";
@@ -471,14 +481,14 @@ public abstract class AbstractWorkflowExecutor {
           return false;
         }
       } else {
-        for (final String param : defaultParameters.keySet()) {
-          if (!parameters.containsKey(param)) {
+        for (final Entry<String, String> p : defaultParameters.entrySet()) {
+          if (!parameters.containsKey(p.getKey())) {
             // Antoine Morvan, 29/05/2017 :
             // https://github.com/preesm/dftools/issues/2
             // Instead of failing when a parameter is not specified, simply log a warning and
             // use value from defaultParameters.
-            log(Level.WARNING, "Workflow.MissingParameter", taskNode.getTaskId(), defaultParameters.keySet().toString());
-            parameters.put(param, defaultParameters.get(param));
+            log(Level.WARNING, "Workflow.MissingParameter", taskNode.getTaskId(), p.getKey());
+            parameters.put(p.getKey(), p.getValue());
           }
         }
       }

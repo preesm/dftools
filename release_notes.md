@@ -1,6 +1,22 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.3
+*2017.10.17*
+
+### New Feature
+* Add feature dependency to TM Terminal to have easy terminal access;
+* Add feature dependency to Graphiti SDK Plus source;
+
+### Changes
+* Workflow execution now trigger a refresh of the workspace before and after execution;
+* Remove unused code and related unecessary dependencies;
+* Fix log time formatter (prefix digit with 0 instead of a blank space);
+* Update to Graphiti 1.4.3
+
+### Bug fix
+* Fix clone() method of SDFSinkInterfaceVertex class (see #3);
+
 ## Release version 1.2.2
 *2017.08.17*
 
