@@ -41,15 +41,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
 import org.ietr.dftools.graphiti.model.Vertex;
 import org.ietr.dftools.ui.util.FileUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class extends the default refinement policy with S-LAM-specific policy.
  *
@@ -63,19 +58,17 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
    *
    * @param vertex
    *          the vertex
-   * @param shell
-   *          The active window's {@link Shell}.
    * @param extension
    *          the extension
    * @return the i path
    */
-  public IPath useExistingFile(final Vertex vertex, final Shell shell, final String extension) {
+  public IPath useExistingFile(final Vertex vertex, final String extension) {
     IPath filePath = null;
 
     if (extension.equals("slam")) {
-      filePath = FileUtils.browseFiles(shell, "Please select an existing S-LAM network file:", extension);
+      filePath = FileUtils.browseFiles("Please select an existing S-LAM network file:", extension);
     } else if (extension.equals("cdl")) {
-      filePath = FileUtils.browseFiles(shell, "Please select an existing CDL file:", extension);
+      filePath = FileUtils.browseFiles("Please select an existing CDL file:", extension);
     }
 
     // Getting relative path
@@ -94,14 +87,11 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
    */
   @Override
   public IPath getNewRefinement(final Vertex vertex) {
-    final IWorkbench workbench = PlatformUI.getWorkbench();
-    final IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-    final Shell shell = window.getShell();
 
     // prompts the user to choose a file
     final String message = "The selected instance can be refined by an existing " + "S-LAM network, by a list of S-LAM networks or by a Component Description"
         + "Language (CDL) file.";
-    final MessageDialog dialog = new MessageDialog(shell, "Set/Update Refinement", null, message, MessageDialog.QUESTION,
+    final MessageDialog dialog = new MessageDialog(null, "Set/Update Refinement", null, message, MessageDialog.QUESTION,
         new String[] { "Select network", "Select CDL file" }, 0);
 
     final int index = dialog.open();
@@ -109,9 +99,9 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
 
     // The user can select either a single new network or a list of networks
     if (index == 0) {
-      newRefinement = useExistingFile(vertex, shell, "slam");
+      newRefinement = useExistingFile(vertex, "slam");
     } else if (index == 1) {
-      newRefinement = useExistingFile(vertex, shell, "cdl");
+      newRefinement = useExistingFile(vertex, "cdl");
     }
 
     return newRefinement;

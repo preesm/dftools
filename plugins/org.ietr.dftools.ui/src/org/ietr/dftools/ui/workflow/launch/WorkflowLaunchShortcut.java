@@ -60,7 +60,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.part.FileEditorInput;
 import org.ietr.dftools.ui.Activator;
@@ -91,8 +90,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     final Set<String> scenarioExtensions = new LinkedHashSet<>();
     scenarioExtensions.add("scenario");
     scenarioExtensions.add("piscenario");
-    final IPath scenarioPath = FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-        WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
+    final IPath scenarioPath = FileUtils.browseFiles(WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
     if ((scenarioPath == null) || scenarioPath.isEmpty()) {
       return null;
     }
