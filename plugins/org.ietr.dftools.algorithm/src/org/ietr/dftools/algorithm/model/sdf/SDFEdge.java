@@ -148,7 +148,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the cons.
    */
   public AbstractEdgePropertyType<?> getCons() {
-    final AbstractEdgePropertyType<?> cons = (AbstractEdgePropertyType<?>) getPropertyBean().getValue(SDFEdge.EDGE_CONS, AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS, AbstractEdgePropertyType.class);
     if (cons instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
     }
@@ -161,7 +161,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the delay.
    */
   public AbstractEdgePropertyType<?> getDelay() {
-    final AbstractEdgePropertyType<?> delay = (AbstractEdgePropertyType<?>) getPropertyBean().getValue(SDFEdge.EDGE_DELAY, AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY, AbstractEdgePropertyType.class);
     if (delay instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
     }
@@ -174,7 +174,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the prod.
    */
   public AbstractEdgePropertyType<?> getProd() {
-    final AbstractEdgePropertyType<?> prod = (AbstractEdgePropertyType<?>) getPropertyBean().getValue(SDFEdge.EDGE_PROD, AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD, AbstractEdgePropertyType.class);
     if (prod instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
     }
@@ -187,7 +187,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the prod.
    */
   public AbstractEdgePropertyType<?> getDataType() {
-    return (AbstractEdgePropertyType<?>) getPropertyBean().getValue(SDFEdge.DATA_TYPE, AbstractEdgePropertyType.class);
+    return getPropertyBean().getValue(SDFEdge.DATA_TYPE, AbstractEdgePropertyType.class);
   }
 
   /**
@@ -196,7 +196,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return The source vertex interface of this edge
    */
   public SDFInterfaceVertex getSourceInterface() {
-    return (SDFInterfaceVertex) getPropertyBean().getValue(SDFEdge.SOURCE_PORT, SDFInterfaceVertex.class);
+    return getPropertyBean().getValue(SDFEdge.SOURCE_PORT, SDFInterfaceVertex.class);
   }
 
   /**
@@ -205,7 +205,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return The interface vertex target of this edge
    */
   public SDFInterfaceVertex getTargetInterface() {
-    return (SDFInterfaceVertex) getPropertyBean().getValue(SDFEdge.TARGET_PORT, SDFInterfaceVertex.class);
+    return getPropertyBean().getValue(SDFEdge.TARGET_PORT, SDFInterfaceVertex.class);
   }
 
   /**
@@ -214,7 +214,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return the source port modifier
    */
   public SDFStringEdgePropertyType getSourcePortModifier() {
-    return (SDFStringEdgePropertyType) getPropertyBean().getValue(SDFEdge.SOURCE_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+    return getPropertyBean().getValue(SDFEdge.SOURCE_PORT_MODIFIER, SDFStringEdgePropertyType.class);
   }
 
   /**
@@ -223,7 +223,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return the target port modifier
    */
   public SDFStringEdgePropertyType getTargetPortModifier() {
-    return (SDFStringEdgePropertyType) getPropertyBean().getValue(SDFEdge.TARGET_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+    return getPropertyBean().getValue(SDFEdge.TARGET_PORT_MODIFIER, SDFStringEdgePropertyType.class);
   }
 
   /**

@@ -122,13 +122,15 @@ public class LinkPackageImpl extends EPackageImpl implements LinkPackage {
 
     // Obtain or create and register package
     final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.get(LinkPackage.eNS_URI) instanceof LinkPackageImpl
-        ? EPackage.Registry.INSTANCE.get(LinkPackage.eNS_URI) : new LinkPackageImpl());
+        ? EPackage.Registry.INSTANCE.get(LinkPackage.eNS_URI)
+        : new LinkPackageImpl());
 
     LinkPackageImpl.isInited = true;
 
     // Obtain or create and register interdependencies
     final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
+        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI)
+        : SlamPackage.eINSTANCE);
     final ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
         .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
             : ComponentPackage.eINSTANCE);

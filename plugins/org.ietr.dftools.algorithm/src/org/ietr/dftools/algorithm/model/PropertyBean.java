@@ -105,7 +105,7 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   public <T> T getValue(final String propertyName, final Class<T> propertyClass) {
     if (propertyClass.isInstance(this.properties.get(propertyName))) {
       @SuppressWarnings("unchecked")
-      T res = (T) this.properties.get(propertyName);
+      final T res = (T) this.properties.get(propertyName);
       return res;
     }
     return null;

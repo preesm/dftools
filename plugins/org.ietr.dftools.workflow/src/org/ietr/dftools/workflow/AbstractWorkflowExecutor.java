@@ -322,8 +322,8 @@ public abstract class AbstractWorkflowExecutor {
           // Executing the workflow task
           try {
             // updating monitor and console
-            StringBuilder monitorMessage = new StringBuilder();
-            if (debug) {
+            final StringBuilder monitorMessage = new StringBuilder();
+            if (this.debug) {
               monitorMessage.append("[" + task.getClass().getSimpleName() + "] ");
             }
             monitorMessage.append(task.monitorMessage());
@@ -413,10 +413,10 @@ public abstract class AbstractWorkflowExecutor {
 
   private final void refreshProject(final String projectName, final IProgressMonitor monitor, final String warningMessage) {
     try {
-      IWorkspace workspace = ResourcesPlugin.getWorkspace();
-      IProject project = workspace.getRoot().getProject(projectName);
+      final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+      final IProject project = workspace.getRoot().getProject(projectName);
       project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       WorkflowLogger.getLogger().log(Level.WARNING, warningMessage, e);
     }
   }

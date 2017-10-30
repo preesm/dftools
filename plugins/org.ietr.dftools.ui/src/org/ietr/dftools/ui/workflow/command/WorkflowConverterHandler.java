@@ -53,7 +53,7 @@ import org.ietr.dftools.workflow.converter.WorkflowConverter;
 public class WorkflowConverterHandler extends AbstractHandler {
 
   @Override
-  public Object execute(ExecutionEvent event) throws ExecutionException {
+  public Object execute(final ExecutionEvent event) throws ExecutionException {
 
     final ISelection activeSelection = HandlerUtil.getActiveMenuSelection(event);
 
@@ -72,17 +72,17 @@ public class WorkflowConverterHandler extends AbstractHandler {
       final String message = "Could not locate Workflow file from active selection [" + activeSelection + "] of type [" + activeSelection.getClass() + "]";
       throw new UnsupportedOperationException(message);
     }
-    File file = workflowFile.getLocation().toFile();
+    final File file = workflowFile.getLocation().toFile();
     try {
-      boolean newWorkflow = WorkflowConverter.isNewWorkflow(file);
+      final boolean newWorkflow = WorkflowConverter.isNewWorkflow(file);
       if (!newWorkflow) {
 
         WorkflowConverter.convert(file);
         workflowFile.getParent().refreshLocal(IResource.DEPTH_ONE, null);
       }
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
-    } catch (CoreException e) {
+    } catch (final CoreException e) {
       e.printStackTrace();
     }
 

@@ -7,7 +7,8 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
-* Add utility functions in FileUtils. Simplify code according to.
+* Add utility functions in FileUtils. Simplify code according to;
+* Cleanup code;
 
 ### Bug fix
 

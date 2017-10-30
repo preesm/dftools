@@ -119,12 +119,14 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
 
     // Obtain or create and register interdependencies
     final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
+        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI)
+        : SlamPackage.eINSTANCE);
     final ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
         .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
             : ComponentPackage.eINSTANCE);
     final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
+        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI)
+        : LinkPackage.eINSTANCE);
 
     // Create package meta-data objects
     theAttributesPackage.createPackageContents();
