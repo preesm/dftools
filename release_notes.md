@@ -8,6 +8,8 @@ DFTools Changelog
 
 ### Changes
 * Add utility functions in FileUtils. Simplify code according to;
+* Fix DAG Transform : rethrow exception on error;
+* Fix logger: do not dupplicate error message;
 * Cleanup code;
 
 ### Bug fix
