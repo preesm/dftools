@@ -1,6 +1,15 @@
 DFTools Changelog
 =================
 
+## Release version X.Y.Z
+*XXXX.XX.XX*
+
+### New Feature
+
+### Changes
+
+### Bug fix
+
 ## Release version 1.2.4
 *2017.10.31*
 
