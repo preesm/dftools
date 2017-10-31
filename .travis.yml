@@ -1,0 +1,23 @@
+language: java
+sudo: false
+jdk:
+  - openjdk8
+os:
+  - linux
+dist: trusty
+script: 
+  - mvn -e -C -U -B -V -P releng clean verify findbugs:findbugs sonar:sonar
+
+addons:
+  sonarcloud:
+    organization: "preesm-sonarcloud-org"
+    token:
+      secure: "7edfa331c5de80bf665aee04f0e9dbcbc3efa122"
+    branches: .*
+
+notifications:
+  email:
+    recipients:
+      - preesm-devs@lists.sourceforge.net
+    on_success: change
+    on_failure: always
