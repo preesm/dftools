@@ -139,7 +139,8 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 
     // Obtain or create and register package
     final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.get(SlamPackage.eNS_URI) instanceof SlamPackageImpl
-        ? EPackage.Registry.INSTANCE.get(SlamPackage.eNS_URI) : new SlamPackageImpl());
+        ? EPackage.Registry.INSTANCE.get(SlamPackage.eNS_URI)
+        : new SlamPackageImpl());
 
     SlamPackageImpl.isInited = true;
 
@@ -148,7 +149,8 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
         .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
             : ComponentPackage.eINSTANCE);
     final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
+        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI)
+        : LinkPackage.eINSTANCE);
     final AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
         .getEPackage(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AttributesPackage.eNS_URI)
             : AttributesPackage.eINSTANCE);

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: S-LAM UI Test
 Bundle-SymbolicName: org.ietr.dftools.architecture.ui.test
-Bundle-Version: 1.2.3
+Bundle-Version: 1.2.4
 Bundle-Vendor: IETR/INSA Rennes
 Fragment-Host: org.ietr.dftools.architecture.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

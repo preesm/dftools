@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: S-LAM UI
 Bundle-SymbolicName: org.ietr.dftools.architecture.ui;singleton:=true
-Bundle-Version: 1.2.3
+Bundle-Version: 1.2.4
 Bundle-Activator: org.ietr.dftools.architecture.ui.Activator
 Require-Bundle: org.ietr.dftools.ui
 Bundle-ActivationPolicy: lazy

@@ -55,7 +55,6 @@ import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.ietr.dftools.architecture.slam.serialize.RefinementList;
 import org.ietr.dftools.graphiti.model.Vertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * A dialog box used to select multiple refinements for a single vertex in a Graphiti graph. It also gives a mean to chose one of the refinements.
  *
@@ -103,9 +102,8 @@ public class ChooseRefinementListDialog extends ListDialog {
         final IStructuredSelection tableSelection = (IStructuredSelection) tableViewer.getSelection();
         final Object[] tableSelections = tableSelection.toArray();
         if (this.type.equals("add")) {
-          final IPath name = ChooseRefinementListDialog.this.policy.useExistingFile(ChooseRefinementListDialog.this.vertex, getShell(), "slam");
+          final IPath name = ChooseRefinementListDialog.this.policy.useExistingFile(ChooseRefinementListDialog.this.vertex, "slam");
           tableViewer.add(name);
-          // refinementList.addName(name);
         } else if (this.type.equals("remove")) {
           if ((tableSelections.length == 1) && (tableSelections[0] instanceof String)) {
             final String name = (String) tableSelections[0];

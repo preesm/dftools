@@ -57,6 +57,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -189,6 +190,22 @@ public class FileUtils {
     }
   }
 
+  public static IPath browseFiles(final String title, final String fileExtension) {
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, title, fileExtension);
+  }
+
+  public static IPath browseFiles(final String title, final Collection<String> fileExtensions) {
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, title, fileExtensions);
+  }
+
+  public static IPath browseFiles(final String title, final String message, final String fileExtension) {
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, message, fileExtension);
+  }
+
+  public static IPath browseFiles(final String title, final String message, final Collection<String> fileExtensions) {
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, message, fileExtensions);
+  }
+
   /**
    * Displays a file browser in a shell. The path is relative to the project
    *
@@ -201,7 +218,26 @@ public class FileUtils {
    * @return the string
    */
   public static IPath browseFiles(final Shell shell, final String title, final String fileExtension) {
-    return FileUtils.browseFiles(shell, title, Collections.singleton(fileExtension));
+    return FileUtils.browseFiles(shell, title, title, Collections.singleton(fileExtension));
+  }
+
+  public static IPath browseFiles(final Shell shell, final String title, final Collection<String> fileExtensions) {
+    return FileUtils.browseFiles(shell, title, title, fileExtensions);
+  }
+
+  /**
+   * Displays a file browser in a shell. The path is relative to the project
+   *
+   * @param shell
+   *          the shell
+   * @param title
+   *          the title
+   * @param fileExtension
+   *          the file extension
+   * @return the string
+   */
+  public static IPath browseFiles(final Shell shell, final String title, final String message, final String fileExtension) {
+    return FileUtils.browseFiles(shell, title, message, Collections.singleton(fileExtension));
   }
 
   /**
@@ -215,7 +251,7 @@ public class FileUtils {
    *          the file extensions
    * @return the string
    */
-  public static IPath browseFiles(final Shell shell, final String title, final Collection<String> fileExtensions) {
+  public static IPath browseFiles(final Shell shell, final String title, final String message, final Collection<String> fileExtensions) {
     final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
     final ILabelProvider decoratingWorkbenchLabelProvider = WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
 
@@ -241,7 +277,7 @@ public class FileUtils {
               container.accept(resource -> {
                 final boolean contains = fileExtensions.contains(resource.getFileExtension());
                 if (contains && (resource instanceof IFile)) {
-                  throw new CoreException(new Status(IStatus.OK, title, title));
+                  throw new CoreException(new Status(IStatus.OK, title, message));
                 }
                 return true;
               });
@@ -262,7 +298,7 @@ public class FileUtils {
     }
     tree.setAllowMultiple(false);
     tree.setInput(root);
-    tree.setMessage(title);
+    tree.setMessage(message);
     tree.setTitle(title);
 
     // opens the dialog

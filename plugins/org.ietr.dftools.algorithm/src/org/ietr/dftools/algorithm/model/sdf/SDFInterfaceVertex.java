@@ -113,7 +113,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    */
   @Override
   public InterfaceDirection getDirection() {
-    return (InterfaceDirection) getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.class);
+    return getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.class);
   }
 
   /**
@@ -164,7 +164,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    * @return The string representation of the type of data on this interface
    */
   public String getDataType() {
-    return (String) getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE, String.class);
+    return getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE, String.class);
   }
 
   /*

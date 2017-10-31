@@ -66,7 +66,7 @@ public class WorkflowConverter {
       final String pluginId = Activator.PLUGIN_ID;
       final Bundle bundle = Platform.getBundle(pluginId);
       final URL fileURL = bundle.getEntry("resources/newWorkflow.xslt");
-      final File createTempFile = extract(fileURL);
+      final File createTempFile = WorkflowConverter.extract(fileURL);
       final String xslPath = createTempFile.getAbsolutePath();
 
       if (!inputPath.isEmpty() && !outputPath.isEmpty() && !xslPath.isEmpty()) {

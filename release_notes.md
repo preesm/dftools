@@ -1,6 +1,20 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.4
+*2017.10.31*
+
+### New Feature
+
+### Changes
+* Add utility functions in FileUtils. Simplify code according to;
+* Fix DAG Transform : rethrow exception on error;
+* Fix logger: do not dupplicate error message;
+* Enable travis;
+* Cleanup code;
+
+### Bug fix
+
 ## Release version 1.2.3
 *2017.10.17*
 

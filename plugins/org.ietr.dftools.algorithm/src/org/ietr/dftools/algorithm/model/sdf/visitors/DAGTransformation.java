@@ -45,7 +45,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.SDFMath;
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
@@ -83,7 +82,7 @@ import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsInd
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
-import org.ietr.dftools.workflow.tools.WorkflowLogger;
+import org.ietr.dftools.workflow.WorkflowException;
 import org.jgrapht.alg.CycleDetector;
 
 // TODO: Auto-generated Javadoc
@@ -345,14 +344,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
                 newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
 
               }
-            } catch (final CreateMultigraphException e) {
-              e.printStackTrace();
-            } catch (final CreateCycleException e) {
-              e.printStackTrace();
-              final Logger logger = WorkflowLogger.getLogger();
-              logger.log(Level.SEVERE, "Error in the DAG creation:\n" + e.getMessage() + "\nCheck the single-rate SDF to identify where delays are missing.");
-            } catch (final RuntimeException e) {
-              e.printStackTrace();
+            } catch (final CreateMultigraphException | CreateCycleException e) {
+              throw new WorkflowException("Error in the DAG creation. Check the single-rate SDF to identify where delays are missing", e);
             }
           }
         }

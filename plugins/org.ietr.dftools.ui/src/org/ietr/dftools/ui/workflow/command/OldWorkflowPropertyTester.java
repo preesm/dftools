@@ -50,9 +50,9 @@ public class OldWorkflowPropertyTester extends PropertyTester {
     final IFile file = (IFile) receiver;
     final File file2 = file.getLocation().toFile();
     try {
-      boolean newWorkflow = WorkflowConverter.isNewWorkflow(file2);
+      final boolean newWorkflow = WorkflowConverter.isNewWorkflow(file2);
       return !newWorkflow;
-    } catch (IOException e) {
+    } catch (final IOException e) {
       e.printStackTrace();
       return false;
     }

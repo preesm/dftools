@@ -169,9 +169,11 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
     // Obtain or create and register interdependencies
     final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) : SlamPackage.eINSTANCE);
+        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI)
+        : SlamPackage.eINSTANCE);
     final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) : LinkPackage.eINSTANCE);
+        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI)
+        : LinkPackage.eINSTANCE);
     final AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
         .getEPackage(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AttributesPackage.eNS_URI)
             : AttributesPackage.eINSTANCE);
