@@ -294,6 +294,7 @@
           <configLocation>/VAADER_checkstyle.xml</configLocation>
           <failsOnError>true</failsOnError>
           <includes>**/*.java</includes>
+          <consoleOutput>true</consoleOutput>
         </configuration>
         <dependencies>
           <!-- get settings -->
