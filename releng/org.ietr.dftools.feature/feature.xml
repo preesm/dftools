@@ -585,7 +585,6 @@ Version 1.0 dated 2006-09-05.]]>
    </url>
 
    <requires>
-      <import feature="org.eclipse.xtend.sdk" version="2.11" match="greaterOrEqual"/>
       <import feature="org.eclipse.xtext.xbase.lib" version="2.11" match="greaterOrEqual"/>
 
       <!-- TM Terminal (from Eclipse repos) -->
