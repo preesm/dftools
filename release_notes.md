@@ -7,6 +7,8 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Change Slam Component API;
+* Add Slam user factory;
 
 ### Bug fix
 
