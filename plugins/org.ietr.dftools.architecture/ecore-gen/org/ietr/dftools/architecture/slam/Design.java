@@ -214,9 +214,12 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
-   * @model required="true" nameRequired="true" classRequired="true"
+   * @model required="true" nameRequired="true"
    * @generated
    */
+  Component getComponent(VLNV name);
+
+  @Deprecated
   Component getComponent(VLNV name, EClass class_);
 
 } // Design

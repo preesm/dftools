@@ -377,24 +377,19 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   }
 
   /**
-   * <!-- begin-user-doc -->Creating the component if necessary<!-- end-user-doc -->
+   * <!-- begin-user-doc -->Return null if absent<!-- end-user-doc -->
    *
    * @generated NOT
    */
   @Override
-  public Component getComponent(final VLNV name, final EClass class_) {
+  public Component getComponent(final VLNV name) {
 
     for (final Component component : getComponentHolder().getComponents()) {
       if (name.equals(component.getVlnv())) {
         return component;
       }
     }
-
-    final Component component = (Component) ComponentFactory.eINSTANCE.create(class_);
-    component.setVlnv(name);
-
-    getComponentHolder().getComponents().add(component);
-    return component;
+    return null;
   }
 
   /**
@@ -630,4 +625,20 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
     return result.toString();
   }
 
+  @Deprecated
+  @Override
+  public Component getComponent(final VLNV name, final EClass class_) {
+
+    for (final Component component : getComponentHolder().getComponents()) {
+      if (name.equals(component.getVlnv())) {
+        return component;
+      }
+    }
+
+    final Component component = (Component) ComponentFactory.eINSTANCE.create(class_);
+    component.setVlnv(name);
+
+    getComponentHolder().getComponents().add(component);
+    return component;
+  }
 } // DesignImpl
