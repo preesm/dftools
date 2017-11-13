@@ -42,6 +42,7 @@ import org.ietr.dftools.architecture.slam.attributes.VLNV;
 import org.ietr.dftools.architecture.slam.component.Component;
 import org.ietr.dftools.architecture.slam.component.HierarchyPort;
 import org.ietr.dftools.architecture.slam.link.Link;
+import org.ietr.dftools.architecture.utils.SlamUserFactory;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object ' <em><b>Design</b></em>'. <!-- end-user-doc -->
@@ -219,6 +220,14 @@ public interface Design extends VLNVedElement, ParameterizedElement {
    */
   Component getComponent(VLNV name);
 
+  /**
+   * Gets the component with given {@link VLNV} (class is omitted during the search). If it is not present in the Design, instantiates it and adds it in the
+   * design.
+   *
+   * @deprecated use {@link #getComponent(VLNV)} instead. Guard it with {@link #containsComponent(VLNV)}. If the component is not present, create it with
+   *             {@link SlamUserFactory#createComponent(VLNV, String)} and add it in the design with
+   *             {@link #getComponentHolder()}.getComponents().add(component)
+   */
   @Deprecated
   Component getComponent(VLNV name, EClass class_);
 

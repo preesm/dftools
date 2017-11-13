@@ -279,7 +279,7 @@ public class IPXACTDesignParser extends IPXACTParser {
       instance.setComponent(design.getComponent(vlnv));
     } else {
 
-      final Component component = SlamUserFactory.getComponent(vlnv, componentType);
+      final Component component = SlamUserFactory.createComponent(vlnv, componentType);
       design.getComponentHolder().getComponents().add(component);
 
       instance.setComponent(component);

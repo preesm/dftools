@@ -55,7 +55,7 @@ public class SlamUserFactory {
   /**
    *
    */
-  public static final Component getComponent(final VLNV name, final String componentType) {
+  public static final Component createComponent(final VLNV name, final String componentType) {
     final EClass eClass = (EClass) factory.getEPackage().getEClassifier(componentType);
     final Component component = (Component) factory.create(eClass);
     component.setVlnv(name);
