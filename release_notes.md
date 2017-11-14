@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Update releng scripts
 
 ### Bug fix
 
