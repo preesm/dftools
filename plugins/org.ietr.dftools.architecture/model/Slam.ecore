@@ -37,10 +37,8 @@
     knowledge of the CeCILL license and that you accept its terms.
 
 -->
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam"
-    nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="slam">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="slam" nsURI="http://net.sf.dftools/architecture/slam" nsPrefix="slam">
   <eClassifiers xsi:type="ecore:EClass" name="Design" eSuperTypes="#//VLNVedElement #//ParameterizedElement">
     <eOperations name="containsComponentInstance" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -53,7 +51,6 @@
     </eOperations>
     <eOperations name="getComponent" lowerBound="1" eType="#//component/Component">
       <eParameters name="name" lowerBound="1" eType="#//attributes/VLNV"/>
-      <eParameters name="class" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstances" ordered="false"
         upperBound="-1" eType="#//ComponentInstance" containment="true" eKeys="#//ComponentInstance/instanceName"/>

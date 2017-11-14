@@ -1,6 +1,19 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.5
+*2017.11.14*
+
+### New Feature
+
+### Changes
+* Change Slam Component API;
+* Add dependencies to Ecore Diagram Tools, Xcore and Sonarlint (dev feature), and CDT (dev + normal feature);
+* Add Slam user factory;
+* Force version of external deps to 1.3.0+
+
+### Bug fix
+
 ## Release version 1.2.4
 *2017.10.31*
 
