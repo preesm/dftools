@@ -8,6 +8,7 @@ DFTools Changelog
 
 ### Changes
 * Change Slam Component API;
+* Add dependencies to Ecore Diagram Tools, Xcore and Sonarlint (dev feature), and CDT (dev + normal feature);
 * Add Slam user factory;
 
 ### Bug fix
