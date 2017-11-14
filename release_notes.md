@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.6
+*2017.11.14*
+
+### New Feature
+
+### Changes
+* add release script
+
+### Bug fix
+* Fix SlamUserFactory
+
 ## Release version 1.2.5
 *2017.11.14*
 
