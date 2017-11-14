@@ -9,6 +9,7 @@ DFTools Changelog
 ### Changes
 
 ### Bug fix
+* Fix SlamUserFactory
 
 ## Release version 1.2.5
 *2017.11.14*

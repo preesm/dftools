@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.ietr.dftools.architecture.slam.attributes.VLNV;
 import org.ietr.dftools.architecture.slam.component.Component;
 import org.ietr.dftools.architecture.slam.component.ComponentFactory;
+import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 
 /**
  *
@@ -56,7 +57,7 @@ public class SlamUserFactory {
    *
    */
   public static final Component createComponent(final VLNV name, final String componentType) {
-    final EClass eClass = (EClass) factory.getEPackage().getEClassifier(componentType);
+    final EClass eClass = (EClass) ComponentPackage.eINSTANCE.getEClassifier(componentType);
     final Component component = (Component) factory.create(eClass);
     component.setVlnv(name);
     return component;
