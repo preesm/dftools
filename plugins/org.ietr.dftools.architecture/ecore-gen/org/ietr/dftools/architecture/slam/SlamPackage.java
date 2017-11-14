@@ -287,7 +287,7 @@ public interface SlamPackage extends EPackage {
   int COMPONENT_HOLDER_FEATURE_COUNT = 1;
 
   /**
-   * Returns the meta object for class ' {@link org.ietr.dftools.architecture.slam.Design <em>Design</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.Design <em>Design</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Design</em>'.
    * @see org.ietr.dftools.architecture.slam.Design
@@ -296,10 +296,10 @@ public interface SlamPackage extends EPackage {
   EClass getDesign();
 
   /**
-   * Returns the meta object for the containment reference list ' {@link org.ietr.dftools.architecture.slam.Design#getComponentInstances <em>Component
+   * Returns the meta object for the containment reference list '{@link org.ietr.dftools.architecture.slam.Design#getComponentInstances <em>Component
    * Instances</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
-   * @return the meta object for the containment reference list ' <em>Component Instances</em>'.
+   * @return the meta object for the containment reference list '<em>Component Instances</em>'.
    * @see org.ietr.dftools.architecture.slam.Design#getComponentInstances()
    * @see #getDesign()
    * @generated
@@ -478,7 +478,7 @@ public interface SlamPackage extends EPackage {
    */
   interface Literals {
     /**
-     * The meta object literal for the ' {@link org.ietr.dftools.architecture.slam.impl.DesignImpl <em>Design</em>}' class. <!-- begin-user-doc --> <!--
+     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.impl.DesignImpl <em>Design</em>}' class. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      *
      * @see org.ietr.dftools.architecture.slam.impl.DesignImpl

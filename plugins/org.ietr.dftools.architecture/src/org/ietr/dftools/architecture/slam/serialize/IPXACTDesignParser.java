@@ -65,7 +65,6 @@ import org.ietr.dftools.architecture.slam.component.ComInterface;
 import org.ietr.dftools.architecture.slam.component.ComNode;
 import org.ietr.dftools.architecture.slam.component.Component;
 import org.ietr.dftools.architecture.slam.component.ComponentFactory;
-import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 import org.ietr.dftools.architecture.slam.component.Dma;
 import org.ietr.dftools.architecture.slam.component.HierarchyPort;
 import org.ietr.dftools.architecture.slam.component.Mem;
@@ -74,6 +73,7 @@ import org.ietr.dftools.architecture.slam.link.LinkFactory;
 import org.ietr.dftools.architecture.slam.link.LinkPackage;
 import org.ietr.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensionsParser.LinkDescription;
 import org.ietr.dftools.architecture.utils.DomUtil;
+import org.ietr.dftools.architecture.utils.SlamUserFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -276,11 +276,12 @@ public class IPXACTDesignParser extends IPXACTParser {
     // Creates the component if necessary
     // eClass is retrieved from the component type
     if (design.containsComponent(vlnv)) {
-      instance.setComponent(design.getComponent(vlnv, null));
+      instance.setComponent(design.getComponent(vlnv));
     } else {
-      final EPackage ePackage = ComponentPackage.eINSTANCE;
-      final EClass eClass = (EClass) ePackage.getEClassifier(componentType);
-      final Component component = design.getComponent(vlnv, eClass);
+
+      final Component component = SlamUserFactory.createComponent(vlnv, componentType);
+      design.getComponentHolder().getComponents().add(component);
+
       instance.setComponent(component);
 
       try {

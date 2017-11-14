@@ -142,7 +142,7 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class ' {@link org.ietr.dftools.architecture.slam.Design <em>Design</em>}'. <!-- begin-user-doc --> This default
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.Design <em>Design</em>}'. <!-- begin-user-doc --> This default
    * implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
    * end-user-doc -->
    *
@@ -168,7 +168,7 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class ' {@link org.ietr.dftools.architecture.slam.VLNVedElement <em>VLN Ved Element</em>}'. <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.VLNVedElement <em>VLN Ved Element</em>}'. <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    *
@@ -194,7 +194,7 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class ' {@link org.ietr.dftools.architecture.slam.ComponentHolder <em>Component Holder</em>}'. <!-- begin-user-doc
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.ComponentHolder <em>Component Holder</em>}'. <!-- begin-user-doc
    * --> This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
    * anyway. <!-- end-user-doc -->
    *

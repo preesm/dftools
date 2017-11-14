@@ -464,7 +464,6 @@ public class SlamPackageImpl extends EPackageImpl implements SlamPackage {
 
     op = addEOperation(this.designEClass, theComponentPackage.getComponent(), "getComponent", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
     addEParameter(op, theAttributesPackage.getVLNV(), "name", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
-    addEParameter(op, this.ecorePackage.getEClass(), "class_", 1, 1, EPackageImpl.IS_UNIQUE, EPackageImpl.IS_ORDERED);
 
     initEClass(this.componentInstanceEClass, ComponentInstance.class, "ComponentInstance", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
         EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
