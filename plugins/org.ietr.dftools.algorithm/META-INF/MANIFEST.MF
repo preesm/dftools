@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools algorithm
 Bundle-SymbolicName: org.ietr.dftools.algorithm
-Bundle-Version: 1.2.6
+Bundle-Version: 1.2.6.qualifier
 Bundle-Activator: org.ietr.dftools.algorithm.Activator
 Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
