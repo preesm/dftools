@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* add release script
 
 ### Bug fix
 * Fix SlamUserFactory
