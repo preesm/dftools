@@ -7,7 +7,8 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
-* Update releng scripts
+* Update releng scripts;
+* Minor refactoring in the workflow runner parts;
 
 ### Bug fix
 
