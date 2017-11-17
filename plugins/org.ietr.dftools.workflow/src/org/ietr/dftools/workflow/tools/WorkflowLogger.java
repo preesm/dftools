@@ -39,7 +39,9 @@
  */
 package org.ietr.dftools.workflow.tools;
 
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.core.runtime.CoreException;
@@ -48,7 +50,6 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.ietr.dftools.workflow.messages.WorkflowMessages;
 
-// TODO: Auto-generated Javadoc
 /**
  * The logger is used to display messages in the console. Its behavior is delegated to the workflow ui plugin.
  *
@@ -69,7 +70,6 @@ public abstract class WorkflowLogger extends Logger {
    */
   protected WorkflowLogger(final String name, final String resourceBundleName) {
     super(name, resourceBundleName);
-    // TODO Auto-generated constructor stub
   }
 
   /**
@@ -92,19 +92,14 @@ public abstract class WorkflowLogger extends Logger {
             // and checks it actually is an ITransformation.
             if (obj instanceof WorkflowLogger) {
               WorkflowLogger.logger = (WorkflowLogger) obj;
-
-              return WorkflowLogger.logger;
             }
           }
         }
-
-        return null;
       } catch (final CoreException e) {
-        return null;
+        // simply return null
       }
-    } else {
-      return WorkflowLogger.logger;
     }
+    return WorkflowLogger.logger;
   }
 
   /**
@@ -125,10 +120,9 @@ public abstract class WorkflowLogger extends Logger {
    * @return the formatted time
    */
   public static String getFormattedTime() {
-    final Calendar cal = Calendar.getInstance();
-
-    final String time = String.format("%02d:%02d:%02d ", cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
-    return time;
+    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    Date date = new Date();
+    return dateFormat.format(date);
   }
 
 }
