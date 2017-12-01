@@ -9,6 +9,7 @@ DFTools Changelog
 ### Changes
 * Update releng scripts;
 * Minor refactoring in the workflow runner parts;
+* DFTools console now activates upon output;
 
 ### Bug fix
 
