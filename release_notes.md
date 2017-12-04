@@ -12,6 +12,7 @@ DFTools Changelog
 * DFTools console now activates upon output;
 
 ### Bug fix
+* Fix special actors port indexing (see https://github.com/preesm/preesm/issues/50);
 
 
 ## Release version 1.2.6
