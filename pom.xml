@@ -39,7 +39,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ietr.dftools</groupId>
   <artifactId>org.ietr.dftools.parent</artifactId>
-  <version>1.2.7</version>
+  <version>1.2.7-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <!-- More Project Information -->
