@@ -102,7 +102,7 @@ class SpecialActorPortsIndexer {
 			val graph = processedGraphs.get(i)
 
 			for (actor : graph.vertexSet()) {
-				val AbstractGraph<?,?> actorGraphDesc = actor.graphDescription
+				val AbstractGraph<?, ?> actorGraphDesc = actor.graphDescription
 				// If the actor is hierarchical, add its subgraph to the list of graphs to process
 				if (actorGraphDesc !== null) {
 					processedGraphs.add(actorGraphDesc as SDFGraph)
@@ -141,16 +141,21 @@ class SpecialActorPortsIndexer {
 
 					var indexX = 0
 					var indexY = 0
-					for (fifo : fifos) {
-						val indexString = '''«IF modulo>0»«indexY»_«ENDIF»«indexX»'''
-						if (isSource) {
-							fifo.sourceInterface.name = '''«fifo.sourceInterface.name»_«indexString»'''
-							indexY += fifo.prod.intValue
-						} else {
-							fifo.targetInterface.name = '''«fifo.targetInterface.name»_«indexString»'''
-							indexY += fifo.cons.intValue
+
+					for (iface : actor.interfaces) {
+						for (fifo : fifos) {
+							if (fifo.sourceInterface === iface || fifo.targetInterface == iface) {
+								val indexString = '''«IF modulo>0»«indexY»_«ENDIF»«indexX»'''
+								if (isSource) {
+									fifo.sourceInterface.name = '''«fifo.sourceInterface.name»_«indexString»'''
+									indexY += fifo.prod.intValue
+								} else {
+									fifo.targetInterface.name = '''«fifo.targetInterface.name»_«indexString»'''
+									indexY += fifo.cons.intValue
+								}
+								indexX = if(modulo > 0) indexY % modulo else indexY
+							}
 						}
-						indexX = if(modulo > 0) indexY % modulo else indexY
 					}
 				}
 			}
@@ -172,7 +177,7 @@ class SpecialActorPortsIndexer {
 			val graph = processedGraphs.get(i)
 
 			for (actor : graph.vertexSet()) {
-				val AbstractGraph<?,?> actorGraphDesc = actor.graphDescription
+				val AbstractGraph<?, ?> actorGraphDesc = actor.graphDescription
 				// If the actor is hierarchical, add its subgraph to the list of graphs to process
 				if (actorGraphDesc !== null) {
 					processedGraphs.add(actorGraphDesc as SDFGraph)
@@ -258,7 +263,7 @@ class SpecialActorPortsIndexer {
 			val graph = processedGraphs.get(i)
 
 			for (actor : graph.vertexSet()) {
-				val AbstractGraph<?,?> actorGraphDesc = actor.graphDescription
+				val AbstractGraph<?, ?> actorGraphDesc = actor.graphDescription
 				// If the actor is hierarchical, add its subgraph to the list of graphs to process
 				if (actorGraphDesc !== null) {
 					processedGraphs.add(actorGraphDesc as SDFGraph)
@@ -294,21 +299,25 @@ class SpecialActorPortsIndexer {
 
 					// Apply this new order to the edges
 					var order = 0
-					for (fifo : fifos) {
-						// Switch and implicit cast for each type
-						switch (actor) {
-							SDFJoinVertex:
-								actor.setEdgeIndex(fifo, order)
-							SDFRoundBufferVertex:
-								actor.setEdgeIndex(fifo, order)
-							SDFForkVertex:
-								actor.setEdgeIndex(fifo, order)
-							SDFBroadcastVertex: {
-								actor.setEdgeIndex(fifo, order)
+					for (iface : actor.interfaces) {
+						for (fifo : fifos) {
+							if (fifo.sourceInterface === iface || fifo.targetInterface == iface) {
+								// Switch and implicit cast for each type
+								switch (actor) {
+									SDFJoinVertex:
+										actor.setEdgeIndex(fifo, order)
+									SDFRoundBufferVertex:
+										actor.setEdgeIndex(fifo, order)
+									SDFForkVertex:
+										actor.setEdgeIndex(fifo, order)
+									SDFBroadcastVertex: {
+										actor.setEdgeIndex(fifo, order)
+									}
+								}
+
+								order++
 							}
 						}
-
-						order++
 					}
 				}
 			}
@@ -317,8 +326,7 @@ class SpecialActorPortsIndexer {
 
 	/**
 	 * Sort a {@link List} of {@link SDFEdge} according to their port index.
-	 * The source or target ports will be considered depending on the valIs
-	 * Source boolean.
+	 * The source or target ports will be considered depending on the valIsSource boolean.
 	 */
 	def static void sortFifoList(List<SDFEdge> fifos, boolean valIsSource) {
 		// Check that all fifos have an index
