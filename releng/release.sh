@@ -28,6 +28,7 @@ git checkout $DEV_BRANCH
 git reset --hard
 git clean -xdf
 
+./releng/fix_header_copyright_and_authors.sh
 #update version in code and create commit
 ./releng/update-version.sh $NEW_VERSION
 sed -i -e "s/X\.Y\.Z/$NEW_VERSION/g" release_notes.md
