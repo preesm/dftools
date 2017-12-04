@@ -1,6 +1,21 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.7
+*2017.12.04*
+
+### New Feature
+
+### Changes
+* Update releng scripts;
+* Minor refactoring in the workflow runner parts;
+* DFTools console now activates upon output;
+* Update external deps to 1.4.0;
+
+### Bug fix
+* Fix special actors port indexing (see https://github.com/preesm/preesm/issues/50);
+
+
 ## Release version 1.2.6
 *2017.11.14*
 

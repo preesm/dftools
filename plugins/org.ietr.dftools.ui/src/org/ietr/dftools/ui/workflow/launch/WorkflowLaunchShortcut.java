@@ -68,7 +68,6 @@ import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 import org.ietr.dftools.workflow.messages.WorkflowMessages;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * Shortcut for launching an executable directly from the navigator, without having to create a launch configuration manually.
  *
@@ -86,11 +85,8 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
    */
   public static ILaunchConfiguration createLaunchConfiguration(final IFile file) {
 
-    // We ask for the scenario to use with the selected workflow
-    final Set<String> scenarioExtensions = new LinkedHashSet<>();
-    scenarioExtensions.add("scenario");
-    scenarioExtensions.add("piscenario");
-    final IPath scenarioPath = FileUtils.browseFiles(WorkflowMessages.getString("Workflow.browseScenarioTitle"), scenarioExtensions);
+    final IPath scenarioPath = lookupScenarioFilePath();
+
     if ((scenarioPath == null) || scenarioPath.isEmpty()) {
       return null;
     }
@@ -105,7 +101,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
       final String launchConfigurationName = WorkflowLaunchShortcut.generateLaunchConfigurationName(workflowPath, scenarioPath);
       workingCopy = type.newInstance(null, launchConfigurationName);
     } catch (final CoreException e) {
-      WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.");
+      WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.", e);
       return null;
     }
 
@@ -124,6 +120,15 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     }
   }
 
+  private static IPath lookupScenarioFilePath() {
+    // We ask for the scenario to use with the selected workflow
+    final Set<String> scenarioExtensions = new LinkedHashSet<>();
+    scenarioExtensions.add("scenario");
+    scenarioExtensions.add("piscenario");
+    final String message = WorkflowMessages.getString("Workflow.browseScenarioTitle");
+    return FileUtils.browseFiles(message, scenarioExtensions);
+  }
+
   private static String generateLaunchConfigurationName(final IPath workflowPath, final IPath scenarioPath) {
     final int workflowSegmentCount = workflowPath.segmentCount();
     final int scenarioSegmentCount = scenarioPath.segmentCount();
@@ -135,10 +140,8 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     final String workflowFileName = workflowPath.segments()[workflowSegmentCount - 1].replace("." + workflowPath.getFileExtension(), "");
     final String scenarioFileName = scenarioPath.segments()[scenarioSegmentCount - 1].replace("." + scenarioPath.getFileExtension(), "");
 
-    // from org.eclipse.debug.internal.core.LaunchManager:
-    // static final char[] DISALLOWED_CONFIG_NAME_CHARS = new char[] { '@', '&','\\', '/', ':', '*', '?', '"', '<', '>', '|', '\0' };
-    final String finalLaunchName = projectName + " [" + workflowFileName + "] [" + scenarioFileName + "]";
-    return finalLaunchName;
+    // from org.eclipse.debug.internal.core.LaunchManager, disallow chars '@', '&','\\', '/', ':', '*', '?', '"', '<', '>', '|', '\0'
+    return projectName + " [" + workflowFileName + "] [" + scenarioFileName + "]";
   }
 
   /**
@@ -192,7 +195,8 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
           }
         }
       } catch (final CoreException e) {
-        e.printStackTrace();
+        WorkflowLogger.getLogger().log(Level.SEVERE, "Error while looking for existing ILaunchConfiguration", e);
+
       }
 
       // If there are no existing configs associated with the IFile,

@@ -158,6 +158,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
         }
       } else {
         // Writes a log in console
+        this.console.activate();
         final MessageConsoleStream stream = this.console.newMessageStream();
 
         Activator.getDefault().getWorkbench().getDisplay().asyncExec(() -> {

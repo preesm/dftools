@@ -37,18 +37,14 @@
  */
 package org.ietr.dftools.ui.workflow.launch;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
 import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 import org.ietr.dftools.workflow.WorkflowManager;
 
-// TODO: Auto-generated Javadoc
 /**
  * Launch a workflow in run mode, using the previously created launch configuration.
  *
@@ -64,7 +60,7 @@ public class WorkflowLaunchConfigurationDelegate implements ILaunchConfiguration
   // org.ietr.dftools.ui/plugin.xml
   /** The workflow launch configuration type id. */
   // can break the launch shortcut for wokflows (Right Click > Run as)
-  public static String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
+  public static final String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
 
   /**
    * Launches a workflow.
@@ -81,22 +77,12 @@ public class WorkflowLaunchConfigurationDelegate implements ILaunchConfiguration
    *           the core exception
    */
   @Override
-  @SuppressWarnings({ "rawtypes", "unchecked" })
   public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
 
     final String workflowPath = configuration.getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, "");
-
-    // Retrieving environment variables
-    Map<String, String> configEnv = configuration.getAttribute(ILaunchManager.ATTR_ENVIRONMENT_VARIABLES, (Map) null);
-    if (configEnv == null) {
-      configEnv = new LinkedHashMap<>();
-    }
-
-    final WorkflowManager workflowManager = new WorkflowManager();
-
     final String scenarioPath = configuration.getAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, "");
 
+    final WorkflowManager workflowManager = new WorkflowManager();
     workflowManager.execute(workflowPath, scenarioPath, monitor);
-
   }
 }
