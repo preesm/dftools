@@ -43,12 +43,18 @@
   <parent>
     <groupId>org.ietr.dftools</groupId>
     <artifactId>org.ietr.dftools.parent</artifactId>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
     <relativePath>..</relativePath>
   </parent>
 
   <!-- Extra repositories for building the all-in-one dev feature -->
   <repositories>
+    <repository>
+      <id>RCPTT</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/rcptt/release/2.2.0/repository/</url>
+    </repository>
+
     <repository>
       <id>Checkstyle</id>
       <layout>p2</layout>
@@ -79,8 +85,15 @@
 
   <modules>
     <module>org.ietr.dftools.feature</module>
-    <module>org.ietr.dftools.dev.feature</module>
-    <module>org.ietr.dftools.complete.site</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>doUpdateSite</id>
+      <modules>
+        <module>org.ietr.dftools.dev.feature</module>
+        <module>org.ietr.dftools.complete.site</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>

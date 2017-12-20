@@ -1,6 +1,19 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.8
+*2017.12.20*
+
+### New Feature
+
+### Changes
+* Update releng scripts;
+* Add dependency to RCPTT in the dev feature;
+* disable javadoc generation (source is available via the Dev Features and source plugins);
+
+### Bug fix
+
+
 ## Release version 1.2.7
 *2017.12.04*
 
