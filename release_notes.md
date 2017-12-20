@@ -7,7 +7,9 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
-* update release script
+* Update releng scripts;
+* Add dependency to RCPTT in the dev feature;
+* disable javadoc generation (source is available via the Dev Features and source plugins);
 
 ### Bug fix
 
