@@ -79,8 +79,15 @@
 
   <modules>
     <module>org.ietr.dftools.feature</module>
-    <module>org.ietr.dftools.dev.feature</module>
-    <module>org.ietr.dftools.complete.site</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>doUpdateSite</id>
+      <modules>
+        <module>org.ietr.dftools.dev.feature</module>
+        <module>org.ietr.dftools.complete.site</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
