@@ -149,8 +149,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the cons.
    */
   public AbstractEdgePropertyType<?> getCons() {
-    final AbstractEdgePropertyType<?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS,
-        AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<
+        ?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS, AbstractEdgePropertyType.class);
     if (cons instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
     }
@@ -163,8 +163,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the delay.
    */
   public AbstractEdgePropertyType<?> getDelay() {
-    final AbstractEdgePropertyType<?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY,
-        AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<
+        ?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY, AbstractEdgePropertyType.class);
     if (delay instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
     }
@@ -177,8 +177,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the prod.
    */
   public AbstractEdgePropertyType<?> getProd() {
-    final AbstractEdgePropertyType<?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD,
-        AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<
+        ?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD, AbstractEdgePropertyType.class);
     if (prod instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
     }

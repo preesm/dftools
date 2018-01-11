@@ -1,6 +1,18 @@
 DFTools Changelog
 =================
 
+## Release version 1.2.10
+*2018.01.11*
+
+### New Feature
+
+### Changes
+* fix visibility of GMLImporter;
+* Update coding policies to 1.1.0;
+
+### Bug fix
+
+
 ## Release version 1.2.9
 *2018.01.11*
 

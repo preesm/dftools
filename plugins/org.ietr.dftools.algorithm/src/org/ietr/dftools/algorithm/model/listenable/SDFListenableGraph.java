@@ -359,8 +359,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the edge that was added.
    */
   protected void fireEdgeAdded(final SDFEdge edge) {
-    final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(
-        GraphEdgeChangeEvent.EDGE_ADDED, edge);
+    final GraphEdgeChangeEvent<SDFAbstractVertex,
+        SDFEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
@@ -376,8 +376,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the edge that was removed.
    */
   protected void fireEdgeRemoved(final SDFEdge edge) {
-    final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(
-        GraphEdgeChangeEvent.EDGE_REMOVED, edge);
+    final GraphEdgeChangeEvent<SDFAbstractVertex,
+        SDFEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
@@ -393,8 +393,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the vertex that was added.
    */
   protected void fireVertexAdded(final SDFAbstractVertex vertex) {
-    final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(
-        GraphVertexChangeEvent.VERTEX_ADDED, vertex);
+    final GraphVertexChangeEvent<
+        SDFAbstractVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<SDFAbstractVertex> l = this.vertexSetListeners.get(i);
@@ -416,8 +416,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the vertex that was removed.
    */
   protected void fireVertexRemoved(final SDFAbstractVertex vertex) {
-    final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(
-        GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
+    final GraphVertexChangeEvent<
+        SDFAbstractVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<SDFAbstractVertex> l = this.vertexSetListeners.get(i);

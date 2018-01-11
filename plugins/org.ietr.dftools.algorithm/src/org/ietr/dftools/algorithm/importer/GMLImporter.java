@@ -83,7 +83,8 @@ import org.w3c.dom.ls.LSParser;
  * @param <E>
  *          the element type
  */
-abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends AbstractVertex<?>, E extends AbstractEdge<?, ?>> {
+public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends AbstractVertex<?>,
+    E extends AbstractEdge<?, ?>> {
 
   /** The class key set. */
   protected Map<String, List<Key>> classKeySet;
