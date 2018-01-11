@@ -89,7 +89,8 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
   @Override

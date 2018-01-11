@@ -146,7 +146,8 @@ public class DAGForkVertex extends DAGVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.dag.DAGVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.dag.DAGVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
   @Override

@@ -236,7 +236,8 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
    *          The target port name
    * @return The created edge
    */
-  public Element createEdge(final Element parentElement, final String sourceId, final String targetId, final String sourcePort, final String targetPort) {
+  public Element createEdge(final Element parentElement, final String sourceId, final String targetId,
+      final String sourcePort, final String targetPort) {
     final Element edgeElt = appendChild(parentElement, "edge");
     edgeElt.setAttribute("source", sourceId);
     edgeElt.setAttribute("sourceport", sourcePort);
@@ -347,7 +348,8 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
           final Element dataElt = appendChild(parentElt, "data");
           dataElt.setAttribute("key", key);
           dataElt.setTextContent(source.getPropertyStringValue(key));
-          if ((source.getPropertyBean().getValue(key) != null) && (source.getPropertyBean().getValue(key) instanceof Number)) {
+          if ((source.getPropertyBean().getValue(key) != null)
+              && (source.getPropertyBean().getValue(key) instanceof Number)) {
             this.addKey(forElt, new Key(key, forElt, "int", null));
           } else {
             this.addKey(forElt, new Key(key, forElt, "string", null));

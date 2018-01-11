@@ -42,7 +42,8 @@ import java.util.ResourceBundle;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class is used to gather all texts displayed while managing the workflow. The strings are stored in message.properties and retrieved through a text file.
+ * This class is used to gather all texts displayed while managing the workflow. The strings are stored in
+ * message.properties and retrieved through a text file.
  *
  * @author mpelcat
  */

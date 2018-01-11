@@ -71,11 +71,12 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
   private EClass parameterEClass = null;
 
   /**
-   * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package package
-   * URI value.
+   * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
+   * EPackage.Registry} by the package package URI value.
    * <p>
-   * Note: the correct way to create the package is via the static factory method {@link #init init()}, which also performs initialization of the package, or
-   * returns the registered package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Note: the correct way to create the package is via the static factory method {@link #init init()}, which also
+   * performs initialization of the package, or returns the registered package, if one already exists. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see org.eclipse.emf.ecore.EPackage.Registry
    * @see org.ietr.dftools.architecture.slam.attributes.AttributesPackage#eNS_URI
@@ -97,8 +98,9 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
    *
    * <p>
-   * This method is used to initialize {@link AttributesPackage#eINSTANCE} when that field is accessed. Clients should not invoke it directly. Instead, they
-   * should simply access that field to obtain the package. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * This method is used to initialize {@link AttributesPackage#eINSTANCE} when that field is accessed. Clients should
+   * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
+   * --> <!-- end-user-doc -->
    *
    * @see #eNS_URI
    * @see #createPackageContents()
@@ -112,21 +114,25 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
 
     // Obtain or create and register package
     final AttributesPackageImpl theAttributesPackage = (AttributesPackageImpl) (EPackage.Registry.INSTANCE
-        .get(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl ? EPackage.Registry.INSTANCE.get(AttributesPackage.eNS_URI)
+        .get(AttributesPackage.eNS_URI) instanceof AttributesPackageImpl
+            ? EPackage.Registry.INSTANCE.get(AttributesPackage.eNS_URI)
             : new AttributesPackageImpl());
 
     AttributesPackageImpl.isInited = true;
 
     // Obtain or create and register interdependencies
-    final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI)
-        : SlamPackage.eINSTANCE);
+    final SlamPackageImpl theSlamPackage = (SlamPackageImpl) (EPackage.Registry.INSTANCE
+        .getEPackage(SlamPackage.eNS_URI) instanceof SlamPackageImpl
+            ? EPackage.Registry.INSTANCE.getEPackage(SlamPackage.eNS_URI)
+            : SlamPackage.eINSTANCE);
     final ComponentPackageImpl theComponentPackage = (ComponentPackageImpl) (EPackage.Registry.INSTANCE
-        .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
+        .getEPackage(ComponentPackage.eNS_URI) instanceof ComponentPackageImpl
+            ? EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI)
             : ComponentPackage.eINSTANCE);
-    final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl
-        ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI)
-        : LinkPackage.eINSTANCE);
+    final LinkPackageImpl theLinkPackage = (LinkPackageImpl) (EPackage.Registry.INSTANCE
+        .getEPackage(LinkPackage.eNS_URI) instanceof LinkPackageImpl
+            ? EPackage.Registry.INSTANCE.getEPackage(LinkPackage.eNS_URI)
+            : LinkPackage.eINSTANCE);
 
     // Create package meta-data objects
     theAttributesPackage.createPackageContents();
@@ -246,8 +252,8 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
   private boolean isCreated = false;
 
   /**
-   * Creates the meta-model objects for the package. This method is guarded to have no affect on any invocation but its first. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Creates the meta-model objects for the package. This method is guarded to have no affect on any invocation but its
+   * first. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -277,8 +283,8 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
   private boolean isInitialized = false;
 
   /**
-   * Complete the initialization of the package and its meta-model. This method is guarded to have no affect on any invocation but its first. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Complete the initialization of the package and its meta-model. This method is guarded to have no affect on any
+   * invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @generated
    */
@@ -300,29 +306,33 @@ public class AttributesPackageImpl extends EPackageImpl implements AttributesPac
     // Add supertypes to classes
 
     // Initialize classes and features; add operations and parameters
-    initEClass(this.vlnvEClass, org.ietr.dftools.architecture.slam.attributes.VLNV.class, "VLNV", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
-        EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVLNV_Vendor(), this.ecorePackage.getEString(), "vendor", "", 1, 1, org.ietr.dftools.architecture.slam.attributes.VLNV.class,
-        !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID,
-        EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
-    initEAttribute(getVLNV_Library(), this.ecorePackage.getEString(), "library", null, 1, 1, org.ietr.dftools.architecture.slam.attributes.VLNV.class,
-        !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID,
-        EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
-    initEAttribute(getVLNV_Name(), this.ecorePackage.getEString(), "name", null, 1, 1, org.ietr.dftools.architecture.slam.attributes.VLNV.class,
-        !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID,
-        EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
-    initEAttribute(getVLNV_Version(), this.ecorePackage.getEString(), "version", null, 1, 1, org.ietr.dftools.architecture.slam.attributes.VLNV.class,
-        !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID,
-        EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+    initEClass(this.vlnvEClass, org.ietr.dftools.architecture.slam.attributes.VLNV.class, "VLNV",
+        !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE, EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVLNV_Vendor(), this.ecorePackage.getEString(), "vendor", "", 1, 1,
+        org.ietr.dftools.architecture.slam.attributes.VLNV.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE,
+        EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
+        !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+    initEAttribute(getVLNV_Library(), this.ecorePackage.getEString(), "library", null, 1, 1,
+        org.ietr.dftools.architecture.slam.attributes.VLNV.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE,
+        EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
+        !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+    initEAttribute(getVLNV_Name(), this.ecorePackage.getEString(), "name", null, 1, 1,
+        org.ietr.dftools.architecture.slam.attributes.VLNV.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE,
+        EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
+        !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+    initEAttribute(getVLNV_Version(), this.ecorePackage.getEString(), "version", null, 1, 1,
+        org.ietr.dftools.architecture.slam.attributes.VLNV.class, !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE,
+        EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
+        !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
 
-    initEClass(this.parameterEClass, Parameter.class, "Parameter", !EPackageImpl.IS_ABSTRACT, !EPackageImpl.IS_INTERFACE,
-        EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getParameter_Key(), this.ecorePackage.getEString(), "key", null, 1, 1, Parameter.class, !EPackageImpl.IS_TRANSIENT,
-        !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
-        !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
-    initEAttribute(getParameter_Value(), this.ecorePackage.getEString(), "value", null, 1, 1, Parameter.class, !EPackageImpl.IS_TRANSIENT,
-        !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE, !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE,
-        !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+    initEClass(this.parameterEClass, Parameter.class, "Parameter", !EPackageImpl.IS_ABSTRACT,
+        !EPackageImpl.IS_INTERFACE, EPackageImpl.IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getParameter_Key(), this.ecorePackage.getEString(), "key", null, 1, 1, Parameter.class,
+        !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE,
+        !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
+    initEAttribute(getParameter_Value(), this.ecorePackage.getEString(), "value", null, 1, 1, Parameter.class,
+        !EPackageImpl.IS_TRANSIENT, !EPackageImpl.IS_VOLATILE, EPackageImpl.IS_CHANGEABLE, !EPackageImpl.IS_UNSETTABLE,
+        !EPackageImpl.IS_ID, EPackageImpl.IS_UNIQUE, !EPackageImpl.IS_DERIVED, EPackageImpl.IS_ORDERED);
   }
 
 } // AttributesPackageImpl

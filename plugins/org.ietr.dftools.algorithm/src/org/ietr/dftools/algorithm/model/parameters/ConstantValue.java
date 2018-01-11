@@ -79,7 +79,9 @@ public class ConstantValue implements Value {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.parameters.Value#setExpressionSolver(org.ietr.dftools.algorithm.model.parameters.IExpressionSolver)
+   * @see
+   * org.ietr.dftools.algorithm.model.parameters.Value#setExpressionSolver(org.ietr.dftools.algorithm.model.parameters.
+   * IExpressionSolver)
    */
   @Override
   public void setExpressionSolver(final IExpressionSolver solver) {

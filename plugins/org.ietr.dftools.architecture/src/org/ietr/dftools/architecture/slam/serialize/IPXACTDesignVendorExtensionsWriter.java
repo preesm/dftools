@@ -120,7 +120,8 @@ public class IPXACTDesignVendorExtensionsWriter {
    * @param document
    *          the document
    */
-  public void writeDesignParameter(final Element parent, final String key, final String value, final Document document) {
+  public void writeDesignParameter(final Element parent, final String key, final String value,
+      final Document document) {
     final Element parameterElt = document.createElement("slam:parameter");
     parent.appendChild(parameterElt);
 

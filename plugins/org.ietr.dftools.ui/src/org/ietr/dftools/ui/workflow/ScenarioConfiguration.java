@@ -39,7 +39,8 @@ package org.ietr.dftools.ui.workflow;
 
 // TODO: Auto-generated Javadoc
 /**
- * Representing the configuration for the scenario retrieved from launch tab. It feeds a {@link ScenarioRetriever} to create the input scenario.
+ * Representing the configuration for the scenario retrieved from launch tab. It feeds a {@link ScenarioRetriever} to
+ * create the input scenario.
  *
  * @author mpelcat
  *

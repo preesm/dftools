@@ -85,7 +85,8 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected abstract void treatSourceInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth) throws InvalidExpressionException;
+  protected abstract void treatSourceInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth)
+      throws InvalidExpressionException;
 
   /**
    * Treat the sink interface to ensure that there exist only one incoming connection.
@@ -99,7 +100,8 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected abstract void treatSinkInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth) throws InvalidExpressionException;
+  protected abstract void treatSinkInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth)
+      throws InvalidExpressionException;
 
   /**
    * Flatten one vertex given it's parent.
@@ -113,7 +115,8 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private void treatVertex(final AbstractVertex vertex, final G parentGraph, final int depth) throws InvalidExpressionException {
+  private void treatVertex(final AbstractVertex vertex, final G parentGraph, final int depth)
+      throws InvalidExpressionException {
     final Vector<SDFAbstractVertex> vertices = new Vector<SDFAbstractVertex>(vertex.getGraphDescription().vertexSet());
     final Map<AbstractVertex, AbstractVertex> matchCopies = new LinkedHashMap<>();
     for (int i = 0; i < vertices.size(); i++) {

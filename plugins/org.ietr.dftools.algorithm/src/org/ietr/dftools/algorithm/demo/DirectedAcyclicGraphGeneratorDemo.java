@@ -110,7 +110,8 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
 
     // Creates a random DAG
     final DirectedAcyclicGraphGenerator DAGG = new DirectedAcyclicGraphGenerator();
-    final SDFGraph demoGraph = DAGG.createAcyclicRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree);
+    final SDFGraph demoGraph = DAGG.createAcyclicRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree,
+        maxOutDegree);
 
     final TopologyVisitor topo = new TopologyVisitor();
     try {
@@ -204,7 +205,8 @@ public class DirectedAcyclicGraphGeneratorDemo extends JApplet {
     while (order.hasNext()) {
       final SDFAbstractVertex nextVertex = order.next();
       vertices.add(nextVertex);
-      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null) && (this.model.getEdge(previousVertex, nextVertex) == null)) {
+      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null)
+          && (this.model.getEdge(previousVertex, nextVertex) == null)) {
         y += 50;
         positionVertexAt(nextVertex, x, y);
         if (y > ymax) {

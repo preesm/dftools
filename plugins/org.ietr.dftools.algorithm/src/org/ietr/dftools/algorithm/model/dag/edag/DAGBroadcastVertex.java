@@ -68,7 +68,8 @@ public class DAGBroadcastVertex extends DAGVertex {
    * @param nb
    *          This Vertex number of repetition
    */
-  public DAGBroadcastVertex(final String n, final AbstractVertexPropertyType<?> t, final AbstractVertexPropertyType<?> nb) {
+  public DAGBroadcastVertex(final String n, final AbstractVertexPropertyType<?> t,
+      final AbstractVertexPropertyType<?> nb) {
     super(n, t, nb);
     setKind(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
   }

@@ -69,7 +69,8 @@ public class WorkflowConverterHandler extends AbstractHandler {
     }
 
     if (workflowFile == null) {
-      final String message = "Could not locate Workflow file from active selection [" + activeSelection + "] of type [" + activeSelection.getClass() + "]";
+      final String message = "Could not locate Workflow file from active selection [" + activeSelection + "] of type ["
+          + activeSelection.getClass() + "]";
       throw new UnsupportedOperationException(message);
     }
     final File file = workflowFile.getLocation().toFile();

@@ -56,7 +56,8 @@ import org.ietr.dftools.architecture.slam.serialize.RefinementList;
 import org.ietr.dftools.graphiti.model.Vertex;
 
 /**
- * A dialog box used to select multiple refinements for a single vertex in a Graphiti graph. It also gives a mean to chose one of the refinements.
+ * A dialog box used to select multiple refinements for a single vertex in a Graphiti graph. It also gives a mean to
+ * chose one of the refinements.
  *
  * @author mpelcat
  *
@@ -102,7 +103,8 @@ public class ChooseRefinementListDialog extends ListDialog {
         final IStructuredSelection tableSelection = (IStructuredSelection) tableViewer.getSelection();
         final Object[] tableSelections = tableSelection.toArray();
         if (this.type.equals("add")) {
-          final IPath name = ChooseRefinementListDialog.this.policy.useExistingFile(ChooseRefinementListDialog.this.vertex, "slam");
+          final IPath name = ChooseRefinementListDialog.this.policy
+              .useExistingFile(ChooseRefinementListDialog.this.vertex, "slam");
           tableViewer.add(name);
         } else if (this.type.equals("remove")) {
           if ((tableSelections.length == 1) && (tableSelections[0] instanceof String)) {
@@ -154,7 +156,8 @@ public class ChooseRefinementListDialog extends ListDialog {
    * @param edit
    *          is this window used to edit the list or to choose one element
    */
-  public ChooseRefinementListDialog(final Vertex vertex, final Shell shell, final SlamRefinementPolicy policy, final boolean edit) {
+  public ChooseRefinementListDialog(final Vertex vertex, final Shell shell, final SlamRefinementPolicy policy,
+      final boolean edit) {
     super(shell);
     // the cancel button is enabled only in case of choice
     setAddCancelButton(!edit);

@@ -74,7 +74,8 @@ public class SDFGeneratorDemo {
     final int minrate = 1;
     final int maxrate = 4;
     final SDFRandomGraph test = new SDFRandomGraph();
-    final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+    final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree,
+        minrate, maxrate);
 
     final TopologyVisitor topo = new TopologyVisitor();
     try {

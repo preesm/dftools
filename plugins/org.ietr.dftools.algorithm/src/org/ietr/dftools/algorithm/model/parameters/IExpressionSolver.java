@@ -57,6 +57,7 @@ public interface IExpressionSolver {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public int solveExpression(String expression, Value caller) throws InvalidExpressionException, NoIntegerValueException;
+  public int solveExpression(String expression, Value caller)
+      throws InvalidExpressionException, NoIntegerValueException;
 
 }

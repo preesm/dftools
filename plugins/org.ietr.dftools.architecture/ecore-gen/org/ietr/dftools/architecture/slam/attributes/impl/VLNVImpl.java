@@ -59,7 +59,8 @@ import org.ietr.dftools.architecture.slam.attributes.VLNV;
  */
 public class VLNVImpl extends EObjectImpl implements VLNV {
   /**
-   * The default value of the '{@link #getVendor() <em>Vendor</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getVendor() <em>Vendor</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getVendor()
    * @generated
@@ -68,7 +69,8 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
   protected static final String VENDOR_EDEFAULT = "";
 
   /**
-   * The cached value of the '{@link #getVendor() <em>Vendor</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getVendor() <em>Vendor</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getVendor()
    * @generated
@@ -77,7 +79,8 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
   protected String vendor = VLNVImpl.VENDOR_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getLibrary() <em>Library</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getLibrary() <em>Library</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getLibrary()
    * @generated
@@ -86,7 +89,8 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
   protected static final String LIBRARY_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getLibrary() <em>Library</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getLibrary() <em>Library</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getLibrary()
    * @generated
@@ -95,7 +99,8 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
   protected String library = VLNVImpl.LIBRARY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getName()
    * @generated
@@ -113,7 +118,8 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
   protected String name = VLNVImpl.NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getVersion()
    * @generated
@@ -122,7 +128,8 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
   protected static final String VERSION_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getVersion()
    * @generated
@@ -324,11 +331,13 @@ public class VLNVImpl extends EObjectImpl implements VLNV {
       case AttributesPackage.VLNV__VENDOR:
         return VLNVImpl.VENDOR_EDEFAULT == null ? this.vendor != null : !VLNVImpl.VENDOR_EDEFAULT.equals(this.vendor);
       case AttributesPackage.VLNV__LIBRARY:
-        return VLNVImpl.LIBRARY_EDEFAULT == null ? this.library != null : !VLNVImpl.LIBRARY_EDEFAULT.equals(this.library);
+        return VLNVImpl.LIBRARY_EDEFAULT == null ? this.library != null
+            : !VLNVImpl.LIBRARY_EDEFAULT.equals(this.library);
       case AttributesPackage.VLNV__NAME:
         return VLNVImpl.NAME_EDEFAULT == null ? this.name != null : !VLNVImpl.NAME_EDEFAULT.equals(this.name);
       case AttributesPackage.VLNV__VERSION:
-        return VLNVImpl.VERSION_EDEFAULT == null ? this.version != null : !VLNVImpl.VERSION_EDEFAULT.equals(this.version);
+        return VLNVImpl.VERSION_EDEFAULT == null ? this.version != null
+            : !VLNVImpl.VERSION_EDEFAULT.equals(this.version);
     }
     return super.eIsSet(featureID);
   }

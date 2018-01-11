@@ -329,7 +329,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {

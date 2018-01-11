@@ -49,7 +49,8 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 // TODO: Auto-generated Javadoc
 /**
- * Node implementation is the superclass of both scenario and task implementation. Their outputs are handled the same way.
+ * Node implementation is the superclass of both scenario and task implementation. Their outputs are handled the same
+ * way.
  *
  * @author mpelcat
  */
@@ -197,7 +198,8 @@ public abstract class AbstractWorkflowNodeImplementation {
 
     for (final String outputPortName : outputPortNames) {
       if (!this.outputPrototype.keySet().contains(outputPortName)) {
-        WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseOutputEdge", outputPortName, WorkflowManager.IGNORE_PORT_NAME);
+        WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseOutputEdge", outputPortName,
+            WorkflowManager.IGNORE_PORT_NAME);
         return false;
       }
     }

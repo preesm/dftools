@@ -109,8 +109,8 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
       // Find the non-reacheable vertices
       final List<SDFAbstractVertex> unreachable = new ArrayList<>(graph.vertexSet());
       unreachable.removeAll(reached);
-      throw new RuntimeException("Not all graph vertices are reachable with the SDFIterator.\n" + "Possible cause: There is a cycle without delay.\n"
-          + "Unreachable Vertices: " + unreachable);
+      throw new RuntimeException("Not all graph vertices are reachable with the SDFIterator.\n"
+          + "Possible cause: There is a cycle without delay.\n" + "Unreachable Vertices: " + unreachable);
     }
 
     // If the check was successful, restore the backed-up stack and clean
@@ -241,19 +241,23 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
   }
 
   /**
-   * This recursive methods search the origin for a given {@link SDFAbstractVertex vertex}. Finding the "origin" of a vertex consist in searching recursively
-   * the origin of all predecessors of the given {@link SDFAbstractVertex vertex} until a {@link SDFAbstractVertex vertex} with no predecessor is found. One
-   * {@link SDFAbstractVertex} may have one or several "origins"
+   * This recursive methods search the origin for a given {@link SDFAbstractVertex vertex}. Finding the "origin" of a
+   * vertex consist in searching recursively the origin of all predecessors of the given {@link SDFAbstractVertex
+   * vertex} until a {@link SDFAbstractVertex vertex} with no predecessor is found. One {@link SDFAbstractVertex} may
+   * have one or several "origins"
    *
    * @param vertex
    *          the {@link SDFAbstractVertex} whose origins are searched
    * @param notTreated
-   *          the list of not treated {@link SDFAbstractVertex vertices} (i.e. {@link SDFAbstractVertex vertices} not yet encountered in recursive calls)
-   * @return list of {@link SDFAbstractVertex vertices} that are at the origin of the given {@link SDFAbstractVertex vertex}.
+   *          the list of not treated {@link SDFAbstractVertex vertices} (i.e. {@link SDFAbstractVertex vertices} not
+   *          yet encountered in recursive calls)
+   * @return list of {@link SDFAbstractVertex vertices} that are at the origin of the given {@link SDFAbstractVertex
+   *         vertex}.
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private List<SDFAbstractVertex> originOf(final SDFAbstractVertex vertex, final List<SDFAbstractVertex> notTreated) throws InvalidExpressionException {
+  private List<SDFAbstractVertex> originOf(final SDFAbstractVertex vertex, final List<SDFAbstractVertex> notTreated)
+      throws InvalidExpressionException {
     final List<SDFAbstractVertex> origins = new ArrayList<>();
     int added = 0;
     // Scan the predecessor of the current vertex (if any)

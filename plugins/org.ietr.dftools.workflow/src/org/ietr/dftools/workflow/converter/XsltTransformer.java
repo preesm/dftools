@@ -67,7 +67,8 @@ public class XsltTransformer {
    * @param xslFileLoc
    *          The XSLT stylesheet file name.
    * @throws TransformerConfigurationException
-   *           Thrown if there are errors when parsing the Source or it is not possible to create a {@link Transformer} instance.
+   *           Thrown if there are errors when parsing the Source or it is not possible to create a {@link Transformer}
+   *           instance.
    */
   public boolean setXSLFile(final String xslFileLoc) throws TransformerConfigurationException {
 
@@ -97,7 +98,8 @@ public class XsltTransformer {
     if (this.transformer != null) {
 
       try {
-        this.transformer.transform(new StreamSource(sourceFileLoc), new StreamResult(new FileOutputStream(destFileLoc)));
+        this.transformer.transform(new StreamSource(sourceFileLoc),
+            new StreamResult(new FileOutputStream(destFileLoc)));
       } catch (final FileNotFoundException ex) {
         System.out.println("Problem finding files for XSL transfo (" + sourceFileLoc + "," + destFileLoc + ")");
       } catch (final TransformerException ex) {

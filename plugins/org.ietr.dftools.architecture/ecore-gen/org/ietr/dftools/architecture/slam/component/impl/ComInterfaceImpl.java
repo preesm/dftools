@@ -63,7 +63,8 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
  */
 public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
   /**
-   * The cached value of the '{@link #getBusType() <em>Bus Type</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getBusType() <em>Bus Type</em>}' containment reference. <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @see #getBusType()
    * @generated
@@ -72,7 +73,8 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
   protected VLNV busType;
 
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getName()
    * @generated
@@ -138,7 +140,8 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
    */
   @Override
   public void setComponent(final Component newComponent) {
-    if ((newComponent != eInternalContainer()) || ((eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT) && (newComponent != null))) {
+    if ((newComponent != eInternalContainer())
+        || ((eContainerFeatureID() != ComponentPackage.COM_INTERFACE__COMPONENT) && (newComponent != null))) {
       if (EcoreUtil.isAncestor(this, newComponent)) {
         throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       }
@@ -147,14 +150,16 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
         msgs = eBasicRemoveFromContainer(msgs);
       }
       if (newComponent != null) {
-        msgs = ((InternalEObject) newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INTERFACES, Component.class, msgs);
+        msgs = ((InternalEObject) newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INTERFACES,
+            Component.class, msgs);
       }
       msgs = basicSetComponent(newComponent, msgs);
       if (msgs != null) {
         msgs.dispatch();
       }
     } else if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__COMPONENT, newComponent, newComponent));
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__COMPONENT, newComponent,
+          newComponent));
     }
   }
 
@@ -177,7 +182,8 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
     final VLNV oldBusType = this.busType;
     this.busType = newBusType;
     if (eNotificationRequired()) {
-      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, oldBusType, newBusType);
+      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+          ComponentPackage.COM_INTERFACE__BUS_TYPE, oldBusType, newBusType);
       if (msgs == null) {
         msgs = notification;
       } else {
@@ -197,18 +203,20 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
     if (newBusType != this.busType) {
       NotificationChain msgs = null;
       if (this.busType != null) {
-        msgs = ((InternalEObject) this.busType).eInverseRemove(this, InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null,
-            msgs);
+        msgs = ((InternalEObject) this.busType).eInverseRemove(this,
+            InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null, msgs);
       }
       if (newBusType != null) {
-        msgs = ((InternalEObject) newBusType).eInverseAdd(this, InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null, msgs);
+        msgs = ((InternalEObject) newBusType).eInverseAdd(this,
+            InternalEObject.EOPPOSITE_FEATURE_BASE - ComponentPackage.COM_INTERFACE__BUS_TYPE, null, msgs);
       }
       msgs = basicSetBusType(newBusType, msgs);
       if (msgs != null) {
         msgs.dispatch();
       }
     } else if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, newBusType, newBusType));
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_INTERFACE__BUS_TYPE, newBusType,
+          newBusType));
     }
   }
 
@@ -259,7 +267,8 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case ComponentPackage.COM_INTERFACE__COMPONENT:
         return basicSetComponent(null, msgs);
@@ -356,7 +365,8 @@ public class ComInterfaceImpl extends EObjectImpl implements ComInterface {
       case ComponentPackage.COM_INTERFACE__BUS_TYPE:
         return this.busType != null;
       case ComponentPackage.COM_INTERFACE__NAME:
-        return ComInterfaceImpl.NAME_EDEFAULT == null ? this.name != null : !ComInterfaceImpl.NAME_EDEFAULT.equals(this.name);
+        return ComInterfaceImpl.NAME_EDEFAULT == null ? this.name != null
+            : !ComInterfaceImpl.NAME_EDEFAULT.equals(this.name);
     }
     return super.eIsSet(featureID);
   }

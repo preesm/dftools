@@ -65,10 +65,11 @@ import org.ietr.dftools.architecture.utils.SlamUserFactory;
  */
 public interface Design extends VLNVedElement, ParameterizedElement {
   /**
-   * Returns the value of the '<em><b>Component Instances</b></em>' containment reference list. The list contents are of type
-   * {@link org.ietr.dftools.architecture.slam.ComponentInstance}. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Component Instances</b></em>' containment reference list. The list contents are of
+   * type {@link org.ietr.dftools.architecture.slam.ComponentInstance}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Component Instances</em>' reference list isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Component Instances</em>' reference list isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -83,7 +84,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
    * Returns the value of the '<em><b>Links</b></em>' containment reference list. The list contents are of type
    * {@link org.ietr.dftools.architecture.slam.link.Link}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Links</em>' reference list isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Links</em>' reference list isn't clear, there really should be more of a description
+   * here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -95,10 +97,11 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   EList<Link> getLinks();
 
   /**
-   * Returns the value of the '<em><b>Hierarchy Ports</b></em>' containment reference list. The list contents are of type
-   * {@link org.ietr.dftools.architecture.slam.component.HierarchyPort}. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Hierarchy Ports</b></em>' containment reference list. The list contents are of
+   * type {@link org.ietr.dftools.architecture.slam.component.HierarchyPort}. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Hierarchy Ports</em>' reference list isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Hierarchy Ports</em>' reference list isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -111,7 +114,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
 
   /**
    * Returns the value of the '<em><b>Refined</b></em>' container reference. It is bidirectional and its opposite is
-   * '{@link org.ietr.dftools.architecture.slam.component.Component#getRefinements <em>Refinements</em>}'. <!-- begin-user-doc -->
+   * '{@link org.ietr.dftools.architecture.slam.component.Component#getRefinements <em>Refinements</em>}'. <!--
+   * begin-user-doc -->
    * <p>
    * If the refined component does not exist, it is created.
    * </p>
@@ -127,8 +131,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   Component getRefined();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.Design#getRefined <em>Refined</em>}' container reference. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.Design#getRefined <em>Refined</em>}' container
+   * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Refined</em>' container reference.
@@ -153,7 +157,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   String getPath();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.Design#getPath <em>Path</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.Design#getPath <em>Path</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Path</em>' attribute.
@@ -165,7 +170,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   /**
    * Returns the value of the '<em><b>Component Holder</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Component Holder</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Component Holder</em>' reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -178,8 +184,8 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   ComponentHolder getComponentHolder();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.Design#getComponentHolder <em>Component Holder</em>}' reference. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.Design#getComponentHolder <em>Component
+   * Holder</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Component Holder</em>' reference.
@@ -221,12 +227,12 @@ public interface Design extends VLNVedElement, ParameterizedElement {
   Component getComponent(VLNV name);
 
   /**
-   * Gets the component with given {@link VLNV} (class is omitted during the search). If it is not present in the Design, instantiates it and adds it in the
-   * design.
+   * Gets the component with given {@link VLNV} (class is omitted during the search). If it is not present in the
+   * Design, instantiates it and adds it in the design.
    *
-   * @deprecated use {@link #getComponent(VLNV)} instead. Guard it with {@link #containsComponent(VLNV)}. If the component is not present, create it with
-   *             {@link SlamUserFactory#createComponent(VLNV, String)} and add it in the design with
-   *             {@link #getComponentHolder()}.getComponents().add(component)
+   * @deprecated use {@link #getComponent(VLNV)} instead. Guard it with {@link #containsComponent(VLNV)}. If the
+   *             component is not present, create it with {@link SlamUserFactory#createComponent(VLNV, String)} and add
+   *             it in the design with {@link #getComponentHolder()}.getComponents().add(component)
    */
   @Deprecated
   Component getComponent(VLNV name, EClass class_);

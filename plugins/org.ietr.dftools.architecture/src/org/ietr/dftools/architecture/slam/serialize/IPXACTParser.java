@@ -46,7 +46,8 @@ import org.w3c.dom.Node;
 
 // TODO: Auto-generated Javadoc
 /**
- * Parser of a System-Level Architecture model from the IP-XACT format. Utilities common to component and design parsers.
+ * Parser of a System-Level Architecture model from the IP-XACT format. Utilities common to component and design
+ * parsers.
  *
  * @author mpelcat
  */

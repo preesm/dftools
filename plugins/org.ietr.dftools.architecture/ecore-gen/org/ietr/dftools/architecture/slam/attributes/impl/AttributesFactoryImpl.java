@@ -59,7 +59,8 @@ public class AttributesFactoryImpl extends EFactoryImpl implements AttributesFac
    */
   public static AttributesFactory init() {
     try {
-      final AttributesFactory theAttributesFactory = (AttributesFactory) EPackage.Registry.INSTANCE.getEFactory(AttributesPackage.eNS_URI);
+      final AttributesFactory theAttributesFactory = (AttributesFactory) EPackage.Registry.INSTANCE
+          .getEFactory(AttributesPackage.eNS_URI);
       if (theAttributesFactory != null) {
         return theAttributesFactory;
       }

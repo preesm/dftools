@@ -100,14 +100,16 @@ public class SDFVertex extends SDFAbstractVertex {
     // Copy refinement properties
     newVertex.setRefinement(getRefinement());
     for (final SDFInterfaceVertex sink : getSinks()) {
-      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
+      if ((newVertex.getGraphDescription() != null)
+          && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
         newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
         newVertex.addSink(sink.clone());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
-      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
+      if ((newVertex.getGraphDescription() != null)
+          && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
         newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
         newVertex.addSource(source.clone());
@@ -136,7 +138,8 @@ public class SDFVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
   public void connectionRemoved(final AbstractEdge<?, ?> e) {

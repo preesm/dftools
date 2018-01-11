@@ -92,7 +92,8 @@ public class IPXACTDesignWriter {
 
     this.vendorExtensions = new IPXACTDesignVendorExtensionsWriter(design);
 
-    final Document document = DomUtil.createDocument("http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4", "spirit:design");
+    final Document document = DomUtil.createDocument("http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
+        "spirit:design");
     final Element root = document.getDocumentElement();
 
     // add additional namespace to the root element

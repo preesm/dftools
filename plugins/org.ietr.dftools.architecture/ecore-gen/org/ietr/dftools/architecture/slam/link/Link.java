@@ -49,8 +49,10 @@ import org.ietr.dftools.architecture.slam.component.ComInterface;
  * <ul>
  * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getSourceInterface <em>Source Interface</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationInterface <em>Destination Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component Instance</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component Instance</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component
+ * Instance</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component
+ * Instance</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}</li>
  * </ul>
@@ -63,7 +65,8 @@ public interface Link extends EObject {
   /**
    * Returns the value of the '<em><b>Source Interface</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Source Interface</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Source Interface</em>' reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -76,8 +79,8 @@ public interface Link extends EObject {
   ComInterface getSourceInterface();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getSourceInterface <em>Source Interface</em>}' reference. <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getSourceInterface <em>Source
+   * Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Source Interface</em>' reference.
@@ -89,7 +92,8 @@ public interface Link extends EObject {
   /**
    * Returns the value of the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Destination Interface</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Destination Interface</em>' reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -102,8 +106,8 @@ public interface Link extends EObject {
   ComInterface getDestinationInterface();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationInterface <em>Destination Interface</em>}' reference. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationInterface <em>Destination
+   * Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Destination Interface</em>' reference.
@@ -115,7 +119,8 @@ public interface Link extends EObject {
   /**
    * Returns the value of the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Source Component Instance</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Source Component Instance</em>' reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -128,8 +133,8 @@ public interface Link extends EObject {
   ComponentInstance getSourceComponentInstance();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component Instance</em>}' reference. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source
+   * Component Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Source Component Instance</em>' reference.
@@ -141,7 +146,8 @@ public interface Link extends EObject {
   /**
    * Returns the value of the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Destination Component Instance</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Destination Component Instance</em>' reference isn't clear, there really should be more
+   * of a description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -154,8 +160,8 @@ public interface Link extends EObject {
   ComponentInstance getDestinationComponentInstance();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component Instance</em>}'
-   * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationComponentInstance
+   * <em>Destination Component Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Destination Component Instance</em>' reference.
@@ -180,7 +186,8 @@ public interface Link extends EObject {
   String getUuid();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}' attribute. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Uuid</em>' attribute.
@@ -190,9 +197,11 @@ public interface Link extends EObject {
   void setUuid(String value);
 
   /**
-   * Returns the value of the '<em><b>Directed</b></em>' attribute. The default value is <code>"false"</code>. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Directed</b></em>' attribute. The default value is <code>"false"</code>. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Directed</em>' attribute isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Directed</em>' attribute isn't clear, there really should be more of a description
+   * here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -205,8 +214,8 @@ public interface Link extends EObject {
   boolean isDirected();
 
   /**
-   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Directed</em>' attribute.

@@ -155,8 +155,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   }
 
   /**
-   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at the given index (or at the end of the
-   * list if index == connections.size).
+   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at
+   * the given index (or at the end of the list if index == connections.size).
    *
    * @param edge
    *          the {@link SDFEdge} to move
@@ -202,7 +202,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
   @Override
@@ -259,7 +260,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {

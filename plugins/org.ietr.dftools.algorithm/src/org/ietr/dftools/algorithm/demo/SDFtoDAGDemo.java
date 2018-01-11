@@ -90,7 +90,8 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
     final int maxrate = 15;
     try {
       final SDFRandomGraph test = new SDFRandomGraph();
-      final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+      final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree,
+          minrate, maxrate);
       // SDFGraph demoGraph =createTestComGraph();
       final TopologyVisitor topo = new TopologyVisitor();
       try {
@@ -100,7 +101,8 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
       }
       applet1.init(demoGraph);
 
-      final DAGTransformation<DirectedAcyclicGraph> visitor = new DAGTransformation<>(new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
+      final DAGTransformation<DirectedAcyclicGraph> visitor = new DAGTransformation<>(new DirectedAcyclicGraph(),
+          DAGVertexFactory.getInstance());
       try {
         demoGraph.accept(visitor);
       } catch (final SDF4JException e) {
@@ -166,7 +168,8 @@ public class SDFtoDAGDemo extends SDFAdapterDemo {
     while (order.hasNext()) {
       final DAGVertex nextVertex = order.next();
       vertices.add(nextVertex);
-      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null) && (this.model.getEdge(previousVertex, nextVertex) == null)) {
+      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null)
+          && (this.model.getEdge(previousVertex, nextVertex) == null)) {
         y += 50;
         positionVertexAt(nextVertex, x, y);
         if (y > ymax) {

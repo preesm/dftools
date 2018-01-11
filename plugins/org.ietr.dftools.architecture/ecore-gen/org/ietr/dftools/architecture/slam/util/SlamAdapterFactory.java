@@ -48,8 +48,8 @@ import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.VLNVedElement;
 
 /**
- * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code> method for each class of the model. <!--
- * end-user-doc -->
+ * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
+ * method for each class of the model. <!-- end-user-doc -->
  *
  * @see org.ietr.dftools.architecture.slam.SlamPackage
  * @generated
@@ -74,8 +74,9 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc --> This implementation returns <code>true</code> if the object
-   * is either the model's package or is an instance object of the model. <!-- end-user-doc -->
+   * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc --> This implementation
+   * returns <code>true</code> if the object is either the model's package or is an instance object of the model. <!--
+   * end-user-doc -->
    *
    * @return whether this factory is applicable for the type of the object.
    * @generated
@@ -142,9 +143,9 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.Design <em>Design</em>}'. <!-- begin-user-doc --> This default
-   * implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-   * end-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.Design <em>Design</em>}'.
+   * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful to
+   * ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
    * @return the new adapter.
    * @see org.ietr.dftools.architecture.slam.Design
@@ -155,9 +156,10 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class ' {@link org.ietr.dftools.architecture.slam.ComponentInstance <em>Component Instance</em>}'. <!--
-   * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch
-   * all the cases anyway. <!-- end-user-doc -->
+   * Creates a new adapter for an object of class ' {@link org.ietr.dftools.architecture.slam.ComponentInstance
+   * <em>Component Instance</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+   * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+   * end-user-doc -->
    *
    * @return the new adapter.
    * @see org.ietr.dftools.architecture.slam.ComponentInstance
@@ -168,9 +170,9 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.VLNVedElement <em>VLN Ved Element</em>}'. <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.VLNVedElement <em>VLN Ved
+   * Element</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
+   * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
    * @return the new adapter.
    * @see org.ietr.dftools.architecture.slam.VLNVedElement
@@ -181,9 +183,10 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.ParameterizedElement <em>Parameterized Element</em>}'. <!--
-   * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch
-   * all the cases anyway. <!-- end-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.ParameterizedElement
+   * <em>Parameterized Element</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+   * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+   * end-user-doc -->
    *
    * @return the new adapter.
    * @see org.ietr.dftools.architecture.slam.ParameterizedElement
@@ -194,9 +197,9 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.ComponentHolder <em>Component Holder</em>}'. <!-- begin-user-doc
-   * --> This default implementation returns null so that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases
-   * anyway. <!-- end-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.ietr.dftools.architecture.slam.ComponentHolder
+   * <em>Component Holder</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+   * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
    *
    * @return the new adapter.
    * @see org.ietr.dftools.architecture.slam.ComponentHolder
@@ -207,7 +210,8 @@ public class SlamAdapterFactory extends AdapterFactoryImpl {
   }
 
   /**
-   * Creates a new adapter for the default case. <!-- begin-user-doc --> This default implementation returns null. <!-- end-user-doc -->
+   * Creates a new adapter for the default case. <!-- begin-user-doc --> This default implementation returns null. <!--
+   * end-user-doc -->
    *
    * @return the new adapter.
    * @generated

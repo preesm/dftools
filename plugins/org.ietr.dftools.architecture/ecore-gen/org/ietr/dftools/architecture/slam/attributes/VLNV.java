@@ -57,7 +57,8 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface VLNV extends EObject {
   /**
-   * Returns the value of the '<em><b>Vendor</b></em>' attribute. The default value is <code>""</code>. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Vendor</b></em>' attribute. The default value is <code>""</code>. <!--
+   * begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Vendor</em>' attribute isn't clear, there really should be more of a description here...
    * </p>
@@ -72,8 +73,8 @@ public interface VLNV extends EObject {
   String getVendor();
 
   /**
-   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVendor <em>Vendor</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVendor <em>Vendor</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Vendor</em>' attribute.
@@ -85,7 +86,8 @@ public interface VLNV extends EObject {
   /**
    * Returns the value of the '<em><b>Library</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Library</em>' attribute isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Library</em>' attribute isn't clear, there really should be more of a description
+   * here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -98,8 +100,8 @@ public interface VLNV extends EObject {
   String getLibrary();
 
   /**
-   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.attributes.VLNV#getLibrary <em>Library</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.attributes.VLNV#getLibrary <em>Library</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Library</em>' attribute.
@@ -124,8 +126,8 @@ public interface VLNV extends EObject {
   String getName();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getName <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Name</em>' attribute.
@@ -137,7 +139,8 @@ public interface VLNV extends EObject {
   /**
    * Returns the value of the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description
+   * here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -150,8 +153,8 @@ public interface VLNV extends EObject {
   String getVersion();
 
   /**
-   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVersion <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVersion <em>Version</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Version</em>' attribute.

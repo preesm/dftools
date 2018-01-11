@@ -53,9 +53,11 @@ package org.ietr.dftools.architecture.slam.component;
 public interface Dma extends Enabler {
 
   /**
-   * Returns the value of the '<em><b>Setup Time</b></em>' attribute. The default value is <code>"0"</code>. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Setup Time</b></em>' attribute. The default value is <code>"0"</code>. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Setup Time</em>' attribute isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Setup Time</em>' attribute isn't clear, there really should be more of a description
+   * here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -68,8 +70,8 @@ public interface Dma extends Enabler {
   int getSetupTime();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.Dma#getSetupTime <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.Dma#getSetupTime <em>Setup Time</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Setup Time</em>' attribute.

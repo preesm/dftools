@@ -42,7 +42,8 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins tasks applied to a scenario.
+ * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins
+ * tasks applied to a scenario.
  *
  * @author mpelcat
  */

@@ -62,8 +62,8 @@ public class Key {
   String type;
 
   /**
-   * Construct a new key with the given name, applyint to instanceof the class "applyTo" and with a value of the type "type". The last parameter is a
-   * description of the key meaning
+   * Construct a new key with the given name, applyint to instanceof the class "applyTo" and with a value of the type
+   * "type". The last parameter is a description of the key meaning
    *
    * @param name
    *          The key name

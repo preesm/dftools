@@ -69,7 +69,8 @@ import org.ietr.dftools.workflow.messages.WorkflowMessages;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
- * Shortcut for launching an executable directly from the navigator, without having to create a launch configuration manually.
+ * Shortcut for launching an executable directly from the navigator, without having to create a launch configuration
+ * manually.
  *
  * @author mwipliez
  * @author mpelcat
@@ -77,7 +78,8 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 public class WorkflowLaunchShortcut implements ILaunchShortcut {
 
   /**
-   * Creates configuration that references given workflow and scenario. The configuration is only created if non-existing.
+   * Creates configuration that references given workflow and scenario. The configuration is only created if
+   * non-existing.
    *
    * @param file
    *          the file
@@ -94,11 +96,13 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     final IPath workflowPath = file.getFullPath();
 
     final ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-    final ILaunchConfigurationType type = manager.getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID);
+    final ILaunchConfigurationType type = manager
+        .getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIG_TYPE_ID);
     final ILaunchConfigurationWorkingCopy workingCopy;
 
     try {
-      final String launchConfigurationName = WorkflowLaunchShortcut.generateLaunchConfigurationName(workflowPath, scenarioPath);
+      final String launchConfigurationName = WorkflowLaunchShortcut.generateLaunchConfigurationName(workflowPath,
+          scenarioPath);
       workingCopy = type.newInstance(null, launchConfigurationName);
     } catch (final CoreException e) {
       WorkflowLogger.getLogger().log(Level.SEVERE, "Problem creating the Preesm launch configuration.", e);
@@ -137,16 +141,19 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
     }
 
     final String projectName = workflowPath.segments()[0];
-    final String workflowFileName = workflowPath.segments()[workflowSegmentCount - 1].replace("." + workflowPath.getFileExtension(), "");
-    final String scenarioFileName = scenarioPath.segments()[scenarioSegmentCount - 1].replace("." + scenarioPath.getFileExtension(), "");
+    final String workflowFileName = workflowPath.segments()[workflowSegmentCount - 1]
+        .replace("." + workflowPath.getFileExtension(), "");
+    final String scenarioFileName = scenarioPath.segments()[scenarioSegmentCount - 1]
+        .replace("." + scenarioPath.getFileExtension(), "");
 
-    // from org.eclipse.debug.internal.core.LaunchManager, disallow chars '@', '&','\\', '/', ':', '*', '?', '"', '<', '>', '|', '\0'
+    // from org.eclipse.debug.internal.core.LaunchManager, disallow chars '@', '&','\\', '/', ':', '*', '?', '"', '<',
+    // '>', '|', '\0'
     return projectName + " [" + workflowFileName + "] [" + scenarioFileName + "]";
   }
 
   /**
-   * Show a selection dialog that allows the user to choose one of the specified launch configurations. Return the chosen config, or <code>null</code> if the
-   * user canceled the dialog.
+   * Show a selection dialog that allows the user to choose one of the specified launch configurations. Return the
+   * chosen config, or <code>null</code> if the user canceled the dialog.
    *
    * @param configList
    *          the config list
@@ -168,8 +175,8 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
   }
 
   /**
-   * Search for the existing launch configurations with the same executable, so as to not create a new configuration if there is already one for the same
-   * executable.
+   * Search for the existing launch configurations with the same executable, so as to not create a new configuration if
+   * there is already one for the same executable.
    *
    * @param file
    *          the file
@@ -177,7 +184,8 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
    */
   private ILaunchConfiguration findExistingLaunchConfiguration(final IFile file) {
     final ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-    final ILaunchConfigurationType type = manager.getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID);
+    final ILaunchConfigurationType type = manager
+        .getLaunchConfigurationType(WorkflowLaunchConfigurationDelegate.WORKFLOW_LAUNCH_CONFIG_TYPE_ID);
 
     if (type != null) {
       final List<ILaunchConfiguration> candidateConfigs = new ArrayList<>();
@@ -186,7 +194,8 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
 
         if ((configs != null) && (configs.length > 0)) {
           for (final ILaunchConfiguration configuration : configs) {
-            final String candidateFile = configuration.getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, "");
+            final String candidateFile = configuration
+                .getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, "");
 
             final String newFile = file.getFullPath().toString();
             if (candidateFile.equals(newFile)) {

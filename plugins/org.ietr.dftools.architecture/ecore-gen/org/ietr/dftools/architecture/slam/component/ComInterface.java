@@ -58,9 +58,11 @@ import org.ietr.dftools.architecture.slam.attributes.VLNV;
 public interface ComInterface extends EObject {
   /**
    * Returns the value of the '<em><b>Component</b></em>' container reference. It is bidirectional and its opposite is
-   * '{@link org.ietr.dftools.architecture.slam.component.Component#getInterfaces <em>Interfaces</em>}'. <!-- begin-user-doc -->
+   * '{@link org.ietr.dftools.architecture.slam.component.Component#getInterfaces <em>Interfaces</em>}'. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Component</em>' container reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Component</em>' container reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -74,8 +76,8 @@ public interface ComInterface extends EObject {
   Component getComponent();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getComponent <em>Component</em>}' container reference. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getComponent
+   * <em>Component</em>}' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Component</em>' container reference.
@@ -87,7 +89,8 @@ public interface ComInterface extends EObject {
   /**
    * Returns the value of the '<em><b>Bus Type</b></em>' containment reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Bus Type</em>' containment reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Bus Type</em>' containment reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -100,8 +103,8 @@ public interface ComInterface extends EObject {
   VLNV getBusType();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getBusType <em>Bus Type</em>}' containment reference. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getBusType <em>Bus
+   * Type</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Bus Type</em>' containment reference.
@@ -111,7 +114,8 @@ public interface ComInterface extends EObject {
   void setBusType(VLNV value);
 
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute. The default value is <code>""</code>. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Name</b></em>' attribute. The default value is <code>""</code>. <!--
+   * begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description here...
    * </p>
@@ -126,8 +130,8 @@ public interface ComInterface extends EObject {
   String getName();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getName <em>Name</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getName <em>Name</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Name</em>' attribute.

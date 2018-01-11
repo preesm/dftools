@@ -137,7 +137,8 @@ public class ScenarioNode extends AbstractWorkflowNode {
     try {
       final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-      final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
+      final IConfigurationElement[] elements = registry
+          .getConfigurationElementsFor("org.ietr.dftools.workflow.scenarios");
       for (final IConfigurationElement element : elements) {
         if (element.getAttribute("id").equals(this.scenarioId)) {
           // Tries to create the transformation

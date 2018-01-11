@@ -62,7 +62,8 @@ import org.ietr.dftools.architecture.slam.link.LinkFactory;
 
 // TODO: Auto-generated Javadoc
 /**
- * Methods to flatten the hierarchy of a System-Level Architecture Model. If multiple refinements are available for a component, the first is selected.
+ * Methods to flatten the hierarchy of a System-Level Architecture Model. If multiple refinements are available for a
+ * component, the first is selected.
  *
  * @author mpelcat
  */
@@ -319,8 +320,8 @@ public class SlamFlattener {
    * @param refMap
    *          the ref map
    */
-  private void insertComponentInstancesClones(final EList<ComponentInstance> instances, final Design design, final ComponentInstance processedInstance,
-      final Map<ComponentInstance, ComponentInstance> refMap) {
+  private void insertComponentInstancesClones(final EList<ComponentInstance> instances, final Design design,
+      final ComponentInstance processedInstance, final Map<ComponentInstance, ComponentInstance> refMap) {
     for (final ComponentInstance originalInstance : instances) {
       final String originalName = originalInstance.getInstanceName();
       final ComponentInstance newInstance = SlamFactory.eINSTANCE.createComponentInstance();
@@ -351,7 +352,8 @@ public class SlamFlattener {
    * @param refMap
    *          the ref map
    */
-  private void insertInternalLinksClones(final EList<Link> links, final Design design, final Map<ComponentInstance, ComponentInstance> refMap) {
+  private void insertInternalLinksClones(final EList<Link> links, final Design design,
+      final Map<ComponentInstance, ComponentInstance> refMap) {
 
     for (final Link originalLink : links) {
       Link newLink = null;

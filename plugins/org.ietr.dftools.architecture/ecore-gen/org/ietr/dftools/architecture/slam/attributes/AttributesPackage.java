@@ -84,8 +84,8 @@ public interface AttributesPackage extends EPackage {
   AttributesPackage eINSTANCE = org.ietr.dftools.architecture.slam.attributes.impl.AttributesPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.attributes.impl.VLNVImpl <em>VLNV</em>}' class. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.attributes.impl.VLNVImpl <em>VLNV</em>}'
+   * class. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see org.ietr.dftools.architecture.slam.attributes.impl.VLNVImpl
    * @see org.ietr.dftools.architecture.slam.attributes.impl.AttributesPackageImpl#getVLNV()
@@ -134,8 +134,8 @@ public interface AttributesPackage extends EPackage {
   int VLNV_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.attributes.impl.ParameterImpl <em>Parameter</em>}' class. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.attributes.impl.ParameterImpl
+   * <em>Parameter</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see org.ietr.dftools.architecture.slam.attributes.impl.ParameterImpl
    * @see org.ietr.dftools.architecture.slam.attributes.impl.AttributesPackageImpl#getParameter()
@@ -168,7 +168,8 @@ public interface AttributesPackage extends EPackage {
   int PARAMETER_FEATURE_COUNT = 2;
 
   /**
-   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.attributes.VLNV <em>VLNV</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.attributes.VLNV <em>VLNV</em>}'. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>VLNV</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.VLNV
@@ -177,8 +178,8 @@ public interface AttributesPackage extends EPackage {
   EClass getVLNV();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVendor <em>Vendor</em>}'. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVendor
+   * <em>Vendor</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Vendor</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.VLNV#getVendor()
@@ -188,8 +189,8 @@ public interface AttributesPackage extends EPackage {
   EAttribute getVLNV_Vendor();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getLibrary <em>Library</em>}'. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getLibrary
+   * <em>Library</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Library</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.VLNV#getLibrary()
@@ -199,8 +200,8 @@ public interface AttributesPackage extends EPackage {
   EAttribute getVLNV_Library();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getName <em>Name</em>}'. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getName
+   * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Name</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.VLNV#getName()
@@ -210,8 +211,8 @@ public interface AttributesPackage extends EPackage {
   EAttribute getVLNV_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVersion <em>Version</em>}'. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.VLNV#getVersion
+   * <em>Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Version</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.VLNV#getVersion()
@@ -221,8 +222,8 @@ public interface AttributesPackage extends EPackage {
   EAttribute getVLNV_Version();
 
   /**
-   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.attributes.Parameter <em>Parameter</em>}'. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.attributes.Parameter
+   * <em>Parameter</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Parameter</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.Parameter
@@ -231,8 +232,8 @@ public interface AttributesPackage extends EPackage {
   EClass getParameter();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getKey <em>Key</em>}'. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getKey
+   * <em>Key</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Key</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.Parameter#getKey()
@@ -242,8 +243,8 @@ public interface AttributesPackage extends EPackage {
   EAttribute getParameter_Key();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getValue <em>Value</em>}'. <!-- begin-user-doc
-   * --> <!-- end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getValue
+   * <em>Value</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Value</em>'.
    * @see org.ietr.dftools.architecture.slam.attributes.Parameter#getValue()
@@ -274,8 +275,8 @@ public interface AttributesPackage extends EPackage {
    */
   interface Literals {
     /**
-     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.attributes.impl.VLNVImpl <em>VLNV</em>}' class. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.attributes.impl.VLNVImpl
+     * <em>VLNV</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see org.ietr.dftools.architecture.slam.attributes.impl.VLNVImpl
      * @see org.ietr.dftools.architecture.slam.attributes.impl.AttributesPackageImpl#getVLNV()
@@ -284,36 +285,40 @@ public interface AttributesPackage extends EPackage {
     EClass VLNV = AttributesPackage.eINSTANCE.getVLNV();
 
     /**
-     * The meta object literal for the '<em><b>Vendor</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Vendor</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute VLNV__VENDOR = AttributesPackage.eINSTANCE.getVLNV_Vendor();
 
     /**
-     * The meta object literal for the '<em><b>Library</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Library</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute VLNV__LIBRARY = AttributesPackage.eINSTANCE.getVLNV_Library();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute VLNV__NAME = AttributesPackage.eINSTANCE.getVLNV_Name();
 
     /**
-     * The meta object literal for the '<em><b>Version</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Version</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute VLNV__VERSION = AttributesPackage.eINSTANCE.getVLNV_Version();
 
     /**
-     * The meta object literal for the ' {@link org.ietr.dftools.architecture.slam.attributes.impl.ParameterImpl <em>Parameter</em>}' class. <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
+     * The meta object literal for the ' {@link org.ietr.dftools.architecture.slam.attributes.impl.ParameterImpl
+     * <em>Parameter</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see org.ietr.dftools.architecture.slam.attributes.impl.ParameterImpl
      * @see org.ietr.dftools.architecture.slam.attributes.impl.AttributesPackageImpl#getParameter()
@@ -322,14 +327,16 @@ public interface AttributesPackage extends EPackage {
     EClass PARAMETER = AttributesPackage.eINSTANCE.getParameter();
 
     /**
-     * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute PARAMETER__KEY = AttributesPackage.eINSTANCE.getParameter_Key();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */

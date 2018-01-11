@@ -91,8 +91,8 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
    *          the shell
    */
   protected void browseFiles(final Shell shell) {
-    final ElementTreeSelectionDialog tree = new ElementTreeSelectionDialog(shell, WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(),
-        new WorkbenchContentProvider());
+    final ElementTreeSelectionDialog tree = new ElementTreeSelectionDialog(shell,
+        WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), new WorkbenchContentProvider());
     tree.setAllowMultiple(false);
     tree.setInput(ResourcesPlugin.getWorkspace().getRoot());
     tree.setMessage("Please select an existing file:");
@@ -197,7 +197,8 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
   /*
    * (non-Javadoc)
    *
-   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   * @see
+   * org.eclipse.debug.ui.ILaunchConfigurationTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override
   public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
@@ -211,7 +212,8 @@ public abstract class AbstractWorkFlowLaunchTab extends AbstractLaunchConfigurat
   /*
    * (non-Javadoc)
    *
-   * @see org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   * @see
+   * org.eclipse.debug.ui.ILaunchConfigurationTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
    */
   @Override
   public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {

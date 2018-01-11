@@ -72,8 +72,8 @@ public class SDFMath {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(final List<SDFAbstractVertex> subgraph, final SDFGraph graph)
-      throws InvalidExpressionException {
+  public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(final List<SDFAbstractVertex> subgraph,
+      final SDFGraph graph) throws InvalidExpressionException {
     final Map<SDFAbstractVertex, Integer> trueVrb = new LinkedHashMap<>();
     int i = 0;
 
@@ -190,8 +190,8 @@ public class SDFMath {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public static Map<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(final List<SDFAbstractVertex> subgraph, final SDFGraph graph)
-      throws InvalidExpressionException {
+  public static Map<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(
+      final List<SDFAbstractVertex> subgraph, final SDFGraph graph) throws InvalidExpressionException {
 
     final List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<>();
     for (final SDFAbstractVertex vertex : subgraph) {

@@ -40,8 +40,8 @@ package org.ietr.dftools.workflow;
 /**
  * Exception thrown when an error has occurred in a workflow task.
  *
- * It extends {@link RuntimeException} so that it does not need to be checked (and actually it should not be caught by anything else than a
- * {@link AbstractWorkflowExecutor}).
+ * It extends {@link RuntimeException} so that it does not need to be checked (and actually it should not be caught by
+ * anything else than a {@link AbstractWorkflowExecutor}).
  *
  * @author mpelcat
  * @author Antoine Morvan

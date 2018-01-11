@@ -85,8 +85,8 @@ public interface LinkPackage extends EPackage {
   LinkPackage eINSTANCE = org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl.init();
 
   /**
-   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl <em>Link</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl <em>Link</em>}' class.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see org.ietr.dftools.architecture.slam.link.impl.LinkImpl
    * @see org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl#getLink()
@@ -103,7 +103,8 @@ public interface LinkPackage extends EPackage {
   int LINK__SOURCE_INTERFACE = 0;
 
   /**
-   * The feature id for the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @generated
    * @ordered
@@ -111,7 +112,8 @@ public interface LinkPackage extends EPackage {
   int LINK__DESTINATION_INTERFACE = 1;
 
   /**
-   * The feature id for the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @generated
    * @ordered
@@ -119,7 +121,8 @@ public interface LinkPackage extends EPackage {
   int LINK__SOURCE_COMPONENT_INSTANCE = 2;
 
   /**
-   * The feature id for the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @generated
    * @ordered
@@ -151,8 +154,8 @@ public interface LinkPackage extends EPackage {
   int LINK_FEATURE_COUNT = 6;
 
   /**
-   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * The meta object id for the '{@link org.ietr.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}'
+   * class. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see org.ietr.dftools.architecture.slam.link.impl.DataLinkImpl
    * @see org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl#getDataLink()
@@ -169,7 +172,8 @@ public interface LinkPackage extends EPackage {
   int DATA_LINK__SOURCE_INTERFACE = LinkPackage.LINK__SOURCE_INTERFACE;
 
   /**
-   * The feature id for the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @generated
    * @ordered
@@ -177,7 +181,8 @@ public interface LinkPackage extends EPackage {
   int DATA_LINK__DESTINATION_INTERFACE = LinkPackage.LINK__DESTINATION_INTERFACE;
 
   /**
-   * The feature id for the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @generated
    * @ordered
@@ -185,7 +190,8 @@ public interface LinkPackage extends EPackage {
   int DATA_LINK__SOURCE_COMPONENT_INSTANCE = LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE;
 
   /**
-   * The feature id for the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @generated
    * @ordered
@@ -217,8 +223,8 @@ public interface LinkPackage extends EPackage {
   int DATA_LINK_FEATURE_COUNT = LinkPackage.LINK_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the ' {@link org.ietr.dftools.architecture.slam.link.impl.ControlLinkImpl <em>Control Link</em>}' class. <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+   * The meta object id for the ' {@link org.ietr.dftools.architecture.slam.link.impl.ControlLinkImpl <em>Control
+   * Link</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see org.ietr.dftools.architecture.slam.link.impl.ControlLinkImpl
    * @see org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl#getControlLink()
@@ -235,7 +241,8 @@ public interface LinkPackage extends EPackage {
   int CONTROL_LINK__SOURCE_INTERFACE = LinkPackage.LINK__SOURCE_INTERFACE;
 
   /**
-   * The feature id for the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Destination Interface</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @generated
    * @ordered
@@ -243,7 +250,8 @@ public interface LinkPackage extends EPackage {
   int CONTROL_LINK__DESTINATION_INTERFACE = LinkPackage.LINK__DESTINATION_INTERFACE;
 
   /**
-   * The feature id for the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Source Component Instance</b></em>' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @generated
    * @ordered
@@ -251,7 +259,8 @@ public interface LinkPackage extends EPackage {
   int CONTROL_LINK__SOURCE_COMPONENT_INSTANCE = LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE;
 
   /**
-   * The feature id for the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The feature id for the '<em><b>Destination Component Instance</b></em>' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @generated
    * @ordered
@@ -275,7 +284,8 @@ public interface LinkPackage extends EPackage {
   int CONTROL_LINK__DIRECTED = LinkPackage.LINK__DIRECTED;
 
   /**
-   * The number of structural features of the '<em>Control Link</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The number of structural features of the '<em>Control Link</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @generated
    * @ordered
@@ -283,7 +293,8 @@ public interface LinkPackage extends EPackage {
   int CONTROL_LINK_FEATURE_COUNT = LinkPackage.LINK_FEATURE_COUNT + 0;
 
   /**
-   * Returns the meta object for class ' {@link org.ietr.dftools.architecture.slam.link.Link <em>Link</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for class ' {@link org.ietr.dftools.architecture.slam.link.Link <em>Link</em>}'. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Link</em>'.
    * @see org.ietr.dftools.architecture.slam.link.Link
@@ -292,8 +303,8 @@ public interface LinkPackage extends EPackage {
   EClass getLink();
 
   /**
-   * Returns the meta object for the reference ' {@link org.ietr.dftools.architecture.slam.link.Link#getSourceInterface <em>Source Interface</em>}'. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for the reference ' {@link org.ietr.dftools.architecture.slam.link.Link#getSourceInterface
+   * <em>Source Interface</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the reference '<em>Source Interface</em>'.
    * @see org.ietr.dftools.architecture.slam.link.Link#getSourceInterface()
@@ -303,8 +314,9 @@ public interface LinkPackage extends EPackage {
   EReference getLink_SourceInterface();
 
   /**
-   * Returns the meta object for the reference '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationInterface <em>Destination Interface</em>}'.
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Returns the meta object for the reference
+   * '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationInterface <em>Destination Interface</em>}'. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the reference '<em>Destination Interface</em>'.
    * @see org.ietr.dftools.architecture.slam.link.Link#getDestinationInterface()
@@ -314,7 +326,8 @@ public interface LinkPackage extends EPackage {
   EReference getLink_DestinationInterface();
 
   /**
-   * Returns the meta object for the reference '{@link org.ietr.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component
+   * Returns the meta object for the reference
+   * '{@link org.ietr.dftools.architecture.slam.link.Link#getSourceComponentInstance <em>Source Component
    * Instance</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the reference '<em>Source Component Instance</em>'.
@@ -325,7 +338,8 @@ public interface LinkPackage extends EPackage {
   EReference getLink_SourceComponentInstance();
 
   /**
-   * Returns the meta object for the reference '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component
+   * Returns the meta object for the reference
+   * '{@link org.ietr.dftools.architecture.slam.link.Link#getDestinationComponentInstance <em>Destination Component
    * Instance</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the reference '<em>Destination Component Instance</em>'.
@@ -336,8 +350,8 @@ public interface LinkPackage extends EPackage {
   EReference getLink_DestinationComponentInstance();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.link.Link#getUuid <em>Uuid</em>}'. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.link.Link#getUuid
+   * <em>Uuid</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Uuid</em>'.
    * @see org.ietr.dftools.architecture.slam.link.Link#getUuid()
@@ -347,8 +361,8 @@ public interface LinkPackage extends EPackage {
   EAttribute getLink_Uuid();
 
   /**
-   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.link.Link#isDirected <em>Directed</em>}'. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Returns the meta object for the attribute '{@link org.ietr.dftools.architecture.slam.link.Link#isDirected
+   * <em>Directed</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for the attribute '<em>Directed</em>'.
    * @see org.ietr.dftools.architecture.slam.link.Link#isDirected()
@@ -358,8 +372,8 @@ public interface LinkPackage extends EPackage {
   EAttribute getLink_Directed();
 
   /**
-   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.link.DataLink <em>Data Link</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.link.DataLink <em>Data Link</em>}'.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Data Link</em>'.
    * @see org.ietr.dftools.architecture.slam.link.DataLink
@@ -368,8 +382,8 @@ public interface LinkPackage extends EPackage {
   EClass getDataLink();
 
   /**
-   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.link.ControlLink <em>Control Link</em>}'. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Returns the meta object for class '{@link org.ietr.dftools.architecture.slam.link.ControlLink <em>Control
+   * Link</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @return the meta object for class '<em>Control Link</em>'.
    * @see org.ietr.dftools.architecture.slam.link.ControlLink
@@ -399,8 +413,8 @@ public interface LinkPackage extends EPackage {
    */
   interface Literals {
     /**
-     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl <em>Link</em>}' class. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
+     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl <em>Link</em>}'
+     * class. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see org.ietr.dftools.architecture.slam.link.impl.LinkImpl
      * @see org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl#getLink()
@@ -409,50 +423,56 @@ public interface LinkPackage extends EPackage {
     EClass LINK = LinkPackage.eINSTANCE.getLink();
 
     /**
-     * The meta object literal for the '<em><b>Source Interface</b></em>' reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Source Interface</b></em>' reference feature. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      *
      * @generated
      */
     EReference LINK__SOURCE_INTERFACE = LinkPackage.eINSTANCE.getLink_SourceInterface();
 
     /**
-     * The meta object literal for the '<em><b>Destination Interface</b></em>' reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Destination Interface</b></em>' reference feature. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      *
      * @generated
      */
     EReference LINK__DESTINATION_INTERFACE = LinkPackage.eINSTANCE.getLink_DestinationInterface();
 
     /**
-     * The meta object literal for the '<em><b>Source Component Instance</b></em>' reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Source Component Instance</b></em>' reference feature. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
     EReference LINK__SOURCE_COMPONENT_INSTANCE = LinkPackage.eINSTANCE.getLink_SourceComponentInstance();
 
     /**
-     * The meta object literal for the '<em><b>Destination Component Instance</b></em>' reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Destination Component Instance</b></em>' reference feature. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
     EReference LINK__DESTINATION_COMPONENT_INSTANCE = LinkPackage.eINSTANCE.getLink_DestinationComponentInstance();
 
     /**
-     * The meta object literal for the '<em><b>Uuid</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Uuid</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute LINK__UUID = LinkPackage.eINSTANCE.getLink_Uuid();
 
     /**
-     * The meta object literal for the '<em><b>Directed</b></em>' attribute feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object literal for the '<em><b>Directed</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      *
      * @generated
      */
     EAttribute LINK__DIRECTED = LinkPackage.eINSTANCE.getLink_Directed();
 
     /**
-     * The meta object literal for the ' {@link org.ietr.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data Link</em>}' class. <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The meta object literal for the ' {@link org.ietr.dftools.architecture.slam.link.impl.DataLinkImpl <em>Data
+     * Link</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see org.ietr.dftools.architecture.slam.link.impl.DataLinkImpl
      * @see org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl#getDataLink()
@@ -461,8 +481,8 @@ public interface LinkPackage extends EPackage {
     EClass DATA_LINK = LinkPackage.eINSTANCE.getDataLink();
 
     /**
-     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.link.impl.ControlLinkImpl <em>Control Link</em>}' class. <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
+     * The meta object literal for the '{@link org.ietr.dftools.architecture.slam.link.impl.ControlLinkImpl <em>Control
+     * Link</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see org.ietr.dftools.architecture.slam.link.impl.ControlLinkImpl
      * @see org.ietr.dftools.architecture.slam.link.impl.LinkPackageImpl#getControlLink()

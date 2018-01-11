@@ -66,7 +66,8 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.Object)
+   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph,
+   * java.lang.Object)
    */
   @Override
   public void update(final AbstractGraph<?, ?> observable, final Object arg) {

@@ -79,7 +79,8 @@ public class GenericVertex extends AbstractVertex<GenericGraph> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @Override
   public void connectionRemoved(final AbstractEdge<?, ?> e) {

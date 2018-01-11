@@ -62,9 +62,11 @@ public interface Component extends VLNVedElement, ParameterizedElement {
   /**
    * Returns the value of the '<em><b>Interfaces</b></em>' containment reference list. The list contents are of type
    * {@link org.ietr.dftools.architecture.slam.component.ComInterface}. It is bidirectional and its opposite is
-   * '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getComponent <em>Component</em>}'. <!-- begin-user-doc -->
+   * '{@link org.ietr.dftools.architecture.slam.component.ComInterface#getComponent <em>Component</em>}'. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Interfaces</em>' containment reference list isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Interfaces</em>' containment reference list isn't clear, there really should be more of
+   * a description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -79,9 +81,11 @@ public interface Component extends VLNVedElement, ParameterizedElement {
   /**
    * Returns the value of the '<em><b>Instances</b></em>' reference list. The list contents are of type
    * {@link org.ietr.dftools.architecture.slam.ComponentInstance}. It is bidirectional and its opposite is
-   * '{@link org.ietr.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}'. <!-- begin-user-doc -->
+   * '{@link org.ietr.dftools.architecture.slam.ComponentInstance#getComponent <em>Component</em>}'. <!-- begin-user-doc
+   * -->
    * <p>
-   * If the meaning of the '<em>Instances</em>' containment reference list isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Instances</em>' containment reference list isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -95,10 +99,11 @@ public interface Component extends VLNVedElement, ParameterizedElement {
 
   /**
    * Returns the value of the '<em><b>Refinements</b></em>' containment reference list. The list contents are of type
-   * {@link org.ietr.dftools.architecture.slam.Design}. It is bidirectional and its opposite is '{@link org.ietr.dftools.architecture.slam.Design#getRefined
-   * <em>Refined</em>}'. <!-- begin-user-doc -->
+   * {@link org.ietr.dftools.architecture.slam.Design}. It is bidirectional and its opposite is
+   * '{@link org.ietr.dftools.architecture.slam.Design#getRefined <em>Refined</em>}'. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Refinements</em>' containment reference list isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Refinements</em>' containment reference list isn't clear, there really should be more of
+   * a description here...
    * </p>
    * <!-- end-user-doc -->
    *

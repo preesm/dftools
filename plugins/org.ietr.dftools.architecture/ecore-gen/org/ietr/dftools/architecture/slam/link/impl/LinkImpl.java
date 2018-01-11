@@ -53,9 +53,12 @@ import org.ietr.dftools.architecture.slam.link.LinkPackage;
  * </p>
  * <ul>
  * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getSourceInterface <em>Source Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getDestinationInterface <em>Destination Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getSourceComponentInstance <em>Source Component Instance</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getDestinationComponentInstance <em>Destination Component Instance</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getDestinationInterface <em>Destination
+ * Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getSourceComponentInstance <em>Source Component
+ * Instance</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getDestinationComponentInstance <em>Destination
+ * Component Instance</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#getUuid <em>Uuid</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.link.impl.LinkImpl#isDirected <em>Directed</em>}</li>
  * </ul>
@@ -64,7 +67,8 @@ import org.ietr.dftools.architecture.slam.link.LinkPackage;
  */
 public abstract class LinkImpl extends EObjectImpl implements Link {
   /**
-   * The cached value of the '{@link #getSourceInterface() <em>Source Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getSourceInterface() <em>Source Interface</em>}' reference. <!-- begin-user-doc
+   * --> <!-- end-user-doc -->
    *
    * @see #getSourceInterface()
    * @generated
@@ -73,7 +77,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
   protected ComInterface sourceInterface;
 
   /**
-   * The cached value of the '{@link #getDestinationInterface() <em>Destination Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getDestinationInterface() <em>Destination Interface</em>}' reference. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDestinationInterface()
    * @generated
@@ -82,7 +87,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
   protected ComInterface destinationInterface;
 
   /**
-   * The cached value of the '{@link #getSourceComponentInstance() <em>Source Component Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getSourceComponentInstance() <em>Source Component Instance</em>}' reference. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getSourceComponentInstance()
    * @generated
@@ -91,8 +97,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
   protected ComponentInstance sourceComponentInstance;
 
   /**
-   * The cached value of the '{@link #getDestinationComponentInstance() <em>Destination Component Instance</em>}' reference. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * The cached value of the '{@link #getDestinationComponentInstance() <em>Destination Component Instance</em>}'
+   * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getDestinationComponentInstance()
    * @generated
@@ -101,7 +107,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
   protected ComponentInstance destinationComponentInstance;
 
   /**
-   * The default value of the '{@link #getUuid() <em>Uuid</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getUuid() <em>Uuid</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getUuid()
    * @generated
@@ -119,7 +126,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
   protected String uuid = LinkImpl.UUID_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isDirected() <em>Directed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #isDirected() <em>Directed</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #isDirected()
    * @generated
@@ -128,7 +136,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
   protected static final boolean DIRECTED_EDEFAULT = false;
 
   /**
-   * The cached value of the '{@link #isDirected() <em>Directed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #isDirected() <em>Directed</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #isDirected()
    * @generated
@@ -167,7 +176,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
       this.sourceInterface = (ComInterface) eResolveProxy(oldSourceInterface);
       if (this.sourceInterface != oldSourceInterface) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__SOURCE_INTERFACE, oldSourceInterface, this.sourceInterface));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__SOURCE_INTERFACE,
+              oldSourceInterface, this.sourceInterface));
         }
       }
     }
@@ -193,7 +203,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
     final ComInterface oldSourceInterface = this.sourceInterface;
     this.sourceInterface = newSourceInterface;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__SOURCE_INTERFACE, oldSourceInterface, this.sourceInterface));
+      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__SOURCE_INTERFACE, oldSourceInterface,
+          this.sourceInterface));
     }
   }
 
@@ -209,8 +220,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
       this.destinationInterface = (ComInterface) eResolveProxy(oldDestinationInterface);
       if (this.destinationInterface != oldDestinationInterface) {
         if (eNotificationRequired()) {
-          eNotify(
-              new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__DESTINATION_INTERFACE, oldDestinationInterface, this.destinationInterface));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__DESTINATION_INTERFACE,
+              oldDestinationInterface, this.destinationInterface));
         }
       }
     }
@@ -236,7 +247,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
     final ComInterface oldDestinationInterface = this.destinationInterface;
     this.destinationInterface = newDestinationInterface;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__DESTINATION_INTERFACE, oldDestinationInterface, this.destinationInterface));
+      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__DESTINATION_INTERFACE,
+          oldDestinationInterface, this.destinationInterface));
     }
   }
 
@@ -252,8 +264,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
       this.sourceComponentInstance = (ComponentInstance) eResolveProxy(oldSourceComponentInstance);
       if (this.sourceComponentInstance != oldSourceComponentInstance) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE, oldSourceComponentInstance,
-              this.sourceComponentInstance));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE,
+              oldSourceComponentInstance, this.sourceComponentInstance));
         }
       }
     }
@@ -279,8 +291,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
     final ComponentInstance oldSourceComponentInstance = this.sourceComponentInstance;
     this.sourceComponentInstance = newSourceComponentInstance;
     if (eNotificationRequired()) {
-      eNotify(
-          new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE, oldSourceComponentInstance, this.sourceComponentInstance));
+      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__SOURCE_COMPONENT_INSTANCE,
+          oldSourceComponentInstance, this.sourceComponentInstance));
     }
   }
 
@@ -296,8 +308,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
       this.destinationComponentInstance = (ComponentInstance) eResolveProxy(oldDestinationComponentInstance);
       if (this.destinationComponentInstance != oldDestinationComponentInstance) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE, oldDestinationComponentInstance,
-              this.destinationComponentInstance));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE,
+              oldDestinationComponentInstance, this.destinationComponentInstance));
         }
       }
     }
@@ -323,8 +335,8 @@ public abstract class LinkImpl extends EObjectImpl implements Link {
     final ComponentInstance oldDestinationComponentInstance = this.destinationComponentInstance;
     this.destinationComponentInstance = newDestinationComponentInstance;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE, oldDestinationComponentInstance,
-          this.destinationComponentInstance));
+      eNotify(new ENotificationImpl(this, Notification.SET, LinkPackage.LINK__DESTINATION_COMPONENT_INSTANCE,
+          oldDestinationComponentInstance, this.destinationComponentInstance));
     }
   }
 

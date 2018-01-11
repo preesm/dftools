@@ -62,7 +62,8 @@ import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
- * This abstract class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins tasks applied to a scenario.
+ * This abstract class provides methods to check and execute a workflow. A workflow consists of several transformation
+ * plug-ins tasks applied to a scenario.
  *
  * Log method for check and execution are to be fixed by concrete subclasses, depending on available interfaces
  *
@@ -143,7 +144,8 @@ public abstract class AbstractWorkflowExecutor {
     // There may be several output edges with same data type (sharing same
     // port). All output names are retrieved here.
     for (final WorkflowEdge edge : workflow.outgoingEdgesOf(scenarioNode)) {
-      if (!outputPorts.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(AbstractWorkflowExecutor.IGNORE_PORT_NAME)) {
+      if (!outputPorts.contains(edge.getSourcePort())
+          && !edge.getSourcePort().equals(AbstractWorkflowExecutor.IGNORE_PORT_NAME)) {
         outputPorts.add(edge.getSourcePort());
       }
     }
@@ -185,7 +187,8 @@ public abstract class AbstractWorkflowExecutor {
     // There may be several output edges with same data type (sharing same
     // port)
     for (final WorkflowEdge edge : workflow.outgoingEdgesOf(taskNode)) {
-      if (!outputs.contains(edge.getSourcePort()) && !edge.getSourcePort().equals(AbstractWorkflowExecutor.IGNORE_PORT_NAME)) {
+      if (!outputs.contains(edge.getSourcePort())
+          && !edge.getSourcePort().equals(AbstractWorkflowExecutor.IGNORE_PORT_NAME)) {
         outputs.add(edge.getSourcePort());
       }
     }
@@ -375,7 +378,8 @@ public abstract class AbstractWorkflowExecutor {
           } catch (final Exception e) {
             final StringWriter error = new StringWriter();
             e.printStackTrace(new PrintWriter(error));
-            error(e, "Unexpected Exception: " + error.toString() + "\n Contact Preesm developers if you cannot solve the problem.");
+            error(e, "Unexpected Exception: " + error.toString()
+                + "\n Contact Preesm developers if you cannot solve the problem.");
             return false;
           }
         }
@@ -411,7 +415,8 @@ public abstract class AbstractWorkflowExecutor {
     return true;
   }
 
-  private final void refreshProject(final String projectName, final IProgressMonitor monitor, final String warningMessage) {
+  private final void refreshProject(final String projectName, final IProgressMonitor monitor,
+      final String warningMessage) {
     try {
       final IWorkspace workspace = ResourcesPlugin.getWorkspace();
       final IProject project = workspace.getRoot().getProject(projectName);
@@ -431,7 +436,8 @@ public abstract class AbstractWorkflowExecutor {
    * @throws WorkflowException
    *           the workflow exception
    */
-  private void checkOutputType(final Map<String, Object> outputs, final AbstractWorkflowNodeImplementation currentTaskNode) {
+  private void checkOutputType(final Map<String, Object> outputs,
+      final AbstractWorkflowNodeImplementation currentTaskNode) {
     final Set<Entry<String, Object>> outputEntries = outputs.entrySet();
     // Check outputs one by one
     for (final Entry<String, Object> outputEntry : outputEntries) {
@@ -440,7 +446,8 @@ public abstract class AbstractWorkflowExecutor {
 
       final String expectedOutputType = currentTaskNode.getOutputType(outputName);
       if (expectedOutputType == null) {
-        throw new WorkflowException("The task node " + currentTaskNode + " has an unspecified output with name " + outputName);
+        throw new WorkflowException(
+            "The task node " + currentTaskNode + " has an unspecified output with name " + outputName);
       }
       try {
         if (outputValue != null) {
@@ -449,13 +456,14 @@ public abstract class AbstractWorkflowExecutor {
           if (!currentOutputType.isInstance(outputValue)) {
             // Type is wrong !
             final String givenType = outputValue.getClass().getName();
-            throw new WorkflowException("\nOutput \"" + outputName + "\" of workflow task \"" + currentTaskNode.getClass()
-                + "\" is null or has an invalid type.\n(expected: \"" + expectedOutputType + "\" given: \"" + givenType + "\")");
+            throw new WorkflowException("\nOutput \"" + outputName + "\" of workflow task \""
+                + currentTaskNode.getClass() + "\" is null or has an invalid type.\n(expected: \"" + expectedOutputType
+                + "\" given: \"" + givenType + "\")");
           }
         }
       } catch (final Exception ex) {
-        final String message = "Could not check output type for [" + outputEntry + "] of task [" + currentTaskNode + "] with expected type ["
-            + expectedOutputType + "].";
+        final String message = "Could not check output type for [" + outputEntry + "] of task [" + currentTaskNode
+            + "] with expected type [" + expectedOutputType + "].";
         throw new WorkflowException(message, ex);
       }
     }
@@ -477,7 +485,8 @@ public abstract class AbstractWorkflowExecutor {
     if (defaultParameters != null) {
       if (parameters == null) {
         if (defaultParameters.size() > 0) {
-          log(Level.SEVERE, "Workflow.MissingAllParameters", taskNode.getTaskId(), defaultParameters.keySet().toString());
+          log(Level.SEVERE, "Workflow.MissingAllParameters", taskNode.getTaskId(),
+              defaultParameters.keySet().toString());
           return false;
         }
       } else {
@@ -510,8 +519,8 @@ public abstract class AbstractWorkflowExecutor {
   protected abstract void log(Level level, String msgKey, String... variables);
 
   /**
-   * This special logging method is used for handling severe message with associated exception or error. TODO: add debug parameter to the application and handle
-   * it here to show (or not) the full stack trace/
+   * This special logging method is used for handling severe message with associated exception or error. TODO: add debug
+   * parameter to the application and handle it here to show (or not) the full stack trace/
    */
   protected void error(final Throwable cause, final String msg) {
     WorkflowLogger.getLogger().log(Level.SEVERE, msg);

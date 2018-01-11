@@ -47,7 +47,8 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 // TODO: Auto-generated Javadoc
 /**
- * This interface must be implemented by any workflow task element. The prototype of the workflow task is specified in the plugin extension.
+ * This interface must be implemented by any workflow task element. The prototype of the workflow task is specified in
+ * the plugin extension.
  *
  * @author mpelcat
  */
@@ -94,15 +95,16 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
         final String protoType = this.inputPrototype.get(protoInputPortName);
         final String graphType = graphInputPorts.get(protoInputPortName);
         if (!protoType.equals(graphType)) {
-          WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName, graphType, protoType);
+          WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName,
+              graphType, protoType);
           return false;
         }
       }
     }
 
     if (graphInputPorts.keySet().size() > this.inputPrototype.keySet().size()) {
-      WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges", String.valueOf(graphInputPorts.keySet().size()),
-          String.valueOf(this.inputPrototype.keySet().size()));
+      WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges",
+          String.valueOf(graphInputPorts.keySet().size()), String.valueOf(this.inputPrototype.keySet().size()));
       return false;
     }
 
@@ -136,11 +138,12 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
    * @throws WorkflowException
    *           the workflow exception
    */
-  public abstract Map<String, Object> execute(Map<String, Object> inputs, Map<String, String> parameters, IProgressMonitor monitor, String nodeName,
-      Workflow workflow) throws WorkflowException;
+  public abstract Map<String, Object> execute(Map<String, Object> inputs, Map<String, String> parameters,
+      IProgressMonitor monitor, String nodeName, Workflow workflow) throws WorkflowException;
 
   /**
-   * Returns the task parameters and their default values. These parameters are automatically added in the graph if not present.
+   * Returns the task parameters and their default values. These parameters are automatically added in the graph if not
+   * present.
    *
    * @return the default parameters
    */

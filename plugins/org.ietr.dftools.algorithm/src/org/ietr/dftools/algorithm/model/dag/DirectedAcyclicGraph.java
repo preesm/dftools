@@ -102,7 +102,8 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @throws CreateCycleException
    *           This Edge creates a cycle
    */
-  public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target) throws CreateMultigraphException, CreateCycleException {
+  public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target)
+      throws CreateMultigraphException, CreateCycleException {
     if (getAllEdges(source, target).size() > 0) {
       throw (new CreateMultigraphException());
     } else {
@@ -185,7 +186,8 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.Object)
+   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph,
+   * java.lang.Object)
    */
   @Override
   public void update(final AbstractGraph<?, ?> observable, final Object arg) {

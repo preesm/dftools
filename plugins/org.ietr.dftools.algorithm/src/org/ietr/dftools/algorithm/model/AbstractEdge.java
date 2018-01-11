@@ -230,13 +230,15 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends Observab
    * @return True if the given edge has the same properties, false otherwise
    */
   public boolean compare(final AbstractEdge edge) {
-    return edge.getSource().getName().equals(this.getSource().getName()) && edge.getTarget().getName().equals(this.getTarget().getName());
+    return edge.getSource().getName().equals(this.getSource().getName())
+        && edge.getTarget().getName().equals(this.getTarget().getName());
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {

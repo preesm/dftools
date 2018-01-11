@@ -296,9 +296,9 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   }
 
   /**
-   * Remove the interface vertex connected to the given edge in the parent graph. If the interface is are still connected to an edge, they are not removed. This
-   * may happen when a removed edge was replaced just before being removed, the replacement edge and the removed edge are thus briefly connected to the same
-   * interface.
+   * Remove the interface vertex connected to the given edge in the parent graph. If the interface is are still
+   * connected to an edge, they are not removed. This may happen when a removed edge was replaced just before being
+   * removed, the replacement edge and the removed edge are thus briefly connected to the same interface.
    *
    * @param edge
    *          the edge
@@ -312,9 +312,9 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   }
 
   /**
-   * Removes the interface vertex linked to the given edge in the base graph If the interface is are still connected to an edge, they are not removed. This may
-   * happen when a removed edge was replaced just before being removed, the replacement edge and the removed edge are thus briefly connected to the same
-   * interface.
+   * Removes the interface vertex linked to the given edge in the base graph If the interface is are still connected to
+   * an edge, they are not removed. This may happen when a removed edge was replaced just before being removed, the
+   * replacement edge and the removed edge are thus briefly connected to the same interface.
    *
    * @param edge
    *          the edge
@@ -437,8 +437,10 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
         final AbstractVertex truePort = getGraphDescription().getVertex(source.getName());
         if (getGraphDescription().outgoingEdgesOf(truePort).size() == 0) {
           if (logger != null) {
-            logger.log(Level.INFO, "interface " + source.getName() + " has no inside connection and will be removed for further processing.\n "
-                + "Outside connection has been taken into account for reptition factor computation");
+            logger.log(Level.INFO,
+                "interface " + source.getName()
+                    + " has no inside connection and will be removed for further processing.\n "
+                    + "Outside connection has been taken into account for reptition factor computation");
           }
           this.sources.remove(i);
           getGraphDescription().removeVertex(source);
@@ -457,8 +459,10 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
         final AbstractVertex truePort = getGraphDescription().getVertex(sink.getName());
         if (getGraphDescription().incomingEdgesOf(truePort).size() == 0) {
           if (logger != null) {
-            logger.log(Level.INFO, "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused");
-            throw (new SDF4JException("interface " + sink.getName() + " has no inside connection, consider removing this interface if unused"));
+            logger.log(Level.INFO, "interface " + sink.getName()
+                + " has no inside connection, consider removing this interface if unused");
+            throw (new SDF4JException("interface " + sink.getName()
+                + " has no inside connection, consider removing this interface if unused"));
           }
         }
       }

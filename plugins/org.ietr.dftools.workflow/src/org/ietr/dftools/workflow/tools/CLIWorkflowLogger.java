@@ -47,8 +47,9 @@ import java.util.logging.Logger;
 
 // TODO: Auto-generated Javadoc
 /**
- * Define the singleton managing PREESM loggers. When using this helper class, your debug, info, warning and errors messages will be displayed in the right
- * eclipse console. If no Eclipse GUI plugin is loaded (i.e. executing a job in command line), all the messages will be sent to the system console.
+ * Define the singleton managing PREESM loggers. When using this helper class, your debug, info, warning and errors
+ * messages will be displayed in the right eclipse console. If no Eclipse GUI plugin is loaded (i.e. executing a job in
+ * command line), all the messages will be sent to the system console.
  *
  * @author cguy
  *
@@ -141,7 +142,8 @@ public class CLIWorkflowLogger {
   private static Logger logger;
 
   /**
-   * Return the current logger, or a newly created one if it doesn't exists. If it is created here, a default ConsoleHandler is used as Logger's Handler.
+   * Return the current logger, or a newly created one if it doesn't exists. If it is created here, a default
+   * ConsoleHandler is used as Logger's Handler.
    *
    * @return the logger
    */
@@ -153,8 +155,8 @@ public class CLIWorkflowLogger {
   }
 
   /**
-   * This method is the same as {@link #configureLoggerWithHandler(Handler, Formatter)}, but the {@link DefaultPreesmFormatter} is used as default
-   * {@link Formatter}.
+   * This method is the same as {@link #configureLoggerWithHandler(Handler, Formatter)}, but the
+   * {@link DefaultPreesmFormatter} is used as default {@link Formatter}.
    *
    * @param handler
    *          the handler
@@ -164,8 +166,8 @@ public class CLIWorkflowLogger {
   }
 
   /**
-   * Register specific log Handler to display messages sent threw PreesmLogger with a given {@link Formatter}. If this method is never called, the default
-   * Handler will be {@link java.util.logging.ConsoleHandler}.
+   * Register specific log Handler to display messages sent threw PreesmLogger with a given {@link Formatter}. If this
+   * method is never called, the default Handler will be {@link java.util.logging.ConsoleHandler}.
    *
    * @param handler
    *          the handler
@@ -186,8 +188,8 @@ public class CLIWorkflowLogger {
   }
 
   /**
-   * Set the minimum level displayed. By default, PreesmLogger display messages from INFO level and highest. Call this method with DEBUG or ALL as argument to
-   * display debug messages.
+   * Set the minimum level displayed. By default, PreesmLogger display messages from INFO level and highest. Call this
+   * method with DEBUG or ALL as argument to display debug messages.
    *
    * @param level
    *          the new level

@@ -55,7 +55,8 @@ import org.ietr.dftools.architecture.slam.component.Dma;
  */
 public class DmaImpl extends EnablerImpl implements Dma {
   /**
-   * The default value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getSetupTime()
    * @generated
@@ -63,7 +64,8 @@ public class DmaImpl extends EnablerImpl implements Dma {
    */
   protected static final int SETUP_TIME_EDEFAULT = 0;
   /**
-   * The cached value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getSetupTime() <em>Setup Time</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getSetupTime()
    * @generated
@@ -110,7 +112,8 @@ public class DmaImpl extends EnablerImpl implements Dma {
     final int oldSetupTime = this.setupTime;
     this.setupTime = newSetupTime;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DMA__SETUP_TIME, oldSetupTime, this.setupTime));
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.DMA__SETUP_TIME, oldSetupTime,
+          this.setupTime));
     }
   }
 

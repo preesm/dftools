@@ -83,7 +83,8 @@ public abstract class WorkflowLogger extends Logger {
       try {
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
 
-        final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
+        final IConfigurationElement[] elements = registry
+            .getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
         for (final IConfigurationElement element : elements) {
           if (element.getAttribute("id").equals("net.sf.dftools.ui.workflow.logger")) {
             // Tries to create the transformation
@@ -103,7 +104,8 @@ public abstract class WorkflowLogger extends Logger {
   }
 
   /**
-   * adds a log retrieved from a property file {@link WorkflowMessages} and parameterized with variables Each string "%VAR%" is replaced by a given variable.
+   * adds a log retrieved from a property file {@link WorkflowMessages} and parameterized with variables Each string
+   * "%VAR%" is replaced by a given variable.
    *
    * @param level
    *          the level

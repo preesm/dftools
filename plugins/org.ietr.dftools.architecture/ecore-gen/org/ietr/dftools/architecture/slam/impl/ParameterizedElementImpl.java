@@ -49,7 +49,8 @@ import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.attributes.Parameter;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Parameterized Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Parameterized Element</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -61,7 +62,8 @@ import org.ietr.dftools.architecture.slam.attributes.Parameter;
  */
 public class ParameterizedElementImpl extends EObjectImpl implements ParameterizedElement {
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParameters()
    * @generated
@@ -96,7 +98,8 @@ public class ParameterizedElementImpl extends EObjectImpl implements Parameteriz
   @Override
   public EList<Parameter> getParameters() {
     if (this.parameters == null) {
-      this.parameters = new EObjectContainmentEList<>(Parameter.class, this, SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS);
+      this.parameters = new EObjectContainmentEList<>(Parameter.class, this,
+          SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS);
     }
     return this.parameters;
   }
@@ -107,7 +110,8 @@ public class ParameterizedElementImpl extends EObjectImpl implements Parameteriz
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case SlamPackage.PARAMETERIZED_ELEMENT__PARAMETERS:
         return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);

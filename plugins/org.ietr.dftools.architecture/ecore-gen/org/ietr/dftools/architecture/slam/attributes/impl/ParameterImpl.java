@@ -75,7 +75,8 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
   protected String key = ParameterImpl.KEY_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getValue()
    * @generated
@@ -84,7 +85,8 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
   protected static final String VALUE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getValue()
    * @generated
@@ -222,7 +224,8 @@ public class ParameterImpl extends EObjectImpl implements Parameter {
       case AttributesPackage.PARAMETER__KEY:
         return ParameterImpl.KEY_EDEFAULT == null ? this.key != null : !ParameterImpl.KEY_EDEFAULT.equals(this.key);
       case AttributesPackage.PARAMETER__VALUE:
-        return ParameterImpl.VALUE_EDEFAULT == null ? this.value != null : !ParameterImpl.VALUE_EDEFAULT.equals(this.value);
+        return ParameterImpl.VALUE_EDEFAULT == null ? this.value != null
+            : !ParameterImpl.VALUE_EDEFAULT.equals(this.value);
     }
     return super.eIsSet(featureID);
   }

@@ -45,8 +45,8 @@ import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 
 // TODO: Auto-generated Javadoc
 /**
- * Launch Tab for scenario options. From this tab, an {@link ScenarioConfiguration} is generated that feeds an {@link ScenarioRetriever} to create the input
- * scenario.
+ * Launch Tab for scenario options. From this tab, an {@link ScenarioConfiguration} is generated that feeds an
+ * {@link ScenarioRetriever} to create the input scenario.
  *
  * @author mpelcat
  */
@@ -79,7 +79,8 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.
+   * ILaunchConfigurationWorkingCopy)
    */
   @Override
   public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {

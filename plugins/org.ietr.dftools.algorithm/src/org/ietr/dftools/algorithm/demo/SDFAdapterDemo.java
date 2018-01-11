@@ -360,7 +360,8 @@ public class SDFAdapterDemo extends JApplet {
     while (order.hasNext()) {
       final SDFAbstractVertex nextVertex = order.next();
       vertices.add(nextVertex);
-      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null) && (this.model.getEdge(previousVertex, nextVertex) == null)) {
+      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null)
+          && (this.model.getEdge(previousVertex, nextVertex) == null)) {
         y += 50;
         positionVertexAt(nextVertex, x, y);
         if (y > ymax) {

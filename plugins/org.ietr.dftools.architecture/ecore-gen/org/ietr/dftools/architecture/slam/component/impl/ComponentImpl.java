@@ -71,7 +71,8 @@ import org.ietr.dftools.architecture.slam.impl.VLNVedElementImpl;
  */
 public class ComponentImpl extends VLNVedElementImpl implements Component {
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParameters()
    * @generated
@@ -80,7 +81,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
   protected EList<Parameter> parameters;
 
   /**
-   * The cached value of the '{@link #getInterfaces() <em>Interfaces</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getInterfaces() <em>Interfaces</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getInterfaces()
    * @generated
@@ -89,7 +91,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
   protected EList<ComInterface> interfaces;
 
   /**
-   * The cached value of the '{@link #getInstances() <em>Instances</em>}' reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getInstances() <em>Instances</em>}' reference list. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getInstances()
    * @generated
@@ -98,7 +101,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
   protected EList<ComponentInstance> instances;
 
   /**
-   * The cached value of the '{@link #getRefinements() <em>Refinements</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getRefinements() <em>Refinements</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getRefinements()
    * @generated
@@ -146,8 +150,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
   @Override
   public EList<ComInterface> getInterfaces() {
     if (this.interfaces == null) {
-      this.interfaces = new EObjectContainmentWithInverseEList<>(ComInterface.class, this, ComponentPackage.COMPONENT__INTERFACES,
-          ComponentPackage.COM_INTERFACE__COMPONENT);
+      this.interfaces = new EObjectContainmentWithInverseEList<>(ComInterface.class, this,
+          ComponentPackage.COMPONENT__INTERFACES, ComponentPackage.COM_INTERFACE__COMPONENT);
     }
     return this.interfaces;
   }
@@ -160,8 +164,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
   @Override
   public EList<ComponentInstance> getInstances() {
     if (this.instances == null) {
-      this.instances = new EObjectWithInverseResolvingEList<>(ComponentInstance.class, this, ComponentPackage.COMPONENT__INSTANCES,
-          SlamPackage.COMPONENT_INSTANCE__COMPONENT);
+      this.instances = new EObjectWithInverseResolvingEList<>(ComponentInstance.class, this,
+          ComponentPackage.COMPONENT__INSTANCES, SlamPackage.COMPONENT_INSTANCE__COMPONENT);
     }
     return this.instances;
   }
@@ -174,7 +178,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
   @Override
   public EList<Design> getRefinements() {
     if (this.refinements == null) {
-      this.refinements = new EObjectContainmentWithInverseEList<>(Design.class, this, ComponentPackage.COMPONENT__REFINEMENTS, SlamPackage.DESIGN__REFINED);
+      this.refinements = new EObjectContainmentWithInverseEList<>(Design.class, this,
+          ComponentPackage.COMPONENT__REFINEMENTS, SlamPackage.DESIGN__REFINED);
     }
     return this.refinements;
   }
@@ -204,7 +209,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
    */
   @SuppressWarnings("unchecked")
   @Override
-  public NotificationChain eInverseAdd(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseAdd(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case ComponentPackage.COMPONENT__INTERFACES:
         return ((InternalEList<InternalEObject>) (InternalEList<?>) getInterfaces()).basicAdd(otherEnd, msgs);
@@ -222,7 +228,8 @@ public class ComponentImpl extends VLNVedElementImpl implements Component {
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case ComponentPackage.COMPONENT__PARAMETERS:
         return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);

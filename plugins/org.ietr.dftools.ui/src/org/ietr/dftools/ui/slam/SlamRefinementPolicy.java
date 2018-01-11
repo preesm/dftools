@@ -89,8 +89,8 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
   public IPath getNewRefinement(final Vertex vertex) {
 
     // prompts the user to choose a file
-    final String message = "The selected instance can be refined by an existing " + "S-LAM network, by a list of S-LAM networks or by a Component Description"
-        + "Language (CDL) file.";
+    final String message = "The selected instance can be refined by an existing "
+        + "S-LAM network, by a list of S-LAM networks or by a Component Description" + "Language (CDL) file.";
     final MessageDialog dialog = new MessageDialog(null, "Set/Update Refinement", null, message, MessageDialog.QUESTION,
         new String[] { "Select network", "Select CDL file" }, 0);
 

@@ -51,7 +51,8 @@ import org.w3c.dom.ls.LSSerializer;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class defines utility methods to create DOM documents and print them to an output stream using DOM 3 Load Save objects.
+ * This class defines utility methods to create DOM documents and print them to an output stream using DOM 3 Load Save
+ * objects.
  *
  * @author Matthieu Wipliez
  *

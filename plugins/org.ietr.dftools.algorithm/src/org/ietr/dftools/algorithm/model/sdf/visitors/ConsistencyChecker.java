@@ -92,28 +92,28 @@ public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVe
     if (graphDescription != null) {
       for (final SDFEdge edge : base.incomingEdgesOf(sdfVertex)) {
         if (graphDescription.getVertex(edge.getTargetInterface().getName()) == null) {
-          VisitorOutput.getLogger().log(Level.SEVERE,
-              "Interface " + edge.getTargetInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
+          VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getTargetInterface().getName()
+              + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
           this.isConsistent &= false;
         } else if (graphDescription.getVertex(edge.getTargetInterface().getName()) != null) {
           final SDFAbstractVertex sourceNode = graphDescription.getVertex(edge.getTargetInterface().getName());
           if (graphDescription.outgoingEdgesOf(sourceNode).size() == 0) {
-            VisitorOutput.getLogger().log(Level.SEVERE,
-                "Interface " + edge.getTargetInterface().getName() + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
+            VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getTargetInterface().getName()
+                + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
             this.isConsistent &= false;
           }
         }
       }
       for (final SDFEdge edge : base.outgoingEdgesOf(sdfVertex)) {
         if (graphDescription.getVertex(edge.getSourceInterface().getName()) == null) {
-          VisitorOutput.getLogger().log(Level.SEVERE,
-              "Interface " + edge.getSourceInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
+          VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getSourceInterface().getName()
+              + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
           this.isConsistent &= false;
         } else if (graphDescription.getVertex(edge.getSourceInterface().getName()) != null) {
           final SDFAbstractVertex sinkNode = graphDescription.getVertex(edge.getSourceInterface().getName());
           if (graphDescription.incomingEdgesOf(sinkNode).size() == 0) {
-            VisitorOutput.getLogger().log(Level.SEVERE,
-                "Interface " + edge.getSourceInterface().getName() + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
+            VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getSourceInterface().getName()
+                + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
             this.isConsistent &= false;
           }
         }

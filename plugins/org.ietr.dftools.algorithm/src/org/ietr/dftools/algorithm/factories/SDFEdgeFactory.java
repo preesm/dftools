@@ -62,7 +62,8 @@ public class SDFEdgeFactory implements EdgeFactory<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public SDFEdge createEdge(final SDFAbstractVertex arg0, final SDFAbstractVertex arg1) {
-    return new SDFEdge(new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(0), new SDFStringEdgePropertyType("char"));
+    return new SDFEdge(new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(0),
+        new SDFStringEdgePropertyType("char"));
   }
 
 }

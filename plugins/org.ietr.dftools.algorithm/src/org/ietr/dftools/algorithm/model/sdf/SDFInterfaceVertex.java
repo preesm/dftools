@@ -100,7 +100,8 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
   @Override
   public boolean equals(final Object e) {
     if (e instanceof SDFInterfaceVertex) {
-      return (((SDFInterfaceVertex) e).getName().equals(getName()) && ((SDFInterfaceVertex) e).getDirection().equals(getDirection()));
+      return (((SDFInterfaceVertex) e).getName().equals(getName())
+          && ((SDFInterfaceVertex) e).getDirection().equals(getDirection()));
     } else {
       return false;
     }

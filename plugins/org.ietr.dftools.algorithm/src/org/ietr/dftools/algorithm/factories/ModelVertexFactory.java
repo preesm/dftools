@@ -91,7 +91,8 @@ public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
   public final String getProperty(final Element elt, final String propertyName) {
     final NodeList childList = elt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
         return childList.item(i).getTextContent();
       }
     }

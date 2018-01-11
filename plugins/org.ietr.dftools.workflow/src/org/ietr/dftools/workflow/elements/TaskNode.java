@@ -101,9 +101,11 @@ public class TaskNode extends AbstractWorkflowNode {
   }
 
   /**
-   * Returns the transformation associated with this {@link TaskNode}. Note that it is only valid if {@link #isTransformationPossible()} returns true.
+   * Returns the transformation associated with this {@link TaskNode}. Note that it is only valid if
+   * {@link #isTransformationPossible()} returns true.
    *
-   * @return The transformation associated with this transformation node, or <code>null</code> if the transformation is not valid.
+   * @return The transformation associated with this transformation node, or <code>null</code> if the transformation is
+   *         not valid.
    */
   public AbstractTaskImplementation getTask() {
     return (AbstractTaskImplementation) this.implementation;
