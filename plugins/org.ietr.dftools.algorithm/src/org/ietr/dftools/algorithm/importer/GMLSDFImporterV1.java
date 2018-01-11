@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Hervé Yviquel <hyviquel@gmail.com> (2012)
  * Jonathan Piat <jpiat@laas.fr> (2011)
@@ -36,7 +36,7 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.importer.old;
+package org.ietr.dftools.algorithm.importer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,10 +46,6 @@ import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
 import org.ietr.dftools.algorithm.factories.SDFVertexFactory;
-import org.ietr.dftools.algorithm.importer.GMLGenericImporter;
-import org.ietr.dftools.algorithm.importer.GMLImporter;
-import org.ietr.dftools.algorithm.importer.GMLSDFImporter;
-import org.ietr.dftools.algorithm.importer.InvalidModelException;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.CodeRefinement;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
@@ -187,10 +183,12 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected void parseGraphDescription(final SDFAbstractVertex vertex, final Element parentElt) throws InvalidModelException {
+  protected void parseGraphDescription(final SDFAbstractVertex vertex, final Element parentElt)
+      throws InvalidModelException {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(AbstractVertex.REFINEMENT)) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals(AbstractVertex.REFINEMENT)) {
         final Element graphDesc = (Element) childList.item(i);
         final String path = graphDesc.getTextContent();
         if (path.contains(".graphml")) {
@@ -264,7 +262,8 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element,
+   * org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
   public SDFAbstractVertex parsePort(final Element portElt, final SDFGraph parentGraph) throws InvalidModelException {

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
@@ -209,7 +209,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph#addEdge(org.ietr.dftools.algorithm.model.dag.DAGVertex,
+   * @see
+   * org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph#addEdge(org.ietr.dftools.algorithm.model.dag.DAGVertex,
    * org.ietr.dftools.algorithm.model.dag.DAGVertex)
    */
   @Override
@@ -254,7 +255,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    * @see Graph#addEdge(Object, Object)
    */
   /*
-   * public DAGEdge addEdgeWithLink(DAGVertex sourceVertex, DAGVertex targetVertex) { DAGEdge e = super.addEdgeWithLink(sourceVertex, targetVertex);
+   * public DAGEdge addEdgeWithLink(DAGVertex sourceVertex, DAGVertex targetVertex) { DAGEdge e =
+   * super.addEdgeWithLink(sourceVertex, targetVertex);
    *
    * if (e != null) { fireEdgeAdded(e); }
    *
@@ -346,7 +348,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the edge that was added.
    */
   protected void fireEdgeAdded(final DAGEdge edge) {
-    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
+    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED,
+        edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
@@ -362,7 +365,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the edge that was removed.
    */
   protected void fireEdgeRemoved(final DAGEdge edge) {
-    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
+    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED,
+        edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
@@ -378,7 +382,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the vertex that was added.
    */
   protected void fireVertexAdded(final DAGVertex vertex) {
-    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
+    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED,
+        vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
@@ -400,7 +405,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the vertex that was removed.
    */
   protected void fireVertexRemoved(final DAGVertex vertex) {
-    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
+    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED,
+        vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
@@ -416,8 +422,9 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
   }
 
   /**
-   * Tests whether the <code>reuseEvents</code> flag is set. If the flag is set to <code>true</code> this class will reuse previously fired events and will not
-   * create a new object for each event. This option increases performance but should be used with care, especially in multithreaded environment.
+   * Tests whether the <code>reuseEvents</code> flag is set. If the flag is set to <code>true</code> this class will
+   * reuse previously fired events and will not create a new object for each event. This option increases performance
+   * but should be used with care, especially in multithreaded environment.
    *
    * @return the value of the <code>reuseEvents</code> flag.
    */
@@ -520,8 +527,9 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
   }
 
   /**
-   * If the <code>reuseEvents</code> flag is set to <code>true</code> this class will reuse previously fired events and will not create a new object for each
-   * event. This option increases performance but should be used with care, especially in multithreaded environment.
+   * If the <code>reuseEvents</code> flag is set to <code>true</code> this class will reuse previously fired events and
+   * will not create a new object for each event. This option increases performance but should be used with care,
+   * especially in multithreaded environment.
    *
    * @param reuseEvents
    *          whether to reuse previously fired event objects instead of creating a new event object for each event.

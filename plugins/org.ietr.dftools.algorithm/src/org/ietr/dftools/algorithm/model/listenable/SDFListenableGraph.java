@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
@@ -319,7 +319,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the edge
    * @return the graph edge change event
    */
-  private GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> createGraphEdgeChangeEvent(final int eventType, final SDFEdge edge) {
+  private GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> createGraphEdgeChangeEvent(final int eventType,
+      final SDFEdge edge) {
     if (this.reuseEvents) {
       this.reuseableEdgeEvent.setType(eventType);
       this.reuseableEdgeEvent.setEdge(edge);
@@ -339,7 +340,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the vertex
    * @return the graph vertex change event
    */
-  private GraphVertexChangeEvent<SDFAbstractVertex> createGraphVertexChangeEvent(final int eventType, final SDFAbstractVertex vertex) {
+  private GraphVertexChangeEvent<SDFAbstractVertex> createGraphVertexChangeEvent(final int eventType,
+      final SDFAbstractVertex vertex) {
     if (this.reuseEvents) {
       this.reuseableVertexEvent.setType(eventType);
       this.reuseableVertexEvent.setVertex(vertex);
@@ -357,7 +359,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the edge that was added.
    */
   protected void fireEdgeAdded(final SDFEdge edge) {
-    final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
+    final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(
+        GraphEdgeChangeEvent.EDGE_ADDED, edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
@@ -373,7 +376,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the edge that was removed.
    */
   protected void fireEdgeRemoved(final SDFEdge edge) {
-    final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
+    final GraphEdgeChangeEvent<SDFAbstractVertex, SDFEdge> e = createGraphEdgeChangeEvent(
+        GraphEdgeChangeEvent.EDGE_REMOVED, edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<SDFAbstractVertex, SDFEdge> l = this.graphListeners.get(i);
@@ -389,7 +393,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the vertex that was added.
    */
   protected void fireVertexAdded(final SDFAbstractVertex vertex) {
-    final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
+    final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(
+        GraphVertexChangeEvent.VERTEX_ADDED, vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<SDFAbstractVertex> l = this.vertexSetListeners.get(i);
@@ -411,7 +416,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
    *          the vertex that was removed.
    */
   protected void fireVertexRemoved(final SDFAbstractVertex vertex) {
-    final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
+    final GraphVertexChangeEvent<SDFAbstractVertex> e = createGraphVertexChangeEvent(
+        GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<SDFAbstractVertex> l = this.vertexSetListeners.get(i);
@@ -427,8 +433,9 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
   }
 
   /**
-   * Tests whether the <code>reuseEvents</code> flag is set. If the flag is set to <code>true</code> this class will reuse previously fired events and will not
-   * create a new object for each event. This option increases performance but should be used with care, especially in multithreaded environment.
+   * Tests whether the <code>reuseEvents</code> flag is set. If the flag is set to <code>true</code> this class will
+   * reuse previously fired events and will not create a new object for each event. This option increases performance
+   * but should be used with care, especially in multithreaded environment.
    *
    * @return the value of the <code>reuseEvents</code> flag.
    */
@@ -532,8 +539,9 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
   }
 
   /**
-   * If the <code>reuseEvents</code> flag is set to <code>true</code> this class will reuse previously fired events and will not create a new object for each
-   * event. This option increases performance but should be used with care, especially in multithreaded environment.
+   * If the <code>reuseEvents</code> flag is set to <code>true</code> this class will reuse previously fired events and
+   * will not create a new object for each event. This option increases performance but should be used with care,
+   * especially in multithreaded environment.
    *
    * @param reuseEvents
    *          whether to reuse previously fired event objects instead of creating a new event object for each event.

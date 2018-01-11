@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Julien Hascoet <jhascoet@kalray.eu> (2017)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2012)
@@ -245,8 +245,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   }
 
   /**
-   * This method check whether the source and target {@link AbstractVertex vertices} passed as parameter are linked by a unique edge. If several edges link the
-   * two vertices, a {@link RuntimeException} is thrown.
+   * This method check whether the source and target {@link AbstractVertex vertices} passed as parameter are linked by a
+   * unique edge. If several edges link the two vertices, a {@link RuntimeException} is thrown.
    *
    * @param source
    *          the source {@link AbstractVertex} of the {@link AbstractEdge}
@@ -258,14 +258,14 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   protected void checkMultipleEdges(final V source, final V target) throws RuntimeException {
     // Check if the source and target have a unique edge between them
     if (getAllEdges(source, target).size() > 1) {
-      throw new RuntimeException("removeEdge(source,target) cannot be used.\n" + "Reason: there are " + getAllEdges(source, target).size()
-          + " edges between actors " + source + " and " + target);
+      throw new RuntimeException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
+          + getAllEdges(source, target).size() + " edges between actors " + source + " and " + target);
     }
   }
 
   /**
-   * Indicates that this object has no longer changed, or that it has already notified all of its observers of its most recent change, so that the hasChanged
-   * method will now return false.
+   * Indicates that this object has no longer changed, or that it has already notified all of its observers of its most
+   * recent change, so that the hasChanged method will now return false.
    */
   public void clearChanged() {
     this.hasChanged = true;
@@ -289,7 +289,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {
@@ -443,7 +444,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    * @param path
    *          The vertex path in format MyGrandParentVertex/MyParentVertex/Myself
    * @param pathAlreadyRead
-   *          The path that we are already in. For example, if we are in the MyParentVertex refinement, pathAlreadyRead=MyGrandParentVertex/MyParentVertex.
+   *          The path that we are already in. For example, if we are in the MyParentVertex refinement,
+   *          pathAlreadyRead=MyGrandParentVertex/MyParentVertex.
    * @return The vertex with the given name, null, if the vertex does not exist
    */
   public V getHierarchicalVertexFromPath(final String path, String pathAlreadyRead) {
@@ -474,7 +476,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       if (isPathRead) {
         return vertex;
       } else if (vertex.getGraphDescription() != null) {
-        return (V) ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
+        return (V) ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertexFromPath(path,
+            pathAlreadyRead + vertexToFind);
       }
     }
 
@@ -644,8 +647,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   }
 
   /**
-   * If this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that
-   * this object has no longer changed.
+   * If this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call
+   * the clearChanged method to indicate that this object has no longer changed.
    */
   public void notifyObservers() {
     if (this.hasChanged) {
@@ -657,8 +660,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   }
 
   /**
-   * If this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call the clearChanged method to indicate that
-   * this object has no longer changed.
+   * If this object has changed, as indicated by the hasChanged method, then notify all of its observers and then call
+   * the clearChanged method to indicate that this object has no longer changed.
    *
    * @param arg
    *          Arguments to be passe to the update method
@@ -693,8 +696,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    * @param target
    *          the target
    * @return the e
-   * @deprecated The method is deprecated. {@link AbstractGraph#removeEdge(AbstractEdge)} should be used instead. Indeed, if several edges link the source and
-   *             the target vertex, a random edge will be removed.
+   * @deprecated The method is deprecated. {@link AbstractGraph#removeEdge(AbstractEdge)} should be used instead.
+   *             Indeed, if several edges link the source and the target vertex, a random edge will be removed.
    */
   @Override
   @Deprecated
@@ -779,10 +782,12 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.parameters.IExpressionSolver#solveExpression(java.lang.String, org.ietr.dftools.algorithm.model.parameters.Value)
+   * @see org.ietr.dftools.algorithm.model.parameters.IExpressionSolver#solveExpression(java.lang.String,
+   * org.ietr.dftools.algorithm.model.parameters.Value)
    */
   @Override
-  public int solveExpression(final String expression, final Value caller) throws InvalidExpressionException, NoIntegerValueException {
+  public int solveExpression(final String expression, final Value caller)
+      throws InvalidExpressionException, NoIntegerValueException {
     int resultValue;
     try {
       final JEP jep = new JEP();

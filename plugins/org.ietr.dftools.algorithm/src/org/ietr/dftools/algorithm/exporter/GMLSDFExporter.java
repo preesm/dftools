@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -67,7 +67,8 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#export(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.String)
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#export(org.ietr.dftools.algorithm.model.AbstractGraph,
+   * java.lang.String)
    */
   @Override
   public void export(final AbstractGraph<SDFAbstractVertex, SDFEdge> graph, final String path) {
@@ -99,7 +100,8 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
     if (edge.getTargetInterface() != null) {
       targetPort = edge.getTargetInterface().getName();
     }
-    final Element edgeElt = createEdge(parentELement, edge.getSource().getName(), edge.getTarget().getName(), sourcePort, targetPort);
+    final Element edgeElt = createEdge(parentELement, edge.getSource().getName(), edge.getTarget().getName(),
+        sourcePort, targetPort);
     exportKeys(edge, "edge", edgeElt);
     return edgeElt;
   }
@@ -163,9 +165,11 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
 
       if ((filePath.lastIndexOf('/') > 0) && filePath.contains(thisPathPrefix)) {
         if (filePath.compareTo(thisPathPrefix) > 0) {
-          vertex.getGraphDescription().setName(filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
+          vertex.getGraphDescription()
+              .setName(filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
           final GMLSDFExporter decExporter = new GMLSDFExporter();
-          decExporter.export(vertex.getGraphDescription(), filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
+          decExporter.export(vertex.getGraphDescription(),
+              filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
         }
       } else {
         final GMLSDFExporter decExporter = new GMLSDFExporter();

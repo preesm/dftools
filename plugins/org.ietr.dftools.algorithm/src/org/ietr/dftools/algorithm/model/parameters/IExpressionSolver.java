@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -57,6 +57,7 @@ public interface IExpressionSolver {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public int solveExpression(String expression, Value caller) throws InvalidExpressionException, NoIntegerValueException;
+  public int solveExpression(String expression, Value caller)
+      throws InvalidExpressionException, NoIntegerValueException;
 
 }

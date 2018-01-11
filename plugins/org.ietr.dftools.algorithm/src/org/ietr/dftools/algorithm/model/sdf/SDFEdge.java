@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2016)
@@ -96,8 +96,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 
   /**
    * Modifier used to make a input port a pure output. <br>
-   * i.e. the corresponding actor will only write the corresponding data but will not use the written data. In other terms, it does not matter if the written
-   * data is overwritten by another process, even during the execution of the producer actor.
+   * i.e. the corresponding actor will only write the corresponding data but will not use the written data. In other
+   * terms, it does not matter if the written data is overwritten by another process, even during the execution of the
+   * producer actor.
    */
   public static final String MODIFIER_WRITE_ONLY = "write_only";
 
@@ -133,8 +134,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @param dataType
    *          the data type
    */
-  public SDFEdge(final AbstractEdgePropertyType<?> prod, final AbstractEdgePropertyType<?> cons, final AbstractEdgePropertyType<?> delay,
-      final AbstractEdgePropertyType<?> dataType) {
+  public SDFEdge(final AbstractEdgePropertyType<?> prod, final AbstractEdgePropertyType<?> cons,
+      final AbstractEdgePropertyType<?> delay, final AbstractEdgePropertyType<?> dataType) {
     super();
     setProd(prod);
     setCons(cons);
@@ -148,7 +149,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the cons.
    */
   public AbstractEdgePropertyType<?> getCons() {
-    final AbstractEdgePropertyType<?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS, AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS,
+        AbstractEdgePropertyType.class);
     if (cons instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
     }
@@ -161,7 +163,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the delay.
    */
   public AbstractEdgePropertyType<?> getDelay() {
-    final AbstractEdgePropertyType<?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY, AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY,
+        AbstractEdgePropertyType.class);
     if (delay instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
     }
@@ -174,7 +177,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the prod.
    */
   public AbstractEdgePropertyType<?> getProd() {
-    final AbstractEdgePropertyType<?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD, AbstractEdgePropertyType.class);
+    final AbstractEdgePropertyType<?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD,
+        AbstractEdgePropertyType.class);
     if (prod instanceof SDFExpressionEdgePropertyType) {
       ((SDFExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
     }
@@ -340,8 +344,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
 
     try {
       return super.compare(edge) && edge.getSourceInterface().getName().equals(getSourceInterface().getName())
-          && edge.getTargetInterface().getName().equals(getTargetInterface().getName()) && (getCons().intValue() == edge.getCons().intValue())
-          && (getProd().intValue() == edge.getProd().intValue()) && (getDelay().intValue() == edge.getDelay().intValue());
+          && edge.getTargetInterface().getName().equals(getTargetInterface().getName())
+          && (getCons().intValue() == edge.getCons().intValue()) && (getProd().intValue() == edge.getProd().intValue())
+          && (getDelay().intValue() == edge.getDelay().intValue());
     } catch (final InvalidExpressionException e) {
       e.printStackTrace();
       return false;
@@ -355,8 +360,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   @Override
   public String toString() {
-    return getSource().toString() + "." + getSourceInterface().getName() + " > " + getTarget().toString() + "." + getTargetInterface().getName() + " {d="
-        + getDelay() + ", p=" + getProd() + ", c=" + getCons() + "}";
+    return getSource().toString() + "." + getSourceInterface().getName() + " > " + getTarget().toString() + "."
+        + getTargetInterface().getName() + " {d=" + getDelay() + ", p=" + getProd() + ", c=" + getCons() + "}";
   }
 
   /*
@@ -366,7 +371,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    if (propertyName.equals(SDFEdge.EDGE_CONS) || propertyName.equals(SDFEdge.EDGE_PROD) || propertyName.equals(SDFEdge.EDGE_DELAY)) {
+    if (propertyName.equals(SDFEdge.EDGE_CONS) || propertyName.equals(SDFEdge.EDGE_PROD)
+        || propertyName.equals(SDFEdge.EDGE_DELAY)) {
       return SDFNumericalEdgePropertyTypeFactory.getInstance();
     } else if (propertyName.equals(SDFEdge.DATA_TYPE) || propertyName.equals(SDFEdge.SOURCE_PORT_MODIFIER)
         || propertyName.equals(SDFEdge.TARGET_PORT_MODIFIER)) {

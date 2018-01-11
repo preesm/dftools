@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -40,8 +40,8 @@ package org.ietr.dftools.workflow;
 /**
  * Exception thrown when an error has occurred in a workflow task.
  *
- * It extends {@link RuntimeException} so that it does not need to be checked (and actually it should not be caught by anything else than a
- * {@link AbstractWorkflowExecutor}).
+ * It extends {@link RuntimeException} so that it does not need to be checked (and actually it should not be caught by
+ * anything else than a {@link AbstractWorkflowExecutor}).
  *
  * @author mpelcat
  * @author Antoine Morvan

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -45,8 +45,8 @@ import org.ietr.dftools.ui.Activator;
 
 // TODO: Auto-generated Javadoc
 /**
- * Launch Tab for algorithm options. From this tab, an {@link AlgorithmConfiguration} is generated that feeds an {@link AlgorithmRetriever} to create the input
- * algorithm.
+ * Launch Tab for algorithm options. From this tab, an {@link AlgorithmConfiguration} is generated that feeds an
+ * {@link AlgorithmRetriever} to create the input algorithm.
  *
  * @author mpelcat
  */
@@ -77,7 +77,8 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#initializeFrom(org.eclipse.debug.core.ILaunchConfiguration)
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#initializeFrom(org.eclipse.debug.core.
+   * ILaunchConfiguration)
    */
   @Override
   public void initializeFrom(final ILaunchConfiguration configuration) {
@@ -88,7 +89,8 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#performApply(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#performApply(org.eclipse.debug.core.
+   * ILaunchConfigurationWorkingCopy)
    */
   @Override
   public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
@@ -98,7 +100,8 @@ public class WorkFlowLaunchWorkflowTab extends AbstractWorkFlowLaunchTab {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.
+   * ILaunchConfigurationWorkingCopy)
    */
   @Override
   public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -39,7 +39,8 @@ package org.ietr.dftools.ui.workflow;
 
 // TODO: Auto-generated Javadoc
 /**
- * Representing the configuration for the scenario retrieved from launch tab. It feeds a {@link ScenarioRetriever} to create the input scenario.
+ * Representing the configuration for the scenario retrieved from launch tab. It feeds a {@link ScenarioRetriever} to
+ * create the input scenario.
  *
  * @author mpelcat
  *

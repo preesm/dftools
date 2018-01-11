@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Julien Heulot <julien.heulot@insa-rennes.fr> (2014)
@@ -72,8 +72,8 @@ public class SDFMath {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(final List<SDFAbstractVertex> subgraph, final SDFGraph graph)
-      throws InvalidExpressionException {
+  public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(final List<SDFAbstractVertex> subgraph,
+      final SDFGraph graph) throws InvalidExpressionException {
     final Map<SDFAbstractVertex, Integer> trueVrb = new LinkedHashMap<>();
     int i = 0;
 
@@ -190,8 +190,8 @@ public class SDFMath {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public static Map<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(final List<SDFAbstractVertex> subgraph, final SDFGraph graph)
-      throws InvalidExpressionException {
+  public static Map<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(
+      final List<SDFAbstractVertex> subgraph, final SDFGraph graph) throws InvalidExpressionException {
 
     final List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<>();
     for (final SDFAbstractVertex vertex : subgraph) {

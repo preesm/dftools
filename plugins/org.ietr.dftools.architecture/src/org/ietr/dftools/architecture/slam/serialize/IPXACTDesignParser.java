@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -267,7 +267,8 @@ public class IPXACTDesignParser extends IPXACTParser {
 
     // Component type is retrieved from vendor extensions if there are any.
     // Otherwise, a generic component is created
-    final IPXACTDesignVendorExtensionsParser.ComponentDescription description = this.vendorExtensions.getComponentDescription(vlnv.getName());
+    final IPXACTDesignVendorExtensionsParser.ComponentDescription description = this.vendorExtensions
+        .getComponentDescription(vlnv.getName());
     String componentType = "Component";
     if (description != null) {
       componentType = description.getComponentType();
@@ -315,7 +316,8 @@ public class IPXACTDesignParser extends IPXACTParser {
   private void manageRefinements(final Design design) {
     final Set<Component> components = new LinkedHashSet<>(design.getComponentHolder().getComponents());
     for (final Component component : components) {
-      final IPXACTDesignVendorExtensionsParser.ComponentDescription description = this.vendorExtensions.getComponentDescription(component.getVlnv().getName());
+      final IPXACTDesignVendorExtensionsParser.ComponentDescription description = this.vendorExtensions
+          .getComponentDescription(component.getVlnv().getName());
 
       // Looking for a refinement design in the project
       if ((description != null) && !description.getRefinement().isEmpty()) {

@@ -56,7 +56,8 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
  */
 public class ComNodeImpl extends ComponentImpl implements ComNode {
   /**
-   * The default value of the '{@link #isParallel() <em>Parallel</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #isParallel() <em>Parallel</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #isParallel()
    * @generated
@@ -64,7 +65,8 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
    */
   protected static final boolean PARALLEL_EDEFAULT = true;
   /**
-   * The cached value of the '{@link #isParallel() <em>Parallel</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #isParallel() <em>Parallel</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #isParallel()
    * @generated
@@ -73,7 +75,8 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
   protected boolean              parallel          = ComNodeImpl.PARALLEL_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getSpeed() <em>Speed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getSpeed() <em>Speed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getSpeed()
    * @generated
@@ -81,7 +84,8 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
    */
   protected static final float SPEED_EDEFAULT = 1.0F;
   /**
-   * The cached value of the '{@link #getSpeed() <em>Speed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getSpeed() <em>Speed</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getSpeed()
    * @generated
@@ -128,7 +132,8 @@ public class ComNodeImpl extends ComponentImpl implements ComNode {
     final boolean oldParallel = this.parallel;
     this.parallel = newParallel;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_NODE__PARALLEL, oldParallel, this.parallel));
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COM_NODE__PARALLEL, oldParallel,
+          this.parallel));
     }
   }
 

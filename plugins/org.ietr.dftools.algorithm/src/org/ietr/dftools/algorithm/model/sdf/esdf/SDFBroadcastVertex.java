@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2012)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
@@ -155,8 +155,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   }
 
   /**
-   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at the given index (or at the end of the
-   * list if index == connections.size).
+   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at
+   * the given index (or at the end of the list if index == connections.size).
    *
    * @param edge
    *          the {@link SDFEdge} to move
@@ -202,7 +202,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
   @Override
@@ -259,7 +260,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {

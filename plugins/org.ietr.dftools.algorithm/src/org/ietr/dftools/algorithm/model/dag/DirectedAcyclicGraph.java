@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013)
@@ -102,7 +102,8 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @throws CreateCycleException
    *           This Edge creates a cycle
    */
-  public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target) throws CreateMultigraphException, CreateCycleException {
+  public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target)
+      throws CreateMultigraphException, CreateCycleException {
     if (getAllEdges(source, target).size() > 0) {
       throw (new CreateMultigraphException());
     } else {
@@ -185,7 +186,8 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.Object)
+   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph,
+   * java.lang.Object)
    */
   @Override
   public void update(final AbstractGraph<?, ?> observable, final Object arg) {

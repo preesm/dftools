@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2012)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
@@ -94,7 +94,8 @@ import org.jgrapht.alg.CycleDetector;
  * @param <T>
  *          The DAG type of the output dag
  */
-public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
+public class DAGTransformation<T extends DirectedAcyclicGraph>
+    implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
   /**
    * Main method for debug purposes ...
@@ -120,7 +121,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
     final int maxrate = 100;
     final SDFRandomGraph test = new SDFRandomGraph();
 
-    SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate, maxrate);
+    SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate,
+        maxrate);
     final GMLSDFImporter importer = new GMLSDFImporter();
     try {
       /*
@@ -130,7 +132,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
     } catch (InvalidModelException | FileNotFoundException e) {
       e.printStackTrace();
     }
-    final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(), DAGVertexFactory.getInstance());
+    final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(),
+        DAGVertexFactory.getInstance());
     try {
       demoGraph.accept(dageur);
     } catch (final SDF4JException e) {
@@ -175,7 +178,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private void copyCycle(final SDFGraph graph, final Set<SDFAbstractVertex> vertices, final int nb) throws InvalidExpressionException {
+  private void copyCycle(final SDFGraph graph, final Set<SDFAbstractVertex> vertices, final int nb)
+      throws InvalidExpressionException {
     SDFAbstractVertex root = null;
     SDFAbstractVertex last = null;
     SDFEdge loop = null;
@@ -223,11 +227,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
             }
           }
           for (final SDFEdge edge : graph.incomingEdgesOf(current)) {
-            if ((edge.getSource() != previous) && !sortedCycle.contains(edge.getSource()) && !createdVertices.contains(edge.getSource())) {
+            if ((edge.getSource() != previous) && !sortedCycle.contains(edge.getSource())
+                && !createdVertices.contains(edge.getSource())) {
               final SDFEdge newEdge = graph.addEdge(edge.getSource(), copy);
               newEdge.copyProperties(edge);
               edge.setProd(new SDFIntEdgePropertyType(edge.getCons().intValue()));
-            } else if ((edge.getSource() != previous) && sortedCycle.contains(edge.getSource()) && !createdVertices.contains(edge.getSource())) {
+            } else if ((edge.getSource() != previous) && sortedCycle.contains(edge.getSource())
+                && !createdVertices.contains(edge.getSource())) {
               final SDFEdge newEdge = graph.addEdge(mapCopies.get(edge.getSource()).get(i - 1), copy);
               newEdge.copyProperties(edge);
             }
@@ -324,7 +330,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
         this.outputGraph.copyProperties(graph);
         this.outputGraph.setCorrespondingSDFGraph(graph);
         for (final DAGVertex vertex : this.outputGraph.vertexSet()) {
-          vertex.setNbRepeat(new DAGDefaultVertexPropertyType(graph.getVertex(vertex.getName()).getNbRepeatAsInteger()));
+          vertex
+              .setNbRepeat(new DAGDefaultVertexPropertyType(graph.getVertex(vertex.getName()).getNbRepeatAsInteger()));
         }
         DAGEdge newedge;
         for (final SDFEdge edge : graph.edgeSet()) {
@@ -345,7 +352,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
 
               }
             } catch (final CreateMultigraphException | CreateCycleException e) {
-              throw new WorkflowException("Error in the DAG creation. Check the single-rate SDF to identify where delays are missing", e);
+              throw new WorkflowException(
+                  "Error in the DAG creation. Check the single-rate SDF to identify where delays are missing", e);
             }
           }
         }
@@ -453,9 +461,11 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
     // }
     // }
     /*
-     * { CycleDetector<SDFAbstractVertex, SDFEdge> detect = new CycleDetector<SDFAbstractVertex, SDFEdge>( graph); List<SDFAbstractVertex> vert = new
-     * ArrayList<SDFAbstractVertex>( graph.vertexSet()); while (vert.size() > 0) { SDFAbstractVertex vertex = vert.get(0); Set<SDFAbstractVertex> cycle = detect
-     * .findCyclesContainingVertex(vertex); if (cycle.size() > 0) { vert.removeAll(cycle); cycles.add(cycle); } vert.remove(vertex); } }
+     * { CycleDetector<SDFAbstractVertex, SDFEdge> detect = new CycleDetector<SDFAbstractVertex, SDFEdge>( graph);
+     * List<SDFAbstractVertex> vert = new ArrayList<SDFAbstractVertex>( graph.vertexSet()); while (vert.size() > 0) {
+     * SDFAbstractVertex vertex = vert.get(0); Set<SDFAbstractVertex> cycle = detect
+     * .findCyclesContainingVertex(vertex); if (cycle.size() > 0) { vert.removeAll(cycle); cycles.add(cycle); }
+     * vert.remove(vertex); } }
      */
 
     return;
@@ -471,7 +481,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected void treatSDFCycles(final SDFGraph graph, final Set<SDFAbstractVertex> cycle) throws InvalidExpressionException {
+  protected void treatSDFCycles(final SDFGraph graph, final Set<SDFAbstractVertex> cycle)
+      throws InvalidExpressionException {
     final List<SDFEdge> loops = new ArrayList<>();
     for (final SDFAbstractVertex vertex : cycle) {
       for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
@@ -624,7 +635,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph> implements IGraph
     } else if (sdfVertex instanceof SDFInitVertex) {
       vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
       if (this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()) != null) {
-        ((DAGInitVertex) vertex).setEndReference((DAGEndVertex) this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
+        ((DAGInitVertex) vertex).setEndReference(
+            (DAGEndVertex) this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
       }
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);

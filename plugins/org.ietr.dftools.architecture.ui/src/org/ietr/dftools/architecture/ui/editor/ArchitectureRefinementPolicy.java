@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Ghislain Roquier <ghislain.roquier@insa-rennes.fr> (2011)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
@@ -67,7 +67,8 @@ public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.graphiti.model.DefaultRefinementPolicy#getRefinementFile(org.ietr.dftools.graphiti.model.Vertex)
+   * @see
+   * org.ietr.dftools.graphiti.model.DefaultRefinementPolicy#getRefinementFile(org.ietr.dftools.graphiti.model.Vertex)
    */
   @Override
   public IFile getRefinementFile(final Vertex vertex) {

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Ghislain Roquier <ghislain.roquier@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -51,7 +51,8 @@ import org.w3c.dom.ls.LSSerializer;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class defines utility methods to create DOM documents and print them to an output stream using DOM 3 Load Save objects.
+ * This class defines utility methods to create DOM documents and print them to an output stream using DOM 3 Load Save
+ * objects.
  *
  * @author Matthieu Wipliez
  *

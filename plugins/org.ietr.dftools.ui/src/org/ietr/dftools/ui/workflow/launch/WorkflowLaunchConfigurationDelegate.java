@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -60,7 +60,7 @@ public class WorkflowLaunchConfigurationDelegate implements ILaunchConfiguration
   // org.ietr.dftools.ui/plugin.xml
   /** The workflow launch configuration type id. */
   // can break the launch shortcut for wokflows (Right Click > Run as)
-  public static final String WORKFLOW_LAUNCH_CONFIGURATION_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
+  public static final String WORKFLOW_LAUNCH_CONFIG_TYPE_ID = "net.sf.dftools.ui.workflow.launchConfigurationType";
 
   /**
    * Launches a workflow.
@@ -77,9 +77,11 @@ public class WorkflowLaunchConfigurationDelegate implements ILaunchConfiguration
    *           the core exception
    */
   @Override
-  public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch, final IProgressMonitor monitor) throws CoreException {
+  public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch,
+      final IProgressMonitor monitor) throws CoreException {
 
-    final String workflowPath = configuration.getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME, "");
+    final String workflowPath = configuration.getAttribute(WorkflowLaunchConfigurationDelegate.ATTR_WORKFLOW_FILE_NAME,
+        "");
     final String scenarioPath = configuration.getAttribute(ScenarioConfiguration.ATTR_SCENARIO_FILE_NAME, "");
 
     final WorkflowManager workflowManager = new WorkflowManager();

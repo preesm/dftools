@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2012)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -92,28 +92,28 @@ public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVe
     if (graphDescription != null) {
       for (final SDFEdge edge : base.incomingEdgesOf(sdfVertex)) {
         if (graphDescription.getVertex(edge.getTargetInterface().getName()) == null) {
-          VisitorOutput.getLogger().log(Level.SEVERE,
-              "Interface " + edge.getTargetInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
+          VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getTargetInterface().getName()
+              + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
           this.isConsistent &= false;
         } else if (graphDescription.getVertex(edge.getTargetInterface().getName()) != null) {
           final SDFAbstractVertex sourceNode = graphDescription.getVertex(edge.getTargetInterface().getName());
           if (graphDescription.outgoingEdgesOf(sourceNode).size() == 0) {
-            VisitorOutput.getLogger().log(Level.SEVERE,
-                "Interface " + edge.getTargetInterface().getName() + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
+            VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getTargetInterface().getName()
+                + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
             this.isConsistent &= false;
           }
         }
       }
       for (final SDFEdge edge : base.outgoingEdgesOf(sdfVertex)) {
         if (graphDescription.getVertex(edge.getSourceInterface().getName()) == null) {
-          VisitorOutput.getLogger().log(Level.SEVERE,
-              "Interface " + edge.getSourceInterface().getName() + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
+          VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getSourceInterface().getName()
+              + " does not exist in vertex " + sdfVertex.getName() + " hierarchy");
           this.isConsistent &= false;
         } else if (graphDescription.getVertex(edge.getSourceInterface().getName()) != null) {
           final SDFAbstractVertex sinkNode = graphDescription.getVertex(edge.getSourceInterface().getName());
           if (graphDescription.incomingEdgesOf(sinkNode).size() == 0) {
-            VisitorOutput.getLogger().log(Level.SEVERE,
-                "Interface " + edge.getSourceInterface().getName() + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
+            VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getSourceInterface().getName()
+                + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
             this.isConsistent &= false;
           }
         }

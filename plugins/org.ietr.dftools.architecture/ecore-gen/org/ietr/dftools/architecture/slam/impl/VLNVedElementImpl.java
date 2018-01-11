@@ -47,7 +47,8 @@ import org.ietr.dftools.architecture.slam.VLNVedElement;
 import org.ietr.dftools.architecture.slam.attributes.VLNV;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>VLN Ved Element</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>VLN Ved Element</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -59,7 +60,8 @@ import org.ietr.dftools.architecture.slam.attributes.VLNV;
  */
 public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
   /**
-   * The cached value of the '{@link #getVlnv() <em>Vlnv</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getVlnv() <em>Vlnv</em>}' containment reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getVlnv()
    * @generated
@@ -105,7 +107,8 @@ public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
     final VLNV oldVlnv = this.vlnv;
     this.vlnv = newVlnv;
     if (eNotificationRequired()) {
-      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SlamPackage.VLN_VED_ELEMENT__VLNV, oldVlnv, newVlnv);
+      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+          SlamPackage.VLN_VED_ELEMENT__VLNV, oldVlnv, newVlnv);
       if (msgs == null) {
         msgs = notification;
       } else {
@@ -125,10 +128,12 @@ public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
     if (newVlnv != this.vlnv) {
       NotificationChain msgs = null;
       if (this.vlnv != null) {
-        msgs = ((InternalEObject) this.vlnv).eInverseRemove(this, InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
+        msgs = ((InternalEObject) this.vlnv).eInverseRemove(this,
+            InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
       }
       if (newVlnv != null) {
-        msgs = ((InternalEObject) newVlnv).eInverseAdd(this, InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
+        msgs = ((InternalEObject) newVlnv).eInverseAdd(this,
+            InternalEObject.EOPPOSITE_FEATURE_BASE - SlamPackage.VLN_VED_ELEMENT__VLNV, null, msgs);
       }
       msgs = basicSetVlnv(newVlnv, msgs);
       if (msgs != null) {
@@ -145,7 +150,8 @@ public class VLNVedElementImpl extends EObjectImpl implements VLNVedElement {
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case SlamPackage.VLN_VED_ELEMENT__VLNV:
         return basicSetVlnv(null, msgs);

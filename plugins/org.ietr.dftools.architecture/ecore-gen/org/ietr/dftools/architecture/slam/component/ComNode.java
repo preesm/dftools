@@ -54,9 +54,11 @@ package org.ietr.dftools.architecture.slam.component;
 public interface ComNode extends Component {
 
   /**
-   * Returns the value of the '<em><b>Parallel</b></em>' attribute. The default value is <code>"true"</code>. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Parallel</b></em>' attribute. The default value is <code>"true"</code>. <!--
+   * begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Parallel</em>' attribute isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Parallel</em>' attribute isn't clear, there really should be more of a description
+   * here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -69,8 +71,8 @@ public interface ComNode extends Component {
   boolean isParallel();
 
   /**
-   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.component.ComNode#isParallel <em>Parallel</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the ' {@link org.ietr.dftools.architecture.slam.component.ComNode#isParallel <em>Parallel</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Parallel</em>' attribute.
@@ -80,7 +82,8 @@ public interface ComNode extends Component {
   void setParallel(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Speed</b></em>' attribute. The default value is <code>"1"</code>. <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Speed</b></em>' attribute. The default value is <code>"1"</code>. <!--
+   * begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Speed</em>' attribute isn't clear, there really should be more of a description here...
    * </p>
@@ -95,8 +98,8 @@ public interface ComNode extends Component {
   float getSpeed();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComNode#getSpeed <em>Speed</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.ComNode#getSpeed <em>Speed</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Speed</em>' attribute.

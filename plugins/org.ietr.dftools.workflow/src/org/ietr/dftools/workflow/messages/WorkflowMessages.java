@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -42,7 +42,8 @@ import java.util.ResourceBundle;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class is used to gather all texts displayed while managing the workflow. The strings are stored in message.properties and retrieved through a text file.
+ * This class is used to gather all texts displayed while managing the workflow. The strings are stored in
+ * message.properties and retrieved through a text file.
  *
  * @author mpelcat
  */

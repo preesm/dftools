@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Hervé Yviquel <hyviquel@gmail.com> (2012)
  * Jonathan Piat <jpiat@laas.fr> (2011)
@@ -72,7 +72,6 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to import a Graph from a GML InputStream.
  *
@@ -84,7 +83,7 @@ import org.w3c.dom.ls.LSParser;
  * @param <E>
  *          the element type
  */
-public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends AbstractVertex<?>, E extends AbstractEdge<?, ?>> {
+abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends AbstractVertex<?>, E extends AbstractEdge<?, ?>> {
 
   /** The class key set. */
   protected Map<String, List<Key>> classKeySet;
@@ -275,7 +274,8 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
           }
           if (availableFactories != null) {
             for (final Method method : availableFactories) {
-              if ((method.getGenericParameterTypes().length == 1) && method.getGenericParameterTypes()[0].equals(constParam)) {
+              if ((method.getGenericParameterTypes().length == 1)
+                  && method.getGenericParameterTypes()[0].equals(constParam)) {
                 toUse = method;
               }
             }
@@ -335,7 +335,8 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
     for (int i = 0; i < childList.getLength(); i++) {
       if (childList.item(i).getNodeName().equals("data")) {
         final String key = ((Element) childList.item(i)).getAttribute("key");
-        if ((!(key.equals("arguments") || key.equals("parameters") || key.equals("variables"))) && src.getPublicProperties().contains(key)) {
+        if ((!(key.equals("arguments") || key.equals("parameters") || key.equals("variables")))
+            && src.getPublicProperties().contains(key)) {
           final String propertyName = ((Element) childList.item(i)).getAttribute("key");
           final PropertyFactory factory = src.getFactoryForProperty(propertyName);
           if (factory != null) {
@@ -397,8 +398,9 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
         childElt.getChildNodes();
         final Class<?> type = null;
         /*
-         * for (int j = 0; j < keyChild.getLength(); j++) { Node descElt = keyChild.item(j); if (descElt.getNodeName().equals("desc")) { String desc =
-         * descElt.getTextContent(); Class. type = Class.forName(desc); } }
+         * for (int j = 0; j < keyChild.getLength(); j++) { Node descElt = keyChild.item(j); if
+         * (descElt.getNodeName().equals("desc")) { String desc = descElt.getTextContent(); Class. type =
+         * Class.forName(desc); } }
          */
         final Key newKey = new Key(attrName, isFor, typeParamType, type);
         newKey.setId(id);
@@ -428,12 +430,14 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
   protected void parseArguments(final AbstractVertex<?> vertex, final Element parentElt) {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals("arguments")) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals("arguments")) {
         final NodeList argsList = childList.item(i).getChildNodes();
         for (int j = 0; j < argsList.getLength(); j++) {
           if (argsList.item(j).getNodeName().equals("argument")) {
             final Element arg = (Element) argsList.item(j);
-            final Argument vArg = vertex.getBase().getArgumentFactory(vertex).create(arg.getAttribute("name"), arg.getAttribute("value"));
+            final Argument vArg = vertex.getBase().getArgumentFactory(vertex).create(arg.getAttribute("name"),
+                arg.getAttribute("value"));
             vertex.addArgument(vArg);
           }
         }
@@ -452,7 +456,8 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
   protected void parseParameters(final AbstractGraph<?, ?> graph, final Element parentElt) {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals("parameters")) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals("parameters")) {
         final NodeList argsList = childList.item(i).getChildNodes();
         for (int j = 0; j < argsList.getLength(); j++) {
           if (argsList.item(j).getNodeName().equals("parameter")) {
@@ -475,7 +480,8 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
   protected String parseModel(final Element parentElt) {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(AbstractGraph.MODEL)) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals(AbstractGraph.MODEL)) {
         return childList.item(i).getTextContent();
       }
     }
@@ -493,7 +499,8 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
   protected void parseVariables(final AbstractGraph<?, ?> graph, final Element parentElt) {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals("variables")) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals("variables")) {
         final NodeList argsList = childList.item(i).getChildNodes();
         for (int j = 0; j < argsList.getLength(); j++) {
           if (argsList.item(j).getNodeName().equals("variable")) {
@@ -515,10 +522,12 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected void parseGraphDescription(final AbstractVertex<?> vertex, final Element parentElt) throws InvalidModelException {
+  protected void parseGraphDescription(final AbstractVertex<?> vertex, final Element parentElt)
+      throws InvalidModelException {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(AbstractVertex.REFINEMENT)) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals(AbstractVertex.REFINEMENT)) {
         final Element graphDesc = (Element) childList.item(i);
         final String refinementPath = graphDesc.getTextContent();
         if (refinementPath.contains(".graphml")) {

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2015)
@@ -156,7 +156,8 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
    *           the invalid model exception
    */
   @Override
-  public AbstractVertex parseNode(final Element vertexElt, final AbstractGraph parentGraph) throws InvalidModelException {
+  public AbstractVertex parseNode(final Element vertexElt, final AbstractGraph parentGraph)
+      throws InvalidModelException {
     AbstractVertex vertex;
     vertex = this.vertexFactory.createVertex(vertexElt);
     vertex.setId(vertexElt.getAttribute("id"));
@@ -172,7 +173,8 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element, org.ietr.dftools.algorithm.model.AbstractGraph)
+   * @see org.ietr.dftools.algorithm.importer.GMLImporter#parsePort(org.w3c.dom.Element,
+   * org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
   public AbstractVertex parsePort(final Element portElt, final AbstractGraph parentGraph) throws InvalidModelException {

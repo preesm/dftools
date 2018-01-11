@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -99,7 +99,8 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
   }
 
   /**
-   * adds a log retrieved from a property file {@link WorkflowMessages} and parameterized with variables Each string "%VAR%" is replaced by a given variable.
+   * adds a log retrieved from a property file {@link WorkflowMessages} and parameterized with variables Each string
+   * "%VAR%" is replaced by a given variable.
    *
    * @param level
    *          the level
@@ -142,8 +143,8 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
       // Writes a log in standard output
       if (this.console == null) {
         if (levelVal < Level.INFO.intValue()) {
-          final String msg = record.getMillis() + " " + level.toString() + ": " + record.getMessage() + " (in " + record.getSourceClassName() + "#"
-              + record.getSourceMethodName() + ")";
+          final String msg = record.getMillis() + " " + level.toString() + ": " + record.getMessage() + " (in "
+              + record.getSourceClassName() + "#" + record.getSourceMethodName() + ")";
           System.out.println(msg);
         } else {
           final Date date = new Date(record.getMillis());
@@ -209,7 +210,8 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
   }
 
   /**
-   * Method to call before the first log when running preesm through command line interface Basically called by CLIWorkflowExecutor.
+   * Method to call before the first log when running preesm through command line interface Basically called by
+   * CLIWorkflowExecutor.
    */
   public static void runFromCLI() {
     DFToolsWorkflowLogger.isRunningFromCLI = true;

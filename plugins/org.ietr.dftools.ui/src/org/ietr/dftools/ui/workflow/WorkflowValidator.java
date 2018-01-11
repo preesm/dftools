@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -60,8 +60,8 @@ import org.ietr.dftools.graphiti.model.Vertex;
 public class WorkflowValidator implements IValidator {
 
   /**
-   * Validates the workflow by checking that every tasks are declared in loaded plug-ins. Each task implementation must additionally accept the textual input
-   * and output edges connected to it.
+   * Validates the workflow by checking that every tasks are declared in loaded plug-ins. Each task implementation must
+   * additionally accept the textual input and output edges connected to it.
    *
    * @param graph
    *          the graph
@@ -82,12 +82,14 @@ public class WorkflowValidator implements IValidator {
         final String pluginId = (String) vertex.getValue("plugin identifier");
 
         if (pluginId == null) {
-          createMarker(file, "Enter a plugin identifier for each plugin.", "Any plugin", IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          createMarker(file, "Enter a plugin identifier for each plugin.", "Any plugin", IMarker.PROBLEM,
+              IMarker.SEVERITY_ERROR);
           return false;
         }
 
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
-        final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
+        final IConfigurationElement[] elements = registry
+            .getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
 
         boolean foundClass = false;
 
@@ -99,8 +101,9 @@ public class WorkflowValidator implements IValidator {
             try {
               final String taskType = element.getAttribute("type");
               /**
-               * Getting the class corresponding to the taskType string. This is only possible because of "Eclipse-BuddyPolicy: global" in the manifest: the
-               * Graphiti configuration class loader has a global knowledge of classes
+               * Getting the class corresponding to the taskType string. This is only possible because of
+               * "Eclipse-BuddyPolicy: global" in the manifest: the Graphiti configuration class loader has a global
+               * knowledge of classes
                */
 
               final Class<?> vertexTaskClass = Class.forName(taskType);
@@ -113,15 +116,16 @@ public class WorkflowValidator implements IValidator {
               foundClass = true;
 
             } catch (final Exception e) {
-              createMarker(file, "Class associated to the workflow task not found. Is the class path exported?", pluginId, IMarker.PROBLEM,
-                  IMarker.SEVERITY_ERROR);
+              createMarker(file, "Class associated to the workflow task not found. Is the class path exported?",
+                  pluginId, IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
               return true;
             }
           }
         }
 
         if (foundClass == false) {
-          createMarker(file, "Plugin associated to the workflow task not found.", pluginId, IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          createMarker(file, "Plugin associated to the workflow task not found.", pluginId, IMarker.PROBLEM,
+              IMarker.SEVERITY_ERROR);
           return false;
         }
       }
@@ -131,8 +135,8 @@ public class WorkflowValidator implements IValidator {
   }
 
   /**
-   * Getting the default parameters from the task class and adding them in the graph if they were not present. A warning giving the possible parameter values is
-   * displayed
+   * Getting the default parameters from the task class and adding them in the graph if they were not present. A warning
+   * giving the possible parameter values is displayed
    *
    * @param vertex
    *          the vertex
@@ -167,8 +171,8 @@ public class WorkflowValidator implements IValidator {
           if (!varMap.containsKey(key)) {
             varMap.put(key, parameterDefaults.get(key));
 
-            createMarker(file, "Added default parameter value: " + key + ", " + parameterDefaults.get(key), (String) vertex.getValue("id"), IMarker.MESSAGE,
-                IMarker.SEVERITY_INFO);
+            createMarker(file, "Added default parameter value: " + key + ", " + parameterDefaults.get(key),
+                (String) vertex.getValue("id"), IMarker.MESSAGE, IMarker.SEVERITY_INFO);
           }
         }
       }
@@ -189,7 +193,8 @@ public class WorkflowValidator implements IValidator {
    * @param severity
    *          the severity
    */
-  protected void createMarker(final IFile file, final String message, final String location, final String type, final int severity) {
+  protected void createMarker(final IFile file, final String message, final String location, final String type,
+      final int severity) {
     try {
       final IMarker marker = file.createMarker(type);
       marker.setAttribute(IMarker.LOCATION, location);

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Julien Heulot <julien.heulot@insa-rennes.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011 - 2013)
@@ -123,7 +123,8 @@ public final class SlamValidator implements IValidator {
     }
 
     if (lackVLNVElement) {
-      createMarker(file, "A graph should have VLNV data. Default values set", (String) graph.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_WARNING);
+      createMarker(file, "A graph should have VLNV data. Default values set", (String) graph.getValue("id"),
+          IMarker.PROBLEM, IMarker.SEVERITY_WARNING);
       valid = false;
     }
 
@@ -164,7 +165,8 @@ public final class SlamValidator implements IValidator {
         }
 
         if (!hasDataLink) {
-          createMarker(file, "An enabler (Mem or Dma) must at least receive a data link", (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          createMarker(file, "An enabler (Mem or Dma) must at least receive a data link", (String) v.getValue("id"),
+              IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -201,7 +203,8 @@ public final class SlamValidator implements IValidator {
 
         if (!hasPortNames) {
           createMarker(file, "Each link must have source and target port names.",
-              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM,
+              IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -211,8 +214,8 @@ public final class SlamValidator implements IValidator {
   }
 
   /**
-   * Each data link must connect a communication node to a node of any type. A link without a communication node (either parallel or with contention) is not
-   * valid
+   * Each data link must connect a communication node to a node of any type. A link without a communication node (either
+   * parallel or with contention) is not valid
    *
    * @param graph
    *          the graph
@@ -237,7 +240,8 @@ public final class SlamValidator implements IValidator {
 
         if (!hasComNode) {
           createMarker(file, "Each data link must have at least one ComNode in its source/target components.",
-              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM,
+              IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -272,7 +276,8 @@ public final class SlamValidator implements IValidator {
         }
 
         if (!hasSpeed) {
-          createMarker(file, "A ComNode must specify a non-zero float-valued speed.", (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          createMarker(file, "A ComNode must specify a non-zero float-valued speed.", (String) v.getValue("id"),
+              IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -307,7 +312,8 @@ public final class SlamValidator implements IValidator {
         }
 
         if (!hasSetupTime) {
-          createMarker(file, "A Dma must specify a positive integer-valued setup time.", (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          createMarker(file, "A Dma must specify a positive integer-valued setup time.", (String) v.getValue("id"),
+              IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -354,7 +360,8 @@ public final class SlamValidator implements IValidator {
             final boolean emptySize = (size == null) || size.isEmpty();
             final String storedSize = definitionToSize.get(definition);
             final boolean emptySSize = (storedSize == null) || storedSize.isEmpty();
-            if ((emptySize && !emptySSize) || (!emptySize && emptySSize) || (!emptySize && !emptySSize && !size.equals(storedSize))) {
+            if ((emptySize && !emptySSize) || (!emptySize && emptySSize)
+                || (!emptySize && !emptySSize && !size.equals(storedSize))) {
               conflictedSizes = true;
             }
           }
@@ -362,13 +369,14 @@ public final class SlamValidator implements IValidator {
         }
 
         if (!hasSize) {
-          createMarker(file, "A memory must specify a non-zero integer-valued size.", (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+          createMarker(file, "A memory must specify a non-zero integer-valued size.", (String) v.getValue("id"),
+              IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
 
         if (conflictedSizes) {
-          createMarker(file, "Two memories with the same definition must have the same size.", (String) v.getValue("id"), IMarker.PROBLEM,
-              IMarker.SEVERITY_ERROR);
+          createMarker(file, "Two memories with the same definition must have the same size.",
+              (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -399,13 +407,15 @@ public final class SlamValidator implements IValidator {
           hasOperatorSource = true;
         }
 
-        if ((e.getTarget() != null) && (e.getTarget().getType().getName().contains("Mem") || e.getTarget().getType().getName().contains("Dma"))) {
+        if ((e.getTarget() != null) && (e.getTarget().getType().getName().contains("Mem")
+            || e.getTarget().getType().getName().contains("Dma"))) {
           hasEnablerTarget = true;
         }
 
         if (!hasOperatorSource || !hasEnablerTarget) {
           createMarker(file, "Each control link must link an operator to an enabler (Mem or Dma).",
-              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM,
+              IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -455,8 +465,10 @@ public final class SlamValidator implements IValidator {
           graph.removeEdge(e);
 
           createMarker(file,
-              "A hierarchical connection link must link a commmunication node or an operator and a hierarchical connection node. It is undirected.",
-              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
+              "A hierarchical connection link must link a commmunication node or an operator and a hierarchical "
+                  + "connection node. It is undirected.",
+              (String) e.getSource().getValue("id") + "->" + (String) e.getTarget().getValue("id"), IMarker.PROBLEM,
+              IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -499,7 +511,8 @@ public final class SlamValidator implements IValidator {
             final boolean emptyRef = (refinement == null) || refinement.isEmpty();
             final String storedRefinement = definitionToRefinement.get(definition);
             final boolean emptySRef = (storedRefinement == null) || storedRefinement.isEmpty();
-            if ((emptyRef && !emptySRef) || (!emptyRef && emptySRef) || (!emptyRef && !emptySRef && !refinement.equals(storedRefinement))) {
+            if ((emptyRef && !emptySRef) || (!emptyRef && emptySRef)
+                || (!emptyRef && !emptySRef && !refinement.equals(storedRefinement))) {
               conflictedRefinements = true;
             }
           }
@@ -510,15 +523,16 @@ public final class SlamValidator implements IValidator {
           v.setValue("definition", "default" + v.getType().getName());
 
           createMarker(file,
-              "Each component instance must specify a definition id that identifies the instanciated component. By default, it is set to \"default\"Type",
+              "Each component instance must specify a definition id that identifies the instanciated "
+                  + "component. By default, it is set to \"default\"Type",
               (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
 
         if (conflictedRefinements) {
 
-          createMarker(file, "Two components with the same definition must have the same refinement", (String) v.getValue("id"), IMarker.PROBLEM,
-              IMarker.SEVERITY_ERROR);
+          createMarker(file, "Two components with the same definition must have the same refinement",
+              (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -549,8 +563,8 @@ public final class SlamValidator implements IValidator {
         if (nbEdges != 1) {
           graph.removeVertex(v);
 
-          createMarker(file, "Each hierarchy port must have exactly one hierarchical connection.", (String) v.getValue("id"), IMarker.PROBLEM,
-              IMarker.SEVERITY_ERROR);
+          createMarker(file, "Each hierarchy port must have exactly one hierarchical connection.",
+              (String) v.getValue("id"), IMarker.PROBLEM, IMarker.SEVERITY_ERROR);
           valid = false;
         }
       }
@@ -573,7 +587,8 @@ public final class SlamValidator implements IValidator {
    * @param severity
    *          the severity
    */
-  protected void createMarker(final IFile file, final String message, final String location, final String type, final int severity) {
+  protected void createMarker(final IFile file, final String message, final String location, final String type,
+      final int severity) {
     try {
       final IMarker marker = file.createMarker(type);
       marker.setAttribute(IMarker.LOCATION, location);

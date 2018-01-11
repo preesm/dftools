@@ -66,7 +66,8 @@ import org.ietr.dftools.architecture.slam.link.Link;
  * </p>
  * <ul>
  * <li>{@link org.ietr.dftools.architecture.slam.impl.DesignImpl#getParameters <em>Parameters</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.impl.DesignImpl#getComponentInstances <em>Component Instances</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.impl.DesignImpl#getComponentInstances <em>Component
+ * Instances</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.impl.DesignImpl#getLinks <em>Links</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.impl.DesignImpl#getHierarchyPorts <em>Hierarchy Ports</em>}</li>
  * <li>{@link org.ietr.dftools.architecture.slam.impl.DesignImpl#getRefined <em>Refined</em>}</li>
@@ -78,7 +79,8 @@ import org.ietr.dftools.architecture.slam.link.Link;
  */
 public class DesignImpl extends VLNVedElementImpl implements Design {
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getParameters()
    * @generated
@@ -87,8 +89,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   protected EList<Parameter> parameters;
 
   /**
-   * The cached value of the '{@link #getComponentInstances() <em>Component Instances</em>}' containment reference list. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * The cached value of the '{@link #getComponentInstances() <em>Component Instances</em>}' containment reference list.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getComponentInstances()
    * @generated
@@ -97,7 +99,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   protected EList<ComponentInstance> componentInstances;
 
   /**
-   * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list. <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @see #getLinks()
    * @generated
@@ -106,7 +109,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   protected EList<Link> links;
 
   /**
-   * The cached value of the '{@link #getHierarchyPorts() <em>Hierarchy Ports</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getHierarchyPorts() <em>Hierarchy Ports</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getHierarchyPorts()
    * @generated
@@ -115,7 +119,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   protected EList<HierarchyPort> hierarchyPorts;
 
   /**
-   * The default value of the '{@link #getPath() <em>Path</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getPath() <em>Path</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getPath()
    * @generated
@@ -133,8 +138,9 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   protected String path = DesignImpl.PATH_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getComponentHolder() <em>Component Holder</em>}' reference. <!-- begin-user-doc --> Component definitions are common to
-   * all the designs of a hierarchical architecture description. The holder keeps these definitions available from all designs <!-- end-user-doc -->
+   * The cached value of the '{@link #getComponentHolder() <em>Component Holder</em>}' reference. <!-- begin-user-doc
+   * --> Component definitions are common to all the designs of a hierarchical architecture description. The holder
+   * keeps these definitions available from all designs <!-- end-user-doc -->
    *
    * @see #getComponentHolder()
    * @generated
@@ -182,7 +188,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   @Override
   public EList<ComponentInstance> getComponentInstances() {
     if (this.componentInstances == null) {
-      this.componentInstances = new EObjectContainmentEList<>(ComponentInstance.class, this, SlamPackage.DESIGN__COMPONENT_INSTANCES);
+      this.componentInstances = new EObjectContainmentEList<>(ComponentInstance.class, this,
+          SlamPackage.DESIGN__COMPONENT_INSTANCES);
     }
     return this.componentInstances;
   }
@@ -208,7 +215,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   @Override
   public EList<HierarchyPort> getHierarchyPorts() {
     if (this.hierarchyPorts == null) {
-      this.hierarchyPorts = new EObjectContainmentEList<>(HierarchyPort.class, this, SlamPackage.DESIGN__HIERARCHY_PORTS);
+      this.hierarchyPorts = new EObjectContainmentEList<>(HierarchyPort.class, this,
+          SlamPackage.DESIGN__HIERARCHY_PORTS);
     }
     return this.hierarchyPorts;
   }
@@ -243,7 +251,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
    */
   @Override
   public void setRefined(final Component newRefined) {
-    if ((newRefined != eInternalContainer()) || ((eContainerFeatureID() != SlamPackage.DESIGN__REFINED) && (newRefined != null))) {
+    if ((newRefined != eInternalContainer())
+        || ((eContainerFeatureID() != SlamPackage.DESIGN__REFINED) && (newRefined != null))) {
       if (EcoreUtil.isAncestor(this, newRefined)) {
         throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       }
@@ -252,7 +261,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
         msgs = eBasicRemoveFromContainer(msgs);
       }
       if (newRefined != null) {
-        msgs = ((InternalEObject) newRefined).eInverseAdd(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class, msgs);
+        msgs = ((InternalEObject) newRefined).eInverseAdd(this, ComponentPackage.COMPONENT__REFINEMENTS,
+            Component.class, msgs);
       }
       msgs = basicSetRefined(newRefined, msgs);
       if (msgs != null) {
@@ -299,7 +309,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
       this.componentHolder = (ComponentHolder) eResolveProxy(oldComponentHolder);
       if (this.componentHolder != oldComponentHolder) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder, this.componentHolder));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.DESIGN__COMPONENT_HOLDER,
+              oldComponentHolder, this.componentHolder));
         }
       }
     }
@@ -325,7 +336,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
     final ComponentHolder oldComponentHolder = this.componentHolder;
     this.componentHolder = newComponentHolder;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder, this.componentHolder));
+      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.DESIGN__COMPONENT_HOLDER, oldComponentHolder,
+          this.componentHolder));
     }
   }
 
@@ -415,7 +427,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case SlamPackage.DESIGN__PARAMETERS:
         return ((InternalEList<?>) getParameters()).basicRemove(otherEnd, msgs);
@@ -440,7 +453,8 @@ public class DesignImpl extends VLNVedElementImpl implements Design {
   public NotificationChain eBasicRemoveFromContainerFeature(final NotificationChain msgs) {
     switch (eContainerFeatureID()) {
       case SlamPackage.DESIGN__REFINED:
-        return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class, msgs);
+        return eInternalContainer().eInverseRemove(this, ComponentPackage.COMPONENT__REFINEMENTS, Component.class,
+            msgs);
     }
     return super.eBasicRemoveFromContainerFeature(msgs);
   }

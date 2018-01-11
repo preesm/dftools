@@ -1,8 +1,8 @@
 <!--
 
-    Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+    Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
 
-    Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+    Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
 
     This software is a computer program whose purpose is to help prototyping
     parallel applications using dataflow formalism.
@@ -43,7 +43,7 @@
   <parent>
     <groupId>org.ietr.dftools</groupId>
     <artifactId>org.ietr.dftools.parent</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -79,7 +79,7 @@
     <repository>
       <id>Settings M2E extension</id>
       <layout>p2</layout>
-      <url>https://antoine-morvan.github.io/m2e-settings/site/</url>
+      <url>https://preesm.github.io/m2e-settings/site/</url>
     </repository>
   </repositories>
 

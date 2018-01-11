@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2012)
@@ -55,8 +55,8 @@ import org.jgrapht.alg.CycleDetector;
 
 // TODO: Auto-generated Javadoc
 /**
- * Generate a schedulable Random graph, by setting the number of vertices and who have random numbers of sources and sinks. Moreover the production and
- * consumption between two vertices is randomly set.
+ * Generate a schedulable Random graph, by setting the number of vertices and who have random numbers of sources and
+ * sinks. Moreover the production and consumption between two vertices is randomly set.
  *
  * @author pthebault
  *
@@ -100,7 +100,8 @@ public class SDFRandomGraph {
     }
     // Calculate non-zero repetition vector
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
-      vrb.put(vertex, (SDFRandomGraph.fractions.get(vertex).getNum() * l) / SDFRandomGraph.fractions.get(vertex).getDenum());
+      vrb.put(vertex,
+          (SDFRandomGraph.fractions.get(vertex).getNum() * l) / SDFRandomGraph.fractions.get(vertex).getDenum());
     }
     // Find greatest common divisor (gcd)
     int g = 0;
@@ -148,7 +149,8 @@ public class SDFRandomGraph {
    *           the invalid expression exception
    */
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public static void PlaceDelay(final SDFGraph graph, final int nbVertexgraph, final Vector<SDFAbstractVertex> sensors) throws InvalidExpressionException {
+  public static void PlaceDelay(final SDFGraph graph, final int nbVertexgraph, final Vector<SDFAbstractVertex> sensors)
+      throws InvalidExpressionException {
     final SDFGraph newgraph = graph.clone();// new graph is created to
     // reduce execution time of
     // cycle detection
@@ -162,7 +164,8 @@ public class SDFRandomGraph {
         if (graph.containsEdge(Src, Dst)) {
           if (test.contains(newgraph.getVertex(Src.getName()))) {
             final SDFEdge edge = graph.getEdge(Src, Dst);
-            final int Q_xy = vrb.get(edge.getSource()).intValue() / SDFMath.gcd(vrb.get(edge.getSource()).intValue(), vrb.get(edge.getTarget()).intValue());
+            final int Q_xy = vrb.get(edge.getSource()).intValue()
+                / SDFMath.gcd(vrb.get(edge.getSource()).intValue(), vrb.get(edge.getTarget()).intValue());
             edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().intValue()));
           }
         }
@@ -172,7 +175,8 @@ public class SDFRandomGraph {
     for (final SDFAbstractVertex vertex : sensors) {
       for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
         if (edge.getDelay().intValue() == 0) {
-          final int Q_xy = vrb.get(edge.getSource()).intValue() / SDFMath.gcd(vrb.get(edge.getSource()).intValue(), vrb.get(edge.getTarget()).intValue());
+          final int Q_xy = vrb.get(edge.getSource()).intValue()
+              / SDFMath.gcd(vrb.get(edge.getSource()).intValue(), vrb.get(edge.getTarget()).intValue());
           edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().intValue()));
 
         }
@@ -188,8 +192,8 @@ public class SDFRandomGraph {
   }
 
   /**
-   * Creates a new schedulable Random graph, by setting the number of vertices and who have random numbers of sources and sinks. Moreover the production and
-   * consumption between two vertices is randomly set.
+   * Creates a new schedulable Random graph, by setting the number of vertices and who have random numbers of sources
+   * and sinks. Moreover the production and consumption between two vertices is randomly set.
    *
    * @param nbVertex
    *          is the number of vertices to create in the graph
@@ -209,8 +213,8 @@ public class SDFRandomGraph {
    * @throws SDF4JException
    *           the SDF 4 J exception
    */
-  public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree, final int minOutDegree, final int maxOutDegree,
-      final int minRate, final int maxRate) throws SDF4JException {
+  public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
+      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate) throws SDF4JException {
     try {
       return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate, 1, 1);
     } catch (final InvalidExpressionException e) {
@@ -220,8 +224,8 @@ public class SDFRandomGraph {
   }
 
   /**
-   * Creates a new schedulable Random graph, by setting the number of vertices and who have random numbers of sources and sinks. Moreover the production and
-   * consumption between two vertices is randomly set.
+   * Creates a new schedulable Random graph, by setting the number of vertices and who have random numbers of sources
+   * and sinks. Moreover the production and consumption between two vertices is randomly set.
    *
    * @param nbVertex
    *          is the number of vertices to create in the graph
@@ -243,10 +247,12 @@ public class SDFRandomGraph {
    * @throws SDF4JException
    *           the SDF 4 J exception
    */
-  public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree, final int minOutDegree, final int maxOutDegree,
-      final int minRate, final int maxRate, final int rateMultiplier) throws SDF4JException {
+  public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
+      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate, final int rateMultiplier)
+      throws SDF4JException {
     try {
-      return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate, rateMultiplier, 1);
+      return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate,
+          rateMultiplier, 1);
     } catch (final InvalidExpressionException e) {
       e.printStackTrace();
       throw (new SDF4JException(e.getMessage()));
@@ -254,8 +260,8 @@ public class SDFRandomGraph {
   }
 
   /**
-   * Creates a new schedulable Random graph, by setting the number of vertices and who have random numbers of sources and sinks. Moreover the production and
-   * consumption between two vertices is randomly set.
+   * Creates a new schedulable Random graph, by setting the number of vertices and who have random numbers of sources
+   * and sinks. Moreover the production and consumption between two vertices is randomly set.
    *
    * @param nbVertex
    *          The number of vertices to create in the graph
@@ -279,8 +285,9 @@ public class SDFRandomGraph {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree, final int minOutDegree, final int maxOutDegree,
-      final int minRate, final int maxRate, final int rateMultiplier, final int nbSensors) throws InvalidExpressionException {
+  public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
+      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate, final int rateMultiplier,
+      final int nbSensors) throws InvalidExpressionException {
 
     final int[] nbSinksVertex = new int[nbVertex];
     final int[] nbSourcesVertex = new int[nbVertex];
@@ -371,7 +378,8 @@ public class SDFRandomGraph {
       int possible = 0;
       for (int i = 0; (i < Out_free_Vertex.size()) && (possible == 0); i++) {
         for (int j = 0; (j < In_free_Vertex.size()) && (possible == 0); j++) {
-          if ((Created_edge[Out_free_Vertex.elementAt(i)][In_free_Vertex.elementAt(j)] == 0) && (nbSourcesVertex[Out_free_Vertex.elementAt(i)] != 0)
+          if ((Created_edge[Out_free_Vertex.elementAt(i)][In_free_Vertex.elementAt(j)] == 0)
+              && (nbSourcesVertex[Out_free_Vertex.elementAt(i)] != 0)
               && (nbSinksVertex[In_free_Vertex.elementAt(j)] != 0)) {
             possible = 1;
           }

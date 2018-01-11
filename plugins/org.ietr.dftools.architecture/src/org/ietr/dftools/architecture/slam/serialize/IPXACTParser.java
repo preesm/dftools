@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -46,7 +46,8 @@ import org.w3c.dom.Node;
 
 // TODO: Auto-generated Javadoc
 /**
- * Parser of a System-Level Architecture model from the IP-XACT format. Utilities common to component and design parsers.
+ * Parser of a System-Level Architecture model from the IP-XACT format. Utilities common to component and design
+ * parsers.
  *
  * @author mpelcat
  */

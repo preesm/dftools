@@ -48,7 +48,8 @@ import org.ietr.dftools.architecture.slam.component.Component;
 import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Component Instance</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Component Instance</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -61,7 +62,8 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
  */
 public class ComponentInstanceImpl extends ParameterizedElementImpl implements ComponentInstance {
   /**
-   * The cached value of the '{@link #getComponent() <em>Component</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getComponent() <em>Component</em>}' reference. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getComponent()
    * @generated
@@ -70,7 +72,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
   protected Component component;
 
   /**
-   * The default value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute. <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    *
    * @see #getInstanceName()
    * @generated
@@ -79,7 +82,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
   protected static final String INSTANCE_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getInstanceName() <em>Instance Name</em>}' attribute. <!-- begin-user-doc --> <!--
+   * end-user-doc -->
    *
    * @see #getInstanceName()
    * @generated
@@ -118,7 +122,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
       this.component = (Component) eResolveProxy(oldComponent);
       if (this.component != oldComponent) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent, this.component));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SlamPackage.COMPONENT_INSTANCE__COMPONENT,
+              oldComponent, this.component));
         }
       }
     }
@@ -143,8 +148,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
     final Component oldComponent = this.component;
     this.component = newComponent;
     if (eNotificationRequired()) {
-      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent,
-          newComponent);
+      final ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+          SlamPackage.COMPONENT_INSTANCE__COMPONENT, oldComponent, newComponent);
       if (msgs == null) {
         msgs = notification;
       } else {
@@ -164,17 +169,20 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
     if (newComponent != this.component) {
       NotificationChain msgs = null;
       if (this.component != null) {
-        msgs = ((InternalEObject) this.component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
+        msgs = ((InternalEObject) this.component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES,
+            Component.class, msgs);
       }
       if (newComponent != null) {
-        msgs = ((InternalEObject) newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
+        msgs = ((InternalEObject) newComponent).eInverseAdd(this, ComponentPackage.COMPONENT__INSTANCES,
+            Component.class, msgs);
       }
       msgs = basicSetComponent(newComponent, msgs);
       if (msgs != null) {
         msgs.dispatch();
       }
     } else if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__COMPONENT, newComponent, newComponent));
+      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__COMPONENT, newComponent,
+          newComponent));
     }
   }
 
@@ -198,7 +206,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
     final String oldInstanceName = this.instanceName;
     this.instanceName = newInstanceName;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME, oldInstanceName, this.instanceName));
+      eNotify(new ENotificationImpl(this, Notification.SET, SlamPackage.COMPONENT_INSTANCE__INSTANCE_NAME,
+          oldInstanceName, this.instanceName));
     }
   }
 
@@ -224,7 +233,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
     switch (featureID) {
       case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
         if (this.component != null) {
-          msgs = ((InternalEObject) this.component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES, Component.class, msgs);
+          msgs = ((InternalEObject) this.component).eInverseRemove(this, ComponentPackage.COMPONENT__INSTANCES,
+              Component.class, msgs);
         }
         return basicSetComponent((Component) otherEnd, msgs);
     }
@@ -237,7 +247,8 @@ public class ComponentInstanceImpl extends ParameterizedElementImpl implements C
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case SlamPackage.COMPONENT_INSTANCE__COMPONENT:
         return basicSetComponent(null, msgs);

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -101,9 +101,11 @@ public class TaskNode extends AbstractWorkflowNode {
   }
 
   /**
-   * Returns the transformation associated with this {@link TaskNode}. Note that it is only valid if {@link #isTransformationPossible()} returns true.
+   * Returns the transformation associated with this {@link TaskNode}. Note that it is only valid if
+   * {@link #isTransformationPossible()} returns true.
    *
-   * @return The transformation associated with this transformation node, or <code>null</code> if the transformation is not valid.
+   * @return The transformation associated with this transformation node, or <code>null</code> if the transformation is
+   *         not valid.
    */
   public AbstractTaskImplementation getTask() {
     return (AbstractTaskImplementation) this.implementation;

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -163,14 +163,16 @@ public class SDFForkVertex extends SDFAbstractVertex {
 
     // Copy the ports
     for (final SDFInterfaceVertex sink : getSinks()) {
-      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
+      if ((newVertex.getGraphDescription() != null)
+          && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
         newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
         newVertex.addSink(sink.clone());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
-      if ((newVertex.getGraphDescription() != null) && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
+      if ((newVertex.getGraphDescription() != null)
+          && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
         newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
         newVertex.addSource(source.clone());
@@ -204,7 +206,8 @@ public class SDFForkVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
    */
   @SuppressWarnings("rawtypes")
   @Override
@@ -215,7 +218,8 @@ public class SDFForkVertex extends SDFAbstractVertex {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {
@@ -246,8 +250,8 @@ public class SDFForkVertex extends SDFAbstractVertex {
   }
 
   /**
-   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at the given index (or at the end of the
-   * list if index == connections.size).
+   * Remove the given {@link SDFEdge} from its current index and insert it just before the {@link SDFEdge} currently at
+   * the given index (or at the end of the list if index == connections.size).
    *
    * @param edge
    *          the {@link SDFEdge} to move

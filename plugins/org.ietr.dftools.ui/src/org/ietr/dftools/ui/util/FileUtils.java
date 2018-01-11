@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -148,7 +148,8 @@ public class FileUtils {
         final Object object = selection[0];
         final boolean selectedItemIsFile = object instanceof IFile;
         final boolean selectedItemIsFolder = object instanceof IFolder;
-        final boolean selectedItemIsWhatsExcepted = (selectedItemIsFile && this.filterFolders) || (selectedItemIsFolder && !this.filterFolders);
+        final boolean selectedItemIsWhatsExcepted = (selectedItemIsFile && this.filterFolders)
+            || (selectedItemIsFolder && !this.filterFolders);
         if (selectedItemIsWhatsExcepted) {
           return new Status(IStatus.OK, Activator.PLUGIN_ID, "");
         }
@@ -191,19 +192,23 @@ public class FileUtils {
   }
 
   public static IPath browseFiles(final String title, final String fileExtension) {
-    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, title, fileExtension);
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, title,
+        fileExtension);
   }
 
   public static IPath browseFiles(final String title, final Collection<String> fileExtensions) {
-    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, title, fileExtensions);
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, title,
+        fileExtensions);
   }
 
   public static IPath browseFiles(final String title, final String message, final String fileExtension) {
-    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, message, fileExtension);
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, message,
+        fileExtension);
   }
 
   public static IPath browseFiles(final String title, final String message, final Collection<String> fileExtensions) {
-    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, message, fileExtensions);
+    return FileUtils.browseFiles(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), title, message,
+        fileExtensions);
   }
 
   /**
@@ -236,7 +241,8 @@ public class FileUtils {
    *          the file extension
    * @return the string
    */
-  public static IPath browseFiles(final Shell shell, final String title, final String message, final String fileExtension) {
+  public static IPath browseFiles(final Shell shell, final String title, final String message,
+      final String fileExtension) {
     return FileUtils.browseFiles(shell, title, message, Collections.singleton(fileExtension));
   }
 
@@ -251,9 +257,11 @@ public class FileUtils {
    *          the file extensions
    * @return the string
    */
-  public static IPath browseFiles(final Shell shell, final String title, final String message, final Collection<String> fileExtensions) {
+  public static IPath browseFiles(final Shell shell, final String title, final String message,
+      final Collection<String> fileExtensions) {
     final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-    final ILabelProvider decoratingWorkbenchLabelProvider = WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
+    final ILabelProvider decoratingWorkbenchLabelProvider = WorkbenchLabelProvider
+        .getDecoratingWorkbenchLabelProvider();
 
     ElementTreeSelectionDialog tree = null;
 
@@ -261,7 +269,8 @@ public class FileUtils {
       tree = new ElementTreeSelectionDialog(shell, decoratingWorkbenchLabelProvider, new DirectoryContentProvider());
       tree.setValidator(new SingleFileSelectionValidator(false));
     } else {
-      tree = new ElementTreeSelectionDialog(shell, decoratingWorkbenchLabelProvider, new FileContentProvider(fileExtensions));
+      tree = new ElementTreeSelectionDialog(shell, decoratingWorkbenchLabelProvider,
+          new FileContentProvider(fileExtensions));
       tree.setValidator(new SingleFileSelectionValidator(true));
 
       tree.addFilter(new ViewerFilter() {

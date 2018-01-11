@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -45,8 +45,8 @@ import org.ietr.dftools.ui.workflow.ScenarioConfiguration;
 
 // TODO: Auto-generated Javadoc
 /**
- * Launch Tab for scenario options. From this tab, an {@link ScenarioConfiguration} is generated that feeds an {@link ScenarioRetriever} to create the input
- * scenario.
+ * Launch Tab for scenario options. From this tab, an {@link ScenarioConfiguration} is generated that feeds an
+ * {@link ScenarioRetriever} to create the input scenario.
  *
  * @author mpelcat
  */
@@ -79,7 +79,8 @@ public class WorkFlowLaunchScenarioTab extends AbstractWorkFlowLaunchTab {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.ILaunchConfigurationWorkingCopy)
+   * @see org.ietr.dftools.ui.workflow.launch.AbstractWorkFlowLaunchTab#setDefaults(org.eclipse.debug.core.
+   * ILaunchConfigurationWorkingCopy)
    */
   @Override
   public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {

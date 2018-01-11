@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011 - 2012)
@@ -42,7 +42,8 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 // TODO: Auto-generated Javadoc
 /**
- * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins tasks applied to a scenario.
+ * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins
+ * tasks applied to a scenario.
  *
  * @author mpelcat
  */

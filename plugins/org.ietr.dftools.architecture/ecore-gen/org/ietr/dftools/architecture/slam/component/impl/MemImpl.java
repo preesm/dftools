@@ -55,7 +55,8 @@ import org.ietr.dftools.architecture.slam.component.Mem;
  */
 public class MemImpl extends EnablerImpl implements Mem {
   /**
-   * The default value of the '{@link #getSize() <em>Size</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The default value of the '{@link #getSize() <em>Size</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+   * -->
    *
    * @see #getSize()
    * @generated

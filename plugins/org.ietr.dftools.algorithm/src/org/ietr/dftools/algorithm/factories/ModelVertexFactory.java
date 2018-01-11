@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  *
@@ -91,7 +91,8 @@ public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
   public final String getProperty(final Element elt, final String propertyName) {
     final NodeList childList = elt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data") && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
         return childList.item(i).getTextContent();
       }
     }

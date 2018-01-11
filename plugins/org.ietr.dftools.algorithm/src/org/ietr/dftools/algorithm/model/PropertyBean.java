@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Julien Hascoet <jhascoet@kalray.eu> (2017)
  * Jonathan Piat <jpiat@laas.fr> (2011)
@@ -94,7 +94,8 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   }
 
   /**
-   * Gives the value of the property whose name is <code>propertyName</code> if the value is an instance of the specified class <code>propertyClass</code>.
+   * Gives the value of the property whose name is <code>propertyName</code> if the value is an instance of the
+   * specified class <code>propertyClass</code>.
    *
    * @param propertyName
    *          The property name
@@ -131,7 +132,8 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   }
 
   /**
-   * Remove the property whose name is <code>propertyName</code> from the {@link PropertyBean}. Any value associated to this property will be lost.
+   * Remove the property whose name is <code>propertyName</code> from the {@link PropertyBean}. Any value associated to
+   * this property will be lost.
    *
    * @param propertyName
    *          the name of the property to remove
@@ -143,8 +145,8 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   }
 
   /**
-   * Sets the value of the property whose name is <code>propertyName</code> to value <code>newValue</code>, and report the property update to any registered
-   * listeners.
+   * Sets the value of the property whose name is <code>propertyName</code> to value <code>newValue</code>, and report
+   * the property update to any registered listeners.
    *
    * @param propertyName
    *          The name of the property to set.
@@ -158,10 +160,11 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   }
 
   /**
-   * Sets the value of the property whose name is <code>propertyName</code> to value <code>newValue</code>, and report the property update to any registered
-   * listeners. This method allows the caller to specify the the property's <code>oldValue</code>, thus overriding the value stored in the properties map. This
-   * may be of use when a property should be fired regardless of the previous value (in case of undo/redo for example, when a same object is added, removed, and
-   * added again).
+   * Sets the value of the property whose name is <code>propertyName</code> to value <code>newValue</code>, and report
+   * the property update to any registered listeners. This method allows the caller to specify the the property's
+   * <code>oldValue</code>, thus overriding the value stored in the properties map. This may be of use when a property
+   * should be fired regardless of the previous value (in case of undo/redo for example, when a same object is added,
+   * removed, and added again).
    *
    * @param propertyName
    *          The name of the property to set.

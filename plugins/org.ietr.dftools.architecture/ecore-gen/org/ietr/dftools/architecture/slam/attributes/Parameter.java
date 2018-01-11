@@ -70,8 +70,8 @@ public interface Parameter extends EObject {
   String getKey();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getKey <em>Key</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getKey <em>Key</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Key</em>' attribute.
@@ -96,8 +96,8 @@ public interface Parameter extends EObject {
   String getValue();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getValue <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
-   * end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.attributes.Parameter#getValue <em>Value</em>}'
+   * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Value</em>' attribute.

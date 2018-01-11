@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -69,7 +69,8 @@ public class WorkflowConverterHandler extends AbstractHandler {
     }
 
     if (workflowFile == null) {
-      final String message = "Could not locate Workflow file from active selection [" + activeSelection + "] of type [" + activeSelection.getClass() + "]";
+      final String message = "Could not locate Workflow file from active selection [" + activeSelection + "] of type ["
+          + activeSelection.getClass() + "]";
       throw new UnsupportedOperationException(message);
     }
     final File file = workflowFile.getLocation().toFile();

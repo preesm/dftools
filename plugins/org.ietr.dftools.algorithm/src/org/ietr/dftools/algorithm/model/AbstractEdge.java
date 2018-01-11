@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2012)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011 - 2012)
@@ -230,13 +230,15 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends Observab
    * @return True if the given edge has the same properties, false otherwise
    */
   public boolean compare(final AbstractEdge edge) {
-    return edge.getSource().getName().equals(this.getSource().getName()) && edge.getTarget().getName().equals(this.getTarget().getName());
+    return edge.getSource().getName().equals(this.getSource().getName())
+        && edge.getTarget().getName().equals(this.getTarget().getName());
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
+   * @see
+   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
    */
   @Override
   public void copyProperties(final PropertySource props) {

@@ -46,9 +46,12 @@ import org.ietr.dftools.architecture.slam.ComponentInstance;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getExternalInterface <em>External Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalInterface <em>Internal Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance <em>Internal Component Instance</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getExternalInterface <em>External
+ * Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalInterface <em>Internal
+ * Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance <em>Internal
+ * Component Instance</em>}</li>
  * </ul>
  *
  * @see org.ietr.dftools.architecture.slam.component.ComponentPackage#getHierarchyPort()
@@ -59,7 +62,8 @@ public interface HierarchyPort extends EObject {
   /**
    * Returns the value of the '<em><b>External Interface</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>External Interface</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>External Interface</em>' reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -72,8 +76,8 @@ public interface HierarchyPort extends EObject {
   ComInterface getExternalInterface();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getExternalInterface <em>External Interface</em>}' reference. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getExternalInterface
+   * <em>External Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>External Interface</em>' reference.
@@ -85,7 +89,8 @@ public interface HierarchyPort extends EObject {
   /**
    * Returns the value of the '<em><b>Internal Interface</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Internal Interface</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Internal Interface</em>' reference isn't clear, there really should be more of a
+   * description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -98,8 +103,8 @@ public interface HierarchyPort extends EObject {
   ComInterface getInternalInterface();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalInterface <em>Internal Interface</em>}' reference. <!--
-   * begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalInterface
+   * <em>Internal Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Internal Interface</em>' reference.
@@ -111,7 +116,8 @@ public interface HierarchyPort extends EObject {
   /**
    * Returns the value of the '<em><b>Internal Component Instance</b></em>' reference. <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Internal Component Instance</em>' reference isn't clear, there really should be more of a description here...
+   * If the meaning of the '<em>Internal Component Instance</em>' reference isn't clear, there really should be more of
+   * a description here...
    * </p>
    * <!-- end-user-doc -->
    *
@@ -124,8 +130,9 @@ public interface HierarchyPort extends EObject {
   ComponentInstance getInternalComponentInstance();
 
   /**
-   * Sets the value of the '{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance <em>Internal Component
-   * Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * Sets the value of the
+   * '{@link org.ietr.dftools.architecture.slam.component.HierarchyPort#getInternalComponentInstance <em>Internal
+   * Component Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @param value
    *          the new value of the '<em>Internal Component Instance</em>' reference.

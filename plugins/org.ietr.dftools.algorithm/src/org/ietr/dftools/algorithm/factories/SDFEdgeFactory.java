@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -62,7 +62,8 @@ public class SDFEdgeFactory implements EdgeFactory<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public SDFEdge createEdge(final SDFAbstractVertex arg0, final SDFAbstractVertex arg1) {
-    return new SDFEdge(new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(0), new SDFStringEdgePropertyType("char"));
+    return new SDFEdge(new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(1), new SDFIntEdgePropertyType(0),
+        new SDFStringEdgePropertyType("char"));
   }
 
 }

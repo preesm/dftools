@@ -64,7 +64,8 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
    */
   public static ComponentFactory init() {
     try {
-      final ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE.getEFactory(ComponentPackage.eNS_URI);
+      final ComponentFactory theComponentFactory = (ComponentFactory) EPackage.Registry.INSTANCE
+          .getEFactory(ComponentPackage.eNS_URI);
       if (theComponentFactory != null) {
         return theComponentFactory;
       }

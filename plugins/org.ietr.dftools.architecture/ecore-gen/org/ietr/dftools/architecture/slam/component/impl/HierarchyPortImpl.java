@@ -47,21 +47,26 @@ import org.ietr.dftools.architecture.slam.component.ComponentPackage;
 import org.ietr.dftools.architecture.slam.component.HierarchyPort;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Hierarchy Port</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Hierarchy Port</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getExternalInterface <em>External Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalInterface <em>Internal Interface</em>}</li>
- * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalComponentInstance <em>Internal Component Instance</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getExternalInterface <em>External
+ * Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalInterface <em>Internal
+ * Interface</em>}</li>
+ * <li>{@link org.ietr.dftools.architecture.slam.component.impl.HierarchyPortImpl#getInternalComponentInstance
+ * <em>Internal Component Instance</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
   /**
-   * The cached value of the '{@link #getExternalInterface() <em>External Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getExternalInterface() <em>External Interface</em>}' reference. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getExternalInterface()
    * @generated
@@ -70,7 +75,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
   protected ComInterface externalInterface;
 
   /**
-   * The cached value of the '{@link #getInternalInterface() <em>Internal Interface</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getInternalInterface() <em>Internal Interface</em>}' reference. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getInternalInterface()
    * @generated
@@ -79,8 +85,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
   protected ComInterface internalInterface;
 
   /**
-   * The cached value of the '{@link #getInternalComponentInstance() <em>Internal Component Instance</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc
-   * -->
+   * The cached value of the '{@link #getInternalComponentInstance() <em>Internal Component Instance</em>}' reference.
+   * <!-- begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getInternalComponentInstance()
    * @generated
@@ -119,8 +125,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
       this.externalInterface = (ComInterface) eResolveProxy(oldExternalInterface);
       if (this.externalInterface != oldExternalInterface) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE, oldExternalInterface,
-              this.externalInterface));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE,
+              oldExternalInterface, this.externalInterface));
         }
       }
     }
@@ -146,7 +152,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
     final ComInterface oldExternalInterface = this.externalInterface;
     this.externalInterface = newExternalInterface;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE, oldExternalInterface, this.externalInterface));
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__EXTERNAL_INTERFACE,
+          oldExternalInterface, this.externalInterface));
     }
   }
 
@@ -162,8 +169,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
       this.internalInterface = (ComInterface) eResolveProxy(oldInternalInterface);
       if (this.internalInterface != oldInternalInterface) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE, oldInternalInterface,
-              this.internalInterface));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE,
+              oldInternalInterface, this.internalInterface));
         }
       }
     }
@@ -189,7 +196,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
     final ComInterface oldInternalInterface = this.internalInterface;
     this.internalInterface = newInternalInterface;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE, oldInternalInterface, this.internalInterface));
+      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_INTERFACE,
+          oldInternalInterface, this.internalInterface));
     }
   }
 
@@ -205,7 +213,8 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
       this.internalComponentInstance = (ComponentInstance) eResolveProxy(oldInternalComponentInstance);
       if (this.internalComponentInstance != oldInternalComponentInstance) {
         if (eNotificationRequired()) {
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE, oldInternalComponentInstance,
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+              ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE, oldInternalComponentInstance,
               this.internalComponentInstance));
         }
       }
@@ -232,8 +241,9 @@ public class HierarchyPortImpl extends EObjectImpl implements HierarchyPort {
     final ComponentInstance oldInternalComponentInstance = this.internalComponentInstance;
     this.internalComponentInstance = newInternalComponentInstance;
     if (eNotificationRequired()) {
-      eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE, oldInternalComponentInstance,
-          this.internalComponentInstance));
+      eNotify(
+          new ENotificationImpl(this, Notification.SET, ComponentPackage.HIERARCHY_PORT__INTERNAL_COMPONENT_INSTANCE,
+              oldInternalComponentInstance, this.internalComponentInstance));
     }
   }
 

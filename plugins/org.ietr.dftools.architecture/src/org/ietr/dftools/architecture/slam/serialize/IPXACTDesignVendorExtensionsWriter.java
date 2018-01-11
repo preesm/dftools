@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -120,7 +120,8 @@ public class IPXACTDesignVendorExtensionsWriter {
    * @param document
    *          the document
    */
-  public void writeDesignParameter(final Element parent, final String key, final String value, final Document document) {
+  public void writeDesignParameter(final Element parent, final String key, final String value,
+      final Document document) {
     final Element parameterElt = document.createElement("slam:parameter");
     parent.appendChild(parameterElt);
 

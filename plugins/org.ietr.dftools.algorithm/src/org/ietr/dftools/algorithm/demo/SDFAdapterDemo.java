@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -360,7 +360,8 @@ public class SDFAdapterDemo extends JApplet {
     while (order.hasNext()) {
       final SDFAbstractVertex nextVertex = order.next();
       vertices.add(nextVertex);
-      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null) && (this.model.getEdge(previousVertex, nextVertex) == null)) {
+      if ((previousVertex != null) && (this.model.getEdge(nextVertex, previousVertex) == null)
+          && (this.model.getEdge(previousVertex, nextVertex) == null)) {
         y += 50;
         positionVertexAt(nextVertex, x, y);
         if (y > ymax) {

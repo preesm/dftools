@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2012)
@@ -62,8 +62,8 @@ public class Key {
   String type;
 
   /**
-   * Construct a new key with the given name, applyint to instanceof the class "applyTo" and with a value of the type "type". The last parameter is a
-   * description of the key meaning
+   * Construct a new key with the given name, applyint to instanceof the class "applyTo" and with a value of the type
+   * "type". The last parameter is a description of the key meaning
    *
    * @param name
    *          The key name

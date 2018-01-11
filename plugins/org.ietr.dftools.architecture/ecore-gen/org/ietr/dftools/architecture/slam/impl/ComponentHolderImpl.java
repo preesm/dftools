@@ -49,7 +49,8 @@ import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.component.Component;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Component Holder</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object ' <em><b>Component Holder</b></em>'. <!-- end-user-doc
+ * -->
  * <p>
  * The following features are implemented:
  * </p>
@@ -61,7 +62,8 @@ import org.ietr.dftools.architecture.slam.component.Component;
  */
 public class ComponentHolderImpl extends EObjectImpl implements ComponentHolder {
   /**
-   * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+   * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list. <!--
+   * begin-user-doc --> <!-- end-user-doc -->
    *
    * @see #getComponents()
    * @generated
@@ -107,7 +109,8 @@ public class ComponentHolderImpl extends EObjectImpl implements ComponentHolder 
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID, final NotificationChain msgs) {
+  public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+      final NotificationChain msgs) {
     switch (featureID) {
       case SlamPackage.COMPONENT_HOLDER__COMPONENTS:
         return ((InternalEList<?>) getComponents()).basicRemove(otherEnd, msgs);

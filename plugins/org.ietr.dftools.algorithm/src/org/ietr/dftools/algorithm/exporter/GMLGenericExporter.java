@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  *
@@ -53,7 +53,8 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#export(org.ietr.dftools.algorithm.model.AbstractGraph, java.lang.String)
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#export(org.ietr.dftools.algorithm.model.AbstractGraph,
+   * java.lang.String)
    */
   @Override
   public void export(final AbstractGraph<AbstractVertex<?>, AbstractEdge<?, ?>> graph, final String path) {
@@ -72,7 +73,8 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportEdge(org.ietr.dftools.algorithm.model.AbstractEdge, org.w3c.dom.Element)
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportEdge(org.ietr.dftools.algorithm.model.AbstractEdge,
+   * org.w3c.dom.Element)
    */
   @Override
   protected Element exportEdge(final AbstractEdge<?, ?> edge, final Element parentELement) {
@@ -84,7 +86,8 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
     if (edge.getTargetLabel() != null) {
       targetPort = edge.getTargetLabel();
     }
-    final Element edgeElt = createEdge(parentELement, edge.getSource().getName(), edge.getTarget().getName(), sourcePort, targetPort);
+    final Element edgeElt = createEdge(parentELement, edge.getSource().getName(), edge.getTarget().getName(),
+        sourcePort, targetPort);
     exportKeys(edge, "edge", edgeElt);
     return edgeElt;
   }
@@ -119,7 +122,8 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportNode(org.ietr.dftools.algorithm.model.AbstractVertex, org.w3c.dom.Element)
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportNode(org.ietr.dftools.algorithm.model.AbstractVertex,
+   * org.w3c.dom.Element)
    */
   @SuppressWarnings("unchecked")
   @Override
@@ -136,9 +140,11 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
 
       if ((filePath.lastIndexOf("/") > 0) && filePath.contains(thisPathPrefix)) {
         if (filePath.compareTo(thisPathPrefix) > 0) {
-          vertex.getGraphDescription().setName(filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
+          vertex.getGraphDescription()
+              .setName(filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
           final GMLGenericExporter decExporter = new GMLGenericExporter();
-          decExporter.export(vertex.getGraphDescription(), filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
+          decExporter.export(vertex.getGraphDescription(),
+              filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));
         }
       } else {
         final GMLGenericExporter decExporter = new GMLGenericExporter();
@@ -155,7 +161,8 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportPort(org.ietr.dftools.algorithm.model.AbstractVertex, org.w3c.dom.Element)
+   * @see org.ietr.dftools.algorithm.exporter.GMLExporter#exportPort(org.ietr.dftools.algorithm.model.AbstractVertex,
+   * org.w3c.dom.Element)
    */
   @Override
   protected Element exportPort(final AbstractVertex<?> interfaceVertex, final Element parentELement) {
