@@ -348,8 +348,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the edge that was added.
    */
   protected void fireEdgeAdded(final DAGEdge edge) {
-    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED,
-        edge);
+    final GraphEdgeChangeEvent<DAGVertex,
+        DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_ADDED, edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
@@ -365,8 +365,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the edge that was removed.
    */
   protected void fireEdgeRemoved(final DAGEdge edge) {
-    final GraphEdgeChangeEvent<DAGVertex, DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED,
-        edge);
+    final GraphEdgeChangeEvent<DAGVertex,
+        DAGEdge> e = createGraphEdgeChangeEvent(GraphEdgeChangeEvent.EDGE_REMOVED, edge);
 
     for (int i = 0; i < this.graphListeners.size(); i++) {
       final GraphListener<DAGVertex, DAGEdge> l = this.graphListeners.get(i);
@@ -382,8 +382,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the vertex that was added.
    */
   protected void fireVertexAdded(final DAGVertex vertex) {
-    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED,
-        vertex);
+    final GraphVertexChangeEvent<
+        DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_ADDED, vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);
@@ -405,8 +405,8 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    *          the vertex that was removed.
    */
   protected void fireVertexRemoved(final DAGVertex vertex) {
-    final GraphVertexChangeEvent<DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED,
-        vertex);
+    final GraphVertexChangeEvent<
+        DAGVertex> e = createGraphVertexChangeEvent(GraphVertexChangeEvent.VERTEX_REMOVED, vertex);
 
     for (int i = 0; i < this.vertexSetListeners.size(); i++) {
       final VertexSetListener<DAGVertex> l = this.vertexSetListeners.get(i);

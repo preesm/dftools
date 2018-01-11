@@ -87,7 +87,7 @@ public class WorkflowLaunchShortcut implements ILaunchShortcut {
    */
   public static ILaunchConfiguration createLaunchConfiguration(final IFile file) {
 
-    final IPath scenarioPath = lookupScenarioFilePath();
+    final IPath scenarioPath = WorkflowLaunchShortcut.lookupScenarioFilePath();
 
     if ((scenarioPath == null) || scenarioPath.isEmpty()) {
       return null;

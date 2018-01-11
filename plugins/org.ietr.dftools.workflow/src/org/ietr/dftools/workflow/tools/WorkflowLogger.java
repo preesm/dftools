@@ -122,8 +122,8 @@ public abstract class WorkflowLogger extends Logger {
    * @return the formatted time
    */
   public static String getFormattedTime() {
-    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
-    Date date = new Date();
+    final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
+    final Date date = new Date();
     return dateFormat.format(date);
   }
 
