@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Force external deps to 1.4.1+
 
 ### Bug fix
 
