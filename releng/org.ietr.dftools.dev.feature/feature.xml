@@ -624,7 +624,7 @@ Version 1.0 dated 2006-09-05.]]>
       <import feature="org.eclipse.cdt"/>
 
       <!-- IETR dependencies -->
-      <import feature="org.ietr.externaldeps.aio.deps" version="1.4.1" match="greaterOrEqual"/>
+      <import feature="org.ietr.externaldeps.aio.deps" version="2.0.0" match="greaterOrEqual"/>
       <import feature="org.ietr.graphiti.feature" version="1.4.0" match="greaterOrEqual"/>
       <!--
 		If building along with Graphiti source (without DFTools Meta Dev Feature),
