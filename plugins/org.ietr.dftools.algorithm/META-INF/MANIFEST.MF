@@ -8,7 +8,7 @@ Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
  com.google.guava,
  org.eclipse.xtend.lib;bundle-version="2.11.0",
- org.clojars.gilesc.jgrapht;bundle-version="0.8.2",
+ org.jgrapht.core;bundle-version="1.1.0",
  jep;bundle-version="2.40.0",
  gov.nist.math.jama;bundle-version="1.0.3",
  com.github.yannrichet.JMathArray;bundle-version="1.0.0",
@@ -16,7 +16,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.ietr.dftools.workflow
 Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
- org.ietr.dftools.algorithm.demo,
  org.ietr.dftools.algorithm.exceptions,
  org.ietr.dftools.algorithm.exporter,
  org.ietr.dftools.algorithm.factories,

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -34,35 +34,26 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.demo;
+package org.ietr.dftools.algorithm.test;
 
-import javax.swing.JFrame;
-import org.jgrapht.demo.JGraphAdapterDemo;
+import java.util.Random;
+import org.ietr.dftools.algorithm.generator.DirectedAcyclicGraphGenerator;
+import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
- * Calling JGraphT demo to check import.
- *
- * @author Maxime Pelcat
- * @since Fev, 25, 2008
  */
-public class AdapterDemo {
+public class DirectedAcyclicGraphGeneratorTest {
 
   /**
-   * Calling JGraphT test applet.
-   *
-   * @param args
-   *          ignored.
+   * Testing the generator.
    */
-  public static void main(final String[] args) {
-    final JGraphAdapterDemo applet = new JGraphAdapterDemo();
-    applet.init();
-
-    final JFrame frame = new JFrame();
-    frame.getContentPane().add(applet);
-    frame.setTitle("Calling JGraphT demo");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.pack();
-    frame.setVisible(true);
+  @Test
+  public void testDAGGen() {
+    final DirectedAcyclicGraphGenerator generator = new DirectedAcyclicGraphGenerator();
+    final Random rand = new Random(System.nanoTime());
+    for (int i = 0; i < 5; i++) {
+      generator.createAcyclicRandomGraph(100, 1, 3, 1, 3, rand.nextInt(5));
+    }
   }
+
 }

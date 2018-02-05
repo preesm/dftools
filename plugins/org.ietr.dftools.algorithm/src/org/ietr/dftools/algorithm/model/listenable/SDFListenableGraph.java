@@ -88,8 +88,8 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
      *          the e
      * @see GraphEdgeChangeEvent#GraphEdgeChangeEvent(Object, int, Edge)
      */
-    private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e) {
-      super(eventSource, type, e);
+    private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e, VV edgeSource, VV edgeTarget) {
+      super(eventSource, type, e, edgeSource, edgeTarget);
     }
 
     /**
@@ -327,7 +327,7 @@ public class SDFListenableGraph extends SDFGraph implements ListenableGraph<SDFA
 
       return this.reuseableEdgeEvent;
     } else {
-      return new GraphEdgeChangeEvent<>(this, eventType, edge);
+      return new GraphEdgeChangeEvent<>(this, eventType, edge, this.getEdgeSource(edge), this.getEdgeSource(edge));
     }
   }
 
