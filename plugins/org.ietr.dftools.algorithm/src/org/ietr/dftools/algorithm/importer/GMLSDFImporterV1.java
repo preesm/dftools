@@ -43,13 +43,11 @@ import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.eclipse.core.runtime.Path;
-import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
 import org.ietr.dftools.algorithm.factories.SDFVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.CodeRefinement;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
-import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -59,33 +57,12 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Importer for SDF graphs.
  *
  * @author jpiat
  */
 public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, SDFEdge> {
-
-  /**
-   * Main function allowing to debug the class.
-   *
-   * @param args
-   *          the arguments
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
-   */
-  public static void main(final String[] args) throws InvalidExpressionException {
-    final SDFAdapterDemo applet = new SDFAdapterDemo();
-    final GMLSDFImporterV1 importer = new GMLSDFImporterV1();
-    try {
-      final SDFGraph graph = importer.parse(new File("D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
-      applet.init(graph);
-    } catch (FileNotFoundException | InvalidModelException e) {
-      e.printStackTrace();
-    }
-
-  }
 
   /**
    * COnstructs a new importer for SDF graphs.
