@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.3.0
+*2018.02.05*
+
+### New Feature
+
+### Changes
+* Force external deps to 2.0.0+
+
+### Bug fix
+
+
 ## Release version 1.2.10
 *2018.01.11*
 

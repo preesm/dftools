@@ -36,18 +36,12 @@
  */
 package org.ietr.dftools.algorithm.generator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.Vector;
-import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
-import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
  * Generate a random SDF close to a Directed Acyclic graph. The generated Graph is acyclic and directed and have unitary
  * production and consumption on edge.
@@ -63,25 +57,6 @@ public class DirectedAcyclicGraphGenerator {
   /** Static field containing all the instances of this class. */
 
   public static Vector<DirectedAcyclicGraphGenerator> adapters = new Vector<>();
-
-  /**
-   * Testing the generator.
-   *
-   * @param args
-   *          the arguments
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
-   */
-  public static void main(final String[] args) throws InvalidExpressionException {
-    final List<SDFAdapterDemo> demos = new ArrayList<>();
-    final DirectedAcyclicGraphGenerator generator = new DirectedAcyclicGraphGenerator();
-    final Random rand = new Random(System.nanoTime());
-    for (int i = 0; i < 5; i++) {
-      demos.add(new SDFAdapterDemo());
-      final SDFGraph newGraph = generator.createAcyclicRandomGraph(100, 1, 3, 1, 3, rand.nextInt(5));
-      demos.get(i).init(newGraph);
-    }
-  }
 
   // graph
 

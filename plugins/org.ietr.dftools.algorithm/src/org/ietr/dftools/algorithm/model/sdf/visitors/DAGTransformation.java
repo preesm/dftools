@@ -38,8 +38,6 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -47,15 +45,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.SDFMath;
-import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
-import org.ietr.dftools.algorithm.demo.SDFtoDAGDemo;
 import org.ietr.dftools.algorithm.exceptions.CreateCycleException;
 import org.ietr.dftools.algorithm.exceptions.CreateMultigraphException;
-import org.ietr.dftools.algorithm.factories.DAGVertexFactory;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
-import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
-import org.ietr.dftools.algorithm.importer.GMLSDFImporter;
-import org.ietr.dftools.algorithm.importer.InvalidModelException;
 import org.ietr.dftools.algorithm.iterators.SDFIterator;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
@@ -85,7 +77,6 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.workflow.WorkflowException;
 import org.jgrapht.alg.CycleDetector;
 
-// TODO: Auto-generated Javadoc
 /**
  * Visitor to use to transform a SDF Graph in a Directed Acyclic Graph.
  *
@@ -96,56 +87,6 @@ import org.jgrapht.alg.CycleDetector;
  */
 public class DAGTransformation<T extends DirectedAcyclicGraph>
     implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
-
-  /**
-   * Main method for debug purposes ...
-   *
-   * @param args
-   *          the arguments
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
-   * @throws SDF4JException
-   *           the SDF 4 J exception
-   */
-  public static void main(final String[] args) throws InvalidExpressionException, SDF4JException {
-    final int nbVertex = 30;
-    final int minInDegree = 1;
-    final int maxInDegree = 5;
-    final int minOutDegree = 1;
-    final int maxOutDegree = 5;
-    final SDFtoDAGDemo applet = new SDFtoDAGDemo();
-    final SDFAdapterDemo applet2 = new SDFAdapterDemo();
-
-    // Creates a random SDF graph
-    final int minrate = 1;
-    final int maxrate = 100;
-    final SDFRandomGraph test = new SDFRandomGraph();
-
-    SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate,
-        maxrate);
-    final GMLSDFImporter importer = new GMLSDFImporter();
-    try {
-      /*
-       * demoGraph = importer .parse(new File( "D:\\Preesm\\trunk\\tests\\IDCT2D\\idct2dCadOptim.graphml"));
-       */
-      demoGraph = importer.parse(new File("D:\\Preesm\\trunk\\tests\\RACH_Hierarchy\\RACH_Hierarchy\\flatten.graphml"));
-    } catch (InvalidModelException | FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(),
-        DAGVertexFactory.getInstance());
-    try {
-      demoGraph.accept(dageur);
-    } catch (final SDF4JException e) {
-      e.printStackTrace();
-    }
-    final DirectedAcyclicGraph dag = dageur.getOutput();
-    final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
-    System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
-    applet.init(dag);
-
-    applet2.init(demoGraph);
-  }
 
   /** The output graph. */
   private final T outputGraph;

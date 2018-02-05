@@ -49,12 +49,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.ietr.dftools.algorithm.demo.SDFAdapterDemo;
-import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
-import org.ietr.dftools.algorithm.model.parameters.ConstantValue;
-import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.parameters.Variable;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -65,7 +60,6 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsIndexer;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
@@ -80,33 +74,6 @@ import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
  * @author kdesnos
  */
 public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
-
-  /**
-   * Test the visitor.
-   *
-   * @param args
-   *          the arguments
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
-   */
-  public static void main(final String[] args) throws InvalidExpressionException {
-    new SDFRandomGraph();
-    /*
-     * SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree,
-     * minrate, maxrate);
-     */
-    final SDFAdapterDemo applet = new SDFAdapterDemo();
-    final SDFGraph demoGraph = ToHSDFVisitor.createTestComGraph();
-    final SDFAdapterDemo applet2 = new SDFAdapterDemo();
-    final ToHSDFVisitor visitor = new ToHSDFVisitor();
-    try {
-      demoGraph.accept(visitor);
-      applet2.init(demoGraph);
-      applet.init(visitor.getOutput());
-    } catch (final SDF4JException e) {
-      e.printStackTrace();
-    }
-  }
 
   /** The output graph. */
   private SDFGraph outputGraph;
@@ -654,57 +621,6 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
     /*
      * if(sdfVertex.getGraphDescription() != null){ sdfVertex.getGraphDescription().accept(this); }
      */
-  }
-
-  /**
-   * Creates the test com graph.
-   *
-   * @return the SDF graph
-   */
-  private static SDFGraph createTestComGraph() {
-
-    final SDFGraph graph = new SDFGraph();
-
-    // test_com_basique
-    final SDFVertex sensorInt = new SDFVertex();
-    sensorInt.setName("sensor_Int");
-    graph.addVertex(sensorInt);
-
-    final SDFVertex gen5 = new SDFVertex();
-    gen5.setName("Gen5");
-    graph.addVertex(gen5);
-
-    final SDFVertex recopie5 = new SDFVertex();
-    recopie5.setName("recopie_5");
-    graph.addVertex(recopie5);
-
-    final SDFVertex acqData = new SDFVertex();
-    acqData.setName("acq_data");
-    graph.addVertex(acqData);
-
-    final SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
-    // sensGen.setTargetInterface(add);
-    sensGen.setProd(new SDFIntEdgePropertyType(1));
-    sensGen.setCons(new SDFIntEdgePropertyType(1));
-
-    final SDFEdge genRec = graph.addEdge(gen5, recopie5);
-    // genRec.setSourceInterface(times);
-    genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue("SIZE")));
-    genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3)));
-
-    final SDFEdge genAcq = graph.addEdge(gen5, acqData);
-    // genAcq.setSourceInterface(times);
-    genAcq.setProd(new SDFIntEdgePropertyType(1));
-    genAcq.setCons(new SDFIntEdgePropertyType(1));
-
-    final SDFEdge recAcq = graph.addEdgeWithInterfaces(recopie5, acqData);
-    recAcq.setProd(new SDFIntEdgePropertyType(3));
-    recAcq.setCons(new SDFIntEdgePropertyType(2));
-
-    graph.addVariable(new Variable("a", "5"));
-    graph.addVariable(new Variable("b", "10"));
-
-    return graph;
   }
 
   /** The has changed. */

@@ -1,9 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -34,66 +32,62 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.demo;
+package org.ietr.dftools.algorithm.test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import org.ietr.dftools.algorithm.factories.DAGVertexFactory;
 import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
-import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
+import org.ietr.dftools.algorithm.importer.GMLSDFImporter;
+import org.ietr.dftools.algorithm.importer.InvalidModelException;
+import org.ietr.dftools.algorithm.model.dag.DAGEdge;
+import org.ietr.dftools.algorithm.model.dag.DAGVertex;
+import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
-import org.ietr.dftools.algorithm.model.sdf.visitors.ToHSDFVisitor;
-import org.ietr.dftools.algorithm.model.sdf.visitors.TopologyVisitor;
+import org.ietr.dftools.algorithm.model.sdf.visitors.DAGTransformation;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
+import org.jgrapht.alg.CycleDetector;
+import org.junit.Assert;
+import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
- * Demo class to demonstrate the display features of a random graph.
- *
- * @author pthebault
  */
-public class SDFGeneratorDemo {
+public class DAGTransformationTest {
 
   /**
-   * An alternative starting point for this test, to also allow running this applet as an application.
-   *
-   * @param args
-   *          ignored.
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
-   * @throws SDF4JException
-   *           the SDF 4 J exception
+   * Main method for debug purposes ...
    */
-
-  public static void main(final String[] args) throws InvalidExpressionException, SDF4JException {
-    final int nbVertex = 10;
+  @Test
+  public void testTransfo() {
+    final int nbVertex = 30;
     final int minInDegree = 1;
     final int maxInDegree = 5;
     final int minOutDegree = 1;
     final int maxOutDegree = 5;
-    final SDFAdapterDemo applet = new SDFAdapterDemo();
 
     // Creates a random SDF graph
     final int minrate = 1;
-    final int maxrate = 4;
+    final int maxrate = 100;
     final SDFRandomGraph test = new SDFRandomGraph();
-    final SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree,
-        minrate, maxrate);
 
-    final TopologyVisitor topo = new TopologyVisitor();
+    SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate,
+        maxrate);
+    final GMLSDFImporter importer = new GMLSDFImporter();
     try {
-      demoGraph.accept(topo);
+      demoGraph = importer.parse(new File("resources/flatten.graphml"));
+    } catch (InvalidModelException | FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(),
+        DAGVertexFactory.getInstance());
+    try {
+      demoGraph.accept(dageur);
     } catch (final SDF4JException e) {
       e.printStackTrace();
     }
-    applet.init(demoGraph);
-
-    final SDFAdapterDemo applet3 = new SDFAdapterDemo();
-    final ToHSDFVisitor visitor2 = new ToHSDFVisitor();
-    try {
-      demoGraph.accept(visitor2);
-    } catch (final SDF4JException e) {
-      e.printStackTrace();
-    }
-    applet3.init(visitor2.getOutput());
-
+    final DirectedAcyclicGraph dag = dageur.getOutput();
+    final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
+    System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
+    Assert.assertFalse(detectCycles.detectCycles());
   }
-
 }
