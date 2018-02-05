@@ -95,17 +95,17 @@ public class ToHSDFVisitorTest {
     acqData.setName("acqData");
     graph.addVertex(acqData);
 
-    final SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
+    final SDFEdge sensGen = graph.addEdgeWithInterfaces(sensorInt, gen5);
     // sensGen.setTargetInterface(add);
     sensGen.setProd(new SDFIntEdgePropertyType(1));
     sensGen.setCons(new SDFIntEdgePropertyType(1));
 
-    final SDFEdge genRec = graph.addEdge(gen5, recopie5);
+    final SDFEdge genRec = graph.addEdgeWithInterfaces(gen5, recopie5);
     // genRec.setSourceInterface(times);
     genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue("SIZE")));
     genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3)));
 
-    final SDFEdge genAcq = graph.addEdge(gen5, acqData);
+    final SDFEdge genAcq = graph.addEdgeWithInterfaces(gen5, acqData);
     // genAcq.setSourceInterface(times);
     genAcq.setProd(new SDFIntEdgePropertyType(1));
     genAcq.setCons(new SDFIntEdgePropertyType(1));
@@ -114,8 +114,6 @@ public class ToHSDFVisitorTest {
     recAcq.setProd(new SDFIntEdgePropertyType(3));
     recAcq.setCons(new SDFIntEdgePropertyType(2));
 
-    graph.addVariable(new Variable("a", "5"));
-    graph.addVariable(new Variable("b", "10"));
     graph.addVariable(new Variable("SIZE", "2"));
 
     return graph;
