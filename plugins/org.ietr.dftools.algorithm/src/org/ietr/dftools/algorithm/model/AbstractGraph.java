@@ -58,7 +58,7 @@ import org.ietr.dftools.algorithm.model.parameters.factories.ParameterFactory;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.EdgeFactory;
-import org.jgrapht.graph.DirectedMultigraph;
+import org.jgrapht.graph.DirectedPseudograph;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
@@ -74,7 +74,7 @@ import org.nfunk.jep.ParseException;
  *          the element type
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public abstract class AbstractGraph<V extends AbstractVertex, E extends AbstractEdge> extends DirectedMultigraph<V, E>
+public abstract class AbstractGraph<V extends AbstractVertex, E extends AbstractEdge> extends DirectedPseudograph<V, E>
     implements PropertySource, IRefinement, IExpressionSolver, IModelObserver, CloneableProperty {
 
   /** The Constant serialVersionUID. */
