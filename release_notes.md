@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* update mailmap file;
 
 ### Bug fix
 
