@@ -45,7 +45,7 @@
   <!-- More Project Information -->
   <name>DFTools</name>
   <description>The DFTools project offers features useful for dataflow modeling tools such as the Open RVC-CAL Compiler (Orcc) and PREESM.</description>
-  <url>http://preesm.sourceforge.net/</url>
+  <url>http://preesm.org/</url>
 
   <licenses>
     <license>
@@ -79,7 +79,7 @@
     <preesm.coding.policy.version>1.1.0</preesm.coding.policy.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <preesm.p2.repo>http://preesm.sourceforge.net/gensite/update-site/complete/</preesm.p2.repo>
+    <preesm.p2.repo>http://preesm.insa-rennes.fr/repo/complete/</preesm.p2.repo>
 
     <!-- ############### -->
     <!-- ECLIPSE MIRRORS -->

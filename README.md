@@ -12,14 +12,14 @@ The DFTools project offers features useful for dataflow modeling tools such as t
 
 ## Documentation
 
-Documentation is available online at http://preesm.sourceforge.net/website/
+Documentation is available online at http://preesm.org/website/
 
 ## Install
 
 This project is part of the Preesm project, available online:
 
-*   On the [SourceForge File Release Service](https://sourceforge.net/projects/preesm/files/Releases/) to get Eclipse products;
-*   From the [Eclipse update site](http://preesm.sourceforge.net/eclipse/update-site/) to complement an already setup Eclipse;
+*   On the [GitHub Releases Page](https://github.com/preesm/preesm/releases/) to get Eclipse products;
+*   From the [Eclipse Update Site](http://preesm.insa-rennes.fr/repo/complete/) to complement an already setup Eclipse;
 
 ## Changelog
 

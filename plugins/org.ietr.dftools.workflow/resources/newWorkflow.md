@@ -33,4 +33,4 @@ The inputs of code generation are now DAG, architecture and scenario and these t
 For more questions
 ------------------
 
-Please visit our website :http://preesm.sourceforge.net/
+Please visit our website : http://preesm.org/

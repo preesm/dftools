@@ -7,7 +7,11 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
-* update mailmap file;
+* Update mailmap file;
+* Move deploy server to preesm.insa-rennes.fr;
+* Update project info (URL);
+* Force externaldeps to 3.0.0+;
+* Force graphiti to 1.6.0+;
 
 ### Bug fix
 
