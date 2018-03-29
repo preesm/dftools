@@ -1,6 +1,21 @@
 DFTools Changelog
 =================
 
+## Release version 1.4.0
+*2018.03.29*
+
+### New Feature
+
+### Changes
+* Update mailmap file;
+* Move deploy server to preesm.insa-rennes.fr;
+* Update project info (URL);
+* Force externaldeps to 3.0.0+;
+* Force graphiti to 1.6.0+;
+
+### Bug fix
+
+
 ## Release version 1.3.0
 *2018.02.05*
 
