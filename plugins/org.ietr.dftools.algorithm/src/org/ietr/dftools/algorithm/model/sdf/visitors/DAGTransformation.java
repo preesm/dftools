@@ -586,6 +586,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     vertex.setTime(new DAGDefaultVertexPropertyType(0));
     vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
     vertex.setCorrespondingSDFVertex(sdfVertex);
+    vertex.setRefinement(sdfVertex.getRefinement());
     this.outputGraph.addVertex(vertex);
   }
 

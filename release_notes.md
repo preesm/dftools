@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.4.1
+*2018.04.23*
+
+### New Feature
+
+### Changes
+* DAG transformation now properly sets the DAG vertex refinement;
+
+### Bug fix
+
+
 ## Release version 1.4.0
 *2018.03.29*
 
