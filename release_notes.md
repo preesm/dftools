@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* DAG transformation now properly sets the DAG vertex refinement;
 
 ### Bug fix
 
