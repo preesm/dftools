@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Florian Arrestier <florian.arrestier@insa-rennes.fr> (2018)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2012)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -278,16 +279,15 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
         for (final SDFEdge edge : graph.edgeSet()) {
           if (edge.getDelay().intValue() == 0) {
             try {
-              if (this.outputGraph.containsEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-                  this.outputGraph.getVertex(edge.getTarget().getName()))) {
-                newedge = this.outputGraph.getEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-                    this.outputGraph.getVertex(edge.getTarget().getName()));
+              final DAGVertex sourceVertex = this.outputGraph.getVertex(edge.getSource().getName());
+              final DAGVertex targetVertex = this.outputGraph.getVertex(edge.getTarget().getName());
+              if (this.outputGraph.containsEdge(sourceVertex, targetVertex)) {
+                newedge = this.outputGraph.getEdge(sourceVertex, targetVertex);
                 newedge.getAggregate().add(edge);
                 final DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge.getWeight();
                 newedge.setWeight(new DAGDefaultEdgePropertyType(weigth.intValue() + computeEdgeWeight(edge)));
               } else {
-                newedge = this.outputGraph.addDAGEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-                    this.outputGraph.getVertex(edge.getTarget().getName()));
+                newedge = this.outputGraph.addDAGEdge(sourceVertex, targetVertex);
                 newedge.getAggregate().add(edge);
                 newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
 
@@ -314,8 +314,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    *           the invalid expression exception
    */
   int computeEdgeWeight(final SDFEdge edge) throws InvalidExpressionException {
-    return edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
-
+    final int weight = edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
+    final int dataSize = edge.getDataSize().intValue();
+    return weight * dataSize;
   }
 
   /**
@@ -575,18 +576,21 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       vertex = this.factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
     } else if (sdfVertex instanceof SDFInitVertex) {
       vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
-      if (this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()) != null) {
-        ((DAGInitVertex) vertex).setEndReference(
-            (DAGEndVertex) this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
+      final String endReferenceName = ((SDFInitVertex) sdfVertex).getEndReference().getName();
+      if (this.outputGraph.getVertex(endReferenceName) != null) {
+        ((DAGInitVertex) vertex).setEndReference((DAGEndVertex) this.outputGraph.getVertex(endReferenceName));
       }
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
     }
+
     vertex.setName(sdfVertex.getName());
     vertex.setTime(new DAGDefaultVertexPropertyType(0));
     vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
-    vertex.setCorrespondingSDFVertex(sdfVertex);
     vertex.setRefinement(sdfVertex.getRefinement());
+    vertex.setId(sdfVertex.getId());
+    vertex.setInfo(sdfVertex.getInfo());
+    vertex.setCorrespondingSDFVertex(sdfVertex);
     this.outputGraph.addVertex(vertex);
   }
 

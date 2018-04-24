@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Florian Arrestier <florian.arrestier@insa-rennes.fr> (2018)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2016)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -70,6 +71,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   /** Property name for data type. */
   public static final String DATA_TYPE = "data_type";
 
+  /** Property name for property data size. */
+  public static final String DATA_SIZE = "data_size";
+
   /** Property name for property source_port. */
   public static final String SOURCE_PORT = "source_port";
 
@@ -119,6 +123,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
     setProd(new SDFIntEdgePropertyType(0));
     setCons(new SDFIntEdgePropertyType(0));
     setDelay(new SDFIntEdgePropertyType(0));
+    setDataSize(new SDFIntEdgePropertyType(1));
     setDataType(new SDFStringEdgePropertyType("char"));
   }
 
@@ -141,6 +146,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
     setCons(cons);
     setDelay(delay);
     setDataType(dataType);
+    // Data size will have to be resolved later
+    setDataSize(new SDFIntEdgePropertyType(1));
   }
 
   /**
@@ -183,6 +190,15 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
       ((SDFExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
     }
     return prod;
+  }
+
+  /**
+   * Getter of the property <tt>dataSize</tt>.
+   *
+   * @return Returns the data size.
+   */
+  public AbstractEdgePropertyType<?> getDataSize() {
+    return getPropertyBean().getValue(SDFEdge.DATA_SIZE, AbstractEdgePropertyType.class);
   }
 
   /**
@@ -305,6 +321,16 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   public void setDataType(final AbstractEdgePropertyType<?> type) {
     getPropertyBean().setValue(SDFEdge.DATA_TYPE, null, type);
+  }
+
+  /**
+   * Setter of the property <tt>DATA_SIZE</tt>.
+   *
+   * @param type
+   *          The type to set.
+   */
+  public void setDataSize(final AbstractEdgePropertyType<?> type) {
+    getPropertyBean().setValue(SDFEdge.DATA_SIZE, null, type);
   }
 
   /**

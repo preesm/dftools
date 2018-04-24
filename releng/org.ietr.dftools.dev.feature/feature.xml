@@ -38,7 +38,7 @@
 <feature
       id="org.ietr.dftools.dev.feature"
       label="DFTools Developper Requirements (Meta Feature)"
-      version="1.4.1">
+      version="1.5.0">
 
    <description url="http://preesm.org/">
       This feature embeds all required Eclipse plugins for developping DFTools. That includes XTend, GEF, EMF, Graphiti (Eclipse) Plus SDKs, along with Checkstyle integration for Eclipse, Maven integration for Eclipse (and appropriate extension), and aslo Graphiti (IETR) and third party libraries.

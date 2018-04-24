@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.5.0
+*2018.04.24*
+
+### New Feature
+
+### Changes
+* Add properties to the DAG vertices;
+
+### Bug fix
+
+
 ## Release version 1.4.1
 *2018.04.23*
 
