@@ -278,16 +278,15 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
         for (final SDFEdge edge : graph.edgeSet()) {
           if (edge.getDelay().intValue() == 0) {
             try {
-              if (this.outputGraph.containsEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-                  this.outputGraph.getVertex(edge.getTarget().getName()))) {
-                newedge = this.outputGraph.getEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-                    this.outputGraph.getVertex(edge.getTarget().getName()));
+              final DAGVertex sourceVertex = this.outputGraph.getVertex(edge.getSource().getName());
+              final DAGVertex targetVertex = this.outputGraph.getVertex(edge.getTarget().getName());
+              if (this.outputGraph.containsEdge(sourceVertex, targetVertex)) {
+                newedge = this.outputGraph.getEdge(sourceVertex, targetVertex);
                 newedge.getAggregate().add(edge);
                 final DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge.getWeight();
                 newedge.setWeight(new DAGDefaultEdgePropertyType(weigth.intValue() + computeEdgeWeight(edge)));
               } else {
-                newedge = this.outputGraph.addDAGEdge(this.outputGraph.getVertex(edge.getSource().getName()),
-                    this.outputGraph.getVertex(edge.getTarget().getName()));
+                newedge = this.outputGraph.addDAGEdge(sourceVertex, targetVertex);
                 newedge.getAggregate().add(edge);
                 newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
 
@@ -575,18 +574,20 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       vertex = this.factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
     } else if (sdfVertex instanceof SDFInitVertex) {
       vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
-      if (this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()) != null) {
-        ((DAGInitVertex) vertex).setEndReference(
-            (DAGEndVertex) this.outputGraph.getVertex(((SDFInitVertex) sdfVertex).getEndReference().getName()));
+      final String endReferenceName = ((SDFInitVertex) sdfVertex).getEndReference().getName();
+      if (this.outputGraph.getVertex(endReferenceName) != null) {
+        ((DAGInitVertex) vertex).setEndReference((DAGEndVertex) this.outputGraph.getVertex(endReferenceName));
       }
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
     }
+
     vertex.setName(sdfVertex.getName());
     vertex.setTime(new DAGDefaultVertexPropertyType(0));
     vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
-    vertex.setCorrespondingSDFVertex(sdfVertex);
     vertex.setRefinement(sdfVertex.getRefinement());
+    vertex.setId(sdfVertex.getId());
+    vertex.setCorrespondingSDFVertex(sdfVertex);
     this.outputGraph.addVertex(vertex);
   }
 
