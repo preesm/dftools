@@ -313,8 +313,12 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    *           the invalid expression exception
    */
   int computeEdgeWeight(final SDFEdge edge) throws InvalidExpressionException {
-    return edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
-
+    final int weight = edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
+    final int dataSize = edge.getDataSize().intValue();
+    if (dataSize == 0) {
+      return weight;
+    }
+    return weight * dataSize;
   }
 
   /**
@@ -587,6 +591,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
     vertex.setRefinement(sdfVertex.getRefinement());
     vertex.setId(sdfVertex.getId());
+    vertex.setInfo(sdfVertex.getInfo());
     vertex.setCorrespondingSDFVertex(sdfVertex);
     this.outputGraph.addVertex(vertex);
   }
