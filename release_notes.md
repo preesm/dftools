@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Add properties to the DAG vertices;
 
 ### Bug fix
 
