@@ -122,7 +122,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
     setProd(new SDFIntEdgePropertyType(0));
     setCons(new SDFIntEdgePropertyType(0));
     setDelay(new SDFIntEdgePropertyType(0));
-    setDataSize(new SDFIntEdgePropertyType(0));
+    setDataSize(new SDFIntEdgePropertyType(1));
     setDataType(new SDFStringEdgePropertyType("char"));
   }
 
@@ -145,6 +145,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
     setCons(cons);
     setDelay(delay);
     setDataType(dataType);
+    // Data size will have to be resolved later
+    setDataSize(new SDFIntEdgePropertyType(1));
   }
 
   /**

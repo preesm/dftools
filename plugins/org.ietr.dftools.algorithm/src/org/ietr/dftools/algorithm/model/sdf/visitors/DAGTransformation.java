@@ -315,9 +315,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
   int computeEdgeWeight(final SDFEdge edge) throws InvalidExpressionException {
     final int weight = edge.getCons().intValue() * edge.getTarget().getNbRepeatAsInteger();
     final int dataSize = edge.getDataSize().intValue();
-    if (dataSize == 0) {
-      return weight;
-    }
     return weight * dataSize;
   }
 
