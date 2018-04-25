@@ -17,9 +17,8 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
-* Add properties to the DAG vertices;
-* Add data size property to SDF edges 
-* Use the data size property when computing DAG edges weight in DAG transformation
+* Add data size property to SDF edges;
+* Use the data size property when computing DAG edges weight in DAG transformation;
 
 ### Bug fix
 
