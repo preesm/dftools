@@ -72,7 +72,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public int intValue() {
+  public long longValue() {
     return 0;
   }
 

@@ -371,8 +371,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
     try {
       return super.compare(edge) && edge.getSourceInterface().getName().equals(getSourceInterface().getName())
           && edge.getTargetInterface().getName().equals(getTargetInterface().getName())
-          && (getCons().intValue() == edge.getCons().intValue()) && (getProd().intValue() == edge.getProd().intValue())
-          && (getDelay().intValue() == edge.getDelay().intValue());
+          && (getCons().longValue() == edge.getCons().longValue())
+          && (getProd().longValue() == edge.getProd().longValue())
+          && (getDelay().longValue() == edge.getDelay().longValue());
     } catch (final InvalidExpressionException e) {
       e.printStackTrace();
       return false;

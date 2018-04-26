@@ -118,9 +118,9 @@ public class DAGForkVertex extends DAGVertex {
    * @return The connection index of the edge
    */
   @SuppressWarnings("unchecked")
-  public Integer getEdgeIndex(final DAGEdge edge) {
+  public Long getEdgeIndex(final DAGEdge edge) {
     if (((List<DAGEdge>) getPropertyBean().getValue(DAGForkVertex.EDGES_ORDER)) != null) {
-      int i = 0;
+      long i = 0;
       final List<DAGEdge> connections = ((List<DAGEdge>) getPropertyBean().getValue(DAGForkVertex.EDGES_ORDER));
       for (final DAGEdge eqEdge : connections) {
         if (eqEdge.compare(edge)) {
@@ -129,7 +129,7 @@ public class DAGForkVertex extends DAGVertex {
         i++;
       }
     }
-    return 0;
+    return 0L;
   }
 
   /*

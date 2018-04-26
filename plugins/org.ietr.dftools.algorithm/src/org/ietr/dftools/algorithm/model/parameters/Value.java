@@ -51,7 +51,7 @@ public interface Value {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public int intValue() throws InvalidExpressionException, NoIntegerValueException;
+  public long longValue() throws InvalidExpressionException, NoIntegerValueException;
 
   /**
    * Set the solver to use for this expression.

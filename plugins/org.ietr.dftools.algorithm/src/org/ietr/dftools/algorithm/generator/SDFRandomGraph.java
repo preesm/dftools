@@ -42,8 +42,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import org.apache.commons.math3.util.ArithmeticUtils;
 import org.ietr.dftools.algorithm.Rational;
-import org.ietr.dftools.algorithm.SDFMath;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -86,13 +86,13 @@ public class SDFRandomGraph {
    *          is the number of vertices of the graph
    * @return the repetition vector
    */
-  public static Map<SDFAbstractVertex, Integer> CalcRepetitionVector(final SDFGraph graph, final int nbVertexgraph) {
+  public static Map<SDFAbstractVertex, Long> CalcRepetitionVector(final SDFGraph graph, final int nbVertexgraph) {
 
-    final Map<SDFAbstractVertex, Integer> vrb = new LinkedHashMap<>(nbVertexgraph);
-    int l = 1;
+    final Map<SDFAbstractVertex, Long> vrb = new LinkedHashMap<>(nbVertexgraph);
+    long l = 1;
     // Find lowest common multiple (lcm) of all denominators
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
-      l = SDFMath.lcm(l, SDFRandomGraph.fractions.get(vertex).getDenum());
+      l = ArithmeticUtils.lcm(l, SDFRandomGraph.fractions.get(vertex).getDenum());
     }
     // Zero vector?
     if (l == 0) {
@@ -104,9 +104,9 @@ public class SDFRandomGraph {
           (SDFRandomGraph.fractions.get(vertex).getNum() * l) / SDFRandomGraph.fractions.get(vertex).getDenum());
     }
     // Find greatest common divisor (gcd)
-    int g = 0;
+    long g = 0;
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
-      g = SDFMath.gcd(g, vrb.get(vertex));
+      g = ArithmeticUtils.gcd(g, vrb.get(vertex));
     }
     // Minimize the repetition vector using the gcd
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
@@ -154,7 +154,7 @@ public class SDFRandomGraph {
     final SDFGraph newgraph = graph.clone();// new graph is created to
     // reduce execution time of
     // cycle detection
-    final Map<SDFAbstractVertex, Integer> vrb = SDFRandomGraph.CalcRepetitionVector(graph, nbVertexgraph);
+    final Map<SDFAbstractVertex, Long> vrb = SDFRandomGraph.CalcRepetitionVector(graph, nbVertexgraph);
     for (final SDFAbstractVertex Dst : graph.vertexSet()) {
       // if there is a cycle containing the source and the target of an
       // edge a delay is on placed on it
@@ -164,9 +164,9 @@ public class SDFRandomGraph {
         if (graph.containsEdge(Src, Dst)) {
           if (test.contains(newgraph.getVertex(Src.getName()))) {
             final SDFEdge edge = graph.getEdge(Src, Dst);
-            final int Q_xy = vrb.get(edge.getSource()).intValue()
-                / SDFMath.gcd(vrb.get(edge.getSource()).intValue(), vrb.get(edge.getTarget()).intValue());
-            edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().intValue()));
+            final long Q_xy = vrb.get(edge.getSource()).longValue()
+                / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
+            edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
           }
         }
       }
@@ -174,10 +174,10 @@ public class SDFRandomGraph {
     }
     for (final SDFAbstractVertex vertex : sensors) {
       for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
-        if (edge.getDelay().intValue() == 0) {
-          final int Q_xy = vrb.get(edge.getSource()).intValue()
-              / SDFMath.gcd(vrb.get(edge.getSource()).intValue(), vrb.get(edge.getTarget()).intValue());
-          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().intValue()));
+        if (edge.getDelay().longValue() == 0) {
+          final long Q_xy = vrb.get(edge.getSource()).longValue()
+              / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
+          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
 
         }
       }

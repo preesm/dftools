@@ -56,7 +56,7 @@ public class SDFEndVertex extends SDFInitVertex {
   public SDFEndVertex() {
     super();
     setKind(SDFEndVertex.END);
-    setNbRepeat(1);
+    setNbRepeat(1L);
   }
 
   /*

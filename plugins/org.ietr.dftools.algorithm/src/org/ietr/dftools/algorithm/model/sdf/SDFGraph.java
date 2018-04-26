@@ -330,7 +330,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    *           the invalid expression exception
    */
   protected boolean computeVRB() throws InvalidExpressionException {
-    final Map<SDFAbstractVertex, Integer> vrb = new LinkedHashMap<>();
+    final Map<SDFAbstractVertex, Long> vrb = new LinkedHashMap<>();
     final List<List<SDFAbstractVertex>> subgraphs = getAllSubGraphs();
 
     for (final List<SDFAbstractVertex> subgraph : subgraphs) {
@@ -526,8 +526,10 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       final SDFAbstractVertex target = getEdgeTarget(edge);
       if (subgraph.contains(source) && subgraph.contains(target) && !source.equals(target)) {
         final double[] line = DoubleArray.fill(subgraph.size(), 0);
-        line[subgraph.indexOf(source)] += edge.getProd().intValue();
-        line[subgraph.indexOf(target)] -= edge.getCons().intValue();
+        final long prodIntValue = edge.getProd().longValue();
+        final long consIntValue = edge.getCons().longValue();
+        line[subgraph.indexOf(source)] += prodIntValue;
+        line[subgraph.indexOf(target)] -= consIntValue;
         topologyListMatrix.add(line);
       }
     }
@@ -594,9 +596,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
           try {
             // Create a new outport
             final SDFSinkInterfaceVertex outPort = new SDFSinkInterfaceVertex();
-            outPort.setName(
-                "out_" + (nbTokens / baseEdge.getCons().intValue()) + "_" + (nbTokens % baseEdge.getCons().intValue()));
-            nbTokens += oldEdge.getProd().intValue();
+            outPort.setName("out_" + (nbTokens / baseEdge.getCons().longValue()) + "_"
+                + (nbTokens % baseEdge.getCons().longValue()));
+            nbTokens += oldEdge.getProd().longValue();
 
             broadcastPort.addSink(outPort);
 
@@ -656,9 +658,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
         final double[][] topologyMatrix = getTopologyMatrix(subgraphWOInterfaces);
 
-        if (topologyMatrix.length > 0) {
+        final int length = topologyMatrix.length;
+        if (length > 0) {
           final int rank = LinearAlgebra.rank(topologyMatrix);
-          if (rank == (subgraphWOInterfaces.size() - 1)) {
+          final int expectedRankValue = subgraphWOInterfaces.size() - 1;
+          if (rank == expectedRankValue) {
             schedulable &= true;
           } else {
             schedulable &= false;
@@ -910,11 +914,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       }
       if (subGraph.getVertex(subGraphSinkInterfaceName) != null) {
         final AbstractEdgePropertyType<?> actorOutEdgeProdExpr = actorOutgoingEdge.getProd();
-        final int actorOutEdgeProdRate = actorOutEdgeProdExpr.intValue();
+        final long actorOutEdgeProdRate = actorOutEdgeProdExpr.longValue();
         final SDFAbstractVertex trueSinkInterface = subGraph.getVertex(subGraphSinkInterfaceName);
         for (final SDFEdge subGraphSinkInterfaceInEdge : subGraph.incomingEdgesOf(trueSinkInterface)) {
           final AbstractEdgePropertyType<?> subInterfaceConsExpr = subGraphSinkInterfaceInEdge.getCons();
-          final int sinkInterfaceConsrate = subInterfaceConsExpr.intValue();
+          final long sinkInterfaceConsrate = subInterfaceConsExpr.longValue();
           if (sinkInterfaceConsrate != actorOutEdgeProdRate) {
             throw new SDF4JException("Sink [" + subGraphSinkInterfaceName + "] in actor [" + hierarchicalActor.getName()
                 + "] has incompatible outside actor production and inside sink vertex consumption "
@@ -943,12 +947,12 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       }
       if (subGraph.getVertex(subGraphSourceInterfaceName) != null) {
         final AbstractEdgePropertyType<?> actorInEdgeConsExpr = actorIncomingEdge.getCons();
-        final int actorInEdgeConsRate = actorInEdgeConsExpr.intValue();
+        final long actorInEdgeConsRate = actorInEdgeConsExpr.longValue();
         final SDFAbstractVertex trueSourceInterface = subGraph.getVertex(subGraphSourceInterfaceName);
         final Set<SDFEdge> subGraphSourceInterfaceOutEdges = subGraph.outgoingEdgesOf(trueSourceInterface);
         for (final SDFEdge subGraphSourceInterfaceOutEdge : subGraphSourceInterfaceOutEdges) {
           final AbstractEdgePropertyType<?> subInterfaceProdExpr = subGraphSourceInterfaceOutEdge.getProd();
-          final int sourceInterfaceProdRate = subInterfaceProdExpr.intValue();
+          final long sourceInterfaceProdRate = subInterfaceProdExpr.longValue();
           if (sourceInterfaceProdRate != actorInEdgeConsRate) {
             throw new SDF4JException(
                 "Source [" + subGraphSourceInterfaceName + "] in actor [" + hierarchicalActor.getName()
@@ -985,7 +989,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
          */
         // TODO: variable should only need to be resolved once, but
         // keep memory of their integer value
-        for (final SDFAbstractVertex child : vertexSet()) {
+        final Set<SDFAbstractVertex> vertexSet = vertexSet();
+        for (final SDFAbstractVertex child : vertexSet) {
           validateChild(child, logger);
         }
         // solving all the parameter for the rest of the processing ...
@@ -995,8 +1000,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
          * SDFIntEdgePropertyType(edge.getProd() .intValue())); }
          */
         int i = 0;
-        while (i < vertexSet().size()) {
-          final SDFAbstractVertex vertex = (SDFAbstractVertex) (vertexSet().toArray()[i]);
+        while (i < vertexSet.size()) {
+          final SDFAbstractVertex vertex = (SDFAbstractVertex) (vertexSet.toArray()[i]);
           /*
            * (15/01/14) Removed by jheulot: allowing unconnected actor
            */

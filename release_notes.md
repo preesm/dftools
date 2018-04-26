@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Replace most of the integer occurrences with longs;
 
 ### Bug fix
 

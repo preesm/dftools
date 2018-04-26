@@ -53,7 +53,7 @@ import org.ietr.dftools.algorithm.model.parameters.Value;
 public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> {
 
   /** The computed value. */
-  private Integer computedValue;
+  private Long computedValue;
 
   /**
    * Creates a new SDFDefaultEdgePropertyType with the given graph value.
@@ -75,7 +75,7 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
   public AbstractEdgePropertyType<Value> clone() {
     final SDFExpressionEdgePropertyType clone = new SDFExpressionEdgePropertyType(this.value);
     try {
-      clone.computedValue = intValue();
+      clone.computedValue = longValue();
     } catch (final InvalidExpressionException e) {
       clone.computedValue = null;
     }
@@ -120,10 +120,10 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public int intValue() throws InvalidExpressionException {
+  public long longValue() throws InvalidExpressionException {
     if (this.computedValue == null) {
       try {
-        this.computedValue = this.value.intValue();
+        this.computedValue = this.value.longValue();
         return this.computedValue;
       } catch (final NoIntegerValueException e) {
         e.printStackTrace();

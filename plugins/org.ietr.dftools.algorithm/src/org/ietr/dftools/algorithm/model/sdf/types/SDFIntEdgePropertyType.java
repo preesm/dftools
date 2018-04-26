@@ -44,7 +44,7 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
  *
  * @author jpiat
  */
-public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Integer> {
+public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Long> {
 
   /**
    * Creates a new SDFDefaultEdgePropertyType with the given Integer value.
@@ -52,7 +52,7 @@ public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    * @param val
    *          The Integer value of this SDFDefaultEdgePropertyType
    */
-  public SDFIntEdgePropertyType(final int val) {
+  public SDFIntEdgePropertyType(final long val) {
     super(val);
   }
 
@@ -63,7 +63,7 @@ public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    *          The String value of this SDFDefaultEdgePropertyType
    */
   public SDFIntEdgePropertyType(final String val) {
-    super(new Integer(val));
+    super(Long.parseLong(val));
   }
 
   /*
@@ -72,7 +72,7 @@ public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Integer> clone() {
+  public AbstractEdgePropertyType<Long> clone() {
     return new SDFIntEdgePropertyType(this.value);
   }
 
@@ -82,7 +82,7 @@ public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public int intValue() {
+  public long longValue() {
     return this.value;
   }
 

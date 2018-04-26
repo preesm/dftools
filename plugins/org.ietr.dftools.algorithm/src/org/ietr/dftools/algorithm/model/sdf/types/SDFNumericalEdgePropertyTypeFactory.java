@@ -80,7 +80,7 @@ public class SDFNumericalEdgePropertyTypeFactory implements PropertyFactory {
    */
   public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final String expr) {
     try {
-      final int value = Integer.decode(expr);
+      final long value = Long.parseLong(expr);
       return new SDFIntEdgePropertyType(value);
     } catch (final NumberFormatException e) {
       return new SDFExpressionEdgePropertyType(new ExpressionValue(expr));
@@ -94,7 +94,7 @@ public class SDFNumericalEdgePropertyTypeFactory implements PropertyFactory {
    *          The integer value
    * @return The created SDFIntEdgePropertyType
    */
-  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final int val) {
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final long val) {
     return new SDFIntEdgePropertyType(val);
   }
 
@@ -107,8 +107,8 @@ public class SDFNumericalEdgePropertyTypeFactory implements PropertyFactory {
   public Object create(final Object value) {
     if (value instanceof String) {
       return getSDFEdgePropertyType((String) value);
-    } else if (value instanceof Integer) {
-      return getSDFEdgePropertyType((Integer) value);
+    } else if (value instanceof Long) {
+      return getSDFEdgePropertyType((Long) value);
     }
     return null;
   }

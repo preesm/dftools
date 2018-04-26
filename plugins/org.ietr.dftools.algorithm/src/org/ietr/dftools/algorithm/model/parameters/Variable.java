@@ -73,8 +73,8 @@ public class Variable {
   public Variable(final String name, final String value) {
     this.name = name;
     try {
-      final int integerValue = Integer.decode(value);
-      this.value = new ConstantValue(integerValue);
+      final long longValue = Long.parseLong(value);
+      this.value = new ConstantValue(longValue);
     } catch (final NumberFormatException e) {
       this.value = new ExpressionValue(value);
     }
@@ -118,10 +118,15 @@ public class Variable {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public int intValue() throws InvalidExpressionException, NoIntegerValueException {
-    final int val = this.value.intValue();
+  public long longValue() {
+    final long val = this.value.longValue();
     this.value = new ConstantValue(val);
     return val;
+  }
+
+  @Deprecated
+  public int intValue() {
+    return (int) this.longValue();
   }
 
   /**
@@ -141,8 +146,8 @@ public class Variable {
    */
   public void setValue(final String value) {
     try {
-      final int integerValue = Integer.decode(value);
-      this.value = new ConstantValue(integerValue);
+      final long longValue = Long.parseLong(value);
+      this.value = new ConstantValue(longValue);
     } catch (final NumberFormatException e) {
       this.value = new ExpressionValue(value);
     }

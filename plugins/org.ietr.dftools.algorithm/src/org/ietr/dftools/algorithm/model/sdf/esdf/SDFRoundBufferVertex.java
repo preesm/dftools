@@ -61,7 +61,7 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
    */
   public SDFRoundBufferVertex() {
     super();
-    setNbRepeat(1);
+    setNbRepeat(1L);
   }
 
   /**
@@ -72,8 +72,8 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
    * @return The connection index of the edge
    */
   @Override
-  public Integer getEdgeIndex(final SDFEdge edge) {
-    for (final Integer index : getConnections().keySet()) {
+  public Long getEdgeIndex(final SDFEdge edge) {
+    for (final Long index : getConnections().keySet()) {
       if (getConnections().get(index).equals(edge)) {
         return index;
       }
@@ -88,8 +88,8 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
    */
   public List<SDFEdge> getIncomingConnections() {
     final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
-    for (final Integer index : getConnections().keySet()) {
-      edges.add(index, getConnections().get(index));
+    for (final Long index : getConnections().keySet()) {
+      edges.add(index.intValue(), getConnections().get(index));
     }
     return edges;
   }
@@ -113,8 +113,8 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
    * @param index
    *          The index in the connections
    */
-  public void setConnectionIndex(final SDFEdge edge, final int index) {
-    final Map<Integer, SDFEdge> connections = getConnections();
+  public void setConnectionIndex(final SDFEdge edge, final long index) {
+    final Map<Long, SDFEdge> connections = getConnections();
     connections.put(index, edge);
   }
 

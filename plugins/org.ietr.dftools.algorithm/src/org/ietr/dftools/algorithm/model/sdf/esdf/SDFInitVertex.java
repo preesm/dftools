@@ -62,7 +62,7 @@ public class SDFInitVertex extends SDFAbstractVertex {
   public SDFInitVertex() {
     super();
     setKind(SDFInitVertex.INIT);
-    setNbRepeat(1);
+    setNbRepeat(1L);
   }
 
   /*
@@ -125,7 +125,7 @@ public class SDFInitVertex extends SDFAbstractVertex {
    * @param size
    *          the new inits the size
    */
-  public void setInitSize(final int size) {
+  public void setInitSize(final long size) {
     getPropertyBean().setValue(SDFInitVertex.INIT_SIZE, size);
   }
 
@@ -134,8 +134,8 @@ public class SDFInitVertex extends SDFAbstractVertex {
    *
    * @return the inits the size
    */
-  public int getInitSize() {
-    return (Integer) getPropertyBean().getValue(SDFInitVertex.INIT_SIZE);
+  public long getInitSize() {
+    return (Long) getPropertyBean().getValue(SDFInitVertex.INIT_SIZE);
   }
 
 }

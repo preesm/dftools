@@ -54,7 +54,7 @@ public class JepTransitionTest {
     final double expected = 2 + (((5 * 7) / 1.2) * 7.00002);
     final ExpressionValue value = new ExpressionValue("2 + 5 * 7 / 1.2 * 7.00002");
     try {
-      final int intValue = value.intValue();
+      final long intValue = value.longValue();
       Assert.assertEquals(new Double(expected).intValue(), intValue);
     } catch (final InvalidExpressionException e) {
       e.printStackTrace();

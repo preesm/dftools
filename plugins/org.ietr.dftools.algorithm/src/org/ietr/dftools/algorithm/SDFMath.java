@@ -43,6 +43,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import org.apache.commons.math3.util.ArithmeticUtils;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -72,20 +73,23 @@ public class SDFMath {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public static Map<SDFAbstractVertex, Integer> computeRationnalVRB(final List<SDFAbstractVertex> subgraph,
+  public static Map<SDFAbstractVertex, Long> computeRationnalVRB(final List<SDFAbstractVertex> subgraph,
       final SDFGraph graph) throws InvalidExpressionException {
-    final Map<SDFAbstractVertex, Integer> trueVrb = new LinkedHashMap<>();
+    final Map<SDFAbstractVertex, Long> trueVrb = new LinkedHashMap<>();
     int i = 0;
 
     final double[][] topology = graph.getTopologyMatrix(subgraph);
     final Vector<Rational> vrb = SDFMath.computeRationnalNullSpace(topology);
-
-    final List<Integer> result = Rational.toNatural(new Vector<>(vrb));
-    for (final SDFAbstractVertex vertex : subgraph) {
-      trueVrb.put(vertex, result.get(i));
-      i++;
+    try {
+      final List<Long> result = Rational.toNatural(new Vector<>(vrb));
+      for (final SDFAbstractVertex vertex : subgraph) {
+        trueVrb.put(vertex, result.get(i));
+        i++;
+      }
+      return trueVrb;
+    } catch (Exception e) {
+      throw new RuntimeException();
     }
-    return trueVrb;
   }
 
   /**
@@ -115,7 +119,7 @@ public class SDFMath {
 
     for (int i = 0; i < li; i++) {
       for (int j = 0; j < col; j++) {
-        rationnalTopology[i][j] = new Rational(((Double) matrix[i][j]).intValue(), 1);
+        rationnalTopology[i][j] = new Rational(((Double) matrix[i][j]).longValue(), 1);
       }
     }
     int switchIndices = 1;
@@ -190,8 +194,8 @@ public class SDFMath {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public static Map<SDFAbstractVertex, Integer> computeRationnalVRBWithInterfaces(
-      final List<SDFAbstractVertex> subgraph, final SDFGraph graph) throws InvalidExpressionException {
+  public static Map<SDFAbstractVertex, Long> computeRationnalVRBWithInterfaces(final List<SDFAbstractVertex> subgraph,
+      final SDFGraph graph) throws InvalidExpressionException {
 
     final List<SDFAbstractVertex> subgraphWOInterfaces = new ArrayList<>();
     for (final SDFAbstractVertex vertex : subgraph) {
@@ -200,7 +204,7 @@ public class SDFMath {
       }
     }
 
-    final Map<SDFAbstractVertex, Integer> vrb = SDFMath.computeRationnalVRB(subgraphWOInterfaces, graph);
+    final Map<SDFAbstractVertex, Long> vrb = SDFMath.computeRationnalVRB(subgraphWOInterfaces, graph);
 
     final List<double[]> interfaceTopology = new ArrayList<>();
     double[][] interfaceArrayTopology;
@@ -224,8 +228,8 @@ public class SDFMath {
           for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
             if (!(edge.getSource() instanceof SDFInterfaceVertex)) {
               final double[] line = DoubleArray.fill(nbInterfaceEdges + 1, 0);
-              line[decal] = -edge.getCons().intValue();
-              line[nbInterfaceEdges] = edge.getProd().intValue() * (vrb.get(edge.getSource()));
+              line[decal] = -edge.getCons().longValue();
+              line[nbInterfaceEdges] = edge.getProd().longValue() * (vrb.get(edge.getSource()));
               interfaceTopology.add(line);
               decal++;
             }
@@ -234,8 +238,8 @@ public class SDFMath {
           for (final SDFEdge edge : graph.outgoingEdgesOf(vertex)) {
             if (!(edge.getTarget() instanceof SDFInterfaceVertex)) {
               final double[] line = DoubleArray.fill(nbInterfaceEdges + 1, 0);
-              line[decal] = edge.getProd().intValue();
-              line[nbInterfaceEdges] = -edge.getCons().intValue() * (vrb.get(edge.getTarget()));
+              line[decal] = edge.getProd().longValue();
+              line[nbInterfaceEdges] = -edge.getCons().longValue() * (vrb.get(edge.getTarget()));
               interfaceTopology.add(line);
               decal++;
             }
@@ -257,30 +261,11 @@ public class SDFMath {
     }
 
     final Vector<Rational> nullSpace = SDFMath.computeRationnalNullSpace(interfaceArrayTopology);
-    final List<Integer> result = Rational.toNatural(nullSpace);
+    final List<Long> result = Rational.toNatural(nullSpace);
     for (final SDFAbstractVertex vertex : vrb.keySet()) {
       vrb.put(vertex, vrb.get(vertex) * result.get(result.size() - 1));
     }
     return vrb;
-  }
-
-  /**
-   * Computes the greater common divider of two integer.
-   *
-   * @param a
-   *          the a
-   * @param b
-   *          the b
-   * @return the gcd of a and b
-   */
-  public static int gcd(final int a, final int b) {
-    if (a < b) {
-      return (SDFMath.gcd(b, a));
-    } else if (b == 0) {
-      return (a);
-    } else {
-      return (SDFMath.gcd(b, a % b));
-    }
   }
 
   /**
@@ -290,38 +275,16 @@ public class SDFMath {
    *          The list of integer to compute
    * @return The gcd (greatest common divider) of the list
    */
-  public static int gcd(final List<Integer> valList) {
-    int gcd = 0;
-    for (final Integer val : valList) {
+  public static long gcd(final List<Long> valList) {
+    long gcd = 0;
+    for (final Long val : valList) {
       if (gcd == 0) {
-        gcd = val.intValue();
+        gcd = val;
       } else {
-        gcd = SDFMath.gcd(gcd, val.intValue());
+        gcd = ArithmeticUtils.gcd(gcd, val);
       }
     }
     return gcd;
-  }
-
-  /**
-   * Computes the.
-   *
-   * @param nbr1
-   *          the nbr 1
-   * @param nbr2
-   *          the nbr 2
-   * @return the least common multiple of nbr1 and nbr2
-   */
-  public static int lcm(final int nbr1, final int nbr2) {
-    int lePpcm;
-    if ((0 == nbr1) || (0 == nbr2)) {
-      return 0;
-    }
-    for (lePpcm = (nbr1 < nbr2) ? nbr2 : nbr1; lePpcm < (nbr1 * nbr2); lePpcm++) {
-      if ((0 == (lePpcm % nbr1)) && (0 == (lePpcm % nbr2))) {
-        break;
-      }
-    }
-    return lePpcm;
   }
 
 }

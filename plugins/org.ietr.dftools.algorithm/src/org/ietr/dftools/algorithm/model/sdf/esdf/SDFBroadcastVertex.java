@@ -69,7 +69,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   public SDFBroadcastVertex() {
     super();
     setKind(SDFBroadcastVertex.BROADCAST);
-    setNbRepeat(1);
+    setNbRepeat(1L);
   }
 
   /*
@@ -113,7 +113,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    *          the new edge
    */
   protected void addConnection(final SDFEdge newEdge) {
-    getConnections().put(getConnections().size(), newEdge);
+    getConnections().put((long) getConnections().size(), newEdge);
   }
 
   /**
@@ -123,11 +123,11 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    *          the new edge
    */
   private void removeConnection(final SDFEdge newEdge) {
-    final Integer index = getEdgeIndex(newEdge);
+    final Long index = getEdgeIndex(newEdge);
     getConnections().remove(index);
 
     // update the indexes of remaining connections.
-    for (int i = index; i < getConnections().size(); i++) {
+    for (long i = index; i < getConnections().size(); i++) {
       final SDFEdge edge = getConnections().remove(i + 1);
       getConnections().put(i, edge);
     }
@@ -142,8 +142,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    *          the index 1
    * @return <code>true</code> if both indices were valid and could be swapped, <code>false</code> otherwise.
    */
-  public boolean swapEdges(final int index0, final int index1) {
-    final Map<Integer, SDFEdge> connections = getConnections();
+  public boolean swapEdges(final long index0, final long index1) {
+    final Map<Long, SDFEdge> connections = getConnections();
     if (connections.containsKey(index0) && connections.containsKey(index1)) {
       final SDFEdge buffer = connections.get(index0);
       connections.replace(index0, connections.get(index1));
@@ -164,14 +164,14 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    *          the new index for the {@link SDFEdge}
    * @return <code>true</code> if the edge was found and moved at an existing index, <code>false</code> otherwise.
    */
-  public boolean setEdgeIndex(final SDFEdge edge, int index) {
-    final Map<Integer, SDFEdge> connections = getConnections();
+  public boolean setEdgeIndex(final SDFEdge edge, long index) {
+    final Map<Long, SDFEdge> connections = getConnections();
     if ((index < connections.size()) && connections.containsValue(edge)) {
-      final int oldIndex = getEdgeIndex(edge);
+      final long oldIndex = getEdgeIndex(edge);
       removeConnection(edge);
       index = (oldIndex < index) ? index - 1 : index;
       // update the indexes of subsequent edges.
-      for (int i = connections.size() - 1; i >= index; i--) {
+      for (long i = connections.size() - 1; i >= index; i--) {
         connections.put(i + 1, connections.remove(i));
       }
       // put the edge in it new place
@@ -218,8 +218,8 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    *          The edge to get the connection index
    * @return The connection index of the edge
    */
-  public Integer getEdgeIndex(final SDFEdge edge) {
-    for (final Integer idx : getConnections().keySet()) {
+  public Long getEdgeIndex(final SDFEdge edge) {
+    for (final Long idx : getConnections().keySet()) {
       if (getConnections().get(idx).equals(edge)) {
         return idx;
       }
@@ -234,7 +234,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    */
   public List<SDFEdge> getOutgoingConnections() {
     final List<SDFEdge> edges = new ArrayList<>(getConnections().size());
-    for (int i = 0; i < getConnections().size(); i++) {
+    for (long i = 0; i < getConnections().size(); i++) {
       if (getConnections().get(i) != null) {
         edges.add(getConnections().get(i));
       }
@@ -248,9 +248,9 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    * @return the connections
    */
   @SuppressWarnings("unchecked")
-  protected Map<Integer, SDFEdge> getConnections() {
-    Map<Integer, SDFEdge> connections;
-    if ((connections = (Map<Integer, SDFEdge>) getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER)) == null) {
+  protected Map<Long, SDFEdge> getConnections() {
+    Map<Long, SDFEdge> connections;
+    if ((connections = (Map<Long, SDFEdge>) getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER)) == null) {
       connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
     }
@@ -266,7 +266,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
   @Override
   public void copyProperties(final PropertySource props) {
     super.copyProperties(props);
-    final Map<SDFEdge, Integer> connections = new LinkedHashMap<>();
+    final Map<SDFEdge, Long> connections = new LinkedHashMap<>();
     getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
   }
 

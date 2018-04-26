@@ -69,8 +69,8 @@ public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVer
   @Override
   public void visit(final SDFEdge sdfEdge) {
     try {
-      this.isSingleRate &= sdfEdge.getCons().intValue() == sdfEdge.getProd().intValue();
-      this.isSingleRate &= ((sdfEdge.getDelay().intValue() % sdfEdge.getCons().intValue()) == 0);
+      this.isSingleRate &= sdfEdge.getCons().longValue() == sdfEdge.getProd().longValue();
+      this.isSingleRate &= ((sdfEdge.getDelay().longValue() % sdfEdge.getCons().longValue()) == 0);
     } catch (final InvalidExpressionException e) {
       // Supposedly, will not happen, expressions were already parsed when
       // verifying actors number of repetition.
@@ -106,7 +106,7 @@ public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVer
   public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
     // Check number of repetitions
     try {
-      this.isSingleRate &= (sdfVertex.getNbRepeatAsInteger() == 1);
+      this.isSingleRate &= (sdfVertex.getNbRepeatAsLong() == 1);
     } catch (final InvalidExpressionException e) {
       throw new SDF4JException(e.getMessage());
     }

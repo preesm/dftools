@@ -44,7 +44,7 @@ package org.ietr.dftools.algorithm.model.parameters;
 public class ConstantValue implements Value {
 
   /** The value. */
-  int value;
+  long value;
 
   /**
    * Instantiates a new constant value.
@@ -52,8 +52,13 @@ public class ConstantValue implements Value {
    * @param value
    *          the value
    */
-  public ConstantValue(final Integer value) {
+  public ConstantValue(final Long value) {
     this.value = value;
+  }
+
+  @Deprecated
+  public ConstantValue(final Integer value) {
+    this(Long.valueOf(value.longValue()));
   }
 
   /*
@@ -72,7 +77,7 @@ public class ConstantValue implements Value {
    * @see org.ietr.dftools.algorithm.model.parameters.Value#intValue()
    */
   @Override
-  public int intValue() throws InvalidExpressionException {
+  public long longValue() throws InvalidExpressionException {
     return this.value;
   }
 
@@ -97,8 +102,8 @@ public class ConstantValue implements Value {
   @Override
   public void setValue(final String value) {
     try {
-      final int integerValue = Integer.decode(value);
-      this.value = integerValue;
+      final long lValue = Long.parseLong(value);
+      this.value = lValue;
     } catch (final NumberFormatException e) {
       e.printStackTrace();
     }

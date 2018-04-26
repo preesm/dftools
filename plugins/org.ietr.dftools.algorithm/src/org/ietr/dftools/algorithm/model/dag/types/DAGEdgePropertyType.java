@@ -44,7 +44,7 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
  *
  * @author jpiat
  */
-public class DAGEdgePropertyType extends AbstractEdgePropertyType<Integer> {
+public class DAGEdgePropertyType extends AbstractEdgePropertyType<Long> {
 
   /**
    * Creates a new empty DAGEdgePropertyType.
@@ -59,7 +59,7 @@ public class DAGEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    * @param val
    *          the val
    */
-  public DAGEdgePropertyType(final int val) {
+  public DAGEdgePropertyType(final long val) {
     this.value = val;
   }
 
@@ -69,7 +69,7 @@ public class DAGEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Integer> clone() {
+  public AbstractEdgePropertyType<Long> clone() {
     return new DAGEdgePropertyType(this.value);
   }
 
@@ -79,7 +79,7 @@ public class DAGEdgePropertyType extends AbstractEdgePropertyType<Integer> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public int intValue() {
+  public long longValue() {
     return this.value;
   }
 

@@ -786,9 +786,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    * org.ietr.dftools.algorithm.model.parameters.Value)
    */
   @Override
-  public int solveExpression(final String expression, final Value caller)
-      throws InvalidExpressionException, NoIntegerValueException {
-    int resultValue;
+  public long solveExpression(final String expression, final Value caller) {
+    long resultValue;
     try {
       final JEP jep = new JEP();
       if (this.getVariables() != null /*
@@ -798,16 +797,16 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
           if ((this.getVariable(var) == caller) || this.getVariable(var).getValue().equals(expression)) {
             break;
           } else {
-            jep.addVariable(var, this.getVariable(var).intValue());
+            jep.addVariable(var, this.getVariable(var).longValue());
           }
         }
       }
       if ((this.getParameters() != null) && (this.getParentVertex() != null)) {
         for (final String arg : this.getParameters().keySet()) {
           try {
-            Integer paramValue = this.getParameters().get(arg).getValue();
+            Long paramValue = this.getParameters().get(arg).getValue();
             if (paramValue == null) {
-              paramValue = this.getParentVertex().getArgument(arg).intValue();
+              paramValue = this.getParentVertex().getArgument(arg).longValue();
               this.getParameters().get(arg).setValue(paramValue);
             }
             jep.addVariable(arg, paramValue);
@@ -819,7 +818,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       final Node expressionMainNode = jep.parse(expression);
       final Object result = jep.evaluate(expressionMainNode);
       if (result instanceof Number) {
-        resultValue = ((Number) result).intValue();
+        resultValue = ((Number) result).longValue();
       } else {
         throw (new InvalidExpressionException("Not a numerical expression"));
       }

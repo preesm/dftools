@@ -50,7 +50,7 @@ public class Parameter {
   private String name;
 
   /** The value. */
-  private Integer value = null;
+  private Long value = null;
 
   /**
    * Builds a parameter with the given name.
@@ -88,7 +88,7 @@ public class Parameter {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public Integer getValue() throws NoIntegerValueException {
+  public Long getValue() throws NoIntegerValueException {
     return this.value;
   }
 
@@ -98,7 +98,7 @@ public class Parameter {
    * @param value
    *          The value of this parameter
    */
-  public void setValue(final Integer value) {
+  public void setValue(final Long value) {
     this.value = value;
   }
 

@@ -44,7 +44,7 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
  *
  * @author jpiat
  */
-public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer> {
+public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
 
   /**
    * Creates a new DAGDefaultEdgePropertyType without specifying any value.
@@ -59,7 +59,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
    * @param val
    *          The value to set for this DAGDefaultEdgePropertyType
    */
-  public DAGDefaultEdgePropertyType(final int val) {
+  public DAGDefaultEdgePropertyType(final long val) {
     super(val);
   }
 
@@ -70,7 +70,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
    *          The value to set
    */
   public DAGDefaultEdgePropertyType(final String val) {
-    super(new Integer(val));
+    super(Long.parseLong(val));
   }
 
   /*
@@ -79,7 +79,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Integer> clone() {
+  public AbstractEdgePropertyType<Long> clone() {
     return new DAGDefaultEdgePropertyType(this.value);
   }
 
@@ -89,7 +89,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Integer
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public int intValue() {
+  public long longValue() {
     return this.value;
   }
 

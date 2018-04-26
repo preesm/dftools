@@ -223,7 +223,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
                 // The delay of the incomingEdge is greater or
                 // equal to the consumption rate of this edge
                 prevTreated = prevTreated && ((this.treated.contains(this.graph.getEdgeSource(incomingEdge)))
-                    || (incomingEdge.getDelay().intValue() >= incomingEdge.getCons().intValue()));
+                    || (incomingEdge.getDelay().longValue() >= incomingEdge.getCons().longValue()));
               }
             }
             if (prevTreated && !this.treated.contains(fol) && !this.stack.contains(fol)) {
@@ -264,7 +264,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
     for (final SDFEdge edge : this.graph.incomingEdgesOf(vertex)) {
       // If the current edge is not a self-loop and has an insufficient
       // delay to be a source
-      if ((this.graph.getEdgeSource(edge) != vertex) && (edge.getDelay().intValue() < edge.getCons().intValue())) {
+      if ((this.graph.getEdgeSource(edge) != vertex) && (edge.getDelay().longValue() < edge.getCons().longValue())) {
         // Then the current vertex is NOT an "origin", call originOf on
         // its the current predecessor.
         // If the predecessor was not yet encountered in recursive calls

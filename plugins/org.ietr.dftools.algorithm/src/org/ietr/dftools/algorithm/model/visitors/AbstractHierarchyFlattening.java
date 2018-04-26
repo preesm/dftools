@@ -130,7 +130,7 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
         if (trueVertex.getArguments() != null) {
           for (final Argument arg : trueVertex.getArguments().values()) {
             try {
-              cloneVertex.getArgument(arg.getName()).setValue(String.valueOf(arg.intValue()));
+              cloneVertex.getArgument(arg.getName()).setValue(String.valueOf(arg.longValue()));
             } catch (final NoIntegerValueException e) {
               e.printStackTrace();
             }

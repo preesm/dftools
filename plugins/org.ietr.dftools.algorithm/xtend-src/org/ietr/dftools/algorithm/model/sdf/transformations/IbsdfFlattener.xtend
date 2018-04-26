@@ -90,14 +90,14 @@ class IbsdfFlattener {
 	 * <li>Delays of the fifos between fork and join are computed to ensure
 	 * the correct single-rate transformation of the application.</li></ul>
 	 */
-	protected def void addDelaySubstitutes(SDFGraph subgraph, int nbRepeat) {
+	protected def void addDelaySubstitutes(SDFGraph subgraph, long nbRepeat) {
 		// Scan the fifos with delays in the subgraph
-		for (fifo : subgraph.edgeSet.filter[it.delay !== null && it.delay.intValue != 0].toList) {
+		for (fifo : subgraph.edgeSet.filter[it.delay !== null && it.delay.longValue != 0].toList) {
 			// Get the number of tokens produced and consumed during each
 			// subgraph iteration for this fifo
-			val tgtRepeat = fifo.target.nbRepeatAsInteger
-			val tgtCons = fifo.cons.intValue
-			val nbDelay = fifo.delay.intValue
+			val tgtRepeat = fifo.target.nbRepeatAsLong
+			val tgtCons = fifo.cons.longValue
+			val nbDelay = fifo.delay.longValue
 
 			// Compute the prod and cons rate of the FIFOs between fork/join
 			val rate1 = nbDelay % (tgtCons * tgtRepeat)
@@ -205,9 +205,9 @@ class IbsdfFlattener {
 
 				// Check if a broadcast is needed
 				val outEdge = outEdges.get(0)
-				val prodRate = outEdge.prod.intValue
-				val consRate = outEdge.cons.intValue
-				val nbRepeatCons = outEdge.target.nbRepeatAsInteger
+				val prodRate = outEdge.prod.longValue
+				val consRate = outEdge.cons.longValue
+				val nbRepeatCons = outEdge.target.nbRepeatAsLong
 
 				// If more token are consumed during an iteration of
 				// the subgraph than the number of available tokens
@@ -255,9 +255,9 @@ class IbsdfFlattener {
 
 				// Check if a roundbuffer is needed
 				val inEdge = inEdges.get(0)
-				val prodRate = inEdge.prod.intValue
-				val consRate = inEdge.cons.intValue
-				val nbRepeatProd = inEdge.source.nbRepeatAsInteger
+				val prodRate = inEdge.prod.longValue
+				val consRate = inEdge.cons.longValue
+				val nbRepeatProd = inEdge.source.nbRepeatAsLong
 
 				// If more token are produced during an iteration of
 				// the subgraph than the number of consumed tokens
@@ -359,8 +359,8 @@ class IbsdfFlattener {
 				throw new SDF4JException('''Subgraph «subgraph.name» at level «level» is not schedulable''')
 			}
 
-			val nbRepeat = hierActor.nbRepeatAsInteger;
-			val containsNoDelay = subgraph.edgeSet.forall[it.delay === null || it.delay.intValue == 0]
+			val nbRepeat = hierActor.nbRepeatAsLong;
+			val containsNoDelay = subgraph.edgeSet.forall[it.delay === null || it.delay.longValue == 0]
 
 			// Prepare the subgraph for instantiation:
 			// - Add roundbuffers and broadcast actors next to interfaces
@@ -587,8 +587,8 @@ class IbsdfFlattener {
 					newFifo
 				}
 			// Set delay of the new FIFO
-			val externDelay = if(externalFifo.delay !== null) externalFifo.delay.intValue else 0
-			val internDelay = if(newFifo.delay !== null) newFifo.delay.intValue else 0
+			val externDelay = if(externalFifo.delay !== null) externalFifo.delay.longValue else 0
+			val internDelay = if(newFifo.delay !== null) newFifo.delay.longValue else 0
 			if(externDelay != 0) {
 				newFifo.delay = new SDFIntEdgePropertyType(externDelay + internDelay)
 			}
