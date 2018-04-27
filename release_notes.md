@@ -9,6 +9,7 @@ DFTools Changelog
 ### Changes
 
 ### Bug fix
+* Force activation of UI plugin to have the properties tested properly;
 
 
 ## Release version 1.5.0
