@@ -565,6 +565,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    */
   @Override
   public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
+    if (this.outputGraph.getVertex(sdfVertex.getName()) != null) {
+      return;
+    }
     DAGVertex vertex;
     if (sdfVertex instanceof SDFBroadcastVertex) {
       vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
@@ -576,10 +579,11 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       vertex = this.factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
     } else if (sdfVertex instanceof SDFInitVertex) {
       vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
-      final String endReferenceName = ((SDFInitVertex) sdfVertex).getEndReference().getName();
-      if (this.outputGraph.getVertex(endReferenceName) != null) {
-        ((DAGInitVertex) vertex).setEndReference((DAGEndVertex) this.outputGraph.getVertex(endReferenceName));
-      }
+      final SDFInitVertex sdfInitVertex = (SDFInitVertex) sdfVertex;
+      sdfInitVertex.getEndReference().accept(this);
+      final String endReferenceName = sdfInitVertex.getEndReference().getName();
+      vertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, this.outputGraph.getVertex(endReferenceName));
+      vertex.getPropertyBean().setValue(DAGInitVertex.INIT_SIZE, sdfInitVertex.getInitSize());
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
     }
