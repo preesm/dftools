@@ -595,6 +595,12 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     vertex.setId(sdfVertex.getId());
     vertex.setInfo(sdfVertex.getInfo());
     vertex.setCorrespondingSDFVertex(sdfVertex);
+    // Copy all properties of the SDFVertex that does not already exist
+    for (final String p : sdfVertex.getPropertyBean().keys()) {
+      if (vertex.getPropertyBean().getValue(p) == null) {
+        vertex.getPropertyBean().setValue(p, sdfVertex.getPropertyBean().getValue(p));
+      }
+    }
     this.outputGraph.addVertex(vertex);
   }
 
