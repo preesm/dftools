@@ -64,6 +64,7 @@ import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
+import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFEndVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
@@ -582,7 +583,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       final SDFInitVertex sdfInitVertex = (SDFInitVertex) sdfVertex;
       sdfInitVertex.getEndReference().accept(this);
       final String endReferenceName = sdfInitVertex.getEndReference().getName();
-      vertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, this.outputGraph.getVertex(endReferenceName));
+      final DAGVertex endVertex = this.outputGraph.getVertex(endReferenceName);
+      endVertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, vertex);
+      vertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, endVertex);
       vertex.getPropertyBean().setValue(DAGInitVertex.INIT_SIZE, sdfInitVertex.getInitSize());
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
@@ -600,6 +603,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       if (vertex.getPropertyBean().getValue(p) == null) {
         vertex.getPropertyBean().setValue(p, sdfVertex.getPropertyBean().getValue(p));
       }
+    }
+    // Set interfaces name because that's all we use
+    for (final SDFInterfaceVertex si : sdfVertex.getSinks()) {
+      vertex.addSinkName(si.getName());
+    }
+    for (final SDFInterfaceVertex si : sdfVertex.getSources()) {
+      vertex.addSourceName(si.getName());
     }
     this.outputGraph.addVertex(vertex);
   }
