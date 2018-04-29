@@ -584,9 +584,13 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       sdfInitVertex.getEndReference().accept(this);
       final String endReferenceName = sdfInitVertex.getEndReference().getName();
       final DAGVertex endVertex = this.outputGraph.getVertex(endReferenceName);
-      endVertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, vertex);
       vertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, endVertex);
       vertex.getPropertyBean().setValue(DAGInitVertex.INIT_SIZE, sdfInitVertex.getInitSize());
+      // First we remove the property
+      // In some cases, it is needed to do so to prevent call back of the setter to crash
+      // No idea why
+      endVertex.getPropertyBean().removeProperty(DAGInitVertex.END_REFERENCE);
+      endVertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, vertex);
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
     }
