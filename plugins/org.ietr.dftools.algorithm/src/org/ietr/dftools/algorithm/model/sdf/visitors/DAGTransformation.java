@@ -307,17 +307,31 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     final DAGVertex source = this.outputGraph.getVertex(edge.getSource().getName());
     final DAGVertex target = this.outputGraph.getVertex(edge.getTarget().getName());
 
-    DAGEdge newedge;
+    final DAGEdge dagEdge;
+    // Checks if the DAG edge already exists in the graph
+    // If so update its weight
+    final int weight = computeEdgeWeight(edge);
     if (this.outputGraph.containsEdge(source, target)) {
-      newedge = this.outputGraph.getEdge(source, target);
-      newedge.getAggregate().add(edge);
-      final DAGDefaultEdgePropertyType weigth = (DAGDefaultEdgePropertyType) newedge.getWeight();
-      newedge.setWeight(new DAGDefaultEdgePropertyType(weigth.intValue() + computeEdgeWeight(edge)));
+      dagEdge = this.outputGraph.getEdge(source, target);
+      dagEdge.setWeight(new DAGDefaultEdgePropertyType(weight + dagEdge.getWeight().intValue()));
     } else {
-      newedge = this.outputGraph.addDAGEdge(source, target);
-      newedge.getAggregate().add(edge);
-      newedge.setWeight(new DAGDefaultEdgePropertyType(computeEdgeWeight(edge)));
+      dagEdge = this.outputGraph.addDAGEdge(source, target);
+      dagEdge.setWeight(new DAGDefaultEdgePropertyType(weight));
     }
+
+    // Creates an edge to aggregate
+    final DAGEdge newEdge = new DAGEdge();
+    newEdge.setPropertyValue(SDFEdge.DATA_TYPE, edge.getDataType().toString());
+    newEdge.setPropertyValue(SDFEdge.DATA_SIZE, edge.getDataSize().intValue());
+    newEdge.setSourcePortModifier(edge.getSourcePortModifier());
+    newEdge.setTargetPortModifier(edge.getTargetPortModifier());
+    newEdge.setWeight(new DAGDefaultEdgePropertyType(weight / edge.getDataSize().intValue()));
+    newEdge.setSourceLabel(edge.getSourceLabel());
+    newEdge.setTargetLabel(edge.getTargetLabel());
+    newEdge.setPropertyValue(SDFEdge.BASE, this.outputGraph);
+    newEdge.setContainingEdge(dagEdge);
+
+    dagEdge.getAggregate().add(newEdge);
   }
 
   /**
@@ -524,9 +538,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    */
   @Override
   public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
-    if (this.outputGraph.getVertex(sdfVertex.getName()) != null) {
-      return;
-    }
     DAGVertex vertex;
     if (sdfVertex instanceof SDFBroadcastVertex) {
       vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
@@ -538,42 +549,19 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       vertex = this.factory.createVertex(DAGEndVertex.DAG_END_VERTEX);
     } else if (sdfVertex instanceof SDFInitVertex) {
       vertex = this.factory.createVertex(DAGInitVertex.DAG_INIT_VERTEX);
-      final SDFInitVertex sdfInitVertex = (SDFInitVertex) sdfVertex;
-      sdfInitVertex.getEndReference().accept(this);
-      final String endReferenceName = sdfInitVertex.getEndReference().getName();
-      final DAGVertex endVertex = this.outputGraph.getVertex(endReferenceName);
-      vertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, endVertex);
-      vertex.getPropertyBean().setValue(DAGInitVertex.INIT_SIZE, sdfInitVertex.getInitSize());
-      // Florian's note:
-      // First we remove the property
-      // In some cases, it is needed to do so to prevent call back of the setter to crash
-      // No idea why
-      endVertex.getPropertyBean().removeProperty(DAGInitVertex.END_REFERENCE);
-      endVertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, vertex);
-
     } else {
       vertex = this.factory.createVertex(DAGVertex.DAG_VERTEX);
     }
 
-    vertex.setName(sdfVertex.getName());
-    vertex.setTime(new DAGDefaultVertexPropertyType(0));
-    vertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
-    vertex.setRefinement(sdfVertex.getRefinement());
-    vertex.setArgumentSet(sdfVertex.getArguments());
-    vertex.setId(sdfVertex.getId());
-    vertex.setInfo(sdfVertex.getInfo());
-    vertex.setCorrespondingSDFVertex(sdfVertex);
+    setProperties(vertex, sdfVertex);
     // Copy all properties of the SDFVertex that does not already exist
     // for (final String p : sdfVertex.getPropertyBean().keys()) {
     // if (vertex.getPropertyBean().getValue(p) == null) {
     // vertex.getPropertyBean().setValue(p, sdfVertex.getPropertyBean().getValue(p));
     // }
     // }
-    // Get memory script property
-    vertex.getPropertyBean().setValue(SDFVertex.MEMORY_SCRIPT,
-        sdfVertex.getPropertyBean().getValue(SDFVertex.MEMORY_SCRIPT, String.class));
 
-    // Set interfaces name because that's all we use
+    // Set interfaces name because that's all we use afterall
     for (final SDFInterfaceVertex si : sdfVertex.getSinks()) {
       vertex.addSinkName(si.getName());
     }
@@ -581,6 +569,52 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       vertex.addSourceName(si.getName());
     }
     this.outputGraph.addVertex(vertex);
+  }
+
+  /**
+   * Set all the properties of the DAGVertex we will need.
+   * 
+   * if you're reading this, then you can see that clearly a DAGVertex is just an SDFVertex in disguise.<br>
+   * maybe should we just use of them ?
+   * 
+   * @param dagVertex
+   *          the dag vertex
+   * @param sdfVertex
+   *          the sdf vertex
+   */
+  private void setProperties(final DAGVertex dagVertex, final SDFAbstractVertex sdfVertex) {
+    dagVertex.setName(sdfVertex.getName());
+    dagVertex.setTime(new DAGDefaultVertexPropertyType(0));
+    dagVertex.setNbRepeat(new DAGDefaultVertexPropertyType(0));
+    dagVertex.setRefinement(sdfVertex.getRefinement());
+    dagVertex.setArgumentSet(sdfVertex.getArguments());
+    dagVertex.setId(sdfVertex.getId());
+    dagVertex.setInfo(sdfVertex.getInfo());
+    // Get memory script property
+    dagVertex.getPropertyBean().setValue(SDFVertex.MEMORY_SCRIPT,
+        sdfVertex.getPropertyBean().getValue(SDFVertex.MEMORY_SCRIPT, String.class));
+
+    // Working memory property (from clustering)
+    if (sdfVertex.getPropertyBean().getValue("working_memory") != null) {
+      dagVertex.getPropertyBean().setValue("working_memory", sdfVertex.getPropertyBean().getValue("working_memory"));
+    }
+
+    // We have to check for SDFEndVertex first as it inherits from SDFInitVertex
+    if (sdfVertex instanceof SDFEndVertex) {
+      // Setting the end reference
+      final SDFEndVertex sdfEndVertex = (SDFEndVertex) sdfVertex;
+      final String endReferenceName = sdfEndVertex.getEndReference().getName();
+      dagVertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, endReferenceName);
+    } else if (sdfVertex instanceof SDFInitVertex) {
+      // Setting the end reference
+      final SDFInitVertex sdfInitVertex = (SDFInitVertex) sdfVertex;
+      final String endReferenceName = sdfInitVertex.getEndReference().getName();
+      dagVertex.getPropertyBean().setValue(DAGInitVertex.END_REFERENCE, endReferenceName);
+      // Setting the init size property
+      dagVertex.getPropertyBean().setValue(DAGInitVertex.INIT_SIZE, sdfInitVertex.getInitSize());
+    }
+
+    dagVertex.setCorrespondingSDFVertex(sdfVertex);
   }
 
 }
