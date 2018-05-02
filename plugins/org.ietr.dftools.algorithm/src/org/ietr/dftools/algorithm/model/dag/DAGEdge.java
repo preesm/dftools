@@ -41,6 +41,7 @@ package org.ietr.dftools.algorithm.model.dag;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
+import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -55,6 +56,15 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
 
   /** Key to access to property aggregate. */
   public static final String AGGREGATE = "aggregate";
+
+  /** Key to access to property containing_edge. */
+  public static final String CONTAINING_EDGE = "containing_edge";
+
+  /** Property name for property target_port_modifier. */
+  public static final String TARGET_PORT_MODIFIER = "target_port_modifier";
+
+  /** Property name for property source_port_modifier. */
+  public static final String SOURCE_PORT_MODIFIER = "source_port_modifier";
 
   static {
     AbstractEdge.public_properties.add(DAGEdge.WEIGHT);
@@ -116,13 +126,35 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
   }
 
   /**
-   * Set this DAGEdge weight.
+   * Set this DAGEdge aggregate.
    *
    * @param a
    *          The weight to set for this DAGEdge
    */
   public void setAggregate(final EdgeAggregate a) {
     getPropertyBean().setValue(DAGEdge.AGGREGATE, a);
+  }
+
+  /**
+   * Set this DAGEdge containing edge
+   * 
+   * @param e
+   *          the containing edge
+   */
+  public void setContainingEdge(final DAGEdge e) {
+    getPropertyBean().setValue(DAGEdge.CONTAINING_EDGE, e);
+  }
+
+  /**
+   * Gives this DAGEdge containing edge.
+   *
+   * @return This DAGEdge containing edge
+   */
+  public DAGEdge getContainingEdge() {
+    if (getPropertyBean().getValue(DAGEdge.CONTAINING_EDGE) != null) {
+      return (DAGEdge) getPropertyBean().getValue(DAGEdge.CONTAINING_EDGE);
+    }
+    return null;
   }
 
   /*
@@ -148,4 +180,51 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
     // TODO Auto-generated method stub
     return null;
   }
+
+  /**
+   * Sets the target port modifier.
+   *
+   * @param modifier
+   *          the new target port modifier
+   */
+  public void setTargetPortModifier(final AbstractEdgePropertyType<?> modifier) {
+    if (modifier != null) {
+      getPropertyBean().setValue(DAGEdge.TARGET_PORT_MODIFIER, null, modifier);
+    } else {
+      getPropertyBean().removeProperty(DAGEdge.TARGET_PORT_MODIFIER);
+    }
+  }
+
+  /**
+   * Sets the source port modifier.
+   *
+   * @param modifier
+   *          the new source port modifier
+   */
+  public void setSourcePortModifier(final AbstractEdgePropertyType<?> modifier) {
+    if (modifier != null) {
+      getPropertyBean().setValue(DAGEdge.SOURCE_PORT_MODIFIER, null, modifier);
+    } else {
+      getPropertyBean().removeProperty(DAGEdge.SOURCE_PORT_MODIFIER);
+    }
+  }
+
+  /**
+   * Gets the source port modifier.
+   *
+   * @return the source port modifier
+   */
+  public SDFStringEdgePropertyType getSourcePortModifier() {
+    return getPropertyBean().getValue(DAGEdge.SOURCE_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+  }
+
+  /**
+   * Gets the target port modifier.
+   *
+   * @return the target port modifier
+   */
+  public SDFStringEdgePropertyType getTargetPortModifier() {
+    return getPropertyBean().getValue(DAGEdge.TARGET_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+  }
+
 }
