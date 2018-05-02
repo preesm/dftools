@@ -71,6 +71,7 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFEndVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFForkVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsIndexer;
@@ -539,8 +540,12 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
   @Override
   public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
     DAGVertex vertex;
-    if (sdfVertex instanceof SDFBroadcastVertex) {
+    if (sdfVertex instanceof SDFRoundBufferVertex) {
       vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
+      vertex.getPropertyBean().setValue(DAGBroadcastVertex.SPECIAL_TYPE, DAGBroadcastVertex.SPECIAL_TYPE_ROUNDBUFFER);
+    } else if (sdfVertex instanceof SDFBroadcastVertex) {
+      vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
+      vertex.getPropertyBean().setValue(DAGBroadcastVertex.SPECIAL_TYPE, DAGBroadcastVertex.SPECIAL_TYPE_BROADCAST);
     } else if (sdfVertex instanceof SDFForkVertex) {
       vertex = this.factory.createVertex(DAGForkVertex.DAG_FORK_VERTEX);
     } else if (sdfVertex instanceof SDFJoinVertex) {
@@ -554,12 +559,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     }
 
     setProperties(vertex, sdfVertex);
-    // Copy all properties of the SDFVertex that does not already exist
-    // for (final String p : sdfVertex.getPropertyBean().keys()) {
-    // if (vertex.getPropertyBean().getValue(p) == null) {
-    // vertex.getPropertyBean().setValue(p, sdfVertex.getPropertyBean().getValue(p));
-    // }
-    // }
 
     // Set interfaces name because that's all we use afterall
     for (final SDFInterfaceVertex si : sdfVertex.getSinks()) {
