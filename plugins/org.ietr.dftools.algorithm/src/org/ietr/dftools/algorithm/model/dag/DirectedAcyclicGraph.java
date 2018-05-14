@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Florian Arrestier <florian.arrestier@insa-rennes.fr> (2018)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -300,11 +301,12 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
       processed.add(processedVertex);
 
       // Add all its outgoing edges to the result
-      result.addAll(outgoingEdgesOf(processedVertex));
+      final Set<DAGEdge> outgoingEdges = processedVertex.outgoingEdges();
+      result.addAll(outgoingEdges);
 
       // Add all its successors vertices to the toProcess list (unless
       // they were already added or processed)
-      for (final DAGEdge outEdge : outgoingEdgesOf(processedVertex)) {
+      for (final DAGEdge outEdge : outgoingEdges) {
         final DAGVertex target = outEdge.getTarget();
         if (!toProcess.contains(target) && !processed.contains(target)) {
           toProcess.add(target);
@@ -368,11 +370,12 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
       processed.add(processedVertex);
 
       // Add all its incoming edges to the result
-      result.addAll(incomingEdgesOf(processedVertex));
+      final Set<DAGEdge> incomingEdges = processedVertex.incomingEdges();
+      result.addAll(incomingEdges);
 
       // Add all its predecessors vertices to the toProcess list (unless
       // they were already added or processed)
-      for (final DAGEdge inEdge : incomingEdgesOf(processedVertex)) {
+      for (final DAGEdge inEdge : incomingEdges) {
         final DAGVertex source = inEdge.getSource();
         if (!toProcess.contains(source) && !processed.contains(source)) {
           toProcess.add(source);

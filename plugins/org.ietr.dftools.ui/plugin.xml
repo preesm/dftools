@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+    Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
 
-    Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+    Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
     Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
     Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
     Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -42,612 +42,428 @@
 <?eclipse version="3.4"?>
 
 <plugin>
-   <extension
-         point="org.eclipse.ui.editors">
+   <extension point="org.eclipse.ui.editors">
       <editor
-            class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
-            contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
-            default="true"
-            extensions="workflow"
-            icon="icons/workflow.png"
-            id="net.sf.dftools.ui.WorkflowEditor"
-            name="Workflow Editor">
+         class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
+         contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
+         default="true" extensions="workflow" icon="icons/workflow.png"
+         id="net.sf.dftools.ui.WorkflowEditor" name="Workflow Editor">
       </editor>
       <editor
-            class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
-            contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
-            default="true"
-            extensions="slam"
-            icon="icons/graphiti.gif"
-            id="net.sf.dftools.ui.SlamEditor"
-            name="S-LAM Editor">
+         class="org.ietr.dftools.graphiti.ui.editors.GraphEditor"
+         contributorClass="org.ietr.dftools.graphiti.ui.editors.GraphActionBarContributor"
+         default="true" extensions="slam" icon="icons/graphiti.gif"
+         id="net.sf.dftools.ui.SlamEditor" name="S-LAM Editor">
       </editor>
    </extension>
    <extension
-         point="org.eclipse.core.expressions.propertyTesters">
+      point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="org.ietr.dftools.ui.workflow.launch.WorkflowPropertyTester"
-            id="net.sf.dftools.ui.workflow.workflowTester"
-            namespace="net.sf.dftools"
-            properties="isWorkflow"
-            type="org.eclipse.core.runtime.IAdaptable">
+         class="org.ietr.dftools.ui.workflow.launch.WorkflowPropertyTester"
+         id="net.sf.dftools.ui.workflow.workflowTester"
+         namespace="net.sf.dftools" properties="isWorkflow"
+         type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
       <propertyTester
-            class="org.ietr.dftools.ui.workflow.command.OldWorkflowPropertyTester"
-            id="net.sf.dftools.ui.workflow.oldWorkflowTester"
-            namespace="net.sf.dftools"
-            properties="isOldWorkflow"
-            type="org.eclipse.core.runtime.IAdaptable">
+         class="org.ietr.dftools.ui.workflow.command.OldWorkflowPropertyTester"
+         id="net.sf.dftools.ui.workflow.oldWorkflowTester"
+         namespace="net.sf.dftools" properties="isOldWorkflow"
+         type="org.eclipse.core.resources.IResource">
       </propertyTester>
    </extension>
-   <extension
-         point="org.eclipse.ui.newWizards">
-      <wizard
-            canFinishEarly="false"
-            category="org.ietr.preesm.category"
-            class="org.ietr.dftools.ui.slam.NewSlamFileWizard"
-            hasPages="true"
-            icon="icons/graphiti.gif"
-            id="net.sf.dftools.ui.slam.NewSlamFileWizard"
-            name="S-LAM Architecture"
-            project="false">
+   <extension point="org.eclipse.ui.newWizards">
+      <wizard canFinishEarly="false"
+         category="org.ietr.preesm.category"
+         class="org.ietr.dftools.ui.slam.NewSlamFileWizard"
+         hasPages="true" icon="icons/graphiti.gif"
+         id="net.sf.dftools.ui.slam.NewSlamFileWizard"
+         name="S-LAM Architecture" project="false">
          <description>
             Create a new S-LAM architecture description file
          </description>
       </wizard>
-      <wizard
-            canFinishEarly="false"
-            category="org.ietr.preesm.category"
-            class="org.ietr.dftools.ui.workflow.NewWorkflowFileWizard"
-            hasPages="true"
-            icon="icons/graphiti.gif"
-            id="org.ietr.preesm.ui.wizards.workflow"
-            name="Preesm Workflow"
-            project="false">
+      <wizard canFinishEarly="false"
+         category="org.ietr.preesm.category"
+         class="org.ietr.dftools.ui.workflow.NewWorkflowFileWizard"
+         hasPages="true" icon="icons/graphiti.gif"
+         id="org.ietr.preesm.ui.wizards.workflow" name="Preesm Workflow"
+         project="false">
          <description>
             Create a new PREESM workflow.
          </description>
       </wizard>
    </extension>
    <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
-            contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
+         contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
          <propertySection
-               class="org.ietr.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
-               filter="org.ietr.dftools.ui.workflow.filters.WorkflowTaskFilter"
-               id="net.sf.dftools.ui.workflow.variables.section"
-               tab="net.sf.dftools.ui.workflow.variables">
+            class="org.ietr.dftools.ui.workflow.properties.WorkflowTaskVariablesMapSection"
+            filter="org.ietr.dftools.ui.workflow.filters.WorkflowTaskFilter"
+            id="net.sf.dftools.ui.workflow.variables.section"
+            tab="net.sf.dftools.ui.workflow.variables">
          </propertySection>
          <propertySection
-               class="org.ietr.dftools.ui.slam.properties.SlamComponentVariablesMapSection"
-               filter="org.ietr.dftools.ui.slam.filters.SlamComponentFilter"
-               id="net.sf.dftools.ui.slam.vertex.parameters.section"
-               tab="net.sf.dftools.ui.slam.vertex.parameters">
+            class="org.ietr.dftools.ui.slam.properties.SlamComponentVariablesMapSection"
+            filter="org.ietr.dftools.ui.slam.filters.SlamComponentFilter"
+            id="net.sf.dftools.ui.slam.vertex.parameters.section"
+            tab="net.sf.dftools.ui.slam.vertex.parameters">
          </propertySection>
          <propertySection
-               class="org.ietr.dftools.ui.slam.properties.SlamDesignVariablesMapSection"
-               filter="org.ietr.dftools.ui.slam.filters.SlamDesignFilter"
-               id="net.sf.dftools.ui.slam.design.parameters.section"
-               tab="net.sf.dftools.ui.slam.design.parameters">
+            class="org.ietr.dftools.ui.slam.properties.SlamDesignVariablesMapSection"
+            filter="org.ietr.dftools.ui.slam.filters.SlamDesignFilter"
+            id="net.sf.dftools.ui.slam.design.parameters.section"
+            tab="net.sf.dftools.ui.slam.design.parameters">
          </propertySection>
       </propertySections>
    </extension>
    <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs
-            contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
+         contributorId="org.ietr.dftools.graphiti.ui.properties.contributor">
          <propertyTab
-               category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.ui.workflow.variables"
-               label="Task Variables">
+            category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
+            id="net.sf.dftools.ui.workflow.variables"
+            label="Task Variables">
          </propertyTab>
          <propertyTab
-               category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
-               id="net.sf.dftools.ui.slam.vertex.parameters"
-               label="Custom Parameters">
+            category="org.ietr.dftools.graphiti.ui.properties.category.vertex"
+            id="net.sf.dftools.ui.slam.vertex.parameters"
+            label="Custom Parameters">
          </propertyTab>
          <propertyTab
-               category="org.ietr.dftools.graphiti.ui.properties.category.graph"
-               id="net.sf.dftools.ui.slam.design.parameters"
-               label="Design Parameters">
+            category="org.ietr.dftools.graphiti.ui.properties.category.graph"
+            id="net.sf.dftools.ui.slam.design.parameters"
+            label="Design Parameters">
          </propertyTab>
       </propertyTabs>
    </extension>
    <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="org.ietr.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
-            type="net.sf.dftools.ui.workflow.launchConfigurationType">
+         class="org.ietr.dftools.ui.workflow.launch.WorkflowLaunchConfigurationTabGroup"
+         id="net.sf.dftools.ui.workflow.launchConfigurationTabGroup"
+         type="net.sf.dftools.ui.workflow.launchConfigurationType">
       </launchConfigurationTabGroup>
    </extension>
    <extension
-         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
-            configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
-            icon="icons/workflow.png"
-            id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
+         configTypeID="net.sf.dftools.ui.workflow.launchConfigurationType"
+         icon="icons/workflow.png"
+         id="net.sf.dftools.ui.workflow.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
    </extension>
    <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
+      point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="org.ietr.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
-            id="net.sf.dftools.ui.workflow.launchConfigurationType"
-            modes="run"
-            name="DFTools Workflow"
-            public="true">
+         delegate="org.ietr.dftools.ui.workflow.launch.WorkflowLaunchConfigurationDelegate"
+         id="net.sf.dftools.ui.workflow.launchConfigurationType"
+         modes="run" name="DFTools Workflow" public="true">
       </launchConfigurationType>
    </extension>
-   <extension
-         point="org.ietr.dftools.workflow.loggers">
-      <logger
-            id="net.sf.dftools.ui.workflow.logger"
-            type="org.ietr.dftools.ui.workflow.tools.DFToolsWorkflowLogger">
+   <extension point="org.ietr.dftools.workflow.loggers">
+      <logger id="net.sf.dftools.ui.workflow.logger"
+         type="org.ietr.dftools.ui.workflow.tools.DFToolsWorkflowLogger">
       </logger>
    </extension>
-   <extension
-         point="graphiti.definition">
-      <configuration
-            extension="slam"
-            name="S-LAM Design"
-            refinement="org.ietr.dftools.ui.slam.SlamRefinementPolicy"
-            type="text/xml"
-            validator="org.ietr.dftools.ui.slam.SlamValidator">
-         <graphType
-               name="S-LAM Design">
-            <parameter
-                  name="vendor"
-                  type="java.lang.String">
+   <extension point="graphiti.definition">
+      <configuration extension="slam" name="S-LAM Design"
+         refinement="org.ietr.dftools.ui.slam.SlamRefinementPolicy"
+         type="text/xml"
+         validator="org.ietr.dftools.ui.slam.SlamValidator">
+         <graphType name="S-LAM Design">
+            <parameter name="vendor" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="library"
-                  type="java.lang.String">
+            <parameter name="library" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="name"
-                  type="java.lang.String">
+            <parameter name="name" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="version"
-                  type="java.lang.String">
+            <parameter name="version" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="design parameters"
-                  type="java.util.Map">
+            <parameter name="design parameters"
+               type="java.util.Map">
             </parameter>
          </graphType>
          <import>
-            <xslt
-                  name="xslt/net/sf/dftools/s-lam/input_S-LAM.xslt">
+            <xslt name="xslt/net/sf/dftools/s-lam/input_S-LAM.xslt">
             </xslt>
          </import>
-         <vertexType
-               name="hierConnection">
-            <color
-                  blue="0"
-                  green="0"
-                  red="255">
+         <vertexType name="hierConnection">
+            <color blue="0" green="0" red="255">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
          </vertexType>
-         <vertexType
-               name="Operator">
-            <color
-                  blue="140"
-                  green="81"
-                  red="19">
+         <vertexType name="Operator">
+            <color blue="140" green="81" red="19">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="refinement"
-                  type="java.lang.String">
+            <parameter name="refinement"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="definition"
-                  type="java.lang.String">
+            <parameter name="definition"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
          </vertexType>
-         <edgeType
-               directed="false"
-               name="hierConnection">
-            <color
-                  blue="0"
-                  green="0"
-                  red="255">
+         <edgeType directed="false" name="hierConnection">
+            <color blue="0" green="0" red="255">
             </color>
-            <parameter
-                  name="source port"
-                  type="java.lang.String">
+            <parameter name="source port"
+               type="java.lang.String">
             </parameter>
          </edgeType>
-         <edgeType
-               directed="true"
-               name="ControlLink">
-            <color
-                  blue="41"
-                  green="213"
-                  red="165">
+         <edgeType directed="true" name="ControlLink">
+            <color blue="41" green="213" red="165">
             </color>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="source port"
-                  type="java.lang.String">
+            <parameter name="source port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="target port"
-                  type="java.lang.String">
+            <parameter name="target port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
          </edgeType>
          <export>
             <xslt
-                  name="xslt/net/sf/dftools/s-lam/output_S-LAM.xslt">
+               name="xslt/net/sf/dftools/s-lam/output_S-LAM.xslt">
             </xslt>
          </export>
-         <vertexType
-               name="Mem">
-            <color
-                  blue="173"
-                  green="237"
-                  red="198">
+         <vertexType name="Mem">
+            <color blue="173" green="237" red="198">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="refinement"
-                  type="java.lang.String">
+            <parameter name="refinement"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="definition"
-                  type="java.lang.String">
+            <parameter name="definition"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
-            <parameter
-                  name="memSize"
-                  type="java.lang.String">
+            <parameter name="memSize" type="java.lang.String">
             </parameter>
          </vertexType>
-         <edgeType
-               directed="false"
-               name="undirectedDataLink">
-            <color
-                  blue="0"
-                  green="0"
-                  red="0">
+         <edgeType directed="false" name="undirectedDataLink">
+            <color blue="0" green="0" red="0">
             </color>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="source port"
-                  type="java.lang.String">
+            <parameter name="source port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="target port"
-                  type="java.lang.String">
+            <parameter name="target port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
          </edgeType>
-         <vertexType
-               name="Dma">
-            <color
-                  blue="31"
-                  green="135"
-                  red="70">
+         <vertexType name="Dma">
+            <color blue="31" green="135" red="70">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="refinement"
-                  type="java.lang.String">
+            <parameter name="refinement"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="definition"
-                  type="java.lang.String">
+            <parameter name="definition"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
-            <parameter
-                  name="setupTime"
-                  type="java.lang.String">
+            <parameter name="setupTime"
+               type="java.lang.String">
             </parameter>
          </vertexType>
-         <edgeType
-               directed="true"
-               name="directedDataLink">
-            <color
-                  blue="0"
-                  green="0"
-                  red="0">
+         <edgeType directed="true" name="directedDataLink">
+            <color blue="0" green="0" red="0">
             </color>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="source port"
-                  type="java.lang.String">
+            <parameter name="source port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="target port"
-                  type="java.lang.String">
+            <parameter name="target port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
          </edgeType>
-         <vertexType
-               name="contentionComNode">
-            <color
-                  blue="0"
-                  green="124"
-                  red="249">
+         <vertexType name="contentionComNode">
+            <color blue="0" green="124" red="249">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="speed"
-                  type="java.lang.String">
+            <parameter name="speed" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
-            <parameter
-                  name="refinement"
-                  type="java.lang.String">
+            <parameter name="refinement"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="definition"
-                  type="java.lang.String">
+            <parameter name="definition"
+               type="java.lang.String">
             </parameter>
          </vertexType>
-         <vertexType
-               name="parallelComNode">
-            <color
-                  blue="191"
-                  green="223"
-                  red="255">
+         <vertexType name="parallelComNode">
+            <color blue="191" green="223" red="255">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="speed"
-                  type="java.lang.String">
+            <parameter name="speed" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="refinement"
-                  type="java.lang.String">
+            <parameter name="refinement"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="definition"
-                  type="java.lang.String">
+            <parameter name="definition"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="custom parameters"
-                  type="java.util.Map">
+            <parameter name="custom parameters"
+               type="java.util.Map">
             </parameter>
          </vertexType>
       </configuration>
-      <configuration
-            extension="workflow"
-            name="Workflow"
-            type="text/xml"
-            validator="org.ietr.dftools.ui.workflow.WorkflowValidator">
-         <graphType
-               name="DFTools Workflow">
+      <configuration extension="workflow" name="Workflow"
+         type="text/xml"
+         validator="org.ietr.dftools.ui.workflow.WorkflowValidator">
+         <graphType name="DFTools Workflow">
          </graphType>
          <import>
             <xslt
-                  name="xslt/net/sf/dftools/workflow/input_workflow.xslt">
+               name="xslt/net/sf/dftools/workflow/input_workflow.xslt">
             </xslt>
          </import>
          <export>
             <xslt
-                  name="xslt/net/sf/dftools/workflow/output_workflow.xslt">
+               name="xslt/net/sf/dftools/workflow/output_workflow.xslt">
             </xslt>
          </export>
-         <vertexType
-               name="Scenario source">
-            <color
-                  blue="77"
-                  green="80"
-                  red="192">
+         <vertexType name="Scenario source">
+            <color blue="77" green="80" red="192">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <size
-                  height="30"
-                  width="30">
+            <size height="30" width="30">
             </size>
-            <parameter
-                  default="scenario"
-                  name="id"
-                  type="java.lang.String">
+            <parameter default="scenario" name="id"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  default="org.ietr.preesm.scenario.task"
-                  name="plugin identifier"
-                  type="java.lang.String">
+            <parameter default="org.ietr.preesm.scenario.task"
+               name="plugin identifier" type="java.lang.String">
             </parameter>
          </vertexType>
-         <vertexType
-               name="Task">
-            <color
-                  blue="125"
-                  green="73"
-                  red="31">
+         <vertexType name="Task">
+            <color blue="125" green="73" red="31">
             </color>
-            <shape
-                  type="roundedBox">
+            <shape type="roundedBox">
             </shape>
-            <size
-                  height="40"
-                  width="40">
+            <size height="40" width="40">
             </size>
-            <parameter
-                  name="id"
-                  type="java.lang.String">
+            <parameter name="id" type="java.lang.String">
             </parameter>
-            <parameter
-                  name="variable declaration"
-                  type="java.util.Map">
+            <parameter name="variable declaration"
+               type="java.util.Map">
             </parameter>
-            <parameter
-                  name="plugin identifier"
-                  type="java.lang.String">
+            <parameter name="plugin identifier"
+               type="java.lang.String">
             </parameter>
          </vertexType>
-         <edgeType
-               directed="true"
-               name="Data transfer">
-            <parameter
-                  name="source port"
-                  type="java.lang.String">
+         <edgeType directed="true" name="Data transfer">
+            <parameter name="source port"
+               type="java.lang.String">
             </parameter>
-            <parameter
-                  name="target port"
-                  type="java.lang.String">
+            <parameter name="target port"
+               type="java.lang.String">
             </parameter>
          </edgeType>
       </configuration>
    </extension>
 
 
-   <extension
-         point="org.eclipse.ui.commands">
+   <extension point="org.eclipse.ui.commands">
       <command
-            id="org.ietr.dftools.ui.command.workflow.converter"
-            name="Convert Old Workflow">
+         id="org.ietr.dftools.ui.command.workflow.converter"
+         name="Convert Old Workflow">
       </command>
    </extension>
 
-   <extension
-         point="org.eclipse.ui.handlers">
+   <extension point="org.eclipse.ui.handlers">
       <handler
-            class="org.ietr.dftools.ui.workflow.command.WorkflowConverterHandler"
-            commandId="org.ietr.dftools.ui.command.workflow.converter">
+         class="org.ietr.dftools.ui.workflow.command.WorkflowConverterHandler"
+         commandId="org.ietr.dftools.ui.command.workflow.converter">
       </handler>
    </extension>
 
 
-   <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="popup:org.ietr.preesm.ui.menu1">
-            <command
-                  commandId="org.ietr.dftools.ui.command.workflow.converter"
-                  icon="icons/workflow.png"
-                  label="Convert Old Workflow"
-                  style="push"
-                  tooltip="Convert a Workflow file using the old format into a workflow using the new format.">
-               <visibleWhen
-                     checkEnabled="true">
-                  <with
-                        variable="selection">
-                     <count
-                           value="1">
-                     </count>
-                     <iterate
-                           ifEmpty="false"
-                           operator="and">
-                           <adapt
-                                 type="org.eclipse.core.resources.IResource">
-                       		 <and>
-	                              <test
-	                                    property="org.eclipse.core.resources.extension"
-	                                    value="workflow">
-	                              </test>
-		                           <test
-		                                 forcePluginActivation="false"
-		                                 property="net.sf.dftools.isOldWorkflow">
-		                           </test>
-                     		   </and>
-                           </adapt>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution allPopups="false"
+         locationURI="popup:org.ietr.preesm.ui.menu1">
+         <command
+            commandId="org.ietr.dftools.ui.command.workflow.converter"
+            icon="icons/workflow.png" label="Convert Old Workflow"
+            style="push"
+            tooltip="Convert a Workflow file using the old format into a workflow using the new format.">
+            <visibleWhen checkEnabled="true">
+               <with variable="selection">
+                  <count value="1">
+                  </count>
+                  <iterate ifEmpty="false" operator="and">
+                     <adapt
+                        type="org.eclipse.core.resources.IResource">
+                        <and>
+                           <test
+                              property="org.eclipse.core.resources.extension"
+                              value="workflow">
+                           </test>
+
+                           <test
+                              property="net.sf.dftools.isOldWorkflow"
+                              forcePluginActivation="true" value="false">
+                           </test>
+                        </and>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 

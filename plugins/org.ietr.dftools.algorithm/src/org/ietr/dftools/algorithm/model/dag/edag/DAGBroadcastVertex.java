@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Florian Arrestier <florian.arrestier@insa-rennes.fr> (2018)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -49,6 +50,15 @@ public class DAGBroadcastVertex extends DAGVertex {
 
   /** Key to access to property dag_broadcast_vertex. */
   public static final String DAG_BROADCAST_VERTEX = "dag_broadcast_vertex";
+
+  /** Key to access to property special_type. */
+  public static final String SPECIAL_TYPE = "special_type";
+
+  /** Key to access to property special_type_broadcast. */
+  public static final String SPECIAL_TYPE_BROADCAST = "special_type_broadcast";
+
+  /** Key to access to property special_type_roundbuffer. */
+  public static final String SPECIAL_TYPE_ROUNDBUFFER = "special_type_roundbuffer";
 
   /**
    * Creates a new DAGVertex.

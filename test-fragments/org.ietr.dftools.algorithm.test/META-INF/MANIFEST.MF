@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools algorithm Test
 Bundle-SymbolicName: org.ietr.dftools.algorithm.test
-Bundle-Version: 1.5.0
+Bundle-Version: 1.6.0
 Bundle-Vendor: IETR/INSA Rennes
 Fragment-Host: org.ietr.dftools.algorithm
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

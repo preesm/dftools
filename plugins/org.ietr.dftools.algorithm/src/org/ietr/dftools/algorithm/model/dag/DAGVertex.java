@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Florian Arrestier <florian.arrestier@insa-rennes.fr> (2018)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -37,6 +38,7 @@
  */
 package org.ietr.dftools.algorithm.model.dag;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -67,6 +69,12 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /** Key to access to property sdf_vertex. */
   public static final String SDF_VERTEX = "sdf_vertex";
+
+  /** Key to access to property vertex_sinks. */
+  public static final String SINKS = "vertex_sinks";
+
+  /** Key to access to property vertex_sources. */
+  public static final String SOURCES = "vertex_sources";
 
   static {
     AbstractVertex.public_properties.add(DAGVertex.TIME);
@@ -249,6 +257,62 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
   public void connectionRemoved(final AbstractEdge<?, ?> e) {
     // TODO Auto-generated method stub
 
+  }
+
+  /**
+   * Adds the name of a sink to the vertex. <br>
+   * This is used by the codegen
+   * 
+   * @param sinkName
+   *          the sink name to add
+   */
+  @SuppressWarnings("unchecked")
+  public void addSinkName(final String sinkName) {
+    final ArrayList<String> sinkList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
+    if (sinkList == null) {
+      getPropertyBean().setValue(DAGVertex.SINKS, new ArrayList<String>());
+      addSinkName(sinkName);
+    } else {
+      sinkList.add(sinkName);
+    }
+  }
+
+  /**
+   * Get the sink name list
+   * 
+   * @return list of sink associated with the vertex
+   */
+  @SuppressWarnings("unchecked")
+  public ArrayList<String> getSinkNameList() {
+    return (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
+  }
+
+  /**
+   * Adds the name of a source to the vertex. <br>
+   * This is used by the codegen
+   * 
+   * @param sourceName
+   *          the source name to add
+   */
+  @SuppressWarnings("unchecked")
+  public void addSourceName(final String sourceName) {
+    final ArrayList<String> sourceList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SOURCES);
+    if (sourceList == null) {
+      getPropertyBean().setValue(DAGVertex.SOURCES, new ArrayList<String>());
+      addSourceName(sourceName);
+    } else {
+      sourceList.add(sourceName);
+    }
+  }
+
+  /**
+   * Get the source name list
+   * 
+   * @return list of sources associated with the vertex
+   */
+  @SuppressWarnings("unchecked")
+  public ArrayList<String> getSourceNameList() {
+    return (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SOURCES);
   }
 
 }
