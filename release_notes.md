@@ -20,6 +20,11 @@ DFTools Changelog
 ### Changes
 * Add data size property to SDF edges;
 * Use the data size property when computing DAG edges weight in DAG transformation;
+* Adding vertex end reference to dag init vertices; 
+* Setting the INIT_SIZE property of a DAGInitVertex to the same value of a SDFInitVertex;
+* Copy all properties of an SDFVertex to a DAGVertex;
+* Retrieving Sink and Source port name of SDFVertex to DAGVertex;
+* Using DAGEdge in the aggregate instead of SDFEdge now
 
 ### Bug fix
 

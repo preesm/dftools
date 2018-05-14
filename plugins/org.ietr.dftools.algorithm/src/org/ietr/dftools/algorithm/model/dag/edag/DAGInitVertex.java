@@ -53,6 +53,9 @@ public class DAGInitVertex extends DAGVertex {
   /** The Constant END_REFERENCE. */
   public static final String END_REFERENCE = "END_REFERENCE";
 
+  /** The Constant INIT_SIZE. */
+  public static final String INIT_SIZE = "INIT_SIZE";
+
   /**
    * Creates a new DAGInitVertex.
    */

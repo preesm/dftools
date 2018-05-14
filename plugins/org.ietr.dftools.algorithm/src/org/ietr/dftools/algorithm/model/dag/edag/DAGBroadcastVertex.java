@@ -50,6 +50,15 @@ public class DAGBroadcastVertex extends DAGVertex {
   /** Key to access to property dag_broadcast_vertex. */
   public static final String DAG_BROADCAST_VERTEX = "dag_broadcast_vertex";
 
+  /** Key to access to property special_type. */
+  public static final String SPECIAL_TYPE = "special_type";
+
+  /** Key to access to property special_type_broadcast. */
+  public static final String SPECIAL_TYPE_BROADCAST = "special_type_broadcast";
+
+  /** Key to access to property special_type_roundbuffer. */
+  public static final String SPECIAL_TYPE_ROUNDBUFFER = "special_type_roundbuffer";
+
   /**
    * Creates a new DAGVertex.
    */
