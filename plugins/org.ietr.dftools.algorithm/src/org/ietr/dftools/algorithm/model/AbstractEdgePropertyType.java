@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -86,13 +86,18 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
   }
 
   /**
-   * Gives the Integer representation of this AbstractEdgePropertyType.
+   * Gives the Long representation of this AbstractEdgePropertyType.
    *
-   * @return The Integer value of this AbstractEdgePropertyType
+   * @return The Long value of this AbstractEdgePropertyType
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public abstract int intValue() throws InvalidExpressionException;
+  public abstract long longValue() throws InvalidExpressionException;
+
+  @Deprecated
+  public int intValue() throws InvalidExpressionException {
+    return (int) this.longValue();
+  }
 
   /**
    * Set this AbstractEdgePropertyType value.

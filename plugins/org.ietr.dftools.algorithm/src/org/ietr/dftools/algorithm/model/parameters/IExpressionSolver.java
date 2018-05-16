@@ -51,13 +51,13 @@ public interface IExpressionSolver {
    *          The expression to solve
    * @param caller
    *          The Expression calling the solver
-   * @return The integer value of the solved expression
+   * @return The long value of the solved expression
    * @throws InvalidExpressionException
    *           the invalid expression exception
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public int solveExpression(String expression, Value caller)
+  public long solveExpression(String expression, Value caller)
       throws InvalidExpressionException, NoIntegerValueException;
 
 }

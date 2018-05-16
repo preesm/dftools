@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -50,7 +50,7 @@ public class Parameter {
   private String name;
 
   /** The value. */
-  private Integer value = null;
+  private Long value = null;
 
   /**
    * Builds a parameter with the given name.
@@ -88,7 +88,7 @@ public class Parameter {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public Integer getValue() throws NoIntegerValueException {
+  public Long getValue() throws NoIntegerValueException {
     return this.value;
   }
 
@@ -98,7 +98,7 @@ public class Parameter {
    * @param value
    *          The value of this parameter
    */
-  public void setValue(final Integer value) {
+  public void setValue(final Long value) {
     this.value = value;
   }
 

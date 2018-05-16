@@ -98,7 +98,7 @@ public class ToHSDFVisitorTest {
     final SDFEdge genRec = graph.addEdgeWithInterfaces(gen5, recopie5);
     // genRec.setSourceInterface(times);
     genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue("SIZE")));
-    genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3)));
+    genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3L)));
 
     final SDFEdge genAcq = graph.addEdgeWithInterfaces(gen5, acqData);
     // genAcq.setSourceInterface(times);

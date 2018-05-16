@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -54,7 +54,7 @@ public class JepTransitionTest {
     final double expected = 2 + (((5 * 7) / 1.2) * 7.00002);
     final ExpressionValue value = new ExpressionValue("2 + 5 * 7 / 1.2 * 7.00002");
     try {
-      final int intValue = value.intValue();
+      final long intValue = value.longValue();
       Assert.assertEquals(new Double(expected).intValue(), intValue);
     } catch (final InvalidExpressionException e) {
       e.printStackTrace();

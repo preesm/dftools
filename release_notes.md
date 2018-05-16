@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.7.0
+*2018.05.16*
+
+### New Feature
+
+### Changes
+* Replace most of the integer occurrences with longs;
+
+### Bug fix
+
+
 ## Release version 1.6.0
 *2018.05.14*
 

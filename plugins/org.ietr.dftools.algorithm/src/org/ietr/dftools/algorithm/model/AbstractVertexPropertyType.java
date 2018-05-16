@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -84,11 +84,16 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
   }
 
   /**
-   * Gives the Integer representation of this AbstractVertexPropertyType value.
+   * Gives the Long representation of this AbstractVertexPropertyType value.
    *
-   * @return The Integer value of this AbstractVertexPropertyType
+   * @return The Long value of this AbstractVertexPropertyType
    */
-  public abstract int intValue();
+  public abstract long longValue();
+
+  @Deprecated
+  public int intValue() {
+    return (int) this.longValue();
+  }
 
   /**
    * Set this AbstractVertexPropertyType value.

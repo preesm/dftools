@@ -385,15 +385,20 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public int getNbRepeatAsInteger() throws InvalidExpressionException {
+  public long getNbRepeatAsLong() throws InvalidExpressionException {
     if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
       ((SDFGraph) getBase()).computeVRB();
     }
-    if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Integer) {
-      return (Integer) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
+    if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Number) {
+      return ((Number) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).longValue();
     } else {
       return 1;
     }
+  }
+
+  @Deprecated
+  public int getNbRepeatAsInteger() throws InvalidExpressionException {
+    return (int) this.getNbRepeatAsLong();
   }
 
   /**
@@ -402,8 +407,13 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @param nbRepeat
    *          The number of time to repeat this vertex
    */
-  public void setNbRepeat(final int nbRepeat) {
+  public void setNbRepeat(final long nbRepeat) {
     getPropertyBean().setValue(SDFAbstractVertex.NB_REPEAT, nbRepeat);
+  }
+
+  @Deprecated
+  public void setNbRepeat(final int nbRepeat) {
+    setNbRepeat((long) nbRepeat);
   }
 
   /**
@@ -470,7 +480,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
     if (getArguments() != null) {
       for (final Argument arg : getArguments().values()) {
         try {
-          arg.intValue();
+          arg.longValue();
         } catch (final NoIntegerValueException e) {
           e.printStackTrace();
         }

@@ -68,14 +68,14 @@ public class LoopCreatorVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVe
    */
   public void createLoop(final SDFGraph graph) throws InvalidExpressionException, SDF4JException {
     if (graph.isSchedulable()) {
-      int loopingFactor;
+      long loopingFactor;
       boolean hasUntreatedVertex = true;
       int untreatedIndex = 0;
       final Vector<SDFAbstractVertex> loop = new Vector<>();
       final Vector<SDFAbstractVertex> treated = new Vector<>();
       SDFAbstractVertex newSource = null;
       loop.add((new Vector<>(graph.vertexSet())).get(0));
-      loopingFactor = loop.get(0).getNbRepeatAsInteger();
+      loopingFactor = loop.get(0).getNbRepeatAsLong();
 
       while (!treated.contains(loop.get(0)) || !treated.contains(loop.get(loop.size() - 1)) || hasUntreatedVertex) {
         SDFAbstractVertex newVertex;
@@ -88,29 +88,29 @@ public class LoopCreatorVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVe
         }
         treated.add(newVertex);
 
-        final int vertexVrb = newVertex.getNbRepeatAsInteger();
+        final long vertexVrb = newVertex.getNbRepeatAsLong();
         for (final SDFEdge edge : graph.edgesOf(newVertex)) {
           if ((graph.getEdgeSource(edge) != newVertex)
-              && ((graph.getEdgeSource(edge).getNbRepeatAsInteger() % vertexVrb) == 0)
-              && ((graph.getEdgeSource(edge).getNbRepeatAsInteger() / vertexVrb) < (graph.getEdgeSource(edge)
-                  .getNbRepeatAsInteger()))) {
+              && ((graph.getEdgeSource(edge).getNbRepeatAsLong() % vertexVrb) == 0)
+              && ((graph.getEdgeSource(edge).getNbRepeatAsLong() / vertexVrb) < (graph.getEdgeSource(edge)
+                  .getNbRepeatAsLong()))) {
             if (!loop.contains(graph.getEdgeSource(edge))) {
               loop.insertElementAt(graph.getEdgeSource(edge), loop.indexOf(newVertex));
-              if (graph.getEdgeSource(edge).getNbRepeatAsInteger() < loopingFactor) {
-                loopingFactor = graph.getEdgeSource(edge).getNbRepeatAsInteger();
+              if (graph.getEdgeSource(edge).getNbRepeatAsLong() < loopingFactor) {
+                loopingFactor = graph.getEdgeSource(edge).getNbRepeatAsLong();
               }
             } else {
               loop.remove(graph.getEdgeSource(edge));
               loop.insertElementAt(graph.getEdgeSource(edge), loop.indexOf(newVertex));
             }
           } else if ((graph.getEdgeTarget(edge) != newVertex)
-              && ((graph.getEdgeTarget(edge).getNbRepeatAsInteger() % vertexVrb) == 0)
-              && ((graph.getEdgeTarget(edge).getNbRepeatAsInteger() / vertexVrb) < graph.getEdgeTarget(edge)
-                  .getNbRepeatAsInteger())) {
+              && ((graph.getEdgeTarget(edge).getNbRepeatAsLong() % vertexVrb) == 0)
+              && ((graph.getEdgeTarget(edge).getNbRepeatAsLong() / vertexVrb) < graph.getEdgeTarget(edge)
+                  .getNbRepeatAsLong())) {
             if (!loop.contains(graph.getEdgeTarget(edge))) {
               loop.insertElementAt(graph.getEdgeTarget(edge), loop.indexOf(newVertex) + 1);
-              if (graph.getEdgeTarget(edge).getNbRepeatAsInteger() < loopingFactor) {
-                loopingFactor = graph.getEdgeTarget(edge).getNbRepeatAsInteger();
+              if (graph.getEdgeTarget(edge).getNbRepeatAsLong() < loopingFactor) {
+                loopingFactor = graph.getEdgeTarget(edge).getNbRepeatAsLong();
               }
             }
           } else if (graph.getEdgeTarget(edge) != newVertex) {
@@ -123,7 +123,7 @@ public class LoopCreatorVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVe
           treated.add(loop.get(0));
           if (!treated.contains(newSource)) {
             loop.setElementAt(newSource, 0);
-            loopingFactor = loop.get(0).getNbRepeatAsInteger();
+            loopingFactor = loop.get(0).getNbRepeatAsLong();
           }
           newSource = null;
         }
@@ -139,7 +139,7 @@ public class LoopCreatorVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVe
       if (loop.size() > 1) {
         final SDFEdge loopEdge = graph.addEdge(loop.get(loop.size() - 1), loop.get(0));
         loopEdge.setCons(new SDFIntEdgePropertyType(
-            loop.get(loop.size() - 1).getNbRepeatAsInteger() / loop.get(0).getNbRepeatAsInteger()));
+            loop.get(loop.size() - 1).getNbRepeatAsLong() / loop.get(0).getNbRepeatAsLong()));
         loopEdge.setProd(new SDFIntEdgePropertyType(1));
         loopEdge.setDelay(new SDFIntEdgePropertyType(1));
         System.out.println("loop is :" + loop + " with looping factor : " + loopingFactor);

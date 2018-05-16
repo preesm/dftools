@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -38,6 +38,7 @@ package org.ietr.dftools.algorithm;
 
 import java.util.List;
 import java.util.Vector;
+import org.apache.commons.math3.util.ArithmeticUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -63,8 +64,8 @@ public class Rational {
     } else if (b.zero()) {
       return new Rational(a.num, a.denum);
     }
-    final int denumCom = SDFMath.lcm(a.denum, b.denum);
-    final int num = (a.num * (denumCom / a.denum)) + (b.num * (denumCom / b.denum));
+    final long denumCom = ArithmeticUtils.lcm(a.denum, b.denum);
+    final long num = (a.num * (denumCom / a.denum)) + (b.num * (denumCom / b.denum));
     final Rational res = new Rational(num, denumCom);
     return res;
   }
@@ -92,8 +93,8 @@ public class Rational {
    *          the b
    * @return the gcd of a and b
    */
-  public static int gcd(final int a, final Rational b) {
-    return SDFMath.lcm(a, b.denum);
+  public static long gcd(final long a, final Rational b) {
+    return ArithmeticUtils.lcm(a, b.denum);
   }
 
   /**
@@ -103,8 +104,8 @@ public class Rational {
    *          the fracs
    * @return the gcd of the given set of rational
    */
-  public static int gcd(final Iterable<Rational> fracs) {
-    int gcd = 1;
+  public static long gcd(final Iterable<Rational> fracs) {
+    long gcd = 1;
     for (final Rational f : fracs) {
       gcd = Rational.gcd(gcd, f.abs());
     }
@@ -120,8 +121,8 @@ public class Rational {
    *          the b
    * @return the gcd of a and b
    */
-  public static int gcd(final Rational a, final Rational b) {
-    return SDFMath.lcm(a.denum, b.denum);
+  public static long gcd(final Rational a, final Rational b) {
+    return ArithmeticUtils.lcm(a.denum, b.denum);
   }
 
   /**
@@ -152,8 +153,8 @@ public class Rational {
    * @return a less b
    */
   public static Rational sub(final Rational a, final Rational b) {
-    final int denumCom = SDFMath.lcm(a.denum, b.denum);
-    final int num = (a.num * (denumCom / a.denum)) - (b.num * (denumCom / b.denum));
+    final long denumCom = ArithmeticUtils.lcm(a.denum, b.denum);
+    final long num = (a.num * (denumCom / a.denum)) - (b.num * (denumCom / b.denum));
     final Rational res = new Rational(num, denumCom);
     return res;
   }
@@ -165,23 +166,23 @@ public class Rational {
    *          the fracs
    * @return the natural representation of a set of rational
    */
-  public static List<Integer> toNatural(final Iterable<Rational> fracs) {
+  public static List<Long> toNatural(final Iterable<Rational> fracs) {
     final long gcd = new Long(Rational.gcd(fracs));
-    final Vector<Integer> result = new Vector<>();
+    final Vector<Long> result = new Vector<>();
     for (final Rational f : fracs) {
       final Rational absRat = f.abs();
       final long longNum = new Long(absRat.num);
       final long longRes = (longNum * gcd) / new Long(absRat.denum);
-      result.add(((Long) longRes).intValue());
+      result.add((Long) longRes);
     }
     return result;
   }
 
   /** The denum. */
-  private int denum;
+  private long denum;
 
   /** The num. */
-  private int num;
+  private long num;
 
   /**
    * Construct a new zero rational.
@@ -199,7 +200,7 @@ public class Rational {
    * @param denum
    *          the denum
    */
-  public Rational(final int num, final int denum) {
+  public Rational(final long num, final long denum) {
     this.num = num;
     this.denum = denum;
   }
@@ -239,7 +240,7 @@ public class Rational {
    *
    * @return the denuminator
    */
-  public int getDenum() {
+  public long getDenum() {
     return this.denum;
   }
 
@@ -248,7 +249,7 @@ public class Rational {
    *
    * @return the numerator
    */
-  public int getNum() {
+  public long getNum() {
     return this.num;
   }
 
@@ -268,7 +269,7 @@ public class Rational {
    * Reduc.
    */
   private void reduc() {
-    final int pgcd = SDFMath.gcd(Math.abs(this.num), Math.abs(this.denum));
+    final long pgcd = ArithmeticUtils.gcd(Math.abs(this.num), Math.abs(this.denum));
     this.num = this.num / pgcd;
     this.denum = this.denum / pgcd;
   }

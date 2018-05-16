@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -52,7 +52,7 @@ public class ExpressionValue implements Value {
   private IExpressionSolver solver;
 
   /** The value. */
-  private Integer value;
+  private Long value;
 
   /** The expression. */
   private String expression;
@@ -69,16 +69,16 @@ public class ExpressionValue implements Value {
   }
 
   /**
-   * Gives the integer value of this expression.
+   * Gives the long value of this expression.
    *
-   * @return The integer value of the expression
+   * @return The long value of the expression
    * @throws InvalidExpressionException
    *           When expression can't be solved
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
   @Override
-  public int intValue() throws InvalidExpressionException, NoIntegerValueException {
+  public long longValue() throws InvalidExpressionException, NoIntegerValueException {
     if (this.value == null) {
       if (this.solver != null) {
         this.value = this.solver.solveExpression(this.expression, this);
@@ -89,7 +89,7 @@ public class ExpressionValue implements Value {
           final Node mainExpressionNode = jep.parse(this.expression);
           result = jep.evaluate(mainExpressionNode);
           if (result instanceof Number) {
-            this.value = ((Number) result).intValue();
+            this.value = ((Number) result).longValue();
           } else {
             throw (new InvalidExpressionException("Not a numeric expression"));
           }

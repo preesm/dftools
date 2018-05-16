@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -44,7 +44,7 @@ import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
  *
  * @author jpiat
  */
-public class DAGVertexPropertyType extends AbstractVertexPropertyType<Integer> {
+public class DAGVertexPropertyType extends AbstractVertexPropertyType<Long> {
 
   /**
    * Creates a new empty DAGVertexPropertyType.
@@ -59,7 +59,7 @@ public class DAGVertexPropertyType extends AbstractVertexPropertyType<Integer> {
    * @param val
    *          The value to set for this DAGVertexPropertyType
    */
-  public DAGVertexPropertyType(final int val) {
+  public DAGVertexPropertyType(final long val) {
     this.value = val;
   }
 
@@ -69,7 +69,7 @@ public class DAGVertexPropertyType extends AbstractVertexPropertyType<Integer> {
    * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
    */
   @Override
-  public int intValue() {
+  public long longValue() {
     return this.value;
   }
 
@@ -89,7 +89,7 @@ public class DAGVertexPropertyType extends AbstractVertexPropertyType<Integer> {
    * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
    */
   @Override
-  public AbstractVertexPropertyType<Integer> clone() {
+  public AbstractVertexPropertyType<Long> clone() {
     // TODO Auto-generated method stub
     return null;
   }

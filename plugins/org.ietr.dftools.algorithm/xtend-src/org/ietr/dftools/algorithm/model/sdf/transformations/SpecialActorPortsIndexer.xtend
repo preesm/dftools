@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2015 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2015 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2015)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -118,7 +118,7 @@ class SpecialActorPortsIndexer {
 				if (!alreadyIndexed) {
 					// Get ordered Fifos of special actors
 					var isSource = true;
-					var modulo = 0;
+					var modulo = 0L;
 					val fifos = switch (actor) {
 						SDFJoinVertex: {
 							isSource = false
@@ -126,21 +126,21 @@ class SpecialActorPortsIndexer {
 						}
 						SDFRoundBufferVertex: {
 							isSource = false
-							modulo = graph.outgoingEdgesOf(actor).get(0).prod.intValue
+							modulo = graph.outgoingEdgesOf(actor).get(0).prod.longValue
 							actor.incomingConnections
 						}
 						SDFForkVertex:
 							actor.outgoingConnections
 						SDFBroadcastVertex: {
-							modulo = graph.incomingEdgesOf(actor).get(0).cons.intValue
+							modulo = graph.incomingEdgesOf(actor).get(0).cons.longValue
 							actor.outgoingConnections
 						}
 						default:
 							newArrayList
 					}
 
-					var indexX = 0
-					var indexY = 0
+					var indexX = 0L
+					var indexY = 0L
 
 					for (iface : actor.interfaces) {
 						for (fifo : fifos) {
@@ -148,10 +148,10 @@ class SpecialActorPortsIndexer {
 								val indexString = '''«IF modulo>0»«indexY»_«ENDIF»«indexX»'''
 								if (isSource) {
 									fifo.sourceInterface.name = '''«fifo.sourceInterface.name»_«indexString»'''
-									indexY += fifo.prod.intValue
+									indexY += fifo.prod.longValue
 								} else {
 									fifo.targetInterface.name = '''«fifo.targetInterface.name»_«indexString»'''
-									indexY += fifo.cons.intValue
+									indexY += fifo.cons.longValue
 								}
 								indexX = if(modulo > 0) indexY % modulo else indexY
 							}
@@ -346,14 +346,14 @@ class SpecialActorPortsIndexer {
 					m1.find
 
 					// Retrieve the indexes
-					val yy0 = if(m0.group(groupYY) !== null) Integer.decode(m0.group(groupYY)) else 0
-					val yy1 = if(m1.group(groupYY) !== null) Integer.decode(m1.group(groupYY)) else 0
-					val xx0 = Integer.decode(m0.group(groupXX))
-					val xx1 = Integer.decode(m1.group(groupXX))
+					val yy0 = if(m0.group(groupYY) !== null) Long.parseLong(m0.group(groupYY)) else 0L
+					val yy1 = if(m1.group(groupYY) !== null) Long.parseLong(m1.group(groupYY)) else 0L
+					val xx0 = Long.parseLong(m0.group(groupXX))
+					val xx1 = Long.parseLong(m1.group(groupXX))
 
 					// Sort according to yy indexes if they are different,
 					// and according to xx indexes otherwise
-					if(yy0 != yy1) yy0 - yy1 else xx0 - xx1
+					if(yy0 != yy1) (yy0 - yy1) as int else (xx0 - xx1) as int
 				}
 			]
 		}

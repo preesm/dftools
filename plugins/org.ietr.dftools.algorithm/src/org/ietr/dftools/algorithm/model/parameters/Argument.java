@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -74,8 +74,8 @@ public class Argument {
   public Argument(final String name, final String value) {
     this.name = name;
     try {
-      final int integerValue = Integer.decode(value);
-      this.value = new ConstantValue(integerValue);
+      final long ongValue = Long.parseLong(value);
+      this.value = new ConstantValue(ongValue);
     } catch (final NumberFormatException e) {
       this.value = new ExpressionValue(value);
     }
@@ -132,8 +132,8 @@ public class Argument {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public int intValue() throws InvalidExpressionException, NoIntegerValueException {
-    final int val = this.value.intValue();
+  public long longValue() {
+    final long val = this.value.longValue();
     // kdesnos: Removed this line because it was
     // removing information from the graph before
     // flattening. Putting this line back implies
@@ -141,6 +141,11 @@ public class Argument {
     // value very early in graph transformations
     // this.value = new ConstantValue(val);
     return val;
+  }
+
+  @Deprecated
+  public int intValue() {
+    return (int) this.longValue();
   }
 
   /**
@@ -169,8 +174,8 @@ public class Argument {
    */
   public void setValue(final String value) {
     try {
-      final int integerValue = Integer.decode(value);
-      this.value = new ConstantValue(integerValue);
+      final long longValue = Long.parseLong(value);
+      this.value = new ConstantValue(longValue);
     } catch (final NumberFormatException e) {
       this.value = new ExpressionValue(value);
     }

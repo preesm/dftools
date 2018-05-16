@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -72,7 +72,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public int intValue() {
+  public long longValue() {
     return 0;
   }
 
