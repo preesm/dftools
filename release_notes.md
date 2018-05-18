@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.7.1
+*2018.05.18*
+
+### New Feature
+
+### Changes
+* Adding persistence level to DAGInit properties;
+
+### Bug fix
+
+
 ## Release version 1.7.0
 *2018.05.16*
 

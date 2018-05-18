@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI Test
 Bundle-SymbolicName: org.ietr.dftools.ui.test
-Bundle-Version: 1.7.0
+Bundle-Version: 1.7.1
 Bundle-Vendor: IETR/INSA Rennes
 Fragment-Host: org.ietr.dftools.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

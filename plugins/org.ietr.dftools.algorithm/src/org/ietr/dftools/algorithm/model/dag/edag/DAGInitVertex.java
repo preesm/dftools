@@ -51,6 +51,9 @@ public class DAGInitVertex extends DAGVertex {
   /** Key to access to property dag_init_vertex. */
   public static final String DAG_INIT_VERTEX = "dag_init_vertex";
 
+  /** Persistence level of a delay */
+  public static final String PERSISTENCE_LEVEL = "persistence_level";
+
   /** The Constant END_REFERENCE. */
   public static final String END_REFERENCE = "END_REFERENCE";
 
