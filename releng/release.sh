@@ -78,9 +78,12 @@ cd $DIR
 git stash -u
 
 #make sure this is last version from git for dev/main branches
-git checkout -b tmpBranch
+git checkout -b tmpBranch$NEW_VERSION
 git fetch --all -p
-git branch -D $DEV_BRANCH $MAIN_BRANCH
+set +e
+git branch -D $DEV_BRANCH
+git branch -D $MAIN_BRANCH
+set -e
 
 git checkout $DEV_BRANCH
 git reset --hard
