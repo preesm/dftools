@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Adding persistence level to DAGInit properties;
 
 ### Bug fix
 
