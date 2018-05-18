@@ -76,9 +76,16 @@ cd $DIR
 
 #move to dev branch and clean repo
 git stash -u
+
+#make sure this is last version from git for dev/main branches
+git checkout -b tmpBranch
+git fetch --all -p
+git branch -D $DEV_BRANCH $MAIN_BRANCH
+
 git checkout $DEV_BRANCH
 git reset --hard
 git clean -xdf
+
 
 #update version in code and stash changes
 ./releng/update-version.sh $NEW_VERSION
