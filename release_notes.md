@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Force Graphiti to 1.7.0+;
 
 ### Bug fix
 
