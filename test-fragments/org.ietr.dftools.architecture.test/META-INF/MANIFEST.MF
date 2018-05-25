@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools S-LAM Test
 Bundle-SymbolicName: org.ietr.dftools.architecture.test
-Bundle-Version: 1.7.1
+Bundle-Version: 1.7.2
 Bundle-Vendor: IETR/INSA Rennes
 Fragment-Host: org.ietr.dftools.architecture
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

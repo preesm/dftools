@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.7.2
+*2018.05.25*
+
+### New Feature
+
+### Changes
+* Force Graphiti to 1.7.0+;
+
+### Bug fix
+
+
 ## Release version 1.7.1
 *2018.05.18*
 
