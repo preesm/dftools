@@ -7,6 +7,8 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Fix manifest files;
+* Fix warnings;
 
 ### Bug fix
 
