@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools S-LAM
+Automatic-Module-Name: org.ietr.dftools.architecture
 Bundle-SymbolicName: org.ietr.dftools.architecture;singleton:=true
 Bundle-Version: 1.7.2.qualifier
 Bundle-ClassPath: .

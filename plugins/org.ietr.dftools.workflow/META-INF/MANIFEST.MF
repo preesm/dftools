@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools Workflow
+Automatic-Module-Name: org.ietr.dftools.workflow
 Bundle-SymbolicName: org.ietr.dftools.workflow;singleton:=true
 Bundle-Version: 1.7.2.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

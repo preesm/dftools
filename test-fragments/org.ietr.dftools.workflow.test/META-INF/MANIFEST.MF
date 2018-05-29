@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DFTools Workflow Test
+Automatic-Module-Name: org.ietr.dftools.workflow.test
 Bundle-SymbolicName: org.ietr.dftools.workflow.test
 Bundle-Version: 1.7.2.qualifier
 Bundle-Vendor: IETR/INSA Rennes
