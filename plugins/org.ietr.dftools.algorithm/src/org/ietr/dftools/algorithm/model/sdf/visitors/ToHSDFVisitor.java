@@ -530,7 +530,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
             for (long i = 0; i < vertex.getNbRepeatAsLong(); i++) {
               final SDFAbstractVertex copy = vertex.clone();
               copy.setName(copy.getName() + "_" + i);
-              copy.setNbRepeat(1);
+              copy.setNbRepeat(1L);
               output.addVertex(copy);
               copies.add(copy);
             }

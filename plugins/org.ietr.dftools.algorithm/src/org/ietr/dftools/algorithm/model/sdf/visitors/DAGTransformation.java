@@ -202,7 +202,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     final SDFSinkInterfaceVertex sinkInit = new SDFSinkInterfaceVertex();
     sinkInit.setName(loop.getSourceInterface().getName());
     initVertex.addSink(sinkInit);
-    initVertex.setNbRepeat(1);
+    initVertex.setNbRepeat(1L);
     graph.addVertex(initVertex);
 
     final SDFEndVertex endVertex = new SDFEndVertex();
@@ -210,7 +210,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     final SDFSourceInterfaceVertex sourceEnd = new SDFSourceInterfaceVertex();
     sourceEnd.setName(loop.getTargetInterface().getName());
     endVertex.addSource(sourceEnd);
-    endVertex.setNbRepeat(1);
+    endVertex.setNbRepeat(1L);
     initVertex.setEndReference(endVertex);
     initVertex.setInitSize(loop.getDelay().longValue());
     endVertex.setEndReference(initVertex);
@@ -410,7 +410,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       final SDFSinkInterfaceVertex sinkInit = new SDFSinkInterfaceVertex();
       sinkInit.setName("init_out");
       initVertex.addSink(sinkInit);
-      initVertex.setNbRepeat(1);
+      initVertex.setNbRepeat(1L);
       graph.addVertex(initVertex);
 
       final SDFEndVertex endVertex = new SDFEndVertex();
@@ -418,7 +418,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       final SDFSourceInterfaceVertex sourceEnd = new SDFSourceInterfaceVertex();
       sourceEnd.setName("end_in");
       endVertex.addSource(sourceEnd);
-      endVertex.setNbRepeat(1);
+      endVertex.setNbRepeat(1L);
       initVertex.setEndReference(endVertex);
       initVertex.setInitSize(loop.getDelay().longValue());
       endVertex.setEndReference(initVertex);
@@ -454,7 +454,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
           final SDFSinkInterfaceVertex sinkInit = new SDFSinkInterfaceVertex();
           sinkInit.setName("init_out");
           initVertex.addSink(sinkInit);
-          initVertex.setNbRepeat(1);
+          initVertex.setNbRepeat(1L);
           graph.addVertex(initVertex);
 
           final SDFEndVertex endVertex = new SDFEndVertex();
@@ -462,7 +462,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
           final SDFSourceInterfaceVertex sourceEnd = new SDFSourceInterfaceVertex();
           sourceEnd.setName("end_in");
           endVertex.addSource(sourceEnd);
-          endVertex.setNbRepeat(1);
+          endVertex.setNbRepeat(1L);
           initVertex.setEndReference(endVertex);
           initVertex.setInitSize(edge.getDelay().longValue());
           endVertex.setEndReference(initVertex);
