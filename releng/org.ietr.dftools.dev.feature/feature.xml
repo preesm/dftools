@@ -624,8 +624,8 @@ Version 1.0 dated 2006-09-05.]]>
       <import feature="org.eclipse.cdt"/>
 
       <!-- IETR dependencies -->
-      <import feature="org.ietr.externaldeps.aio.deps" version="3.0.0" match="greaterOrEqual"/>
-      <import feature="org.ietr.graphiti.feature" version="1.7.0" match="greaterOrEqual"/>
+      <import feature="org.ietr.externaldeps.aio.deps" version="3.2.0" match="compatible"/>
+      <import feature="org.ietr.graphiti.feature" version="1.8.1" match="compatible"/>
       <!--
 		If building along with Graphiti source (without DFTools Meta Dev Feature),
 		the following feature is not available. That is because the source feature
