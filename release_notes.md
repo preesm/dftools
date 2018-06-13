@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Enable travis_retry when fetching dependencies;
 
 ### Bug fix
 
