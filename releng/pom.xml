@@ -43,7 +43,7 @@
   <parent>
     <groupId>org.ietr.dftools</groupId>
     <artifactId>org.ietr.dftools.parent</artifactId>
-    <version>1.7.3</version>
+    <version>1.7.4</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -58,7 +58,7 @@
     <repository>
       <id>Checkstyle</id>
       <layout>p2</layout>
-      <url>http://eclipse-cs.sf.net/update/</url>
+      <url>https://dl.bintray.com/eclipse-cs/eclipse-cs/8.10.0/</url>
     </repository>
     <repository>
       <id>Sonarlint</id>

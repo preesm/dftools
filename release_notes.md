@@ -1,6 +1,20 @@
 DFTools Changelog
 =================
 
+## Release version 1.7.4
+*2018.06.13*
+
+### New Feature
+
+### Changes
+* Enable travis_retry when fetching dependencies;
+* Force externaldeps to [3.2.0,4.0.0);
+* Force Graphiti to [1.8.1,2.0.0);
+* Fix checkstyle configuration;
+
+### Bug fix
+
+
 ## Release version 1.7.3
 *2018.06.01*
 
