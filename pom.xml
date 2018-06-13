@@ -75,7 +75,7 @@
     <tycho-version>1.0.0</tycho-version>
     <findbugs-version>3.0.4</findbugs-version>
     <sonar-version>3.3.0.603</sonar-version>
-    <checkstyle-version>8.5</checkstyle-version>
+    <checkstyle-version>8.10</checkstyle-version>
     <preesm.coding.policy.version>1.1.0</preesm.coding.policy.version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -274,7 +274,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.17</version>
+        <version>3.0.0</version>
         <configuration>
           <configLocation>/VAADER_checkstyle.xml</configLocation>
           <failsOnError>true</failsOnError>
