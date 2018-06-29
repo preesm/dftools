@@ -41,7 +41,7 @@
 <feature
       id="org.ietr.dftools.feature"
       label="DFTools"
-      version="1.7.4"
+      version="1.8.0"
       provider-name="IETR/INSA Rennes">
 
    <description url="http://preesm.org/">
@@ -574,8 +574,8 @@ Version 1.0 dated 2006-09-05.]]>
    <!-- The following section tells where to lookup missing imported features -->
    <url>
       <!-- Eclipse main repos -->
-      <discovery label="Oxygen" url="http://mirror.ibcp.fr/pub/eclipse/releases/oxygen/"/>
-      <discovery label="Oxygen Updates" url="http://mirror.ibcp.fr/pub/eclipse/eclipse/updates/4.7"/>
+      <discovery label="Photon" url="http://mirror.ibcp.fr/pub/eclipse/releases/photon/"/>
+      <discovery label="Photon Updates" url="http://mirror.ibcp.fr/pub/eclipse/eclipse/updates/4.8"/>
 
       <!-- TMF Repo for latest xtend -->
       <discovery label="TMF Releases" url="http://mirror.ibcp.fr/pub/eclipse/modeling/tmf/xtext/updates/releases/"/>
@@ -585,7 +585,7 @@ Version 1.0 dated 2006-09-05.]]>
    </url>
 
    <requires>
-      <import feature="org.eclipse.xtext.xbase.lib" version="2.11" match="greaterOrEqual"/>
+      <import feature="org.eclipse.xtext.xbase.lib" version="2.14" match="greaterOrEqual"/>
 
       <!-- TM Terminal (from Eclipse repos) -->
       <import feature="org.eclipse.tm.terminal.feature"/>
@@ -598,35 +598,35 @@ Version 1.0 dated 2006-09-05.]]>
          id="org.ietr.dftools.algorithm"
          download-size="0"
          install-size="0"
-         version="1.7.4"
+         version="1.8.0"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.architecture"
          download-size="0"
          install-size="0"
-         version="1.7.4"
+         version="1.8.0"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.architecture.ui"
          download-size="0"
          install-size="0"
-         version="1.7.4"
+         version="1.8.0"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.ui"
          download-size="0"
          install-size="0"
-         version="1.7.4"
+         version="1.8.0"
          unpack="false"/>
 
    <plugin
          id="org.ietr.dftools.workflow"
          download-size="0"
          install-size="0"
-         version="1.7.4"
+         version="1.8.0"
          unpack="false"/>
 
 </feature>

@@ -1,6 +1,19 @@
 DFTools Changelog
 =================
 
+## Release version 1.8.0
+*2018.06.29*
+
+### New Feature
+
+### Changes
+* Update to Eclipse Photon;
+* Force Graphiti to [1.9.0,2.0.0);
+* Update Xtend/Xtext to 2.14.0+;
+
+### Bug fix
+
+
 ## Release version 1.7.4
 *2018.06.13*
 
