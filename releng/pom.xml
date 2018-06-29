@@ -52,7 +52,7 @@
     <repository>
       <id>RCPTT</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/rcptt/release/2.2.0/repository/</url>
+      <url>http://download.eclipse.org/rcptt/release/2.3.0/repository/</url>
     </repository>
 
     <repository>
@@ -74,7 +74,7 @@
     <repository>
       <id>Checkstyle M2E extension</id>
       <layout>p2</layout>
-      <url>http://m2e-code-quality.github.io/m2e-code-quality/site/latest/</url>
+      <url>https://preesm.github.io/m2e-code-quality/site/latest/</url>
     </repository>
     <repository>
       <id>Settings M2E extension</id>
