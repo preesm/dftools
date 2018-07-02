@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Fix maven dependencies;
 
 ### Bug fix
 
