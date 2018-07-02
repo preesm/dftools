@@ -72,7 +72,7 @@
 
   <properties>
     <jacoco-version>0.7.9</jacoco-version>
-    <tycho-version>1.0.0</tycho-version>
+    <tycho-version>1.2.0</tycho-version>
     <findbugs-version>3.0.4</findbugs-version>
     <sonar-version>3.3.0.603</sonar-version>
     <checkstyle-version>8.10</checkstyle-version>
@@ -184,7 +184,7 @@
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-compiler-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>${tycho-version}</version>
         <configuration>
           <useProjectSettings>false</useProjectSettings>
         </configuration>
