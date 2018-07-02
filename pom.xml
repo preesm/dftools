@@ -39,7 +39,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ietr.dftools</groupId>
   <artifactId>org.ietr.dftools.parent</artifactId>
-  <version>1.8.0</version>
+  <version>1.8.1</version>
   <packaging>pom</packaging>
 
   <!-- More Project Information -->
@@ -72,7 +72,7 @@
 
   <properties>
     <jacoco-version>0.7.9</jacoco-version>
-    <tycho-version>1.0.0</tycho-version>
+    <tycho-version>1.2.0</tycho-version>
     <findbugs-version>3.0.4</findbugs-version>
     <sonar-version>3.3.0.603</sonar-version>
     <checkstyle-version>8.10</checkstyle-version>
@@ -184,7 +184,7 @@
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-compiler-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>${tycho-version}</version>
         <configuration>
           <useProjectSettings>false</useProjectSettings>
         </configuration>
@@ -250,6 +250,11 @@
             <groupId>org.eclipse.platform</groupId>
             <artifactId>org.eclipse.equinox.common</artifactId>
             <version>3.10.0</version>
+          </dependency>
+          <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>24.1-jre</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -393,6 +398,7 @@
       <artifactId>org.eclipse.equinox.common</artifactId>
       <version>3.10.0</version>
     </dependency>
+
     <dependency>
       <!-- Override checkstyle version -->
       <groupId>com.puppycrawl.tools</groupId>

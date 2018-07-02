@@ -1,6 +1,17 @@
 DFTools Changelog
 =================
 
+## Release version 1.8.1
+*2018.07.02*
+
+### New Feature
+
+### Changes
+* Fix maven dependencies;
+
+### Bug fix
+
+
 ## Release version 1.8.0
 *2018.06.29*
 
