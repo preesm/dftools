@@ -7,6 +7,8 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Fix maven dependencies;
+* Relax offline constraint in build process;
 
 ### Bug fix
 
