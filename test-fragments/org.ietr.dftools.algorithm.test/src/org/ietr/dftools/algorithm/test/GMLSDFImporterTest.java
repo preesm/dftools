@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -46,8 +46,8 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -74,8 +74,8 @@ public class GMLSDFImporterTest {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assert.assertNotNull(readAllLines);
-    Assert.assertNotEquals(0, readAllLines.size());
+    Assertions.assertNotNull(readAllLines);
+    Assertions.assertNotEquals(0, readAllLines.size());
 
   }
 
@@ -100,8 +100,8 @@ public class GMLSDFImporterTest {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assert.assertNotNull(readAllLines);
-    Assert.assertNotEquals(0, readAllLines.size());
+    Assertions.assertNotNull(readAllLines);
+    Assertions.assertNotEquals(0, readAllLines.size());
 
   }
 

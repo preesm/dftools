@@ -1,6 +1,19 @@
 DFTools Changelog
 =================
 
+## Release version 1.8.2
+*2018.07.05*
+
+### New Feature
+
+### Changes
+* Fix maven dependencies;
+* Relax offline constraint in build process;
+* Setup Java 10 compatibility;
+
+### Bug fix
+
+
 ## Release version 1.8.1
 *2018.07.02*
 

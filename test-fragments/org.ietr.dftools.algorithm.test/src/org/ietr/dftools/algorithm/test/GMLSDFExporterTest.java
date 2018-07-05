@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -52,8 +52,8 @@ import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -128,8 +128,8 @@ public class GMLSDFExporterTest {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assert.assertNotNull(readAllLines);
-    Assert.assertNotEquals(0, readAllLines.size());
+    Assertions.assertNotNull(readAllLines);
+    Assertions.assertNotEquals(0, readAllLines.size());
   }
 
 }

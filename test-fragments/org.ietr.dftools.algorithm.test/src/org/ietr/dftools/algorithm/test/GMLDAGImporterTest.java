@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -45,8 +45,8 @@ import org.ietr.dftools.algorithm.exporter.Key;
 import org.ietr.dftools.algorithm.importer.GMLDAGImporter;
 import org.ietr.dftools.algorithm.importer.InvalidModelException;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -78,8 +78,8 @@ public class GMLDAGImporterTest {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assert.assertNotNull(readAllLines);
-    Assert.assertNotEquals(0, readAllLines.size());
+    Assertions.assertNotNull(readAllLines);
+    Assertions.assertNotEquals(0, readAllLines.size());
   }
 
 }

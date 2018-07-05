@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -36,8 +36,8 @@ package org.ietr.dftools.algorithm.test;
 
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -78,7 +78,7 @@ public class PropertiesTest {
     toto.getPropertyBean().setValue(PropertiesTest.MY_PROPERTY_CONSTANT, input);
 
     final Integer value = toto.getPropertyBean().getValue(PropertiesTest.MY_PROPERTY_CONSTANT, Integer.class);
-    Assert.assertEquals(input, value.intValue());
+    Assertions.assertEquals(input, value.intValue());
 
   }
 
