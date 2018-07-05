@@ -47,8 +47,8 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.visitors.DAGTransformation;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.alg.CycleDetector;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -88,6 +88,6 @@ public class DAGTransformationTest {
     final DirectedAcyclicGraph dag = dageur.getOutput();
     final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
     System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
-    Assert.assertFalse(detectCycles.detectCycles());
+    Assertions.assertFalse(detectCycles.detectCycles());
   }
 }
