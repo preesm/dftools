@@ -39,8 +39,8 @@ import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -56,17 +56,17 @@ public class SDFRandomGraphTest {
     final int nbVertex = 20;
 
     final SDFRandomGraph sdfRandomGraph = new SDFRandomGraph();
-    Assert.assertNotNull(sdfRandomGraph);
+    Assertions.assertNotNull(sdfRandomGraph);
     try {
       final SDFGraph createRandomGraph = sdfRandomGraph.createRandomGraph(nbVertex, 1, 5, 1, 5, 1, 12);
-      Assert.assertNotNull(createRandomGraph);
+      Assertions.assertNotNull(createRandomGraph);
       final Set<SDFAbstractVertex> allVertices = createRandomGraph.getAllVertices();
-      Assert.assertNotNull(allVertices);
+      Assertions.assertNotNull(allVertices);
       final int size = allVertices.size();
-      Assert.assertEquals(nbVertex, size);
+      Assertions.assertEquals(nbVertex, size);
 
     } catch (final SDF4JException e) {
-      Assert.fail();
+      Assertions.fail("Should not fail with SDF4J, but catch exception " + e.getMessage());
     }
   }
 

@@ -50,8 +50,8 @@ import org.ietr.dftools.architecture.slam.Design;
 import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.process.SlamFlattener;
 import org.ietr.dftools.architecture.slam.serialize.IPXACTResourceFactoryImpl;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  */
@@ -84,8 +84,8 @@ public class SlamTester2 {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assert.assertNotNull(readAllLines);
-    Assert.assertNotEquals(0, readAllLines.size());
+    Assertions.assertNotNull(readAllLines);
+    Assertions.assertNotEquals(0, readAllLines.size());
   }
 
   /**
