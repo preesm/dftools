@@ -39,7 +39,7 @@ package org.ietr.dftools.algorithm.test;
 
 import java.util.Random;
 import org.ietr.dftools.algorithm.generator.DirectedAcyclicGraphGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 /**
  */

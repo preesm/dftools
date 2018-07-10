@@ -39,8 +39,8 @@ import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -56,17 +56,17 @@ public class SDFRandomGraphTest {
     final int nbVertex = 20;
 
     final SDFRandomGraph sdfRandomGraph = new SDFRandomGraph();
-    Assertions.assertNotNull(sdfRandomGraph);
+    Assert.assertNotNull(sdfRandomGraph);
     try {
       final SDFGraph createRandomGraph = sdfRandomGraph.createRandomGraph(nbVertex, 1, 5, 1, 5, 1, 12);
-      Assertions.assertNotNull(createRandomGraph);
+      Assert.assertNotNull(createRandomGraph);
       final Set<SDFAbstractVertex> allVertices = createRandomGraph.getAllVertices();
-      Assertions.assertNotNull(allVertices);
+      Assert.assertNotNull(allVertices);
       final int size = allVertices.size();
-      Assertions.assertEquals(nbVertex, size);
+      Assert.assertEquals(nbVertex, size);
 
     } catch (final SDF4JException e) {
-      Assertions.fail("Should not fail with SDF4J, but catch exception " + e.getMessage());
+      Assert.fail("Should not fail with SDF4J, but catch exception " + e.getMessage());
     }
   }
 
