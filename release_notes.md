@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* replace DAGIterator with TopoloicalDAGIterator;
 
 ### Bug fix
 
