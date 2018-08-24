@@ -2,8 +2,51 @@
 
 DIR=$(cd `dirname $0` && echo `git rev-parse --show-toplevel`)
 
+FETCH=NO
+FAST=NO
+CHECK=NO
+if [ ! -z ${1+x} ]; then
+  if [ "$1" == "--fetch" ]; then
+    FETCH=YES
+  fi
+  if [ "$1" == "--check" ]; then
+    CHECK=YES
+  fi
+  if [ "$1" == "--fast" ]; then
+    FAST=YES
+  fi
+fi
+
+# enable Sonar on Travis
+if [ ! -z ${TRAVIS+x} ]; then
+  SONAR="sonar:sonar"
+else
+  SONAR=
+fi
+
+#fetch version:
+if [ "$FETCH" == "YES" ]; then
+  echo "Fetch dependencies ..."
+  time (
+    (cd $DIR && mvn -U -e -C -B -P doUpdateSite -Dtycho.mode=maven dependency:go-offline)
+    (cd $DIR && mvn -U -e -C -B -P doUpdateSite help:help)
+  )
+  exit 0
+fi
+
+#check version:
+if [ "$CHECK" == "YES" ]; then
+  echo "Check code ..."
+  time (cd $DIR && mvn  -e -C -B -P doUpdateSite -Dtycho.mode=maven checkstyle:check)
+  exit 0
+fi
+
 #fast version:
-#(cd $DIR && mvn -U -e -C -B -V -P doUpdateSite clean verify sonar:sonar -fae)
+if [ "$FAST" == "YES" ]; then
+  echo "Fast build ..."
+  time (cd $DIR && mvn -e -C -B -P doUpdateSite clean verify ${SONAR} -fae)
+  exit 0
+fi
 
 time (
   #validate POM
@@ -37,22 +80,16 @@ time (
   echo ""
   (cd $DIR && mvn -e -C -B -V package -fae -Dmaven.test.skip=true) || exit 6
   # build and run tests (offline)
-  if [ ! -z ${TRAVIS+x} ]; then
-    echo ""
-    echo "Test all & Run Sonar"
-    echo ""
-    (cd $DIR && mvn -e -C -B -V verify sonar:sonar -fae) || exit 71
-  else
-    echo ""
-    echo "Test all"
-    echo ""
-    (cd $DIR && mvn -e -C -B -V verify -fae) || exit 72
-  fi
+  echo ""
+  echo "Test all & Run Sonar"
+  echo ""
+  (cd $DIR && mvn -e -C -B -V verify ${SONAR} -fae) || exit 7
   #package update site (offline, no tests)
   echo ""
   echo "Package update site"
   echo ""
   (cd $DIR && mvn -e -C -B -V -P doUpdateSite package -fae -Dmaven.test.skip=true) || exit 8
 )
+
 
 exit 0
