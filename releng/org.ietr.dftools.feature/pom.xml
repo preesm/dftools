@@ -45,7 +45,7 @@
   <parent>
     <groupId>org.ietr.dftools</groupId>
     <artifactId>org.ietr.dftools.releng</artifactId>
-    <version>1.8.3-SNAPSHOT</version>
+    <version>1.9.0</version>
     <relativePath>..</relativePath>
   </parent>
 </project>
