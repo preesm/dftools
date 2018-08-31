@@ -10,6 +10,7 @@ DFTools Changelog
 * replace DAGIterator with TopoloicalDAGIterator;
 * Update coding policies to 1.3.0;
 * Update external dependencies to 3.3.0;
+* Update Graphiti dependencies to 1.10.0+;
 * Workflow Validator now use default parameters of super class if the method 
   is not declared in the concrete class implementation;
 
