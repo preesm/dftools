@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* remove deprecated DagIterator (replaced with TopologicalDAGIterator);
 
 ### Bug fix
 
