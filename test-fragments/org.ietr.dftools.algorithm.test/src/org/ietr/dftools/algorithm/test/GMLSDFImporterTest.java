@@ -46,8 +46,8 @@ import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  */
@@ -74,8 +74,8 @@ public class GMLSDFImporterTest {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assertions.assertNotNull(readAllLines);
-    Assertions.assertNotEquals(0, readAllLines.size());
+    Assert.assertNotNull(readAllLines);
+    Assert.assertNotEquals(0, readAllLines.size());
 
   }
 
@@ -89,7 +89,7 @@ public class GMLSDFImporterTest {
     final SDFGraph graph = importer.parse(new File(filePath));
     System.out.println("Graph " + graph + " parsed \n");
 
-    final File createTempFile = File.createTempFile("export_test_", ".graphml");
+    final File createTempFile = File.createTempFile("export_test_", ".gra phml");
     createTempFile.deleteOnExit();
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -100,8 +100,8 @@ public class GMLSDFImporterTest {
 
     final List<String> readAllLines = Files.readAllLines(createTempFile.toPath());
 
-    Assertions.assertNotNull(readAllLines);
-    Assertions.assertNotEquals(0, readAllLines.size());
+    Assert.assertNotNull(readAllLines);
+    Assert.assertNotEquals(0, readAllLines.size());
 
   }
 

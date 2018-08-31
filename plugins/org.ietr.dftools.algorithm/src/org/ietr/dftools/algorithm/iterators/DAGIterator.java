@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -54,7 +54,9 @@ import org.jgrapht.traverse.GraphIterator;
  * Class used to iterate over a DAG following the dependencies order.
  *
  * @author pthebault
+ * @deprecated use {@link TopologicalDAGIterator} instead.
  */
+@Deprecated
 public class DAGIterator implements GraphIterator<DAGVertex, DAGEdge> {
 
   /** The cycle detector. */

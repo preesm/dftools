@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DFTools UI
 Automatic-Module-Name: org.ietr.dftools.ui
 Bundle-SymbolicName: org.ietr.dftools.ui;singleton:=true
-Bundle-Version: 1.8.2
+Bundle-Version: 1.9.0
 Bundle-Activator: org.ietr.dftools.ui.Activator
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.core.resources,
@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.core.expressions,
  org.eclipse.ui.views.properties.tabbed;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport,
- org.ietr.graphiti.ui;bundle-version="[1.9.0,2.0.0)";visibility:=reexport,
+ org.ietr.graphiti.ui;bundle-version="[1.10.0,2.0.0)";visibility:=reexport,
  org.ietr.dftools.architecture,
  org.ietr.dftools.workflow
 Bundle-ActivationPolicy: lazy

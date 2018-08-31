@@ -1,7 +1,10 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Clément Guy <clement.guy@insa-rennes.fr> (2014)
+ * Jonathan Piat <jpiat@laas.fr> (2011)
+ * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -32,36 +35,28 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.test;
+package org.ietr.dftools.algorithm.iterators;
 
-import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
-import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
-import org.junit.Assert;
-import org.junit.Test;
+import org.ietr.dftools.algorithm.model.dag.DAGEdge;
+import org.ietr.dftools.algorithm.model.dag.DAGVertex;
+import org.jgrapht.Graph;
+import org.jgrapht.traverse.TopologicalOrderIterator;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class JepTransitionTest.
+ * Topological DAG Iterator respecting synchronized vertices.
+ *
+ * @author mpelcat
  */
-public class JepTransitionTest {
+public class TopologicalDAGIterator extends TopologicalOrderIterator<DAGVertex, DAGEdge> {
 
   /**
-   * Test expression value.
+   * Instantiates a new topological DAG iterator.
+   *
+   * @param dag
+   *          the dag
    */
-  @Test
-  public void testExpressionValue() {
-    final double expected = 2 + (((5 * 7) / 1.2) * 7.00002);
-    final ExpressionValue value = new ExpressionValue("2 + 5 * 7 / 1.2 * 7.00002");
-    try {
-      final long intValue = value.longValue();
-      Assert.assertEquals(new Double(expected).intValue(), intValue);
-    } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
-      Assert.fail("Expression should be valid, but failed with " + e.getMessage());
-    } catch (final NoIntegerValueException e) {
-      e.printStackTrace();
-      Assert.fail("Result should be integer, but failed with " + e.getMessage());
-    }
+  public TopologicalDAGIterator(final Graph<DAGVertex, DAGEdge> dag) {
+
+    super(dag);
   }
 }

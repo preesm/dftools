@@ -34,7 +34,7 @@
  */
 package org.ietr.dftools.workflow.test;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**

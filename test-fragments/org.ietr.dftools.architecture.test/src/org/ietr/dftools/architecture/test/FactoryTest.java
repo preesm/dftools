@@ -36,8 +36,8 @@ package org.ietr.dftools.architecture.test;
 
 import org.ietr.dftools.architecture.slam.Design;
 import org.ietr.dftools.architecture.slam.SlamFactory;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -51,6 +51,6 @@ public class FactoryTest {
   @Test
   public void testFactoryDesign() {
     final Design d = SlamFactory.eINSTANCE.createDesign();
-    Assertions.assertNotNull(d);
+    Assert.assertNotNull(d);
   }
 }
