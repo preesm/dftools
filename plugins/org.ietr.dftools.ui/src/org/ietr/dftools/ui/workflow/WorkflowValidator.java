@@ -151,7 +151,7 @@ public class WorkflowValidator implements IValidator {
   private void addDefaultParameters(final Vertex vertex, final Object object, final Graph graph, final IFile file) {
     Map<String, String> parameterDefaults = null;
     try {
-      final Method prototypeMethod = object.getClass().getDeclaredMethod("getDefaultParameters");
+      final Method prototypeMethod = object.getClass().getMethod("getDefaultParameters");
       final Object obj = prototypeMethod.invoke(object);
       if (obj instanceof Map<?, ?>) {
         parameterDefaults = (Map<String, String>) obj;
