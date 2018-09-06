@@ -42,10 +42,11 @@
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Slam -->
       <package
-            uri="http://net.sf.dftools/architecture/slam"
+            uri="http://org.ietr.preesm/architecture/slam"
             class="org.ietr.dftools.architecture.slam.SlamPackage"
-            genModel="model/Slam.genmodel"/>
+            genModel="model/Slam.xcore"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
