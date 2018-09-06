@@ -8,6 +8,7 @@ DFTools Changelog
 
 ### Changes
 * remove deprecated DagIterator (replaced with TopologicalDAGIterator);
+* Use XCore instead of ECore for the SLAM model;
 
 ### Bug fix
 
