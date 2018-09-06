@@ -52,7 +52,9 @@ class Component extends VLNVedElement , ParameterizedElement {
 	contains ComInterface[] interfaces opposite component
 	refers ComponentInstance[] instances opposite component
 	contains Design[] refinements opposite refined
-	op ComInterface getInterface(String name)
+	op ComInterface getInterface(String name) {
+		return interfaces.findFirst[it -> it.name == name]
+	}
 }
 
 class Operator extends Component {

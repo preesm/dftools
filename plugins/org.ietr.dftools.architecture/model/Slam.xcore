@@ -55,10 +55,21 @@ class Design extends VLNVedElement , ParameterizedElement {
 	container Component refined opposite refinements
 	String path
 	refers ComponentHolder componentHolder
-	op boolean containsComponentInstance(String name)
-	op boolean containsComponent(VLNV name)
-	op ComponentInstance getComponentInstance(String name)
-	op Component getComponent(VLNV name)
+
+	op boolean containsComponentInstance(String name) {
+		return componentInstances.exists[instanceName == name]
+	}
+
+	op boolean containsComponent(VLNV name) {
+		return componentHolder.components.exists[vlnv == name]
+	}
+	op ComponentInstance getComponentInstance(String name) {
+		return componentInstances.findFirst[instanceName == name]
+	}
+
+	op Component getComponent(VLNV name) {
+		return componentHolder.components.findFirst[vlnv == name]
+	}
 }
 
 class ComponentInstance extends ParameterizedElement {
