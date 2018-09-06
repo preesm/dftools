@@ -1,0 +1,42 @@
+
+
+@GenModel(
+	modelName="Slam", prefix="Attributes",
+	modelDirectory="/org.ietr.dftools.architecture/ecore-gen",
+//	editDirectory="/org.ietr.dftools.architecture.edit/ecore-gen",
+//	editorDirectory="/org.ietr.dftools.architecture.editor/ecore-gen",
+//	testsDirectory="/org.ietr.dftools.architecture.tests/ecore-gen",
+
+	// redirection="",
+	// classNamePattern="",
+
+	// codeFormatting="true",
+	// cleanup="true",
+
+	importerID="org.eclipse.emf.importer.ecore",
+
+	// !! if true a instrs.ecore is generated in .impl and is used by xxpackage.init() to
+	// load the intrs packages (by default this false unless the generated XyzPackage might
+	// exceed Java's byte code limit of 64k)
+	loadInitialization="false",
+	creationCommands="false",
+	creationIcons="false",
+	dataTypeConverters="false",
+	operationReflection="false"
+)
+
+@Ecore(nsURI="http://org.ietr.preesm/architecture/slam/attributes")
+
+package org.ietr.dftools.architecture.slam.attributes
+
+class VLNV {
+	String vendor = ""
+	String library
+	String name
+	String version
+}
+
+class Parameter {
+	String key
+	String value
+}

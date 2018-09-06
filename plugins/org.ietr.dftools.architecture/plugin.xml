@@ -49,27 +49,27 @@
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated Slam -->
+      <!-- @generated Attributes -->
       <package
-            uri="http://net.sf.dftools/architecture/slam/component"
-            class="org.ietr.dftools.architecture.slam.component.ComponentPackage"
-            genModel="model/Slam.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated Slam -->
-      <package
-            uri="http://net.sf.dftools/architecture/slam/link"
-            class="org.ietr.dftools.architecture.slam.link.LinkPackage"
-            genModel="model/Slam.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated Slam -->
-      <package
-            uri="http://net.sf.dftools/architecture/slam/attributes"
+            uri="http://org.ietr.preesm/architecture/slam/attributes"
             class="org.ietr.dftools.architecture.slam.attributes.AttributesPackage"
-            genModel="model/Slam.genmodel"/>
+            genModel="model/Attributes.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Component -->
+      <package
+            uri="http://org.ietr.preesm/architecture/slam/component"
+            class="org.ietr.dftools.architecture.slam.component.ComponentPackage"
+            genModel="model/Component.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Link -->
+      <package
+            uri="http://org.ietr.preesm/architecture/slam/link"
+            class="org.ietr.dftools.architecture.slam.link.LinkPackage"
+            genModel="model/Link.xcore"/>
    </extension>
 
 </plugin>
