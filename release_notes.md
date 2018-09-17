@@ -9,6 +9,7 @@ DFTools Changelog
 ### Changes
 * remove deprecated DagIterator (replaced with TopologicalDAGIterator);
 * Use XCore instead of ECore for the SLAM model;
+* Remove EMF dedicated repo (see https://github.com/eclipse/xtext/issues/1233#issuecomment-421904619);
 
 ### Bug fix
 
