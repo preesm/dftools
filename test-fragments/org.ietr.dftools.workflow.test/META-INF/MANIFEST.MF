@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DFTools Workflow Test
 Automatic-Module-Name: org.ietr.dftools.workflow.test
 Bundle-SymbolicName: org.ietr.dftools.workflow.test
-Bundle-Version: 1.9.1
+Bundle-Version: 1.9.1.qualifier
 Bundle-Vendor: IETR/INSA Rennes
 Fragment-Host: org.ietr.dftools.workflow
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
