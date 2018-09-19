@@ -7,6 +7,7 @@ DFTools Changelog
 ### New Feature
 
 ### Changes
+* Update M2E Code Quality repo
 
 ### Bug fix
 
