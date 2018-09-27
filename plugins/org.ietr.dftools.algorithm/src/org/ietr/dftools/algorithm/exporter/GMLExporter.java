@@ -344,17 +344,20 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
   protected void exportKeys(final PropertySource source, final String forElt, final Element parentElt) {
     for (final String key : source.getPublicProperties()) {
       if (!(key.equals("parameters") || key.equals("variables") || key.equals("arguments"))) {
-        if (source.getPropertyStringValue(key) != null) {
-          final Element dataElt = appendChild(parentElt, "data");
-          dataElt.setAttribute("key", key);
-          dataElt.setTextContent(source.getPropertyStringValue(key));
-          if ((source.getPropertyBean().getValue(key) != null)
-              && (source.getPropertyBean().getValue(key) instanceof Number)) {
-            this.addKey(forElt, new Key(key, forElt, "int", null));
-          } else {
-            this.addKey(forElt, new Key(key, forElt, "string", null));
-          }
+        try {
+          if (source.getPropertyStringValue(key) != null) {
+            final Element dataElt = appendChild(parentElt, "data");
+            dataElt.setAttribute("key", key);
+            dataElt.setTextContent(source.getPropertyStringValue(key));
+            if (source.getPropertyBean().getValue(key) instanceof Number) {
+              this.addKey(forElt, new Key(key, forElt, "int", null));
+            } else {
+              this.addKey(forElt, new Key(key, forElt, "string", null));
+            }
 
+          }
+        } catch (Exception e) {
+          // skip property
         }
       }
     }

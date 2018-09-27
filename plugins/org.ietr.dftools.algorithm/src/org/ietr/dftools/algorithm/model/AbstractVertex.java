@@ -40,6 +40,7 @@
 package org.ietr.dftools.algorithm.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -84,19 +85,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   public static final String KIND = "kind";
 
   /** The public properties. */
-  protected static List<String> public_properties = new ArrayList<String>() {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1733980727793726816L;
-
-    {
-      add(AbstractVertex.ARGUMENTS);
-      add(AbstractVertex.REFINEMENT);
-      add(AbstractVertex.NAME);
-      add(AbstractVertex.KIND);
-    }
-  };
+  protected static final List<String> public_properties = new ArrayList<>(
+      Arrays.asList(AbstractVertex.ARGUMENTS, AbstractVertex.REFINEMENT, AbstractVertex.NAME, AbstractVertex.KIND));
 
   /** The interfaces. */
   protected List<IInterface> interfaces;
