@@ -206,7 +206,9 @@ public class TaskNode extends AbstractWorkflowNode {
 
       return found;
     } catch (final CoreException e) {
-      WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find plugins from workflow");
+      final String message = "Failed to find plugins from workflow for pluginID = [" + pluginId + "] and taskID = ["
+          + taskId + "]";
+      WorkflowLogger.getLogger().log(Level.SEVERE, message);
       return false;
     }
   }
