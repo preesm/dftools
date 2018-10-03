@@ -41,7 +41,6 @@ import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent the interfaces of a Hierarchical vertex.
  *
@@ -155,8 +154,8 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#getNbRepeat()
    */
   @Override
-  public Object getNbRepeat() {
-    return 1;
+  public long getNbRepeat() {
+    return 1L;
   }
 
   /**

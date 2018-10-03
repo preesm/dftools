@@ -371,11 +371,11 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public Object getNbRepeat() throws InvalidExpressionException {
+  public long getNbRepeat() {
     if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
       ((SDFGraph) getBase()).computeVRB();
     }
-    return getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
+    return (long) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT);
   }
 
   /**
