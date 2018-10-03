@@ -313,16 +313,16 @@ public class SDFRandomGraph {
 
       // Choose a random number of sinks for the new vertex
       int max = Math.min(maxOutDegree, nbVertex);
-      nbSourcesVertex[nbVertexgraph] = minOutDegree + (new Random().nextInt() * ((max + 1) - minOutDegree));
+      nbSourcesVertex[nbVertexgraph] = minOutDegree + (new Random().nextInt((max + 1) - minOutDegree));
       // Choose a random number of sources for the new vertex
       max = Math.min(maxInDegree, nbVertex);
-      nbSinksVertex[nbVertexgraph] = minInDegree + (new Random().nextInt() * ((max + 1) - minInDegree));
+      nbSinksVertex[nbVertexgraph] = minInDegree + (new Random().nextInt((max + 1) - minInDegree));
       nbSinks += nbSinksVertex[nbVertexgraph];
       nbSources += nbSourcesVertex[nbVertexgraph];
       final double min2 = Math.sqrt(minRate);
       final double max2 = Math.sqrt(maxRate);
-      final int randNum = (int) min2 + (int) (new Random().nextInt() * ((max2 - min2) + 1));
-      final int randDenum = (int) min2 + (int) (new Random().nextInt() * ((max2 - min2) + 1));
+      final int randNum = (int) min2 + (int) (new Random().nextInt((int) (max2 - min2) + 1));
+      final int randDenum = (int) min2 + (int) (new Random().nextInt((int) (max2 - min2) + 1));
       SDFRandomGraph.FRACTIONS.put(vertex, new Rational(randNum, randDenum));
       // If Not the first
       if ((nbVertexgraph >= nbSensors) && (nbSinksVertex[nbVertexgraph] != 0) && (nbSources != 0) && (nbSinks != 0)) {
@@ -330,7 +330,7 @@ public class SDFRandomGraph {
         // Vertex
         int randout;
         do {
-          randout = (new Random().nextInt() * (nbVertexgraph));
+          randout = (new Random().nextInt(nbVertexgraph));
         } while (nbSourcesVertex[randout] == 0);
         graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[nbVertexgraph]);
         createdEdge[randout][nbVertexgraph] = nbVertexgraph - 1;
@@ -353,9 +353,9 @@ public class SDFRandomGraph {
     // Create Edges
     int nbEdge = nbVertexgraph - 1;
     while ((nbSources != 0) && (nbSinks != 0)) {
-      int randout = (new Random().nextInt() * (outFreeVertex.size()));
+      int randout = (new Random().nextInt(outFreeVertex.size()));
       randout = outFreeVertex.elementAt(randout);
-      int randin = (new Random().nextInt() * (inFreeVertex.size()));
+      int randin = (new Random().nextInt(inFreeVertex.size()));
       randin = inFreeVertex.elementAt(randin);
       if ((nbSinksVertex[randin] != 0) && (createdEdge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
         createdEdge[randout][randin] = nbEdge + 1;
