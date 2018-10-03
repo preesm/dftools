@@ -38,8 +38,11 @@
  */
 package org.ietr.dftools.algorithm.generator;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 import org.apache.commons.math3.util.ArithmeticUtils;
@@ -51,9 +54,8 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
-import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.alg.cycle.CycleDetector;
 
-// TODO: Auto-generated Javadoc
 /**
  * Generate a schedulable Random graph, by setting the number of vertices and who have random numbers of sources and
  * sinks. Moreover the production and consumption between two vertices is randomly set.
@@ -67,10 +69,10 @@ public class SDFRandomGraph {
 
   /** Static field containing all the instances of this class. */
 
-  public static Vector<SDFRandomGraph> adapters = new Vector<>();
+  protected static final List<SDFRandomGraph> ADAPTERS = new ArrayList<>();
 
   /** Instance fractions is the fraction of each vertex. */
-  public static Map<SDFAbstractVertex, Rational> fractions;
+  protected static final Map<SDFAbstractVertex, Rational> FRACTIONS = new LinkedHashMap<>();
 
   /** The Constant CLUSTER. */
   private static final String CLUSTER = "cluster";
@@ -86,13 +88,13 @@ public class SDFRandomGraph {
    *          is the number of vertices of the graph
    * @return the repetition vector
    */
-  public static Map<SDFAbstractVertex, Long> CalcRepetitionVector(final SDFGraph graph, final int nbVertexgraph) {
+  public static Map<SDFAbstractVertex, Long> calcRepetitionVector(final SDFGraph graph, final int nbVertexgraph) {
 
     final Map<SDFAbstractVertex, Long> vrb = new LinkedHashMap<>(nbVertexgraph);
     long l = 1;
     // Find lowest common multiple (lcm) of all denominators
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
-      l = ArithmeticUtils.lcm(l, SDFRandomGraph.fractions.get(vertex).getDenum());
+      l = ArithmeticUtils.lcm(l, SDFRandomGraph.FRACTIONS.get(vertex).getDenum());
     }
     // Zero vector?
     if (l == 0) {
@@ -101,10 +103,10 @@ public class SDFRandomGraph {
     // Calculate non-zero repetition vector
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
       vrb.put(vertex,
-          (SDFRandomGraph.fractions.get(vertex).getNum() * l) / SDFRandomGraph.fractions.get(vertex).getDenum());
+          (SDFRandomGraph.FRACTIONS.get(vertex).getNum() * l) / SDFRandomGraph.FRACTIONS.get(vertex).getDenum());
     }
     // Find greatest common divisor (gcd)
-    long g = 0;
+    long g = 1;
     for (final SDFAbstractVertex vertex : graph.vertexSet()) {
       g = ArithmeticUtils.gcd(g, vrb.get(vertex));
     }
@@ -124,13 +126,13 @@ public class SDFRandomGraph {
    *          the rate multiplier
    */
   public static void makeConsistentConnectedActors(final SDFGraph graph, final int rateMultiplier) {
-    Rational RatioSrcDst;
+    Rational ratioSrcDst;
     for (final SDFAbstractVertex Src : graph.vertexSet()) {
       for (final SDFAbstractVertex Dst : graph.vertexSet()) {
         if (graph.containsEdge(Src, Dst)) {
-          RatioSrcDst = Rational.div(SDFRandomGraph.fractions.get(Src), SDFRandomGraph.fractions.get(Dst));
-          graph.getEdge(Src, Dst).setProd(new SDFIntEdgePropertyType(RatioSrcDst.getDenum() * rateMultiplier));
-          graph.getEdge(Src, Dst).setCons(new SDFIntEdgePropertyType(RatioSrcDst.getNum() * rateMultiplier));
+          ratioSrcDst = Rational.div(SDFRandomGraph.FRACTIONS.get(Src), SDFRandomGraph.FRACTIONS.get(Dst));
+          graph.getEdge(Src, Dst).setProd(new SDFIntEdgePropertyType(ratioSrcDst.getDenum() * rateMultiplier));
+          graph.getEdge(Src, Dst).setCons(new SDFIntEdgePropertyType(ratioSrcDst.getNum() * rateMultiplier));
         }
       }
     }
@@ -149,25 +151,22 @@ public class SDFRandomGraph {
    *           the invalid expression exception
    */
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public static void PlaceDelay(final SDFGraph graph, final int nbVertexgraph, final Vector<SDFAbstractVertex> sensors)
-      throws InvalidExpressionException {
+  public static void placeDelay(final SDFGraph graph, final int nbVertexgraph, final List<SDFAbstractVertex> sensors) {
     final SDFGraph newgraph = graph.clone();// new graph is created to
     // reduce execution time of
     // cycle detection
-    final Map<SDFAbstractVertex, Long> vrb = SDFRandomGraph.CalcRepetitionVector(graph, nbVertexgraph);
+    final Map<SDFAbstractVertex, Long> vrb = SDFRandomGraph.calcRepetitionVector(graph, nbVertexgraph);
     for (final SDFAbstractVertex Dst : graph.vertexSet()) {
       // if there is a cycle containing the source and the target of an
       // edge a delay is on placed on it
-      final CycleDetector<SDFVertex, SDFEdge> Cycle = new CycleDetector(newgraph);
-      final Set<SDFVertex> test = Cycle.findCyclesContainingVertex((SDFVertex) newgraph.getVertex(Dst.getName()));
+      final CycleDetector<SDFVertex, SDFEdge> cycle = new CycleDetector(newgraph);
+      final Set<SDFVertex> test = cycle.findCyclesContainingVertex((SDFVertex) newgraph.getVertex(Dst.getName()));
       for (final SDFAbstractVertex Src : graph.vertexSet()) {
-        if (graph.containsEdge(Src, Dst)) {
-          if (test.contains(newgraph.getVertex(Src.getName()))) {
-            final SDFEdge edge = graph.getEdge(Src, Dst);
-            final long Q_xy = vrb.get(edge.getSource()).longValue()
-                / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
-            edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
-          }
+        if (graph.containsEdge(Src, Dst) && test.contains(newgraph.getVertex(Src.getName()))) {
+          final SDFEdge edge = graph.getEdge(Src, Dst);
+          final long Q_xy = vrb.get(edge.getSource()).longValue()
+              / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
+          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
         }
       }
       newgraph.removeVertex(newgraph.getVertex(Dst.getName()));
@@ -188,7 +187,7 @@ public class SDFRandomGraph {
    * Creates a new RandomGraph.
    */
   public SDFRandomGraph() {
-    SDFRandomGraph.adapters.add(this);
+    SDFRandomGraph.ADAPTERS.add(this);
   }
 
   /**
@@ -218,8 +217,7 @@ public class SDFRandomGraph {
     try {
       return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate, 1, 1);
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
-      throw (new SDF4JException(e.getMessage()));
+      throw new GraphGeneratroException("Could not create random graph", e);
     }
   }
 
@@ -254,8 +252,7 @@ public class SDFRandomGraph {
       return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate,
           rateMultiplier, 1);
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
-      throw (new SDF4JException(e.getMessage()));
+      throw new GraphGeneratroException("Could not create random graph", e);
     }
   }
 
@@ -287,100 +284,100 @@ public class SDFRandomGraph {
    */
   public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
       final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate, final int rateMultiplier,
-      final int nbSensors) throws InvalidExpressionException {
+      final int nbSensors) {
 
     final int[] nbSinksVertex = new int[nbVertex];
     final int[] nbSourcesVertex = new int[nbVertex];
     int nbVertexgraph = 0;// Number of Vertex created on the
-    final int[][] Created_edge = new int[nbVertex][nbVertex];
+    final int[][] createdEdge = new int[nbVertex][nbVertex];
     int nbSinks = 0;
     int nbSources = 0;
     final SDFVertex[] arrayVertex = new SDFVertex[nbVertex];
-    final Vector<Integer> In_free_Vertex = new Vector<>(nbVertex, 0);
-    final Vector<Integer> Out_free_Vertex = new Vector<>(nbVertex, 0);
-    SDFRandomGraph.fractions = new LinkedHashMap<>();
-    final Vector<SDFAbstractVertex> Sensors = new Vector<>(nbSensors);
+    final Vector<Integer> inFreeVertex = new Vector<>(nbVertex, 0);
+    final Vector<Integer> outFreeVertex = new Vector<>(nbVertex, 0);
+    SDFRandomGraph.FRACTIONS.clear();
+    final List<SDFAbstractVertex> sensors = new ArrayList<>(nbSensors);
     // Create an SDF Graph
     final SDFGraph graph = new SDFGraph();
 
     // Create graph with nbVertex Vertex
     while (nbVertexgraph < nbVertex) {
       // Add a new vertex to the graph
-      final SDFVertex Vertex = new SDFVertex();
-      Vertex.setName("Vertex_" + (nbVertexgraph));
-      arrayVertex[nbVertexgraph] = Vertex;
-      Vertex.getPropertyBean().setValue(SDFRandomGraph.CLUSTER, 0);
+      final SDFVertex vertex = new SDFVertex();
+      vertex.setName("Vertex_" + (nbVertexgraph));
+      arrayVertex[nbVertexgraph] = vertex;
+      vertex.getPropertyBean().setValue(SDFRandomGraph.CLUSTER, 0);
       graph.addVertex(arrayVertex[nbVertexgraph]);
-      In_free_Vertex.add(nbVertexgraph);
-      Out_free_Vertex.add(nbVertexgraph);
+      inFreeVertex.add(nbVertexgraph);
+      outFreeVertex.add(nbVertexgraph);
 
       // Choose a random number of sinks for the new vertex
       int max = Math.min(maxOutDegree, nbVertex);
-      nbSourcesVertex[nbVertexgraph] = minOutDegree + (int) (Math.random() * ((max + 1) - minOutDegree));
+      nbSourcesVertex[nbVertexgraph] = minOutDegree + (new Random().nextInt() * ((max + 1) - minOutDegree));
       // Choose a random number of sources for the new vertex
       max = Math.min(maxInDegree, nbVertex);
-      nbSinksVertex[nbVertexgraph] = minInDegree + (int) (Math.random() * ((max + 1) - minInDegree));
+      nbSinksVertex[nbVertexgraph] = minInDegree + (new Random().nextInt() * ((max + 1) - minInDegree));
       nbSinks += nbSinksVertex[nbVertexgraph];
       nbSources += nbSourcesVertex[nbVertexgraph];
       final double min2 = Math.sqrt(minRate);
       final double max2 = Math.sqrt(maxRate);
-      final int randNum = (int) min2 + (int) (Math.random() * ((max2 - min2) + 1));
-      final int randDenum = (int) min2 + (int) (Math.random() * ((max2 - min2) + 1));
-      SDFRandomGraph.fractions.put(Vertex, new Rational(randNum, randDenum));
+      final int randNum = (int) min2 + (int) (new Random().nextInt() * ((max2 - min2) + 1));
+      final int randDenum = (int) min2 + (int) (new Random().nextInt() * ((max2 - min2) + 1));
+      SDFRandomGraph.FRACTIONS.put(vertex, new Rational(randNum, randDenum));
       // If Not the first
       if ((nbVertexgraph >= nbSensors) && (nbSinksVertex[nbVertexgraph] != 0) && (nbSources != 0) && (nbSinks != 0)) {
         // Create an edge between the last Vertex and another random
         // Vertex
         int randout;
         do {
-          randout = (int) (Math.random() * (nbVertexgraph));
+          randout = (new Random().nextInt() * (nbVertexgraph));
         } while (nbSourcesVertex[randout] == 0);
         graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[nbVertexgraph]);
-        Created_edge[randout][nbVertexgraph] = nbVertexgraph - 1;
+        createdEdge[randout][nbVertexgraph] = nbVertexgraph - 1;
         nbSourcesVertex[randout]--;
         nbSinksVertex[nbVertexgraph]--;
         nbSinks--;
         nbSources--;
         if (nbSinksVertex[nbVertexgraph] == 0) {
-          In_free_Vertex.removeElement(nbVertexgraph);
+          inFreeVertex.removeElement(nbVertexgraph);
         }
         if (nbSourcesVertex[randout] == 0) {
-          Out_free_Vertex.removeElement(randout);
+          outFreeVertex.removeElement(randout);
         }
       } else if (nbVertexgraph < nbSensors) {
-        Sensors.add(Vertex);
+        sensors.add(vertex);
       }
       nbVertexgraph++;
     }
 
     // Create Edges
-    int nb_edge = nbVertexgraph - 1;
+    int nbEdge = nbVertexgraph - 1;
     while ((nbSources != 0) && (nbSinks != 0)) {
-      int randout = (int) (Math.random() * (Out_free_Vertex.size()));
-      randout = Out_free_Vertex.elementAt(randout);
-      int randin = (int) (Math.random() * (In_free_Vertex.size()));
-      randin = In_free_Vertex.elementAt(randin);
-      if ((nbSinksVertex[randin] != 0) && (Created_edge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
-        Created_edge[randout][randin] = nb_edge + 1;
+      int randout = (new Random().nextInt() * (outFreeVertex.size()));
+      randout = outFreeVertex.elementAt(randout);
+      int randin = (new Random().nextInt() * (inFreeVertex.size()));
+      randin = inFreeVertex.elementAt(randin);
+      if ((nbSinksVertex[randin] != 0) && (createdEdge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
+        createdEdge[randout][randin] = nbEdge + 1;
         graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[randin]);
         nbSinksVertex[randin]--;
         nbSinks--;
-        nb_edge++;
+        nbEdge++;
         nbSourcesVertex[randout]--;
         nbSources--;
       }
       if (nbSinksVertex[randin] == 0) {
-        In_free_Vertex.removeElement(randin);
+        inFreeVertex.removeElement(randin);
       }
       if (nbSourcesVertex[randout] == 0) {
-        Out_free_Vertex.removeElement(randout);
+        outFreeVertex.removeElement(randout);
       }
       int possible = 0;
-      for (int i = 0; (i < Out_free_Vertex.size()) && (possible == 0); i++) {
-        for (int j = 0; (j < In_free_Vertex.size()) && (possible == 0); j++) {
-          if ((Created_edge[Out_free_Vertex.elementAt(i)][In_free_Vertex.elementAt(j)] == 0)
-              && (nbSourcesVertex[Out_free_Vertex.elementAt(i)] != 0)
-              && (nbSinksVertex[In_free_Vertex.elementAt(j)] != 0)) {
+      for (int i = 0; (i < outFreeVertex.size()) && (possible == 0); i++) {
+        for (int j = 0; (j < inFreeVertex.size()) && (possible == 0); j++) {
+          if ((createdEdge[outFreeVertex.elementAt(i)][inFreeVertex.elementAt(j)] == 0)
+              && (nbSourcesVertex[outFreeVertex.elementAt(i)] != 0)
+              && (nbSinksVertex[inFreeVertex.elementAt(j)] != 0)) {
             possible = 1;
           }
         }
@@ -394,7 +391,7 @@ public class SDFRandomGraph {
     SDFRandomGraph.makeConsistentConnectedActors(graph, rateMultiplier);
 
     // Place Delays on Edge
-    SDFRandomGraph.PlaceDelay(graph, nbVertexgraph, Sensors);
+    SDFRandomGraph.placeDelay(graph, nbVertexgraph, sensors);
 
     return graph;
   }

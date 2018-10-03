@@ -54,9 +54,8 @@ import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.EdgeFactory;
-import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.alg.cycle.CycleDetector;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a Directed Acyclic Graph.
  *

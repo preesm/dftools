@@ -46,7 +46,7 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.visitors.DAGTransformation;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
-import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.alg.cycle.CycleDetector;
 import org.junit.Assert;
 import org.junit.Test;
 
