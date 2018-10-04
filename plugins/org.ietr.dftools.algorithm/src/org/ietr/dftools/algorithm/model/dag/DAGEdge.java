@@ -138,7 +138,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
 
   /**
    * Set this DAGEdge containing edge
-   * 
+   *
    * @param e
    *          the containing edge
    */
@@ -216,7 +216,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    * @return the source port modifier
    */
   public SDFStringEdgePropertyType getSourcePortModifier() {
-    return getPropertyBean().getValue(DAGEdge.SOURCE_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+    return getPropertyBean().getValue(DAGEdge.SOURCE_PORT_MODIFIER);
   }
 
   /**
@@ -225,7 +225,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    * @return the target port modifier
    */
   public SDFStringEdgePropertyType getTargetPortModifier() {
-    return getPropertyBean().getValue(DAGEdge.TARGET_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+    return getPropertyBean().getValue(DAGEdge.TARGET_PORT_MODIFIER);
   }
 
 }

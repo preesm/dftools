@@ -77,7 +77,7 @@ public class PropertiesTest {
     final int input = 15;
     toto.getPropertyBean().setValue(PropertiesTest.MY_PROPERTY_CONSTANT, input);
 
-    final Integer value = toto.getPropertyBean().getValue(PropertiesTest.MY_PROPERTY_CONSTANT, Integer.class);
+    final Integer value = toto.getPropertyBean().getValue(PropertiesTest.MY_PROPERTY_CONSTANT);
     Assert.assertEquals(input, value.intValue());
 
   }

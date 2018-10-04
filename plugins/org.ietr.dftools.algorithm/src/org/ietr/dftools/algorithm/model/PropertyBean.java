@@ -89,8 +89,10 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
    *          The name of the property to retrieve.
    * @return The value of the property.
    */
-  public Object getValue(final String propertyName) {
-    return this.properties.get(propertyName);
+  public <T> T getValue(final String propertyName) {
+    @SuppressWarnings("unchecked")
+    final T res = (T) this.properties.get(propertyName);
+    return res;
   }
 
   /**

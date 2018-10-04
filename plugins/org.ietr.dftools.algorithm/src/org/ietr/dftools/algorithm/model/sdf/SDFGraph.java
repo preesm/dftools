@@ -78,7 +78,6 @@ import org.jgrapht.EdgeFactory;
 import org.math.array.DoubleArray;
 import org.math.array.LinearAlgebra;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract Class representing an SDF graph.
  *

@@ -117,7 +117,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @return The SDFVertex corresponding to this DAG vertex from the SDF2Dag translation
    */
   public SDFAbstractVertex getCorrespondingSDFVertex() {
-    final Object vertex = getPropertyBean().getValue(DAGVertex.SDF_VERTEX, SDFAbstractVertex.class);
+    final Object vertex = getPropertyBean().getValue(DAGVertex.SDF_VERTEX);
     if (vertex != null) {
       return (SDFAbstractVertex) vertex;
     }
@@ -262,7 +262,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
   /**
    * Adds the name of a sink to the vertex. <br>
    * This is used by the codegen
-   * 
+   *
    * @param sinkName
    *          the sink name to add
    */
@@ -279,7 +279,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /**
    * Get the sink name list
-   * 
+   *
    * @return list of sink associated with the vertex
    */
   @SuppressWarnings("unchecked")
@@ -290,7 +290,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
   /**
    * Adds the name of a source to the vertex. <br>
    * This is used by the codegen
-   * 
+   *
    * @param sourceName
    *          the source name to add
    */
@@ -307,7 +307,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /**
    * Get the source name list
-   * 
+   *
    * @return list of sources associated with the vertex
    */
   @SuppressWarnings("unchecked")

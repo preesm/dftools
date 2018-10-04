@@ -588,7 +588,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
     dagVertex.setInfo(sdfVertex.getInfo());
     // Get memory script property
     dagVertex.getPropertyBean().setValue(SDFVertex.MEMORY_SCRIPT,
-        sdfVertex.getPropertyBean().getValue(SDFVertex.MEMORY_SCRIPT, String.class));
+        sdfVertex.getPropertyBean().getValue(SDFVertex.MEMORY_SCRIPT));
 
     // Working memory property (from clustering)
     if (sdfVertex.getPropertyBean().getValue("working_memory") != null) {

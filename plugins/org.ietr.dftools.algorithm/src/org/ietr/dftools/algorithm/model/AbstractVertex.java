@@ -172,7 +172,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The id of the vertex
    */
   public String getId() {
-    return this.properties.getValue(AbstractVertex.ID, String.class);
+    return this.properties.getValue(AbstractVertex.ID);
   }
 
   /**
@@ -418,7 +418,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The string representation of the kind of this vertex
    */
   public String getKind() {
-    return this.properties.getValue(AbstractVertex.KIND, String.class);
+    return this.properties.getValue(AbstractVertex.KIND);
   }
 
   /**
