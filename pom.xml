@@ -252,40 +252,6 @@
           </environments>
         </configuration>
       </plugin>
-      <!-- Enable Xtend compiler -->
-      <plugin>
-        <groupId>org.eclipse.xtend</groupId>
-        <artifactId>xtend-maven-plugin</artifactId>
-        <version>${xtext-version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>xtend-gen</outputDirectory>
-              <generateGeneratedAnnotation>true</generateGeneratedAnnotation>
-              <includeDateInGeneratedAnnotation>true</includeDateInGeneratedAnnotation>
-              <writeTraceFiles>false</writeTraceFiles>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- Make sure clean goal removes xtend generated files -->
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>xtend-gen</directory>
-              <includes>
-                <include>**</include>
-              </includes>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
