@@ -55,7 +55,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
  * @author jpiat
  * @author kdesnos
  */
-public class SDFForkVertex extends SDFAbstractVertex {
+public class SDFForkVertex extends SDFAbstractSpecialVertex {
 
   /** Kind of node. */
   public static final String FORK = "fork";

@@ -54,7 +54,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
  *
  * @author jpiat
  */
-public class SDFJoinVertex extends SDFAbstractVertex {
+public class SDFJoinVertex extends SDFAbstractSpecialVertex {
 
   /** Kind of node. */
   public static final String JOIN = "join";

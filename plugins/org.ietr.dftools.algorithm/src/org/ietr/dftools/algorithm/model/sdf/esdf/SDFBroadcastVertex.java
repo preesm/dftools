@@ -55,7 +55,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
  *
  * @author jpiat
  */
-public class SDFBroadcastVertex extends SDFAbstractVertex {
+public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
 
   /** Kind of node. */
   public static final String BROADCAST = "Broadcast";
