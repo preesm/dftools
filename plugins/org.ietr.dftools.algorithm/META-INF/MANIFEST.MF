@@ -4,7 +4,6 @@ Bundle-Name: DFTools algorithm
 Automatic-Module-Name: org.ietr.dftools.algorithm
 Bundle-SymbolicName: org.ietr.dftools.algorithm
 Bundle-Version: 1.9.1.qualifier
-Bundle-Activator: org.ietr.dftools.algorithm.Activator
 Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
  com.google.guava,
@@ -15,7 +14,6 @@ Require-Bundle: org.eclipse.core.runtime,
  com.github.yannrichet.JMathArray;bundle-version="1.0.0",
  jgraph;bundle-version="5.13.0",
  org.ietr.dftools.workflow
-Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.exceptions,
  org.ietr.dftools.algorithm.exporter,
