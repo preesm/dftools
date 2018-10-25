@@ -8,7 +8,7 @@ DFTools Changelog
 
 ### Changes
 * Update M2E Code Quality repo;
-* Update XTend maven plugin to 2.15.0;
+* Convert Xtend source to Jave;
 
 ### Bug fix
 
