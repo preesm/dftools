@@ -39,13 +39,13 @@ package org.ietr.dftools.algorithm.exporter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * GML exporter for dag.
  *
@@ -73,7 +73,7 @@ public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
       exportGraph(graph);
       transform(new FileOutputStream(path));
     } catch (final FileNotFoundException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not export graph", e);
     }
   }
 
@@ -118,10 +118,8 @@ public class GMLDAGExporter extends GMLExporter<DAGVertex, DAGEdge> {
       }
       return graphElt;
     } catch (final Exception e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not export graph", e);
     }
-    return null;
-
   }
 
   /*

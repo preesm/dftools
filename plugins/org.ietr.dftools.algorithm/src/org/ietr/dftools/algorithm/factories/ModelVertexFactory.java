@@ -48,7 +48,7 @@ import org.w3c.dom.NodeList;
  * @param <V>
  *          The model of vertex to create
  */
-public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
+public interface ModelVertexFactory<V extends AbstractVertex<?>> {
 
   /**
    * Creates a vertex with the given parameters.
@@ -57,7 +57,7 @@ public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
    *          The DOM element from which to create the vertex
    * @return The created vertex
    */
-  public abstract V createVertex(Element vertexElt);
+  public V createVertex(Element vertexElt);
 
   /**
    * Creates a new ModelVertex object.
@@ -66,7 +66,7 @@ public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
    *          the kind
    * @return the v
    */
-  public abstract V createVertex(String kind);
+  public V createVertex(String kind);
 
   /**
    * Creates a new ModelVertex object.
@@ -77,7 +77,7 @@ public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
    *          the dir
    * @return the i interface
    */
-  public abstract IInterface createInterface(String name, int dir);
+  public IInterface createInterface(String name, int dir);
 
   /**
    * Gets the property.
@@ -88,7 +88,7 @@ public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
    *          the property name
    * @return the property
    */
-  public final String getProperty(final Element elt, final String propertyName) {
+  public default String getProperty(final Element elt, final String propertyName) {
     final NodeList childList = elt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
       if (childList.item(i).getNodeName().equals("data")

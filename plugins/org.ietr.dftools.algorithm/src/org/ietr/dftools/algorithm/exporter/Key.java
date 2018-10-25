@@ -38,7 +38,6 @@
  */
 package org.ietr.dftools.algorithm.exporter;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class describing a GML key.
  *

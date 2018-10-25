@@ -43,7 +43,6 @@ import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.jgrapht.EdgeFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used as an EdgeFactory to provides SDFAbstractGraph with convenient method to create Edges.
  *

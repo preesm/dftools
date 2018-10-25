@@ -41,7 +41,6 @@ import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.jgrapht.EdgeFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory to create DAG edges.
  *

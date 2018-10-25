@@ -102,58 +102,35 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @throws CreateCycleException
    *           This Edge creates a cycle
    */
-  public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target)
-      throws CreateMultigraphException, CreateCycleException {
-    if (getAllEdges(source, target).size() > 0) {
-      throw (new CreateMultigraphException());
+  public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target) {
+    if (getAllEdges(source, target).isEmpty()) {
+      throw new CreateMultigraphException("There should be no edge existing.");
     } else {
       final DAGEdge newEdge = addEdge(source, target);
       final CycleDetector<DAGVertex, DAGEdge> detector = new CycleDetector<>(this);
       if (detector.detectCyclesContainingVertex(source)) {
         final Set<DAGVertex> cycle = detector.findCyclesContainingVertex(source);
-        String cycleString = "Added edge forms a cycle: {";
+        StringBuilder cycleString = new StringBuilder("Added edge forms a cycle: {");
         for (final DAGVertex vertex : cycle) {
-          cycleString += vertex.getName() + " ";
+          cycleString.append(vertex.getName() + " ");
         }
-        cycleString += "}";
+        cycleString.append("}");
 
         this.removeEdge(newEdge);
-        throw ((new CreateCycleException(cycleString)));
+        throw new CreateCycleException(cycleString.toString());
       } else if (detector.detectCyclesContainingVertex(target)) {
         final Set<DAGVertex> cycle = detector.findCyclesContainingVertex(target);
-        String cycleString = "Added edge forms a cycle: {";
+        StringBuilder cycleString = new StringBuilder("Added edge forms a cycle: {");
         for (final DAGVertex vertex : cycle) {
-          cycleString += vertex.getName() + " ";
+          cycleString.append(vertex.getName() + " ");
         }
-        cycleString += "}";
+        cycleString.append("}");
 
         this.removeEdge(newEdge);
-        throw ((new CreateCycleException(cycleString)));
+        throw new CreateCycleException(cycleString.toString());
       }
       return newEdge;
     }
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractGraph#addEdge(org.ietr.dftools.algorithm.model.AbstractVertex,
-   * org.ietr.dftools.algorithm.model.AbstractVertex)
-   */
-  @Override
-  public DAGEdge addEdge(final DAGVertex source, final DAGVertex target) {
-    final DAGEdge edge = super.addEdge(source, target);
-    return edge;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractGraph#addVertex(org.ietr.dftools.algorithm.model.AbstractVertex)
-   */
-  @Override
-  public boolean addVertex(final DAGVertex vertex) {
-    return super.addVertex(vertex);
   }
 
   /**
@@ -186,18 +163,6 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph,
-   * java.lang.Object)
-   */
-  @Override
-  public void update(final AbstractGraph<?, ?> observable, final Object arg) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -213,7 +178,6 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    */
   @Override
   public boolean validateModel(final Logger logger) throws SDF4JException {
-    // TODO Auto-generated method stub
     return true;
   }
 
@@ -223,7 +187,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @return the corresponding SDF graph
    */
   public SDFGraph getCorrespondingSDFGraph() {
-    return (SDFGraph) getPropertyBean().getValue(DirectedAcyclicGraph.SDF);
+    return getPropertyBean().getValue(DirectedAcyclicGraph.SDF);
   }
 
   /**
@@ -392,7 +356,6 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 

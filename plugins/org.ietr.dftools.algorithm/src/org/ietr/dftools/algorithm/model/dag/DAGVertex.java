@@ -50,7 +50,6 @@ import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a Vertex in a DIrected Acyclic Graph.
  *
@@ -131,7 +130,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   public AbstractVertexPropertyType<?> getNbRepeat() {
     if (this.properties.getValue(DAGVertex.NB_REPEAT) != null) {
-      return (AbstractVertexPropertyType<?>) this.properties.getValue(DAGVertex.NB_REPEAT);
+      return this.properties.getValue(DAGVertex.NB_REPEAT);
     }
     return null;
   }
@@ -143,7 +142,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   public AbstractVertexPropertyType<?> getTime() {
     if (this.properties.getValue(DAGVertex.TIME) != null) {
-      return (AbstractVertexPropertyType<?>) this.properties.getValue(DAGVertex.TIME);
+      return this.properties.getValue(DAGVertex.TIME);
     }
     return null;
   }
@@ -155,7 +154,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   public Set<DAGEdge> incomingEdges() {
     if (this.properties.getValue(AbstractVertex.BASE) instanceof DirectedAcyclicGraph) {
-      final DirectedAcyclicGraph base = (DirectedAcyclicGraph) this.properties.getValue(AbstractVertex.BASE);
+      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE);
       return base.incomingEdgesOf(this);
     }
     return new TreeSet<>();
@@ -168,7 +167,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   public Set<DAGEdge> outgoingEdges() {
     if (this.properties.getValue(AbstractVertex.BASE) instanceof DirectedAcyclicGraph) {
-      final DirectedAcyclicGraph base = (DirectedAcyclicGraph) this.properties.getValue(AbstractVertex.BASE);
+      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE);
       return base.outgoingEdgesOf(this);
     }
     return new TreeSet<>();
@@ -221,7 +220,6 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public DAGVertex clone() {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -232,7 +230,6 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -243,8 +240,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public void connectionAdded(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
+    // nothing specific to do
   }
 
   /*
@@ -255,8 +251,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public void connectionRemoved(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
+    // nothing specific to do
   }
 
   /**
@@ -266,7 +261,6 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @param sinkName
    *          the sink name to add
    */
-  @SuppressWarnings("unchecked")
   public void addSinkName(final String sinkName) {
     final ArrayList<String> sinkList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
     if (sinkList == null) {

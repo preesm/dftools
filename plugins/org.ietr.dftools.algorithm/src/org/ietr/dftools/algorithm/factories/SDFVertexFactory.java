@@ -54,13 +54,12 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used as an SDFVertex factory to provides user with convinient method to creates SDFAbstractVertex.
  *
  * @author jpiat
  */
-public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
+public class SDFVertexFactory implements ModelVertexFactory<SDFAbstractVertex> {
 
   /** The instance. */
   private static SDFVertexFactory instance;
@@ -153,7 +152,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
    */
   @Override
   public SDFAbstractVertex createVertex(final String kind) {
-    throw new RuntimeException("Unimplemented method");
+    throw new UnsupportedOperationException("Unimplemented method");
   }
 
   /**

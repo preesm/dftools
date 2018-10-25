@@ -47,13 +47,12 @@ import org.ietr.dftools.algorithm.model.dag.edag.DAGInitVertex;
 import org.ietr.dftools.algorithm.model.dag.edag.DAGJoinVertex;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory for DAGVertex creation.
  *
  * @author jpiat
  */
-public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
+public class DAGVertexFactory implements ModelVertexFactory<DAGVertex> {
 
   /** The instance. */
   private static DAGVertexFactory instance;
@@ -119,7 +118,6 @@ public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
    */
   @Override
   public IInterface createInterface(final String name, final int dir) {
-    // TODO Auto-generated method stub
     return null;
   }
 
