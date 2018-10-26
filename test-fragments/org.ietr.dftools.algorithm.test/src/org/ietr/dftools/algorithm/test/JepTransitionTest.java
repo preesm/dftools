@@ -40,7 +40,6 @@ import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.junit.Assert;
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JepTransitionTest.
  */

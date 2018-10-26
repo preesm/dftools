@@ -44,7 +44,6 @@ import org.eclipse.core.runtime.IPath;
 import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
 import org.ietr.dftools.graphiti.model.Vertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class extends the default refinement policy.
  *
@@ -76,8 +75,7 @@ public class ArchitectureRefinementPolicy extends DefaultRefinementPolicy {
     if (refinement != null) {
       final IProject project = getProject(vertex);
 
-      final IFile file = project.getFile(refinement);
-      return file;
+      return project.getFile(refinement);
     }
     return null;
   }
