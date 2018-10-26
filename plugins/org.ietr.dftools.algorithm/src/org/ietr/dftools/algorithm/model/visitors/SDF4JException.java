@@ -36,13 +36,12 @@
  */
 package org.ietr.dftools.algorithm.model.visitors;
 
-// TODO: Auto-generated Javadoc
 /**
  * Exception to be thrown when SDF4J encounters an error.
  *
  * @author jpiat
  */
-public class SDF4JException extends Error {
+public class SDF4JException extends RuntimeException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = -1803030544045591261L;

@@ -35,6 +35,7 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -42,7 +43,6 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Checks whether a visited graph is single-rate.
  *
@@ -59,7 +59,15 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
   /** The is single rate. */
-  public boolean isSingleRate = true;
+  private boolean isSingleRate;
+
+  public SingleRateChecker() {
+    isSingleRate = true;
+  }
+
+  public final boolean isSingleRate() {
+    return this.isSingleRate;
+  }
 
   /*
    * (non-Javadoc)
@@ -74,7 +82,7 @@ public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVer
     } catch (final InvalidExpressionException e) {
       // Supposedly, will not happen, expressions were already parsed when
       // verifying actors number of repetition.
-      throw new RuntimeException(e.getMessage());
+      throw new DFToolsAlgoException("Could not check rate", e);
     }
   }
 
