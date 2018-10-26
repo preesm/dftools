@@ -36,7 +36,9 @@
  */
 package org.ietr.dftools.algorithm.generator;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
@@ -56,15 +58,12 @@ public class DirectedAcyclicGraphGenerator {
 
   /** Static field containing all the instances of this class. */
 
-  public static Vector<DirectedAcyclicGraphGenerator> adapters = new Vector<>();
+  private static final List<DirectedAcyclicGraphGenerator> adapters = new ArrayList<>();
 
   // graph
 
   // ~ Instance fields
   // --------------------------------------------------------
-
-  /** The nb vertexgraph. */
-  private int nbVertexgraph = 0;// Number of Vertex created on the
 
   /**
    * Creates a new RandomGraph.
@@ -121,95 +120,89 @@ public class DirectedAcyclicGraphGenerator {
 
   public SDFGraph createAcyclicRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
       final int minOutDegree, final int maxOutDegree, final int nbSensors) {
-    this.nbVertexgraph = 0;
+    // Number of Vertex created on the
+    int nbVertexgraph = 0;
+
     final int[] nbSinksVertex = new int[nbVertex];
     final int[] nbSourcesVertex = new int[nbVertex];
-    final int[][] Created_edge = new int[nbVertex][nbVertex];
+    final int[][] createdEdge = new int[nbVertex][nbVertex];
     int nbSinks = 0;
     int nbSources = 0;
 
     final SDFVertex[] arrayVertex = new SDFVertex[nbVertex];
-    final Vector<SDFEdge> VecEdge = new Vector<>(nbVertex - 1, 10);
+    final List<SDFEdge> vecEdge = new ArrayList<>();
 
     // Create an SDF Graph
     final SDFGraph graph = new SDFGraph();
 
     // Create graph with nbVertex Vertex
-    while (this.nbVertexgraph < nbVertex) {
+    while (nbVertexgraph < nbVertex) {
 
       // Add a new vertex to the graph
-      final SDFVertex Vertex = new SDFVertex();
-      Vertex.setName("Vertex " + (this.nbVertexgraph + 1));
-      arrayVertex[this.nbVertexgraph] = Vertex;
-      graph.addVertex(arrayVertex[this.nbVertexgraph]);
+      final SDFVertex vertex = new SDFVertex();
+      vertex.setName("Vertex_" + (nbVertexgraph + 1));
+      arrayVertex[nbVertexgraph] = vertex;
+      graph.addVertex(arrayVertex[nbVertexgraph]);
       // Choose a random number of sinks for the new vertex
-      int max = Math.min(maxOutDegree, nbVertex - this.nbVertexgraph - 1);
+      int max = Math.min(maxOutDegree, nbVertex - nbVertexgraph - 1);
       int min = Math.min(max, minOutDegree);
-      nbSourcesVertex[this.nbVertexgraph] = min + (int) (Math.random() * (max - min));
+      nbSourcesVertex[nbVertexgraph] = (max - min == 0) ? min : min + new Random().nextInt(max - min);
+
       // Choose a random number of sources for the new vertex
-      max = Math.min(maxInDegree, this.nbVertexgraph);
+      max = Math.min(maxInDegree, nbVertexgraph);
       min = Math.min(max, minInDegree);
-      nbSinksVertex[this.nbVertexgraph] = min + (int) (Math.random() * (max - min));
+      nbSinksVertex[nbVertexgraph] = (max - min == 0) ? min : min + new Random().nextInt(max - min);
 
-      nbSinks += nbSinksVertex[this.nbVertexgraph];
-      nbSources += nbSourcesVertex[this.nbVertexgraph];
+      nbSinks += nbSinksVertex[nbVertexgraph];
+      nbSources += nbSourcesVertex[nbVertexgraph];
       // If Not the first
-      if ((this.nbVertexgraph >= nbSensors) && (nbSinks != 0) && (nbSources != 0)) {
+      if ((nbVertexgraph >= nbSensors) && (nbSinks != 0) && (nbSources != 0) && nbSinksVertex[nbVertexgraph] > 0) {
+        int randout;
+        do {
+          randout = (new Random().nextInt(nbVertexgraph));
+        } while (nbSourcesVertex[randout] == 0);
+        final SDFEdge edge = graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[nbVertexgraph]);
 
-        // Create an edge between the last Vertex and another random
-        // Vertex
-        if (nbSinksVertex[this.nbVertexgraph] > 0) {
-          int randout;
-          do {
-            randout = (int) (Math.random() * (this.nbVertexgraph));
-          } while (nbSourcesVertex[randout] == 0);
-          final SDFEdge Edge = graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[this.nbVertexgraph]);
+        vecEdge.add(edge);
+        // Set production and consumption
 
-          VecEdge.add(Edge);
-          // Set production and consumption
+        vecEdge.get(vecEdge.size() - 1).setProd(new SDFIntEdgePropertyType(1));
 
-          VecEdge.lastElement().setProd(new SDFIntEdgePropertyType(1));
-
-          VecEdge.lastElement().setCons(new SDFIntEdgePropertyType(1));
-          // arrayEdge[nbVertexgraph-1].setDelay(new
-          // SDFEdgeDefaultPropertyType(randRate));
-          Created_edge[randout][this.nbVertexgraph] = this.nbVertexgraph;
-          nbSourcesVertex[randout]--;
-          nbSinksVertex[this.nbVertexgraph]--;
-          nbSinks--;
-          nbSources--;
-        }
+        vecEdge.get(vecEdge.size() - 1).setCons(new SDFIntEdgePropertyType(1));
+        createdEdge[randout][nbVertexgraph] = nbVertexgraph;
+        nbSourcesVertex[randout]--;
+        nbSinksVertex[nbVertexgraph]--;
+        nbSinks--;
+        nbSources--;
       }
-      this.nbVertexgraph++;
+      nbVertexgraph++;
     }
 
     // Create Edge
 
     int highestid = nbVertex - 1;
-    int nb_edge = this.nbVertexgraph - 1;
+    int nbEdge = nbVertexgraph - 1;
 
     while ((nbSources != 0) && (nbSinks != 0)) {
-      final int randout = (int) (Math.random() * (highestid));
-      final int randin = randout + 1 + (int) (Math.random() * (nbVertex - randout - 1));
-      if ((nbSinksVertex[randin] != 0) && (Created_edge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
-        Created_edge[randout][randin] = nb_edge + 1;
-        final SDFEdge Edge = graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[randin]);
-        VecEdge.add(Edge);
+      final int randout = new Random().nextInt(highestid);
+      final int randin = randout + 1 + new Random().nextInt(nbVertex - randout - 1);
+      if ((nbSinksVertex[randin] != 0) && (createdEdge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
+        createdEdge[randout][randin] = nbEdge + 1;
+        final SDFEdge edge = graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[randin]);
+        vecEdge.add(edge);
         // Set production and consumption
 
-        VecEdge.lastElement().setProd(new SDFIntEdgePropertyType(1));
-        VecEdge.lastElement().setCons(new SDFIntEdgePropertyType(1));
-        // arrayEdge[nb_edge].setDelay(new
-        // SDFEdgeDefaultPropertyType(randRate));
+        vecEdge.get(vecEdge.size() - 1).setProd(new SDFIntEdgePropertyType(1));
+        vecEdge.get(vecEdge.size() - 1).setCons(new SDFIntEdgePropertyType(1));
 
         nbSinksVertex[randin]--;
         nbSinks--;
-        nb_edge++;
+        nbEdge++;
         nbSourcesVertex[randout]--;
         nbSources--;
       }
 
-      if (Created_edge[highestid - 1][highestid] != 0) {
+      if (createdEdge[highestid - 1][highestid] != 0) {
         while (nbSourcesVertex[highestid - 1] > 0) {
           nbSourcesVertex[highestid - 1]--;
           nbSources--;
