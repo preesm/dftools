@@ -41,7 +41,6 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory to build SDF edge property base on an input string.
  *

@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model.sdf.types;
 
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory to build SDF edge property base on an input string.
  *

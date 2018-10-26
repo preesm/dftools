@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model.sdf.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent the string edge property type in a SDF.
  *
@@ -83,7 +82,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    */
   @Override
   public String toString() {
-    return this.value.toString();
+    return this.value;
   }
 
 }

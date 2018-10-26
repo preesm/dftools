@@ -38,13 +38,13 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.types;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.parameters.Value;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent the integer edge property type in a SDF.
  *
@@ -120,14 +120,13 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public long longValue() throws InvalidExpressionException {
+  public long longValue() {
     if (this.computedValue == null) {
       try {
         this.computedValue = this.value.longValue();
         return this.computedValue;
       } catch (final NoIntegerValueException e) {
-        e.printStackTrace();
-        return 0;
+        throw new DFToolsAlgoException("Could not evaluate expression", e);
       }
     }
     return this.computedValue;
