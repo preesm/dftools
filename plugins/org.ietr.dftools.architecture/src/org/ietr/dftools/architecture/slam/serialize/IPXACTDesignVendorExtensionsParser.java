@@ -45,7 +45,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class managing information stored in design vendor extensions.
  *

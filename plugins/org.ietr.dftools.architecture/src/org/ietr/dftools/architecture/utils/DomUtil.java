@@ -49,7 +49,6 @@ import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSParser;
 import org.w3c.dom.ls.LSSerializer;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class defines utility methods to create DOM documents and print them to an output stream using DOM 3 Load Save
  * objects.
@@ -58,6 +57,10 @@ import org.w3c.dom.ls.LSSerializer;
  *
  */
 public class DomUtil {
+
+  private DomUtil() {
+    // prevent instantiation
+  }
 
   /** The impl. */
   private static DOMImplementation impl;
@@ -101,7 +104,7 @@ public class DomUtil {
       try {
         DomUtil.registry = DOMImplementationRegistry.newInstance();
       } catch (ClassCastException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-        e.printStackTrace();
+        throw new SlamException("Could not instantiate DOM", e);
       }
     }
 
