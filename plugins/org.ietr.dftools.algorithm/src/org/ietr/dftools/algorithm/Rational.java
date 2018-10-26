@@ -36,11 +36,10 @@
  */
 package org.ietr.dftools.algorithm;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import org.apache.commons.math3.util.ArithmeticUtils;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class to represent rational numbers, and performs computation on it.
  *
@@ -66,8 +65,7 @@ public class Rational {
     }
     final long denumCom = ArithmeticUtils.lcm(a.denum, b.denum);
     final long num = (a.num * (denumCom / a.denum)) + (b.num * (denumCom / b.denum));
-    final Rational res = new Rational(num, denumCom);
-    return res;
+    return new Rational(num, denumCom);
   }
 
   /**
@@ -155,8 +153,7 @@ public class Rational {
   public static Rational sub(final Rational a, final Rational b) {
     final long denumCom = ArithmeticUtils.lcm(a.denum, b.denum);
     final long num = (a.num * (denumCom / a.denum)) - (b.num * (denumCom / b.denum));
-    final Rational res = new Rational(num, denumCom);
-    return res;
+    return new Rational(num, denumCom);
   }
 
   /**
@@ -167,13 +164,13 @@ public class Rational {
    * @return the natural representation of a set of rational
    */
   public static List<Long> toNatural(final Iterable<Rational> fracs) {
-    final long gcd = new Long(Rational.gcd(fracs));
-    final Vector<Long> result = new Vector<>();
+    final long gcd = Rational.gcd(fracs);
+    final List<Long> result = new ArrayList<>();
     for (final Rational f : fracs) {
       final Rational absRat = f.abs();
-      final long longNum = new Long(absRat.num);
-      final long longRes = (longNum * gcd) / new Long(absRat.denum);
-      result.add((Long) longRes);
+      final long longNum = absRat.num;
+      final long longRes = longNum * (gcd / absRat.denum);
+      result.add(longRes);
     }
     return result;
   }
@@ -190,6 +187,10 @@ public class Rational {
   public Rational() {
     this.num = 0;
     this.denum = 0;
+  }
+
+  public Rational(final Rational other) {
+    this(other.num, other.denum);
   }
 
   /**
@@ -214,24 +215,14 @@ public class Rational {
     return new Rational(Math.abs(this.num), Math.abs(this.denum));
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#clone()
-   */
-  @Override
-  public Rational clone() {
-    return new Rational(this.num, this.denum);
-  }
-
   /**
    * Gives the double value of this rational.
    *
    * @return the double value of this rational
    */
   public double doubleValue() {
-    final double doubleNum = new Double(this.num);
-    final double doubleDenum = new Double(this.denum);
+    final double doubleNum = this.num;
+    final double doubleDenum = this.denum;
     return doubleNum / doubleDenum;
   }
 
@@ -259,10 +250,7 @@ public class Rational {
    * @return True if this rational is positive
    */
   public boolean greaterThanZero() {
-    if (((this.num >= 0) && (this.denum >= 0)) || ((this.num <= 0) && (this.denum <= 0))) {
-      return true;
-    }
-    return false;
+    return (((this.num >= 0) && (this.denum >= 0)) || ((this.num <= 0) && (this.denum <= 0)));
   }
 
   /**
