@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface Value.
  */
@@ -51,7 +50,7 @@ public interface Value {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public long longValue() throws InvalidExpressionException, NoIntegerValueException;
+  public long longValue();
 
   /**
    * Set the solver to use for this expression.

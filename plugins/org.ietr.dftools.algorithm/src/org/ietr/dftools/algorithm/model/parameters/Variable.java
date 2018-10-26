@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent variable.
  *
@@ -122,11 +121,6 @@ public class Variable {
     final long val = this.value.longValue();
     this.value = new ConstantValue(val);
     return val;
-  }
-
-  @Deprecated
-  public int intValue() {
-    return (int) this.longValue();
   }
 
   /**

@@ -53,7 +53,6 @@ import org.jgrapht.event.GraphListener;
 import org.jgrapht.event.GraphVertexChangeEvent;
 import org.jgrapht.event.VertexSetListener;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a listenable DAG.
  *
@@ -66,13 +65,13 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    * A reuseable edge event.
    *
    * @author Barak Naveh
-   * @param <VV>
+   * @param <V>
    *          the generic type
-   * @param <EE>
+   * @param <E>
    *          the generic type
    * @since Aug 10, 2003
    */
-  private static class FlyweightEdgeEvent<VV, EE> extends GraphEdgeChangeEvent<VV, EE> {
+  private static class FlyweightEdgeEvent<V, E> extends GraphEdgeChangeEvent<V, E> {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3907207152526636089L;
@@ -88,7 +87,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
      *          the e
      * @see GraphEdgeChangeEvent#GraphEdgeChangeEvent(Object, int, Edge)
      */
-    private FlyweightEdgeEvent(final Object eventSource, final int type, final EE e, VV edgeSource, VV edgeTarget) {
+    FlyweightEdgeEvent(final Object eventSource, final int type, final E e, V edgeSource, V edgeTarget) {
       super(eventSource, type, e, edgeSource, edgeTarget);
     }
 
@@ -98,7 +97,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
      * @param e
      *          the edge to be set.
      */
-    protected void setEdge(final EE e) {
+    protected void setEdge(final E e) {
       this.edge = e;
     }
 
@@ -117,11 +116,11 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
    * A reuseable vertex event.
    *
    * @author Barak Naveh
-   * @param <VV>
+   * @param <V>
    *          the generic type
    * @since Aug 10, 2003
    */
-  private static class FlyweightVertexEvent<VV> extends GraphVertexChangeEvent<VV> {
+  private static class FlyweightVertexEvent<V> extends GraphVertexChangeEvent<V> {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3257848787857585716L;
@@ -137,7 +136,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
      *          the vertex
      * @see GraphVertexChangeEvent#GraphVertexChangeEvent(Object, int, Object)
      */
-    private FlyweightVertexEvent(final Object eventSource, final int type, final VV vertex) {
+    FlyweightVertexEvent(final Object eventSource, final int type, final V vertex) {
       super(eventSource, type, vertex);
     }
 
@@ -157,7 +156,7 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
      * @param vertex
      *          the vertex to be set.
      */
-    protected void setVertex(final VV vertex) {
+    protected void setVertex(final V vertex) {
       this.vertex = vertex;
     }
   }
@@ -247,21 +246,6 @@ public class DAGListenableGraph extends DirectedAcyclicGraph implements Listenab
     return added;
   }
 
-  /**
-   * Adds the graph listener.
-   *
-   * @param l
-   *          the l
-   * @see Graph#addEdge(Object, Object)
-   */
-  /*
-   * public DAGEdge addEdgeWithLink(DAGVertex sourceVertex, DAGVertex targetVertex) { DAGEdge e =
-   * super.addEdgeWithLink(sourceVertex, targetVertex);
-   *
-   * if (e != null) { fireEdgeAdded(e); }
-   *
-   * return e; } //
-   */
   /**
    * @see ListenableGraph#addGraphListener(GraphListener)
    */

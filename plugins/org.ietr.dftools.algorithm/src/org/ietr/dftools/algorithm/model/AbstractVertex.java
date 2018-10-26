@@ -418,7 +418,9 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @param e
    *          the e
    */
-  public abstract void connectionAdded(AbstractEdge<?, ?> e);
+  public void connectionAdded(AbstractEdge<?, ?> e) {
+    // nothing by default
+  }
 
   /**
    * Notify the vertex that it has been disconnected froms the given edge.
@@ -426,7 +428,9 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @param e
    *          the e
    */
-  public abstract void connectionRemoved(AbstractEdge<?, ?> e);
+  public void connectionRemoved(AbstractEdge<?, ?> e) {
+    // nothing by default
+  }
 
   /*
    * (non-Javadoc)

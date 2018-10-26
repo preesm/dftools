@@ -37,11 +37,9 @@
  */
 package org.ietr.dftools.algorithm.model.generic;
 
-import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GenericVertex.
  */
@@ -68,34 +66,10 @@ public class GenericVertex extends AbstractVertex<GenericGraph> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void connectionAdded(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void connectionRemoved(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   *
    * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 

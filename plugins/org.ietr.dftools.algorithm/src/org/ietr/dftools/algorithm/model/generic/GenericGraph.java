@@ -44,7 +44,6 @@ import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GenericGraph.
  */
@@ -66,23 +65,10 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph,
-   * java.lang.Object)
-   */
-  @Override
-  public void update(final AbstractGraph<?, ?> observable, final Object arg) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @Override
   public AbstractGraph<GenericVertex, GenericEdge> clone() {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -93,7 +79,6 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    */
   @Override
   public boolean validateModel(final Logger logger) throws SDF4JException {
-    // TODO Auto-generated method stub
     return false;
   }
 
@@ -104,7 +89,6 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    */
   @Override
   public ModelVertexFactory<GenericVertex> getVertexFactory() {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -115,7 +99,6 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 

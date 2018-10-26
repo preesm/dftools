@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model.parameters;
 
 import java.util.LinkedHashMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a set of parameters.
  *

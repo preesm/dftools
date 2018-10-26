@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class representing parameters that can be used to configure a graph ...
  *
@@ -88,7 +87,7 @@ public class Parameter {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public Long getValue() throws NoIntegerValueException {
+  public Long getValue() {
     return this.value;
   }
 
