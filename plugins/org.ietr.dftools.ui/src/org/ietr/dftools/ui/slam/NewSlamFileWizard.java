@@ -56,7 +56,6 @@ import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.ObjectType;
 import org.ietr.dftools.graphiti.ui.wizards.WizardSaveGraphPage;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides a wizard to create a new slam network.
  *

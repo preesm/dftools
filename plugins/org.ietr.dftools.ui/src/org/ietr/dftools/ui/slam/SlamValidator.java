@@ -49,8 +49,8 @@ import org.ietr.dftools.graphiti.model.Edge;
 import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.IValidator;
 import org.ietr.dftools.graphiti.model.Vertex;
+import org.ietr.dftools.ui.DFToolsUIException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Validating the System-Level Architecture Model.
  *
@@ -595,7 +595,7 @@ public final class SlamValidator implements IValidator {
       marker.setAttribute(IMarker.SEVERITY, severity);
       marker.setAttribute(IMarker.MESSAGE, message);
     } catch (final CoreException e) {
-      e.printStackTrace();
+      throw new DFToolsUIException("Could not create marker", e);
     }
   }
 }
