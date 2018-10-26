@@ -103,7 +103,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    *           This Edge creates a cycle
    */
   public DAGEdge addDAGEdge(final DAGVertex source, final DAGVertex target) {
-    if (getAllEdges(source, target).isEmpty()) {
+    if (!getAllEdges(source, target).isEmpty()) {
       throw new CreateMultigraphException("There should be no edge existing.");
     } else {
       final DAGEdge newEdge = addEdge(source, target);

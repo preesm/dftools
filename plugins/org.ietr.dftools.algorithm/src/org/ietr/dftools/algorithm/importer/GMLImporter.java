@@ -45,10 +45,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.core.runtime.Path;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.exporter.Key;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -177,7 +179,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
       registry = DOMImplementationRegistry.newInstance();
       impl = (DOMImplementationLS) registry.getDOMImplementation("Core 3.0 XML 3.0 LS");
     } catch (ClassCastException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not import graph", e);
     }
 
     final LSInput lsInput = impl.createLSInput();
@@ -245,7 +247,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
     final List<Object> result = new ArrayList<>();
     final List<Key> keySet = this.classKeySet.get(eltType);
     if (keySet == null) {
-      return null;
+      return Collections.emptyList();
     }
     final String key = dataElt.getAttribute("key");
     for (final Key oneKey : keySet) {
@@ -263,13 +265,11 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
           if (oneKey.getType().equals("int")) {
             constParam = int.class;
             param = Long.parseLong(dataElt.getTextContent());
-          } else if (oneKey.getType().equals("string")) {
-            constParam = String.class;
-            param = dataElt.getTextContent();
           } else if (oneKey.getType().equals("double")) {
             constParam = double.class;
             param = new Double(dataElt.getTextContent());
           } else {
+            // includes type == "string"
             constParam = String.class;
             param = dataElt.getTextContent();
           }
@@ -281,7 +281,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
               }
             }
             if (toUse == null) {
-              return null;
+              return Collections.emptyList();
             }
             final Object value = toUse.invoke(null, param);
             result.add(oneKey.getName());
@@ -293,12 +293,12 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 
           return result;
         } catch (final Exception e) {
-          e.printStackTrace();
+          throw new DFToolsAlgoException("Could not parse key", e);
         }
 
       }
     }
-    return null;
+    return Collections.emptyList();
   }
 
   /**
@@ -311,7 +311,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @param eltType
    *          The type of the element
    */
-  public void old_parseKeys(final Element elt, final PropertyBean bean, final String eltType) {
+  private void old_parseKeys(final Element elt, final PropertyBean bean, final String eltType) {
     final NodeList childList = elt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
       if (childList.item(i).getNodeName().equals("data")) {

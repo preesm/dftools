@@ -39,6 +39,7 @@
 package org.ietr.dftools.algorithm.model.dag;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -262,7 +263,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    *          the sink name to add
    */
   public void addSinkName(final String sinkName) {
-    final ArrayList<String> sinkList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
+    final List<String> sinkList = getPropertyBean().getValue(DAGVertex.SINKS);
     if (sinkList == null) {
       getPropertyBean().setValue(DAGVertex.SINKS, new ArrayList<String>());
       addSinkName(sinkName);
@@ -276,9 +277,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    *
    * @return list of sink associated with the vertex
    */
-  @SuppressWarnings("unchecked")
-  public ArrayList<String> getSinkNameList() {
-    return (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
+  public List<String> getSinkNameList() {
+    return getPropertyBean().getValue(DAGVertex.SINKS);
   }
 
   /**
@@ -288,9 +288,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @param sourceName
    *          the source name to add
    */
-  @SuppressWarnings("unchecked")
   public void addSourceName(final String sourceName) {
-    final ArrayList<String> sourceList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SOURCES);
+    final List<String> sourceList = getPropertyBean().getValue(DAGVertex.SOURCES);
     if (sourceList == null) {
       getPropertyBean().setValue(DAGVertex.SOURCES, new ArrayList<String>());
       addSourceName(sourceName);
@@ -304,9 +303,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    *
    * @return list of sources associated with the vertex
    */
-  @SuppressWarnings("unchecked")
-  public ArrayList<String> getSourceNameList() {
-    return (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SOURCES);
+  public List<String> getSourceNameList() {
+    return getPropertyBean().getValue(DAGVertex.SOURCES);
   }
 
 }

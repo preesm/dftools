@@ -44,7 +44,6 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Importer for DAG graphs.
  *
@@ -127,7 +126,6 @@ public class GMLDAGImporter extends GMLImporter<DirectedAcyclicGraph, DAGVertex,
    */
   @Override
   public DAGVertex parsePort(final Element portElt, final DirectedAcyclicGraph parentGraph) {
-    // TODO Auto-generated method stub
     return null;
   }
 

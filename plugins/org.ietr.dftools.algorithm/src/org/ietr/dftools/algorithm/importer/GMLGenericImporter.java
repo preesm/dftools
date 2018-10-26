@@ -47,7 +47,6 @@ import org.ietr.dftools.algorithm.model.IInterface;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GMLGenericImporter.
  */
@@ -137,9 +136,7 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
       }
       parseKeys(graphElt, graph);
       return graph;
-    } catch (final InstantiationException e) {
-      throw new InvalidModelException("Failed to parse graph with message :" + e.getMessage());
-    } catch (final IllegalAccessException e) {
+    } catch (final InstantiationException | IllegalAccessException e) {
       throw new InvalidModelException("Failed to parse graph with message :" + e.getMessage());
     }
   }
