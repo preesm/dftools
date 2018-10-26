@@ -40,7 +40,6 @@ package org.ietr.dftools.workflow;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The activator class controls the plug-in life cycle.
  *
@@ -55,12 +54,6 @@ public class Activator extends Plugin {
   /** The plugin. */
   // The shared instance
   private static Activator plugin;
-
-  /**
-   * The constructor.
-   */
-  public Activator() {
-  }
 
   /*
    * (non-Javadoc)

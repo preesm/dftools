@@ -45,7 +45,6 @@ import org.ietr.dftools.workflow.elements.Workflow;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestWorkflowTask1.
  */
@@ -61,7 +60,8 @@ public class TestWorkflowTask1 extends AbstractTaskImplementation {
   public Map<String, Object> execute(final Map<String, Object> inputs, final Map<String, String> parameters,
       final IProgressMonitor monitor, final String nodeName, final Workflow workflow) {
     final Map<String, Object> outputs = new LinkedHashMap<>();
-    WorkflowLogger.getLogger().log(Level.INFO, "Executing TestWorkflowTask1; node: " + nodeName);
+    final String message = "Executing TestWorkflowTask1; node: " + nodeName;
+    WorkflowLogger.getLogger().log(Level.INFO, message);
     outputs.put("superData", "superData1");
     return outputs;
   }

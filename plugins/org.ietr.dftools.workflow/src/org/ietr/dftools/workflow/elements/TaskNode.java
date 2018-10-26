@@ -48,7 +48,6 @@ import org.ietr.dftools.workflow.WorkflowParser;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides a task workflow node.
  *

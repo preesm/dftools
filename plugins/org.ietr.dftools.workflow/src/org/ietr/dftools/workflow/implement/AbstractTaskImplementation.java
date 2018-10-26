@@ -45,7 +45,6 @@ import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.elements.Workflow;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This interface must be implemented by any workflow task element. The prototype of the workflow task is specified in
  * the plugin extension.
@@ -139,7 +138,7 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
    *           the workflow exception
    */
   public abstract Map<String, Object> execute(Map<String, Object> inputs, Map<String, String> parameters,
-      IProgressMonitor monitor, String nodeName, Workflow workflow) throws WorkflowException;
+      IProgressMonitor monitor, String nodeName, Workflow workflow);
 
   /**
    * Returns the task parameters and their default values. These parameters are automatically added in the graph if not

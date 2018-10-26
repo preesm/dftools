@@ -47,7 +47,6 @@ import java.util.logging.Level;
 import org.ietr.dftools.workflow.WorkflowManager;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * Node implementation is the superclass of both scenario and task implementation. Their outputs are handled the same
  * way.

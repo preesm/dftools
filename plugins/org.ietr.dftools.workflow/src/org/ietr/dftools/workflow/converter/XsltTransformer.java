@@ -42,6 +42,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.ietr.dftools.workflow.WorkflowException;
 
 /**
  * This class provides methods to transform an XML file via XSLT
@@ -79,12 +80,11 @@ public class XsltTransformer {
     try {
       this.transformer = factory.newTransformer(source);
     } catch (final Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new WorkflowException("Could not transform Xslt", e);
     }
 
     if (this.transformer == null) {
-      System.out.println("XSL sheet not found or not valid: " + xslFileLoc);
+      throw new WorkflowException("XSL sheet not found or not valid: " + xslFileLoc);
     }
 
     return true;
@@ -101,10 +101,10 @@ public class XsltTransformer {
         this.transformer.transform(new StreamSource(sourceFileLoc),
             new StreamResult(new FileOutputStream(destFileLoc)));
       } catch (final FileNotFoundException ex) {
-        System.out.println("Problem finding files for XSL transfo (" + sourceFileLoc + "," + destFileLoc + ")");
+        final String message = "Problem finding files for XSL transfo (" + sourceFileLoc + "," + destFileLoc + ")";
+        throw new WorkflowException(message, ex);
       } catch (final TransformerException ex) {
-        // TODO Auto-generated catch block
-        ex.printStackTrace();
+        throw new WorkflowException("Could not transform file", ex);
       }
     }
 

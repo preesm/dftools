@@ -40,7 +40,6 @@ package org.ietr.dftools.workflow;
 import java.util.logging.Level;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins
  * tasks applied to a scenario.
@@ -52,7 +51,7 @@ public class WorkflowManager extends AbstractWorkflowExecutor {
   /**
    * Ports with this name are ignored when exchanging data. They just specify precedence.
    */
-  public static String IGNORE_PORT_NAME = "void";
+  public static final String IGNORE_PORT_NAME = "void";
 
   /**
    * Instantiates a new workflow manager.

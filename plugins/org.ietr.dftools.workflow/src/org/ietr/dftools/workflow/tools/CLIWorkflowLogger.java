@@ -45,7 +45,6 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-// TODO: Auto-generated Javadoc
 /**
  * Define the singleton managing PREESM loggers. When using this helper class, your debug, info, warning and errors
  * messages will be displayed in the right eclipse console. If no Eclipse GUI plugin is loaded (i.e. executing a job in
@@ -58,6 +57,10 @@ import java.util.logging.Logger;
  *
  */
 public class CLIWorkflowLogger {
+
+  private CLIWorkflowLogger() {
+    // prevent instantiation
+  }
 
   /** The Constant RAW_FLAG. */
   private static final String RAW_FLAG = "raw_record";
@@ -207,8 +210,9 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void debug(final Object content) {
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.DEBUG, content.toString());
+  public static void printDebug(final Object content) {
+    final String contentStr = content.toString();
+    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.DEBUG, contentStr);
   }
 
   /**
@@ -217,8 +221,8 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void debugln(final Object content) {
-    CLIWorkflowLogger.debug(content.toString() + System.getProperty("line.separator"));
+  public static void printDebugln(final Object content) {
+    CLIWorkflowLogger.printDebug(content.toString() + "\n");
   }
 
   /**
@@ -227,7 +231,7 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void debugRaw(final Object content) {
+  public static void printDebugRaw(final Object content) {
     final LogRecord record = new LogRecord(CLIWorkflowLogger.DEBUG, content.toString());
     record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
     CLIWorkflowLogger.getLogger().log(record);
@@ -239,8 +243,9 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void notice(final Object content) {
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.NOTICE, content.toString());
+  public static void printNotice(final Object content) {
+    final String contentStr = content.toString();
+    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.NOTICE, contentStr);
   }
 
   /**
@@ -249,8 +254,8 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void noticeln(final Object content) {
-    CLIWorkflowLogger.notice(content.toString() + System.getProperty("line.separator"));
+  public static void printNoticeln(final Object content) {
+    CLIWorkflowLogger.printNotice(content.toString() + "\n");
   }
 
   /**
@@ -271,8 +276,9 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void severe(final Object content) {
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.SEVERE, content.toString());
+  public static void printSevere(final Object content) {
+    final String contentStr = content.toString();
+    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.SEVERE, contentStr);
   }
 
   /**
@@ -281,8 +287,8 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void severeln(final Object content) {
-    CLIWorkflowLogger.severe(content.toString() + System.getProperty("line.separator"));
+  public static void printSevereln(final Object content) {
+    CLIWorkflowLogger.printSevere(content.toString() + "\n");
   }
 
   /**
@@ -291,7 +297,7 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void severeRaw(final Object content) {
+  public static void printSevereRaw(final Object content) {
     final LogRecord record = new LogRecord(CLIWorkflowLogger.SEVERE, content.toString());
     record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
     CLIWorkflowLogger.getLogger().log(record);
@@ -303,8 +309,9 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void trace(final Object content) {
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.TRACE, content.toString());
+  public static void printTrace(final Object content) {
+    final String contentStr = content.toString();
+    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.TRACE, contentStr);
   }
 
   /**
@@ -313,8 +320,8 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void traceln(final Object content) {
-    CLIWorkflowLogger.trace(content.toString() + System.getProperty("line.separator"));
+  public static void printTraceln(final Object content) {
+    CLIWorkflowLogger.printTrace(content.toString() + "\n");
   }
 
   /**
@@ -323,7 +330,7 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void traceRaw(final Object content) {
+  public static void printTraceRaw(final Object content) {
     final LogRecord record = new LogRecord(CLIWorkflowLogger.TRACE, content.toString());
     record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
     CLIWorkflowLogger.getLogger().log(record);
@@ -335,8 +342,9 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void warn(final Object content) {
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.WARNING, content.toString());
+  public static void printWarn(final Object content) {
+    final String contentStr = content.toString();
+    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.WARNING, contentStr);
   }
 
   /**
@@ -345,8 +353,8 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void warnln(final Object content) {
-    CLIWorkflowLogger.warn(content.toString() + System.getProperty("line.separator"));
+  public static void printWarnln(final Object content) {
+    CLIWorkflowLogger.printWarn(content.toString() + "\n");
   }
 
   /**
@@ -355,7 +363,7 @@ public class CLIWorkflowLogger {
    * @param content
    *          the content
    */
-  public static void warnRaw(final Object content) {
+  public static void printWarnRaw(final Object content) {
     final LogRecord record = new LogRecord(CLIWorkflowLogger.WARNING, content.toString());
     record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
     CLIWorkflowLogger.getLogger().log(record);
@@ -370,7 +378,8 @@ public class CLIWorkflowLogger {
    *          the msg
    */
   public static void log(final Level level, final String msg) {
-    CLIWorkflowLogger.getLogger().log(level, msg + System.getProperty("line.separator"));
+    final String contentStr = msg + "\n";
+    CLIWorkflowLogger.getLogger().log(level, contentStr);
   }
 
   /**
@@ -382,6 +391,6 @@ public class CLIWorkflowLogger {
    *          the msg
    */
   public static void logln(final Level level, final String msg) {
-    CLIWorkflowLogger.getLogger().log(level, msg + System.getProperty("line.separator"));
+    log(level, msg + "\n");
   }
 }

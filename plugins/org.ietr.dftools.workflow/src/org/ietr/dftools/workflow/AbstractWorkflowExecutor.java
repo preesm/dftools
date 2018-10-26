@@ -519,8 +519,9 @@ public abstract class AbstractWorkflowExecutor {
   protected abstract void log(Level level, String msgKey, String... variables);
 
   /**
-   * This special logging method is used for handling severe message with associated exception or error. TODO: add debug
-   * parameter to the application and handle it here to show (or not) the full stack trace/
+   * This special logging method is used for handling severe message with associated exception or error.
+   *
+   * TODO: add debug parameter to the application and handle it here to show (or not) the full stack trace/
    */
   protected void error(final Throwable cause, final String msg) {
     WorkflowLogger.getLogger().log(Level.SEVERE, msg);

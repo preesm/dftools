@@ -54,6 +54,10 @@ import org.osgi.framework.Bundle;
  */
 public class WorkflowConverter {
 
+  private WorkflowConverter() {
+    // prevent instantiation
+  }
+
   /**
    */
   public static void convert(final File file) throws IOException {
