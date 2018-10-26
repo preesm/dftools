@@ -40,7 +40,6 @@ package org.ietr.dftools.algorithm.model.parameters.factories;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating Argument objects.
  */

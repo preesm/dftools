@@ -41,6 +41,7 @@ package org.ietr.dftools.algorithm.model.sdf.esdf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -130,7 +131,7 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
     try {
       copy.setNbRepeat(getNbRepeat());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("could not clone vertex", e);
     }
 
     // Copy the ports

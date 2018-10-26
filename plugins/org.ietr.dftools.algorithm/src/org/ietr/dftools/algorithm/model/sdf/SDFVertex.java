@@ -38,11 +38,10 @@
  */
 package org.ietr.dftools.algorithm.model.sdf;
 
-import org.ietr.dftools.algorithm.model.AbstractEdge;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent Hierachical vertices, meaning it is a vertex in the parent graph, but is itself a graph.
  *
@@ -118,33 +117,10 @@ public class SDFVertex extends SDFAbstractVertex {
     try {
       newVertex.setNbRepeat(getNbRepeat());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not clone vertex", e);
     }
 
     return newVertex;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void connectionAdded(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void connectionRemoved(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
   }
 
 }

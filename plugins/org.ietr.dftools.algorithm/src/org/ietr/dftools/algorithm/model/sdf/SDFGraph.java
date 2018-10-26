@@ -41,6 +41,7 @@ package org.ietr.dftools.algorithm.model.sdf;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -49,6 +50,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.SDFMath;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
@@ -87,17 +89,20 @@ import org.math.array.LinearAlgebra;
  */
 public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
 
+  private static final String TOPOLOGY_LITERAL = "topology";
+
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
   /** The Constant TOPOLOGY. */
-  protected static final String TOPOLOGY = "topology";
+  protected static final String TOPOLOGY = TOPOLOGY_LITERAL;
 
   /** The Constant VALID_MODEL. */
   protected static final String VALID_MODEL = "valid_model";
 
   /** The old ref. */
-  private final Map<SDFEdge, SDFEdge> oldRef = new LinkedHashMap<>();
+  // use HashMap for inheriting serializable
+  private final HashMap<SDFEdge, SDFEdge> oldRef = new LinkedHashMap<>();
 
   /**
    * Construct a new SDFGraph with the default edge factory.
@@ -158,7 +163,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   @Override
   public SDFEdge addEdge(final SDFAbstractVertex source, final SDFAbstractVertex target) {
     final SDFEdge newEdge = super.addEdge(source, target);
-    // properties.setValue(PropertyBean.PROPERTY_ADD, null, newEdge);
     if ((source instanceof SDFForkVertex)
         || ((source instanceof SDFBroadcastVertex) && !(source instanceof SDFRoundBufferVertex))) {
       source.connectionAdded(newEdge);
@@ -261,7 +265,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   @Override
   public boolean addVertex(final SDFAbstractVertex vertex) {
     if (super.addVertex(vertex)) {
-      getPropertyBean().setValue("topology", null);
+      getPropertyBean().setValue(TOPOLOGY_LITERAL, null);
       return true;
     }
     return false;
@@ -316,7 +320,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
     SpecialActorPortsIndexer.sortIndexedPorts(newGraph);
 
     newGraph.copyProperties(this);
-    newGraph.getPropertyBean().setValue("topology", null);
+    newGraph.getPropertyBean().setValue(TOPOLOGY_LITERAL, null);
     newGraph.getPropertyBean().setValue("vrb", null);
     return newGraph;
   }
@@ -328,7 +332,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected boolean computeVRB() throws InvalidExpressionException {
+  protected boolean computeVRB() {
     final Map<SDFAbstractVertex, Long> vrb = new LinkedHashMap<>();
     final List<List<SDFAbstractVertex>> subgraphs = getAllSubGraphs();
 
@@ -426,7 +430,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -510,7 +513,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public double[][] getTopologyMatrix(final List<SDFAbstractVertex> subgraph) throws InvalidExpressionException {
+  public double[][] getTopologyMatrix(final List<SDFAbstractVertex> subgraph) {
     final List<double[]> topologyListMatrix = new ArrayList<>();
     double[][] topologyArrayMatrix;
 
@@ -533,7 +536,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       }
     }
 
-    if (topologyListMatrix.size() == 0) {
+    if (topologyListMatrix.isEmpty()) {
       topologyArrayMatrix = new double[0][0];
     } else {
       topologyArrayMatrix = new double[topologyListMatrix.size()][topologyListMatrix.get(0).length];
@@ -576,8 +579,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
     }
     for (final SDFInterfaceVertex port : connections.keySet()) {
       if (connections.get(port).size() > 1) {
-        logger.log(Level.WARNING,
-            "Warning: Implicit Broadcast added in graph " + getName() + " at port " + vertex + "." + port.getName());
+        final String message = "Warning: Implicit Broadcast added in graph " + getName() + " at port " + vertex + "."
+            + port.getName();
+        logger.log(Level.WARNING, message);
         final SDFBroadcastVertex broadcastPort = new SDFBroadcastVertex();
         broadcastPort.setName("br_" + vertex.getName() + "_" + port.getName());
         final SDFSourceInterfaceVertex inPort = new SDFSourceInterfaceVertex();
@@ -617,9 +621,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
             baseEdge.setDataType(oldEdge.getDataType());
             this.removeEdge(oldEdge);
           } catch (final InvalidExpressionException e) {
-            // Should never happen, baseEdge.getCons is the method
-            // imposing this try catch
-            e.printStackTrace();
+            throw new DFToolsAlgoException("Could not insert broadcast", e);
           }
         }
       }
@@ -636,10 +638,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   public boolean isSchedulable() throws SDF4JException {
     boolean schedulable = true;
     for (final SDFAbstractVertex vertex : vertexSet()) {
-      if (!(vertex instanceof SDFInterfaceVertex)) {
-        if ((vertex.getGraphDescription() != null) && (vertex.getGraphDescription() instanceof SDFGraph)) {
-          schedulable &= ((SDFGraph) vertex.getGraphDescription()).isSchedulable();
-        }
+      if (!(vertex instanceof SDFInterfaceVertex) && vertex.getGraphDescription() instanceof SDFGraph) {
+        schedulable &= ((SDFGraph) vertex.getGraphDescription()).isSchedulable();
       }
 
     }
@@ -866,8 +866,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @throws SDF4JException
    *           thrown if the child is not valid
    */
-  private void validateChild(final SDFAbstractVertex child, final Logger logger)
-      throws InvalidExpressionException, SDF4JException {
+  private void validateChild(final SDFAbstractVertex child, final Logger logger) throws SDF4JException {
 
     // validate vertex
     if (!child.validateModel(logger)) {
@@ -981,11 +980,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       final boolean schedulable = isSchedulable();
       if (schedulable) {
         computeVRB();
-        /*
-         * if (this.getVariables() != null) { for (Variable var : this.getVariables().values()) { int val; try { val =
-         * var.intValue(); var.setValue(String.valueOf(val)); } catch (NoIntegerValueException e) { // TODO
-         * Auto-generated catch block e.printStackTrace(); } } }
-         */
         // TODO: variable should only need to be resolved once, but
         // keep memory of their integer value
         final Set<SDFAbstractVertex> vertexSet = vertexSet();
@@ -993,28 +987,16 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
           validateChild(child, logger);
         }
         // solving all the parameter for the rest of the processing ...
-        /*
-         * for (SDFEdge edge : edgeSet()) { edge.setDelay(new SDFIntEdgePropertyType(edge.getDelay() .intValue()));
-         * edge.setCons(new SDFIntEdgePropertyType(edge.getCons() .intValue())); edge.setProd(new
-         * SDFIntEdgePropertyType(edge.getProd() .intValue())); }
-         */
         int i = 0;
         while (i < vertexSet.size()) {
           final SDFAbstractVertex vertex = (SDFAbstractVertex) (vertexSet.toArray()[i]);
           /*
            * (15/01/14) Removed by jheulot: allowing unconnected actor
            */
-          /*
-           * if (this.outgoingEdgesOf(vertex).size() == 0 && this.incomingEdgesOf(vertex).size() == 0) {
-           * this.removeVertex(vertex); if (logger != null) { logger.log( Level.INFO, vertex.getName() + " has been
-           * removed because it doesn't produce or consume data. \n This vertex has been used for repetition factor
-           * computation" ); } } else {
-           */
           if (vertex instanceof SDFVertex) {
             insertBroadcast((SDFVertex) vertex, logger);
           }
           i++;
-          /* } */
         }
 
         return true;

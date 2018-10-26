@@ -394,8 +394,8 @@ public class IbsdfFlattener {
       // Also get associated expression from parent graph
       final Map<String,
           String> subgraphParameters = subgraph.getParameters().entrySet().stream()
-              .filter(e -> subgraph.getVariable(e.getKey()) == null).collect(
-                  Collectors.toMap(e -> e.getKey(), e -> hierActor.getArgument(e.getValue().getName()).getValue()));
+              .filter(e -> subgraph.getVariable(e.getKey()) == null)
+              .collect(Collectors.toMap(Entry::getKey, e -> hierActor.getArgument(e.getValue().getName()).getValue()));
 
       // Do the substitution only for parameters whose expression differs
       // from the parameter name (to avoid unnecessary computations)

@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -49,7 +50,6 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Special vertex that supports broadcast.
  *
@@ -84,7 +84,7 @@ public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
     try {
       copy.setNbRepeat(getNbRepeat());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("could not clone vertex", e);
     }
 
     // Copy the ports
@@ -171,7 +171,7 @@ public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
       removeConnection(edge);
       index = (oldIndex < index) ? index - 1 : index;
       // update the indexes of subsequent edges.
-      for (long i = connections.size() - 1; i >= index; i--) {
+      for (long i = (connections.size() - 1); i >= index; i--) {
         connections.put(i + 1, connections.remove(i));
       }
       // put the edge in it new place
@@ -247,10 +247,9 @@ public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
    *
    * @return the connections
    */
-  @SuppressWarnings("unchecked")
   protected Map<Long, SDFEdge> getConnections() {
-    Map<Long, SDFEdge> connections;
-    if ((connections = (Map<Long, SDFEdge>) getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER)) == null) {
+    Map<Long, SDFEdge> connections = getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER);
+    if (connections == null) {
       connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
     }

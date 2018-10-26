@@ -36,10 +36,8 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
-import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Special vertex to initialize data on looping edges.
  *
@@ -69,30 +67,6 @@ public class SDFEndVertex extends SDFInitVertex {
     final SDFEndVertex init = new SDFEndVertex();
     init.setName(getName());
     return init;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#connectionAdded(org.ietr.dftools.algorithm.model.
-   * AbstractEdge)
-   */
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void connectionAdded(final AbstractEdge e) {
-    // Nothing to do for the moment
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#connectionRemoved(org.ietr.dftools.algorithm.model.
-   * AbstractEdge)
-   */
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void connectionRemoved(final AbstractEdge e) {
-    // Nothing to do for the moment
   }
 
 }
