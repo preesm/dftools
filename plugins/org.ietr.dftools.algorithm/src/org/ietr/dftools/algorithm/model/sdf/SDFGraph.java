@@ -866,11 +866,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @throws SDF4JException
    *           thrown if the child is not valid
    */
-  private void validateChild(final SDFAbstractVertex child, final Logger logger) throws SDF4JException {
+  private void validateChild(final SDFAbstractVertex child, final Logger logger) {
 
     // validate vertex
     if (!child.validateModel(logger)) {
-      throw new SDF4JException(child.getName() + " is not a valid vertex, verify arguments");
+      throw new DFToolsAlgoException(child.getName() + " is not a valid vertex, verify arguments");
     }
 
     if (child.getGraphDescription() != null) {
@@ -975,7 +975,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    *           the SDF 4 J exception
    */
   @Override
-  public boolean validateModel(final Logger logger) throws SDF4JException {
+  public boolean validateModel(final Logger logger) {
     try {
       final boolean schedulable = isSchedulable();
       if (schedulable) {

@@ -37,7 +37,9 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -46,7 +48,6 @@ import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.alg.cycle.CycleDetector;
 
-// TODO: Auto-generated Javadoc
 /**
  * Visitor to use to detect cycle in a hierarchical graph.
  *
@@ -55,7 +56,7 @@ import org.jgrapht.alg.cycle.CycleDetector;
 public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, SDFEdge> {
 
   /** The contains cycles. */
-  private final Vector<SDFGraph> containsCycles = new Vector<>();
+  private final List<SDFGraph> containsCycles = new ArrayList<>();
 
   /** The has cycle. */
   private boolean hasCycle = true;
@@ -71,21 +72,9 @@ public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, 
     try {
       graph.accept(this);
     } catch (final SDF4JException e) {
-      e.printStackTrace();
-      return false;
+      throw new DFToolsAlgoException("Could not verify graph", e);
     }
     return this.hasCycle;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void visit(final SDFEdge sdfEdge) {
-    // TODO Auto-generated method stub
-
   }
 
   /*
@@ -95,13 +84,13 @@ public class CycleDetectorVisitor implements IGraphVisitor<SDFGraph, SDFVertex, 
    */
   @Override
   public void visit(final SDFGraph sdf) throws SDF4JException {
-    boolean hasCycle;
+    boolean currentGraphHasCycle;
     final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(sdf);
-    hasCycle = detector.detectCycles();
-    if (hasCycle) {
+    currentGraphHasCycle = detector.detectCycles();
+    if (currentGraphHasCycle) {
       this.containsCycles.add(sdf);
     }
-    this.hasCycle = this.hasCycle && hasCycle;
+    this.hasCycle = this.hasCycle && currentGraphHasCycle;
     for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
       vertex.accept(this);
     }

@@ -55,7 +55,6 @@ import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
-import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
  * Abstract class representing SDF Vertices.
@@ -408,7 +407,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *           the invalid expression exception
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public boolean validateModel(final Logger logger) throws SDF4JException {
+  public boolean validateModel(final Logger logger) {
     int i = 0;
     while (i < this.sources.size()) {
       final SDFInterfaceVertex source = this.sources.get(i);
@@ -438,7 +437,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
         if (getGraphDescription().incomingEdgesOf(truePort).isEmpty() && logger != null) {
           logger.log(Level.INFO,
               "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused");
-          throw (new SDF4JException(
+          throw (new DFToolsAlgoException(
               "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused"));
         }
       }

@@ -46,6 +46,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 import org.apache.commons.math3.util.ArithmeticUtils;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.exceptions.CreateCycleException;
 import org.ietr.dftools.algorithm.exceptions.CreateMultigraphException;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
@@ -120,11 +121,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    *          The set of vertices of the cycle
    * @param nb
    *          The number of copy to produce
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
    */
-  private void copyCycle(final SDFGraph graph, final Set<SDFAbstractVertex> vertices, final long nb)
-      throws InvalidExpressionException {
+  private void copyCycle(final SDFGraph graph, final Set<SDFAbstractVertex> vertices, final long nb) {
     SDFAbstractVertex root = null;
     SDFAbstractVertex last = null;
     SDFEdge loop = null;
@@ -234,10 +232,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @param vertices
    *          the vertices
    * @return the int
-   * @throws InvalidExpressionException
-   *           the invalid expression exception
    */
-  private long gcdOfVerticesVrb(final Set<SDFAbstractVertex> vertices) throws InvalidExpressionException {
+  private long gcdOfVerticesVrb(final Set<SDFAbstractVertex> vertices) {
     long gcd = 0;
     for (final SDFAbstractVertex vertex : vertices) {
       if (gcd == 0) {
@@ -301,7 +297,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @throws CreateCycleException
    *           the CreateCycleException exception
    */
-  private void createEdge(final SDFEdge edge) throws CreateMultigraphException, CreateCycleException {
+  private void createEdge(final SDFEdge edge) {
     final DAGVertex source = this.outputGraph.getVertex(edge.getSource().getName());
     final DAGVertex target = this.outputGraph.getVertex(edge.getTarget().getName());
 
@@ -341,7 +337,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  long computeEdgeWeight(final SDFEdge edge) throws InvalidExpressionException {
+  long computeEdgeWeight(final SDFEdge edge) {
     final long weight = edge.getCons().longValue() * edge.getTarget().getNbRepeatAsLong();
     final long dataSize = edge.getDataSize().longValue();
     return weight * dataSize;
@@ -355,7 +351,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private void treatCycles(final SDFGraph graph) throws InvalidExpressionException {
+  private void treatCycles(final SDFGraph graph) {
     final List<Set<SDFAbstractVertex>> cycles = new ArrayList<>();
     final CycleDetector<SDFAbstractVertex, SDFEdge> detector = new CycleDetector<>(graph);
     final List<SDFAbstractVertex> vertices = new ArrayList<>(graph.vertexSet());
@@ -381,7 +377,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       }
     }
 
-    return;
   }
 
   /**
@@ -394,8 +389,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected void treatSDFCycles(final SDFGraph graph, final Set<SDFAbstractVertex> cycle)
-      throws InvalidExpressionException {
+  protected void treatSDFCycles(final SDFGraph graph, final Set<SDFAbstractVertex> cycle) {
     final List<SDFEdge> loops = new ArrayList<>();
     for (final SDFAbstractVertex vertex : cycle) {
       for (final SDFEdge edge : graph.incomingEdgesOf(vertex)) {
@@ -481,7 +475,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
           graph.removeEdge(edge);
         }
       } catch (final InvalidExpressionException e) {
-        e.printStackTrace();
+        throw new DFToolsAlgoException("Could not treat delays", e);
       }
       edges.remove(0);
     }
