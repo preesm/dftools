@@ -89,11 +89,6 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
    */
   public abstract long longValue();
 
-  @Deprecated
-  public int intValue() {
-    return (int) this.longValue();
-  }
-
   /**
    * Set this AbstractVertexPropertyType value.
    *
