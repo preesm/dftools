@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model;
 
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface for object using a property bean to store properties.
  *

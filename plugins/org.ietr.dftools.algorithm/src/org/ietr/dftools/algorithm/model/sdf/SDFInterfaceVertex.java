@@ -68,7 +68,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
   public SDFInterfaceVertex() {
     super();
     setKind(SDFInterfaceVertex.PORT);
-    setDirection(InterfaceDirection.Output);
+    setDirection(InterfaceDirection.OUTPUT);
   }
 
   /**

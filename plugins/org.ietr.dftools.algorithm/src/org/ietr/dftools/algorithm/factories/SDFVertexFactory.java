@@ -86,9 +86,9 @@ public class SDFVertexFactory implements ModelVertexFactory<SDFAbstractVertex> {
     } else if (kind.equals(SDFInterfaceVertex.PORT)) {
       final String direction = getProperty(vertexElt, SDFInterfaceVertex.PORT_DIRECTION);
       if (direction != null) {
-        if (direction.equals(InterfaceDirection.Input.name())) {
+        if (direction.equals(InterfaceDirection.INPUT.name())) {
           return new SDFSourceInterfaceVertex();
-        } else if (direction.equals(InterfaceDirection.Output.name())) {
+        } else if (direction.equals(InterfaceDirection.OUTPUT.name())) {
           return new SDFSinkInterfaceVertex();
         }
         return null;
@@ -124,9 +124,9 @@ public class SDFVertexFactory implements ModelVertexFactory<SDFAbstractVertex> {
       return newVertex;
     } else if (kind.equals(SDFInterfaceVertex.PORT)) {
       if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION) != null) {
-        if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.Input.name())) {
+        if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.INPUT.name())) {
           return new SDFSourceInterfaceVertex();
-        } else if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.Output.name())) {
+        } else if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.OUTPUT.name())) {
           return new SDFSinkInterfaceVertex();
         }
         return null;

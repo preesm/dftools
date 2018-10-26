@@ -339,7 +339,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public void setSourceInterface(final SDFInterfaceVertex source) {
     getPropertyBean().setValue(SDFEdge.SOURCE_PORT, null, source);
     if (source != null) {
-      source.setDirection(InterfaceDirection.Output);
+      source.setDirection(InterfaceDirection.OUTPUT);
     }
   }
 
@@ -352,7 +352,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public void setTargetInterface(final SDFInterfaceVertex target) {
     getPropertyBean().setValue(SDFEdge.TARGET_PORT, null, target);
     if (target != null) {
-      target.setDirection(InterfaceDirection.Input);
+      target.setDirection(InterfaceDirection.INPUT);
     }
   }
 

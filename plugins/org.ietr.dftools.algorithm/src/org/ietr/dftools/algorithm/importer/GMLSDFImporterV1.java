@@ -188,9 +188,9 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
               vertex.setGraphDescription(refine);
               for (final SDFAbstractVertex refineVertex : refine.vertexSet()) {
                 if (refineVertex instanceof SDFInterfaceVertex) {
-                  if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.Input) {
+                  if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.INPUT) {
                     vertex.addSource(((SDFInterfaceVertex) refineVertex).clone());
-                  } else if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.Output) {
+                  } else if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.OUTPUT) {
                     vertex.addSink(((SDFInterfaceVertex) refineVertex).clone());
                   }
                 }

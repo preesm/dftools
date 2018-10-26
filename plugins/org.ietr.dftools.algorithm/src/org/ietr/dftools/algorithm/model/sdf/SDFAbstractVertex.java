@@ -95,9 +95,9 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    */
   @Override
   public boolean addInterface(final IInterface port) {
-    if (port.getDirection().equals(InterfaceDirection.Input)) {
+    if (port.getDirection().equals(InterfaceDirection.INPUT)) {
       return addSource((SDFInterfaceVertex) port);
-    } else if (port.getDirection().equals(InterfaceDirection.Output)) {
+    } else if (port.getDirection().equals(InterfaceDirection.OUTPUT)) {
       return addSink((SDFInterfaceVertex) port);
     }
     return false;
@@ -316,7 +316,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *          The interface vertex the edge is to associate
    */
   public void setInterfaceVertexExternalLink(final SDFEdge extEdge, final SDFInterfaceVertex interfaceVertex) {
-    if (interfaceVertex.getDirection() == InterfaceDirection.Output) {
+    if (interfaceVertex.getDirection() == InterfaceDirection.OUTPUT) {
       extEdge.setSourceInterface(interfaceVertex);
     } else {
       extEdge.setTargetInterface(interfaceVertex);

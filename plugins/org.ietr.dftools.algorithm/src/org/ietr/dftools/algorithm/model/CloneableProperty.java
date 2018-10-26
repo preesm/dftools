@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * A class to implements when th eproperty can be cloned.
  *

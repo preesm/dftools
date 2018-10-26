@@ -56,7 +56,7 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
   public SDFSinkInterfaceVertex() {
     super();
     setKind(SDFInterfaceVertex.PORT);
-    setDirection(InterfaceDirection.Output);
+    setDirection(InterfaceDirection.OUTPUT);
   }
 
   /*

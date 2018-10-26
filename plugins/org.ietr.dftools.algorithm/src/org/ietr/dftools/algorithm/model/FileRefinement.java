@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * The refinement is a file with no graph interpretation.
  *
@@ -51,7 +50,6 @@ public class FileRefinement implements IRefinement, CloneableProperty {
    */
   @Override
   public FileRefinement clone() {
-    // TODO: fill the method body
     return null;
   }
 }

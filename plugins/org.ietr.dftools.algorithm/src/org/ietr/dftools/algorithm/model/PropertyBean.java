@@ -42,8 +42,8 @@ package org.ietr.dftools.algorithm.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
@@ -59,7 +59,8 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   static final long serialVersionUID = 1;
 
   /** The properties. */
-  private final Map<String, Object> properties;
+  // use HashMap to inherit Cloneable
+  private final HashMap<String, Object> properties;
 
   /** The property change. */
   private final PropertyChangeSupport propertyChange;
@@ -179,4 +180,5 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
     this.properties.put(propertyName, newValue);
     this.propertyChange.firePropertyChange(propertyName, oldValue, newValue);
   }
+
 }

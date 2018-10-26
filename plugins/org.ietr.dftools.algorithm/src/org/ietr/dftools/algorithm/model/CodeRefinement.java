@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model;
 
 import org.eclipse.core.runtime.IPath;
 
-// TODO: Auto-generated Javadoc
 /**
  * Code to refine a vertex.
  *
@@ -54,23 +53,23 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
    */
   public enum Language {
 
-    /** CAL Actor Language. */
-    CAL,
+  /** CAL Actor Language. */
+  CAL,
 
-    /** C Language. */
-    C,
+  /** C Language. */
+  C,
 
-    /** C++ Language. */
-    CPP,
+  /** C++ Language. */
+  CPP,
 
-    /** Java Language. */
-    JAVA,
+  /** Java Language. */
+  JAVA,
 
-    /** Interface Description Language. */
-    IDL,
+  /** Interface Description Language. */
+  IDL,
 
-    /** Text refinement, not a path. */
-    TEXT;
+  /** Text refinement, not a path. */
+  TEXT;
 
     /**
      * Gives a Language corresponding to the given extension.
@@ -159,8 +158,7 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
    */
   @Override
   public CodeRefinement clone() {
-    final CodeRefinement clone = new CodeRefinement(this.filePath);
-    return clone;
+    return new CodeRefinement(this.filePath);
   }
 
 }

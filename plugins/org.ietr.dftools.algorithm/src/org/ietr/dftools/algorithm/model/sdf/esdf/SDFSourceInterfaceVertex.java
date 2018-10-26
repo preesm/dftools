@@ -55,7 +55,7 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
   public SDFSourceInterfaceVertex() {
     super();
     setKind(SDFInterfaceVertex.PORT);
-    setDirection(InterfaceDirection.Input);
+    setDirection(InterfaceDirection.INPUT);
   }
 
   /*

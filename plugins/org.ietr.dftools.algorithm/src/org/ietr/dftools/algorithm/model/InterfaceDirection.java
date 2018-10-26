@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * Enumeration of the interface directions.
  *
@@ -46,10 +45,10 @@ package org.ietr.dftools.algorithm.model;
 public enum InterfaceDirection {
 
   /** The direction is Input. */
-  Input,
+  INPUT,
 
   /** The direction is Output. */
-  Output;
+  OUTPUT;
 
   /*
    * (non-Javadoc)
@@ -59,9 +58,9 @@ public enum InterfaceDirection {
   @Override
   public String toString() {
     switch (this) {
-      case Input:
+      case INPUT:
         return "Input";
-      case Output:
+      case OUTPUT:
         return "Output";
       default:
         return "";
@@ -77,9 +76,9 @@ public enum InterfaceDirection {
    */
   public static InterfaceDirection fromString(final String dir) {
     if (dir.equalsIgnoreCase("Input")) {
-      return Input;
+      return INPUT;
     } else if (dir.equalsIgnoreCase("Output")) {
-      return Output;
+      return OUTPUT;
     }
     return null;
   }
