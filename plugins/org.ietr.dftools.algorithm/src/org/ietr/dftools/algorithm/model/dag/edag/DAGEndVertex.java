@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model.dag.edag;
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represent an initialization vertex in the DAG.
  *

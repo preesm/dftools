@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model.dag.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a DAG edge property.
  *

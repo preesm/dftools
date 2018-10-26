@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model.dag.types;
 
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a Vertex property in a DAG.
  *
@@ -90,7 +89,6 @@ public class DAGVertexPropertyType extends AbstractVertexPropertyType<Long> {
    */
   @Override
   public AbstractVertexPropertyType<Long> clone() {
-    // TODO Auto-generated method stub
     return null;
   }
 }

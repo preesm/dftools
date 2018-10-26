@@ -43,7 +43,6 @@ import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a braodcast Vertex in a Directed Acyclic Graph.
  *
@@ -86,13 +85,12 @@ public class DAGJoinVertex extends DAGVertex {
    * @param newEdge
    *          the new edge
    */
-  @SuppressWarnings("unchecked")
   private void addConnection(final DAGEdge newEdge) {
     if (getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER) == null) {
       final List<DAGEdge> connections = new ArrayList<>();
       getPropertyBean().setValue(DAGJoinVertex.EDGES_ORDER, connections);
     }
-    ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)).add(newEdge);
+    getPropertyBean().<List<DAGEdge>>getValue(DAGJoinVertex.EDGES_ORDER).add(newEdge);
   }
 
   /**
@@ -101,13 +99,12 @@ public class DAGJoinVertex extends DAGVertex {
    * @param newEdge
    *          the new edge
    */
-  @SuppressWarnings("unchecked")
   private void removeConnection(final DAGEdge newEdge) {
     if (getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER) == null) {
       final List<DAGEdge> connections = new ArrayList<>();
       getPropertyBean().setValue(DAGJoinVertex.EDGES_ORDER, connections);
     }
-    ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)).remove(newEdge);
+    getPropertyBean().<List<DAGEdge>>getValue(DAGJoinVertex.EDGES_ORDER).remove(newEdge);
   }
 
   /**
@@ -117,11 +114,10 @@ public class DAGJoinVertex extends DAGVertex {
    *          The edge to get the connection index
    * @return The connection index of the edge
    */
-  @SuppressWarnings("unchecked")
   public Long getEdgeIndex(final DAGEdge edge) {
-    if (((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER)) != null) {
+    if (getPropertyBean().<List<DAGEdge>>getValue(DAGJoinVertex.EDGES_ORDER) != null) {
       long i = 0;
-      final List<DAGEdge> connections = ((List<DAGEdge>) getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER));
+      final List<DAGEdge> connections = getPropertyBean().getValue(DAGJoinVertex.EDGES_ORDER);
       for (final DAGEdge eqEdge : connections) {
         if (eqEdge.compare(edge)) {
           return i;
