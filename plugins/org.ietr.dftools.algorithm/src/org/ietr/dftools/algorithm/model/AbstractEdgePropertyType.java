@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model;
 
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract generic Class used to represent a Edge property.
  *
@@ -92,12 +91,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public abstract long longValue() throws InvalidExpressionException;
-
-  @Deprecated
-  public int intValue() throws InvalidExpressionException {
-    return (int) this.longValue();
-  }
+  public abstract long longValue();
 
   /**
    * Set this AbstractEdgePropertyType value.

@@ -44,6 +44,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
@@ -61,7 +62,6 @@ import org.jgrapht.EdgeFactory;
 import org.jgrapht.graph.DirectedPseudograph;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
-import org.nfunk.jep.ParseException;
 
 /**
  * Abstract class common to all graphs.
@@ -101,7 +101,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   public static final String PARENT_VERTEX = "parent_vertex";
 
   /** The public properties. */
-  protected static List<String> public_properties = new ArrayList<String>() {
+  protected static final List<String> PUBLIC_PROPERTIES = new ArrayList<String>() {
     /**
      *
      */
@@ -206,7 +206,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     if (this.properties.getValue(AbstractGraph.PARAMETERS) == null) {
       setParameterSet(new ParameterSet());
     }
-    ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS)).addParameter(param);
+    this.properties.<ParameterSet>getValue(AbstractGraph.PARAMETERS).addParameter(param);
   }
 
   /**
@@ -219,7 +219,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     if (this.properties.getValue(AbstractGraph.VARIABLES) == null) {
       setVariableSet(new VariableSet());
     }
-    ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES)).addVariable(var);
+    this.properties.<VariableSet>getValue(AbstractGraph.VARIABLES).addVariable(var);
     var.setExpressionSolver(this);
   }
 
@@ -258,7 +258,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   protected void checkMultipleEdges(final V source, final V target) throws RuntimeException {
     // Check if the source and target have a unique edge between them
     if (getAllEdges(source, target).size() > 1) {
-      throw new RuntimeException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
+      throw new DFToolsAlgoException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
           + getAllEdges(source, target).size() + " edges between actors " + source + " and " + target);
     }
   }
@@ -296,7 +296,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   public void copyProperties(final PropertySource props) {
     for (final String key : props.getPropertyBean().keys()) {
       if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-        this.getPropertyBean().setValue(key, ((CloneableProperty) props.getPropertyBean().getValue(key)).clone());
+        this.getPropertyBean().setValue(key, props.getPropertyBean().<CloneableProperty>getValue(key).clone());
       } else {
         this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
       }
@@ -377,7 +377,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       if (vertex.getName().equals(name)) {
         return vertex;
       } else if (vertex.getGraphDescription() != null) {
-        final AbstractVertex result = ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertex(name);
+        final AbstractVertex result = vertex.getGraphDescription().getHierarchicalVertex(name);
         if (result != null) {
           return (V) result;
         }
@@ -401,7 +401,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     // actor we will look for
     String currentName = splitPath[index];
     index++;
-    String currentPath = "";
+    final StringBuilder currentPath = new StringBuilder();
     // Handle the case where the first segment of path == name
     if (this.getName().equals(currentName)) {
       currentName = splitPath[index];
@@ -410,32 +410,30 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     // Compute the path for the next search (path minus currentName)
     for (int i = index; i < splitPath.length; i++) {
       if (i > index) {
-        currentPath += "/";
+        currentPath.append("/");
       }
-      currentPath += splitPath[i];
+      currentPath.append(splitPath[i]);
     }
     // Look for an actor named currentName
     for (final V a : vertexSet()) {
       if (a.getName().equals(currentName)) {
         // If currentPath is empty, then we are at the last hierarchy
         // level
-        if (currentPath.equals("")) {
+        if ("".equals(currentPath.toString())) {
           // We found the actor
           return a;
           // Otherwise, we need to go deeper in the hierarchy
         } else {
           final IRefinement refinement = a.getRefinement();
-          if ((refinement != null) && (refinement instanceof AbstractGraph)) {
+          if (refinement instanceof AbstractGraph) {
             final AbstractGraph subgraph = (AbstractGraph) refinement;
-            return (V) subgraph.getHierarchicalVertexFromPath(currentPath);
+            return (V) subgraph.getHierarchicalVertexFromPath(currentPath.toString());
           }
         }
       }
     }
     // If we reach this point, no actor was found, return null
     return null;
-
-    // return getHierarchicalVertexFromPath(path, "");
   }
 
   /**
@@ -462,8 +460,8 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     }
 
     // Selecting the first vertex name to find
-    if (vertexToFind.indexOf("/") != -1) {
-      vertexToFind = vertexToFind.substring(0, vertexToFind.indexOf("/"));
+    if (vertexToFind.indexOf('/') != -1) {
+      vertexToFind = vertexToFind.substring(0, vertexToFind.indexOf('/'));
       isPathRead = false;
     }
 
@@ -476,8 +474,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       if (isPathRead) {
         return vertex;
       } else if (vertex.getGraphDescription() != null) {
-        return (V) ((AbstractVertex) vertex).getGraphDescription().getHierarchicalVertexFromPath(path,
-            pathAlreadyRead + vertexToFind);
+        return (V) vertex.getGraphDescription().getHierarchicalVertexFromPath(path, pathAlreadyRead + vertexToFind);
       }
     }
 
@@ -507,7 +504,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    * @return The name of this graph
    */
   public String getName() {
-    return (String) this.properties.getValue(AbstractGraph.NAME);
+    return this.properties.getValue(AbstractGraph.NAME);
   }
 
   /**
@@ -519,7 +516,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    */
   public Parameter getParameter(final String name) {
     if (this.properties.getValue(AbstractGraph.PARAMETERS) != null) {
-      return ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS)).getParameter(name);
+      return this.properties.<ParameterSet>getValue(AbstractGraph.PARAMETERS).getParameter(name);
     }
     return null;
   }
@@ -540,7 +537,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    */
   public ParameterSet getParameters() {
     if (this.properties.getValue(AbstractGraph.PARAMETERS) != null) {
-      return ((ParameterSet) this.properties.getValue(AbstractGraph.PARAMETERS));
+      return this.properties.getValue(AbstractGraph.PARAMETERS);
     }
     return null;
   }
@@ -551,7 +548,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    * @return the parent vertex
    */
   public V getParentVertex() {
-    return ((V) this.properties.getValue(AbstractGraph.PARENT_VERTEX));
+    return this.properties.getValue(AbstractGraph.PARENT_VERTEX);
   }
 
   /**
@@ -584,7 +581,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    */
   @Override
   public List<String> getPublicProperties() {
-    return AbstractGraph.public_properties;
+    return AbstractGraph.PUBLIC_PROPERTIES;
   }
 
   /**
@@ -596,7 +593,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    */
   public Variable getVariable(final String name) {
     if (this.properties.getValue(AbstractGraph.VARIABLES) != null) {
-      return ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES)).getVariable(name);
+      return this.properties.<VariableSet>getValue(AbstractGraph.VARIABLES).getVariable(name);
     }
     return null;
   }
@@ -611,7 +608,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       final VariableSet variables = new VariableSet();
       this.setVariableSet(variables);
     }
-    return ((VariableSet) this.properties.getValue(AbstractGraph.VARIABLES));
+    return this.properties.getValue(AbstractGraph.VARIABLES);
   }
 
   /**
@@ -811,7 +808,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
             }
             jep.addVariable(arg, paramValue);
           } catch (final NoIntegerValueException e) {
-            e.printStackTrace();
+            throw new DFToolsAlgoException("Could not evaluate value", e);
           }
         }
       }
@@ -822,8 +819,6 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       } else {
         throw (new InvalidExpressionException("Not a numerical expression"));
       }
-    } catch (final ParseException e) {
-      throw (new InvalidExpressionException("Could not parse expresion:" + expression));
     } catch (final Exception e) {
       throw (new InvalidExpressionException("Could not parse expresion:" + expression));
     }

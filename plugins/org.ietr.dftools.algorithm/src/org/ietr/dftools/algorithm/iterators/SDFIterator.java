@@ -43,6 +43,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -50,7 +51,6 @@ import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.jgrapht.event.TraversalListener;
 import org.jgrapht.traverse.GraphIterator;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to iterate over a SDF following the dependencies order.
  *
@@ -63,10 +63,10 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
   private final SDFGraph graph;
 
   /** The stack. */
-  private ArrayList<SDFAbstractVertex> stack;
+  private List<SDFAbstractVertex> stack;
 
   /** The treated. */
-  private Vector<SDFAbstractVertex> treated;
+  private List<SDFAbstractVertex> treated;
 
   /**
    * Creates a new SDFIterator on the given SDFGraph.
@@ -78,11 +78,11 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    * @throws RuntimeException
    *           the runtime exception
    */
-  public SDFIterator(final SDFGraph graph) throws InvalidExpressionException, RuntimeException {
+  public SDFIterator(final SDFGraph graph) {
     this.graph = graph;
     this.stack = new ArrayList<>();
-    this.treated = new Vector<>();
-    final ArrayList<SDFAbstractVertex> treatedOrig = new ArrayList<>();
+    this.treated = new ArrayList<>();
+    final List<SDFAbstractVertex> treatedOrig = new ArrayList<>();
     treatedOrig.addAll(graph.vertexSet());
     for (int i = 0; i < treatedOrig.size(); i++) {
       final SDFAbstractVertex vertex = treatedOrig.get(i);
@@ -93,11 +93,9 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
         }
       }
     }
-    System.out.println(this.stack);
-
     // Check if all vertices are reachable through this iterator
     // First, backup the stack
-    final ArrayList<SDFAbstractVertex> stackBackup = new ArrayList<>(this.stack);
+    final List<SDFAbstractVertex> stackBackup = new ArrayList<>(this.stack);
     // Then iterate
     final Set<SDFAbstractVertex> reached = new LinkedHashSet<>();
     while (hasNext()) {
@@ -109,7 +107,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
       // Find the non-reacheable vertices
       final List<SDFAbstractVertex> unreachable = new ArrayList<>(graph.vertexSet());
       unreachable.removeAll(reached);
-      throw new RuntimeException("Not all graph vertices are reachable with the SDFIterator.\n"
+      throw new DFToolsAlgoException("Not all graph vertices are reachable with the SDFIterator.\n"
           + "Possible cause: There is a cycle without delay.\n" + "Unreachable Vertices: " + unreachable);
     }
 
@@ -130,9 +128,8 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
   public SDFIterator(final SDFGraph graph, final SDFAbstractVertex seed) {
     this.graph = graph;
     this.stack = new ArrayList<>();
-    this.treated = new Vector<>();
+    this.treated = new ArrayList<>();
     this.stack.add(seed);
-    System.out.println(this.stack);
   }
 
   /*
@@ -142,8 +139,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public void addTraversalListener(final TraversalListener<SDFAbstractVertex, SDFEdge> arg0) {
-    // TODO Auto-generated method stub
-
+    // not supported
   }
 
   /*
@@ -153,10 +149,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public boolean hasNext() {
-    if (this.stack.size() == 0) {
-      return false;
-    }
-    return true;
+    return !this.stack.isEmpty();
   }
 
   /*
@@ -166,7 +159,6 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public boolean isCrossComponentTraversal() {
-    // TODO Auto-generated method stub
     return false;
   }
 
@@ -177,7 +169,6 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public boolean isReuseEvents() {
-    // TODO Auto-generated method stub
     return false;
   }
 
@@ -235,7 +226,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
         return next;
       }
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not find next", e);
     }
     return null;
   }
@@ -256,8 +247,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private List<SDFAbstractVertex> originOf(final SDFAbstractVertex vertex, final List<SDFAbstractVertex> notTreated)
-      throws InvalidExpressionException {
+  private List<SDFAbstractVertex> originOf(final SDFAbstractVertex vertex, final List<SDFAbstractVertex> notTreated) {
     final List<SDFAbstractVertex> origins = new ArrayList<>();
     int added = 0;
     // Scan the predecessor of the current vertex (if any)
@@ -311,8 +301,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public void remove() {
-    // TODO Auto-generated method stub
-
+    // not supported
   }
 
   /*
@@ -322,8 +311,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public void removeTraversalListener(final TraversalListener<SDFAbstractVertex, SDFEdge> arg0) {
-    // TODO Auto-generated method stub
-
+    // not supported
   }
 
   /*
@@ -333,8 +321,7 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   public void setReuseEvents(final boolean arg0) {
-    // TODO Auto-generated method stub
-
+    // not supported
   }
 
 }

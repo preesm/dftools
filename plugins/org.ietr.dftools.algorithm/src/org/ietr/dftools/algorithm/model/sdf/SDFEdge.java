@@ -107,12 +107,12 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public static final String MODIFIER_WRITE_ONLY = "write_only";
 
   static {
-    AbstractEdge.public_properties.add(SDFEdge.EDGE_CONS);
-    AbstractEdge.public_properties.add(SDFEdge.EDGE_DELAY);
-    AbstractEdge.public_properties.add(SDFEdge.EDGE_PROD);
-    AbstractEdge.public_properties.add(SDFEdge.DATA_TYPE);
-    AbstractEdge.public_properties.add(SDFEdge.SOURCE_PORT_MODIFIER);
-    AbstractEdge.public_properties.add(SDFEdge.TARGET_PORT_MODIFIER);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.EDGE_CONS);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.EDGE_DELAY);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.EDGE_PROD);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.DATA_TYPE);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.SOURCE_PORT_MODIFIER);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.TARGET_PORT_MODIFIER);
   }
 
   /**

@@ -68,7 +68,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
   public static final String SOURCE_PORT_MODIFIER = "source_port_modifier";
 
   static {
-    AbstractEdge.public_properties.add(DAGEdge.WEIGHT);
+    AbstractEdge.PUBLIC_PROPERTIES.add(DAGEdge.WEIGHT);
   }
 
   /**
