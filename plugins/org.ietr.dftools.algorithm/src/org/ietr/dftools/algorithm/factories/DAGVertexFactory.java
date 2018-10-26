@@ -83,7 +83,7 @@ public class DAGVertexFactory implements ModelVertexFactory<DAGVertex> {
    */
   @Override
   public DAGVertex createVertex(final Element vertexElt) {
-    final String kind = getProperty(vertexElt, AbstractVertex.KIND);
+    final String kind = getProperty(vertexElt, AbstractVertex.KIND_LITERAL);
     return this.createVertex(kind);
   }
 

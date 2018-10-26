@@ -78,7 +78,7 @@ public class SDFVertexFactory implements ModelVertexFactory<SDFAbstractVertex> {
    */
   @Override
   public SDFAbstractVertex createVertex(final Element vertexElt) {
-    final String kind = getProperty(vertexElt, AbstractVertex.KIND);
+    final String kind = getProperty(vertexElt, AbstractVertex.KIND_LITERAL);
     if (kind.equals(SDFVertex.VERTEX)) {
       final SDFVertex newVertex = new SDFVertex();
       newVertex.setName("default");

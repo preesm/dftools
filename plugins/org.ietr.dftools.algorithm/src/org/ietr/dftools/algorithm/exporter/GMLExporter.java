@@ -100,7 +100,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
     this.classKeySet = new LinkedHashMap<>();
     addKey(AbstractGraph.PARAMETERS, AbstractGraph.PARAMETERS, "graph", null, null);
     addKey(AbstractGraph.VARIABLES, AbstractGraph.VARIABLES, "graph", null, null);
-    addKey(AbstractVertex.ARGUMENTS, AbstractVertex.ARGUMENTS, "node", null, null);
+    addKey(AbstractVertex.ARGUMENTS_LITERAL, AbstractVertex.ARGUMENTS_LITERAL, "node", null, null);
     DOMImplementationRegistry registry;
     DOMImplementation impl;
     try {

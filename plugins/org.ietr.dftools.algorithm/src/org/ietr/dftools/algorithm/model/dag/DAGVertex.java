@@ -154,8 +154,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @return The Set of incoming edges
    */
   public Set<DAGEdge> incomingEdges() {
-    if (this.properties.getValue(AbstractVertex.BASE) instanceof DirectedAcyclicGraph) {
-      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE);
+    if (this.properties.getValue(AbstractVertex.BASE_LITERAL) instanceof DirectedAcyclicGraph) {
+      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE_LITERAL);
       return base.incomingEdgesOf(this);
     }
     return new TreeSet<>();
@@ -167,8 +167,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @return The Set of outgoing edges
    */
   public Set<DAGEdge> outgoingEdges() {
-    if (this.properties.getValue(AbstractVertex.BASE) instanceof DirectedAcyclicGraph) {
-      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE);
+    if (this.properties.getValue(AbstractVertex.BASE_LITERAL) instanceof DirectedAcyclicGraph) {
+      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE_LITERAL);
       return base.outgoingEdgesOf(this);
     }
     return new TreeSet<>();
