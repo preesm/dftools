@@ -39,6 +39,7 @@
  */
 package org.ietr.dftools.algorithm.model.sdf;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
@@ -50,7 +51,6 @@ import org.ietr.dftools.algorithm.model.sdf.types.SDFNumericalEdgePropertyTypeFa
 import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.types.SDFTextualEdgePropertyTypeFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class representing an SDFEdge which is an edge with production and consuming rates and length of delay specified.
  *
@@ -372,8 +372,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
           && (getProd().longValue() == edge.getProd().longValue())
           && (getDelay().longValue() == edge.getDelay().longValue());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
-      return false;
+      throw new DFToolsAlgoException("Could not compare edges", e);
     }
   }
 
