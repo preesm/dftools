@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.algorithm.importer;
 
-// TODO: Auto-generated Javadoc
 /**
  * Exception to return when the file to import is not from the desired type.
  *

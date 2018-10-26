@@ -43,13 +43,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
-// TODO: Auto-generated Javadoc
 /**
  * wrapper for different versions.
  *
  * @author jpiat
  */
-public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
+public class GMLSDFImporter implements GMLModelParserWrapper<SDFGraph> {
 
   /** The true importer. */
   private GMLImporter<?, ?, ?> trueImporter;
@@ -73,7 +72,6 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
     } catch (final Exception e) {
       this.trueImporter = new GMLSDFImporterV1();
       try {
-        System.out.println("Parsing using generic parser failed, trying specialized parser\n");
         return (SDFGraph) this.trueImporter.parse(f);
       } catch (final Exception ex) {
         throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());
@@ -95,7 +93,6 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
     } catch (final Exception e) {
       try {
         this.trueImporter = new GMLSDFImporterV1();
-        System.out.println("Parsing using generic parser failed, trying specialized parser\n");
         return (SDFGraph) this.trueImporter.parse(input, path);
       } catch (final Exception ex) {
         throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());

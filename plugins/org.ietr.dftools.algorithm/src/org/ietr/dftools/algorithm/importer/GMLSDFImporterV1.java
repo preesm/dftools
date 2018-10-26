@@ -43,6 +43,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.eclipse.core.runtime.Path;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
 import org.ietr.dftools.algorithm.factories.SDFVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
@@ -195,7 +196,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
                 }
               }
             } catch (final FileNotFoundException e) {
-              e.printStackTrace();
+              throw new DFToolsAlgoException("Could not parse graph description", e);
             }
           }
         } else if (path.length() > 0) {

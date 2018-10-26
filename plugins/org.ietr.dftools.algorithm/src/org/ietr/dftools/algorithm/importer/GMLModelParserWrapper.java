@@ -43,14 +43,13 @@ import java.io.InputStream;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GMLModelParserWrapper.
  *
  * @param <G>
  *          the generic type
  */
-public abstract class GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
+public interface GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
 
   /**
    * Parses the.

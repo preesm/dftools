@@ -321,8 +321,8 @@ public class SDFRandomGraph {
       nbSources += nbSourcesVertex[nbVertexgraph];
       final double min2 = Math.sqrt(minRate);
       final double max2 = Math.sqrt(maxRate);
-      final int randNum = (int) min2 + (int) (new Random().nextInt((int) (max2 - min2) + 1));
-      final int randDenum = (int) min2 + (int) (new Random().nextInt((int) (max2 - min2) + 1));
+      final int randNum = (int) min2 + (new Random().nextInt((int) (max2 - min2) + 1));
+      final int randDenum = (int) min2 + (new Random().nextInt((int) (max2 - min2) + 1));
       SDFRandomGraph.FRACTIONS.put(vertex, new Rational(randNum, randDenum));
       // If Not the first
       if ((nbVertexgraph >= nbSensors) && (nbSinksVertex[nbVertexgraph] != 0) && (nbSources != 0) && (nbSinks != 0)) {
