@@ -37,9 +37,6 @@
 package org.ietr.dftools.algorithm.factories;
 
 import org.ietr.dftools.algorithm.model.AbstractVertex;
-import org.ietr.dftools.algorithm.model.IInterface;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 /**
  * Interface to create vertex in the given model.
@@ -48,55 +45,7 @@ import org.w3c.dom.NodeList;
  * @param <V>
  *          The model of vertex to create
  */
-public interface ModelVertexFactory<V extends AbstractVertex<?>> {
-
-  /**
-   * Creates a vertex with the given parameters.
-   *
-   * @param vertexElt
-   *          The DOM element from which to create the vertex
-   * @return The created vertex
-   */
-  public V createVertex(Element vertexElt);
-
-  /**
-   * Creates a new ModelVertex object.
-   *
-   * @param kind
-   *          the kind
-   * @return the v
-   */
-  public V createVertex(String kind);
-
-  /**
-   * Creates a new ModelVertex object.
-   *
-   * @param name
-   *          the name
-   * @param dir
-   *          the dir
-   * @return the i interface
-   */
-  public IInterface createInterface(String name, int dir);
-
-  /**
-   * Gets the property.
-   *
-   * @param elt
-   *          the elt
-   * @param propertyName
-   *          the property name
-   * @return the property
-   */
-  public default String getProperty(final Element elt, final String propertyName) {
-    final NodeList childList = elt.getChildNodes();
-    for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data")
-          && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
-        return childList.item(i).getTextContent();
-      }
-    }
-    return null;
-  }
+@Deprecated
+public abstract class ModelVertexFactory<V extends AbstractVertex<?>> implements IModelVertexFactory<V> {
 
 }

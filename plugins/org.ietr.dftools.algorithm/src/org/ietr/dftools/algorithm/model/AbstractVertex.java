@@ -64,9 +64,13 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /** Property name for property base. */
   public static final String BASE_LITERAL = "base";
+  @Deprecated
+  public static final String BASE         = BASE_LITERAL;
 
   /** Property name for property graph_desc. */
   public static final String REFINEMENT_LITERAL = "graph_desc";
+  @Deprecated
+  public static final String REFINEMENT         = REFINEMENT_LITERAL;
 
   /** Property name for property arguments. */
   public static final String ARGUMENTS_LITERAL = "arguments";
@@ -82,6 +86,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
 
   /** Property kind for property name. */
   public static final String KIND_LITERAL = "kind";
+  @Deprecated
+  public static final String KIND         = KIND_LITERAL;
 
   /** The public properties. */
   protected static final List<
@@ -132,6 +138,11 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   public boolean addInterface(final IInterface port) {
     this.interfaces.add(port);
     return true;
+  }
+
+  @Deprecated
+  public void addInterfaces(List<IInterface> list) {
+    throw new UnsupportedOperationException("This method is deprecated and subject to removal soon.");
   }
 
   /**

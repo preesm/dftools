@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
-import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
+import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
@@ -114,6 +114,9 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       add(AbstractGraph.MODEL);
     }
   };
+
+  @Deprecated
+  protected static final List<String> public_properties = PUBLIC_PROPERTIES;
 
   /** The properties. */
   protected PropertyBean properties;
@@ -632,7 +635,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    *
    * @return the vertex factory
    */
-  public abstract ModelVertexFactory<V> getVertexFactory();
+  public abstract IModelVertexFactory<V> getVertexFactory();
 
   /**
    * Tests if this object has changed.

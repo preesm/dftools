@@ -44,6 +44,12 @@ package org.ietr.dftools.algorithm.model;
  */
 public enum InterfaceDirection {
 
+  @Deprecated
+  Input,
+
+  @Deprecated
+  Output,
+
   /** The direction is Input. */
   INPUT,
 

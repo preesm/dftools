@@ -49,7 +49,7 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.exceptions.CreateCycleException;
 import org.ietr.dftools.algorithm.exceptions.CreateMultigraphException;
-import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
+import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.iterators.SDFIterator;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
@@ -97,7 +97,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
   private final T outputGraph;
 
   /** The factory. */
-  private final ModelVertexFactory<DAGVertex> factory;
+  private final IModelVertexFactory<DAGVertex> factory;
 
   /**
    * Builds a new DAGTransformation visitor,.
@@ -107,7 +107,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @param vertexFactory
    *          The factory used to create vertices
    */
-  public DAGTransformation(final T outputGraph, final ModelVertexFactory<DAGVertex> vertexFactory) {
+  public DAGTransformation(final T outputGraph, final IModelVertexFactory<DAGVertex> vertexFactory) {
     this.outputGraph = outputGraph;
     this.factory = vertexFactory;
   }

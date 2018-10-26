@@ -52,7 +52,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.SDFMath;
-import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
+import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.factories.SDFEdgeFactory;
 import org.ietr.dftools.algorithm.factories.SDFVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
@@ -557,7 +557,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    */
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public ModelVertexFactory getVertexFactory() {
+  public IModelVertexFactory getVertexFactory() {
     return SDFVertexFactory.getInstance();
   }
 

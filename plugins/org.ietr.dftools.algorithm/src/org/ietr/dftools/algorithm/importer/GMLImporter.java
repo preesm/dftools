@@ -52,7 +52,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.Path;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.exporter.Key;
-import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
+import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
@@ -100,7 +100,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
   protected EdgeFactory<V, E> edgeFactory;
 
   /** The vertex factory. */
-  protected ModelVertexFactory<V> vertexFactory;
+  protected IModelVertexFactory<V> vertexFactory;
 
   /** The input stream. */
   protected InputStream inputStream;

@@ -48,7 +48,7 @@ import org.ietr.dftools.algorithm.exceptions.CreateCycleException;
 import org.ietr.dftools.algorithm.exceptions.CreateMultigraphException;
 import org.ietr.dftools.algorithm.factories.DAGEdgeFactory;
 import org.ietr.dftools.algorithm.factories.DAGVertexFactory;
-import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
+import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -207,7 +207,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    */
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public ModelVertexFactory getVertexFactory() {
+  public IModelVertexFactory getVertexFactory() {
     return DAGVertexFactory.getInstance();
   }
 

@@ -52,7 +52,7 @@ import org.w3c.dom.Element;
  *
  * @author jpiat
  */
-public class DAGVertexFactory implements ModelVertexFactory<DAGVertex> {
+public class DAGVertexFactory implements IModelVertexFactory<DAGVertex> {
 
   /** The instance. */
   private static DAGVertexFactory instance;

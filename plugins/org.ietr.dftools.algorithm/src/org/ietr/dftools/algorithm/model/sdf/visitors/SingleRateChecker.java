@@ -59,7 +59,7 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
   /** The is single rate. */
-  private boolean isSingleRate;
+  public boolean isSingleRate;
 
   public SingleRateChecker() {
     isSingleRate = true;

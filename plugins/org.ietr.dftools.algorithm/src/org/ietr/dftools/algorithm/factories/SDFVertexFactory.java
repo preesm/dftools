@@ -59,7 +59,7 @@ import org.w3c.dom.Element;
  *
  * @author jpiat
  */
-public class SDFVertexFactory implements ModelVertexFactory<SDFAbstractVertex> {
+public class SDFVertexFactory implements IModelVertexFactory<SDFAbstractVertex> {
 
   /** The instance. */
   private static SDFVertexFactory instance;

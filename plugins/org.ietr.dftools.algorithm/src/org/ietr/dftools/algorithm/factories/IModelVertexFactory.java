@@ -3,7 +3,6 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
- * Hervé Yviquel <hyviquel@gmail.com> (2012)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -35,70 +34,68 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.generic;
+package org.ietr.dftools.algorithm.factories;
 
-import java.util.logging.Logger;
-import org.ietr.dftools.algorithm.factories.GenericEdgeFactory;
-import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
-import org.ietr.dftools.algorithm.model.AbstractGraph;
-import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
+import org.ietr.dftools.algorithm.model.AbstractVertex;
+import org.ietr.dftools.algorithm.model.IInterface;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
- * The Class GenericGraph.
+ * Interface to create vertex in the given model.
+ *
+ * @author jpiat
+ * @param <V>
+ *          The model of vertex to create
  */
-public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
-
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+public interface IModelVertexFactory<V extends AbstractVertex<?>> {
 
   /**
-   * Instantiates a new generic graph.
+   * Creates a vertex with the given parameters.
    *
-   * @param factory
-   *          the factory
+   * @param vertexElt
+   *          The DOM element from which to create the vertex
+   * @return The created vertex
    */
-  public GenericGraph(final GenericEdgeFactory factory) {
-    super(factory);
-  }
+  public V createVertex(Element vertexElt);
 
-  /*
-   * (non-Javadoc)
+  /**
+   * Creates a new ModelVertex object.
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
+   * @param kind
+   *          the kind
+   * @return the v
    */
-  @Override
-  public AbstractGraph<GenericVertex, GenericEdge> clone() {
-    return null;
-  }
+  public V createVertex(String kind);
 
-  /*
-   * (non-Javadoc)
+  /**
+   * Creates a new ModelVertex object.
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractGraph#validateModel(java.util.logging.Logger)
+   * @param name
+   *          the name
+   * @param dir
+   *          the dir
+   * @return the i interface
    */
-  @Override
-  public boolean validateModel(final Logger logger) throws SDF4JException {
-    return false;
-  }
+  public IInterface createInterface(String name, int dir);
 
-  /*
-   * (non-Javadoc)
+  /**
+   * Gets the property.
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractGraph#getVertexFactory()
+   * @param elt
+   *          the elt
+   * @param propertyName
+   *          the property name
+   * @return the property
    */
-  @Override
-  public IModelVertexFactory<GenericVertex> getVertexFactory() {
-    return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#getFactoryForProperty(java.lang.String)
-   */
-  @Override
-  public PropertyFactory getFactoryForProperty(final String propertyName) {
+  public default String getProperty(final Element elt, final String propertyName) {
+    final NodeList childList = elt.getChildNodes();
+    for (int i = 0; i < childList.getLength(); i++) {
+      if (childList.item(i).getNodeName().equals("data")
+          && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
+        return childList.item(i).getTextContent();
+      }
+    }
     return null;
   }
 
