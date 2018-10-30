@@ -180,9 +180,9 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
           // If an explode must be added
           final SDFAbstractVertex explodeVertex = new SDFForkVertex();
-          output.addVertex(explodeVertex);
           final SDFAbstractVertex originVertex = sourceCopies.get((int) sourceIndex);
           explodeVertex.setName("explode_" + originVertex.getName() + "_" + edge.getSourceInterface().getName());
+          output.addVertex(explodeVertex);
 
           // Replace the source vertex by the explode in the
           // sourceCopies list
@@ -201,14 +201,15 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
 
           // Add a target port modifier to the edge
           newEdge.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
+
         }
         if (implode && !(targetCopies.get((int) targetIndex) instanceof SDFJoinVertex)
             && !(targetCopies.get((int) targetIndex) instanceof SDFRoundBufferVertex)) {
           // If an implode must be added
           final SDFAbstractVertex implodeVertex = new SDFJoinVertex();
-          output.addVertex(implodeVertex);
           final SDFAbstractVertex originVertex = targetCopies.get((int) targetIndex);
           implodeVertex.setName("implode_" + originVertex.getName() + "_" + edge.getTargetInterface().getName());
+          output.addVertex(implodeVertex);
 
           // Replace the target vertex by the implode one in the
           // targetCopies List

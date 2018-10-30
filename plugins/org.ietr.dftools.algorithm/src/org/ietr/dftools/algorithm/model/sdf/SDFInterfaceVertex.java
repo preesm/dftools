@@ -37,6 +37,7 @@
  */
 package org.ietr.dftools.algorithm.model.sdf;
 
+import java.util.Objects;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
@@ -103,6 +104,15 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
           && ((SDFInterfaceVertex) e).getDirection().equals(getDirection()));
     } else {
       return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    if (ENABLE_CUSTOM_HASHCODE) {
+      return Objects.hash(getName(), getDirection());
+    } else {
+      return super.hashCode();
     }
   }
 

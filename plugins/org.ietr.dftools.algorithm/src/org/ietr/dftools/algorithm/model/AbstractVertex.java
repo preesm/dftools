@@ -42,6 +42,7 @@ package org.ietr.dftools.algorithm.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
@@ -58,6 +59,8 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractVertex<G> extends Observable implements PropertySource, Observer, CloneableProperty {
+
+  public static boolean ENABLE_CUSTOM_HASHCODE = true;
 
   /** The properties. */
   protected PropertyBean properties;
@@ -455,6 +458,15 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
       return ((AbstractVertex) e).getName().equals(this.getName());
     } else {
       return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    if (ENABLE_CUSTOM_HASHCODE) {
+      return Objects.hash(this.getName());
+    } else {
+      return super.hashCode();
     }
   }
 
