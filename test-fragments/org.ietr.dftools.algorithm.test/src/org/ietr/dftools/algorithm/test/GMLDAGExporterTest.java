@@ -43,7 +43,7 @@ import org.ietr.dftools.algorithm.exporter.GMLDAGExporter;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
-import org.ietr.dftools.algorithm.model.types.DAGDefaultEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -78,16 +78,16 @@ public class GMLDAGExporterTest {
     graph.addVertex(acqData);
 
     final DAGEdge sensGen = graph.addEdge(sensorInt, gen5);
-    sensGen.setWeight(new DAGDefaultEdgePropertyType(8));
+    sensGen.setWeight(new LongEdgePropertyType(8));
 
     final DAGEdge genRec = graph.addEdge(gen5, recopie5);
-    genRec.setWeight(new DAGDefaultEdgePropertyType(100));
+    genRec.setWeight(new LongEdgePropertyType(100));
 
     final DAGEdge genAcq = graph.addEdge(gen5, acqData);
-    genAcq.setWeight(new DAGDefaultEdgePropertyType(2));
+    genAcq.setWeight(new LongEdgePropertyType(2));
 
     final DAGEdge recAcq = graph.addEdge(recopie5, acqData);
-    recAcq.setWeight(new DAGDefaultEdgePropertyType(1000));
+    recAcq.setWeight(new LongEdgePropertyType(1000));
     return graph;
   }
 

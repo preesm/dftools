@@ -52,7 +52,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
-import org.ietr.dftools.algorithm.model.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.alg.cycle.CycleDetector;
 
@@ -131,8 +131,8 @@ public class SDFRandomGraph {
       for (final SDFAbstractVertex Dst : graph.vertexSet()) {
         if (graph.containsEdge(Src, Dst)) {
           ratioSrcDst = Rational.div(SDFRandomGraph.FRACTIONS.get(Src), SDFRandomGraph.FRACTIONS.get(Dst));
-          graph.getEdge(Src, Dst).setProd(new SDFIntEdgePropertyType(ratioSrcDst.getDenum() * rateMultiplier));
-          graph.getEdge(Src, Dst).setCons(new SDFIntEdgePropertyType(ratioSrcDst.getNum() * rateMultiplier));
+          graph.getEdge(Src, Dst).setProd(new LongEdgePropertyType(ratioSrcDst.getDenum() * rateMultiplier));
+          graph.getEdge(Src, Dst).setCons(new LongEdgePropertyType(ratioSrcDst.getNum() * rateMultiplier));
         }
       }
     }
@@ -166,7 +166,7 @@ public class SDFRandomGraph {
           final SDFEdge edge = graph.getEdge(Src, Dst);
           final long Q_xy = vrb.get(edge.getSource()).longValue()
               / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
-          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
+          edge.setDelay(new LongEdgePropertyType(Q_xy * edge.getProd().longValue()));
         }
       }
       newgraph.removeVertex(newgraph.getVertex(Dst.getName()));
@@ -176,7 +176,7 @@ public class SDFRandomGraph {
         if (edge.getDelay().longValue() == 0) {
           final long Q_xy = vrb.get(edge.getSource()).longValue()
               / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
-          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
+          edge.setDelay(new LongEdgePropertyType(Q_xy * edge.getProd().longValue()));
 
         }
       }

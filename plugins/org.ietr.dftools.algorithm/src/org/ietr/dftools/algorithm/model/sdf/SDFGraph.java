@@ -72,8 +72,8 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.transformations.SpecialActorPortsIndexer;
-import org.ietr.dftools.algorithm.model.types.SDFIntEdgePropertyType;
-import org.ietr.dftools.algorithm.model.types.SDFStringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.StringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 import org.jgrapht.EdgeFactory;
@@ -591,7 +591,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
         final SDFEdge baseEdge = this.addEdge(vertex, broadcastPort);
         baseEdge.setSourceInterface(port);
         baseEdge.setTargetInterface(inPort);
-        baseEdge.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
+        baseEdge.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
 
         // Add all outgoing edges
         int nbTokens = 0;
@@ -613,11 +613,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
             newEdge.setCons(oldEdge.getCons());
             newEdge.setDelay(oldEdge.getDelay());
             newEdge.setDataType(oldEdge.getDataType());
-            newEdge.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
+            newEdge.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
             baseEdge.setSourcePortModifier(oldEdge.getSourcePortModifier());
             baseEdge.setProd(oldEdge.getProd().clone());
             baseEdge.setCons(oldEdge.getProd().clone());
-            baseEdge.setDelay(new SDFIntEdgePropertyType(0));
+            baseEdge.setDelay(new LongEdgePropertyType(0));
             baseEdge.setDataType(oldEdge.getDataType());
             this.removeEdge(oldEdge);
           } catch (final InvalidExpressionException e) {

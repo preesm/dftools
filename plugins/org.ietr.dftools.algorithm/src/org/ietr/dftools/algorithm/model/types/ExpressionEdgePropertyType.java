@@ -2,7 +2,9 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014)
+ * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Jonathan Piat <jpiat@laas.fr> (2013)
+ * Julien Heulot <julien.heulot@insa-rennes.fr> (2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -36,23 +38,32 @@
  */
 package org.ietr.dftools.algorithm.model.types;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
+import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
+import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
+import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
+import org.ietr.dftools.algorithm.model.parameters.Value;
 
 /**
- * Class used to represent the string edge property type in a SDF.
+ * Class used to represent the integer edge property type in a SDF.
  *
- * @author mpelcat
+ * @author jpiat
  */
-public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> {
+public class ExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> {
+
+  /** The computed value. */
+  private Long computedValue;
 
   /**
-   * Creates a new SDFDefaultEdgePropertyType with the given String value.
+   * Creates a new SDFDefaultEdgePropertyType with the given graph value.
    *
    * @param val
-   *          The String value of this SDFDefaultEdgePropertyType
+   *          The Integer value of this SDFDefaultEdgePropertyType
    */
-  public SDFStringEdgePropertyType(final String val) {
+  public ExpressionEdgePropertyType(final Value val) {
     super(val);
+    this.computedValue = null;
   }
 
   /*
@@ -61,18 +72,36 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<String> clone() {
-    return new SDFStringEdgePropertyType(this.value);
+  public AbstractEdgePropertyType<Value> clone() {
+    final ExpressionEdgePropertyType clone = new ExpressionEdgePropertyType(this.value);
+    try {
+      clone.computedValue = longValue();
+    } catch (final InvalidExpressionException e) {
+      clone.computedValue = null;
+    }
+    return clone;
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#setValue(java.lang.Object)
    */
   @Override
-  public long longValue() {
-    return 0;
+  public void setValue(final Value val) {
+    super.setValue(val);
+    this.computedValue = null;
+  }
+
+  /**
+   * Sets the expression solver to use to compute intValue.
+   *
+   * @param solver
+   *          The solver to be used
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    getValue().setExpressionSolver(solver);
+    this.computedValue = null;
   }
 
   /*
@@ -82,7 +111,26 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    */
   @Override
   public String toString() {
-    return this.value;
+    return this.value.toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public long longValue() {
+    if (this.computedValue == null) {
+      try {
+        this.computedValue = this.value.longValue();
+        return this.computedValue;
+      } catch (final NoIntegerValueException e) {
+        throw new DFToolsAlgoException("Could not evaluate expression", e);
+      }
+    }
+    return this.computedValue;
+
   }
 
 }

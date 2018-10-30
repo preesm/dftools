@@ -21,9 +21,9 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFJoinVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFRoundBufferVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
-import org.ietr.dftools.algorithm.model.types.SDFExpressionEdgePropertyType;
-import org.ietr.dftools.algorithm.model.types.SDFIntEdgePropertyType;
-import org.ietr.dftools.algorithm.model.types.SDFStringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.ExpressionEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.StringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
@@ -89,7 +89,7 @@ public class IbsdfFlattener {
         // tokens produced/consumed during an iteration, there is no
         // need to add fork and join, only to set the correct number
         // of delays
-        fifo.setDelay(new SDFIntEdgePropertyType(nbDelay * nbRepeat));
+        fifo.setDelay(new LongEdgePropertyType(nbDelay * nbRepeat));
       } else {
         // Minimum difference of iteration between the production and
         // consumption of tokens
@@ -115,37 +115,37 @@ public class IbsdfFlattener {
         fifo0.getSourceInterface().setName(fifo.getSourceLabel() + "_0");
         fifo0.setTargetInterface(new SDFSourceInterfaceVertex());
         fifo0.getTargetInterface().setName(fifo.getTargetLabel() + "_" + rate1);
-        fifo0.setProd(new SDFIntEdgePropertyType(rate0));
-        fifo0.setCons(new SDFIntEdgePropertyType(rate0));
-        fifo0.setDelay(new SDFIntEdgePropertyType(rate0 * nbRepeat * minIterDiff));
+        fifo0.setProd(new LongEdgePropertyType(rate0));
+        fifo0.setCons(new LongEdgePropertyType(rate0));
+        fifo0.setDelay(new LongEdgePropertyType(rate0 * nbRepeat * minIterDiff));
         fifo0.setDataType(fifo.getDataType().clone());
-        fifo0.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
-        fifo0.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
+        fifo0.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
+        fifo0.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
 
         fifo1.copyProperties(fifo);
         fifo1.setSourceInterface(new SDFSinkInterfaceVertex());
         fifo1.getSourceInterface().setName(fifo.getSourceLabel() + "_" + rate0);
         fifo1.setTargetInterface(new SDFSourceInterfaceVertex());
         fifo1.getTargetInterface().setName(fifo.getTargetLabel() + "_0");
-        fifo1.setProd(new SDFIntEdgePropertyType(rate1));
-        fifo1.setCons(new SDFIntEdgePropertyType(rate1));
-        fifo1.setDelay(new SDFIntEdgePropertyType(rate1 * nbRepeat * (minIterDiff + 1)));
+        fifo1.setProd(new LongEdgePropertyType(rate1));
+        fifo1.setCons(new LongEdgePropertyType(rate1));
+        fifo1.setDelay(new LongEdgePropertyType(rate1 * nbRepeat * (minIterDiff + 1)));
         fifo1.setDataType(fifo.getDataType().clone());
-        fifo1.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
-        fifo1.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
+        fifo1.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
+        fifo1.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
 
         // Connect producers and consumers of original fifo to fork/join
         final SDFEdge fifoIn = subgraph.addEdge(fifo.getSource(), fork);
         fifoIn.copyProperties(fifo);
         fifoIn.setTargetInterface(fifo.getSourceInterface().clone());
         fifoIn.getPropertyBean().removeProperty(SDFEdge.EDGE_DELAY);
-        fifoIn.setCons(new SDFIntEdgePropertyType((tgtCons * tgtRepeat)));
+        fifoIn.setCons(new LongEdgePropertyType((tgtCons * tgtRepeat)));
 
         final SDFEdge fifoOut = subgraph.addEdge(join, fifo.getTarget());
         fifoOut.copyProperties(fifo);
         fifoOut.setTargetInterface(fifo.getTargetInterface().clone());
         fifoOut.getPropertyBean().removeProperty(SDFEdge.EDGE_DELAY);
-        fifoOut.setProd(new SDFIntEdgePropertyType((tgtCons * tgtRepeat)));
+        fifoOut.setProd(new LongEdgePropertyType((tgtCons * tgtRepeat)));
 
         fork.addSource(fifoIn.getTargetInterface());
         fork.addSink(fifo0.getSourceInterface());
@@ -215,12 +215,12 @@ public class IbsdfFlattener {
           edgeIn.copyProperties(outEdge);
           edgeIn.setTargetInterface(new SDFSourceInterfaceVertex());
           edgeIn.getTargetInterface().setName(iface.getName());
-          edgeIn.setTargetPortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
-          edgeIn.setDelay(new SDFIntEdgePropertyType(0));
-          edgeIn.setCons(new SDFIntEdgePropertyType(prodRate));
+          edgeIn.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
+          edgeIn.setDelay(new LongEdgePropertyType(0));
+          edgeIn.setCons(new LongEdgePropertyType(prodRate));
 
           edgeOut.copyProperties(outEdge);
-          edgeOut.setProd(new SDFIntEdgePropertyType(consRate * nbRepeatCons));
+          edgeOut.setProd(new LongEdgePropertyType(consRate * nbRepeatCons));
           edgeOut.getPropertyBean().removeProperty(SDFEdge.SOURCE_PORT_MODIFIER);
           edgeOut.setSourceInterface(new SDFSinkInterfaceVertex());
           edgeOut.getSourceInterface().setName(iface.getName() + "_0_0");
@@ -266,14 +266,14 @@ public class IbsdfFlattener {
 
           // Set edges properties
           edgeOut.copyProperties(inEdge);
-          edgeOut.setSourcePortModifier(new SDFStringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
-          edgeOut.setProd(new SDFIntEdgePropertyType(consRate));
-          edgeOut.setDelay(new SDFIntEdgePropertyType(0));
+          edgeOut.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
+          edgeOut.setProd(new LongEdgePropertyType(consRate));
+          edgeOut.setDelay(new LongEdgePropertyType(0));
           edgeIn.setSourceInterface(new SDFSinkInterfaceVertex());
           edgeIn.getSourceInterface().setName(iface.getName());
 
           edgeIn.copyProperties(inEdge);
-          edgeIn.setCons(new SDFIntEdgePropertyType(prodRate * nbRepeatProd));
+          edgeIn.setCons(new LongEdgePropertyType(prodRate * nbRepeatProd));
           edgeIn.getPropertyBean().removeProperty(SDFEdge.TARGET_PORT_MODIFIER);
           edgeIn.setTargetInterface(new SDFSourceInterfaceVertex());
           edgeIn.getTargetInterface().setName(iface.getName() + "_0_0");
@@ -463,15 +463,15 @@ public class IbsdfFlattener {
 
     // In fifo prod/cons rates (expressions)
     for (SDFEdge fifo : subgraph.edgeSet()) {
-      if (fifo.getCons() instanceof SDFExpressionEdgePropertyType) {
-        ((SDFExpressionEdgePropertyType) fifo.getCons()).getValue()
-            .setValue(((SDFExpressionEdgePropertyType) fifo.getCons()).getValue().getValue().replaceAll(oldNameRegex,
+      if (fifo.getCons() instanceof ExpressionEdgePropertyType) {
+        ((ExpressionEdgePropertyType) fifo.getCons()).getValue()
+            .setValue(((ExpressionEdgePropertyType) fifo.getCons()).getValue().getValue().replaceAll(oldNameRegex,
                 replacementString));
       }
 
-      if (fifo.getProd() instanceof SDFExpressionEdgePropertyType) {
-        ((SDFExpressionEdgePropertyType) fifo.getProd()).getValue()
-            .setValue(((SDFExpressionEdgePropertyType) fifo.getProd()).getValue().getValue().replaceAll(oldNameRegex,
+      if (fifo.getProd() instanceof ExpressionEdgePropertyType) {
+        ((ExpressionEdgePropertyType) fifo.getProd()).getValue()
+            .setValue(((ExpressionEdgePropertyType) fifo.getProd()).getValue().getValue().replaceAll(oldNameRegex,
                 replacementString));
       }
     }
@@ -579,7 +579,7 @@ public class IbsdfFlattener {
         internDelay = 0;
       }
       if (externDelay != 0) {
-        newFifo.setDelay(new SDFIntEdgePropertyType(externDelay + internDelay));
+        newFifo.setDelay(new LongEdgePropertyType(externDelay + internDelay));
       }
     }
   }

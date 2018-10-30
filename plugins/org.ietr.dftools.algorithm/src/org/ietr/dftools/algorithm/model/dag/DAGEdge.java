@@ -42,7 +42,7 @@ package org.ietr.dftools.algorithm.model.dag;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.types.SDFStringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.StringEdgePropertyType;
 
 /**
  * Class used to represent an Edge in a Directed Acyclic Graph.
@@ -210,7 +210,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    *
    * @return the source port modifier
    */
-  public SDFStringEdgePropertyType getSourcePortModifier() {
+  public StringEdgePropertyType getSourcePortModifier() {
     return getPropertyBean().getValue(DAGEdge.SOURCE_PORT_MODIFIER);
   }
 
@@ -219,7 +219,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    *
    * @return the target port modifier
    */
-  public SDFStringEdgePropertyType getTargetPortModifier() {
+  public StringEdgePropertyType getTargetPortModifier() {
     return getPropertyBean().getValue(DAGEdge.TARGET_PORT_MODIFIER);
   }
 

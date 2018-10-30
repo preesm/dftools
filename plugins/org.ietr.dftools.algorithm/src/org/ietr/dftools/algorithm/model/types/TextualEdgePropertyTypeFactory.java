@@ -44,15 +44,15 @@ import org.ietr.dftools.algorithm.model.PropertyFactory;
  *
  * @author jpiat
  */
-public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
+public class TextualEdgePropertyTypeFactory implements PropertyFactory {
 
   /** The instance. */
-  private static SDFTextualEdgePropertyTypeFactory instance;
+  private static TextualEdgePropertyTypeFactory instance;
 
   /**
    * Instantiates a new SDF textual edge property type factory.
    */
-  private SDFTextualEdgePropertyTypeFactory() {
+  private TextualEdgePropertyTypeFactory() {
 
   }
 
@@ -61,11 +61,11 @@ public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
    *
    * @return single instance of SDFTextualEdgePropertyTypeFactory
    */
-  public static SDFTextualEdgePropertyTypeFactory getInstance() {
-    if (SDFTextualEdgePropertyTypeFactory.instance == null) {
-      SDFTextualEdgePropertyTypeFactory.instance = new SDFTextualEdgePropertyTypeFactory();
+  public static TextualEdgePropertyTypeFactory getInstance() {
+    if (TextualEdgePropertyTypeFactory.instance == null) {
+      TextualEdgePropertyTypeFactory.instance = new TextualEdgePropertyTypeFactory();
     }
-    return SDFTextualEdgePropertyTypeFactory.instance;
+    return TextualEdgePropertyTypeFactory.instance;
   }
 
   /**
@@ -75,8 +75,8 @@ public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
    *          The value
    * @return The created SDFStringEdgePropertyType
    */
-  public SDFStringEdgePropertyType getSDFEdgePropertyType(final String val) {
-    return new SDFStringEdgePropertyType(val);
+  public StringEdgePropertyType getSDFEdgePropertyType(final String val) {
+    return new StringEdgePropertyType(val);
   }
 
   /*

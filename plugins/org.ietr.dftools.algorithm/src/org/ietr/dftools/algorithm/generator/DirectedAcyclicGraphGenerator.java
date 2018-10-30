@@ -42,7 +42,7 @@ import java.util.Random;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
-import org.ietr.dftools.algorithm.model.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 
 /**
  * Generate a random SDF close to a Directed Acyclic graph. The generated Graph is acyclic and directed and have unitary
@@ -166,9 +166,9 @@ public class DirectedAcyclicGraphGenerator {
         vecEdge.add(edge);
         // Set production and consumption
 
-        vecEdge.get(vecEdge.size() - 1).setProd(new SDFIntEdgePropertyType(1));
+        vecEdge.get(vecEdge.size() - 1).setProd(new LongEdgePropertyType(1));
 
-        vecEdge.get(vecEdge.size() - 1).setCons(new SDFIntEdgePropertyType(1));
+        vecEdge.get(vecEdge.size() - 1).setCons(new LongEdgePropertyType(1));
         createdEdge[randout][nbVertexgraph] = nbVertexgraph;
         nbSourcesVertex[randout]--;
         nbSinksVertex[nbVertexgraph]--;
@@ -192,8 +192,8 @@ public class DirectedAcyclicGraphGenerator {
         vecEdge.add(edge);
         // Set production and consumption
 
-        vecEdge.get(vecEdge.size() - 1).setProd(new SDFIntEdgePropertyType(1));
-        vecEdge.get(vecEdge.size() - 1).setCons(new SDFIntEdgePropertyType(1));
+        vecEdge.get(vecEdge.size() - 1).setProd(new LongEdgePropertyType(1));
+        vecEdge.get(vecEdge.size() - 1).setCons(new LongEdgePropertyType(1));
 
         nbSinksVertex[randin]--;
         nbSinks--;
