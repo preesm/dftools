@@ -34,61 +34,55 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.dag.types;
+package org.ietr.dftools.algorithm.model.types;
 
-import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
+import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
 /**
- * Class used to represent a Vertex property in a DAG.
+ * Class used to represent the string edge property type in a SDF.
  *
- * @author jpiat
+ * @author mpelcat
  */
-public class DAGVertexPropertyType extends AbstractVertexPropertyType<Long> {
+public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> {
 
   /**
-   * Creates a new empty DAGVertexPropertyType.
-   */
-  public DAGVertexPropertyType() {
-    super();
-  }
-
-  /**
-   * Creates a new DAGVertexPropertyType with the given value.
+   * Creates a new SDFDefaultEdgePropertyType with the given String value.
    *
    * @param val
-   *          The value to set for this DAGVertexPropertyType
+   *          The String value of this SDFDefaultEdgePropertyType
    */
-  public DAGVertexPropertyType(final long val) {
-    this.value = val;
+  public SDFStringEdgePropertyType(final String val) {
+    super(val);
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   */
+  @Override
+  public AbstractEdgePropertyType<String> clone() {
+    return new SDFStringEdgePropertyType(this.value);
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
   public long longValue() {
-    return this.value;
+    return 0;
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
    */
   @Override
   public String toString() {
-    return this.value.toString();
+    return this.value;
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
-   */
-  @Override
-  public AbstractVertexPropertyType<Long> clone() {
-    return null;
-  }
 }

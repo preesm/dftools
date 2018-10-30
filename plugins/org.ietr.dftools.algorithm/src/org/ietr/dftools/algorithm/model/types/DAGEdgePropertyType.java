@@ -34,42 +34,32 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.dag.types;
+package org.ietr.dftools.algorithm.model.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
 /**
- * Class used to represent Edge properties in a DAG.
+ * Class used to represent a DAG edge property.
  *
  * @author jpiat
  */
-public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
+public class DAGEdgePropertyType extends AbstractEdgePropertyType<Long> {
 
   /**
-   * Creates a new DAGDefaultEdgePropertyType without specifying any value.
+   * Creates a new empty DAGEdgePropertyType.
    */
-  public DAGDefaultEdgePropertyType() {
+  public DAGEdgePropertyType() {
     super();
   }
 
   /**
-   * Creates a new DAGDefaultEdgePropertyType with the given value.
+   * Creates a new DAGEdgePropertyType with the given value.
    *
    * @param val
-   *          The value to set for this DAGDefaultEdgePropertyType
+   *          the val
    */
-  public DAGDefaultEdgePropertyType(final long val) {
-    super(val);
-  }
-
-  /**
-   * Creates a new DAGDefaultEdgePropertyType with the given value.
-   *
-   * @param val
-   *          The value to set
-   */
-  public DAGDefaultEdgePropertyType(final String val) {
-    super(Long.parseLong(val));
+  public DAGEdgePropertyType(final long val) {
+    this.value = val;
   }
 
   /*
@@ -79,7 +69,7 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
    */
   @Override
   public AbstractEdgePropertyType<Long> clone() {
-    return new DAGDefaultEdgePropertyType(this.value);
+    return new DAGEdgePropertyType(this.value);
   }
 
   /*
@@ -101,5 +91,4 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
   public String toString() {
     return this.value.toString();
   }
-
 }

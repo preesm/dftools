@@ -24,15 +24,14 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.model,
  org.ietr.dftools.algorithm.model.dag,
  org.ietr.dftools.algorithm.model.dag.edag,
- org.ietr.dftools.algorithm.model.dag.types,
  org.ietr.dftools.algorithm.model.generic,
  org.ietr.dftools.algorithm.model.listenable,
  org.ietr.dftools.algorithm.model.parameters,
  org.ietr.dftools.algorithm.model.sdf,
  org.ietr.dftools.algorithm.model.sdf.esdf,
  org.ietr.dftools.algorithm.model.sdf.transformations,
- org.ietr.dftools.algorithm.model.sdf.types,
  org.ietr.dftools.algorithm.model.sdf.visitors,
+ org.ietr.dftools.algorithm.model.types,
  org.ietr.dftools.algorithm.model.visitors
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -45,11 +45,11 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFNumericalEdgePropertyTypeFactory;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFTextualEdgePropertyTypeFactory;
+import org.ietr.dftools.algorithm.model.types.SDFExpressionEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.SDFNumericalEdgePropertyTypeFactory;
+import org.ietr.dftools.algorithm.model.types.SDFStringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.SDFTextualEdgePropertyTypeFactory;
 
 /**
  * Class representing an SDFEdge which is an edge with production and consuming rates and length of delay specified.

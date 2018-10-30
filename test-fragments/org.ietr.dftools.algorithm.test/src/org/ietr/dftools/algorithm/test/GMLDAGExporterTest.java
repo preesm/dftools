@@ -43,7 +43,7 @@ import org.ietr.dftools.algorithm.exporter.GMLDAGExporter;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
-import org.ietr.dftools.algorithm.model.dag.types.DAGDefaultEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.DAGDefaultEdgePropertyType;
 import org.junit.Assert;
 import org.junit.Test;
 

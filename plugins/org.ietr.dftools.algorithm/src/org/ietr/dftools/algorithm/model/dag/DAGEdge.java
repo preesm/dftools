@@ -42,7 +42,7 @@ package org.ietr.dftools.algorithm.model.dag;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.SDFStringEdgePropertyType;
 
 /**
  * Class used to represent an Edge in a Directed Acyclic Graph.
