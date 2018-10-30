@@ -40,7 +40,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -152,221 +151,15 @@ public class CLIWorkflowLogger {
    */
   private static Logger getLogger() {
     if (CLIWorkflowLogger.logger == null) {
-      CLIWorkflowLogger.configureLoggerWithHandler(new ConsoleHandler());
+      final Logger newLog = Logger.getAnonymousLogger();
+      final ConsoleHandler handler = new ConsoleHandler();
+      newLog.addHandler(handler);
+      newLog.setUseParentHandlers(false);
+      handler.setFormatter(new DefaultPreesmFormatter());
+
+      CLIWorkflowLogger.logger = newLog;
     }
     return CLIWorkflowLogger.logger;
-  }
-
-  /**
-   * This method is the same as {@link #configureLoggerWithHandler(Handler, Formatter)}, but the
-   * {@link DefaultPreesmFormatter} is used as default {@link Formatter}.
-   *
-   * @param handler
-   *          the handler
-   */
-  public static void configureLoggerWithHandler(final Handler handler) {
-    CLIWorkflowLogger.configureLoggerWithHandler(handler, new DefaultPreesmFormatter());
-  }
-
-  /**
-   * Register specific log Handler to display messages sent threw PreesmLogger with a given {@link Formatter}. If this
-   * method is never called, the default Handler will be {@link java.util.logging.ConsoleHandler}.
-   *
-   * @param handler
-   *          the handler
-   * @param formatter
-   *          the formatter
-   */
-  public static void configureLoggerWithHandler(final Handler handler, final Formatter formatter) {
-    CLIWorkflowLogger.logger = null;
-
-    final Logger newLog = Logger.getAnonymousLogger();
-    newLog.addHandler(handler);
-    newLog.setUseParentHandlers(false);
-    handler.setFormatter(formatter);
-
-    CLIWorkflowLogger.logger = newLog;
-
-    CLIWorkflowLogger.setLevel(CLIWorkflowLogger.TRACE);
-  }
-
-  /**
-   * Set the minimum level displayed. By default, PreesmLogger display messages from INFO level and highest. Call this
-   * method with DEBUG or ALL as argument to display debug messages.
-   *
-   * @param level
-   *          the new level
-   */
-  public static void setLevel(final Level level) {
-    CLIWorkflowLogger.getLogger().setLevel(level);
-    for (final Handler handler : CLIWorkflowLogger.getLogger().getHandlers()) {
-      handler.setLevel(level);
-    }
-  }
-
-  /**
-   * Display a debug message to current console.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printDebug(final Object content) {
-    final String contentStr = content.toString();
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.DEBUG, contentStr);
-  }
-
-  /**
-   * Display a debug message to current console, appended with a line separator character.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printDebugln(final Object content) {
-    CLIWorkflowLogger.printDebug(content.toString() + "\n");
-  }
-
-  /**
-   * Display a debug message on the current console, without any prepended string (time or level info).
-   *
-   * @param content
-   *          the content
-   */
-  public static void printDebugRaw(final Object content) {
-    final LogRecord record = new LogRecord(CLIWorkflowLogger.DEBUG, content.toString());
-    record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
-    CLIWorkflowLogger.getLogger().log(record);
-  }
-
-  /**
-   * Display a notice message to current console.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printNotice(final Object content) {
-    final String contentStr = content.toString();
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.NOTICE, contentStr);
-  }
-
-  /**
-   * Display a notice message to current console, appended with a line separator character.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printNoticeln(final Object content) {
-    CLIWorkflowLogger.printNotice(content.toString() + "\n");
-  }
-
-  /**
-   * Display a notice message on the current console, without any prepended string (time or level info).
-   *
-   * @param content
-   *          the content
-   */
-  public static void noticeRaw(final Object content) {
-    final LogRecord record = new LogRecord(CLIWorkflowLogger.NOTICE, content.toString());
-    record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
-    CLIWorkflowLogger.getLogger().log(record);
-  }
-
-  /**
-   * Display an error line on the current console.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printSevere(final Object content) {
-    final String contentStr = content.toString();
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.SEVERE, contentStr);
-  }
-
-  /**
-   * Display an error line on the current console, appended with a line separator character.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printSevereln(final Object content) {
-    CLIWorkflowLogger.printSevere(content.toString() + "\n");
-  }
-
-  /**
-   * Display an error line on the current console, without any prepended string (time or level info).
-   *
-   * @param content
-   *          the content
-   */
-  public static void printSevereRaw(final Object content) {
-    final LogRecord record = new LogRecord(CLIWorkflowLogger.SEVERE, content.toString());
-    record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
-    CLIWorkflowLogger.getLogger().log(record);
-  }
-
-  /**
-   * Display an information message on current console.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printTrace(final Object content) {
-    final String contentStr = content.toString();
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.TRACE, contentStr);
-  }
-
-  /**
-   * Display an information message on current console. The message will be appended with a line separator character.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printTraceln(final Object content) {
-    CLIWorkflowLogger.printTrace(content.toString() + "\n");
-  }
-
-  /**
-   * Display an information message on the current console, without any prepended string (time or level info).
-   *
-   * @param content
-   *          the content
-   */
-  public static void printTraceRaw(final Object content) {
-    final LogRecord record = new LogRecord(CLIWorkflowLogger.TRACE, content.toString());
-    record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
-    CLIWorkflowLogger.getLogger().log(record);
-  }
-
-  /**
-   * Display a warning line on the current console.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printWarn(final Object content) {
-    final String contentStr = content.toString();
-    CLIWorkflowLogger.getLogger().log(CLIWorkflowLogger.WARNING, contentStr);
-  }
-
-  /**
-   * Display a warning line on the current console, appended with a line separator character.
-   *
-   * @param content
-   *          the content
-   */
-  public static void printWarnln(final Object content) {
-    CLIWorkflowLogger.printWarn(content.toString() + "\n");
-  }
-
-  /**
-   * Display a warning line on the current console, without any prepended string (time or level info).
-   *
-   * @param content
-   *          the content
-   */
-  public static void printWarnRaw(final Object content) {
-    final LogRecord record = new LogRecord(CLIWorkflowLogger.WARNING, content.toString());
-    record.setParameters(new Object[] { CLIWorkflowLogger.RAW_FLAG });
-    CLIWorkflowLogger.getLogger().log(record);
   }
 
   /**
@@ -378,19 +171,12 @@ public class CLIWorkflowLogger {
    *          the msg
    */
   public static void log(final Level level, final String msg) {
-    final String contentStr = msg + "\n";
-    CLIWorkflowLogger.getLogger().log(level, contentStr);
+    final String message = msg + "\n";
+    CLIWorkflowLogger.getLogger().log(level, message);
   }
 
-  /**
-   * Logln.
-   *
-   * @param level
-   *          the level
-   * @param msg
-   *          the msg
-   */
+  @Deprecated
   public static void logln(final Level level, final String msg) {
-    log(level, msg + "\n");
+    log(level, msg);
   }
 }
