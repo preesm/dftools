@@ -41,6 +41,7 @@ package org.ietr.dftools.algorithm.iterators;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Vector;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
@@ -224,11 +225,12 @@ public class SDFIterator implements GraphIterator<SDFAbstractVertex, SDFEdge> {
         }
         this.stack.remove(0);
         return next;
+      } else {
+        throw new NoSuchElementException();
       }
     } catch (final InvalidExpressionException e) {
       throw new DFToolsAlgoException("Could not find next", e);
     }
-    return null;
   }
 
   /**
