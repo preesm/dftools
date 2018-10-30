@@ -74,7 +74,7 @@ public class GMLSDFImporter implements GMLModelParserWrapper<SDFGraph> {
       try {
         return (SDFGraph) this.trueImporter.parse(f);
       } catch (final Exception ex) {
-        throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());
+        throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage(), ex);
       }
     }
   }

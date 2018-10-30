@@ -200,7 +200,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
 
     final Element rootElt = (Element) doc.getFirstChild();
     if (!rootElt.getNodeName().equals("graphml")) {
-      throw (new InvalidModelException());
+      throw (new InvalidModelException("Root element is not graphml"));
     }
     recoverKeys(rootElt);
     final NodeList childList = rootElt.getChildNodes();
