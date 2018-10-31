@@ -164,17 +164,17 @@ public class SDFForkVertex extends SDFAbstractSpecialVertex {
     for (final SDFInterfaceVertex sink : getSinks()) {
       if ((newVertex.getGraphDescription() != null)
           && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
-        newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+        newVertex.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        newVertex.addSink(sink.clone());
+        newVertex.addSink((SDFSinkInterfaceVertex) sink.clone());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((newVertex.getGraphDescription() != null)
           && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
-        newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+        newVertex.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        newVertex.addSource(source.clone());
+        newVertex.addSource((SDFSourceInterfaceVertex) source.clone());
       }
     }
 

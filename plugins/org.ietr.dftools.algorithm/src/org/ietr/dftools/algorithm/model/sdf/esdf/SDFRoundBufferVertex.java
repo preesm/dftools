@@ -137,16 +137,16 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
     // Copy the ports
     for (final SDFInterfaceVertex sink : getSinks()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
-        copy.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+        copy.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        copy.addSink(sink.clone());
+        copy.addSink((SDFSinkInterfaceVertex) sink.clone());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
-        copy.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+        copy.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        copy.addSource(source.clone());
+        copy.addSource((SDFSourceInterfaceVertex) source.clone());
       }
     }
 

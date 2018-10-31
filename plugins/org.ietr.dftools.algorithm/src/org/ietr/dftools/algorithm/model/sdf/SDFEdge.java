@@ -45,6 +45,8 @@ import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.types.ExpressionEdgePropertyType;
 import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.ietr.dftools.algorithm.model.types.NumericalEdgePropertyTypeFactory;
@@ -212,7 +214,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    *
    * @return The source vertex interface of this edge
    */
-  public SDFInterfaceVertex getSourceInterface() {
+  public SDFSinkInterfaceVertex getSourceInterface() {
     return getPropertyBean().getValue(SDFEdge.SOURCE_PORT);
   }
 
@@ -221,7 +223,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    *
    * @return The interface vertex target of this edge
    */
-  public SDFInterfaceVertex getTargetInterface() {
+  public SDFSourceInterfaceVertex getTargetInterface() {
     return getPropertyBean().getValue(SDFEdge.TARGET_PORT);
   }
 

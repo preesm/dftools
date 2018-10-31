@@ -244,12 +244,12 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   public SDFEdge addEdgeWithInterfaces(final SDFAbstractVertex sourceVertex, final SDFAbstractVertex targetVertex) {
     final SDFEdge edge = addEdge(sourceVertex, targetVertex);
     if (edge != null) {
-      final SDFInterfaceVertex sinkInterface = new SDFSinkInterfaceVertex();
+      final SDFSinkInterfaceVertex sinkInterface = new SDFSinkInterfaceVertex();
       sinkInterface.setName("O_" + sourceVertex.getName() + "_" + sourceVertex.getSinks().size());
       sourceVertex.addSink(sinkInterface);
       edge.setSourceInterface(sinkInterface);
 
-      final SDFInterfaceVertex sourceInterface = new SDFSourceInterfaceVertex();
+      final SDFSourceInterfaceVertex sourceInterface = new SDFSourceInterfaceVertex();
       sourceInterface.setName("I_" + targetVertex.getName() + "_" + targetVertex.getSources().size());
       targetVertex.addSource(sourceInterface);
       edge.setTargetInterface(sourceInterface);

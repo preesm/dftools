@@ -60,7 +60,7 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 @SuppressWarnings("unchecked")
 public abstract class AbstractVertex<G> extends Observable implements PropertySource, Observer, CloneableProperty {
 
-  public static boolean ENABLE_CUSTOM_HASHCODE = true;
+  public static boolean ENABLE_CUSTOM_HASHCODE = false;
 
   /** The properties. */
   protected PropertyBean properties;

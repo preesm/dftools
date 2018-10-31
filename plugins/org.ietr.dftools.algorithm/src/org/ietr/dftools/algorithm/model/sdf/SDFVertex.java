@@ -41,6 +41,8 @@ package org.ietr.dftools.algorithm.model.sdf;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 
 /**
  * Class used to represent Hierachical vertices, meaning it is a vertex in the parent graph, but is itself a graph.
@@ -101,17 +103,17 @@ public class SDFVertex extends SDFAbstractVertex {
     for (final SDFInterfaceVertex sink : getSinks()) {
       if ((newVertex.getGraphDescription() != null)
           && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
-        newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+        newVertex.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        newVertex.addSink(sink.clone());
+        newVertex.addSink((SDFSinkInterfaceVertex) sink.clone());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((newVertex.getGraphDescription() != null)
           && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
-        newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+        newVertex.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        newVertex.addSource(source.clone());
+        newVertex.addSource((SDFSourceInterfaceVertex) source.clone());
       }
     }
     try {

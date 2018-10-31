@@ -55,6 +55,7 @@ import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
  * Abstract class representing SDF Vertices.
@@ -72,10 +73,10 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   }
 
   /** The sinks. */
-  protected List<SDFInterfaceVertex> sinks;
+  protected List<SDFSinkInterfaceVertex> sinks;
 
   /** The sources. */
-  protected List<SDFInterfaceVertex> sources;
+  protected List<SDFSourceInterfaceVertex> sources;
 
   /**
    * Constructs a new SDFAbstractVertex using the given Edge Factory ef.
@@ -95,9 +96,9 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   @Override
   public boolean addInterface(final IInterface port) {
     if (port.getDirection().equals(InterfaceDirection.INPUT)) {
-      return addSource((SDFInterfaceVertex) port);
+      return addSource((SDFSourceInterfaceVertex) port);
     } else if (port.getDirection().equals(InterfaceDirection.OUTPUT)) {
-      return addSink((SDFInterfaceVertex) port);
+      return addSink((SDFSinkInterfaceVertex) port);
     }
     return false;
   }
@@ -110,7 +111,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @return true, if successful
    */
   @SuppressWarnings("unchecked")
-  public boolean addSink(final SDFInterfaceVertex sink) {
+  public boolean addSink(final SDFSinkInterfaceVertex sink) {
     if (this.sinks == null) {
       this.sinks = new ArrayList<>();
     }
@@ -131,7 +132,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @return true, if successful
    */
   @SuppressWarnings("unchecked")
-  public boolean addSource(final SDFInterfaceVertex src) {
+  public boolean addSource(final SDFSourceInterfaceVertex src) {
     if (this.sources == null) {
       this.sources = new ArrayList<>();
     }
@@ -229,7 +230,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *
    * @return Returns the sinks.
    */
-  public List<SDFInterfaceVertex> getSinks() {
+  public List<SDFSinkInterfaceVertex> getSinks() {
     return this.sinks;
   }
 
@@ -270,7 +271,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *
    * @return Returns the sources.
    */
-  public List<SDFInterfaceVertex> getSources() {
+  public List<SDFSourceInterfaceVertex> getSources() {
     return this.sources;
   }
 
@@ -329,7 +330,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @param sinks
    *          The sinks to set.
    */
-  public void setSinks(final List<SDFInterfaceVertex> sinks) {
+  public void setSinks(final List<SDFSinkInterfaceVertex> sinks) {
     this.sinks = sinks;
   }
 
@@ -339,7 +340,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @param sources
    *          The sources to set.
    */
-  public void setSources(final List<SDFInterfaceVertex> sources) {
+  public void setSources(final List<SDFSourceInterfaceVertex> sources) {
     this.sources = sources;
   }
 

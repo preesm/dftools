@@ -87,10 +87,10 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
     final SDFAbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
     final SDFAbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
 
-    SDFInterfaceVertex sourcePort = null;
-    SDFInterfaceVertex targetPort = null;
+    SDFSinkInterfaceVertex sourcePort = null;
+    SDFSourceInterfaceVertex targetPort = null;
     final String sourcePortName = edgeElt.getAttribute("sourceport");
-    for (final SDFInterfaceVertex sinksPort : vertexSource.getSinks()) {
+    for (final SDFSinkInterfaceVertex sinksPort : vertexSource.getSinks()) {
       if (sinksPort.getName().equals(sourcePortName)) {
         sourcePort = sinksPort;
       }
@@ -101,7 +101,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
       vertexSource.addSink(sourcePort);
     }
     final String targetPortName = edgeElt.getAttribute("targetport");
-    for (final SDFInterfaceVertex sourcesPort : vertexTarget.getSources()) {
+    for (final SDFSourceInterfaceVertex sourcesPort : vertexTarget.getSources()) {
       if (sourcesPort.getName().equals(targetPortName)) {
         targetPort = sourcesPort;
       }
@@ -188,9 +188,9 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
               for (final SDFAbstractVertex refineVertex : refine.vertexSet()) {
                 if (refineVertex instanceof SDFInterfaceVertex) {
                   if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.INPUT) {
-                    vertex.addSource(((SDFInterfaceVertex) refineVertex).clone());
+                    vertex.addSource(((SDFSourceInterfaceVertex) refineVertex).clone());
                   } else if (((SDFInterfaceVertex) refineVertex).getDirection() == InterfaceDirection.OUTPUT) {
-                    vertex.addSink(((SDFInterfaceVertex) refineVertex).clone());
+                    vertex.addSink(((SDFSinkInterfaceVertex) refineVertex).clone());
                   }
                 }
               }
