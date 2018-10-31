@@ -37,7 +37,6 @@ package org.ietr.dftools.algorithm.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import org.ietr.dftools.algorithm.factories.DAGVertexFactory;
-import org.ietr.dftools.algorithm.generator.SDFRandomGraph;
 import org.ietr.dftools.algorithm.importer.GMLSDFImporter;
 import org.ietr.dftools.algorithm.importer.InvalidModelException;
 import org.ietr.dftools.algorithm.model.dag.DAGEdge;
@@ -59,24 +58,13 @@ public class DAGTransformationTest {
    */
   @Test
   public void testTransfo() {
-    final int nbVertex = 30;
-    final int minInDegree = 1;
-    final int maxInDegree = 5;
-    final int minOutDegree = 1;
-    final int maxOutDegree = 5;
 
-    // Creates a random SDF graph
-    final int minrate = 1;
-    final int maxrate = 100;
-    final SDFRandomGraph test = new SDFRandomGraph();
-
-    SDFGraph demoGraph = test.createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minrate,
-        maxrate);
+    final SDFGraph demoGraph;
     final GMLSDFImporter importer = new GMLSDFImporter();
     try {
       demoGraph = importer.parse(new File("resources/flatten.graphml"));
     } catch (InvalidModelException | FileNotFoundException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
     final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(),
         DAGVertexFactory.getInstance());
