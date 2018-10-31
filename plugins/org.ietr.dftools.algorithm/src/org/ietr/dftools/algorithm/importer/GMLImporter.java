@@ -142,7 +142,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws FileNotFoundException
    *           the file not found exception
    */
-  public G parse(final File f) throws InvalidModelException, FileNotFoundException {
+  public G parse(final File f) throws FileNotFoundException {
     this.path = f.getAbsolutePath();
     return parse(new FileInputStream(f));
   }
@@ -160,7 +160,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws FileNotFoundException
    *           the file not found exception
    */
-  public G parse(final InputStream input, final String path) throws InvalidModelException, FileNotFoundException {
+  public G parse(final InputStream input, final String path) throws FileNotFoundException {
     this.path = path;
     return parse(input);
   }
@@ -174,7 +174,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  private G parse(final InputStream input) throws InvalidModelException {
+  private G parse(final InputStream input) {
     this.inputStream = input;
 
     // using DOM3
@@ -226,7 +226,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected abstract void parseEdge(Element edgeElt, G parentGraph) throws InvalidModelException;
+  protected abstract void parseEdge(Element edgeElt, G parentGraph);
 
   /**
    * Parses a Graph in the DOM document.
@@ -237,7 +237,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected abstract G parseGraph(Element graphElt) throws InvalidModelException;
+  protected abstract G parseGraph(Element graphElt);
 
   /**
    * Parses a key instance in the document.
@@ -345,7 +345,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected abstract V parseNode(Element vertexElt, G parentGraph) throws InvalidModelException;
+  protected abstract V parseNode(Element vertexElt, G parentGraph);
 
   /**
    * Parses an Interface from the DOM document.
@@ -358,7 +358,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected abstract V parsePort(Element portElt, G parentGraph) throws InvalidModelException;
+  protected abstract V parsePort(Element portElt, G parentGraph);
 
   /**
    * Recover the key set from the GML document.
@@ -500,8 +500,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected void parseGraphDescription(final AbstractVertex<?> vertex, final Element parentElt)
-      throws InvalidModelException {
+  protected void parseGraphDescription(final AbstractVertex<?> vertex, final Element parentElt) {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
       if (childList.item(i).getNodeName().equals("data")

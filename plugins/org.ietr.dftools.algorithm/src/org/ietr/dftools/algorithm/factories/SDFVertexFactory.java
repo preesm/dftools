@@ -79,32 +79,45 @@ public class SDFVertexFactory implements IModelVertexFactory<SDFAbstractVertex> 
   @Override
   public SDFAbstractVertex createVertex(final Element vertexElt) {
     final String kind = getProperty(vertexElt, AbstractVertex.KIND_LITERAL);
-    if (kind.equals(SDFVertex.VERTEX)) {
-      final SDFVertex newVertex = new SDFVertex();
-      newVertex.setName("default");
-      return newVertex;
-    } else if (kind.equals(SDFInterfaceVertex.PORT)) {
-      final String direction = getProperty(vertexElt, SDFInterfaceVertex.PORT_DIRECTION);
-      if (direction != null) {
-        if (direction.equals(InterfaceDirection.INPUT.name())) {
-          return new SDFSourceInterfaceVertex();
-        } else if (direction.equals(InterfaceDirection.OUTPUT.name())) {
-          return new SDFSinkInterfaceVertex();
-        }
-        return null;
+    if (kind == null) {
+      throw new NullPointerException("Vertex elements should have a child element of type 'kind'");
+    } else {
+      switch (kind) {
+        case SDFVertex.VERTEX:
+          final SDFVertex newVertex = new SDFVertex();
+          newVertex.setName("default");
+          return newVertex;
+
+        case SDFInterfaceVertex.PORT:
+          final String direction = getProperty(vertexElt, SDFInterfaceVertex.PORT_DIRECTION);
+          if (direction != null) {
+            if (direction.equals(InterfaceDirection.INPUT.name())) {
+              return new SDFSourceInterfaceVertex();
+            } else if (direction.equals(InterfaceDirection.OUTPUT.name())) {
+              return new SDFSinkInterfaceVertex();
+            }
+          }
+          return null;
+
+        case SDFBroadcastVertex.BROADCAST:
+          return new SDFBroadcastVertex();
+
+        case SDFRoundBufferVertex.ROUND_BUFFER:
+          return new SDFRoundBufferVertex();
+
+        case SDFForkVertex.FORK:
+          return new SDFForkVertex();
+
+        case SDFJoinVertex.JOIN:
+          return new SDFJoinVertex();
+
+        case SDFInitVertex.INIT:
+          return new SDFInitVertex();
+        default:
+          throw new UnsupportedOperationException("Unsupported vertex kind " + kind);
       }
-    } else if (kind.equals(SDFBroadcastVertex.BROADCAST)) {
-      return new SDFBroadcastVertex();
-    } else if (kind.equals(SDFRoundBufferVertex.ROUND_BUFFER)) {
-      return new SDFRoundBufferVertex();
-    } else if (kind.equals(SDFForkVertex.FORK)) {
-      return new SDFForkVertex();
-    } else if (kind.equals(SDFJoinVertex.JOIN)) {
-      return new SDFJoinVertex();
-    } else if (kind.equals(SDFInitVertex.INIT)) {
-      return new SDFInitVertex();
     }
-    return null;
+
   }
 
   /**
