@@ -83,7 +83,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
    *           the invalid model exception
    */
   @Override
-  public void parseEdge(final Element edgeElt, final SDFGraph parentGraph) throws InvalidModelException {
+  public void parseEdge(final Element edgeElt, final SDFGraph parentGraph) {
     final SDFAbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
     final SDFAbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
 
@@ -130,7 +130,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
    *           the invalid model exception
    */
   @Override
-  public SDFGraph parseGraph(final Element graphElt) throws InvalidModelException {
+  public SDFGraph parseGraph(final Element graphElt) {
     final SDFGraph graph = new SDFGraph((SDFEdgeFactory) this.edgeFactory);
     final NodeList childList = graphElt.getChildNodes();
     parseParameters(graph, graphElt);
@@ -161,8 +161,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
    * @throws InvalidModelException
    *           the invalid model exception
    */
-  protected void parseGraphDescription(final SDFAbstractVertex vertex, final Element parentElt)
-      throws InvalidModelException {
+  protected void parseGraphDescription(final SDFAbstractVertex vertex, final Element parentElt) {
     final NodeList childList = parentElt.getChildNodes();
     for (int i = 0; i < childList.getLength(); i++) {
       if (childList.item(i).getNodeName().equals("data")
@@ -218,22 +217,20 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
    *           the invalid model exception
    */
   @Override
-  @SuppressWarnings("deprecation")
-  public SDFAbstractVertex parseNode(final Element vertexElt, final SDFGraph parentGraph) throws InvalidModelException {
+  public SDFAbstractVertex parseNode(final Element vertexElt, final SDFGraph parentGraph) {
 
-    SDFAbstractVertex vertex;
     final Map<String, String> attributes = new LinkedHashMap<>();
     for (int i = 0; i < vertexElt.getAttributes().getLength(); i++) {
       attributes.put(vertexElt.getAttributes().item(i).getNodeName(), vertexElt.getAttributes().item(i).getNodeValue());
     }
-    vertex = SDFVertexFactory.getInstance().createVertex(attributes);
-    parentGraph.addVertex(vertex);
+    final SDFAbstractVertex vertex = SDFVertexFactory.getInstance().createVertex(attributes);
     vertex.setId(vertexElt.getAttribute("id"));
     vertex.setName(vertexElt.getAttribute("id"));
     parseKeys(vertexElt, vertex);
     this.vertexFromId.put(vertex.getId(), vertex);
     parseArguments(vertex, vertexElt);
     parseGraphDescription(vertex, vertexElt);
+    parentGraph.addVertex(vertex);
     return vertex;
   }
 
@@ -244,7 +241,7 @@ public class GMLSDFImporterV1 extends GMLImporter<SDFGraph, SDFAbstractVertex, S
    * org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
-  public SDFAbstractVertex parsePort(final Element portElt, final SDFGraph parentGraph) throws InvalidModelException {
+  public SDFAbstractVertex parsePort(final Element portElt, final SDFGraph parentGraph) {
     return null;
   }
 
