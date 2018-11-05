@@ -48,7 +48,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.SDFMath;
@@ -76,6 +75,7 @@ import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.ietr.dftools.algorithm.model.types.StringEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
+import org.ietr.dftools.workflow.tools.WorkflowLogger;
 import org.jgrapht.EdgeFactory;
 import org.math.array.DoubleArray;
 import org.math.array.LinearAlgebra;
@@ -569,7 +569,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @param logger
    *          the logger where display a warning.
    */
-  private void insertBroadcast(final SDFVertex vertex, final Logger logger) {
+  private void insertBroadcast(final SDFVertex vertex) {
     final Map<SDFInterfaceVertex, ArrayList<SDFEdge>> connections = new LinkedHashMap<>();
     for (final SDFEdge edge : outgoingEdgesOf(vertex)) {
       if (connections.get(edge.getSourceInterface()) == null) {
@@ -581,7 +581,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       if (connections.get(port).size() > 1) {
         final String message = "Warning: Implicit Broadcast added in graph " + getName() + " at port " + vertex + "."
             + port.getName();
-        logger.log(Level.WARNING, message);
+        WorkflowLogger.getLogger().log(Level.WARNING, message);
         final SDFBroadcastVertex broadcastPort = new SDFBroadcastVertex();
         broadcastPort.setName("br_" + vertex.getName() + "_" + port.getName());
         final SDFSourceInterfaceVertex inPort = new SDFSourceInterfaceVertex();
@@ -866,10 +866,10 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @throws SDF4JException
    *           thrown if the child is not valid
    */
-  private void validateChild(final SDFAbstractVertex child, final Logger logger) {
+  private void validateChild(final SDFAbstractVertex child) {
 
     // validate vertex
-    if (!child.validateModel(logger)) {
+    if (!child.validateModel()) {
       throw new DFToolsAlgoException(child.getName() + " is not a valid vertex, verify arguments");
     }
 
@@ -877,7 +877,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       // validate child graph
       final String childGraphName = child.getGraphDescription().getName();
       final SDFGraph descritption = ((SDFGraph) child.getGraphDescription());
-      if (!descritption.validateModel(logger)) {
+      if (!descritption.validateModel()) {
         throw (new SDF4JException(childGraphName + " is not schedulable"));
       }
       // validate child graph I/Os w.r.t. actor I/Os
@@ -968,14 +968,16 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   /**
    * Validate the model's schedulability.
    *
-   * @param logger
-   *          the logger
    * @return True if the model is valid, false otherwise ...
    * @throws SDF4JException
    *           the SDF 4 J exception
+   *
+   * @deprecated This method is defined as a query (check), but the while loop actually modify the internal
+   *             representation of the graph.
    */
   @Override
-  public boolean validateModel(final Logger logger) {
+  @Deprecated
+  public boolean validateModel() {
     try {
       final boolean schedulable = isSchedulable();
       if (schedulable) {
@@ -984,7 +986,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
         // keep memory of their integer value
         final Set<SDFAbstractVertex> vertexSet = vertexSet();
         for (final SDFAbstractVertex child : vertexSet) {
-          validateChild(child, logger);
+          validateChild(child);
         }
         // solving all the parameter for the rest of the processing ...
         int i = 0;
@@ -994,7 +996,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
            * (15/01/14) Removed by jheulot: allowing unconnected actor
            */
           if (vertex instanceof SDFVertex) {
-            insertBroadcast((SDFVertex) vertex, logger);
+            insertBroadcast((SDFVertex) vertex);
           }
           i++;
         }

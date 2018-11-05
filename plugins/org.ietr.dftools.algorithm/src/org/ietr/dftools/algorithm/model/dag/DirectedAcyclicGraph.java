@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.exceptions.CreateCycleException;
 import org.ietr.dftools.algorithm.exceptions.CreateMultigraphException;
 import org.ietr.dftools.algorithm.factories.DAGEdgeFactory;
@@ -52,7 +51,6 @@ import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
-import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.EdgeFactory;
 import org.jgrapht.alg.cycle.CycleDetector;
 
@@ -87,6 +85,17 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
   public DirectedAcyclicGraph(final EdgeFactory<DAGVertex, DAGEdge> arg0) {
     super(arg0);
     getPropertyBean().setValue(AbstractGraph.MODEL, "dag");
+  }
+
+  @Override
+  public Set<DAGEdge> getAllEdges(DAGVertex sourceVertex, DAGVertex targetVertex) {
+    if (!containsVertex(sourceVertex)) {
+      throw new IllegalArgumentException("Graph does not contain source vertex '" + sourceVertex + "'");
+    }
+    if (!containsVertex(targetVertex)) {
+      throw new IllegalArgumentException("Graph does not contain target vertex '" + targetVertex + "'");
+    }
+    return super.getAllEdges(sourceVertex, targetVertex);
   }
 
   /**
@@ -178,7 +187,7 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#validateModel(java.util.logging.Logger)
    */
   @Override
-  public boolean validateModel(final Logger logger) throws SDF4JException {
+  public boolean validateModel() {
     return true;
   }
 

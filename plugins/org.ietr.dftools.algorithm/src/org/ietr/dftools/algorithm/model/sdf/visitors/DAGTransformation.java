@@ -44,7 +44,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.exceptions.CreateCycleException;
@@ -261,9 +260,9 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @throws SDF4JException
    *           the SDF 4 J exception
    */
-  private void transformsTop(final SDFGraph graph) throws SDF4JException {
+  private void transformsTop(final SDFGraph graph) {
     try {
-      if (graph.validateModel(Logger.getAnonymousLogger())) {
+      if (graph.validateModel()) {
         // insertImplodeExplodesVertices(graph)
         this.outputGraph.copyProperties(graph);
         this.outputGraph.setCorrespondingSDFGraph(graph);

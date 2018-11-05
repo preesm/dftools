@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
@@ -831,12 +830,10 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   /**
    * Validate model.
    *
-   * @param logger
-   *          the logger
    * @return true, if successful
    * @throws SDF4JException
    *           the SDF 4 J exception
    */
-  public abstract boolean validateModel(Logger logger) throws SDF4JException;
+  public abstract boolean validateModel();
 
 }

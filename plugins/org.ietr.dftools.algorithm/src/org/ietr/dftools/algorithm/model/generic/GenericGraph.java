@@ -37,12 +37,10 @@
  */
 package org.ietr.dftools.algorithm.model.generic;
 
-import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.factories.GenericEdgeFactory;
 import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
 /**
  * The Class GenericGraph.
@@ -78,7 +76,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#validateModel(java.util.logging.Logger)
    */
   @Override
-  public boolean validateModel(final Logger logger) throws SDF4JException {
+  public boolean validateModel() {
     return false;
   }
 

@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
@@ -56,6 +55,7 @@ import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
+import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
  * Abstract class representing SDF Vertices.
@@ -399,8 +399,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   /**
    * Validate model.
    *
-   * @param logger
-   *          the logger
    * @return true, if successful
    * @throws SDF4JException
    *           the SDF 4 J exception
@@ -408,7 +406,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *           the invalid expression exception
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public boolean validateModel(final Logger logger) {
+  public boolean validateModel() {
     int i = 0;
     while (i < this.sources.size()) {
       final SDFInterfaceVertex source = this.sources.get(i);
@@ -416,8 +414,8 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
       if (getGraphDescription() != null) {
         final AbstractVertex truePort = getGraphDescription().getVertex(source.getName());
         if (getGraphDescription().outgoingEdgesOf(truePort).isEmpty()) {
-          if (logger != null) {
-            logger.log(Level.INFO,
+          if (WorkflowLogger.getLogger() != null) {
+            WorkflowLogger.getLogger().log(Level.INFO,
                 "The interface " + source.getName()
                     + " has no inside connection and will be removed for further processing.\n "
                     + "Outside connection has been taken into account for reptition factor computation");
@@ -435,8 +433,8 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
     for (final SDFInterfaceVertex sink : this.sinks) {
       if (getGraphDescription() != null) {
         final AbstractVertex truePort = getGraphDescription().getVertex(sink.getName());
-        if (getGraphDescription().incomingEdgesOf(truePort).isEmpty() && logger != null) {
-          logger.log(Level.INFO,
+        if (getGraphDescription().incomingEdgesOf(truePort).isEmpty()) {
+          WorkflowLogger.getLogger().log(Level.INFO,
               "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused");
           throw (new DFToolsAlgoException(
               "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused"));
