@@ -72,6 +72,6 @@ public class WorkflowManager extends AbstractWorkflowExecutor {
    */
   @Override
   protected void log(final Level level, final String msgKey, final String... variables) {
-    WorkflowLogger.getLogger().logFromProperty(level, msgKey, variables);
+    WorkflowLogger.logFromProperty(level, msgKey, variables);
   }
 }

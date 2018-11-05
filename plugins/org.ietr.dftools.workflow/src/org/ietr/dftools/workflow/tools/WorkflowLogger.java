@@ -58,7 +58,7 @@ import org.ietr.dftools.workflow.messages.WorkflowMessages;
 public abstract class WorkflowLogger extends Logger {
 
   /** The logger. */
-  private static WorkflowLogger logger = null;
+  private static Logger logger = null;
 
   /**
    * Instantiates a new workflow logger.
@@ -77,22 +77,25 @@ public abstract class WorkflowLogger extends Logger {
    *
    * @return a Logger
    */
-  public static WorkflowLogger getLogger() {
+  public static Logger getLogger() {
 
     if (WorkflowLogger.logger == null) {
       try {
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
+        if (registry == null) {
+          WorkflowLogger.logger = Logger.getAnonymousLogger();
+        } else {
+          final IConfigurationElement[] elements = registry
+              .getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
+          for (final IConfigurationElement element : elements) {
+            if (element.getAttribute("id").equals("net.sf.dftools.ui.workflow.logger")) {
+              // Tries to create the transformation
+              final Object obj = element.createExecutableExtension("type");
 
-        final IConfigurationElement[] elements = registry
-            .getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
-        for (final IConfigurationElement element : elements) {
-          if (element.getAttribute("id").equals("net.sf.dftools.ui.workflow.logger")) {
-            // Tries to create the transformation
-            final Object obj = element.createExecutableExtension("type");
-
-            // and checks it actually is an ITransformation.
-            if (obj instanceof WorkflowLogger) {
-              WorkflowLogger.logger = (WorkflowLogger) obj;
+              // and checks it actually is an ITransformation.
+              if (obj instanceof WorkflowLogger) {
+                WorkflowLogger.logger = (WorkflowLogger) obj;
+              }
             }
           }
         }
@@ -114,7 +117,9 @@ public abstract class WorkflowLogger extends Logger {
    * @param variables
    *          the variables
    */
-  public abstract void logFromProperty(Level level, String msgKey, String... variables);
+  public static void logFromProperty(Level level, String msgKey, String... variables) {
+    getLogger().log(level, WorkflowMessages.getString(msgKey, variables));
+  }
 
   /**
    * Gets the formatted time.

@@ -88,21 +88,21 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
 
     for (final String protoInputPortName : this.inputPrototype.keySet()) {
       if (!graphInputPorts.keySet().contains(protoInputPortName)) {
-        WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputEdge", protoInputPortName);
+        WorkflowLogger.logFromProperty(Level.SEVERE, "Workflow.FalseInputEdge", protoInputPortName);
         return false;
       } else {
         final String protoType = this.inputPrototype.get(protoInputPortName);
         final String graphType = graphInputPorts.get(protoInputPortName);
         if (!protoType.equals(graphType)) {
-          WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName,
-              graphType, protoType);
+          WorkflowLogger.logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName, graphType,
+              protoType);
           return false;
         }
       }
     }
 
     if (graphInputPorts.keySet().size() > this.inputPrototype.keySet().size()) {
-      WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges",
+      WorkflowLogger.logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges",
           String.valueOf(graphInputPorts.keySet().size()), String.valueOf(this.inputPrototype.keySet().size()));
       return false;
     }

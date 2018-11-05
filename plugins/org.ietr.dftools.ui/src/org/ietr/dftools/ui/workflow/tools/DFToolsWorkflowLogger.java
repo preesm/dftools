@@ -49,7 +49,6 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.ietr.dftools.ui.Activator;
-import org.ietr.dftools.workflow.messages.WorkflowMessages;
 import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
@@ -96,22 +95,6 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
     if (!DFToolsWorkflowLogger.isRunningFromCLI) {
       initConsole();
     }
-  }
-
-  /**
-   * adds a log retrieved from a property file {@link WorkflowMessages} and parameterized with variables Each string
-   * "%VAR%" is replaced by a given variable.
-   *
-   * @param level
-   *          the level
-   * @param msgKey
-   *          the msg key
-   * @param variables
-   *          the variables
-   */
-  @Override
-  public void logFromProperty(final Level level, final String msgKey, final String... variables) {
-    log(level, WorkflowMessages.getString(msgKey, variables));
   }
 
   /*

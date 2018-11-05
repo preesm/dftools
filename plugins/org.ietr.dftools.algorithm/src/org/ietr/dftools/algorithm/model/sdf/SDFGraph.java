@@ -971,12 +971,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @return True if the model is valid, false otherwise ...
    * @throws SDF4JException
    *           the SDF 4 J exception
-   *
-   * @deprecated This method is defined as a query (check), but the while loop actually modify the internal
-   *             representation of the graph.
    */
   @Override
-  @Deprecated
   public boolean validateModel() {
     try {
       final boolean schedulable = isSchedulable();
@@ -988,24 +984,39 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
         for (final SDFAbstractVertex child : vertexSet) {
           validateChild(child);
         }
-        // solving all the parameter for the rest of the processing ...
-        int i = 0;
-        while (i < vertexSet.size()) {
-          final SDFAbstractVertex vertex = (SDFAbstractVertex) (vertexSet.toArray()[i]);
-          /*
-           * (15/01/14) Removed by jheulot: allowing unconnected actor
-           */
-          if (vertex instanceof SDFVertex) {
-            insertBroadcast((SDFVertex) vertex);
-          }
-          i++;
-        }
-
         return true;
       }
       return false;
     } catch (final InvalidExpressionException e) {
       throw new SDF4JException(getName() + ": " + e.getMessage(), e);
+    }
+  }
+
+  /**
+   *
+   */
+  public void insertBroadcasts() {
+    final Set<SDFAbstractVertex> vertexSet = vertexSet();
+    List<SDFAbstractVertex> array = new ArrayList<>(vertexSet);
+    for (final SDFAbstractVertex child : array) {
+      if (child.getGraphDescription() != null) {
+        // validate child graph
+        final SDFGraph descritption = ((SDFGraph) child.getGraphDescription());
+        descritption.insertBroadcasts();
+      }
+      // solving all the parameter for the rest of the processing ...
+      int i = 0;
+      while (i < array.size()) {
+        final SDFAbstractVertex vertex = array.get(i);
+        /*
+         * (15/01/14) Removed by jheulot: allowing unconnected actor
+         */
+        if (vertex instanceof SDFVertex) {
+          insertBroadcast((SDFVertex) vertex);
+        }
+        i++;
+      }
+
     }
   }
 }

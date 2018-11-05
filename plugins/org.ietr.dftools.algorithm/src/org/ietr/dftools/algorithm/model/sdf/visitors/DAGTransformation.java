@@ -261,6 +261,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    *           the SDF 4 J exception
    */
   private void transformsTop(final SDFGraph graph) {
+
+    graph.insertBroadcasts();
     try {
       if (graph.validateModel()) {
         // insertImplodeExplodesVertices(graph)
@@ -298,6 +300,16 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
   private void createEdge(final SDFEdge edge) {
     final DAGVertex source = this.outputGraph.getVertex(edge.getSource().getName());
     final DAGVertex target = this.outputGraph.getVertex(edge.getTarget().getName());
+
+    if (source == null) {
+      throw new DFToolsAlgoException(
+          "Output DAG does not contain edge source vertex '" + edge.getSource() + "' from input SDF.");
+    }
+
+    if (target == null) {
+      throw new DFToolsAlgoException(
+          "Output DAG does not contain edge target vertex '" + edge.getTarget() + "' from input SDF.");
+    }
 
     final DAGEdge dagEdge;
     // Checks if the DAG edge already exists in the graph

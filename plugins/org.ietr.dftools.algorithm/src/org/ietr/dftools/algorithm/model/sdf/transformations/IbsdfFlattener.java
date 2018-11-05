@@ -299,7 +299,7 @@ public class IbsdfFlattener {
    * Flatten the graph up to the {@link #depth} specified in the {@link IbsdfFlattener} attributes. Result of the
    * flattening can be obtained through the {@link #getFlattenedGraph()} method.
    */
-  public void flattenGraph() throws SDF4JException {
+  public void flattenGraph() {
     // Copy the original graph
     setFlattenedGraph(originalGraph.clone());
 
@@ -327,6 +327,7 @@ public class IbsdfFlattener {
     // Make sure the fifos of special actors are in order (according to
     // their indices)
     SpecialActorPortsIndexer.sortIndexedPorts(getFlattenedGraph());
+    flattenedGraph.insertBroadcasts();
   }
 
   protected void flattenOneLevel(int level) {
@@ -464,15 +465,13 @@ public class IbsdfFlattener {
     // In fifo prod/cons rates (expressions)
     for (SDFEdge fifo : subgraph.edgeSet()) {
       if (fifo.getCons() instanceof ExpressionEdgePropertyType) {
-        ((ExpressionEdgePropertyType) fifo.getCons()).getValue()
-            .setValue(((ExpressionEdgePropertyType) fifo.getCons()).getValue().getValue().replaceAll(oldNameRegex,
-                replacementString));
+        ((ExpressionEdgePropertyType) fifo.getCons()).getValue().setValue(((ExpressionEdgePropertyType) fifo.getCons())
+            .getValue().getValue().replaceAll(oldNameRegex, replacementString));
       }
 
       if (fifo.getProd() instanceof ExpressionEdgePropertyType) {
-        ((ExpressionEdgePropertyType) fifo.getProd()).getValue()
-            .setValue(((ExpressionEdgePropertyType) fifo.getProd()).getValue().getValue().replaceAll(oldNameRegex,
-                replacementString));
+        ((ExpressionEdgePropertyType) fifo.getProd()).getValue().setValue(((ExpressionEdgePropertyType) fifo.getProd())
+            .getValue().getValue().replaceAll(oldNameRegex, replacementString));
       }
     }
 
