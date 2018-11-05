@@ -257,11 +257,13 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    * @throws RuntimeException
    *           if there are several {@link AbstractEdge} between the source and the target
    */
-  protected void checkMultipleEdges(final V source, final V target) throws RuntimeException {
-    // Check if the source and target have a unique edge between them
-    if (getAllEdges(source, target).size() > 1) {
-      throw new DFToolsAlgoException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
-          + getAllEdges(source, target).size() + " edges between actors " + source + " and " + target);
+  protected void checkMultipleEdges(final V source, final V target) {
+    if (source != null && target != null) {
+      // Check if the source and target have a unique edge between them
+      if (getAllEdges(source, target).size() > 1) {
+        throw new DFToolsAlgoException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
+            + getAllEdges(source, target).size() + " edges between actors " + source + " and " + target);
+      }
     }
   }
 
