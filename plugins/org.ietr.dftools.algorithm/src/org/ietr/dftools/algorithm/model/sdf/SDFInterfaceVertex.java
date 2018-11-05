@@ -109,11 +109,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
 
   @Override
   public int hashCode() {
-    if (ENABLE_CUSTOM_HASHCODE) {
-      return Objects.hash(getName(), getDirection());
-    } else {
-      return super.hashCode();
-    }
+    return Objects.hash(getName(), getDirection());
   }
 
   /**
