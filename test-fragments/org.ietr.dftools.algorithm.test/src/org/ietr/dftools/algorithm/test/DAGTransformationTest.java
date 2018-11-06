@@ -72,7 +72,7 @@ public class DAGTransformationTest {
     try {
       demoGraph.accept(dageur);
     } catch (final SDF4JException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not transform sdf to dag", e);
     }
     final DirectedAcyclicGraph dag = dageur.getOutput();
     final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
