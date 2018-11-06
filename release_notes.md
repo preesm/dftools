@@ -8,7 +8,8 @@ DFTools Changelog
 
 ### Changes
 * Update M2E Code Quality repo;
-* Convert Xtend source to Jave;
+* Convert Xtend source to Java;
+* Major refactor;
 
 ### Bug fix
 
