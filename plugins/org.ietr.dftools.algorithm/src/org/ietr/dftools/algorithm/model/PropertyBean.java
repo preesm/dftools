@@ -59,7 +59,7 @@ public class PropertyBean extends Observable implements Cloneable, Serializable 
   static final long serialVersionUID = 1;
 
   /** The properties. */
-  // use HashMap to inherit Cloneable
+  // use HashMap to inherit Serializable
   private final HashMap<String, Object> properties;
 
   /** The property change. */
