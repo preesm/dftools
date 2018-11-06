@@ -59,7 +59,7 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVertex, SDFEdge> {
 
   /** The is single rate. */
-  public boolean isSingleRate;
+  private boolean isSingleRate;
 
   public SingleRateChecker() {
     isSingleRate = true;
@@ -92,7 +92,7 @@ public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVer
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
-  public void visit(final SDFGraph sdf) throws SDF4JException {
+  public void visit(final SDFGraph sdf) {
     // Visit vertices
     for (final SDFAbstractVertex vertex : sdf.vertexSet()) {
       vertex.accept(this);
@@ -111,7 +111,7 @@ public class SingleRateChecker implements IGraphVisitor<SDFGraph, SDFAbstractVer
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override
-  public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
+  public void visit(final SDFAbstractVertex sdfVertex) {
     // Check number of repetitions
     try {
       this.isSingleRate &= (sdfVertex.getNbRepeatAsLong() == 1);

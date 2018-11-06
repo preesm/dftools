@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -164,7 +165,8 @@ public class IPXACTDesignParser extends IPXACTParser {
    */
   private void setDesignParameters(final Design design) {
     final Map<String, String> designParameters = this.vendorExtensions.getDesignParameters();
-    for (final String key : designParameters.keySet()) {
+    for (Entry<String, String> e : designParameters.entrySet()) {
+      final String key = e.getKey();
       final Parameter p = AttributesFactory.eINSTANCE.createParameter();
       p.setKey(key);
       p.setValue(designParameters.get(key));
@@ -261,6 +263,9 @@ public class IPXACTDesignParser extends IPXACTParser {
       }
       node = node.getNextSibling();
     }
+    if (vlnv == null) {
+      throw new SlamException("Could not parse VLNV");
+    }
 
     // Component type is retrieved from vendor extensions if there are any.
     // Otherwise, a generic component is created
@@ -281,7 +286,9 @@ public class IPXACTDesignParser extends IPXACTParser {
       design.getComponentHolder().getComponents().add(component);
 
       instance.setComponent(component);
-
+      if (description == null) {
+        throw new SlamException("Could not parse description");
+      }
       try {
         // Special component cases
         if (component instanceof ComNode) {
@@ -335,15 +342,12 @@ public class IPXACTDesignParser extends IPXACTParser {
             throw new SlamException("Could not locate file", e);
           }
 
-          if (stream != null) {
-            final Design subDesign = subParser.parse(stream, design.getComponentHolder(), component);
+          final Design subDesign = subParser.parse(stream, design.getComponentHolder(), component);
 
-            // A design shares its component holder with its
-            // subdesigns
-            subDesign.setPath(refinementStringPath);
-            component.getRefinements().add(subDesign);
-
-          }
+          // A design shares its component holder with its
+          // subdesigns
+          subDesign.setPath(refinementStringPath);
+          component.getRefinements().add(subDesign);
         }
       }
     }

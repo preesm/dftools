@@ -36,6 +36,7 @@ package org.ietr.dftools.algorithm.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.factories.DAGVertexFactory;
 import org.ietr.dftools.algorithm.importer.GMLSDFImporter;
 import org.ietr.dftools.algorithm.importer.InvalidModelException;
@@ -64,7 +65,7 @@ public class DAGTransformationTest {
     try {
       demoGraph = importer.parse(new File("resources/flatten.graphml"));
     } catch (InvalidModelException | FileNotFoundException e) {
-      throw new RuntimeException(e);
+      throw new DFToolsAlgoException("Could not read test file", e);
     }
     final DAGTransformation<DirectedAcyclicGraph> dageur = new DAGTransformation<>(new DirectedAcyclicGraph(),
         DAGVertexFactory.getInstance());
@@ -75,7 +76,6 @@ public class DAGTransformationTest {
     }
     final DirectedAcyclicGraph dag = dageur.getOutput();
     final CycleDetector<DAGVertex, DAGEdge> detectCycles = new CycleDetector<>(dag);
-    System.out.println("DAG contains cycles  = " + detectCycles.detectCycles());
     Assert.assertFalse(detectCycles.detectCycles());
   }
 }

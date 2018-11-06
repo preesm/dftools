@@ -34,6 +34,7 @@
  */
 package org.ietr.dftools.algorithm.test;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
@@ -54,13 +55,13 @@ public class JepTransitionTest {
     final ExpressionValue value = new ExpressionValue("2 + 5 * 7 / 1.2 * 7.00002");
     try {
       final long intValue = value.longValue();
-      Assert.assertEquals(new Double(expected).intValue(), intValue);
+      Assert.assertEquals((int) expected, intValue);
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
-      Assert.fail("Expression should be valid, but failed with " + e.getMessage());
+      final String message = "Expression should be valid, but failed with " + e.getMessage();
+      throw new DFToolsAlgoException(message, e);
     } catch (final NoIntegerValueException e) {
-      e.printStackTrace();
-      Assert.fail("Result should be integer, but failed with " + e.getMessage());
+      final String message = "Result should be integer, but failed with " + e.getMessage();
+      throw new DFToolsAlgoException(message, e);
     }
   }
 }

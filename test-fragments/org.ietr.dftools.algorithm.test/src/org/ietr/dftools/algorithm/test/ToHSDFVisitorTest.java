@@ -34,6 +34,7 @@
  */
 package org.ietr.dftools.algorithm.test;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.ConstantValue;
 import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 import org.ietr.dftools.algorithm.model.parameters.Variable;
@@ -60,7 +61,7 @@ public class ToHSDFVisitorTest {
     try {
       demoGraph.accept(visitor);
     } catch (final SDF4JException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not convert to HSDF", e);
     }
   }
 

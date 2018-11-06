@@ -37,6 +37,7 @@
  */
 package org.ietr.dftools.ui.workflow.tools;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -49,10 +50,10 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.ietr.dftools.ui.Activator;
+import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * Displaying information or error messages through a console initialized by the initConsole method.
  *
@@ -80,7 +81,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
    * @see java.util.logging.Logger#setLevel(java.util.logging.Level)
    */
   @Override
-  public void setLevel(final Level newLevel) throws SecurityException {
+  public void setLevel(final Level newLevel) {
     // Enabling only info level
     super.setLevel(Level.INFO);
   }
@@ -143,22 +144,19 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
       } else {
         // Writes a log in console
         this.console.activate();
-        final MessageConsoleStream stream = this.console.newMessageStream();
-
-        Activator.getDefault().getWorkbench().getDisplay().asyncExec(() -> {
-          if (levelVal < Level.WARNING.intValue()) {
-            stream.setColor(new Color(null, 0, 0, 0));
-          } else if (levelVal == Level.WARNING.intValue()) {
-            stream.setColor(new Color(null, 255, 150, 0));
-          } else if (levelVal > Level.WARNING.intValue()) {
-            stream.setColor(new Color(null, 255, 0, 0));
-          }
-        });
-
-        stream.println(WorkflowLogger.getFormattedTime() + record.getMessage());
-
-        if (getLevel().intValue() >= Level.SEVERE.intValue()) {
-          // throw (new PreesmException(record.getMessage()));
+        try (final MessageConsoleStream stream = new MessageConsoleStream(this.console, this.console.getCharset())) {
+          Activator.getDefault().getWorkbench().getDisplay().asyncExec(() -> {
+            if (levelVal < Level.WARNING.intValue()) {
+              stream.setColor(new Color(null, 0, 0, 0));
+            } else if (levelVal == Level.WARNING.intValue()) {
+              stream.setColor(new Color(null, 255, 150, 0));
+            } else if (levelVal > Level.WARNING.intValue()) {
+              stream.setColor(new Color(null, 255, 0, 0));
+            }
+          });
+          stream.println(WorkflowLogger.getFormattedTime() + record.getMessage());
+        } catch (IOException e) {
+          throw new WorkflowException("Could not open console stream", e);
         }
       }
     }
