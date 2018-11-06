@@ -587,7 +587,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
         final SDFSourceInterfaceVertex inPort = new SDFSourceInterfaceVertex();
         inPort.setName("in");
         broadcastPort.addSource(inPort);
-        addVertex(broadcastPort);
+        if (!addVertex(broadcastPort)) {
+          throw new DFToolsAlgoException("Could not insert broadcast vertex");
+        }
         final SDFEdge baseEdge = this.addEdge(vertex, broadcastPort);
         baseEdge.setSourceInterface(port);
         baseEdge.setTargetInterface(inPort);
