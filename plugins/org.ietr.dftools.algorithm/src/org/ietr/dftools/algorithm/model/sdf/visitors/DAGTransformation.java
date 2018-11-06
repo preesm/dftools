@@ -261,8 +261,6 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    *           the SDF 4 J exception
    */
   private void transformsTop(final SDFGraph graph) {
-
-    graph.insertBroadcasts();
     try {
       if (graph.validateModel()) {
         // insertImplodeExplodesVertices(graph)
@@ -271,6 +269,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
         for (final DAGVertex vertex : this.outputGraph.vertexSet()) {
           vertex.setNbRepeat(new LongVertexPropertyType(graph.getVertex(vertex.getName()).getNbRepeatAsLong()));
         }
+
         for (final SDFEdge edge : graph.edgeSet()) {
           if (edge.getDelay().longValue() == 0) {
             try {
@@ -298,17 +297,19 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    *           the CreateCycleException exception
    */
   private void createEdge(final SDFEdge edge) {
-    final DAGVertex source = this.outputGraph.getVertex(edge.getSource().getName());
-    final DAGVertex target = this.outputGraph.getVertex(edge.getTarget().getName());
+    final SDFAbstractVertex edgeSource = edge.getSource();
+    final SDFAbstractVertex edgeTarget = edge.getTarget();
+    final DAGVertex source = this.outputGraph.getVertex(edgeSource.getName());
+    final DAGVertex target = this.outputGraph.getVertex(edgeTarget.getName());
 
     if (source == null) {
       throw new DFToolsAlgoException(
-          "Output DAG does not contain edge source vertex '" + edge.getSource() + "' from input SDF.");
+          "Output DAG does not contain edge source vertex '" + edgeSource + "' from input SDF.");
     }
 
     if (target == null) {
       throw new DFToolsAlgoException(
-          "Output DAG does not contain edge target vertex '" + edge.getTarget() + "' from input SDF.");
+          "Output DAG does not contain edge target vertex '" + edgeTarget + "' from input SDF.");
     }
 
     final DAGEdge dagEdge;
@@ -507,7 +508,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
-  public void visit(final SDFGraph sdf) throws SDF4JException {
+  public void visit(final SDFGraph sdf) {
+    sdf.insertBroadcasts();
     try {
 
       int k = 5;
@@ -518,7 +520,8 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
 
       final ArrayList<SDFAbstractVertex> vertices = new ArrayList<>(sdf.vertexSet());
       for (int i = 0; i < vertices.size(); i++) {
-        vertices.get(i).accept(this);
+        final SDFAbstractVertex sdfAbstractVertex = vertices.get(i);
+        sdfAbstractVertex.accept(this);
       }
       sdf.getPropertyBean().setValue("schedulable", true);
       transformsTop(sdf);
@@ -539,7 +542,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
    * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractVertex)
    */
   @Override
-  public void visit(final SDFAbstractVertex sdfVertex) throws SDF4JException {
+  public void visit(final SDFAbstractVertex sdfVertex) {
     DAGVertex vertex;
     if (sdfVertex instanceof SDFRoundBufferVertex) {
       vertex = this.factory.createVertex(DAGBroadcastVertex.DAG_BROADCAST_VERTEX);
