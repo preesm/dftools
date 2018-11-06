@@ -44,7 +44,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
@@ -80,27 +79,26 @@ public abstract class WorkflowLogger extends Logger {
   public static Logger getLogger() {
 
     if (WorkflowLogger.logger == null) {
+      // use anonymous logger by default
+      WorkflowLogger.logger = Logger.getAnonymousLogger();
+      // then try logging to Eclipse console
       try {
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
-        if (registry == null) {
-          WorkflowLogger.logger = Logger.getAnonymousLogger();
-        } else {
-          final IConfigurationElement[] elements = registry
-              .getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
-          for (final IConfigurationElement element : elements) {
-            if (element.getAttribute("id").equals("net.sf.dftools.ui.workflow.logger")) {
-              // Tries to create the transformation
-              final Object obj = element.createExecutableExtension("type");
+        final IConfigurationElement[] elements = registry
+            .getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
+        for (final IConfigurationElement element : elements) {
+          if (element.getAttribute("id").equals("net.sf.dftools.ui.workflow.logger")) {
+            // Tries to create the transformation
+            final Object obj = element.createExecutableExtension("type");
 
-              // and checks it actually is an ITransformation.
-              if (obj instanceof WorkflowLogger) {
-                WorkflowLogger.logger = (WorkflowLogger) obj;
-              }
+            // and checks it actually is an ITransformation.
+            if (obj instanceof WorkflowLogger) {
+              WorkflowLogger.logger = (WorkflowLogger) obj;
             }
           }
         }
-      } catch (final CoreException e) {
-        // simply return null
+      } catch (final Exception e) {
+        // keep anonymous logger
       }
     }
     return WorkflowLogger.logger;
