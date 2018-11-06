@@ -273,7 +273,7 @@ public abstract class GMLImporter<G extends AbstractGraph<?, ?>, V extends Abstr
             param = Long.parseLong(dataElt.getTextContent());
           } else if (oneKey.getType().equals("double")) {
             constParam = double.class;
-            param = new Double(dataElt.getTextContent());
+            param = Double.parseDouble(dataElt.getTextContent());
           } else {
             // includes type == "string"
             constParam = String.class;

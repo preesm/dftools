@@ -100,28 +100,20 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   public static final String PARENT_VERTEX = "parent_vertex";
 
   /** The public properties. */
-  protected static final List<String> PUBLIC_PROPERTIES = new ArrayList<String>() {
-    /**
-     *
-     */
-    private static final long serialVersionUID = -7087214178114135188L;
+  protected static final List<String> PUBLIC_PROPERTIES = new ArrayList<>();
 
-    {
-      add(AbstractGraph.NAME);
-      add(AbstractGraph.PARAMETERS);
-      add(AbstractGraph.VARIABLES);
-      add(AbstractGraph.MODEL);
-    }
-  };
-
-  @Deprecated
-  protected static final List<String> public_properties = PUBLIC_PROPERTIES;
+  static {
+    PUBLIC_PROPERTIES.add(AbstractGraph.NAME);
+    PUBLIC_PROPERTIES.add(AbstractGraph.PARAMETERS);
+    PUBLIC_PROPERTIES.add(AbstractGraph.VARIABLES);
+    PUBLIC_PROPERTIES.add(AbstractGraph.MODEL);
+  }
 
   /** The properties. */
   protected PropertyBean properties;
 
   /** The observers. */
-  protected List<IModelObserver> observers;
+  protected ArrayList<IModelObserver> observers;
 
   /** The has changed. */
   protected boolean hasChanged;
@@ -258,12 +250,9 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
    *           if there are several {@link AbstractEdge} between the source and the target
    */
   protected void checkMultipleEdges(final V source, final V target) {
-    if (source != null && target != null) {
-      // Check if the source and target have a unique edge between them
-      if (getAllEdges(source, target).size() > 1) {
-        throw new DFToolsAlgoException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
-            + getAllEdges(source, target).size() + " edges between actors " + source + " and " + target);
-      }
+    if (source != null && target != null && getAllEdges(source, target).size() > 1) {
+      throw new DFToolsAlgoException("removeEdge(source,target) cannot be used.\n" + "Reason: there are "
+          + getAllEdges(source, target).size() + " edges between actors " + source + " and " + target);
     }
   }
 
@@ -664,27 +653,6 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     return res;
   }
 
-  /**
-   * Removes the edge.
-   *
-   * @param source
-   *          the source
-   * @param target
-   *          the target
-   * @return the e
-   * @deprecated The method is deprecated. {@link AbstractGraph#removeEdge(AbstractEdge)} should be used instead.
-   *             Indeed, if several edges link the source and the target vertex, a random edge will be removed.
-   */
-  @Override
-  @Deprecated
-  public E removeEdge(final V source, final V target) {
-    checkMultipleEdges(source, target);
-    final E edge = super.removeEdge(source, target);
-    this.setChanged();
-    this.notifyObservers(edge);
-    return edge;
-  }
-
   /*
    * (non-Javadoc)
    *
@@ -778,18 +746,7 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
         }
       }
       if ((this.getParameters() != null) && (this.getParentVertex() != null)) {
-        for (final String arg : this.getParameters().keySet()) {
-          try {
-            Long paramValue = this.getParameters().get(arg).getValue();
-            if (paramValue == null) {
-              paramValue = this.getParentVertex().getArgument(arg).longValue();
-              this.getParameters().get(arg).setValue(paramValue);
-            }
-            jep.addVariable(arg, paramValue);
-          } catch (final NoIntegerValueException e) {
-            throw new DFToolsAlgoException("Could not evaluate value", e);
-          }
-        }
+        addParametersToScope(jep);
       }
       final Node expressionMainNode = jep.parse(expression);
       final Object result = jep.evaluate(expressionMainNode);
@@ -802,6 +759,21 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
       throw (new InvalidExpressionException("Could not parse expresion:" + expression));
     }
     return resultValue;
+  }
+
+  private void addParametersToScope(final JEP jep) {
+    for (final String arg : this.getParameters().keySet()) {
+      try {
+        Long paramValue = this.getParameters().get(arg).getValue();
+        if (paramValue == null) {
+          paramValue = this.getParentVertex().getArgument(arg).longValue();
+          this.getParameters().get(arg).setValue(paramValue);
+        }
+        jep.addVariable(arg, paramValue);
+      } catch (final NoIntegerValueException e) {
+        throw new DFToolsAlgoException("Could not evaluate value", e);
+      }
+    }
   }
 
   /**

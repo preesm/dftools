@@ -62,7 +62,7 @@ public interface GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
    * @throws FileNotFoundException
    *           the file not found exception
    */
-  public abstract SDFGraph parse(File f) throws InvalidModelException, FileNotFoundException;
+  public abstract SDFGraph parse(File f) throws FileNotFoundException;
 
   /**
    * Parses the.
@@ -77,6 +77,6 @@ public interface GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
    * @throws FileNotFoundException
    *           the file not found exception
    */
-  public abstract G parse(InputStream input, String path) throws InvalidModelException, FileNotFoundException;
+  public abstract G parse(InputStream input, String path) throws FileNotFoundException;
 
 }

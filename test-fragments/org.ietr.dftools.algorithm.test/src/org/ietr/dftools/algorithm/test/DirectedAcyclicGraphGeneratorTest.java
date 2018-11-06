@@ -37,6 +37,7 @@
  */
 package org.ietr.dftools.algorithm.test;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import org.ietr.dftools.algorithm.generator.DirectedAcyclicGraphGenerator;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class DirectedAcyclicGraphGeneratorTest {
   @Test
   public void testDAGGen() {
     final DirectedAcyclicGraphGenerator generator = new DirectedAcyclicGraphGenerator();
-    final Random rand = new Random(System.nanoTime());
+    final Random rand = new SecureRandom();
     for (int i = 0; i < 5; i++) {
       generator.createAcyclicRandomGraph(100, 1, 3, 1, 3, rand.nextInt(5));
     }

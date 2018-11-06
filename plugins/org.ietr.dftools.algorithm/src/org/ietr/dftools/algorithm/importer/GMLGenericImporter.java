@@ -71,7 +71,7 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
    *           the invalid model exception
    */
   @Override
-  public void parseEdge(final Element edgeElt, final AbstractGraph parentGraph) throws InvalidModelException {
+  public void parseEdge(final Element edgeElt, final AbstractGraph parentGraph) {
     final AbstractVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
     final AbstractVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
 
@@ -112,7 +112,7 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
    *           the invalid model exception
    */
   @Override
-  public AbstractGraph parseGraph(final Element graphElt) throws InvalidModelException {
+  public AbstractGraph parseGraph(final Element graphElt) {
     final String parseModel = parseModel(graphElt);
     AbstractGraph graph;
     try {
@@ -153,8 +153,7 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
    *           the invalid model exception
    */
   @Override
-  public AbstractVertex parseNode(final Element vertexElt, final AbstractGraph parentGraph)
-      throws InvalidModelException {
+  public AbstractVertex parseNode(final Element vertexElt, final AbstractGraph parentGraph) {
     AbstractVertex vertex;
     vertex = this.vertexFactory.createVertex(vertexElt);
     vertex.setId(vertexElt.getAttribute("id"));
@@ -174,7 +173,7 @@ public class GMLGenericImporter extends GMLImporter<AbstractGraph, AbstractVerte
    * org.ietr.dftools.algorithm.model.AbstractGraph)
    */
   @Override
-  public AbstractVertex parsePort(final Element portElt, final AbstractGraph parentGraph) throws InvalidModelException {
+  public AbstractVertex parsePort(final Element portElt, final AbstractGraph parentGraph) {
     return null;
   }
 

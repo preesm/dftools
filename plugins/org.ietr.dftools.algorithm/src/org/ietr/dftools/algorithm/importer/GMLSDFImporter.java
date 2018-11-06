@@ -66,7 +66,7 @@ public class GMLSDFImporter implements GMLModelParserWrapper<SDFGraph> {
    * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.File)
    */
   @Override
-  public SDFGraph parse(final File f) throws InvalidModelException, FileNotFoundException {
+  public SDFGraph parse(final File f) throws FileNotFoundException {
     try {
       return (SDFGraph) this.trueImporter.parse(f);
     } catch (final Exception e) {
@@ -85,8 +85,7 @@ public class GMLSDFImporter implements GMLModelParserWrapper<SDFGraph> {
    * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.InputStream, java.lang.String)
    */
   @Override
-  public SDFGraph parse(final InputStream input, final String path)
-      throws InvalidModelException, FileNotFoundException {
+  public SDFGraph parse(final InputStream input, final String path) throws FileNotFoundException {
 
     try {
       return (SDFGraph) this.trueImporter.parse(input, path);

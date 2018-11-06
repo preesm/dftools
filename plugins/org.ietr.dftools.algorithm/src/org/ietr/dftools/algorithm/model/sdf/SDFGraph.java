@@ -693,47 +693,6 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
   /**
    * This method is used to remove an {@link SDFEdge} from a {@link SDFGraph}. Side effects are: the deletion of the
    * {@link SDFSourceInterfaceVertex} and {@link SDFSinkInterfaceVertex} associated to this {@link SDFEdge} (unless
-   * several vertices are linked to this interface). For {@link SDFForkVertex} and {@link SDFJoinVertex}, the ordered
-   * list of input/output edges is updated.
-   *
-   * @param sourceVertex
-   *          the source {@link SDFVertex} of the removed {@link SDFEdge}
-   * @param targetVertex
-   *          the target {@link SDFVertex} of the removed {@link SDFEdge}
-   * @return the removed {@link SDFEdge}
-   *
-   * @see AbstractGraph#removeEdge(AbstractVertex, AbstractVertex)
-   *
-   * @deprecated The method is deprecated. {@link AbstractGraph#removeEdge(AbstractEdge)} should be used instead.
-   *             Indeed, if several edges link the source and the target vertex, a random edge will be removed.
-   *
-   */
-  @Override
-  @Deprecated
-  public SDFEdge removeEdge(final SDFAbstractVertex sourceVertex, final SDFAbstractVertex targetVertex) {
-    checkMultipleEdges(sourceVertex, targetVertex);
-
-    final SDFEdge edge = super.removeEdge(sourceVertex, targetVertex);
-    if (edge != null) {
-      if (sourceVertex instanceof SDFVertex) {
-        ((SDFVertex) sourceVertex).removeSink(edge);
-      }
-      if (targetVertex instanceof SDFVertex) {
-        ((SDFVertex) targetVertex).removeSource(edge);
-      }
-
-      if (sourceVertex instanceof SDFForkVertex) {
-        ((SDFForkVertex) sourceVertex).connectionRemoved(edge);
-      } else if (targetVertex instanceof SDFJoinVertex) {
-        ((SDFJoinVertex) targetVertex).connectionRemoved(edge);
-      }
-    }
-    return edge;
-  }
-
-  /**
-   * This method is used to remove an {@link SDFEdge} from a {@link SDFGraph}. Side effects are: the deletion of the
-   * {@link SDFSourceInterfaceVertex} and {@link SDFSinkInterfaceVertex} associated to this {@link SDFEdge} (unless
    * several vertices are linked to this interface). For {@link SDFForkVertex} {@link SDFJoinVertex},
    * {@link SDFBroadcastVertex} and {@link SDFRoundBufferVertex}, the ordered list of input/output edges is updated.
    *

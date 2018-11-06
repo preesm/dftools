@@ -36,9 +36,9 @@
  */
 package org.ietr.dftools.algorithm.generator;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
@@ -146,12 +146,12 @@ public class DirectedAcyclicGraphGenerator {
       // Choose a random number of sinks for the new vertex
       int max = Math.min(maxOutDegree, nbVertex - nbVertexgraph - 1);
       int min = Math.min(max, minOutDegree);
-      nbSourcesVertex[nbVertexgraph] = (max - min == 0) ? min : min + new Random().nextInt(max - min);
+      nbSourcesVertex[nbVertexgraph] = (max - min == 0) ? min : min + new SecureRandom().nextInt(max - min);
 
       // Choose a random number of sources for the new vertex
       max = Math.min(maxInDegree, nbVertexgraph);
       min = Math.min(max, minInDegree);
-      nbSinksVertex[nbVertexgraph] = (max - min == 0) ? min : min + new Random().nextInt(max - min);
+      nbSinksVertex[nbVertexgraph] = (max - min == 0) ? min : min + new SecureRandom().nextInt(max - min);
 
       nbSinks += nbSinksVertex[nbVertexgraph];
       nbSources += nbSourcesVertex[nbVertexgraph];
@@ -159,7 +159,7 @@ public class DirectedAcyclicGraphGenerator {
       if ((nbVertexgraph >= nbSensors) && (nbSinks != 0) && (nbSources != 0) && nbSinksVertex[nbVertexgraph] > 0) {
         int randout;
         do {
-          randout = (new Random().nextInt(nbVertexgraph));
+          randout = (new SecureRandom().nextInt(nbVertexgraph));
         } while (nbSourcesVertex[randout] == 0);
         final SDFEdge edge = graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[nbVertexgraph]);
 
@@ -184,8 +184,8 @@ public class DirectedAcyclicGraphGenerator {
     int nbEdge = nbVertexgraph - 1;
 
     while ((nbSources != 0) && (nbSinks != 0)) {
-      final int randout = new Random().nextInt(highestid);
-      final int randin = randout + 1 + new Random().nextInt(nbVertex - randout - 1);
+      final int randout = new SecureRandom().nextInt(highestid);
+      final int randin = randout + 1 + new SecureRandom().nextInt(nbVertex - randout - 1);
       if ((nbSinksVertex[randin] != 0) && (createdEdge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
         createdEdge[randout][randin] = nbEdge + 1;
         final SDFEdge edge = graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[randin]);
