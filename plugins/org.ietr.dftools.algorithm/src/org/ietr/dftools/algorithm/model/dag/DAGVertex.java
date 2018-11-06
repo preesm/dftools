@@ -219,7 +219,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> {
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
    */
   @Override
-  public DAGVertex clone() {
+  public DAGVertex copy() {
     return null;
   }
 

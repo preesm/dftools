@@ -90,7 +90,7 @@ public class SDFVertex extends SDFAbstractVertex {
    * @return the SDF vertex
    */
   @Override
-  public SDFVertex clone() {
+  public SDFVertex copy() {
     final SDFVertex newVertex = new SDFVertex(null);
     for (final String key : getPropertyBean().keys()) {
       if (getPropertyBean().getValue(key) != null) {
@@ -105,7 +105,7 @@ public class SDFVertex extends SDFAbstractVertex {
           && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
         newVertex.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        newVertex.addSink((SDFSinkInterfaceVertex) sink.clone());
+        newVertex.addSink((SDFSinkInterfaceVertex) sink.copy());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
@@ -113,7 +113,7 @@ public class SDFVertex extends SDFAbstractVertex {
           && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
         newVertex.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        newVertex.addSource((SDFSourceInterfaceVertex) source.clone());
+        newVertex.addSource((SDFSourceInterfaceVertex) source.copy());
       }
     }
     try {

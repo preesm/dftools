@@ -95,7 +95,7 @@ public class LongVertexPropertyType extends AbstractVertexPropertyType<Long> {
    * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
    */
   @Override
-  public AbstractVertexPropertyType<Long> clone() {
+  public AbstractVertexPropertyType<Long> copy() {
     return null;
   }
 

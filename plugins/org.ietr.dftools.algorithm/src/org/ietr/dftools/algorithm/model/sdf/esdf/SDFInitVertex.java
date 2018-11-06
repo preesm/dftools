@@ -69,7 +69,7 @@ public class SDFInitVertex extends SDFAbstractVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFInitVertex copy() {
     final SDFInitVertex init = new SDFInitVertex();
     init.setName(getName());
     return init;

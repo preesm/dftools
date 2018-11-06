@@ -44,7 +44,7 @@ import org.eclipse.core.runtime.IPath;
  *
  * @author jpiat
  */
-public class CodeRefinement implements IRefinement, CloneableProperty {
+public class CodeRefinement implements IRefinement, CloneableProperty<CodeRefinement> {
 
   /**
    * Describe the language that can be used as a code refinement.
@@ -157,7 +157,7 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
    * @see java.lang.Object#clone()
    */
   @Override
-  public CodeRefinement clone() {
+  public CodeRefinement copy() {
     return new CodeRefinement(this.filePath);
   }
 

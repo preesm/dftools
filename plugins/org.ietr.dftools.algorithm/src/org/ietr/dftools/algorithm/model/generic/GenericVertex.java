@@ -51,7 +51,7 @@ public class GenericVertex extends AbstractVertex<GenericGraph> {
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
    */
   @Override
-  public AbstractVertex<?> clone() {
+  public GenericVertex copy() {
     final GenericVertex newVertex = new GenericVertex();
     for (final String key : getPropertyBean().keys()) {
       if (getPropertyBean().getValue(key) != null) {

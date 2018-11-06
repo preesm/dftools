@@ -65,7 +65,7 @@ public interface PropertySource {
     for (final String key : keys) {
       if (!key.equals(AbstractVertex.BASE_LITERAL)) {
         if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-          this.getPropertyBean().setValue(key, props.getPropertyBean().<CloneableProperty>getValue(key).clone());
+          this.getPropertyBean().setValue(key, props.getPropertyBean().<CloneableProperty<?>>getValue(key).copy());
         } else {
           this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
         }

@@ -152,7 +152,7 @@ public class DAGTransformation<T extends DirectedAcyclicGraph>
       SDFAbstractVertex previousCopy = last;
       for (int i = 1; i < nb; i++) {
         for (final SDFAbstractVertex current : sortedCycle) {
-          final SDFAbstractVertex copy = current.clone();
+          final SDFAbstractVertex copy = current.copy();
           if (mapCopies.get(current) == null) {
             mapCopies.put(current, new ArrayList<SDFAbstractVertex>());
           }

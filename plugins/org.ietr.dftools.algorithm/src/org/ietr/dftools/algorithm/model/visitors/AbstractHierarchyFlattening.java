@@ -119,7 +119,7 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
     for (int i = 0; i < vertices.size(); i++) {
       if (!(vertices.get(i) instanceof IInterface)) {
         final AbstractVertex trueVertex = vertices.get(i);
-        final AbstractVertex cloneVertex = vertices.get(i).clone();
+        final AbstractVertex cloneVertex = vertices.get(i).copy();
         parentGraph.addVertex(cloneVertex);
         matchCopies.put(trueVertex, cloneVertex);
         cloneVertex.copyProperties(trueVertex);
@@ -180,7 +180,7 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
   public void flattenGraph(final G sdf, final int depth) throws SDF4JException {
     if (depth > 0) {
       final int newDepth = depth - 1;
-      this.output = (G) sdf.clone();
+      this.output = (G) sdf.copy();
       final List<AbstractVertex> vertices = new ArrayList<>(this.output.vertexSet());
       for (int i = 0; i < vertices.size(); i++) {
         if (vertices.get(i).getGraphDescription() != null) {

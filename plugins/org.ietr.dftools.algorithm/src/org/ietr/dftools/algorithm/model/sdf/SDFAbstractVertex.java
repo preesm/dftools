@@ -153,14 +153,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> {
     this.properties = new PropertyBean();
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
-   */
-  @Override
-  public abstract SDFAbstractVertex clone();
-
   /**
    * Gives the edge associated with the given interface.
    *
@@ -264,6 +256,9 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> {
     }
     return null;
   }
+
+  @Override
+  public abstract SDFAbstractVertex copy();
 
   /**
    * Getter of the property <tt>sources</tt>.

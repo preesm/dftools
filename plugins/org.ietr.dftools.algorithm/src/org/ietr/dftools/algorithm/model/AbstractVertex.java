@@ -58,7 +58,8 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  *          the generic type
  */
 @SuppressWarnings("unchecked")
-public abstract class AbstractVertex<G> extends Observable implements PropertySource, Observer, CloneableProperty {
+public abstract class AbstractVertex<G> extends Observable
+    implements PropertySource, Observer, CloneableProperty<AbstractVertex<G>> {
 
   /** The properties. */
   protected PropertyBean properties;
@@ -361,15 +362,6 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
         this.properties.getValue(AbstractVertex.ARGUMENTS_LITERAL), arguments);
     arguments.setExpressionSolver(this.getBase());
   }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#clone()
-   */
-  @Override
-  @SuppressWarnings("rawtypes")
-  public abstract AbstractVertex clone();
 
   /**
    * Add the given argument to his graph argument set.

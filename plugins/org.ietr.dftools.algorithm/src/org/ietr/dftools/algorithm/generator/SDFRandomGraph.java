@@ -152,7 +152,7 @@ public class SDFRandomGraph {
    */
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public static void placeDelay(final SDFGraph graph, final int nbVertexgraph, final List<SDFAbstractVertex> sensors) {
-    final SDFGraph newgraph = graph.clone();// new graph is created to
+    final SDFGraph newgraph = graph.copy();// new graph is created to
     // reduce execution time of
     // cycle detection
     final Map<SDFAbstractVertex, Long> vrb = SDFRandomGraph.calcRepetitionVector(graph, nbVertexgraph);

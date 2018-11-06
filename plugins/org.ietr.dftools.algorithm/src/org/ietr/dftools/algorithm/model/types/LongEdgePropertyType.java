@@ -78,7 +78,7 @@ public class LongEdgePropertyType extends AbstractEdgePropertyType<Long> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Long> clone() {
+  public LongEdgePropertyType copy() {
     return new LongEdgePropertyType(this.value);
   }
 

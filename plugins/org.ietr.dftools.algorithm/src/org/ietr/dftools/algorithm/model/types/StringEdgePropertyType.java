@@ -61,7 +61,7 @@ public class StringEdgePropertyType extends AbstractEdgePropertyType<String> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<String> clone() {
+  public StringEdgePropertyType copy() {
     return new StringEdgePropertyType(this.value);
   }
 

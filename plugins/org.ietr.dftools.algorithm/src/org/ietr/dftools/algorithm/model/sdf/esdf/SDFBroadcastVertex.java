@@ -45,7 +45,6 @@ import java.util.Map;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
@@ -77,7 +76,7 @@ public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFBroadcastVertex copy() {
     final SDFBroadcastVertex copy = new SDFBroadcastVertex();
     copy.setName(getName());
     try {
@@ -91,14 +90,14 @@ public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
         copy.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        copy.addSink((SDFSinkInterfaceVertex) sink.clone());
+        copy.addSink((SDFSinkInterfaceVertex) sink.copy());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
         copy.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        copy.addSource((SDFSourceInterfaceVertex) source.clone());
+        copy.addSource((SDFSourceInterfaceVertex) source.copy());
       }
     }
 

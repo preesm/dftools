@@ -36,8 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
-
 /**
  * Special vertex to initialize data on looping edges.
  *
@@ -63,7 +61,7 @@ public class SDFEndVertex extends SDFInitVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFInitVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFEndVertex copy() {
     final SDFEndVertex init = new SDFEndVertex();
     init.setName(getName());
     return init;

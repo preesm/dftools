@@ -90,7 +90,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public abstract SDFInterfaceVertex clone();
+  public abstract SDFInterfaceVertex copy();
 
   /*
    * (non-Javadoc)

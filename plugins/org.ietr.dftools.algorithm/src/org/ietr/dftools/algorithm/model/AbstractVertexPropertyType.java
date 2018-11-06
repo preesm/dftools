@@ -43,7 +43,7 @@ package org.ietr.dftools.algorithm.model;
  * @param <T>
  *          the generic type
  */
-public abstract class AbstractVertexPropertyType<T> implements CloneableProperty {
+public abstract class AbstractVertexPropertyType<T> implements CloneableProperty<AbstractVertexPropertyType<T>> {
 
   /** The value. */
   protected T value;
@@ -64,14 +64,6 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
   public AbstractVertexPropertyType(final T val) {
     this.value = val;
   }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#clone()
-   */
-  @Override
-  public abstract AbstractVertexPropertyType<T> clone();
 
   /**
    * Gives this AbstractVertexPropertyType value.

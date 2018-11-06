@@ -292,11 +292,11 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @Override
-  public SDFGraph clone() {
+  public SDFGraph copy() {
     final SDFGraph newGraph = new SDFGraph();
     final Map<SDFAbstractVertex, SDFAbstractVertex> matchCopies = new LinkedHashMap<>();
     for (final SDFAbstractVertex vertices : vertexSet()) {
-      final SDFAbstractVertex newVertex = vertices.clone();
+      final SDFAbstractVertex newVertex = vertices.copy();
       newGraph.addVertex(newVertex);
       matchCopies.put(vertices, newVertex);
     }
@@ -361,7 +361,7 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
    *          The content to fill in this graph
    */
   public void fill(final SDFGraph content) {
-    final SDFGraph cleanGraph = content.clone();
+    final SDFGraph cleanGraph = content.copy();
     for (final SDFAbstractVertex vertex : cleanGraph.vertexSet()) {
       addVertex(vertex);
     }
@@ -374,9 +374,9 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
       target.setInterfaceVertexExternalLink(newEdge, edge.getTargetInterface());
       source.setInterfaceVertexExternalLink(newEdge, edge.getSourceInterface());
 
-      newEdge.setCons(edge.getCons().clone());
-      newEdge.setProd(edge.getProd().clone());
-      newEdge.setDelay(edge.getDelay().clone());
+      newEdge.setCons(edge.getCons().copy());
+      newEdge.setProd(edge.getProd().copy());
+      newEdge.setDelay(edge.getDelay().copy());
 
     }
 
@@ -617,8 +617,8 @@ public class SDFGraph extends AbstractGraph<SDFAbstractVertex, SDFEdge> {
             newEdge.setDataType(oldEdge.getDataType());
             newEdge.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
             baseEdge.setSourcePortModifier(oldEdge.getSourcePortModifier());
-            baseEdge.setProd(oldEdge.getProd().clone());
-            baseEdge.setCons(oldEdge.getProd().clone());
+            baseEdge.setProd(oldEdge.getProd().copy());
+            baseEdge.setCons(oldEdge.getProd().copy());
             baseEdge.setDelay(new LongEdgePropertyType(0));
             baseEdge.setDataType(oldEdge.getDataType());
             this.removeEdge(oldEdge);

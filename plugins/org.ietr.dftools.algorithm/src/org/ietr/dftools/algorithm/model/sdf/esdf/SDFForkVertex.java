@@ -45,7 +45,6 @@ import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
@@ -150,7 +149,7 @@ public class SDFForkVertex extends SDFAbstractSpecialVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFForkVertex copy() {
     // Copy the vertex properties
     final SDFForkVertex newVertex = new SDFForkVertex();
     for (final String key : getPropertyBean().keys()) {
@@ -166,7 +165,7 @@ public class SDFForkVertex extends SDFAbstractSpecialVertex {
           && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
         newVertex.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        newVertex.addSink((SDFSinkInterfaceVertex) sink.clone());
+        newVertex.addSink((SDFSinkInterfaceVertex) sink.copy());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
@@ -174,7 +173,7 @@ public class SDFForkVertex extends SDFAbstractSpecialVertex {
           && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
         newVertex.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        newVertex.addSource((SDFSourceInterfaceVertex) source.clone());
+        newVertex.addSource((SDFSourceInterfaceVertex) source.copy());
       }
     }
 

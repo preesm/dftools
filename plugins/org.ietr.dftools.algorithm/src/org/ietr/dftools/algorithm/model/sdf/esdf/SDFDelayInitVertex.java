@@ -49,7 +49,7 @@ public class SDFDelayInitVertex extends SDFAbstractVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFDelayInitVertex copy() {
     return null;
   }
 

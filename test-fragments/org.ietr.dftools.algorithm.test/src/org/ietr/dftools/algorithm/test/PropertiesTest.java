@@ -54,7 +54,7 @@ public class PropertiesTest {
     final SDFAbstractVertex toto = new SDFAbstractVertex() {
 
       @Override
-      public SDFAbstractVertex clone() {
+      public SDFAbstractVertex copy() {
         return null;
       }
     };

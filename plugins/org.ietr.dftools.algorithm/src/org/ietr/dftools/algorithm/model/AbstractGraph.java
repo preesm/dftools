@@ -282,14 +282,6 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
     this.observers.clear();
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.jgrapht.graph.AbstractBaseGraph#clone()
-   */
-  @Override
-  public abstract AbstractGraph<V, E> clone();
-
   /**
    * Delete the given observer from the observers list.
    *

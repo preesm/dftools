@@ -175,9 +175,8 @@ public class DirectedAcyclicGraph extends AbstractGraph<DAGVertex, DAGEdge> {
    *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
-  public AbstractGraph clone() {
+  public DirectedAcyclicGraph copy() {
     return null;
   }
 

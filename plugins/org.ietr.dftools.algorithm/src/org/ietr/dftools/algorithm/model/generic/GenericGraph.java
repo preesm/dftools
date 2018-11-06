@@ -66,7 +66,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @Override
-  public AbstractGraph<GenericVertex, GenericEdge> clone() {
+  public GenericGraph copy() {
     return null;
   }
 

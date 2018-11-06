@@ -45,7 +45,7 @@ import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
  * @param <T>
  *          the generic type
  */
-public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
+public abstract class AbstractEdgePropertyType<T> implements CloneableProperty<AbstractEdgePropertyType<T>> {
 
   /** The value. */
   protected T value;
@@ -73,7 +73,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
    * @see java.lang.Object#clone()
    */
   @Override
-  public abstract AbstractEdgePropertyType<T> clone();
+  public abstract AbstractEdgePropertyType<T> copy();
 
   /**
    * Gives this AbstractEdgePropertyType value.

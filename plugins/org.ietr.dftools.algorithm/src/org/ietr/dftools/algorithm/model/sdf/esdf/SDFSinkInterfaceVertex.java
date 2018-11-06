@@ -63,7 +63,7 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex#clone()
    */
   @Override
-  public SDFSinkInterfaceVertex clone() {
+  public SDFSinkInterfaceVertex copy() {
     final SDFSinkInterfaceVertex copy = new SDFSinkInterfaceVertex();
     copy.setName(getName());
     if (!getSources().isEmpty()) {

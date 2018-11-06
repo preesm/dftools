@@ -72,7 +72,7 @@ public class ExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> 
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Value> clone() {
+  public ExpressionEdgePropertyType copy() {
     final ExpressionEdgePropertyType clone = new ExpressionEdgePropertyType(this.value);
     try {
       clone.computedValue = longValue();

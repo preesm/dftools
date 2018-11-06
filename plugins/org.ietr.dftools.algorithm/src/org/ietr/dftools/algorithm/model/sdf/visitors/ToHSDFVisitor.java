@@ -251,7 +251,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
                 .setSourceInterface(sourceCopies.get((int) sourceIndex).getSink(edge.getSourceInterface().getName()));
           } else {
             // if the source does not have the interface.
-            newEdge.setSourceInterface(edge.getSourceInterface().clone());
+            newEdge.setSourceInterface(edge.getSourceInterface().copy());
             sourceCopies.get((int) sourceIndex).addInterface(newEdge.getSourceInterface());
           }
           // Copy the source port modifier of the original source
@@ -259,7 +259,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
         } else {
           // If the source is a fork (new or not)
           // or a broadcast with a new port
-          final SDFInterfaceVertex sourceInterface = edge.getSourceInterface().clone();
+          final SDFInterfaceVertex sourceInterface = edge.getSourceInterface().copy();
 
           String newInterfaceName = sourceInterface.getName() + "_" + sourceProd;
 
@@ -301,7 +301,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
                 .setTargetInterface(targetCopies.get((int) targetIndex).getSource(edge.getTargetInterface().getName()));
           } else {
             // if the target does not have the interface.
-            newEdge.setTargetInterface(edge.getTargetInterface().clone());
+            newEdge.setTargetInterface(edge.getTargetInterface().copy());
             targetCopies.get((int) targetIndex).addInterface(newEdge.getTargetInterface());
           }
           // Copy the target port modifier of the original source
@@ -314,7 +314,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
           }
         } else {
           // If the target is join (new or not) /roundbuffer with new ports
-          final SDFInterfaceVertex targetInterface = edge.getTargetInterface().clone();
+          final SDFInterfaceVertex targetInterface = edge.getTargetInterface().copy();
 
           String newInterfaceName = targetInterface.getName() + "_" + targetCons;
           // Get the current index of the port (if any)
@@ -506,7 +506,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
         // If the vertex is an interface, it will not be duplicated,
         // simply copy it in the output graph
         if (vertex instanceof SDFInterfaceVertex) {
-          final SDFAbstractVertex copy = vertex.clone();
+          final SDFAbstractVertex copy = vertex.copy();
           copies.add(copy);
           output.addVertex(copy);
         } else {
@@ -515,14 +515,14 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
           VisitorOutput.getLogger().log(Level.INFO, vertex.getName() + " x" + vertex.getNbRepeat());
           // If the vertex does not need to be duplicated
           if (vertex.getNbRepeatAsLong() == 1) {
-            final SDFAbstractVertex copy = vertex.clone();
+            final SDFAbstractVertex copy = vertex.copy();
             copy.setName(copy.getName());
             output.addVertex(copy);
             copies.add(copy);
           } else {
             // If the vertex needs to be duplicated
             for (long i = 0; i < vertex.getNbRepeatAsLong(); i++) {
-              final SDFAbstractVertex copy = vertex.clone();
+              final SDFAbstractVertex copy = vertex.copy();
               copy.setName(copy.getName() + "_" + i);
               copy.setNbRepeat(1L);
               output.addVertex(copy);
@@ -548,7 +548,7 @@ public class ToHSDFVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVertex,
    */
   @Override
   public void visit(final SDFGraph sdf) throws SDF4JException {
-    this.outputGraph = sdf.clone();
+    this.outputGraph = sdf.copy();
     boolean isHSDF = true;
     try {
       for (final SDFAbstractVertex vertex : this.outputGraph.vertexSet()) {

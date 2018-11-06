@@ -118,7 +118,7 @@ public class IbsdfFlattener {
         fifo0.setProd(new LongEdgePropertyType(rate0));
         fifo0.setCons(new LongEdgePropertyType(rate0));
         fifo0.setDelay(new LongEdgePropertyType(rate0 * nbRepeat * minIterDiff));
-        fifo0.setDataType(fifo.getDataType().clone());
+        fifo0.setDataType(fifo.getDataType().copy());
         fifo0.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
         fifo0.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
 
@@ -130,20 +130,20 @@ public class IbsdfFlattener {
         fifo1.setProd(new LongEdgePropertyType(rate1));
         fifo1.setCons(new LongEdgePropertyType(rate1));
         fifo1.setDelay(new LongEdgePropertyType(rate1 * nbRepeat * (minIterDiff + 1)));
-        fifo1.setDataType(fifo.getDataType().clone());
+        fifo1.setDataType(fifo.getDataType().copy());
         fifo1.setTargetPortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_READ_ONLY));
         fifo1.setSourcePortModifier(new StringEdgePropertyType(SDFEdge.MODIFIER_WRITE_ONLY));
 
         // Connect producers and consumers of original fifo to fork/join
         final SDFEdge fifoIn = subgraph.addEdge(fifo.getSource(), fork);
         fifoIn.copyProperties(fifo);
-        fifoIn.setTargetInterface(fifo.getSourceInterface().clone());
+        fifoIn.setTargetInterface(fifo.getSourceInterface().copy());
         fifoIn.getPropertyBean().removeProperty(SDFEdge.EDGE_DELAY);
         fifoIn.setCons(new LongEdgePropertyType((tgtCons * tgtRepeat)));
 
         final SDFEdge fifoOut = subgraph.addEdge(join, fifo.getTarget());
         fifoOut.copyProperties(fifo);
-        fifoOut.setTargetInterface(fifo.getTargetInterface().clone());
+        fifoOut.setTargetInterface(fifo.getTargetInterface().copy());
         fifoOut.getPropertyBean().removeProperty(SDFEdge.EDGE_DELAY);
         fifoOut.setProd(new LongEdgePropertyType((tgtCons * tgtRepeat)));
 
@@ -301,7 +301,7 @@ public class IbsdfFlattener {
    */
   public void flattenGraph() {
     // Copy the original graph
-    setFlattenedGraph(originalGraph.clone());
+    setFlattenedGraph(originalGraph.copy());
 
     // Flatten depth times one hierarchy level of the graph
     for (int i = 1; i <= depth; i++) {
@@ -339,7 +339,7 @@ public class IbsdfFlattener {
     for (SDFAbstractVertex hierActor : hierActors) {
       // Copy the orginal subgraph
       final AbstractGraph<?, ?> graphDescription = hierActor.getGraphDescription();
-      final SDFGraph subgraph = ((SDFGraph) graphDescription).clone();
+      final SDFGraph subgraph = ((SDFGraph) graphDescription).copy();
 
       // Check its schedulability (this will also
       // set the repetition vector for each actor).
@@ -507,7 +507,7 @@ public class IbsdfFlattener {
     // Clone all subgraph actors in the flattened graph (except interfaces)
     final Map<SDFAbstractVertex, SDFAbstractVertex> clones = new LinkedHashMap<>();
     subgraph.vertexSet().stream().filter(it -> !(it instanceof SDFInterfaceVertex)).forEach(it -> {
-      SDFAbstractVertex clone = it.clone();
+      SDFAbstractVertex clone = it.copy();
       getFlattenedGraph().addVertex(clone);
       clones.put(it, clone);
     });
