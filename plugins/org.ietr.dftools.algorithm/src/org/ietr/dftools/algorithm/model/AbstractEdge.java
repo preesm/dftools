@@ -227,49 +227,4 @@ public abstract class AbstractEdge<G, V extends AbstractVertex> extends Observab
     return edge.getSource().getName().equals(this.getSource().getName())
         && edge.getTarget().getName().equals(this.getTarget().getName());
   }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
-   */
-  @Override
-  public void copyProperties(final PropertySource props) {
-    for (final String key : props.getPropertyBean().keys()) {
-      if (!key.equals(AbstractEdge.BASE)) {
-        if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-          this.getPropertyBean().setValue(key, (props.getPropertyBean().<CloneableProperty>getValue(key)).clone());
-        } else {
-          this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
-        }
-      }
-    }
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
-   */
-  @Override
-  public String getPropertyStringValue(final String propertyName) {
-    final Object o = this.getPropertyBean().getValue(propertyName);
-    if (o != null) {
-      return o.toString();
-    } else {
-      return "";
-    }
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
-   */
-  @Override
-  public void setPropertyValue(final String propertyName, final Object value) {
-    this.getPropertyBean().setValue(propertyName, value);
-  }
-
 }

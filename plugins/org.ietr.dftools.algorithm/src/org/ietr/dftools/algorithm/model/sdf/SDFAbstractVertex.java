@@ -48,7 +48,6 @@ import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.PropertyBean;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
@@ -63,7 +62,7 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  * @author jpiat
  * @author kdesnos
  */
-public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> implements PropertySource {
+public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> {
 
   /** Property nb repeat of the node. */
   public static final String NB_REPEAT = "nbRepeat";

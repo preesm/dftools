@@ -290,23 +290,6 @@ public abstract class AbstractGraph<V extends AbstractVertex, E extends Abstract
   @Override
   public abstract AbstractGraph<V, E> clone();
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
-   */
-  @Override
-  public void copyProperties(final PropertySource props) {
-    for (final String key : props.getPropertyBean().keys()) {
-      if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-        this.getPropertyBean().setValue(key, props.getPropertyBean().<CloneableProperty>getValue(key).clone());
-      } else {
-        this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
-      }
-    }
-  }
-
   /**
    * Delete the given observer from the observers list.
    *

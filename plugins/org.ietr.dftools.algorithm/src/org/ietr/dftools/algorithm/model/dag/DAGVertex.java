@@ -48,7 +48,6 @@ import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.PropertyBean;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
 /**
@@ -56,7 +55,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
  *
  * @author jpiat
  */
-public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements PropertySource {
+public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> {
 
   /** Key to access to property time. */
   public static final String TIME = "time";

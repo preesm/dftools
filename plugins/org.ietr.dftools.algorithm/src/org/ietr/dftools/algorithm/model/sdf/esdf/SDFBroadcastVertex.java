@@ -44,7 +44,6 @@ import java.util.List;
 import java.util.Map;
 import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
-import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -254,19 +253,6 @@ public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
       getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
     }
     return connections;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
-   */
-  @Override
-  public void copyProperties(final PropertySource props) {
-    super.copyProperties(props);
-    final Map<SDFEdge, Long> connections = new LinkedHashMap<>();
-    getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
   }
 
 }

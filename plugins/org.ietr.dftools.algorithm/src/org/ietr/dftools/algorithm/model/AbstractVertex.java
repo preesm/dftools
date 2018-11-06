@@ -318,26 +318,6 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
     }
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
-   */
-  @Override
-  public void copyProperties(final PropertySource props) {
-    final List<String> keys = new ArrayList<>(props.getPropertyBean().keys());
-    for (final String key : keys) {
-      if (!key.equals(AbstractVertex.BASE_LITERAL)) {
-        if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-          this.getPropertyBean().setValue(key, props.getPropertyBean().<CloneableProperty>getValue(key).clone());
-        } else {
-          this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
-        }
-      }
-    }
-  }
-
   /**
    * Gives the argument of this graph with the given name.
    *
@@ -487,29 +467,6 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
       }
     }
     return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
-   */
-  @Override
-  public String getPropertyStringValue(final String propertyName) {
-    if (this.getPropertyBean().getValue(propertyName) != null) {
-      return this.getPropertyBean().getValue(propertyName).toString();
-    }
-    return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
-   */
-  @Override
-  public void setPropertyValue(final String propertyName, final Object value) {
-    this.getPropertyBean().setValue(propertyName, value);
   }
 
 }
