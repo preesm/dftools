@@ -36,6 +36,8 @@ package org.ietr.dftools.workflow.converter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import javax.xml.XMLConstants;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -74,7 +76,9 @@ public class XsltTransformer {
   public boolean setXSLFile(final String xslFileLoc) throws TransformerConfigurationException {
 
     final TransformerFactory factory = TransformerFactory.newInstance();
-
+    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
     final StreamSource source = new StreamSource(xslFileLoc);
 
     try {
@@ -86,7 +90,7 @@ public class XsltTransformer {
     if (this.transformer == null) {
       throw new WorkflowException("XSL sheet not found or not valid: " + xslFileLoc);
     }
-
+    this.transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     return true;
   }
 
