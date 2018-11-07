@@ -38,11 +38,11 @@
 package org.ietr.dftools.ui.workflow.tools;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
@@ -124,23 +124,9 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
     final int levelVal = level.intValue();
     if ((getLevel() == null) || (levelVal >= getLevel().intValue())) {
 
-      // Writes a log in standard output
       if (this.console == null) {
-        if (levelVal < Level.INFO.intValue()) {
-          final String msg = record.getMillis() + " " + level.toString() + ": " + record.getMessage() + " (in "
-              + record.getSourceClassName() + "#" + record.getSourceMethodName() + ")";
-          System.out.println(msg);
-        } else {
-          final Date date = new Date(record.getMillis());
-          final DateFormat df = DateFormat.getTimeInstance();
-          final String msg = df.format(date) + " " + level.toString() + ": " + record.getMessage();
-
-          if (levelVal < Level.WARNING.intValue()) {
-            System.out.println(msg);
-          } else {
-            System.err.println(msg);
-          }
-        }
+        // Writes a log in standard output
+        Logger.getAnonymousLogger().log(record);
       } else {
         // Writes a log in console
         this.console.activate();
@@ -154,7 +140,10 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
               stream.setColor(new Color(null, 255, 0, 0));
             }
           });
-          stream.println(WorkflowLogger.getFormattedTime() + record.getMessage());
+          stream.println(WorkflowLogger.getFormattedTime(new Date(record.getMillis())) + record.getMessage());
+          if (record.getThrown() != null) {
+            Logger.getAnonymousLogger().log(Level.SEVERE, record.getThrown().getMessage(), record.getThrown());
+          }
         } catch (IOException e) {
           throw new WorkflowException("Could not open console stream", e);
         }
@@ -169,7 +158,7 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
    *          the record
    */
   private void logCLI(final LogRecord record) {
-    CLIWorkflowLogger.log(record.getLevel(), record.getMessage());
+    CLIWorkflowLogger.getLogger().log(record.getLevel(), record.getMessage());
   }
 
   /**
@@ -196,6 +185,11 @@ public class DFToolsWorkflowLogger extends WorkflowLogger {
    */
   public static void runFromCLI() {
     DFToolsWorkflowLogger.isRunningFromCLI = true;
+  }
+
+  @Override
+  public boolean isCLI() {
+    return false;
   }
 
 }

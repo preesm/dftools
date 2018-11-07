@@ -524,7 +524,6 @@ public abstract class AbstractWorkflowExecutor {
    * TODO: add debug parameter to the application and handle it here to show (or not) the full stack trace/
    */
   protected void error(final Throwable cause, final String msg) {
-    WorkflowLogger.getLogger().log(Level.SEVERE, msg);
-    cause.printStackTrace();
+    WorkflowLogger.getLogger().log(Level.SEVERE, msg, cause);
   }
 }

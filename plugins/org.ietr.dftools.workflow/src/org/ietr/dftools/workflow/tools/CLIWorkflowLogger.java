@@ -36,12 +36,8 @@
  */
 package org.ietr.dftools.workflow.tools;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.Formatter;
 import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 /**
@@ -55,90 +51,19 @@ import java.util.logging.Logger;
  * @author Antoine Lorence
  *
  */
-public class CLIWorkflowLogger {
+public class CLIWorkflowLogger extends WorkflowLogger {
 
-  private CLIWorkflowLogger() {
-    // prevent instantiation
+  protected CLIWorkflowLogger(final String name, final String resourceBundleName) {
+    super(name, resourceBundleName);
+    final ConsoleHandler handler = new ConsoleHandler();
+    this.addHandler(handler);
+    this.setUseParentHandlers(false);
+    handler.setFormatter(new DefaultPreesmFormatter());
+
   }
 
   /** The Constant RAW_FLAG. */
-  private static final String RAW_FLAG = "raw_record";
-
-  /**
-   * Define how text must be printed to logger (Eclipse or System console).
-   *
-   * @author Antoine Lorence
-   */
-  private static class DefaultPreesmFormatter extends Formatter {
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
-     */
-    @Override
-    public String format(final LogRecord record) {
-
-      final StringBuilder output = new StringBuilder();
-
-      if (!hasRawFlag(record)) {
-        final Date date = new Date(record.getMillis());
-        final DateFormat df = DateFormat.getTimeInstance();
-
-        output.append(df.format(date));
-        // Default printing for warn & severe
-        if (record.getLevel().intValue() > CLIWorkflowLogger.NOTICE.intValue()) {
-          output.append(" ").append(record.getLevel());
-        } else if (record.getLevel().intValue() == CLIWorkflowLogger.NOTICE.intValue()) {
-          output.append(" NOTICE");
-        } else if (record.getLevel().intValue() == CLIWorkflowLogger.DEBUG.intValue()) {
-          output.append(" DEBUG");
-        }
-        output.append(": ");
-      }
-      output.append(record.getMessage());
-      return output.toString();
-    }
-
-    /**
-     * Checks for raw flag.
-     *
-     * @param record
-     *          the record
-     * @return true, if successful
-     */
-    private boolean hasRawFlag(final LogRecord record) {
-      final Object[] params = record.getParameters();
-      if (params == null) {
-        return false;
-      }
-
-      for (final Object param : params) {
-        if (CLIWorkflowLogger.RAW_FLAG.equals(param)) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-
-  /** The Constant SEVERE. */
-  public static final Level SEVERE = Level.SEVERE;
-
-  /** The Constant WARNING. */
-  public static final Level WARNING = Level.WARNING;
-
-  /** The Constant NOTICE. */
-  public static final Level NOTICE = Level.INFO;
-
-  /** The Constant TRACE. */
-  public static final Level TRACE = Level.FINE;
-
-  /** The Constant DEBUG. */
-  public static final Level DEBUG = Level.FINER;
-
-  /** The Constant ALL. */
-  public static final Level ALL = Level.ALL;
+  static final String RAW_FLAG = "raw_record";
 
   /** The logger. */
   private static Logger logger;
@@ -149,15 +74,9 @@ public class CLIWorkflowLogger {
    *
    * @return the logger
    */
-  private static Logger getLogger() {
+  public static Logger getLogger() {
     if (CLIWorkflowLogger.logger == null) {
-      final Logger newLog = Logger.getAnonymousLogger();
-      final ConsoleHandler handler = new ConsoleHandler();
-      newLog.addHandler(handler);
-      newLog.setUseParentHandlers(false);
-      handler.setFormatter(new DefaultPreesmFormatter());
-
-      CLIWorkflowLogger.logger = newLog;
+      CLIWorkflowLogger.logger = new CLIWorkflowLogger(GLOBAL_LOGGER_NAME, null);
     }
     return CLIWorkflowLogger.logger;
   }
@@ -170,13 +89,15 @@ public class CLIWorkflowLogger {
    * @param msg
    *          the msg
    */
-  public static void log(final Level level, final String msg) {
+  @Override
+  public void log(final Level level, final String msg) {
     final String message = msg + "\n";
-    CLIWorkflowLogger.getLogger().log(level, message);
+    super.log(level, message);
   }
 
-  @Deprecated
-  public static void logln(final Level level, final String msg) {
-    log(level, msg);
+  @Override
+  public boolean isCLI() {
+    return true;
   }
+
 }

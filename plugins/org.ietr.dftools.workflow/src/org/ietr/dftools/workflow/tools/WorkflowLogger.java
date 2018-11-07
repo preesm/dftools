@@ -42,6 +42,7 @@ package org.ietr.dftools.workflow.tools;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -79,8 +80,8 @@ public abstract class WorkflowLogger extends Logger {
   public static Logger getLogger() {
 
     if (WorkflowLogger.logger == null) {
-      // use anonymous logger by default
-      WorkflowLogger.logger = Logger.getAnonymousLogger();
+      // use CLI logger by default
+      WorkflowLogger.logger = CLIWorkflowLogger.getLogger();
       // then try logging to Eclipse console
       try {
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -97,9 +98,13 @@ public abstract class WorkflowLogger extends Logger {
             }
           }
         }
+
       } catch (final Exception e) {
         // keep anonymous logger
       }
+    }
+    for (Handler handler : WorkflowLogger.logger.getHandlers()) {
+      handler.setFormatter(new DefaultPreesmFormatter());
     }
     return WorkflowLogger.logger;
   }
@@ -125,9 +130,14 @@ public abstract class WorkflowLogger extends Logger {
    * @return the formatted time
    */
   public static String getFormattedTime() {
+    return getFormattedTime(new Date());
+  }
+
+  public static String getFormattedTime(final Date date) {
     final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
-    final Date date = new Date();
     return dateFormat.format(date);
   }
+
+  public abstract boolean isCLI();
 
 }
