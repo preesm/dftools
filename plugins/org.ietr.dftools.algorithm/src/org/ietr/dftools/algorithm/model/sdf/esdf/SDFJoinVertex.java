@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
