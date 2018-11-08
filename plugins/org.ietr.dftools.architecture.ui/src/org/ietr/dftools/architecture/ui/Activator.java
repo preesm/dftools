@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Ghislain Roquier <ghislain.roquier@insa-rennes.fr> (2011)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
@@ -41,7 +41,6 @@ package org.ietr.dftools.architecture.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The activator class controls the plug-in life cycle.
  */
@@ -62,12 +61,6 @@ public class Activator extends AbstractUIPlugin {
    */
   public static Activator getDefault() {
     return Activator.plugin;
-  }
-
-  /**
-   * The constructor.
-   */
-  public Activator() {
   }
 
   /*

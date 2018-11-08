@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IFile;
+import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.converter.WorkflowConverter;
 
 /**
@@ -53,8 +54,7 @@ public class OldWorkflowPropertyTester extends PropertyTester {
       final boolean newWorkflow = WorkflowConverter.isNewWorkflow(file2);
       return !newWorkflow;
     } catch (final IOException e) {
-      e.printStackTrace();
-      return false;
+      throw new WorkflowException("Could not access file", e);
     }
   }
 

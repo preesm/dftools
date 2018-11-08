@@ -45,6 +45,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.converter.WorkflowConverter;
 
 /**
@@ -81,10 +82,8 @@ public class WorkflowConverterHandler extends AbstractHandler {
         WorkflowConverter.convert(file);
         workflowFile.getParent().refreshLocal(IResource.DEPTH_ONE, null);
       }
-    } catch (final IOException e) {
-      e.printStackTrace();
-    } catch (final CoreException e) {
-      e.printStackTrace();
+    } catch (final IOException | CoreException e) {
+      throw new WorkflowException("Could not convert workflow", e);
     }
 
     return null;

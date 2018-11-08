@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Hervé Yviquel <hyviquel@gmail.com> (2012)
  * Jonathan Piat <jpiat@laas.fr> (2011)
@@ -43,13 +44,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
-// TODO: Auto-generated Javadoc
 /**
  * wrapper for different versions.
  *
  * @author jpiat
  */
-public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
+public class GMLSDFImporter implements GMLModelParserWrapper<SDFGraph> {
 
   /** The true importer. */
   private GMLImporter<?, ?, ?> trueImporter;
@@ -67,16 +67,15 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
    * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.File)
    */
   @Override
-  public SDFGraph parse(final File f) throws InvalidModelException, FileNotFoundException {
+  public SDFGraph parse(final File f) throws FileNotFoundException {
     try {
       return (SDFGraph) this.trueImporter.parse(f);
     } catch (final Exception e) {
       this.trueImporter = new GMLSDFImporterV1();
       try {
-        System.out.println("Parsing using generic parser failed, trying specialized parser\n");
         return (SDFGraph) this.trueImporter.parse(f);
       } catch (final Exception ex) {
-        throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());
+        throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage(), ex);
       }
     }
   }
@@ -87,15 +86,13 @@ public class GMLSDFImporter extends GMLModelParserWrapper<SDFGraph> {
    * @see org.ietr.dftools.algorithm.importer.GMLModelParserWrapper#parse(java.io.InputStream, java.lang.String)
    */
   @Override
-  public SDFGraph parse(final InputStream input, final String path)
-      throws InvalidModelException, FileNotFoundException {
+  public SDFGraph parse(final InputStream input, final String path) throws FileNotFoundException {
 
     try {
       return (SDFGraph) this.trueImporter.parse(input, path);
     } catch (final Exception e) {
       try {
         this.trueImporter = new GMLSDFImporterV1();
-        System.out.println("Parsing using generic parser failed, trying specialized parser\n");
         return (SDFGraph) this.trueImporter.parse(input, path);
       } catch (final Exception ex) {
         throw new InvalidModelException("Cannot parse file. Parsing failed with exception " + ex.getMessage());

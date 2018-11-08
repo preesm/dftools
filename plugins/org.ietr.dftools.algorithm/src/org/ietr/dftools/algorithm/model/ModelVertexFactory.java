@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface to create vertex in the given model.
  *
@@ -44,8 +43,7 @@ package org.ietr.dftools.algorithm.model;
  * @param <V>
  *          The model of vertex to create
  */
-@SuppressWarnings("rawtypes")
-public interface ModelVertexFactory<V extends AbstractVertex> {
+public interface ModelVertexFactory<V extends AbstractVertex<?>> {
 
   /**
    * Creates a vertex of the given kind.

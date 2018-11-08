@@ -1,9 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -34,47 +32,23 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm;
+package org.ietr.dftools.architecture.utils;
 
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class Activator.
+ *
+ * @author anmorvan
+ *
  */
-public class Activator implements BundleActivator {
+public class SlamException extends RuntimeException {
 
-  /** The context. */
-  private static BundleContext context;
+  private static final long serialVersionUID = 1L;
 
-  /**
-   * Gets the context.
-   *
-   * @return the context
-   */
-  static BundleContext getContext() {
-    return Activator.context;
+  public SlamException(final String message) {
+    super(message);
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.osgi.framework.BundleActivator#start(org.osgi.framework. BundleContext)
-   */
-  @Override
-  public void start(final BundleContext bundleContext) throws Exception {
-    Activator.context = bundleContext;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-   */
-  @Override
-  public void stop(final BundleContext bundleContext) throws Exception {
-    Activator.context = null;
+  public SlamException(final String message, final Throwable cause) {
+    super(message, cause);
   }
 
 }

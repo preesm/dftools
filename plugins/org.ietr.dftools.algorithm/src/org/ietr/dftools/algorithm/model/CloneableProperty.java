@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -36,18 +36,21 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
+ *
  * A class to implements when th eproperty can be cloned.
  *
  * @author jpiat
+ *
+ * @param <T>
+ *          The type of the implementation
  */
-public interface CloneableProperty extends Cloneable {
+public interface CloneableProperty<T extends CloneableProperty<T>> {
 
   /**
-   * The clone method to implements.
+   * The copy method to implements.
    *
-   * @return The cloned object
+   * @return The copied object
    */
-  public Object clone();
+  public T copy();
 }

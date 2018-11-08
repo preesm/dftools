@@ -1,9 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -34,56 +32,23 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.sdf.types;
+package org.ietr.dftools.ui;
 
-import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
-
-// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the string edge property type in a SDF.
  *
- * @author mpelcat
+ * @author anmorvan
+ *
  */
-public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> {
+public class DFToolsUIException extends RuntimeException {
 
-  /**
-   * Creates a new SDFDefaultEdgePropertyType with the given String value.
-   *
-   * @param val
-   *          The String value of this SDFDefaultEdgePropertyType
-   */
-  public SDFStringEdgePropertyType(final String val) {
-    super(val);
+  private static final long serialVersionUID = 1L;
+
+  public DFToolsUIException(final String message) {
+    super(message);
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
-   */
-  @Override
-  public AbstractEdgePropertyType<String> clone() {
-    return new SDFStringEdgePropertyType(this.value);
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
-   */
-  @Override
-  public long longValue() {
-    return 0;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
-   */
-  @Override
-  public String toString() {
-    return this.value.toString();
+  public DFToolsUIException(final String message, final Throwable cause) {
+    super(message, cause);
   }
 
 }

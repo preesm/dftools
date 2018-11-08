@@ -45,7 +45,6 @@ import org.eclipse.core.runtime.Platform;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides a scenario workflow node.
  *

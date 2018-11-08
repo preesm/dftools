@@ -37,13 +37,14 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.algorithm.model.CloneableProperty;
+
 /**
  * Class used to represent variable.
  *
  * @author jpiat
  */
-public class Variable {
+public class Variable implements CloneableProperty<Variable> {
 
   /** The name. */
   private String name;
@@ -124,11 +125,6 @@ public class Variable {
     return val;
   }
 
-  @Deprecated
-  public int intValue() {
-    return (int) this.longValue();
-  }
-
   /**
    * Gets the value.
    *
@@ -159,7 +155,7 @@ public class Variable {
    * @see java.lang.Object#clone()
    */
   @Override
-  public Variable clone() {
+  public Variable copy() {
     final Variable var = new Variable(this.name);
     var.setValue(this.value.getValue());
     return var;

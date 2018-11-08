@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2013)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
@@ -42,28 +43,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.PropertyBean;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
+import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract class representing SDF Vertices.
  *
  * @author jpiat
  * @author kdesnos
  */
-public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> implements PropertySource {
+public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> {
 
   /** Property nb repeat of the node. */
   public static final String NB_REPEAT = "nbRepeat";
@@ -73,10 +73,10 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   }
 
   /** The sinks. */
-  protected List<SDFInterfaceVertex> sinks;
+  protected List<SDFSinkInterfaceVertex> sinks;
 
   /** The sources. */
-  protected List<SDFInterfaceVertex> sources;
+  protected List<SDFSourceInterfaceVertex> sources;
 
   /**
    * Constructs a new SDFAbstractVertex using the given Edge Factory ef.
@@ -86,26 +86,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
     this.sinks = new ArrayList<>();
     this.sources = new ArrayList<>();
     setId(UUID.randomUUID().toString());
-
-    // TODO Auto-generated constructor stub
-  }
-
-  /**
-   * Add a list of interface to this vertex.
-   *
-   * @param interfaces
-   *          The list of interface to add
-   */
-  @Override
-  public void addInterfaces(final List<IInterface> interfaces) {
-    super.addInterfaces(interfaces);
-    for (final IInterface vertex : interfaces) {
-      if ((vertex instanceof SDFInterfaceVertex) && (vertex.getDirection() == InterfaceDirection.Input)) {
-        this.sources.add((SDFInterfaceVertex) vertex);
-      } else if ((vertex instanceof SDFInterfaceVertex) && (vertex.getDirection() == InterfaceDirection.Output)) {
-        this.sinks.add((SDFInterfaceVertex) vertex);
-      }
-    }
   }
 
   /*
@@ -115,10 +95,10 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    */
   @Override
   public boolean addInterface(final IInterface port) {
-    if (port.getDirection().equals(InterfaceDirection.Input)) {
-      return addSource((SDFInterfaceVertex) port);
-    } else if (port.getDirection().equals(InterfaceDirection.Output)) {
-      return addSink((SDFInterfaceVertex) port);
+    if (port.getDirection().equals(InterfaceDirection.INPUT)) {
+      return addSource((SDFSourceInterfaceVertex) port);
+    } else if (port.getDirection().equals(InterfaceDirection.OUTPUT)) {
+      return addSink((SDFSinkInterfaceVertex) port);
     }
     return false;
   }
@@ -131,7 +111,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @return true, if successful
    */
   @SuppressWarnings("unchecked")
-  public boolean addSink(final SDFInterfaceVertex sink) {
+  public boolean addSink(final SDFSinkInterfaceVertex sink) {
     if (this.sinks == null) {
       this.sinks = new ArrayList<>();
     }
@@ -152,7 +132,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @return true, if successful
    */
   @SuppressWarnings("unchecked")
-  public boolean addSource(final SDFInterfaceVertex src) {
+  public boolean addSource(final SDFSourceInterfaceVertex src) {
     if (this.sources == null) {
       this.sources = new ArrayList<>();
     }
@@ -173,14 +153,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
     this.sources.clear();
     this.properties = new PropertyBean();
   }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
-   */
-  @Override
-  public abstract SDFAbstractVertex clone();
 
   /**
    * Gives the edge associated with the given interface.
@@ -250,7 +222,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *
    * @return Returns the sinks.
    */
-  public List<SDFInterfaceVertex> getSinks() {
+  public List<SDFSinkInterfaceVertex> getSinks() {
     return this.sinks;
   }
 
@@ -286,12 +258,15 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
     return null;
   }
 
+  @Override
+  public abstract SDFAbstractVertex copy();
+
   /**
    * Getter of the property <tt>sources</tt>.
    *
    * @return Returns the sources.
    */
-  public List<SDFInterfaceVertex> getSources() {
+  public List<SDFSourceInterfaceVertex> getSources() {
     return this.sources;
   }
 
@@ -336,7 +311,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *          The interface vertex the edge is to associate
    */
   public void setInterfaceVertexExternalLink(final SDFEdge extEdge, final SDFInterfaceVertex interfaceVertex) {
-    if (interfaceVertex.getDirection() == InterfaceDirection.Output) {
+    if (interfaceVertex.getDirection() == InterfaceDirection.OUTPUT) {
       extEdge.setSourceInterface(interfaceVertex);
     } else {
       extEdge.setTargetInterface(interfaceVertex);
@@ -350,7 +325,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @param sinks
    *          The sinks to set.
    */
-  public void setSinks(final List<SDFInterfaceVertex> sinks) {
+  public void setSinks(final List<SDFSinkInterfaceVertex> sinks) {
     this.sinks = sinks;
   }
 
@@ -360,7 +335,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @param sources
    *          The sources to set.
    */
-  public void setSources(final List<SDFInterfaceVertex> sources) {
+  public void setSources(final List<SDFSourceInterfaceVertex> sources) {
     this.sources = sources;
   }
 
@@ -371,7 +346,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public Object getNbRepeat() throws InvalidExpressionException {
+  public long getNbRepeat() {
     if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
       ((SDFGraph) getBase()).computeVRB();
     }
@@ -385,20 +360,15 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public long getNbRepeatAsLong() throws InvalidExpressionException {
+  public long getNbRepeatAsLong() {
     if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) == null) {
       ((SDFGraph) getBase()).computeVRB();
     }
     if (getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT) instanceof Number) {
-      return ((Number) getPropertyBean().getValue(SDFAbstractVertex.NB_REPEAT)).longValue();
+      return getPropertyBean().<Number>getValue(SDFAbstractVertex.NB_REPEAT).longValue();
     } else {
       return 1;
     }
-  }
-
-  @Deprecated
-  public int getNbRepeatAsInteger() throws InvalidExpressionException {
-    return (int) this.getNbRepeatAsLong();
   }
 
   /**
@@ -409,11 +379,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    */
   public void setNbRepeat(final long nbRepeat) {
     getPropertyBean().setValue(SDFAbstractVertex.NB_REPEAT, nbRepeat);
-  }
-
-  @Deprecated
-  public void setNbRepeat(final int nbRepeat) {
-    setNbRepeat((long) nbRepeat);
   }
 
   /**
@@ -429,8 +394,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
   /**
    * Validate model.
    *
-   * @param logger
-   *          the logger
    * @return true, if successful
    * @throws SDF4JException
    *           the SDF 4 J exception
@@ -438,17 +401,17 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    *           the invalid expression exception
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public boolean validateModel(final Logger logger) throws SDF4JException, InvalidExpressionException {
+  public boolean validateModel() {
     int i = 0;
     while (i < this.sources.size()) {
       final SDFInterfaceVertex source = this.sources.get(i);
       final SDFEdge outsideEdge = this.getAssociatedEdge(source);
       if (getGraphDescription() != null) {
         final AbstractVertex truePort = getGraphDescription().getVertex(source.getName());
-        if (getGraphDescription().outgoingEdgesOf(truePort).size() == 0) {
-          if (logger != null) {
-            logger.log(Level.INFO,
-                "interface " + source.getName()
+        if (getGraphDescription().outgoingEdgesOf(truePort).isEmpty()) {
+          if (WorkflowLogger.getLogger() != null) {
+            WorkflowLogger.getLogger().log(Level.INFO,
+                "The interface " + source.getName()
                     + " has no inside connection and will be removed for further processing.\n "
                     + "Outside connection has been taken into account for reptition factor computation");
           }
@@ -462,18 +425,14 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
         i++;
       }
     }
-    i = 0;
     for (final SDFInterfaceVertex sink : this.sinks) {
-      // SDFEdge outsideEdge = this.getAssociatedEdge(sink);
       if (getGraphDescription() != null) {
         final AbstractVertex truePort = getGraphDescription().getVertex(sink.getName());
-        if (getGraphDescription().incomingEdgesOf(truePort).size() == 0) {
-          if (logger != null) {
-            logger.log(Level.INFO, "interface " + sink.getName()
-                + " has no inside connection, consider removing this interface if unused");
-            throw (new SDF4JException("interface " + sink.getName()
-                + " has no inside connection, consider removing this interface if unused"));
-          }
+        if (getGraphDescription().incomingEdgesOf(truePort).isEmpty()) {
+          WorkflowLogger.getLogger().log(Level.INFO,
+              "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused");
+          throw (new DFToolsAlgoException(
+              "interface " + sink.getName() + " has no inside connection, consider removing this interface if unused"));
         }
       }
     }
@@ -482,7 +441,7 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
         try {
           arg.longValue();
         } catch (final NoIntegerValueException e) {
-          e.printStackTrace();
+          throw new DFToolsAlgoException("Could not evaluate argument value", e);
         }
       }
     }
@@ -506,7 +465,6 @@ public abstract class SDFAbstractVertex extends AbstractVertex<SDFGraph> impleme
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 

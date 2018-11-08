@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -39,13 +39,12 @@ package org.ietr.dftools.algorithm.model;
 
 import org.eclipse.core.runtime.IPath;
 
-// TODO: Auto-generated Javadoc
 /**
  * Code to refine a vertex.
  *
  * @author jpiat
  */
-public class CodeRefinement implements IRefinement, CloneableProperty {
+public class CodeRefinement implements IRefinement, CloneableProperty<CodeRefinement> {
 
   /**
    * Describe the language that can be used as a code refinement.
@@ -54,23 +53,23 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
    */
   public enum Language {
 
-    /** CAL Actor Language. */
-    CAL,
+  /** CAL Actor Language. */
+  CAL,
 
-    /** C Language. */
-    C,
+  /** C Language. */
+  C,
 
-    /** C++ Language. */
-    CPP,
+  /** C++ Language. */
+  CPP,
 
-    /** Java Language. */
-    JAVA,
+  /** Java Language. */
+  JAVA,
 
-    /** Interface Description Language. */
-    IDL,
+  /** Interface Description Language. */
+  IDL,
 
-    /** Text refinement, not a path. */
-    TEXT;
+  /** Text refinement, not a path. */
+  TEXT;
 
     /**
      * Gives a Language corresponding to the given extension.
@@ -158,9 +157,8 @@ public class CodeRefinement implements IRefinement, CloneableProperty {
    * @see java.lang.Object#clone()
    */
   @Override
-  public CodeRefinement clone() {
-    final CodeRefinement clone = new CodeRefinement(this.filePath);
-    return clone;
+  public CodeRefinement copy() {
+    return new CodeRefinement(this.filePath);
   }
 
 }

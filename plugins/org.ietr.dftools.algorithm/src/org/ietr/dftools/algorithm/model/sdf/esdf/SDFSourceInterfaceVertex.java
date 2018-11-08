@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * blaunay <bapt.launay@gmail.com> (2015)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -37,11 +38,9 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
-import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Source Interface vertex, emit tokens on its output edge.
  *
@@ -55,7 +54,7 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
   public SDFSourceInterfaceVertex() {
     super();
     setKind(SDFInterfaceVertex.PORT);
-    setDirection(InterfaceDirection.Input);
+    setDirection(InterfaceDirection.INPUT);
   }
 
   /*
@@ -64,37 +63,14 @@ public class SDFSourceInterfaceVertex extends SDFInterfaceVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex#clone()
    */
   @Override
-  public SDFInterfaceVertex clone() {
+  public SDFSourceInterfaceVertex copy() {
     final SDFSourceInterfaceVertex copy = new SDFSourceInterfaceVertex();
     copy.setName(getName());
-    if (getSinks().size() != 0) {
+    if (!getSinks().isEmpty()) {
       final SDFSinkInterfaceVertex si = new SDFSinkInterfaceVertex();
       si.setName(getName());
       copy.addSink(si);
     }
     return copy;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void connectionAdded(final AbstractEdge e) {
-    // Nothing to do for the moment
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void connectionRemoved(final AbstractEdge e) {
-    // Nothing to do for the moment
   }
 }

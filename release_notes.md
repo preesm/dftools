@@ -1,6 +1,24 @@
 DFTools Changelog
 =================
 
+## Release version 2.0.0
+*2018.11.08*
+
+### New Feature
+
+### Changes
+* Update M2E Code Quality repo;
+* Convert Xtend source to Java;
+* Major refactor
+  * Fix Loggers
+  * Fix sonar issues
+  * Delete dead code
+* Fix travis files
+* Update Graphiti to 1.11.0+
+
+### Bug fix
+
+
 ## Release version 1.9.1
 *2018.09.17*
 

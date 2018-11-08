@@ -34,52 +34,45 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.sdf.types;
-
-import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
-
-// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the integer edge property type in a SDF.
  *
- * @author jpiat
  */
-public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Long> {
+package org.ietr.dftools.algorithm.model.types;
+
+import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
+
+/**
+ * The Class DAGDefaultVertexPropertyType.
+ *
+ * @author mpelcat
+ */
+
+/**
+ * Class used to represent a Vertex property for the DAG
+ */
+public class LongVertexPropertyType extends AbstractVertexPropertyType<Long> {
 
   /**
-   * Creates a new SDFDefaultEdgePropertyType with the given Integer value.
+   * Creates a new DAGDefaultVertexPropertyType without specifying any value.
+   */
+  public LongVertexPropertyType() {
+    super();
+  }
+
+  /**
+   * Creates a new DAGDefaultVertexPropertyType with the given value.
    *
    * @param val
-   *          The Integer value of this SDFDefaultEdgePropertyType
+   *          the val
    */
-  public SDFIntEdgePropertyType(final long val) {
+  public LongVertexPropertyType(final long val) {
     super(val);
   }
 
-  /**
-   * Creates a new SDFDefaultEdgePropertyType with the given String value.
-   *
-   * @param val
-   *          The String value of this SDFDefaultEdgePropertyType
-   */
-  public SDFIntEdgePropertyType(final String val) {
-    super(Long.parseLong(val));
-  }
-
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
-   */
-  @Override
-  public AbstractEdgePropertyType<Long> clone() {
-    return new SDFIntEdgePropertyType(this.value);
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
    */
   @Override
   public long longValue() {
@@ -89,11 +82,21 @@ public class SDFIntEdgePropertyType extends AbstractEdgePropertyType<Long> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
    */
   @Override
   public String toString() {
     return this.value.toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
+   */
+  @Override
+  public AbstractVertexPropertyType<Long> copy() {
+    return null;
   }
 
 }

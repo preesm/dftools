@@ -42,7 +42,6 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.junit.Assert;
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SDFRandomGraphTest.
  */

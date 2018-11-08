@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * blaunay <bapt.launay@gmail.com> (2015)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Hamza Deroui <hamza.deroui@insa-rennes.fr> (2017)
@@ -38,11 +39,9 @@
  */
 package org.ietr.dftools.algorithm.model.sdf.esdf;
 
-import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Sink interface vertex receive tokens on its input edge.
  *
@@ -56,7 +55,7 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
   public SDFSinkInterfaceVertex() {
     super();
     setKind(SDFInterfaceVertex.PORT);
-    setDirection(InterfaceDirection.Output);
+    setDirection(InterfaceDirection.OUTPUT);
   }
 
   /*
@@ -65,10 +64,10 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex#clone()
    */
   @Override
-  public SDFInterfaceVertex clone() {
+  public SDFSinkInterfaceVertex copy() {
     final SDFSinkInterfaceVertex copy = new SDFSinkInterfaceVertex();
     copy.setName(getName());
-    if (getSources().size() != 0) {
+    if (!getSources().isEmpty()) {
       final SDFSourceInterfaceVertex so = new SDFSourceInterfaceVertex();
       so.setName(getName());
       copy.addSource(so);
@@ -76,26 +75,4 @@ public class SDFSinkInterfaceVertex extends SDFInterfaceVertex {
     return copy;
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertex#connectionAdded(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void connectionAdded(final AbstractEdge e) {
-    // Nothing to do for the moment
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.AbstractVertex#connectionRemoved(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @SuppressWarnings("rawtypes")
-  @Override
-  public void connectionRemoved(final AbstractEdge e) {
-    // Nothing to do for the moment
-  }
 }

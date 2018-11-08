@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Hervé Yviquel <hyviquel@gmail.com> (2012)
  * Jonathan Piat <jpiat@laas.fr> (2011)
@@ -43,14 +43,13 @@ import java.io.InputStream;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GMLModelParserWrapper.
  *
  * @param <G>
  *          the generic type
  */
-public abstract class GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
+public interface GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
 
   /**
    * Parses the.
@@ -63,7 +62,7 @@ public abstract class GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
    * @throws FileNotFoundException
    *           the file not found exception
    */
-  public abstract SDFGraph parse(File f) throws InvalidModelException, FileNotFoundException;
+  public abstract SDFGraph parse(File f) throws FileNotFoundException;
 
   /**
    * Parses the.
@@ -78,6 +77,6 @@ public abstract class GMLModelParserWrapper<G extends AbstractGraph<?, ?>> {
    * @throws FileNotFoundException
    *           the file not found exception
    */
-  public abstract G parse(InputStream input, String path) throws InvalidModelException, FileNotFoundException;
+  public abstract G parse(InputStream input, String path) throws FileNotFoundException;
 
 }

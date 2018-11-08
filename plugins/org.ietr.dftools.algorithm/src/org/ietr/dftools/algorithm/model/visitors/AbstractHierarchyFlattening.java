@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
@@ -85,8 +85,7 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected abstract void treatSourceInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth)
-      throws InvalidExpressionException;
+  protected abstract void treatSourceInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth);
 
   /**
    * Treat the sink interface to ensure that there exist only one incoming connection.
@@ -100,8 +99,7 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected abstract void treatSinkInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth)
-      throws InvalidExpressionException;
+  protected abstract void treatSinkInterface(AbstractVertex vertex, AbstractGraph parentGraph, int depth);
 
   /**
    * Flatten one vertex given it's parent.
@@ -115,14 +113,13 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  private void treatVertex(final AbstractVertex vertex, final G parentGraph, final int depth)
-      throws InvalidExpressionException {
-    final Vector<SDFAbstractVertex> vertices = new Vector<SDFAbstractVertex>(vertex.getGraphDescription().vertexSet());
+  private void treatVertex(final AbstractVertex vertex, final G parentGraph) {
+    final List<SDFAbstractVertex> vertices = new ArrayList<>(vertex.getGraphDescription().vertexSet());
     final Map<AbstractVertex, AbstractVertex> matchCopies = new LinkedHashMap<>();
     for (int i = 0; i < vertices.size(); i++) {
       if (!(vertices.get(i) instanceof IInterface)) {
         final AbstractVertex trueVertex = vertices.get(i);
-        final AbstractVertex cloneVertex = vertices.get(i).clone();
+        final AbstractVertex cloneVertex = vertices.get(i).copy();
         parentGraph.addVertex(cloneVertex);
         matchCopies.put(trueVertex, cloneVertex);
         cloneVertex.copyProperties(trueVertex);
@@ -132,13 +129,13 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
             try {
               cloneVertex.getArgument(arg.getName()).setValue(String.valueOf(arg.longValue()));
             } catch (final NoIntegerValueException e) {
-              e.printStackTrace();
+              throw new DFToolsAlgoException("Could not clone value", e);
             }
           }
         }
       }
     }
-    final Vector<AbstractEdge> edges = new Vector<AbstractEdge>(vertex.getGraphDescription().edgeSet());
+    final List<AbstractEdge> edges = new ArrayList<>(vertex.getGraphDescription().edgeSet());
     for (int i = 0; i < edges.size(); i++) {
       AbstractVertex sourceVertex = null;
       AbstractVertex targetVertex = null;
@@ -183,12 +180,12 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
   public void flattenGraph(final G sdf, final int depth) throws SDF4JException {
     if (depth > 0) {
       final int newDepth = depth - 1;
-      this.output = (G) sdf.clone();
-      final Vector<AbstractVertex> vertices = new Vector<AbstractVertex>(this.output.vertexSet());
+      this.output = (G) sdf.copy();
+      final List<AbstractVertex> vertices = new ArrayList<>(this.output.vertexSet());
       for (int i = 0; i < vertices.size(); i++) {
         if (vertices.get(i).getGraphDescription() != null) {
           try {
-            treatVertex(vertices.get(i), this.output, newDepth);
+            treatVertex(vertices.get(i), this.output);
           } catch (final InvalidExpressionException e) {
             throw (new SDF4JException(e.getMessage()));
           }
@@ -196,8 +193,6 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
         }
       }
       flattenGraph(this.output, newDepth);
-    } else {
-      return;
     }
   }
 
@@ -211,13 +206,13 @@ public abstract class AbstractHierarchyFlattening<G extends AbstractGraph> {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  protected void prepareHierarchy(final AbstractVertex vertex, final int depth) throws InvalidExpressionException {
-    final List<AbstractVertex> vertices = new ArrayList<AbstractVertex>(vertex.getGraphDescription().vertexSet());
+  protected void prepareHierarchy(final AbstractVertex vertex, final int depth) {
+    final List<AbstractVertex> vertices = new ArrayList<>(vertex.getGraphDescription().vertexSet());
     for (int i = 0; i < vertices.size(); i++) {
       if (vertices.get(i) instanceof IInterface) {
-        if (vertex.getGraphDescription().incomingEdgesOf(vertices.get(i)).size() == 0) {
+        if (vertex.getGraphDescription().incomingEdgesOf(vertices.get(i)).isEmpty()) {
           treatSourceInterface(vertices.get(i), vertex.getGraphDescription(), depth);
-        } else if (vertex.getGraphDescription().outgoingEdgesOf(vertices.get(i)).size() == 0) {
+        } else if (vertex.getGraphDescription().outgoingEdgesOf(vertices.get(i)).isEmpty()) {
           treatSinkInterface(vertices.get(i), vertex.getGraphDescription(), depth);
         }
       }

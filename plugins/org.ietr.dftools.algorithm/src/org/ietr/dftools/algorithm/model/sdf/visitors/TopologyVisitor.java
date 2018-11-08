@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011 - 2012)
  * Julien Heulot <julien.heulot@insa-rennes.fr> (2014)
@@ -49,7 +49,6 @@ import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 
-// TODO: Auto-generated Javadoc
 /**
  * Visitor used to determine whether a graph is schedulable or not.
  *
@@ -68,16 +67,6 @@ public class TopologyVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVerte
    */
   public boolean result() {
     return this.schedulable;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void visit(final SDFEdge sdfEdge) {
-
   }
 
   /*

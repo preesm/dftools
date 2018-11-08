@@ -36,21 +36,21 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.sdf.types;
+package org.ietr.dftools.algorithm.model.types;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
 import org.ietr.dftools.algorithm.model.parameters.Value;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent the integer edge property type in a SDF.
  *
  * @author jpiat
  */
-public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> {
+public class ExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> {
 
   /** The computed value. */
   private Long computedValue;
@@ -61,7 +61,7 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
    * @param val
    *          The Integer value of this SDFDefaultEdgePropertyType
    */
-  public SDFExpressionEdgePropertyType(final Value val) {
+  public ExpressionEdgePropertyType(final Value val) {
     super(val);
     this.computedValue = null;
   }
@@ -72,8 +72,8 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Value> clone() {
-    final SDFExpressionEdgePropertyType clone = new SDFExpressionEdgePropertyType(this.value);
+  public ExpressionEdgePropertyType copy() {
+    final ExpressionEdgePropertyType clone = new ExpressionEdgePropertyType(this.value);
     try {
       clone.computedValue = longValue();
     } catch (final InvalidExpressionException e) {
@@ -120,14 +120,13 @@ public class SDFExpressionEdgePropertyType extends AbstractEdgePropertyType<Valu
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
    */
   @Override
-  public long longValue() throws InvalidExpressionException {
+  public long longValue() {
     if (this.computedValue == null) {
       try {
         this.computedValue = this.value.longValue();
         return this.computedValue;
       } catch (final NoIntegerValueException e) {
-        e.printStackTrace();
-        return 0;
+        throw new DFToolsAlgoException("Could not evaluate expression", e);
       }
     }
     return this.computedValue;

@@ -1,9 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -34,24 +32,22 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model;
+package org.ietr.dftools.algorithm;
 
-// TODO: Auto-generated Javadoc
 /**
- * The refinement is a file with no graph interpretation.
  *
- * @author jpiat
+ * @author anmorvan
+ *
  */
-public class FileRefinement implements IRefinement, CloneableProperty {
+public class DFToolsAlgoException extends RuntimeException {
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#clone()
-   */
-  @Override
-  public FileRefinement clone() {
-    // TODO: fill the method body
-    return null;
+  private static final long serialVersionUID = 1L;
+
+  public DFToolsAlgoException(final String message) {
+    super(message);
+  }
+
+  public DFToolsAlgoException(final String message, final Throwable cause) {
+    super(message, cause);
   }
 }

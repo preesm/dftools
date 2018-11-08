@@ -34,15 +34,16 @@
  */
 package org.ietr.dftools.algorithm.test;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.ConstantValue;
 import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 import org.ietr.dftools.algorithm.model.parameters.Variable;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
 import org.ietr.dftools.algorithm.model.sdf.visitors.ToHSDFVisitor;
+import org.ietr.dftools.algorithm.model.types.ExpressionEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.junit.Test;
 
@@ -60,7 +61,7 @@ public class ToHSDFVisitorTest {
     try {
       demoGraph.accept(visitor);
     } catch (final SDF4JException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not convert to HSDF", e);
     }
   }
 
@@ -92,22 +93,22 @@ public class ToHSDFVisitorTest {
 
     final SDFEdge sensGen = graph.addEdgeWithInterfaces(sensorInt, gen5);
     // sensGen.setTargetInterface(add);
-    sensGen.setProd(new SDFIntEdgePropertyType(1));
-    sensGen.setCons(new SDFIntEdgePropertyType(1));
+    sensGen.setProd(new LongEdgePropertyType(1));
+    sensGen.setCons(new LongEdgePropertyType(1));
 
     final SDFEdge genRec = graph.addEdgeWithInterfaces(gen5, recopie5);
     // genRec.setSourceInterface(times);
-    genRec.setProd(new SDFExpressionEdgePropertyType(new ExpressionValue("SIZE")));
-    genRec.setCons(new SDFExpressionEdgePropertyType(new ConstantValue(3L)));
+    genRec.setProd(new ExpressionEdgePropertyType(new ExpressionValue("SIZE")));
+    genRec.setCons(new ExpressionEdgePropertyType(new ConstantValue(3L)));
 
     final SDFEdge genAcq = graph.addEdgeWithInterfaces(gen5, acqData);
     // genAcq.setSourceInterface(times);
-    genAcq.setProd(new SDFIntEdgePropertyType(1));
-    genAcq.setCons(new SDFIntEdgePropertyType(1));
+    genAcq.setProd(new LongEdgePropertyType(1));
+    genAcq.setCons(new LongEdgePropertyType(1));
 
     final SDFEdge recAcq = graph.addEdgeWithInterfaces(recopie5, acqData);
-    recAcq.setProd(new SDFIntEdgePropertyType(3));
-    recAcq.setCons(new SDFIntEdgePropertyType(2));
+    recAcq.setProd(new LongEdgePropertyType(3));
+    recAcq.setCons(new LongEdgePropertyType(2));
 
     graph.addVariable(new Variable("SIZE", "2"));
 

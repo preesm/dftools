@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent Argument.
  *
@@ -133,19 +132,12 @@ public class Argument {
    *           the no integer value exception
    */
   public long longValue() {
-    final long val = this.value.longValue();
     // kdesnos: Removed this line because it was
     // removing information from the graph before
     // flattening. Putting this line back implies
     // that all expressions be replaced with their constant
     // value very early in graph transformations
-    // this.value = new ConstantValue(val);
-    return val;
-  }
-
-  @Deprecated
-  public int intValue() {
-    return (int) this.longValue();
+    return this.value.longValue();
   }
 
   /**

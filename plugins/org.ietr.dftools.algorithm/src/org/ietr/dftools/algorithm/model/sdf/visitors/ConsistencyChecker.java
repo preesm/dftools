@@ -38,6 +38,7 @@
 package org.ietr.dftools.algorithm.model.sdf.visitors;
 
 import java.util.logging.Level;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
@@ -45,7 +46,6 @@ import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 
-// TODO: Auto-generated Javadoc
 /**
  * Verifies that graph doesn't contains mistakes (port mismatch, case sensitivity).
  *
@@ -55,17 +55,6 @@ public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVe
 
   /** The is consistent. */
   private boolean isConsistent;
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void visit(final SDFEdge sdfEdge) {
-    // TODO Auto-generated method stub
-
-  }
 
   /*
    * (non-Javadoc)
@@ -97,7 +86,7 @@ public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVe
           this.isConsistent &= false;
         } else if (graphDescription.getVertex(edge.getTargetInterface().getName()) != null) {
           final SDFAbstractVertex sourceNode = graphDescription.getVertex(edge.getTargetInterface().getName());
-          if (graphDescription.outgoingEdgesOf(sourceNode).size() == 0) {
+          if (graphDescription.outgoingEdgesOf(sourceNode).isEmpty()) {
             VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getTargetInterface().getName()
                 + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
             this.isConsistent &= false;
@@ -111,7 +100,7 @@ public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVe
           this.isConsistent &= false;
         } else if (graphDescription.getVertex(edge.getSourceInterface().getName()) != null) {
           final SDFAbstractVertex sinkNode = graphDescription.getVertex(edge.getSourceInterface().getName());
-          if (graphDescription.incomingEdgesOf(sinkNode).size() == 0) {
+          if (graphDescription.incomingEdgesOf(sinkNode).isEmpty()) {
             VisitorOutput.getLogger().log(Level.SEVERE, "Interface " + edge.getSourceInterface().getName()
                 + " does not exist, or is not connect in vertex " + sdfVertex.getName() + " hierarchy");
             this.isConsistent &= false;
@@ -134,8 +123,7 @@ public class ConsistencyChecker implements IGraphVisitor<SDFGraph, SDFAbstractVe
     try {
       toVerify.accept(this);
     } catch (final SDF4JException e) {
-      e.printStackTrace();
-      return false;
+      throw new DFToolsAlgoException("Could not verify graph", e);
     }
     return this.isConsistent;
   }

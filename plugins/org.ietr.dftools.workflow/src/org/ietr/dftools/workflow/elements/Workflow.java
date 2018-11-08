@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011 - 2012)
@@ -43,7 +43,6 @@ import org.eclipse.core.runtime.IPath;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
-// TODO: Auto-generated Javadoc
 /**
  * Workflow graph.
  *
@@ -112,11 +111,6 @@ public class Workflow extends DirectedMultigraph<AbstractWorkflowNode, WorkflowE
         nbScenarios++;
       }
     }
-
-    if (nbScenarios == 1) {
-      return true;
-    }
-
-    return false;
+    return nbScenarios == 1;
   }
 }

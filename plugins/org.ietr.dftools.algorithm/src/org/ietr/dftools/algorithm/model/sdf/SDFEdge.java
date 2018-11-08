@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Florian Arrestier <florian.arrestier@insa-rennes.fr> (2018)
  * Jonathan Piat <jpiat@laas.fr> (2011)
@@ -39,18 +40,20 @@
  */
 package org.ietr.dftools.algorithm.model.sdf;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFExpressionEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFNumericalEdgePropertyTypeFactory;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFTextualEdgePropertyTypeFactory;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
+import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
+import org.ietr.dftools.algorithm.model.types.ExpressionEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.NumericalEdgePropertyTypeFactory;
+import org.ietr.dftools.algorithm.model.types.StringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.TextualEdgePropertyTypeFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class representing an SDFEdge which is an edge with production and consuming rates and length of delay specified.
  *
@@ -107,12 +110,12 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public static final String MODIFIER_WRITE_ONLY = "write_only";
 
   static {
-    AbstractEdge.public_properties.add(SDFEdge.EDGE_CONS);
-    AbstractEdge.public_properties.add(SDFEdge.EDGE_DELAY);
-    AbstractEdge.public_properties.add(SDFEdge.EDGE_PROD);
-    AbstractEdge.public_properties.add(SDFEdge.DATA_TYPE);
-    AbstractEdge.public_properties.add(SDFEdge.SOURCE_PORT_MODIFIER);
-    AbstractEdge.public_properties.add(SDFEdge.TARGET_PORT_MODIFIER);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.EDGE_CONS);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.EDGE_DELAY);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.EDGE_PROD);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.DATA_TYPE);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.SOURCE_PORT_MODIFIER);
+    AbstractEdge.PUBLIC_PROPERTIES.add(SDFEdge.TARGET_PORT_MODIFIER);
   }
 
   /**
@@ -120,11 +123,11 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   public SDFEdge() {
     super();
-    setProd(new SDFIntEdgePropertyType(0));
-    setCons(new SDFIntEdgePropertyType(0));
-    setDelay(new SDFIntEdgePropertyType(0));
-    setDataSize(new SDFIntEdgePropertyType(1));
-    setDataType(new SDFStringEdgePropertyType("char"));
+    setProd(new LongEdgePropertyType(0));
+    setCons(new LongEdgePropertyType(0));
+    setDelay(new LongEdgePropertyType(0));
+    setDataSize(new LongEdgePropertyType(1));
+    setDataType(new StringEdgePropertyType("char"));
   }
 
   /**
@@ -147,7 +150,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
     setDelay(delay);
     setDataType(dataType);
     // Data size will have to be resolved later
-    setDataSize(new SDFIntEdgePropertyType(1));
+    setDataSize(new LongEdgePropertyType(1));
   }
 
   /**
@@ -156,10 +159,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the cons.
    */
   public AbstractEdgePropertyType<?> getCons() {
-    final AbstractEdgePropertyType<
-        ?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS, AbstractEdgePropertyType.class);
-    if (cons instanceof SDFExpressionEdgePropertyType) {
-      ((SDFExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
+    final AbstractEdgePropertyType<?> cons = getPropertyBean().getValue(SDFEdge.EDGE_CONS);
+    if (cons instanceof ExpressionEdgePropertyType) {
+      ((ExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
     }
     return cons;
   }
@@ -170,10 +172,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the delay.
    */
   public AbstractEdgePropertyType<?> getDelay() {
-    final AbstractEdgePropertyType<
-        ?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY, AbstractEdgePropertyType.class);
-    if (delay instanceof SDFExpressionEdgePropertyType) {
-      ((SDFExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
+    final AbstractEdgePropertyType<?> delay = getPropertyBean().getValue(SDFEdge.EDGE_DELAY);
+    if (delay instanceof ExpressionEdgePropertyType) {
+      ((ExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
     }
     return delay;
   }
@@ -184,10 +185,9 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the prod.
    */
   public AbstractEdgePropertyType<?> getProd() {
-    final AbstractEdgePropertyType<
-        ?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD, AbstractEdgePropertyType.class);
-    if (prod instanceof SDFExpressionEdgePropertyType) {
-      ((SDFExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
+    final AbstractEdgePropertyType<?> prod = getPropertyBean().getValue(SDFEdge.EDGE_PROD);
+    if (prod instanceof ExpressionEdgePropertyType) {
+      ((ExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
     }
     return prod;
   }
@@ -198,7 +198,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the data size.
    */
   public AbstractEdgePropertyType<?> getDataSize() {
-    return getPropertyBean().getValue(SDFEdge.DATA_SIZE, AbstractEdgePropertyType.class);
+    return getPropertyBean().getValue(SDFEdge.DATA_SIZE);
   }
 
   /**
@@ -207,7 +207,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    * @return Returns the prod.
    */
   public AbstractEdgePropertyType<?> getDataType() {
-    return getPropertyBean().getValue(SDFEdge.DATA_TYPE, AbstractEdgePropertyType.class);
+    return getPropertyBean().getValue(SDFEdge.DATA_TYPE);
   }
 
   /**
@@ -215,8 +215,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    *
    * @return The source vertex interface of this edge
    */
-  public SDFInterfaceVertex getSourceInterface() {
-    return getPropertyBean().getValue(SDFEdge.SOURCE_PORT, SDFInterfaceVertex.class);
+  public SDFSinkInterfaceVertex getSourceInterface() {
+    return getPropertyBean().getValue(SDFEdge.SOURCE_PORT);
   }
 
   /**
@@ -224,8 +224,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    *
    * @return The interface vertex target of this edge
    */
-  public SDFInterfaceVertex getTargetInterface() {
-    return getPropertyBean().getValue(SDFEdge.TARGET_PORT, SDFInterfaceVertex.class);
+  public SDFSourceInterfaceVertex getTargetInterface() {
+    return getPropertyBean().getValue(SDFEdge.TARGET_PORT);
   }
 
   /**
@@ -233,8 +233,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    *
    * @return the source port modifier
    */
-  public SDFStringEdgePropertyType getSourcePortModifier() {
-    return getPropertyBean().getValue(SDFEdge.SOURCE_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+  public StringEdgePropertyType getSourcePortModifier() {
+    return getPropertyBean().getValue(SDFEdge.SOURCE_PORT_MODIFIER);
   }
 
   /**
@@ -242,8 +242,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    *
    * @return the target port modifier
    */
-  public SDFStringEdgePropertyType getTargetPortModifier() {
-    return getPropertyBean().getValue(SDFEdge.TARGET_PORT_MODIFIER, SDFStringEdgePropertyType.class);
+  public StringEdgePropertyType getTargetPortModifier() {
+    return getPropertyBean().getValue(SDFEdge.TARGET_PORT_MODIFIER);
   }
 
   /**
@@ -254,8 +254,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   public void setCons(final AbstractEdgePropertyType<?> cons) {
     getPropertyBean().setValue(SDFEdge.EDGE_CONS, null, cons);
-    if (cons instanceof SDFExpressionEdgePropertyType) {
-      ((SDFExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
+    if (cons instanceof ExpressionEdgePropertyType) {
+      ((ExpressionEdgePropertyType) cons).setExpressionSolver(getBase());
     }
   }
 
@@ -267,8 +267,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   public void setDelay(final AbstractEdgePropertyType<?> delay) {
     getPropertyBean().setValue(SDFEdge.EDGE_DELAY, null, delay);
-    if (delay instanceof SDFExpressionEdgePropertyType) {
-      ((SDFExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
+    if (delay instanceof ExpressionEdgePropertyType) {
+      ((ExpressionEdgePropertyType) delay).setExpressionSolver(getBase());
     }
   }
 
@@ -308,8 +308,8 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
    */
   public void setProd(final AbstractEdgePropertyType<?> prod) {
     getPropertyBean().setValue(SDFEdge.EDGE_PROD, null, prod);
-    if (prod instanceof SDFExpressionEdgePropertyType) {
-      ((SDFExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
+    if (prod instanceof ExpressionEdgePropertyType) {
+      ((ExpressionEdgePropertyType) prod).setExpressionSolver(getBase());
     }
   }
 
@@ -342,7 +342,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public void setSourceInterface(final SDFInterfaceVertex source) {
     getPropertyBean().setValue(SDFEdge.SOURCE_PORT, null, source);
     if (source != null) {
-      source.setDirection(InterfaceDirection.Output);
+      source.setDirection(InterfaceDirection.OUTPUT);
     }
   }
 
@@ -355,7 +355,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public void setTargetInterface(final SDFInterfaceVertex target) {
     getPropertyBean().setValue(SDFEdge.TARGET_PORT, null, target);
     if (target != null) {
-      target.setDirection(InterfaceDirection.Input);
+      target.setDirection(InterfaceDirection.INPUT);
     }
   }
 
@@ -375,8 +375,7 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
           && (getProd().longValue() == edge.getProd().longValue())
           && (getDelay().longValue() == edge.getDelay().longValue());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
-      return false;
+      throw new DFToolsAlgoException("Could not compare edges", e);
     }
   }
 
@@ -400,10 +399,10 @@ public class SDFEdge extends AbstractEdge<SDFGraph, SDFAbstractVertex> {
   public PropertyFactory getFactoryForProperty(final String propertyName) {
     if (propertyName.equals(SDFEdge.EDGE_CONS) || propertyName.equals(SDFEdge.EDGE_PROD)
         || propertyName.equals(SDFEdge.EDGE_DELAY)) {
-      return SDFNumericalEdgePropertyTypeFactory.getInstance();
+      return NumericalEdgePropertyTypeFactory.getInstance();
     } else if (propertyName.equals(SDFEdge.DATA_TYPE) || propertyName.equals(SDFEdge.SOURCE_PORT_MODIFIER)
         || propertyName.equals(SDFEdge.TARGET_PORT_MODIFIER)) {
-      return SDFTextualEdgePropertyTypeFactory.getInstance();
+      return TextualEdgePropertyTypeFactory.getInstance();
     }
     return null;
   }

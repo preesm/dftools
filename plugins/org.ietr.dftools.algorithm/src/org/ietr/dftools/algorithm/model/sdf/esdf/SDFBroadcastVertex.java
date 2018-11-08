@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2012)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
@@ -42,20 +43,18 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
-import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Special vertex that supports broadcast.
  *
  * @author jpiat
  */
-public class SDFBroadcastVertex extends SDFAbstractVertex {
+public class SDFBroadcastVertex extends SDFAbstractSpecialVertex {
 
   /** Kind of node. */
   public static final String BROADCAST = "Broadcast";
@@ -78,28 +77,28 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFBroadcastVertex copy() {
     final SDFBroadcastVertex copy = new SDFBroadcastVertex();
     copy.setName(getName());
     try {
       copy.setNbRepeat(getNbRepeat());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("could not clone vertex", e);
     }
 
     // Copy the ports
     for (final SDFInterfaceVertex sink : getSinks()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
-        copy.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+        copy.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        copy.addSink(sink.clone());
+        copy.addSink((SDFSinkInterfaceVertex) sink.copy());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
-        copy.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+        copy.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        copy.addSource(source.clone());
+        copy.addSource((SDFSourceInterfaceVertex) source.copy());
       }
     }
 
@@ -171,7 +170,7 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
       removeConnection(edge);
       index = (oldIndex < index) ? index - 1 : index;
       // update the indexes of subsequent edges.
-      for (long i = connections.size() - 1; i >= index; i--) {
+      for (long i = (connections.size() - 1); i >= index; i--) {
         connections.put(i + 1, connections.remove(i));
       }
       // put the edge in it new place
@@ -247,27 +246,13 @@ public class SDFBroadcastVertex extends SDFAbstractVertex {
    *
    * @return the connections
    */
-  @SuppressWarnings("unchecked")
   protected Map<Long, SDFEdge> getConnections() {
-    Map<Long, SDFEdge> connections;
-    if ((connections = (Map<Long, SDFEdge>) getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER)) == null) {
+    Map<Long, SDFEdge> connections = getPropertyBean().getValue(SDFBroadcastVertex.EDGES_ORDER);
+    if (connections == null) {
       connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
     }
     return connections;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.AbstractVertex#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
-   */
-  @Override
-  public void copyProperties(final PropertySource props) {
-    super.copyProperties(props);
-    final Map<SDFEdge, Long> connections = new LinkedHashMap<>();
-    getPropertyBean().setValue(SDFBroadcastVertex.EDGES_ORDER, connections);
   }
 
 }

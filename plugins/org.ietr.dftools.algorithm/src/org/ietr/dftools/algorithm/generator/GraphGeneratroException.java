@@ -1,9 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -34,63 +32,22 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.dag.types;
+package org.ietr.dftools.algorithm.generator;
 
-import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
-
-// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a Vertex property in a DAG.
  *
- * @author jpiat
+ * @author anmorvan
+ *
  */
-public class DAGVertexPropertyType extends AbstractVertexPropertyType<Long> {
+public class GraphGeneratroException extends RuntimeException {
 
-  /**
-   * Creates a new empty DAGVertexPropertyType.
-   */
-  public DAGVertexPropertyType() {
-    super();
+  private static final long serialVersionUID = -1880352570181672935L;
+
+  public GraphGeneratroException(final String message) {
+    super(message);
   }
 
-  /**
-   * Creates a new DAGVertexPropertyType with the given value.
-   *
-   * @param val
-   *          The value to set for this DAGVertexPropertyType
-   */
-  public DAGVertexPropertyType(final long val) {
-    this.value = val;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
-   */
-  @Override
-  public long longValue() {
-    return this.value;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
-   */
-  @Override
-  public String toString() {
-    return this.value.toString();
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
-   */
-  @Override
-  public AbstractVertexPropertyType<Long> clone() {
-    // TODO Auto-generated method stub
-    return null;
+  public GraphGeneratroException(final String message, final Throwable cause) {
+    super(message, cause);
   }
 }

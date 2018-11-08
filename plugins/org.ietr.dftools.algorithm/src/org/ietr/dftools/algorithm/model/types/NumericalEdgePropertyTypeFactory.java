@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -35,49 +35,66 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.sdf.types;
+package org.ietr.dftools.algorithm.model.types;
 
+import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
+import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory to build SDF edge property base on an input string.
  *
  * @author jpiat
  */
-public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
+public class NumericalEdgePropertyTypeFactory implements PropertyFactory {
 
   /** The instance. */
-  private static SDFTextualEdgePropertyTypeFactory instance;
+  private static NumericalEdgePropertyTypeFactory instance;
 
   /**
-   * Instantiates a new SDF textual edge property type factory.
+   * Instantiates a new SDF numerical edge property type factory.
    */
-  private SDFTextualEdgePropertyTypeFactory() {
+  private NumericalEdgePropertyTypeFactory() {
 
   }
 
   /**
-   * Gets the single instance of SDFTextualEdgePropertyTypeFactory.
+   * Gets the single instance of SDFNumericalEdgePropertyTypeFactory.
    *
-   * @return single instance of SDFTextualEdgePropertyTypeFactory
+   * @return single instance of SDFNumericalEdgePropertyTypeFactory
    */
-  public static SDFTextualEdgePropertyTypeFactory getInstance() {
-    if (SDFTextualEdgePropertyTypeFactory.instance == null) {
-      SDFTextualEdgePropertyTypeFactory.instance = new SDFTextualEdgePropertyTypeFactory();
+  public static NumericalEdgePropertyTypeFactory getInstance() {
+    if (NumericalEdgePropertyTypeFactory.instance == null) {
+      NumericalEdgePropertyTypeFactory.instance = new NumericalEdgePropertyTypeFactory();
     }
-    return SDFTextualEdgePropertyTypeFactory.instance;
+    return NumericalEdgePropertyTypeFactory.instance;
   }
 
   /**
-   * Creates a new SDFStringEdgePropertyType given the value val.
+   * Creates a new SDFExpressionEdgePropertyType given the expression expr.
+   *
+   * @param expr
+   *          The expression
+   * @return The created SDFExpressionEdgePropertyType
+   */
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final String expr) {
+    try {
+      final long value = Long.parseLong(expr);
+      return new LongEdgePropertyType(value);
+    } catch (final NumberFormatException e) {
+      return new ExpressionEdgePropertyType(new ExpressionValue(expr));
+    }
+  }
+
+  /**
+   * Creates a new SDFIntEdgePropertyType given the value val.
    *
    * @param val
-   *          The value
-   * @return The created SDFStringEdgePropertyType
+   *          The integer value
+   * @return The created SDFIntEdgePropertyType
    */
-  public SDFStringEdgePropertyType getSDFEdgePropertyType(final String val) {
-    return new SDFStringEdgePropertyType(val);
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final long val) {
+    return new LongEdgePropertyType(val);
   }
 
   /*
@@ -89,8 +106,9 @@ public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
   public Object create(final Object value) {
     if (value instanceof String) {
       return getSDFEdgePropertyType((String) value);
+    } else if (value instanceof Long) {
+      return getSDFEdgePropertyType((Long) value);
     }
     return null;
   }
-
 }

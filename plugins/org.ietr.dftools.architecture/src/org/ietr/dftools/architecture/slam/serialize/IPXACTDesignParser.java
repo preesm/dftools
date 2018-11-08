@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -73,12 +74,12 @@ import org.ietr.dftools.architecture.slam.link.LinkFactory;
 import org.ietr.dftools.architecture.slam.link.LinkPackage;
 import org.ietr.dftools.architecture.slam.serialize.IPXACTDesignVendorExtensionsParser.LinkDescription;
 import org.ietr.dftools.architecture.utils.DomUtil;
+import org.ietr.dftools.architecture.utils.SlamException;
 import org.ietr.dftools.architecture.utils.SlamUserFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-// TODO: Auto-generated Javadoc
 /**
  * Parser of a System-Level Architecture model from the IP-XACT format.
  *
@@ -91,9 +92,6 @@ public class IPXACTDesignParser extends IPXACTParser {
 
   /** Information needed in the vendor extensions of the design. */
   private final IPXACTDesignVendorExtensionsParser vendorExtensions;
-
-  /** parsed input stream. */
-  public FileInputStream fileInputStream;
 
   /**
    * IPXact parser constructor.
@@ -153,7 +151,7 @@ public class IPXACTDesignParser extends IPXACTParser {
     try {
       inputStream.close();
     } catch (final IOException e) {
-      e.printStackTrace();
+      throw new SlamException("Could not parse IPXACT");
     }
 
     return design;
@@ -167,7 +165,8 @@ public class IPXACTDesignParser extends IPXACTParser {
    */
   private void setDesignParameters(final Design design) {
     final Map<String, String> designParameters = this.vendorExtensions.getDesignParameters();
-    for (final String key : designParameters.keySet()) {
+    for (Entry<String, String> e : designParameters.entrySet()) {
+      final String key = e.getKey();
       final Parameter p = AttributesFactory.eINSTANCE.createParameter();
       p.setKey(key);
       p.setValue(designParameters.get(key));
@@ -202,7 +201,7 @@ public class IPXACTDesignParser extends IPXACTParser {
         } else if (nodeName.equals("spirit:hierConnections")) {
           parseHierarchicalPorts(element, design);
         } else {
-          // ignore for the moment;
+          // ignore for the moment
         }
       }
       node = node.getNextSibling();
@@ -264,6 +263,9 @@ public class IPXACTDesignParser extends IPXACTParser {
       }
       node = node.getNextSibling();
     }
+    if (vlnv == null) {
+      throw new SlamException("Could not parse VLNV");
+    }
 
     // Component type is retrieved from vendor extensions if there are any.
     // Otherwise, a generic component is created
@@ -284,23 +286,22 @@ public class IPXACTDesignParser extends IPXACTParser {
       design.getComponentHolder().getComponents().add(component);
 
       instance.setComponent(component);
-
+      if (description == null) {
+        throw new SlamException("Could not parse description");
+      }
       try {
         // Special component cases
         if (component instanceof ComNode) {
           ((ComNode) component).setSpeed(Float.valueOf(description.getSpecificParameter("slam:speed")));
-          if ("contention".equals(description.getSpecificParameter("ComNodeType"))) {
-            ((ComNode) component).setParallel(false);
-          } else {
-            ((ComNode) component).setParallel(true);
-          }
+          final boolean equals = "contention".equals(description.getSpecificParameter("ComNodeType"));
+          ((ComNode) component).setParallel(!equals);
         } else if (component instanceof Mem) {
           ((Mem) component).setSize(Integer.valueOf(description.getSpecificParameter("slam:size")));
         } else if (component instanceof Dma) {
           ((Dma) component).setSetupTime(Integer.valueOf(description.getSpecificParameter("slam:setupTime")));
         }
       } catch (final NumberFormatException e) {
-        e.printStackTrace();
+        throw new SlamException("Could not parse component instance", e);
       }
 
     }
@@ -331,27 +332,22 @@ public class IPXACTDesignParser extends IPXACTParser {
           final URI refinementURI = URI.createFileURI(refinementPath.toString());
           final File file = new File(refinementURI.toFileString());
 
-          if (file != null) {
-            // Read from an input stream
-            final IPXACTDesignParser subParser = new IPXACTDesignParser(refinementURI);
-            InputStream stream = null;
+          // Read from an input stream
+          final IPXACTDesignParser subParser = new IPXACTDesignParser(refinementURI);
+          InputStream stream = null;
 
-            try {
-              stream = new FileInputStream(file.getPath());
-            } catch (final FileNotFoundException e) {
-              e.printStackTrace();
-            }
-
-            if (stream != null) {
-              final Design subDesign = subParser.parse(stream, design.getComponentHolder(), component);
-
-              // A design shares its component holder with its
-              // subdesigns
-              subDesign.setPath(refinementStringPath);
-              component.getRefinements().add(subDesign);
-
-            }
+          try {
+            stream = new FileInputStream(file.getPath());
+          } catch (final FileNotFoundException e) {
+            throw new SlamException("Could not locate file", e);
           }
+
+          final Design subDesign = subParser.parse(stream, design.getComponentHolder(), component);
+
+          // A design shares its component holder with its
+          // subdesigns
+          subDesign.setPath(refinementStringPath);
+          component.getRefinements().add(subDesign);
         }
       }
     }
@@ -455,10 +451,10 @@ public class IPXACTDesignParser extends IPXACTParser {
       }
 
       final EPackage eLinkPackage = LinkPackage.eINSTANCE;
-      final EClass _class = (EClass) eLinkPackage.getEClassifier(linkType);
+      final EClass linkEclass = (EClass) eLinkPackage.getEClassifier(linkType);
 
       // Creating the link with appropriate type
-      final Link link = (Link) LinkFactory.eINSTANCE.create(_class);
+      final Link link = (Link) LinkFactory.eINSTANCE.create(linkEclass);
 
       link.setDirected(linkDescription.isDirected());
       link.setUuid(linkUuid);

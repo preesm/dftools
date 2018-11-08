@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -73,7 +73,7 @@ public class IPXACTResourceImpl extends ResourceImpl {
   @Override
   public void doSave(final OutputStream outputStream, final Map<?, ?> options) throws IOException {
 
-    final IPXACTDesignWriter designWriter = new IPXACTDesignWriter(this.uri);
+    final IPXACTDesignWriter designWriter = new IPXACTDesignWriter();
 
     final Design design = (Design) getContents().get(0);
 

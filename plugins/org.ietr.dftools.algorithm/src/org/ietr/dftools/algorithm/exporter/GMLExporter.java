@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
@@ -63,7 +64,6 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to export a SDFGraph into a GML document.
  *
@@ -100,7 +100,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
     this.classKeySet = new LinkedHashMap<>();
     addKey(AbstractGraph.PARAMETERS, AbstractGraph.PARAMETERS, "graph", null, null);
     addKey(AbstractGraph.VARIABLES, AbstractGraph.VARIABLES, "graph", null, null);
-    addKey(AbstractVertex.ARGUMENTS, AbstractVertex.ARGUMENTS, "node", null, null);
+    addKey(AbstractVertex.ARGUMENTS_LITERAL, AbstractVertex.ARGUMENTS_LITERAL, "node", null, null);
     DOMImplementationRegistry registry;
     DOMImplementation impl;
     try {
@@ -108,7 +108,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
       impl = registry.getDOMImplementation("Core 3.0 XML 3.0 LS");
       this.domDocument = impl.createDocument("http://graphml.graphdrawing.org/xmlns", "graphml", null);
     } catch (ClassCastException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not export graph", e);
     }
 
     this.rootElt = this.domDocument.getDocumentElement();
@@ -130,7 +130,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
    */
   private void addKey(final String id, final String name, final String elt, final String type, final Class<?> desc) {
     final Key key = new Key(name, elt, type, desc);
-    if (this.classKeySet.get(elt) == null) {
+    if (!this.classKeySet.containsKey(elt)) {
       final ArrayList<Key> keys = new ArrayList<>();
       this.classKeySet.put(elt, keys);
     }
@@ -148,7 +148,7 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
    */
   protected void addKey(final String eltType, final Key key) {
     key.setId(key.getName());
-    if (this.classKeySet.get(eltType) == null) {
+    if (!this.classKeySet.containsKey(eltType)) {
       this.classKeySet.put(eltType, new ArrayList<Key>());
     }
     if (!this.classKeySet.get(eltType).contains(key)) {
@@ -343,18 +343,15 @@ public abstract class GMLExporter<V extends AbstractVertex<?>, E extends Abstrac
    */
   protected void exportKeys(final PropertySource source, final String forElt, final Element parentElt) {
     for (final String key : source.getPublicProperties()) {
-      if (!(key.equals("parameters") || key.equals("variables") || key.equals("arguments"))) {
-        if (source.getPropertyStringValue(key) != null) {
-          final Element dataElt = appendChild(parentElt, "data");
-          dataElt.setAttribute("key", key);
-          dataElt.setTextContent(source.getPropertyStringValue(key));
-          if ((source.getPropertyBean().getValue(key) != null)
-              && (source.getPropertyBean().getValue(key) instanceof Number)) {
-            this.addKey(forElt, new Key(key, forElt, "int", null));
-          } else {
-            this.addKey(forElt, new Key(key, forElt, "string", null));
-          }
-
+      if (!(key.equals("parameters") || key.equals("variables") || key.equals("arguments"))
+          && source.getPropertyStringValue(key) != null) {
+        final Element dataElt = appendChild(parentElt, "data");
+        dataElt.setAttribute("key", key);
+        dataElt.setTextContent(source.getPropertyStringValue(key));
+        if (source.getPropertyBean().getValue(key) instanceof Number) {
+          this.addKey(forElt, new Key(key, forElt, "int", null));
+        } else {
+          this.addKey(forElt, new Key(key, forElt, "string", null));
         }
       }
     }

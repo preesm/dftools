@@ -1,10 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
- * Ghislain Roquier <ghislain.roquier@insa-rennes.fr> (2011)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -35,57 +32,17 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.architecture;
+package org.ietr.dftools.algorithm.model.sdf.esdf;
 
-import org.eclipse.core.runtime.Plugin;
-import org.osgi.framework.BundleContext;
+import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
+import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 
 /**
- * The activator class controls the plug-in life cycle
+ *
+ * @author anmorvan
+ *
  */
-public class Activator extends Plugin {
+public abstract class SDFAbstractSpecialVertex extends SDFAbstractVertex {
 
-  // The plug-in ID
-  public static final String PLUGIN_ID = "org.ietr.dftools.architecture"; //$NON-NLS-1$
-
-  // The shared instance
-  private static Activator plugin;
-
-  /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
-   */
-  public static Activator getDefault() {
-    return Activator.plugin;
-  }
-
-  /**
-   * The constructor
-   */
-  public Activator() {
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework. BundleContext )
-   */
-  @Override
-  public void start(final BundleContext context) throws Exception {
-    super.start(context);
-    Activator.plugin = this;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework. BundleContext )
-   */
-  @Override
-  public void stop(final BundleContext context) throws Exception {
-    Activator.plugin = null;
-    super.stop(context);
-  }
-
+  public abstract boolean setEdgeIndex(final SDFEdge edge, long index);
 }

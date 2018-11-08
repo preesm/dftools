@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2012)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -61,7 +61,9 @@ public interface IGraphVisitor<G extends AbstractGraph, V extends AbstractVertex
    * @param sdfEdge
    *          the sdf edge
    */
-  public abstract void visit(E sdfEdge);
+  public default void visit(E sdfEdge) {
+    // nothing by default
+  }
 
   /**
    * Visit the given graph.
@@ -71,7 +73,9 @@ public interface IGraphVisitor<G extends AbstractGraph, V extends AbstractVertex
    * @throws SDF4JException
    *           the SDF 4 J exception
    */
-  public abstract void visit(G sdf) throws SDF4JException;
+  public default void visit(G sdf) {
+    // nothing by default
+  }
 
   /**
    * Visit the given vertex.
@@ -81,6 +85,8 @@ public interface IGraphVisitor<G extends AbstractGraph, V extends AbstractVertex
    * @throws SDF4JException
    *           the SDF 4 J exception
    */
-  public abstract void visit(V sdfVertex) throws SDF4JException;
+  public default void visit(V sdfVertex) {
+    // nothing by default
+  }
 
 }

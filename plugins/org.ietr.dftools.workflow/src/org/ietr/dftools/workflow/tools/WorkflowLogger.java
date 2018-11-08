@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -42,9 +43,9 @@ package org.ietr.dftools.workflow.tools;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
@@ -58,7 +59,7 @@ import org.ietr.dftools.workflow.messages.WorkflowMessages;
 public abstract class WorkflowLogger extends Logger {
 
   /** The logger. */
-  private static WorkflowLogger logger = null;
+  private static Logger logger = null;
 
   /**
    * Instantiates a new workflow logger.
@@ -72,17 +73,20 @@ public abstract class WorkflowLogger extends Logger {
     super(name, resourceBundleName);
   }
 
+  public static void setLogger(final Logger newLogger) {
+    WorkflowLogger.logger = newLogger;
+  }
+
   /**
    * Returns this Logger singleton from extension point.
    *
    * @return a Logger
    */
-  public static WorkflowLogger getLogger() {
-
+  public static Logger getLogger() {
     if (WorkflowLogger.logger == null) {
+      // use CLI logger by default
       try {
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
-
         final IConfigurationElement[] elements = registry
             .getConfigurationElementsFor("org.ietr.dftools.workflow.loggers");
         for (final IConfigurationElement element : elements) {
@@ -92,13 +96,17 @@ public abstract class WorkflowLogger extends Logger {
 
             // and checks it actually is an ITransformation.
             if (obj instanceof WorkflowLogger) {
-              WorkflowLogger.logger = (WorkflowLogger) obj;
+              setLogger((WorkflowLogger) obj);
             }
           }
         }
-      } catch (final CoreException e) {
-        // simply return null
+
+      } catch (final Exception e) {
+        setLogger(Logger.getAnonymousLogger());
       }
+    }
+    for (Handler handler : WorkflowLogger.logger.getHandlers()) {
+      handler.setFormatter(new DefaultPreesmFormatter());
     }
     return WorkflowLogger.logger;
   }
@@ -114,7 +122,9 @@ public abstract class WorkflowLogger extends Logger {
    * @param variables
    *          the variables
    */
-  public abstract void logFromProperty(Level level, String msgKey, String... variables);
+  public static void logFromProperty(Level level, String msgKey, String... variables) {
+    getLogger().log(level, WorkflowMessages.getString(msgKey, variables));
+  }
 
   /**
    * Gets the formatted time.
@@ -122,8 +132,11 @@ public abstract class WorkflowLogger extends Logger {
    * @return the formatted time
    */
   public static String getFormattedTime() {
+    return getFormattedTime(new Date());
+  }
+
+  public static String getFormattedTime(final Date date) {
     final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
-    final Date date = new Date();
     return dateFormat.format(date);
   }
 

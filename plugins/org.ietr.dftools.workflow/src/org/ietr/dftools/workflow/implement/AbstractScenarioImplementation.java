@@ -40,7 +40,6 @@ package org.ietr.dftools.workflow.implement;
 import java.util.Map;
 import org.ietr.dftools.workflow.WorkflowException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract scenario that can be implemented by a plugin wanting workflow execution capabilities. The prototype of the
  * scenario element is set in the plugin extension.
@@ -69,5 +68,5 @@ public abstract class AbstractScenarioImplementation extends AbstractWorkflowNod
    * @throws WorkflowException
    *           the workflow exception
    */
-  public abstract Map<String, Object> extractData(String path) throws WorkflowException;
+  public abstract Map<String, Object> extractData(String path);
 }

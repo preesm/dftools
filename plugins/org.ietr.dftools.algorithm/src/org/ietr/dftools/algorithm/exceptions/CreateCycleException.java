@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -37,30 +37,22 @@
  */
 package org.ietr.dftools.algorithm.exceptions;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
+
 /**
  * Exception generated when adding a dependency in a DAG graph creates a Cycle.
  *
  * @author jpiat
  * @author kdesnos
  */
-public class CreateCycleException extends Exception {
+public class CreateCycleException extends DFToolsAlgoException {
 
-  /**
-   * Instantiates a new creates the cycle exception.
-   */
-  public CreateCycleException() {
-    super();
-  }
-
-  /**
-   * Instantiates a new creates the cycle exception.
-   *
-   * @param message
-   *          the message
-   */
   public CreateCycleException(final String message) {
     super(message);
+  }
+
+  public CreateCycleException(final String message, final Throwable cause) {
+    super(message, cause);
   }
 
   /** The Constant serialVersionUID. */

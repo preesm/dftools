@@ -48,7 +48,6 @@ import org.ietr.dftools.workflow.WorkflowParser;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides a task workflow node.
  *
@@ -189,7 +188,8 @@ public class TaskNode extends AbstractWorkflowNode {
       final IConfigurationElement[] elements = registry.getConfigurationElementsFor("org.ietr.dftools.workflow.tasks");
       for (int i = 0; (i < elements.length) && !found; i++) {
         final IConfigurationElement element = elements[i];
-        if (element.getAttribute("id").equals(this.pluginId)) {
+        final String attribute = element.getAttribute("id");
+        if (attribute.equals(this.pluginId)) {
           // Tries to create the transformation
           final Object obj = element.createExecutableExtension("type");
 
@@ -206,7 +206,9 @@ public class TaskNode extends AbstractWorkflowNode {
 
       return found;
     } catch (final CoreException e) {
-      WorkflowLogger.getLogger().log(Level.SEVERE, "Failed to find plugins from workflow");
+      final String message = "Failed to find plugins from workflow for pluginID = [" + pluginId + "] and taskID = ["
+          + taskId + "]: " + e.getMessage();
+      WorkflowLogger.getLogger().log(Level.SEVERE, message);
       return false;
     }
   }

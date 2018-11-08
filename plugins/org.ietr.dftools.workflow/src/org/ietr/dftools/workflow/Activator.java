@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -40,7 +40,6 @@ package org.ietr.dftools.workflow;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The activator class controls the plug-in life cycle.
  *
@@ -55,12 +54,6 @@ public class Activator extends Plugin {
   /** The plugin. */
   // The shared instance
   private static Activator plugin;
-
-  /**
-   * The constructor.
-   */
-  public Activator() {
-  }
 
   /*
    * (non-Javadoc)

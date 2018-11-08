@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -47,13 +47,12 @@ import org.ietr.dftools.algorithm.model.dag.edag.DAGInitVertex;
 import org.ietr.dftools.algorithm.model.dag.edag.DAGJoinVertex;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory for DAGVertex creation.
  *
  * @author jpiat
  */
-public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
+public class DAGVertexFactory implements IModelVertexFactory<DAGVertex> {
 
   /** The instance. */
   private static DAGVertexFactory instance;
@@ -84,7 +83,7 @@ public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
    */
   @Override
   public DAGVertex createVertex(final Element vertexElt) {
-    final String kind = getProperty(vertexElt, AbstractVertex.KIND);
+    final String kind = getProperty(vertexElt, AbstractVertex.KIND_LITERAL);
     return this.createVertex(kind);
   }
 
@@ -119,7 +118,6 @@ public class DAGVertexFactory extends ModelVertexFactory<DAGVertex> {
    */
   @Override
   public IInterface createInterface(final String name, final int dir) {
-    // TODO Auto-generated method stub
     return null;
   }
 

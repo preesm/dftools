@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model;
 
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract generic Class used to represent a Edge property.
  *
@@ -46,7 +45,7 @@ import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
  * @param <T>
  *          the generic type
  */
-public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
+public abstract class AbstractEdgePropertyType<T> implements CloneableProperty<AbstractEdgePropertyType<T>> {
 
   /** The value. */
   protected T value;
@@ -74,7 +73,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
    * @see java.lang.Object#clone()
    */
   @Override
-  public abstract AbstractEdgePropertyType<T> clone();
+  public abstract AbstractEdgePropertyType<T> copy();
 
   /**
    * Gives this AbstractEdgePropertyType value.
@@ -92,12 +91,7 @@ public abstract class AbstractEdgePropertyType<T> implements CloneableProperty {
    * @throws InvalidExpressionException
    *           the invalid expression exception
    */
-  public abstract long longValue() throws InvalidExpressionException;
-
-  @Deprecated
-  public int intValue() throws InvalidExpressionException {
-    return (int) this.longValue();
-  }
+  public abstract long longValue();
 
   /**
    * Set this AbstractEdgePropertyType value.

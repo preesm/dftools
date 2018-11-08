@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2015)
@@ -44,11 +44,14 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.generic.GenericGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating ModelGraph objects.
  */
 public class ModelGraphFactory {
+
+  private ModelGraphFactory() {
+    // prevent instantiation
+  }
 
   /** The models. */
   private static Map<String, Class<?>> models = new LinkedHashMap<>();

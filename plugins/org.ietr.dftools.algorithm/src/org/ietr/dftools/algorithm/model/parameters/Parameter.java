@@ -37,14 +37,15 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.algorithm.model.CloneableProperty;
+
 /**
  * Class representing parameters that can be used to configure a graph ...
  *
  * @author jpiat
  *
  */
-public class Parameter {
+public class Parameter implements CloneableProperty<Parameter> {
 
   /** The name. */
   private String name;
@@ -88,7 +89,7 @@ public class Parameter {
    * @throws NoIntegerValueException
    *           the no integer value exception
    */
-  public Long getValue() throws NoIntegerValueException {
+  public Long getValue() {
     return this.value;
   }
 
@@ -108,7 +109,7 @@ public class Parameter {
    * @see java.lang.Object#clone()
    */
   @Override
-  public Parameter clone() {
+  public Parameter copy() {
     final Parameter par = new Parameter(this.name);
     par.setValue(this.value);
     return par;

@@ -59,8 +59,8 @@ import org.ietr.dftools.architecture.slam.link.ControlLink;
 import org.ietr.dftools.architecture.slam.link.DataLink;
 import org.ietr.dftools.architecture.slam.link.Link;
 import org.ietr.dftools.architecture.slam.link.LinkFactory;
+import org.ietr.dftools.architecture.utils.SlamException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Methods to flatten the hierarchy of a System-Level Architecture Model. If multiple refinements are available for a
  * component, the first is selected.
@@ -120,7 +120,7 @@ public class SlamFlattener {
     }
 
     // Removing all references to components no more instanciated
-    cleanComponentHolder(design, removedSubdesigns);
+    cleanComponentHolder(design);
   }
 
   /**
@@ -150,7 +150,7 @@ public class SlamFlattener {
    * @param removedSubdesigns
    *          subdesigns containing instances to eliminate
    */
-  private void cleanComponentHolder(final Design design, final Set<Design> removedSubdesigns) {
+  private void cleanComponentHolder(final Design design) {
 
     // Getting all instances and their components from the design and its
     // subdesigns
@@ -266,8 +266,7 @@ public class SlamFlattener {
       link.setSourceComponentInstance(instanceToConnect);
       link.setSourceInterface(itf);
     } else {
-      // TODO: display error: hierarchy port not found
-      design.getLinks().remove(link);
+      throw new SlamException("Could not find port");
     }
   }
 
@@ -303,8 +302,7 @@ public class SlamFlattener {
       link.setDestinationComponentInstance(instanceToConnect);
       link.setDestinationInterface(itf);
     } else {
-      // TODO: display error: hierarchy port not found
-      design.getLinks().remove(link);
+      throw new SlamException("Could not find port");
     }
   }
 
@@ -362,6 +360,8 @@ public class SlamFlattener {
         newLink = LinkFactory.eINSTANCE.createDataLink();
       } else if (originalLink instanceof ControlLink) {
         newLink = LinkFactory.eINSTANCE.createControlLink();
+      } else {
+        throw new SlamException("Unsupported link type");
       }
 
       newLink.setDirected(originalLink.isDirected());

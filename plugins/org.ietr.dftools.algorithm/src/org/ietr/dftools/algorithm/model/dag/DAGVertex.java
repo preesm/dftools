@@ -39,6 +39,7 @@
 package org.ietr.dftools.algorithm.model.dag;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -47,16 +48,14 @@ import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.PropertyBean;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a Vertex in a DIrected Acyclic Graph.
  *
  * @author jpiat
  */
-public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements PropertySource {
+public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> {
 
   /** Key to access to property time. */
   public static final String TIME = "time";
@@ -117,7 +116,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @return The SDFVertex corresponding to this DAG vertex from the SDF2Dag translation
    */
   public SDFAbstractVertex getCorrespondingSDFVertex() {
-    final Object vertex = getPropertyBean().getValue(DAGVertex.SDF_VERTEX, SDFAbstractVertex.class);
+    final Object vertex = getPropertyBean().getValue(DAGVertex.SDF_VERTEX);
     if (vertex != null) {
       return (SDFAbstractVertex) vertex;
     }
@@ -131,7 +130,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   public AbstractVertexPropertyType<?> getNbRepeat() {
     if (this.properties.getValue(DAGVertex.NB_REPEAT) != null) {
-      return (AbstractVertexPropertyType<?>) this.properties.getValue(DAGVertex.NB_REPEAT);
+      return this.properties.getValue(DAGVertex.NB_REPEAT);
     }
     return null;
   }
@@ -143,7 +142,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   public AbstractVertexPropertyType<?> getTime() {
     if (this.properties.getValue(DAGVertex.TIME) != null) {
-      return (AbstractVertexPropertyType<?>) this.properties.getValue(DAGVertex.TIME);
+      return this.properties.getValue(DAGVertex.TIME);
     }
     return null;
   }
@@ -154,8 +153,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @return The Set of incoming edges
    */
   public Set<DAGEdge> incomingEdges() {
-    if (this.properties.getValue(AbstractVertex.BASE) instanceof DirectedAcyclicGraph) {
-      final DirectedAcyclicGraph base = (DirectedAcyclicGraph) this.properties.getValue(AbstractVertex.BASE);
+    if (this.properties.getValue(AbstractVertex.BASE_LITERAL) instanceof DirectedAcyclicGraph) {
+      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE_LITERAL);
       return base.incomingEdgesOf(this);
     }
     return new TreeSet<>();
@@ -167,8 +166,8 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @return The Set of outgoing edges
    */
   public Set<DAGEdge> outgoingEdges() {
-    if (this.properties.getValue(AbstractVertex.BASE) instanceof DirectedAcyclicGraph) {
-      final DirectedAcyclicGraph base = (DirectedAcyclicGraph) this.properties.getValue(AbstractVertex.BASE);
+    if (this.properties.getValue(AbstractVertex.BASE_LITERAL) instanceof DirectedAcyclicGraph) {
+      final DirectedAcyclicGraph base = this.properties.getValue(AbstractVertex.BASE_LITERAL);
       return base.outgoingEdgesOf(this);
     }
     return new TreeSet<>();
@@ -220,8 +219,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    * @see org.ietr.dftools.algorithm.model.AbstractVertex#clone()
    */
   @Override
-  public DAGVertex clone() {
-    // TODO Auto-generated method stub
+  public DAGVertex copy() {
     return null;
   }
 
@@ -232,7 +230,6 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -243,8 +240,7 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public void connectionAdded(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
+    // nothing specific to do
   }
 
   /*
@@ -255,20 +251,18 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
    */
   @Override
   public void connectionRemoved(final AbstractEdge<?, ?> e) {
-    // TODO Auto-generated method stub
-
+    // nothing specific to do
   }
 
   /**
    * Adds the name of a sink to the vertex. <br>
    * This is used by the codegen
-   * 
+   *
    * @param sinkName
    *          the sink name to add
    */
-  @SuppressWarnings("unchecked")
   public void addSinkName(final String sinkName) {
-    final ArrayList<String> sinkList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
+    final List<String> sinkList = getPropertyBean().getValue(DAGVertex.SINKS);
     if (sinkList == null) {
       getPropertyBean().setValue(DAGVertex.SINKS, new ArrayList<String>());
       addSinkName(sinkName);
@@ -279,24 +273,22 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /**
    * Get the sink name list
-   * 
+   *
    * @return list of sink associated with the vertex
    */
-  @SuppressWarnings("unchecked")
-  public ArrayList<String> getSinkNameList() {
-    return (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SINKS);
+  public List<String> getSinkNameList() {
+    return getPropertyBean().getValue(DAGVertex.SINKS);
   }
 
   /**
    * Adds the name of a source to the vertex. <br>
    * This is used by the codegen
-   * 
+   *
    * @param sourceName
    *          the source name to add
    */
-  @SuppressWarnings("unchecked")
   public void addSourceName(final String sourceName) {
-    final ArrayList<String> sourceList = (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SOURCES);
+    final List<String> sourceList = getPropertyBean().getValue(DAGVertex.SOURCES);
     if (sourceList == null) {
       getPropertyBean().setValue(DAGVertex.SOURCES, new ArrayList<String>());
       addSourceName(sourceName);
@@ -307,12 +299,11 @@ public class DAGVertex extends AbstractVertex<DirectedAcyclicGraph> implements P
 
   /**
    * Get the source name list
-   * 
+   *
    * @return list of sources associated with the vertex
    */
-  @SuppressWarnings("unchecked")
-  public ArrayList<String> getSourceNameList() {
-    return (ArrayList<String>) getPropertyBean().getValue(DAGVertex.SOURCES);
+  public List<String> getSourceNameList() {
+    return getPropertyBean().getValue(DAGVertex.SOURCES);
   }
 
 }

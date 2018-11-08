@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013 - 2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -41,21 +42,20 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.PropertySource;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class to represent fork vertices (explode).
  *
  * @author jpiat
  * @author kdesnos
  */
-public class SDFForkVertex extends SDFAbstractVertex {
+public class SDFForkVertex extends SDFAbstractSpecialVertex {
 
   /** Kind of node. */
   public static final String FORK = "fork";
@@ -120,10 +120,9 @@ public class SDFForkVertex extends SDFAbstractVertex {
    *
    * @return the connections
    */
-  @SuppressWarnings("unchecked")
   protected Map<Long, SDFEdge> getConnections() {
-    Map<Long, SDFEdge> connections;
-    if ((connections = (Map<Long, SDFEdge>) getPropertyBean().getValue(SDFForkVertex.EDGES_ORDER)) == null) {
+    Map<Long, SDFEdge> connections = getPropertyBean().getValue(SDFForkVertex.EDGES_ORDER);
+    if (connections == null) {
       connections = new LinkedHashMap<>();
       getPropertyBean().setValue(SDFForkVertex.EDGES_ORDER, connections);
     }
@@ -151,7 +150,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFForkVertex copy() {
     // Copy the vertex properties
     final SDFForkVertex newVertex = new SDFForkVertex();
     for (final String key : getPropertyBean().keys()) {
@@ -165,17 +164,17 @@ public class SDFForkVertex extends SDFAbstractVertex {
     for (final SDFInterfaceVertex sink : getSinks()) {
       if ((newVertex.getGraphDescription() != null)
           && (newVertex.getGraphDescription().getVertex(sink.getName()) != null)) {
-        newVertex.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+        newVertex.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        newVertex.addSink(sink.clone());
+        newVertex.addSink((SDFSinkInterfaceVertex) sink.copy());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((newVertex.getGraphDescription() != null)
           && (newVertex.getGraphDescription().getVertex(source.getName()) != null)) {
-        newVertex.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+        newVertex.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        newVertex.addSource(source.clone());
+        newVertex.addSource((SDFSourceInterfaceVertex) source.copy());
       }
     }
 
@@ -183,7 +182,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
     try {
       newVertex.setNbRepeat(getNbRepeat());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("could not clone vertex", e);
     }
 
     // Remove the edge order
@@ -266,7 +265,7 @@ public class SDFForkVertex extends SDFAbstractVertex {
       removeConnection(edge);
       index = (oldIndex < index) ? index - 1 : index;
       // update the indexes of subsequent edges.
-      for (long i = connections.size() - 1; i >= index; i--) {
+      for (long i = (connections.size() - 1); i >= index; i--) {
         connections.put(i + 1, connections.remove(i));
       }
       // put the edge in it new place

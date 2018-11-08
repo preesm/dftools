@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract generic Class to represent any Vertex Property.
  *
@@ -44,7 +43,7 @@ package org.ietr.dftools.algorithm.model;
  * @param <T>
  *          the generic type
  */
-public abstract class AbstractVertexPropertyType<T> implements CloneableProperty {
+public abstract class AbstractVertexPropertyType<T> implements CloneableProperty<AbstractVertexPropertyType<T>> {
 
   /** The value. */
   protected T value;
@@ -66,14 +65,6 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
     this.value = val;
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#clone()
-   */
-  @Override
-  public abstract AbstractVertexPropertyType<T> clone();
-
   /**
    * Gives this AbstractVertexPropertyType value.
    *
@@ -89,11 +80,6 @@ public abstract class AbstractVertexPropertyType<T> implements CloneableProperty
    * @return The Long value of this AbstractVertexPropertyType
    */
   public abstract long longValue();
-
-  @Deprecated
-  public int intValue() {
-    return (int) this.longValue();
-  }
 
   /**
    * Set this AbstractVertexPropertyType value.

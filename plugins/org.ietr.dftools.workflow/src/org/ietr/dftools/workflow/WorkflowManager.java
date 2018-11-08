@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011 - 2012)
@@ -37,10 +38,8 @@
  */
 package org.ietr.dftools.workflow;
 
-import java.util.logging.Level;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides methods to check and execute a workflow. A workflow consists of several transformation plug-ins
  * tasks applied to a scenario.
@@ -52,27 +51,13 @@ public class WorkflowManager extends AbstractWorkflowExecutor {
   /**
    * Ports with this name are ignored when exchanging data. They just specify precedence.
    */
-  public static String IGNORE_PORT_NAME = "void";
+  public static final String IGNORE_PORT_NAME = "void";
 
   /**
    * Instantiates a new workflow manager.
    */
   public WorkflowManager() {
-    super();
+    setLogger(WorkflowLogger.getLogger());
   }
 
-  /**
-   * Log method for workflow execution with eclipse UI.
-   *
-   * @param level
-   *          the level
-   * @param msgKey
-   *          the msg key
-   * @param variables
-   *          the variables
-   */
-  @Override
-  protected void log(final Level level, final String msgKey, final String... variables) {
-    WorkflowLogger.getLogger().logFromProperty(level, msgKey, variables);
-  }
 }

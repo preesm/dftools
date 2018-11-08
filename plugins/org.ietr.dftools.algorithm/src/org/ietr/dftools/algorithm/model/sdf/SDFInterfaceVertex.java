@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
@@ -37,11 +38,11 @@
  */
 package org.ietr.dftools.algorithm.model.sdf;
 
+import java.util.Objects;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent the interfaces of a Hierarchical vertex.
  *
@@ -69,7 +70,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
   public SDFInterfaceVertex() {
     super();
     setKind(SDFInterfaceVertex.PORT);
-    setDirection(InterfaceDirection.Output);
+    setDirection(InterfaceDirection.OUTPUT);
   }
 
   /**
@@ -90,7 +91,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#clone()
    */
   @Override
-  public abstract SDFInterfaceVertex clone();
+  public abstract SDFInterfaceVertex copy();
 
   /*
    * (non-Javadoc)
@@ -107,6 +108,11 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
     }
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getDirection());
+  }
+
   /**
    * Gives this interface direction.
    *
@@ -114,7 +120,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    */
   @Override
   public InterfaceDirection getDirection() {
-    return getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION, InterfaceDirection.class);
+    return getPropertyBean().getValue(SDFInterfaceVertex.PORT_DIRECTION);
   }
 
   /**
@@ -155,8 +161,8 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    * @see org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex#getNbRepeat()
    */
   @Override
-  public Object getNbRepeat() {
-    return 1;
+  public long getNbRepeat() {
+    return 1L;
   }
 
   /**
@@ -165,7 +171,7 @@ public abstract class SDFInterfaceVertex extends SDFAbstractVertex implements II
    * @return The string representation of the type of data on this interface
    */
   public String getDataType() {
-    return getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE, String.class);
+    return getPropertyBean().getValue(SDFInterfaceVertex.DATA_TYPE);
   }
 
   /*

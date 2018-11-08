@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -36,13 +36,12 @@
  */
 package org.ietr.dftools.algorithm.model.visitors;
 
-// TODO: Auto-generated Javadoc
 /**
  * Exception to be thrown when SDF4J encounters an error.
  *
  * @author jpiat
  */
-public class SDF4JException extends Error {
+public class SDF4JException extends RuntimeException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = -1803030544045591261L;

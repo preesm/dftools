@@ -40,7 +40,6 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Represents an numerical expression.
  *
@@ -78,7 +77,7 @@ public class ExpressionValue implements Value {
    *           the no integer value exception
    */
   @Override
-  public long longValue() throws InvalidExpressionException, NoIntegerValueException {
+  public long longValue() {
     if (this.value == null) {
       if (this.solver != null) {
         this.value = this.solver.solveExpression(this.expression, this);

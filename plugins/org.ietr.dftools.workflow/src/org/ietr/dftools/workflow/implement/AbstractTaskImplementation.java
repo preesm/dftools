@@ -2,6 +2,7 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Matthieu Wipliez <matthieu.wipliez@insa-rennes.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011 - 2012)
@@ -45,7 +46,6 @@ import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.elements.Workflow;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * This interface must be implemented by any workflow task element. The prototype of the workflow task is specified in
  * the plugin extension.
@@ -89,21 +89,21 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
 
     for (final String protoInputPortName : this.inputPrototype.keySet()) {
       if (!graphInputPorts.keySet().contains(protoInputPortName)) {
-        WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputEdge", protoInputPortName);
+        WorkflowLogger.logFromProperty(Level.SEVERE, "Workflow.FalseInputEdge", protoInputPortName);
         return false;
       } else {
         final String protoType = this.inputPrototype.get(protoInputPortName);
         final String graphType = graphInputPorts.get(protoInputPortName);
         if (!protoType.equals(graphType)) {
-          WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName,
-              graphType, protoType);
+          WorkflowLogger.logFromProperty(Level.SEVERE, "Workflow.FalseInputType", protoInputPortName, graphType,
+              protoType);
           return false;
         }
       }
     }
 
     if (graphInputPorts.keySet().size() > this.inputPrototype.keySet().size()) {
-      WorkflowLogger.getLogger().logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges",
+      WorkflowLogger.logFromProperty(Level.SEVERE, "Workflow.TooManyInputEdges",
           String.valueOf(graphInputPorts.keySet().size()), String.valueOf(this.inputPrototype.keySet().size()));
       return false;
     }
@@ -139,7 +139,7 @@ public abstract class AbstractTaskImplementation extends AbstractWorkflowNodeImp
    *           the workflow exception
    */
   public abstract Map<String, Object> execute(Map<String, Object> inputs, Map<String, String> parameters,
-      IProgressMonitor monitor, String nodeName, Workflow workflow) throws WorkflowException;
+      IProgressMonitor monitor, String nodeName, Workflow workflow);
 
   /**
    * Returns the task parameters and their default values. These parameters are automatically added in the graph if not

@@ -1,7 +1,8 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
+ * Antoine Morvan <antoine.morvan.pro@gmail.com> (2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
  * Jonathan Piat <jpiat@laas.fr> (2011)
  * Karol Desnos <karol.desnos@insa-rennes.fr> (2013)
@@ -54,13 +55,12 @@ import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used as an SDFVertex factory to provides user with convinient method to creates SDFAbstractVertex.
  *
  * @author jpiat
  */
-public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
+public class SDFVertexFactory implements IModelVertexFactory<SDFAbstractVertex> {
 
   /** The instance. */
   private static SDFVertexFactory instance;
@@ -79,33 +79,46 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
    */
   @Override
   public SDFAbstractVertex createVertex(final Element vertexElt) {
-    final String kind = getProperty(vertexElt, AbstractVertex.KIND);
-    if (kind.equals(SDFVertex.VERTEX)) {
-      final SDFVertex newVertex = new SDFVertex();
-      newVertex.setName("default");
-      return newVertex;
-    } else if (kind.equals(SDFInterfaceVertex.PORT)) {
-      final String direction = getProperty(vertexElt, SDFInterfaceVertex.PORT_DIRECTION);
-      if (direction != null) {
-        if (direction.equals(InterfaceDirection.Input.name())) {
-          return new SDFSourceInterfaceVertex();
-        } else if (direction.equals(InterfaceDirection.Output.name())) {
-          return new SDFSinkInterfaceVertex();
-        }
-        return null;
+    final String kind = getProperty(vertexElt, AbstractVertex.KIND_LITERAL);
+    if (kind == null) {
+      throw new NullPointerException("Vertex elements should have a child element of type 'kind'");
+    } else {
+      switch (kind) {
+        case SDFVertex.VERTEX:
+          final SDFVertex newVertex = new SDFVertex();
+          newVertex.setName("default");
+          return newVertex;
+
+        case SDFInterfaceVertex.PORT:
+          final String direction = getProperty(vertexElt, SDFInterfaceVertex.PORT_DIRECTION);
+          if (direction != null) {
+            if (direction.equals(InterfaceDirection.INPUT.name())) {
+              return new SDFSourceInterfaceVertex();
+            } else if (direction.equals(InterfaceDirection.OUTPUT.name())) {
+              return new SDFSinkInterfaceVertex();
+            }
+          }
+          return null;
+
+        case SDFBroadcastVertex.BROADCAST:
+          return new SDFBroadcastVertex();
+
+        case SDFRoundBufferVertex.ROUND_BUFFER:
+          return new SDFRoundBufferVertex();
+
+        case SDFForkVertex.FORK:
+          return new SDFForkVertex();
+
+        case SDFJoinVertex.JOIN:
+          return new SDFJoinVertex();
+
+        case SDFInitVertex.INIT:
+          return new SDFInitVertex();
+        default:
+          throw new UnsupportedOperationException("Unsupported vertex kind " + kind);
       }
-    } else if (kind.equals(SDFBroadcastVertex.BROADCAST)) {
-      return new SDFBroadcastVertex();
-    } else if (kind.equals(SDFRoundBufferVertex.ROUND_BUFFER)) {
-      return new SDFRoundBufferVertex();
-    } else if (kind.equals(SDFForkVertex.FORK)) {
-      return new SDFForkVertex();
-    } else if (kind.equals(SDFJoinVertex.JOIN)) {
-      return new SDFJoinVertex();
-    } else if (kind.equals(SDFInitVertex.INIT)) {
-      return new SDFInitVertex();
     }
-    return null;
+
   }
 
   /**
@@ -125,9 +138,9 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
       return newVertex;
     } else if (kind.equals(SDFInterfaceVertex.PORT)) {
       if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION) != null) {
-        if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.Input.name())) {
+        if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.INPUT.name())) {
           return new SDFSourceInterfaceVertex();
-        } else if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.Output.name())) {
+        } else if (attributes.get(SDFInterfaceVertex.PORT_DIRECTION).equals(InterfaceDirection.OUTPUT.name())) {
           return new SDFSinkInterfaceVertex();
         }
         return null;
@@ -153,7 +166,7 @@ public class SDFVertexFactory extends ModelVertexFactory<SDFAbstractVertex> {
    */
   @Override
   public SDFAbstractVertex createVertex(final String kind) {
-    throw new RuntimeException("Unimplemented method");
+    throw new UnsupportedOperationException("Unimplemented method");
   }
 
   /**

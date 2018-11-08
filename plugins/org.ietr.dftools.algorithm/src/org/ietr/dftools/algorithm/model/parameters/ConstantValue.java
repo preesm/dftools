@@ -37,7 +37,8 @@
  */
 package org.ietr.dftools.algorithm.model.parameters;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
+
 /**
  * The Class ConstantValue.
  */
@@ -56,11 +57,6 @@ public class ConstantValue implements Value {
     this.value = value;
   }
 
-  @Deprecated
-  public ConstantValue(final Integer value) {
-    this(Long.valueOf(value.longValue()));
-  }
-
   /*
    * (non-Javadoc)
    *
@@ -77,7 +73,7 @@ public class ConstantValue implements Value {
    * @see org.ietr.dftools.algorithm.model.parameters.Value#intValue()
    */
   @Override
-  public long longValue() throws InvalidExpressionException {
+  public long longValue() {
     return this.value;
   }
 
@@ -90,8 +86,7 @@ public class ConstantValue implements Value {
    */
   @Override
   public void setExpressionSolver(final IExpressionSolver solver) {
-    // TODO Auto-generated method stub
-
+    // constants do not need a solver
   }
 
   /*
@@ -105,7 +100,7 @@ public class ConstantValue implements Value {
       final long lValue = Long.parseLong(value);
       this.value = lValue;
     } catch (final NumberFormatException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not parse value", e);
     }
   }
 

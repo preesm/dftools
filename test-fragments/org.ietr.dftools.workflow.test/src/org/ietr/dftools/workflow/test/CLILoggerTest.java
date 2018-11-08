@@ -34,19 +34,29 @@
  */
 package org.ietr.dftools.workflow.test;
 
+import java.util.logging.Level;
+import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SampleTest.
  */
-public class SampleTest {
+public class CLILoggerTest {
 
   /**
    * Test sample.
    */
   @Test
-  public void testSample() {
-    // success
+  public void testLog() {
+    new CLIWorkflowLogger(false).log(Level.INFO, "test message");
+    new CLIWorkflowLogger(false).log(Level.FINEST, "test message");
+  }
+
+  /**
+   * Test sample.
+   */
+  @Test
+  public void testLogException() {
+    new CLIWorkflowLogger(false).log(Level.INFO, "test message", new NullPointerException());
   }
 }

@@ -1,7 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
@@ -36,15 +36,23 @@
  */
 package org.ietr.dftools.algorithm.exceptions;
 
-// TODO: Auto-generated Javadoc
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
+
 /**
  * Exception generated when adding a dependency created a Multigraph in a DAG.
  *
  * @author jpiat
  */
-public class CreateMultigraphException extends Exception {
+public class CreateMultigraphException extends DFToolsAlgoException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 8671405308315687570L;
 
+  public CreateMultigraphException(final String message) {
+    super(message);
+  }
+
+  public CreateMultigraphException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
 }

@@ -49,7 +49,6 @@ import org.ietr.dftools.architecture.slam.link.Link;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class managing information stored in design vendor extensions.
  *

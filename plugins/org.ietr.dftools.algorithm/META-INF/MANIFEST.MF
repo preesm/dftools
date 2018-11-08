@@ -3,12 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: DFTools algorithm
 Automatic-Module-Name: org.ietr.dftools.algorithm
 Bundle-SymbolicName: org.ietr.dftools.algorithm
-Bundle-Version: 1.9.1
-Bundle-Activator: org.ietr.dftools.algorithm.Activator
+Bundle-Version: 2.0.0
 Bundle-Vendor: IETR/INSA Rennes
 Require-Bundle: org.eclipse.core.runtime,
  com.google.guava,
- org.eclipse.xtend.lib;bundle-version="2.14.0",
  org.jgrapht.core;bundle-version="1.1.0",
  org.apache.commons.math3;bundle-version="3.6.1",
  jep;bundle-version="2.40.0",
@@ -16,7 +14,6 @@ Require-Bundle: org.eclipse.core.runtime,
  com.github.yannrichet.JMathArray;bundle-version="1.0.0",
  jgraph;bundle-version="5.13.0",
  org.ietr.dftools.workflow
-Bundle-ActivationPolicy: lazy
 Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.exceptions,
  org.ietr.dftools.algorithm.exporter,
@@ -27,15 +24,14 @@ Export-Package: org.ietr.dftools.algorithm,
  org.ietr.dftools.algorithm.model,
  org.ietr.dftools.algorithm.model.dag,
  org.ietr.dftools.algorithm.model.dag.edag,
- org.ietr.dftools.algorithm.model.dag.types,
  org.ietr.dftools.algorithm.model.generic,
  org.ietr.dftools.algorithm.model.listenable,
  org.ietr.dftools.algorithm.model.parameters,
  org.ietr.dftools.algorithm.model.sdf,
  org.ietr.dftools.algorithm.model.sdf.esdf,
  org.ietr.dftools.algorithm.model.sdf.transformations,
- org.ietr.dftools.algorithm.model.sdf.types,
  org.ietr.dftools.algorithm.model.sdf.visitors,
+ org.ietr.dftools.algorithm.model.types,
  org.ietr.dftools.algorithm.model.visitors
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
