@@ -13,8 +13,8 @@ DFTools Changelog
   * Fix Loggers
   * Fix sonar issues
   * Delete dead code
-  
 * Fix travis files
+* Update Graphiti to 1.11.0+
 
 ### Bug fix
 
