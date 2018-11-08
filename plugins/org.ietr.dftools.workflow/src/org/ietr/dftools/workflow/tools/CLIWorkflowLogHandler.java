@@ -1,5 +1,7 @@
 package org.ietr.dftools.workflow.tools;
 
+import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.StreamHandler;
 
@@ -8,12 +10,15 @@ import java.util.logging.StreamHandler;
  * @author anmorvan
  *
  */
-public class CLIWorkflowLogHandler extends StreamHandler {
+public class CLIWorkflowLogHandler extends Handler {
 
   private final boolean debugMode;
 
+  private final Handler stderrStreamHandler = new StreamHandler(System.err, new DefaultPreesmFormatter());
+  private final Handler stdoutStreamHandler = new StreamHandler(System.out, new DefaultPreesmFormatter());
+
   public CLIWorkflowLogHandler(final boolean debugMode) {
-    super(System.out, new DefaultPreesmFormatter());
+    super();
     this.debugMode = debugMode;
   }
 
@@ -22,12 +27,22 @@ public class CLIWorkflowLogHandler extends StreamHandler {
     if (!debugMode && record.getThrown() != null) {
       record.setThrown(null);
     }
-    super.publish(record);
+    if (record.getLevel().intValue() >= Level.WARNING.intValue()) {
+      stderrStreamHandler.publish(record);
+    } else {
+      stdoutStreamHandler.publish(record);
+    }
     flush();
   }
 
   @Override
   public void close() {
     flush();
+  }
+
+  @Override
+  public void flush() {
+    stderrStreamHandler.flush();
+    stdoutStreamHandler.flush();
   }
 }
