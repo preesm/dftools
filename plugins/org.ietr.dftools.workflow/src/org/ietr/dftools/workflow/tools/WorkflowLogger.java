@@ -72,17 +72,18 @@ public abstract class WorkflowLogger extends Logger {
     super(name, resourceBundleName);
   }
 
+  public static void setLogger(final Logger newLogger) {
+    WorkflowLogger.logger = newLogger;
+  }
+
   /**
    * Returns this Logger singleton from extension point.
    *
    * @return a Logger
    */
   public static Logger getLogger() {
-
     if (WorkflowLogger.logger == null) {
       // use CLI logger by default
-      WorkflowLogger.logger = CLIWorkflowLogger.getLogger();
-      // then try logging to Eclipse console
       try {
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
         final IConfigurationElement[] elements = registry
@@ -94,13 +95,13 @@ public abstract class WorkflowLogger extends Logger {
 
             // and checks it actually is an ITransformation.
             if (obj instanceof WorkflowLogger) {
-              WorkflowLogger.logger = (WorkflowLogger) obj;
+              setLogger((WorkflowLogger) obj);
             }
           }
         }
 
       } catch (final Exception e) {
-        // keep anonymous logger
+        setLogger(Logger.getAnonymousLogger());
       }
     }
     for (Handler handler : WorkflowLogger.logger.getHandlers()) {
@@ -137,7 +138,5 @@ public abstract class WorkflowLogger extends Logger {
     final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss ");
     return dateFormat.format(date);
   }
-
-  public abstract boolean isCLI();
 
 }

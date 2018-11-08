@@ -34,8 +34,6 @@
  */
 package org.ietr.dftools.ui.test;
 
-import java.util.logging.Level;
-import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
 import org.junit.Test;
 
 /**
@@ -48,7 +46,6 @@ public class SampleTest {
    */
   @Test
   public void testSample() {
-    CLIWorkflowLogger.getLogger().log(Level.INFO, "test message 1");
-    CLIWorkflowLogger.getLogger().log(Level.INFO, "test message 2");
+    // nothing to test yet
   }
 }

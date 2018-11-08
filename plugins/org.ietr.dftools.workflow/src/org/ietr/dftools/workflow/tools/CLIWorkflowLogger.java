@@ -36,7 +36,7 @@
  */
 package org.ietr.dftools.workflow.tools;
 
-import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,34 +51,18 @@ import java.util.logging.Logger;
  * @author Antoine Lorence
  *
  */
-public class CLIWorkflowLogger extends WorkflowLogger {
-
-  protected CLIWorkflowLogger(final String name, final String resourceBundleName) {
-    super(name, resourceBundleName);
-    final ConsoleHandler handler = new ConsoleHandler();
-    this.addHandler(handler);
-    this.setUseParentHandlers(false);
-    handler.setFormatter(new DefaultPreesmFormatter());
-
-  }
+public class CLIWorkflowLogger extends Logger {
 
   /** The Constant RAW_FLAG. */
   static final String RAW_FLAG = "raw_record";
 
   /** The logger. */
-  private static Logger logger;
+  public CLIWorkflowLogger(final boolean debugMode) {
+    super("Preesm-CLI", null);
+    final Handler handler = new CLIWorkflowLogHandler(debugMode);
+    this.addHandler(handler);
+    this.setUseParentHandlers(false);
 
-  /**
-   * Return the current logger, or a newly created one if it doesn't exists. If it is created here, a default
-   * ConsoleHandler is used as Logger's Handler.
-   *
-   * @return the logger
-   */
-  public static Logger getLogger() {
-    if (CLIWorkflowLogger.logger == null) {
-      CLIWorkflowLogger.logger = new CLIWorkflowLogger(GLOBAL_LOGGER_NAME, null);
-    }
-    return CLIWorkflowLogger.logger;
   }
 
   /**
@@ -96,8 +80,12 @@ public class CLIWorkflowLogger extends WorkflowLogger {
   }
 
   @Override
-  public boolean isCLI() {
-    return true;
+  public void setLevel(Level newLevel) {
+    super.setLevel(newLevel);
+    final Handler[] handlers = getHandlers();
+    for (Handler h : handlers) {
+      h.setLevel(newLevel);
+    }
   }
 
 }

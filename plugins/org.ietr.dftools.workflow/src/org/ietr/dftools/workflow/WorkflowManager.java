@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.workflow;
 
-import java.util.logging.Level;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
@@ -57,21 +56,7 @@ public class WorkflowManager extends AbstractWorkflowExecutor {
    * Instantiates a new workflow manager.
    */
   public WorkflowManager() {
-    super();
+    setLogger(WorkflowLogger.getLogger());
   }
 
-  /**
-   * Log method for workflow execution with eclipse UI.
-   *
-   * @param level
-   *          the level
-   * @param msgKey
-   *          the msg key
-   * @param variables
-   *          the variables
-   */
-  @Override
-  protected void log(final Level level, final String msgKey, final String... variables) {
-    WorkflowLogger.logFromProperty(level, msgKey, variables);
-  }
 }

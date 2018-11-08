@@ -46,6 +46,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -59,6 +60,7 @@ import org.ietr.dftools.workflow.elements.WorkflowEdge;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.implement.AbstractTaskImplementation;
 import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
+import org.ietr.dftools.workflow.messages.WorkflowMessages;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
 /**
@@ -73,10 +75,21 @@ import org.ietr.dftools.workflow.tools.WorkflowLogger;
  */
 public abstract class AbstractWorkflowExecutor {
 
+  private Logger logger;
+
   private boolean debug = false;
 
   public final void setDebug(final boolean newDebugMode) {
     this.debug = newDebugMode;
+  }
+
+  public final void setLogger(final Logger logger) {
+    this.logger = logger;
+    WorkflowLogger.setLogger(logger);
+  }
+
+  public final Logger getLogger() {
+    return logger;
   }
 
   /**
@@ -516,7 +529,9 @@ public abstract class AbstractWorkflowExecutor {
    * @param variables
    *          the variables
    */
-  protected abstract void log(Level level, String msgKey, String... variables);
+  protected void log(Level level, String msgKey, String... variables) {
+    getLogger().log(level, WorkflowMessages.getString(msgKey, variables));
+  }
 
   /**
    * This special logging method is used for handling severe message with associated exception or error.
@@ -524,6 +539,6 @@ public abstract class AbstractWorkflowExecutor {
    * TODO: add debug parameter to the application and handle it here to show (or not) the full stack trace/
    */
   protected void error(final Throwable cause, final String msg) {
-    WorkflowLogger.getLogger().log(Level.SEVERE, msg, cause);
+    getLogger().log(Level.SEVERE, msg, cause);
   }
 }
