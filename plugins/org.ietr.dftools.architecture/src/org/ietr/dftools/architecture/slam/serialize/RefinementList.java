@@ -41,7 +41,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * A complex refinement made of a list of files. Used to serialize multiple refinements.
  *
@@ -129,13 +128,13 @@ public class RefinementList {
    */
   @Override
   public String toString() {
-    String stringList = "";
+    final StringBuilder stringList = new StringBuilder();
     for (final String fileName : this.nameList) {
-      stringList += fileName + ",";
+      stringList.append(fileName + ",");
     }
-    if (!stringList.isEmpty()) {
-      stringList = stringList.substring(0, stringList.length() - 1);
+    if (stringList.length() != 0) {
+      stringList.deleteCharAt(stringList.length() - 1);
     }
-    return stringList;
+    return stringList.toString();
   }
 }

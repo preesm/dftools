@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface to create vertex in the given model.
  *
@@ -44,8 +43,7 @@ package org.ietr.dftools.algorithm.model;
  * @param <V>
  *          The model of vertex to create
  */
-@SuppressWarnings("rawtypes")
-public interface ModelVertexFactory<V extends AbstractVertex> {
+public interface ModelVertexFactory<V extends AbstractVertex<?>> {
 
   /**
    * Creates a vertex of the given kind.

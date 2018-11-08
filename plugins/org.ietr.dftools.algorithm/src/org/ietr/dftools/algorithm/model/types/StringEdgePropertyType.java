@@ -1,9 +1,8 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
- * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -35,62 +34,55 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.sdf.types;
+package org.ietr.dftools.algorithm.model.types;
 
-import org.ietr.dftools.algorithm.model.PropertyFactory;
+import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
- * Factory to build SDF edge property base on an input string.
+ * Class used to represent the string edge property type in a SDF.
  *
- * @author jpiat
+ * @author mpelcat
  */
-public class SDFTextualEdgePropertyTypeFactory implements PropertyFactory {
-
-  /** The instance. */
-  private static SDFTextualEdgePropertyTypeFactory instance;
+public class StringEdgePropertyType extends AbstractEdgePropertyType<String> {
 
   /**
-   * Instantiates a new SDF textual edge property type factory.
-   */
-  private SDFTextualEdgePropertyTypeFactory() {
-
-  }
-
-  /**
-   * Gets the single instance of SDFTextualEdgePropertyTypeFactory.
-   *
-   * @return single instance of SDFTextualEdgePropertyTypeFactory
-   */
-  public static SDFTextualEdgePropertyTypeFactory getInstance() {
-    if (SDFTextualEdgePropertyTypeFactory.instance == null) {
-      SDFTextualEdgePropertyTypeFactory.instance = new SDFTextualEdgePropertyTypeFactory();
-    }
-    return SDFTextualEdgePropertyTypeFactory.instance;
-  }
-
-  /**
-   * Creates a new SDFStringEdgePropertyType given the value val.
+   * Creates a new SDFDefaultEdgePropertyType with the given String value.
    *
    * @param val
-   *          The value
-   * @return The created SDFStringEdgePropertyType
+   *          The String value of this SDFDefaultEdgePropertyType
    */
-  public SDFStringEdgePropertyType getSDFEdgePropertyType(final String val) {
-    return new SDFStringEdgePropertyType(val);
+  public StringEdgePropertyType(final String val) {
+    super(val);
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.PropertyFactory#create(java.lang.Object)
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public Object create(final Object value) {
-    if (value instanceof String) {
-      return getSDFEdgePropertyType((String) value);
-    }
-    return null;
+  public StringEdgePropertyType copy() {
+    return new StringEdgePropertyType(this.value);
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public long longValue() {
+    return 0;
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
+   */
+  @Override
+  public String toString() {
+    return this.value;
   }
 
 }

@@ -51,7 +51,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSinkInterfaceVertex;
 import org.ietr.dftools.algorithm.model.sdf.esdf.SDFSourceInterfaceVertex;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -89,20 +89,20 @@ public class GMLSDFExporterTest {
     gen5.addArgument(new Argument("NB_COPY", "100"));
 
     final SDFEdge sensGen = graph.addEdge(sensorInt, gen5);
-    sensGen.setProd(new SDFIntEdgePropertyType(1));
-    sensGen.setCons(new SDFIntEdgePropertyType(1));
+    sensGen.setProd(new LongEdgePropertyType(1));
+    sensGen.setCons(new LongEdgePropertyType(1));
 
     final SDFEdge genRec = graph.addEdge(gen5, recopie5);
-    genRec.setProd(new SDFIntEdgePropertyType(2));
-    genRec.setCons(new SDFIntEdgePropertyType(3));
+    genRec.setProd(new LongEdgePropertyType(2));
+    genRec.setCons(new LongEdgePropertyType(3));
 
     final SDFEdge genAcq = graph.addEdge(gen5, acqData);
-    genAcq.setProd(new SDFIntEdgePropertyType(1));
-    genAcq.setCons(new SDFIntEdgePropertyType(1));
+    genAcq.setProd(new LongEdgePropertyType(1));
+    genAcq.setCons(new LongEdgePropertyType(1));
 
     final SDFEdge recAcq = graph.addEdgeWithInterfaces(recopie5, acqData);
-    recAcq.setProd(new SDFIntEdgePropertyType(3));
-    recAcq.setCons(new SDFIntEdgePropertyType(2));
+    recAcq.setProd(new LongEdgePropertyType(3));
+    recAcq.setCons(new LongEdgePropertyType(2));
 
     graph.addParameter(new Parameter("SIZE"));
     graph.addParameter(new Parameter("NB_COPY"));

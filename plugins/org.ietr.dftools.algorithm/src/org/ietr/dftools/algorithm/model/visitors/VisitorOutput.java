@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model.visitors;
 
 import java.util.logging.Logger;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class for visitors that outputs logs.
  *

@@ -42,6 +42,7 @@ package org.ietr.dftools.algorithm.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import org.ietr.dftools.algorithm.model.parameters.Argument;
@@ -49,7 +50,6 @@ import org.ietr.dftools.algorithm.model.parameters.ArgumentSet;
 import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract class for all vertex types.
  *
@@ -58,35 +58,43 @@ import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
  *          the generic type
  */
 @SuppressWarnings("unchecked")
-public abstract class AbstractVertex<G> extends Observable implements PropertySource, Observer, CloneableProperty {
+public abstract class AbstractVertex<G> extends Observable
+    implements PropertySource, Observer, CloneableProperty<AbstractVertex<G>> {
 
   /** The properties. */
   protected PropertyBean properties;
 
   /** Property name for property base. */
-  public static final String BASE = "base";
+  public static final String BASE_LITERAL = "base";
+  @Deprecated
+  public static final String BASE         = BASE_LITERAL;
 
   /** Property name for property graph_desc. */
-  public static final String REFINEMENT = "graph_desc";
+  public static final String REFINEMENT_LITERAL = "graph_desc";
+  @Deprecated
+  public static final String REFINEMENT         = REFINEMENT_LITERAL;
 
   /** Property name for property arguments. */
-  public static final String ARGUMENTS = "arguments";
+  public static final String ARGUMENTS_LITERAL = "arguments";
 
   /** Property name for property id. */
-  public static final String ID = "id";
+  public static final String ID_LITERAL = "id";
 
   /** Property name for property name. */
-  public static final String NAME = "name";
+  public static final String NAME_LITERAL = "name";
 
   /** Property name for property name. */
-  public static final String INFO = "info";
+  public static final String INFO_LITERAL = "info";
 
   /** Property kind for property name. */
-  public static final String KIND = "kind";
+  public static final String KIND_LITERAL = "kind";
+  @Deprecated
+  public static final String KIND         = KIND_LITERAL;
 
   /** The public properties. */
-  protected static final List<String> public_properties = new ArrayList<>(
-      Arrays.asList(AbstractVertex.ARGUMENTS, AbstractVertex.REFINEMENT, AbstractVertex.NAME, AbstractVertex.KIND));
+  protected static final List<
+      String> public_properties = new ArrayList<>(Arrays.asList(AbstractVertex.ARGUMENTS_LITERAL,
+          AbstractVertex.REFINEMENT_LITERAL, AbstractVertex.NAME_LITERAL, AbstractVertex.KIND_LITERAL));
 
   /** The interfaces. */
   protected List<IInterface> interfaces;
@@ -125,16 +133,6 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   /**
    * Add a list of interface to this vertex.
    *
-   * @param interfaces
-   *          The list of interface to add
-   */
-  public void addInterfaces(final List<IInterface> interfaces) {
-    interfaces.addAll(interfaces);
-  }
-
-  /**
-   * Add a list of interface to this vertex.
-   *
    * @param port
    *          the port
    * @return true, if successful
@@ -142,6 +140,11 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   public boolean addInterface(final IInterface port) {
     this.interfaces.add(port);
     return true;
+  }
+
+  @Deprecated
+  public void addInterfaces(List<IInterface> list) {
+    throw new UnsupportedOperationException("This method is deprecated and subject to removal soon.");
   }
 
   /**
@@ -160,8 +163,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    */
   @SuppressWarnings("rawtypes")
   public AbstractGraph getBase() {
-    if (this.properties.getValue(AbstractVertex.BASE) != null) {
-      return (AbstractGraph) this.properties.getValue(AbstractVertex.BASE);
+    if (this.properties.getValue(AbstractVertex.BASE_LITERAL) != null) {
+      return this.properties.getValue(AbstractVertex.BASE_LITERAL);
     }
     return null;
   }
@@ -172,7 +175,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The id of the vertex
    */
   public String getId() {
-    return this.properties.getValue(AbstractVertex.ID);
+    return this.properties.getValue(AbstractVertex.ID_LITERAL);
   }
 
   /**
@@ -181,7 +184,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The name of this graph
    */
   public String getName() {
-    return (String) this.properties.getValue(AbstractVertex.NAME);
+    return this.properties.getValue(AbstractVertex.NAME_LITERAL);
   }
 
   /**
@@ -190,7 +193,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The info property of this graph
    */
   public String getInfo() {
-    return (String) this.properties.getValue(AbstractVertex.INFO);
+    return this.properties.getValue(AbstractVertex.INFO_LITERAL);
   }
 
   /**
@@ -225,7 +228,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          the new refinement
    */
   public void setRefinement(final IRefinement desc) {
-    this.properties.setValue(AbstractVertex.REFINEMENT, this.properties.getValue(AbstractVertex.REFINEMENT), desc);
+    this.properties.setValue(AbstractVertex.REFINEMENT_LITERAL,
+        this.properties.getValue(AbstractVertex.REFINEMENT_LITERAL), desc);
     this.refinement = desc;
     setChanged();
     this.notifyObservers();
@@ -239,7 +243,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    */
   @SuppressWarnings("rawtypes")
   public void setGraphDescription(final AbstractGraph desc) {
-    this.properties.setValue(AbstractVertex.REFINEMENT, this.properties.getValue(AbstractVertex.REFINEMENT), desc);
+    this.properties.setValue(AbstractVertex.REFINEMENT_LITERAL,
+        this.properties.getValue(AbstractVertex.REFINEMENT_LITERAL), desc);
     this.refinement = desc;
     desc.setParentVertex(this);
   }
@@ -265,7 +270,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          the new base
    */
   protected void setBase(final G base) {
-    this.properties.setValue(AbstractVertex.BASE, base);
+    this.properties.setValue(AbstractVertex.BASE_LITERAL, base);
   }
 
   /**
@@ -275,7 +280,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          The id to set for this vertex
    */
   public void setId(final String id) {
-    this.properties.setValue(AbstractVertex.ID, this.properties.getValue(AbstractVertex.ID), id);
+    this.properties.setValue(AbstractVertex.ID_LITERAL, this.properties.getValue(AbstractVertex.ID_LITERAL), id);
   }
 
   /**
@@ -285,7 +290,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          The name to set for this graph
    */
   public void setName(final String name) {
-    this.properties.setValue(AbstractVertex.NAME, this.properties.getValue(AbstractVertex.NAME), name);
+    this.properties.setValue(AbstractVertex.NAME_LITERAL, this.properties.getValue(AbstractVertex.NAME_LITERAL), name);
   }
 
   /**
@@ -295,7 +300,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          The info property to set for this graph
    */
   public void setInfo(final String info) {
-    this.properties.setValue(AbstractVertex.INFO, this.properties.getValue(AbstractVertex.INFO), info);
+    this.properties.setValue(AbstractVertex.INFO_LITERAL, this.properties.getValue(AbstractVertex.INFO_LITERAL), info);
   }
 
   /*
@@ -306,32 +311,10 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
   @Override
   @SuppressWarnings("rawtypes")
   public void update(final Observable o, final Object arg) {
-    if (arg != null) {
-      if ((arg instanceof String) && (o instanceof AbstractEdge)) {
-        final Object property = ((AbstractVertex) o).getPropertyBean().getValue((String) arg);
-        if (property != null) {
-          this.getPropertyBean().setValue((String) arg, property);
-        }
-      }
-    }
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see
-   * org.ietr.dftools.algorithm.model.PropertySource#copyProperties(org.ietr.dftools.algorithm.model.PropertySource)
-   */
-  @Override
-  public void copyProperties(final PropertySource props) {
-    final List<String> keys = new ArrayList<>(props.getPropertyBean().keys());
-    for (final String key : keys) {
-      if (!key.equals(AbstractVertex.BASE)) {
-        if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
-          this.getPropertyBean().setValue(key, ((CloneableProperty) props.getPropertyBean().getValue(key)).clone());
-        } else {
-          this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
-        }
+    if ((arg instanceof String) && (o instanceof AbstractEdge)) {
+      final Object property = ((AbstractVertex) o).getPropertyBean().getValue((String) arg);
+      if (property != null) {
+        this.getPropertyBean().setValue((String) arg, property);
       }
     }
   }
@@ -344,8 +327,8 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The argument with the given name
    */
   public Argument getArgument(final String name) {
-    if (this.properties.getValue(AbstractVertex.ARGUMENTS) != null) {
-      final Argument arg = ((ArgumentSet) this.properties.getValue(AbstractVertex.ARGUMENTS)).getArgument(name);
+    if (this.properties.getValue(AbstractVertex.ARGUMENTS_LITERAL) != null) {
+      final Argument arg = this.properties.<ArgumentSet>getValue(AbstractVertex.ARGUMENTS_LITERAL).getArgument(name);
       if (arg != null) {
         arg.setExpressionSolver(this.getBase());
       }
@@ -360,12 +343,12 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The set of argument of this graph
    */
   public ArgumentSet getArguments() {
-    if (this.properties.getValue(AbstractVertex.ARGUMENTS) == null) {
+    if (this.properties.getValue(AbstractVertex.ARGUMENTS_LITERAL) == null) {
       final ArgumentSet arguments = new ArgumentSet();
       this.setArgumentSet(arguments);
     }
-    ((ArgumentSet) this.properties.getValue(AbstractVertex.ARGUMENTS)).setExpressionSolver(this.getBase());
-    return ((ArgumentSet) this.properties.getValue(AbstractVertex.ARGUMENTS));
+    this.properties.<ArgumentSet>getValue(AbstractVertex.ARGUMENTS_LITERAL).setExpressionSolver(this.getBase());
+    return this.properties.<ArgumentSet>getValue(AbstractVertex.ARGUMENTS_LITERAL);
   }
 
   /**
@@ -375,18 +358,10 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          The set of arguments for this graph
    */
   public void setArgumentSet(final ArgumentSet arguments) {
-    this.properties.setValue(AbstractVertex.ARGUMENTS, this.properties.getValue(AbstractVertex.ARGUMENTS), arguments);
+    this.properties.setValue(AbstractVertex.ARGUMENTS_LITERAL,
+        this.properties.getValue(AbstractVertex.ARGUMENTS_LITERAL), arguments);
     arguments.setExpressionSolver(this.getBase());
   }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see java.lang.Object#clone()
-   */
-  @Override
-  @SuppressWarnings("rawtypes")
-  public abstract AbstractVertex clone();
 
   /**
    * Add the given argument to his graph argument set.
@@ -395,10 +370,10 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          The argument to add
    */
   public void addArgument(final Argument arg) {
-    if (this.properties.getValue(AbstractVertex.ARGUMENTS) == null) {
+    if (this.properties.getValue(AbstractVertex.ARGUMENTS_LITERAL) == null) {
       setArgumentSet(new ArgumentSet());
     }
-    ((ArgumentSet) this.properties.getValue(AbstractVertex.ARGUMENTS)).addArgument(arg);
+    this.properties.<ArgumentSet>getValue(AbstractVertex.ARGUMENTS_LITERAL).addArgument(arg);
     arg.setExpressionSolver(this.getBase());
   }
 
@@ -409,7 +384,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    *          The kind of the vertex (port, vertex)
    */
   public void setKind(final String kind) {
-    this.properties.setValue(AbstractVertex.KIND, this.properties.getValue(AbstractVertex.KIND), kind);
+    this.properties.setValue(AbstractVertex.KIND_LITERAL, this.properties.getValue(AbstractVertex.KIND_LITERAL), kind);
   }
 
   /**
@@ -418,7 +393,7 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @return The string representation of the kind of this vertex
    */
   public String getKind() {
-    return this.properties.getValue(AbstractVertex.KIND);
+    return this.properties.getValue(AbstractVertex.KIND_LITERAL);
   }
 
   /**
@@ -427,7 +402,9 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @param e
    *          the e
    */
-  public abstract void connectionAdded(AbstractEdge<?, ?> e);
+  public void connectionAdded(AbstractEdge<?, ?> e) {
+    // nothing by default
+  }
 
   /**
    * Notify the vertex that it has been disconnected froms the given edge.
@@ -435,7 +412,9 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
    * @param e
    *          the e
    */
-  public abstract void connectionRemoved(AbstractEdge<?, ?> e);
+  public void connectionRemoved(AbstractEdge<?, ?> e) {
+    // nothing by default
+  }
 
   /*
    * (non-Javadoc)
@@ -450,6 +429,11 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
     } else {
       return false;
     }
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.getName());
   }
 
   /**
@@ -475,29 +459,6 @@ public abstract class AbstractVertex<G> extends Observable implements PropertySo
       }
     }
     return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#getPropertyStringValue(java.lang.String)
-   */
-  @Override
-  public String getPropertyStringValue(final String propertyName) {
-    if (this.getPropertyBean().getValue(propertyName) != null) {
-      return this.getPropertyBean().getValue(propertyName).toString();
-    }
-    return null;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.PropertySource#setPropertyValue(java.lang.String, java.lang.Object)
-   */
-  @Override
-  public void setPropertyValue(final String propertyName, final Object value) {
-    this.getPropertyBean().setValue(propertyName, value);
   }
 
 }

@@ -40,11 +40,9 @@ package org.ietr.dftools.workflow.test;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import org.ietr.dftools.workflow.WorkflowException;
 import org.ietr.dftools.workflow.implement.AbstractScenarioImplementation;
 import org.ietr.dftools.workflow.tools.WorkflowLogger;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TestWorkflowScenario.
  */
@@ -56,7 +54,7 @@ public class TestWorkflowScenario extends AbstractScenarioImplementation {
    * @see org.ietr.dftools.workflow.implement.AbstractScenarioImplementation#extractData(java.lang.String)
    */
   @Override
-  public Map<String, Object> extractData(final String path) throws WorkflowException {
+  public Map<String, Object> extractData(final String path) {
     final Map<String, Object> outputs = new LinkedHashMap<>();
     WorkflowLogger.getLogger().log(Level.INFO, "Retrieving data from scenario");
 

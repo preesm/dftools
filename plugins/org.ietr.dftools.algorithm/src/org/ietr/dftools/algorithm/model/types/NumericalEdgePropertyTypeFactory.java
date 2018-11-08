@@ -3,6 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
+ * Jonathan Piat <jpiat@laas.fr> (2011)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -34,62 +35,80 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.dag.types;
+package org.ietr.dftools.algorithm.model.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
+import org.ietr.dftools.algorithm.model.PropertyFactory;
+import org.ietr.dftools.algorithm.model.parameters.ExpressionValue;
 
-// TODO: Auto-generated Javadoc
 /**
- * Class used to represent a DAG edge property.
+ * Factory to build SDF edge property base on an input string.
  *
  * @author jpiat
  */
-public class DAGEdgePropertyType extends AbstractEdgePropertyType<Long> {
+public class NumericalEdgePropertyTypeFactory implements PropertyFactory {
+
+  /** The instance. */
+  private static NumericalEdgePropertyTypeFactory instance;
 
   /**
-   * Creates a new empty DAGEdgePropertyType.
+   * Instantiates a new SDF numerical edge property type factory.
    */
-  public DAGEdgePropertyType() {
-    super();
+  private NumericalEdgePropertyTypeFactory() {
+
   }
 
   /**
-   * Creates a new DAGEdgePropertyType with the given value.
+   * Gets the single instance of SDFNumericalEdgePropertyTypeFactory.
+   *
+   * @return single instance of SDFNumericalEdgePropertyTypeFactory
+   */
+  public static NumericalEdgePropertyTypeFactory getInstance() {
+    if (NumericalEdgePropertyTypeFactory.instance == null) {
+      NumericalEdgePropertyTypeFactory.instance = new NumericalEdgePropertyTypeFactory();
+    }
+    return NumericalEdgePropertyTypeFactory.instance;
+  }
+
+  /**
+   * Creates a new SDFExpressionEdgePropertyType given the expression expr.
+   *
+   * @param expr
+   *          The expression
+   * @return The created SDFExpressionEdgePropertyType
+   */
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final String expr) {
+    try {
+      final long value = Long.parseLong(expr);
+      return new LongEdgePropertyType(value);
+    } catch (final NumberFormatException e) {
+      return new ExpressionEdgePropertyType(new ExpressionValue(expr));
+    }
+  }
+
+  /**
+   * Creates a new SDFIntEdgePropertyType given the value val.
    *
    * @param val
-   *          the val
+   *          The integer value
+   * @return The created SDFIntEdgePropertyType
    */
-  public DAGEdgePropertyType(final long val) {
-    this.value = val;
+  public AbstractEdgePropertyType<?> getSDFEdgePropertyType(final long val) {
+    return new LongEdgePropertyType(val);
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
+   * @see org.ietr.dftools.algorithm.model.PropertyFactory#create(java.lang.Object)
    */
   @Override
-  public AbstractEdgePropertyType<Long> clone() {
-    return new DAGEdgePropertyType(this.value);
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
-   */
-  @Override
-  public long longValue() {
-    return this.value;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#toString()
-   */
-  @Override
-  public String toString() {
-    return this.value.toString();
+  public Object create(final Object value) {
+    if (value instanceof String) {
+      return getSDFEdgePropertyType((String) value);
+    } else if (value instanceof Long) {
+      return getSDFEdgePropertyType((Long) value);
+    }
+    return null;
   }
 }

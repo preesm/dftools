@@ -36,20 +36,11 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface defining a refinement.
  *
  * @author jpiat
  */
 public interface IRefinement {
-
-  /**
-   * To string.
-   *
-   * @return the string
-   */
-  @Override
-  public String toString();
 
 }

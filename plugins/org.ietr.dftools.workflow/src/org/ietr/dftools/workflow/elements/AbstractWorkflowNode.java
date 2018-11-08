@@ -39,7 +39,6 @@ package org.ietr.dftools.workflow.elements;
 
 import org.ietr.dftools.workflow.implement.AbstractWorkflowNodeImplementation;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides methods to manipulate workflow nodes.
  *

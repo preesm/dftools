@@ -36,7 +36,6 @@ package org.ietr.dftools.ui.test;
 
 import org.junit.Test;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SampleTest.
  */
@@ -47,6 +46,6 @@ public class SampleTest {
    */
   @Test
   public void testSample() {
-    // success
+    // nothing to test yet
   }
 }

@@ -43,7 +43,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.ietr.dftools.architecture.slam.ComponentInstance;
 import org.ietr.dftools.architecture.slam.Design;
 import org.ietr.dftools.architecture.slam.VLNVedElement;
@@ -53,32 +52,16 @@ import org.ietr.dftools.architecture.slam.component.ComInterface;
 import org.ietr.dftools.architecture.slam.component.HierarchyPort;
 import org.ietr.dftools.architecture.slam.link.Link;
 import org.ietr.dftools.architecture.utils.DomUtil;
+import org.ietr.dftools.architecture.utils.SlamException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * Writer of a System-Level Architecture model in the IP-XACT format.
  *
  * @author mpelcat
  */
 public class IPXACTDesignWriter {
-
-  /** URI of the last opened file. */
-  public URI uri;
-
-  /** Information needed in the vendor extensions of the design. */
-  private IPXACTDesignVendorExtensionsWriter vendorExtensions = null;
-
-  /**
-   * Instantiates a new IPXACT design writer.
-   *
-   * @param uri
-   *          the uri
-   */
-  public IPXACTDesignWriter(final URI uri) {
-    this.uri = uri;
-  }
 
   /**
    * Writing a given design to a given output stream.
@@ -90,7 +73,7 @@ public class IPXACTDesignWriter {
    */
   public void write(final Design design, final OutputStream outputStream) {
 
-    this.vendorExtensions = new IPXACTDesignVendorExtensionsWriter(design);
+    /** Information needed in the vendor extensions of the design. */
 
     final Document document = DomUtil.createDocument("http://www.spiritconsortium.org/XMLSchema/SPIRIT/1.4",
         "spirit:design");
@@ -104,14 +87,15 @@ public class IPXACTDesignWriter {
     writeComponentInstances(root, design, document);
     writeLinks(root, design, document);
     writeHierarchyPorts(root, design, document);
-    this.vendorExtensions.write(root, document);
+    IPXACTDesignVendorExtensionsWriter vendorExtensions = new IPXACTDesignVendorExtensionsWriter(design);
+    vendorExtensions.write(root, document);
 
     DomUtil.writeDocument(outputStream, document);
 
     try {
       outputStream.close();
     } catch (final IOException e) {
-      e.printStackTrace();
+      throw new SlamException("Could not close stream", e);
     }
 
   }

@@ -37,9 +37,9 @@
  */
 package org.ietr.dftools.algorithm.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface for object using a property bean to store properties.
  *
@@ -60,7 +60,18 @@ public interface PropertySource {
    * @param props
    *          The properties to be copied
    */
-  public void copyProperties(PropertySource props);
+  public default void copyProperties(PropertySource props) {
+    final List<String> keys = new ArrayList<>(props.getPropertyBean().keys());
+    for (final String key : keys) {
+      if (!key.equals(AbstractVertex.BASE_LITERAL)) {
+        if (props.getPropertyBean().getValue(key) instanceof CloneableProperty) {
+          this.getPropertyBean().setValue(key, props.getPropertyBean().<CloneableProperty<?>>getValue(key).copy());
+        } else {
+          this.getPropertyBean().setValue(key, props.getPropertyBean().getValue(key));
+        }
+      }
+    }
+  }
 
   /**
    * Gets the public properties.
@@ -85,7 +96,12 @@ public interface PropertySource {
    *          the property name
    * @return the property string value
    */
-  public String getPropertyStringValue(String propertyName);
+  public default String getPropertyStringValue(String propertyName) {
+    if (this.getPropertyBean().getValue(propertyName) != null) {
+      return this.getPropertyBean().getValue(propertyName).toString();
+    }
+    return null;
+  }
 
   /**
    * Sets the property value.
@@ -95,5 +111,7 @@ public interface PropertySource {
    * @param value
    *          the value
    */
-  public void setPropertyValue(String propertyName, Object value);
+  public default void setPropertyValue(String propertyName, Object value) {
+    this.getPropertyBean().setValue(propertyName, value);
+  }
 }

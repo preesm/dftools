@@ -123,6 +123,7 @@ public class ChooseRefinementListDialog extends ListDialog {
      */
     @Override
     public void widgetDefaultSelected(final SelectionEvent e) {
+      // no action
     }
   }
 

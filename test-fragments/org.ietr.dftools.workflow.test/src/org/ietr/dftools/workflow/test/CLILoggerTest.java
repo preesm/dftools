@@ -1,10 +1,7 @@
 /**
- * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2017) :
+ * Copyright or © or Copr. IETR/INSA - Rennes (2017 - 2018) :
  *
- * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
- * Ghislain Roquier <ghislain.roquier@insa-rennes.fr> (2011)
- * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
+ * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -35,57 +32,31 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.architecture;
+package org.ietr.dftools.workflow.test;
 
-import org.eclipse.core.runtime.Plugin;
-import org.osgi.framework.BundleContext;
+import java.util.logging.Level;
+import org.ietr.dftools.workflow.tools.CLIWorkflowLogger;
+import org.junit.Test;
 
 /**
- * The activator class controls the plug-in life cycle
+ * The Class SampleTest.
  */
-public class Activator extends Plugin {
-
-  // The plug-in ID
-  public static final String PLUGIN_ID = "org.ietr.dftools.architecture"; //$NON-NLS-1$
-
-  // The shared instance
-  private static Activator plugin;
+public class CLILoggerTest {
 
   /**
-   * Returns the shared instance
-   *
-   * @return the shared instance
+   * Test sample.
    */
-  public static Activator getDefault() {
-    return Activator.plugin;
+  @Test
+  public void testLog() {
+    new CLIWorkflowLogger(false).log(Level.INFO, "test message");
+    new CLIWorkflowLogger(false).log(Level.FINEST, "test message");
   }
 
   /**
-   * The constructor
+   * Test sample.
    */
-  public Activator() {
+  @Test
+  public void testLogException() {
+    new CLIWorkflowLogger(false).log(Level.INFO, "test message", new NullPointerException());
   }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework. BundleContext )
-   */
-  @Override
-  public void start(final BundleContext context) throws Exception {
-    super.start(context);
-    Activator.plugin = this;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework. BundleContext )
-   */
-  @Override
-  public void stop(final BundleContext context) throws Exception {
-    Activator.plugin = null;
-    super.stop(context);
-  }
-
 }

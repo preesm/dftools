@@ -3,7 +3,7 @@
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
  * Clément Guy <clement.guy@insa-rennes.fr> (2014)
- * Jonathan Piat <jpiat@laas.fr> (2011)
+ * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
  * parallel applications using dataflow formalism.
@@ -34,68 +34,68 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.factories;
+/**
+ *
+ */
+package org.ietr.dftools.algorithm.model.types;
 
-import org.ietr.dftools.algorithm.model.AbstractVertex;
-import org.ietr.dftools.algorithm.model.IInterface;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 
 /**
- * Interface to create vertex in the given model.
+ * The Class DAGDefaultVertexPropertyType.
  *
- * @author jpiat
- * @param <V>
- *          The model of vertex to create
+ * @author mpelcat
  */
-public abstract class ModelVertexFactory<V extends AbstractVertex<?>> {
+
+/**
+ * Class used to represent a Vertex property for the DAG
+ */
+public class LongVertexPropertyType extends AbstractVertexPropertyType<Long> {
 
   /**
-   * Creates a vertex with the given parameters.
-   *
-   * @param vertexElt
-   *          The DOM element from which to create the vertex
-   * @return The created vertex
+   * Creates a new DAGDefaultVertexPropertyType without specifying any value.
    */
-  public abstract V createVertex(Element vertexElt);
+  public LongVertexPropertyType() {
+    super();
+  }
 
   /**
-   * Creates a new ModelVertex object.
+   * Creates a new DAGDefaultVertexPropertyType with the given value.
    *
-   * @param kind
-   *          the kind
-   * @return the v
+   * @param val
+   *          the val
    */
-  public abstract V createVertex(String kind);
+  public LongVertexPropertyType(final long val) {
+    super(val);
+  }
 
-  /**
-   * Creates a new ModelVertex object.
+  /*
+   * (non-Javadoc)
    *
-   * @param name
-   *          the name
-   * @param dir
-   *          the dir
-   * @return the i interface
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#intValue()
    */
-  public abstract IInterface createInterface(String name, int dir);
+  @Override
+  public long longValue() {
+    return this.value;
+  }
 
-  /**
-   * Gets the property.
+  /*
+   * (non-Javadoc)
    *
-   * @param elt
-   *          the elt
-   * @param propertyName
-   *          the property name
-   * @return the property
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#toString()
    */
-  public final String getProperty(final Element elt, final String propertyName) {
-    final NodeList childList = elt.getChildNodes();
-    for (int i = 0; i < childList.getLength(); i++) {
-      if (childList.item(i).getNodeName().equals("data")
-          && ((Element) childList.item(i)).getAttribute("key").equals(propertyName)) {
-        return childList.item(i).getTextContent();
-      }
-    }
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractVertexPropertyType#clone()
+   */
+  @Override
+  public AbstractVertexPropertyType<Long> copy() {
     return null;
   }
 

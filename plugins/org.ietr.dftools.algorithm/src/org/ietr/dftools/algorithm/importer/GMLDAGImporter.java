@@ -44,7 +44,6 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-// TODO: Auto-generated Javadoc
 /**
  * Importer for DAG graphs.
  *
@@ -67,8 +66,10 @@ public class GMLDAGImporter extends GMLImporter<DirectedAcyclicGraph, DAGVertex,
    */
   @Override
   public void parseEdge(final Element edgeElt, final DirectedAcyclicGraph parentGraph) {
-    final DAGVertex vertexSource = this.vertexFromId.get(edgeElt.getAttribute("source"));
-    final DAGVertex vertexTarget = this.vertexFromId.get(edgeElt.getAttribute("target"));
+    final String sourceId = edgeElt.getAttribute("source");
+    final String targetId = edgeElt.getAttribute("target");
+    final DAGVertex vertexSource = this.vertexFromId.get(sourceId);
+    final DAGVertex vertexTarget = this.vertexFromId.get(targetId);
 
     final DAGEdge edge = parentGraph.addEdge(vertexSource, vertexTarget);
 
@@ -111,11 +112,13 @@ public class GMLDAGImporter extends GMLImporter<DirectedAcyclicGraph, DAGVertex,
   @Override
   public DAGVertex parseNode(final Element vertexElt, final DirectedAcyclicGraph parentGraph) {
     final DAGVertex vertex = new DAGVertex();
-    parentGraph.addVertex(vertex);
-    vertex.setId(vertexElt.getAttribute("id"));
-    this.vertexFromId.put(vertex.getId(), vertex);
+    final String id = vertexElt.getAttribute("id");
+    vertex.setId(id);
+    vertex.setName(id);
     parseKeys(vertexElt, vertex);
     parseArguments(vertex, vertexElt);
+    parentGraph.addVertex(vertex);
+    this.vertexFromId.put(vertex.getId(), vertex);
     return vertex;
   }
 
@@ -127,7 +130,6 @@ public class GMLDAGImporter extends GMLImporter<DirectedAcyclicGraph, DAGVertex,
    */
   @Override
   public DAGVertex parsePort(final Element portElt, final DirectedAcyclicGraph parentGraph) {
-    // TODO Auto-generated method stub
     return null;
   }
 

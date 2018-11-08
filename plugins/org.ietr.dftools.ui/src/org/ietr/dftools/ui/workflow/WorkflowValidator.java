@@ -38,6 +38,7 @@ package org.ietr.dftools.ui.workflow;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import org.eclipse.core.resources.IFile;
@@ -49,8 +50,8 @@ import org.eclipse.core.runtime.Platform;
 import org.ietr.dftools.graphiti.model.Graph;
 import org.ietr.dftools.graphiti.model.IValidator;
 import org.ietr.dftools.graphiti.model.Vertex;
+import org.ietr.dftools.workflow.WorkflowException;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class implements a Workflow model validator. This validator checks that the workflow is executable.
  *
@@ -111,7 +112,7 @@ public class WorkflowValidator implements IValidator {
               final Object vertexTaskObj = vertexTaskClass.newInstance();
 
               // Adding the default parameters if necessary
-              addDefaultParameters(vertex, vertexTaskObj, graph, file);
+              addDefaultParameters(vertex, vertexTaskObj, file);
 
               foundClass = true;
 
@@ -123,7 +124,7 @@ public class WorkflowValidator implements IValidator {
           }
         }
 
-        if (foundClass == false) {
+        if (!foundClass) {
           createMarker(file, "Plugin associated to the workflow task not found.", pluginId, IMarker.PROBLEM,
               IMarker.SEVERITY_ERROR);
           return false;
@@ -148,7 +149,7 @@ public class WorkflowValidator implements IValidator {
    *          the file
    */
   @SuppressWarnings("unchecked")
-  private void addDefaultParameters(final Vertex vertex, final Object object, final Graph graph, final IFile file) {
+  private void addDefaultParameters(final Vertex vertex, final Object object, final IFile file) {
     Map<String, String> parameterDefaults = null;
     try {
       final Method prototypeMethod = object.getClass().getMethod("getDefaultParameters");
@@ -157,7 +158,7 @@ public class WorkflowValidator implements IValidator {
         parameterDefaults = (Map<String, String>) obj;
       }
     } catch (final Exception e) {
-      e.printStackTrace();
+      throw new WorkflowException("Could not add default parameters", e);
     }
 
     if (parameterDefaults != null) {
@@ -167,7 +168,8 @@ public class WorkflowValidator implements IValidator {
       if (clasz == TreeMap.class) {
         final TreeMap<String, String> varMap = (TreeMap<String, String>) var;
 
-        for (final String key : parameterDefaults.keySet()) {
+        for (Entry<String, String> e : parameterDefaults.entrySet()) {
+          final String key = e.getKey();
           if (!varMap.containsKey(key)) {
             varMap.put(key, parameterDefaults.get(key));
 
@@ -201,7 +203,7 @@ public class WorkflowValidator implements IValidator {
       marker.setAttribute(IMarker.SEVERITY, severity);
       marker.setAttribute(IMarker.MESSAGE, message);
     } catch (final CoreException e) {
-      e.printStackTrace();
+      throw new WorkflowException("Coule not create marker", e);
     }
   }
 

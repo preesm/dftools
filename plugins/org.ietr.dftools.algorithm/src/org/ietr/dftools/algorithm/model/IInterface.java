@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * An abstract class representing interfaces to the outside world.
  *

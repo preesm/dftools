@@ -38,7 +38,6 @@ package org.ietr.dftools.algorithm.model.parameters;
 
 import java.util.LinkedHashMap;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class o represent sets of variable.
  *

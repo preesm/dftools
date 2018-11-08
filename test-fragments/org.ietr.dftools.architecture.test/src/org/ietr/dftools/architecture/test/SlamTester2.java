@@ -50,6 +50,7 @@ import org.ietr.dftools.architecture.slam.Design;
 import org.ietr.dftools.architecture.slam.SlamPackage;
 import org.ietr.dftools.architecture.slam.process.SlamFlattener;
 import org.ietr.dftools.architecture.slam.serialize.IPXACTResourceFactoryImpl;
+import org.ietr.dftools.architecture.utils.SlamException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -104,7 +105,6 @@ public class SlamTester2 {
     final Resource resource = resourceSet.getResource(URI.createFileURI(inputTopPath), true);
     // Extract the root object from the resource.
     final Design design = (Design) resource.getContents().get(0);
-    System.out.println(design.getVlnv().getName());
 
     final SlamFlattener flattener = new SlamFlattener();
     flattener.flattenAllLevels(design);
@@ -115,7 +115,7 @@ public class SlamTester2 {
     try {
       resource2.save(null);
     } catch (final IOException e) {
-      e.printStackTrace();
+      throw new SlamException("Could not save", e);
     }
   }
 

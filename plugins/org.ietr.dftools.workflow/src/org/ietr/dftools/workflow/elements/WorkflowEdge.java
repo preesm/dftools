@@ -37,7 +37,6 @@
  */
 package org.ietr.dftools.workflow.elements;
 
-// TODO: Auto-generated Javadoc
 /**
  * An edge between two workflow tasks.
  *

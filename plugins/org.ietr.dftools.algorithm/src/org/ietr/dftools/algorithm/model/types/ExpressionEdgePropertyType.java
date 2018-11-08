@@ -2,7 +2,9 @@
  * Copyright or © or Copr. IETR/INSA - Rennes (2011 - 2018) :
  *
  * Antoine Morvan <antoine.morvan@insa-rennes.fr> (2017 - 2018)
- * Clément Guy <clement.guy@insa-rennes.fr> (2014)
+ * Clément Guy <clement.guy@insa-rennes.fr> (2014 - 2015)
+ * Jonathan Piat <jpiat@laas.fr> (2013)
+ * Julien Heulot <julien.heulot@insa-rennes.fr> (2015)
  * Maxime Pelcat <maxime.pelcat@insa-rennes.fr> (2011)
  *
  * This software is a computer program whose purpose is to help prototyping
@@ -34,43 +36,34 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.dag.types;
+package org.ietr.dftools.algorithm.model.types;
 
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
+import org.ietr.dftools.algorithm.model.parameters.IExpressionSolver;
+import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
+import org.ietr.dftools.algorithm.model.parameters.NoIntegerValueException;
+import org.ietr.dftools.algorithm.model.parameters.Value;
 
-// TODO: Auto-generated Javadoc
 /**
- * Class used to represent Edge properties in a DAG.
+ * Class used to represent the integer edge property type in a SDF.
  *
  * @author jpiat
  */
-public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
+public class ExpressionEdgePropertyType extends AbstractEdgePropertyType<Value> {
+
+  /** The computed value. */
+  private Long computedValue;
 
   /**
-   * Creates a new DAGDefaultEdgePropertyType without specifying any value.
-   */
-  public DAGDefaultEdgePropertyType() {
-    super();
-  }
-
-  /**
-   * Creates a new DAGDefaultEdgePropertyType with the given value.
+   * Creates a new SDFDefaultEdgePropertyType with the given graph value.
    *
    * @param val
-   *          The value to set for this DAGDefaultEdgePropertyType
+   *          The Integer value of this SDFDefaultEdgePropertyType
    */
-  public DAGDefaultEdgePropertyType(final long val) {
+  public ExpressionEdgePropertyType(final Value val) {
     super(val);
-  }
-
-  /**
-   * Creates a new DAGDefaultEdgePropertyType with the given value.
-   *
-   * @param val
-   *          The value to set
-   */
-  public DAGDefaultEdgePropertyType(final String val) {
-    super(Long.parseLong(val));
+    this.computedValue = null;
   }
 
   /*
@@ -79,18 +72,36 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<Long> clone() {
-    return new DAGDefaultEdgePropertyType(this.value);
+  public ExpressionEdgePropertyType copy() {
+    final ExpressionEdgePropertyType clone = new ExpressionEdgePropertyType(this.value);
+    try {
+      clone.computedValue = longValue();
+    } catch (final InvalidExpressionException e) {
+      clone.computedValue = null;
+    }
+    return clone;
   }
 
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#setValue(java.lang.Object)
    */
   @Override
-  public long longValue() {
-    return this.value;
+  public void setValue(final Value val) {
+    super.setValue(val);
+    this.computedValue = null;
+  }
+
+  /**
+   * Sets the expression solver to use to compute intValue.
+   *
+   * @param solver
+   *          The solver to be used
+   */
+  public void setExpressionSolver(final IExpressionSolver solver) {
+    getValue().setExpressionSolver(solver);
+    this.computedValue = null;
   }
 
   /*
@@ -101,6 +112,25 @@ public class DAGDefaultEdgePropertyType extends AbstractEdgePropertyType<Long> {
   @Override
   public String toString() {
     return this.value.toString();
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#intValue()
+   */
+  @Override
+  public long longValue() {
+    if (this.computedValue == null) {
+      try {
+        this.computedValue = this.value.longValue();
+        return this.computedValue;
+      } catch (final NoIntegerValueException e) {
+        throw new DFToolsAlgoException("Could not evaluate expression", e);
+      }
+    }
+    return this.computedValue;
+
   }
 
 }

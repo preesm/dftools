@@ -72,17 +72,23 @@ public class SpecialActorPortsIndexer {
    * immediately before the end of the matched string. (mandatory match)</li>
    * </ul>
    */
-  public static final String indexRegex = ".*?(_([0-9]*))?_([0-9]*)\\z";
+  public static final String INDEX_REGEX = ".*?(_([0-9]*))?_([0-9]*)\\z";
+  @Deprecated
+  public static final String indexRegex  = INDEX_REGEX;
 
   /**
-   * Group of the XX index in the {@link #indexRegex}
+   * Group of the XX index in the {@link #INDEX_REGEX}
    */
-  public static final int groupXX = 3;
+  public static final int GROUP_XX = 3;
+  @Deprecated
+  public static final int groupXX  = GROUP_XX;
 
   /**
-   * Group of the YY index in the {@link #indexRegex}
+   * Group of the YY index in the {@link #INDEX_REGEX}
    */
-  public static final int groupYY = 2;
+  public static final int GROUP_YY = 2;
+  @Deprecated
+  public static final int groupYY  = GROUP_YY;
 
   /**
    * This method rename all ordered ports of special actors in the following fashion:
@@ -186,10 +192,8 @@ public class SpecialActorPortsIndexer {
         }
 
         // Check only special actors
-        if (actor instanceof SDFAbstractSpecialVertex) {
-          if (!checkIndexes(actor)) {
-            return false;
-          }
+        if (actor instanceof SDFAbstractSpecialVertex && !checkIndexes(actor)) {
+          return false;
         }
 
       }
@@ -235,7 +239,7 @@ public class SpecialActorPortsIndexer {
   protected static boolean checkIndexes(List<SDFEdge> fifos, boolean valIsSource) {
     return fifos.stream().allMatch(it -> {
       final String name = (valIsSource) ? it.getSourceInterface().getName() : it.getTargetInterface().getName();
-      return name.matches(indexRegex);
+      return name.matches(INDEX_REGEX);
     }) && !fifos.isEmpty();
   }
 
@@ -319,17 +323,17 @@ public class SpecialActorPortsIndexer {
             : fifo1.getTargetInterface().getName();
 
         // Compile and apply the pattern
-        final Pattern pattern = Pattern.compile(indexRegex);
+        final Pattern pattern = Pattern.compile(INDEX_REGEX);
         final Matcher m0 = pattern.matcher(p0Name);
         final Matcher m1 = pattern.matcher(p1Name);
         m0.find();
         m1.find();
 
         // Retrieve the indexes
-        final long yy0 = (m0.group(groupYY) != null) ? Long.parseLong(m0.group(groupYY)) : 0L;
-        final long yy1 = (m1.group(groupYY) != null) ? Long.parseLong(m1.group(groupYY)) : 0L;
-        final long xx0 = Long.parseLong(m0.group(groupXX));
-        final long xx1 = Long.parseLong(m1.group(groupXX));
+        final long yy0 = (m0.group(GROUP_YY) != null) ? Long.parseLong(m0.group(GROUP_YY)) : 0L;
+        final long yy1 = (m1.group(GROUP_YY) != null) ? Long.parseLong(m1.group(GROUP_YY)) : 0L;
+        final long xx0 = Long.parseLong(m0.group(GROUP_XX));
+        final long xx1 = Long.parseLong(m1.group(GROUP_XX));
 
         // Sort according to yy indexes if they are different,
         // and according to xx indexes otherwise

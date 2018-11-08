@@ -37,15 +37,16 @@ package org.ietr.dftools.workflow.converter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Files;
 import javax.xml.transform.TransformerConfigurationException;
 import org.eclipse.core.runtime.Platform;
 import org.ietr.dftools.workflow.Activator;
+import org.ietr.dftools.workflow.WorkflowException;
 import org.osgi.framework.Bundle;
 
 /**
@@ -53,6 +54,10 @@ import org.osgi.framework.Bundle;
  *
  */
 public class WorkflowConverter {
+
+  private WorkflowConverter() {
+    // prevent instantiation
+  }
 
   /**
    */
@@ -74,30 +79,27 @@ public class WorkflowConverter {
           final XsltTransformer xsltTransfo = new XsltTransformer();
           final boolean setXSLFile = xsltTransfo.setXSLFile(xslPath);
           if (setXSLFile) {
-            System.out.println("Generating file: " + outputPath);
             xsltTransfo.transformFileToFile(inputPath, outputPath);
           }
         } catch (final TransformerConfigurationException e) {
-          e.printStackTrace();
+          throw new WorkflowException("Could not covnert workflow", e);
         } finally {
-          createTempFile.delete();
+          Files.delete(createTempFile.toPath());
         }
       }
     }
   }
 
-  private static File extract(final URL fileURL) throws IOException, FileNotFoundException {
+  private static File extract(final URL fileURL) throws IOException {
     final File createTempFile = File.createTempFile("worklowconvert", ".xslt");
-    final InputStream inputStream = fileURL.openStream();
-    FileOutputStream outputStream;
-    outputStream = new FileOutputStream(createTempFile);
-    final byte[] buf = new byte[1024];
-    int i = 0;
-    while ((i = inputStream.read(buf)) != -1) {
-      outputStream.write(buf, 0, i);
+    try (final InputStream inputStream = fileURL.openStream();
+        FileOutputStream outputStream = new FileOutputStream(createTempFile)) {
+      final byte[] buf = new byte[1024];
+      int i = 0;
+      while ((i = inputStream.read(buf)) != -1) {
+        outputStream.write(buf, 0, i);
+      }
     }
-    inputStream.close();
-    outputStream.close();
     return createTempFile;
   }
 
@@ -107,15 +109,13 @@ public class WorkflowConverter {
   public static boolean isNewWorkflow(final File file) throws IOException {
     final FileInputStream fin = new FileInputStream(file);
     String thisLine;
-    final BufferedReader myInput = new BufferedReader(new InputStreamReader(fin));
-    while ((thisLine = myInput.readLine()) != null) {
-      if (thisLine.contains("xmlns:dftools")) {
-        myInput.close();
-        return true;
+    try (final BufferedReader myInput = new BufferedReader(new InputStreamReader(fin))) {
+      while ((thisLine = myInput.readLine()) != null) {
+        if (thisLine.contains("xmlns:dftools")) {
+          return true;
+        }
       }
     }
-
-    myInput.close();
     return false;
   }
 }

@@ -34,26 +34,42 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL license and that you accept its terms.
  */
-package org.ietr.dftools.algorithm.model.sdf.types;
+package org.ietr.dftools.algorithm.model.types;
 
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
- * Class used to represent the string edge property type in a SDF.
+ * Class used to represent Edge properties in a DAG.
  *
- * @author mpelcat
+ * @author jpiat
  */
-public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> {
+public class LongEdgePropertyType extends AbstractEdgePropertyType<Long> {
 
   /**
-   * Creates a new SDFDefaultEdgePropertyType with the given String value.
+   * Creates a new DAGDefaultEdgePropertyType without specifying any value.
+   */
+  public LongEdgePropertyType() {
+    super();
+  }
+
+  /**
+   * Creates a new DAGDefaultEdgePropertyType with the given value.
    *
    * @param val
-   *          The String value of this SDFDefaultEdgePropertyType
+   *          The value to set for this DAGDefaultEdgePropertyType
    */
-  public SDFStringEdgePropertyType(final String val) {
+  public LongEdgePropertyType(final long val) {
     super(val);
+  }
+
+  /**
+   * Creates a new DAGDefaultEdgePropertyType with the given value.
+   *
+   * @param val
+   *          The value to set
+   */
+  public LongEdgePropertyType(final String val) {
+    super(Long.parseLong(val));
   }
 
   /*
@@ -62,8 +78,8 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    * @see org.ietr.dftools.algorithm.model.AbstractEdgePropertyType#clone()
    */
   @Override
-  public AbstractEdgePropertyType<String> clone() {
-    return new SDFStringEdgePropertyType(this.value);
+  public LongEdgePropertyType copy() {
+    return new LongEdgePropertyType(this.value);
   }
 
   /*
@@ -73,7 +89,7 @@ public class SDFStringEdgePropertyType extends AbstractEdgePropertyType<String> 
    */
   @Override
   public long longValue() {
-    return 0;
+    return this.value;
   }
 
   /*

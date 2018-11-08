@@ -40,7 +40,6 @@ import org.ietr.dftools.algorithm.model.generic.GenericEdge;
 import org.ietr.dftools.algorithm.model.generic.GenericVertex;
 import org.jgrapht.EdgeFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating GenericEdge objects.
  */

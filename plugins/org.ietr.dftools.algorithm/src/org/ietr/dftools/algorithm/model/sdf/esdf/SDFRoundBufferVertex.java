@@ -41,8 +41,8 @@ package org.ietr.dftools.algorithm.model.sdf.esdf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.parameters.InvalidExpressionException;
-import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFInterfaceVertex;
 
@@ -124,28 +124,28 @@ public class SDFRoundBufferVertex extends SDFBroadcastVertex {
    * @see org.ietr.dftools.algorithm.model.sdf.esdf.SDFBroadcastVertex#clone()
    */
   @Override
-  public SDFAbstractVertex clone() {
+  public SDFRoundBufferVertex copy() {
     final SDFRoundBufferVertex copy = new SDFRoundBufferVertex();
     copy.setName(getName());
     try {
       copy.setNbRepeat(getNbRepeat());
     } catch (final InvalidExpressionException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("could not clone vertex", e);
     }
 
     // Copy the ports
     for (final SDFInterfaceVertex sink : getSinks()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(sink.getName()) != null)) {
-        copy.addSink((SDFInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
+        copy.addSink((SDFSinkInterfaceVertex) getGraphDescription().getVertex(sink.getName()));
       } else {
-        copy.addSink(sink.clone());
+        copy.addSink((SDFSinkInterfaceVertex) sink.copy());
       }
     }
     for (final SDFInterfaceVertex source : getSources()) {
       if ((copy.getGraphDescription() != null) && (copy.getGraphDescription().getVertex(source.getName()) != null)) {
-        copy.addSource((SDFInterfaceVertex) getGraphDescription().getVertex(source.getName()));
+        copy.addSource((SDFSourceInterfaceVertex) getGraphDescription().getVertex(source.getName()));
       } else {
-        copy.addSource(source.clone());
+        copy.addSource((SDFSourceInterfaceVertex) source.copy());
       }
     }
 

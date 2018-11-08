@@ -38,11 +38,11 @@
  */
 package org.ietr.dftools.algorithm.generator;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 import org.apache.commons.math3.util.ArithmeticUtils;
@@ -52,7 +52,7 @@ import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFVertex;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFIntEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.LongEdgePropertyType;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.jgrapht.alg.cycle.CycleDetector;
 
@@ -131,8 +131,8 @@ public class SDFRandomGraph {
       for (final SDFAbstractVertex Dst : graph.vertexSet()) {
         if (graph.containsEdge(Src, Dst)) {
           ratioSrcDst = Rational.div(SDFRandomGraph.FRACTIONS.get(Src), SDFRandomGraph.FRACTIONS.get(Dst));
-          graph.getEdge(Src, Dst).setProd(new SDFIntEdgePropertyType(ratioSrcDst.getDenum() * rateMultiplier));
-          graph.getEdge(Src, Dst).setCons(new SDFIntEdgePropertyType(ratioSrcDst.getNum() * rateMultiplier));
+          graph.getEdge(Src, Dst).setProd(new LongEdgePropertyType(ratioSrcDst.getDenum() * rateMultiplier));
+          graph.getEdge(Src, Dst).setCons(new LongEdgePropertyType(ratioSrcDst.getNum() * rateMultiplier));
         }
       }
     }
@@ -152,7 +152,7 @@ public class SDFRandomGraph {
    */
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public static void placeDelay(final SDFGraph graph, final int nbVertexgraph, final List<SDFAbstractVertex> sensors) {
-    final SDFGraph newgraph = graph.clone();// new graph is created to
+    final SDFGraph newgraph = graph.copy();// new graph is created to
     // reduce execution time of
     // cycle detection
     final Map<SDFAbstractVertex, Long> vrb = SDFRandomGraph.calcRepetitionVector(graph, nbVertexgraph);
@@ -166,7 +166,7 @@ public class SDFRandomGraph {
           final SDFEdge edge = graph.getEdge(Src, Dst);
           final long Q_xy = vrb.get(edge.getSource()).longValue()
               / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
-          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
+          edge.setDelay(new LongEdgePropertyType(Q_xy * edge.getProd().longValue()));
         }
       }
       newgraph.removeVertex(newgraph.getVertex(Dst.getName()));
@@ -176,7 +176,7 @@ public class SDFRandomGraph {
         if (edge.getDelay().longValue() == 0) {
           final long Q_xy = vrb.get(edge.getSource()).longValue()
               / ArithmeticUtils.gcd(vrb.get(edge.getSource()).longValue(), vrb.get(edge.getTarget()).longValue());
-          edge.setDelay(new SDFIntEdgePropertyType(Q_xy * edge.getProd().longValue()));
+          edge.setDelay(new LongEdgePropertyType(Q_xy * edge.getProd().longValue()));
 
         }
       }
@@ -213,7 +213,7 @@ public class SDFRandomGraph {
    *           the SDF 4 J exception
    */
   public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
-      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate) throws SDF4JException {
+      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate) {
     try {
       return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate, 1, 1);
     } catch (final InvalidExpressionException e) {
@@ -246,8 +246,7 @@ public class SDFRandomGraph {
    *           the SDF 4 J exception
    */
   public SDFGraph createRandomGraph(final int nbVertex, final int minInDegree, final int maxInDegree,
-      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate, final int rateMultiplier)
-      throws SDF4JException {
+      final int minOutDegree, final int maxOutDegree, final int minRate, final int maxRate, final int rateMultiplier) {
     try {
       return createRandomGraph(nbVertex, minInDegree, maxInDegree, minOutDegree, maxOutDegree, minRate, maxRate,
           rateMultiplier, 1);
@@ -313,16 +312,16 @@ public class SDFRandomGraph {
 
       // Choose a random number of sinks for the new vertex
       int max = Math.min(maxOutDegree, nbVertex);
-      nbSourcesVertex[nbVertexgraph] = minOutDegree + (new Random().nextInt((max + 1) - minOutDegree));
+      nbSourcesVertex[nbVertexgraph] = minOutDegree + (new SecureRandom().nextInt((max + 1) - minOutDegree));
       // Choose a random number of sources for the new vertex
       max = Math.min(maxInDegree, nbVertex);
-      nbSinksVertex[nbVertexgraph] = minInDegree + (new Random().nextInt((max + 1) - minInDegree));
+      nbSinksVertex[nbVertexgraph] = minInDegree + (new SecureRandom().nextInt((max + 1) - minInDegree));
       nbSinks += nbSinksVertex[nbVertexgraph];
       nbSources += nbSourcesVertex[nbVertexgraph];
       final double min2 = Math.sqrt(minRate);
       final double max2 = Math.sqrt(maxRate);
-      final int randNum = (int) min2 + (int) (new Random().nextInt((int) (max2 - min2) + 1));
-      final int randDenum = (int) min2 + (int) (new Random().nextInt((int) (max2 - min2) + 1));
+      final int randNum = (int) min2 + (new SecureRandom().nextInt((int) (max2 - min2) + 1));
+      final int randDenum = (int) min2 + (new SecureRandom().nextInt((int) (max2 - min2) + 1));
       SDFRandomGraph.FRACTIONS.put(vertex, new Rational(randNum, randDenum));
       // If Not the first
       if ((nbVertexgraph >= nbSensors) && (nbSinksVertex[nbVertexgraph] != 0) && (nbSources != 0) && (nbSinks != 0)) {
@@ -330,7 +329,7 @@ public class SDFRandomGraph {
         // Vertex
         int randout;
         do {
-          randout = (new Random().nextInt(nbVertexgraph));
+          randout = (new SecureRandom().nextInt(nbVertexgraph));
         } while (nbSourcesVertex[randout] == 0);
         graph.addEdgeWithInterfaces(arrayVertex[randout], arrayVertex[nbVertexgraph]);
         createdEdge[randout][nbVertexgraph] = nbVertexgraph - 1;
@@ -353,9 +352,9 @@ public class SDFRandomGraph {
     // Create Edges
     int nbEdge = nbVertexgraph - 1;
     while ((nbSources != 0) && (nbSinks != 0)) {
-      int randout = (new Random().nextInt(outFreeVertex.size()));
+      int randout = (new SecureRandom().nextInt(outFreeVertex.size()));
       randout = outFreeVertex.elementAt(randout);
-      int randin = (new Random().nextInt(inFreeVertex.size()));
+      int randin = (new SecureRandom().nextInt(inFreeVertex.size()));
       randin = inFreeVertex.elementAt(randin);
       if ((nbSinksVertex[randin] != 0) && (createdEdge[randout][randin] == 0) && (nbSourcesVertex[randout] != 0)) {
         createdEdge[randout][randin] = nbEdge + 1;

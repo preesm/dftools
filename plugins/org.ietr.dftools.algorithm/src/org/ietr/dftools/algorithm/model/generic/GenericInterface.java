@@ -39,7 +39,6 @@ package org.ietr.dftools.algorithm.model.generic;
 import org.ietr.dftools.algorithm.model.IInterface;
 import org.ietr.dftools.algorithm.model.InterfaceDirection;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GenericInterface.
  */

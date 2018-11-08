@@ -39,12 +39,12 @@ package org.ietr.dftools.algorithm.exporter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.AbstractVertex;
 import org.w3c.dom.Element;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GMLGenericExporter.
  */
@@ -65,7 +65,7 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
       transform(out);
       out.close();
     } catch (final IOException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not export graph", e);
     }
 
   }
@@ -135,10 +135,10 @@ public class GMLGenericExporter extends GMLExporter<AbstractVertex<?>, AbstractE
         filePath = filePath + ".graphml";
         vertex.getGraphDescription().setName(filePath);
       }
-      filePath.replace(File.separator, "/");
+      filePath = filePath.replace(File.separator, "/");
       final String thisPathPrefix = this.path.substring(0, this.path.lastIndexOf(File.separator) + 1);
 
-      if ((filePath.lastIndexOf("/") > 0) && filePath.contains(thisPathPrefix)) {
+      if ((filePath.lastIndexOf('/') > 0) && filePath.contains(thisPathPrefix)) {
         if (filePath.compareTo(thisPathPrefix) > 0) {
           vertex.getGraphDescription()
               .setName(filePath.substring(filePath.length() - filePath.compareTo(thisPathPrefix)));

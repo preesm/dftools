@@ -37,14 +37,11 @@
  */
 package org.ietr.dftools.algorithm.model.generic;
 
-import java.util.logging.Logger;
 import org.ietr.dftools.algorithm.factories.GenericEdgeFactory;
-import org.ietr.dftools.algorithm.factories.ModelVertexFactory;
+import org.ietr.dftools.algorithm.factories.IModelVertexFactory;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GenericGraph.
  */
@@ -66,23 +63,10 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
   /*
    * (non-Javadoc)
    *
-   * @see org.ietr.dftools.algorithm.model.IModelObserver#update(org.ietr.dftools.algorithm.model.AbstractGraph,
-   * java.lang.Object)
-   */
-  @Override
-  public void update(final AbstractGraph<?, ?> observable, final Object arg) {
-    // TODO Auto-generated method stub
-
-  }
-
-  /*
-   * (non-Javadoc)
-   *
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#clone()
    */
   @Override
-  public AbstractGraph<GenericVertex, GenericEdge> clone() {
-    // TODO Auto-generated method stub
+  public GenericGraph copy() {
     return null;
   }
 
@@ -92,8 +76,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#validateModel(java.util.logging.Logger)
    */
   @Override
-  public boolean validateModel(final Logger logger) throws SDF4JException {
-    // TODO Auto-generated method stub
+  public boolean validateModel() {
     return false;
   }
 
@@ -103,8 +86,7 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    * @see org.ietr.dftools.algorithm.model.AbstractGraph#getVertexFactory()
    */
   @Override
-  public ModelVertexFactory<GenericVertex> getVertexFactory() {
-    // TODO Auto-generated method stub
+  public IModelVertexFactory<GenericVertex> getVertexFactory() {
     return null;
   }
 
@@ -115,7 +97,6 @@ public class GenericGraph extends AbstractGraph<GenericVertex, GenericEdge> {
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 

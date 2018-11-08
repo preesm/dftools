@@ -73,7 +73,7 @@ public class IPXACTResourceImpl extends ResourceImpl {
   @Override
   public void doSave(final OutputStream outputStream, final Map<?, ?> options) throws IOException {
 
-    final IPXACTDesignWriter designWriter = new IPXACTDesignWriter(this.uri);
+    final IPXACTDesignWriter designWriter = new IPXACTDesignWriter();
 
     final Design design = (Design) getContents().get(0);
 

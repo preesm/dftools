@@ -43,7 +43,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The activator class controls the plug-in life cycle.
  */
@@ -56,12 +55,6 @@ public class Activator extends AbstractUIPlugin {
   /** The plugin. */
   // The shared instance
   private static Activator plugin;
-
-  /**
-   * The constructor.
-   */
-  public Activator() {
-  }
 
   /*
    * (non-Javadoc)

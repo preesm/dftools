@@ -44,11 +44,14 @@ import org.ietr.dftools.algorithm.model.dag.DirectedAcyclicGraph;
 import org.ietr.dftools.algorithm.model.generic.GenericGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFGraph;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating ModelGraph objects.
  */
 public class ModelGraphFactory {
+
+  private ModelGraphFactory() {
+    // prevent instantiation
+  }
 
   /** The models. */
   private static Map<String, Class<?>> models = new LinkedHashMap<>();

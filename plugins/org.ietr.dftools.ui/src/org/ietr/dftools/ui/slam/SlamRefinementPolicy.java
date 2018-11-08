@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.ietr.dftools.graphiti.model.DefaultRefinementPolicy;
 import org.ietr.dftools.graphiti.model.Vertex;
+import org.ietr.dftools.ui.DFToolsUIException;
 import org.ietr.dftools.ui.util.FileUtils;
 
 /**
@@ -69,13 +70,14 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
       filePath = FileUtils.browseFiles("Please select an existing S-LAM network file:", extension);
     } else if (extension.equals("cdl")) {
       filePath = FileUtils.browseFiles("Please select an existing CDL file:", extension);
+    } else {
+      throw new DFToolsUIException("Unsupported file extension " + extension);
     }
 
     // Getting relative path
     final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(filePath.toString()));
 
-    final IPath fileRelativeName = getRefinementValue(vertex, file);
-    return fileRelativeName;
+    return getRefinementValue(vertex, file);
   }
 
   /**
@@ -107,31 +109,6 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
     return newRefinement;
   }
 
-  /**
-   * Asking the user to choose a list of refinements for a vertex.
-   *
-   * @param vertex
-   *          the vertex being refined
-   * @return the refinement file
-   */
-  // protected IPath selectListOfNetworks(final Vertex vertex, Shell shell) {
-  //
-  // // Retrieving original list
-  // RefinementList originalList = new RefinementList(getRefinement(vertex));
-  //
-  // // Updating the refinement
-  // ChooseRefinementListDialog dialog = new ChooseRefinementListDialog(
-  // vertex, shell, this, true);
-  // dialog.setInput(originalList);
-  //
-  // dialog.setMessage("Please choose refinement networks for "
-  // + vertex.toString());
-  // dialog.setTitle(vertex.toString());
-  //
-  // RefinementList modifiedList = dialog.openDialog();
-  // return modifiedList.toString();
-  // }
-
   @Override
   public IFile getRefinementFile(final Vertex vertex) {
     // Getting the refinement string that contains either a list of
@@ -142,44 +119,7 @@ public class SlamRefinementPolicy extends DefaultRefinementPolicy {
       return null;
     }
     IFile file = null;
-    // RefinementList list = new RefinementList(refinement);
-
-    // Case of a simple refinement
-    // if (list.size() == 1) {
     file = super.getRefinementFile(vertex);
-    // }
-    // // Case of a list refinement: prompt for choice
-    // else if (list.size() > 1) {
-    // IWorkbench workbench = PlatformUI.getWorkbench();
-    // IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-    // Shell shell = window.getShell();
-    //
-    // // Choosing the refinement in a dialog window
-    // ChooseRefinementListDialog dialog = new ChooseRefinementListDialog(
-    // vertex, shell, this, false);
-    // dialog.setInput(list);
-    //
-    // dialog.setMessage("Please choose one of the multiple refinements");
-    // dialog.setTitle(vertex.toString());
-    //
-    // String chosenRefinement = null;
-    //
-    // int returnCode = dialog.open();
-    // if (returnCode == Window.OK && dialog.getResult() != null
-    // && dialog.getResult().length != 0) {
-    // chosenRefinement = (String) dialog.getResult()[0];
-    // }
-    //
-    // if (chosenRefinement != null) {
-    // IPath path = getAbsolutePath(vertex.getParent().getFileName(),
-    // chosenRefinement);
-    // IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-    // IResource resource = root.findMember(path);
-    // if (resource instanceof IFile) {
-    // file = (IFile) resource;
-    // }
-    // }
-    // }
 
     return file;
   }

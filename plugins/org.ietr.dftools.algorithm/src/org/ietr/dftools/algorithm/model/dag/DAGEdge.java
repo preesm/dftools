@@ -42,9 +42,8 @@ package org.ietr.dftools.algorithm.model.dag;
 import org.ietr.dftools.algorithm.model.AbstractEdge;
 import org.ietr.dftools.algorithm.model.AbstractEdgePropertyType;
 import org.ietr.dftools.algorithm.model.PropertyFactory;
-import org.ietr.dftools.algorithm.model.sdf.types.SDFStringEdgePropertyType;
+import org.ietr.dftools.algorithm.model.types.StringEdgePropertyType;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent an Edge in a Directed Acyclic Graph.
  *
@@ -68,7 +67,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
   public static final String SOURCE_PORT_MODIFIER = "source_port_modifier";
 
   static {
-    AbstractEdge.public_properties.add(DAGEdge.WEIGHT);
+    AbstractEdge.PUBLIC_PROPERTIES.add(DAGEdge.WEIGHT);
   }
 
   /**
@@ -96,7 +95,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    */
   public AbstractEdgePropertyType<?> getWeight() {
     if (getPropertyBean().getValue(DAGEdge.WEIGHT) != null) {
-      return (AbstractEdgePropertyType<?>) getPropertyBean().getValue(DAGEdge.WEIGHT);
+      return getPropertyBean().getValue(DAGEdge.WEIGHT);
     }
     return null;
   }
@@ -118,7 +117,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    */
   public EdgeAggregate getAggregate() {
     if (getPropertyBean().getValue(DAGEdge.AGGREGATE) != null) {
-      return (EdgeAggregate) getPropertyBean().getValue(DAGEdge.AGGREGATE);
+      return getPropertyBean().getValue(DAGEdge.AGGREGATE);
     } else {
       final EdgeAggregate agg = new EdgeAggregate();
       setAggregate(agg);
@@ -153,7 +152,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    */
   public DAGEdge getContainingEdge() {
     if (getPropertyBean().getValue(DAGEdge.CONTAINING_EDGE) != null) {
-      return (DAGEdge) getPropertyBean().getValue(DAGEdge.CONTAINING_EDGE);
+      return getPropertyBean().getValue(DAGEdge.CONTAINING_EDGE);
     }
     return null;
   }
@@ -165,10 +164,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    */
   @Override
   public String toString() {
-    String result = new String();
-    result += " w=" + getWeight();
-    // result += "["+getAggregate()+"]";
-    return result;
+    return " w=" + getWeight();
   }
 
   /*
@@ -178,7 +174,6 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    */
   @Override
   public PropertyFactory getFactoryForProperty(final String propertyName) {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -215,7 +210,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    *
    * @return the source port modifier
    */
-  public SDFStringEdgePropertyType getSourcePortModifier() {
+  public StringEdgePropertyType getSourcePortModifier() {
     return getPropertyBean().getValue(DAGEdge.SOURCE_PORT_MODIFIER);
   }
 
@@ -224,7 +219,7 @@ public class DAGEdge extends AbstractEdge<DirectedAcyclicGraph, DAGVertex> {
    *
    * @return the target port modifier
    */
-  public SDFStringEdgePropertyType getTargetPortModifier() {
+  public StringEdgePropertyType getTargetPortModifier() {
     return getPropertyBean().getValue(DAGEdge.TARGET_PORT_MODIFIER);
   }
 

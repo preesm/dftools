@@ -38,7 +38,8 @@
  */
 package org.ietr.dftools.algorithm.exporter;
 
-// TODO: Auto-generated Javadoc
+import java.util.Objects;
+
 /**
  * Class describing a GML key.
  *
@@ -153,5 +154,10 @@ public class Key {
       return kKey.applyTo.equals(this.applyTo) && kKey.name.equals(this.name) && kKey.type.equals(this.type);
     }
     return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.applyTo, this.desc, this.id, this.name, this.type);
   }
 }

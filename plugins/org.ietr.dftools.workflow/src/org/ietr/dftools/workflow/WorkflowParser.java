@@ -56,7 +56,6 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DefaultHandler2;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * This class provides a workflow parser, allowing to parse a .workflow file and to obtain a Workflow java object.
  *
@@ -111,7 +110,7 @@ public class WorkflowParser extends DefaultHandler2 {
       reader.setContentHandler(this);
       reader.parse(new InputSource(file.getContents()));
     } catch (SAXException | IOException | CoreException e) {
-      e.printStackTrace();
+      throw new WorkflowException("Could not parse workflow", e);
     }
     return this.workflow;
   }
@@ -145,10 +144,8 @@ public class WorkflowParser extends DefaultHandler2 {
       final WorkflowEdge edge = this.workflow.addEdge(source, target);
       edge.setSourcePort(sourcePort);
       edge.setTargetPort(targetPort);
-    } else if (qName.equals("dftools:variable")) {
-      if (this.lastTransformationNode != null) {
-        this.lastTransformationNode.addParameter(attributes.getValue("name"), attributes.getValue("value"));
-      }
+    } else if (qName.equals("dftools:variable") && this.lastTransformationNode != null) {
+      this.lastTransformationNode.addParameter(attributes.getValue("name"), attributes.getValue("value"));
     }
   }
 

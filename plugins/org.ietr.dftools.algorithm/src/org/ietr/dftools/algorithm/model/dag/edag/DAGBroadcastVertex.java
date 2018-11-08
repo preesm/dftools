@@ -40,7 +40,6 @@ package org.ietr.dftools.algorithm.model.dag.edag;
 import org.ietr.dftools.algorithm.model.AbstractVertexPropertyType;
 import org.ietr.dftools.algorithm.model.dag.DAGVertex;
 
-// TODO: Auto-generated Javadoc
 /**
  * Class used to represent a braodcast Vertex in a Directed Acyclic Graph.
  *

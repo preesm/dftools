@@ -41,7 +41,6 @@ package org.ietr.dftools.architecture.ui;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-// TODO: Auto-generated Javadoc
 /**
  * The activator class controls the plug-in life cycle.
  */
@@ -62,12 +61,6 @@ public class Activator extends AbstractUIPlugin {
    */
   public static Activator getDefault() {
     return Activator.plugin;
-  }
-
-  /**
-   * The constructor.
-   */
-  public Activator() {
   }
 
   /*

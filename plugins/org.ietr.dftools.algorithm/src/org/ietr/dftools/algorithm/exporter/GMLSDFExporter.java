@@ -40,6 +40,7 @@ package org.ietr.dftools.algorithm.exporter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.ietr.dftools.algorithm.DFToolsAlgoException;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.sdf.SDFAbstractVertex;
 import org.ietr.dftools.algorithm.model.sdf.SDFEdge;
@@ -77,7 +78,7 @@ public class GMLSDFExporter extends GMLExporter<SDFAbstractVertex, SDFEdge> {
       exportGraph(graph);
       transform(out);
     } catch (final IOException e) {
-      e.printStackTrace();
+      throw new DFToolsAlgoException("Could not export graph", e);
     }
   }
 

@@ -36,7 +36,6 @@
  */
 package org.ietr.dftools.algorithm.model;
 
-// TODO: Auto-generated Javadoc
 /**
  * Interface that defines the method to update an observer object.
  *
@@ -52,6 +51,8 @@ public interface IModelObserver {
    * @param arg
    *          arguments to be passed
    */
-  public void update(AbstractGraph<?, ?> observable, Object arg);
+  public default void update(AbstractGraph<?, ?> observable, Object arg) {
+
+  }
 
 }

@@ -40,7 +40,6 @@ package org.ietr.dftools.algorithm.model.parameters.factories;
 import org.ietr.dftools.algorithm.model.AbstractGraph;
 import org.ietr.dftools.algorithm.model.parameters.Parameter;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating Parameter objects.
  */

@@ -43,7 +43,6 @@ import org.eclipse.core.runtime.IPath;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.traverse.TopologicalOrderIterator;
 
-// TODO: Auto-generated Javadoc
 /**
  * Workflow graph.
  *
@@ -112,11 +111,6 @@ public class Workflow extends DirectedMultigraph<AbstractWorkflowNode, WorkflowE
         nbScenarios++;
       }
     }
-
-    if (nbScenarios == 1) {
-      return true;
-    }
-
-    return false;
+    return nbScenarios == 1;
   }
 }

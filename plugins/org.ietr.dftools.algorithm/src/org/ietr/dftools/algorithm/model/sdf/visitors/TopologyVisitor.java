@@ -49,7 +49,6 @@ import org.ietr.dftools.algorithm.model.visitors.IGraphVisitor;
 import org.ietr.dftools.algorithm.model.visitors.SDF4JException;
 import org.ietr.dftools.algorithm.model.visitors.VisitorOutput;
 
-// TODO: Auto-generated Javadoc
 /**
  * Visitor used to determine whether a graph is schedulable or not.
  *
@@ -68,16 +67,6 @@ public class TopologyVisitor implements IGraphVisitor<SDFGraph, SDFAbstractVerte
    */
   public boolean result() {
     return this.schedulable;
-  }
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.ietr.dftools.algorithm.model.visitors.IGraphVisitor#visit(org.ietr.dftools.algorithm.model.AbstractEdge)
-   */
-  @Override
-  public void visit(final SDFEdge sdfEdge) {
-
   }
 
   /*
