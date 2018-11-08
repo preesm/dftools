@@ -9,7 +9,12 @@ DFTools Changelog
 ### Changes
 * Update M2E Code Quality repo;
 * Convert Xtend source to Java;
-* Major refactor;
+* Major refactor
+  * Fix Loggers
+  * Fix sonar issues
+  * Delete dead code
+  
+* Fix travis files
 
 ### Bug fix
 
