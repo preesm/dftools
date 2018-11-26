@@ -1,3 +1,8 @@
+Notice
+======
+
+As of 26/11/2018, the code base of DFTools has been merged within Preesm repository (Preesm release 3.0.0). Hence the DFTools repository is no longer required for the Preesm development cycle, and has been archived. Update sites with DFTools features are kept online at this address : http://preesm.insa-rennes.fr/repo/update-site-backups/
+
 DFTools
 =======
 
